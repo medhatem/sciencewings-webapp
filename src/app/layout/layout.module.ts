@@ -15,38 +15,27 @@ import { SettingsModule } from 'app/layout/common/settings/settings.module';
 import { SharedModule } from 'app/shared/shared.module';
 
 const layoutModules = [
-    // Empty
-    EmptyLayoutModule,
+  // Empty
+  EmptyLayoutModule,
 
-    // Horizontal navigation
-    CenteredLayoutModule,
-    EnterpriseLayoutModule,
-    MaterialLayoutModule,
-    ModernLayoutModule,
+  // Horizontal navigation
+  CenteredLayoutModule,
+  EnterpriseLayoutModule,
+  MaterialLayoutModule,
+  ModernLayoutModule,
 
-    // Vertical navigation
-    ClassicLayoutModule,
-    ClassyLayoutModule,
-    CompactLayoutModule,
-    DenseLayoutModule,
-    FuturisticLayoutModule,
-    ThinLayoutModule
+  // Vertical navigation
+  ClassicLayoutModule,
+  ClassyLayoutModule,
+  CompactLayoutModule,
+  DenseLayoutModule,
+  FuturisticLayoutModule,
+  ThinLayoutModule,
 ];
 
 @NgModule({
-    declarations: [
-        LayoutComponent
-    ],
-    imports     : [
-        SharedModule,
-        SettingsModule,
-        ...layoutModules
-    ],
-    exports     : [
-        LayoutComponent,
-        ...layoutModules
-    ]
+  declarations: [LayoutComponent],
+  imports: [SharedModule, SettingsModule, ...layoutModules],
+  exports: [LayoutComponent, ...layoutModules],
 })
-export class LayoutModule
-{
-}
+export class LayoutModule {}

@@ -5,257 +5,196 @@ import { labels as labelsData, notes as notesData } from 'app/mock-api/apps/note
 import { FuseMockApiUtils } from '@fuse/lib/mock-api';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-export class NotesMockApi
-{
-    private _labels: any[] = labelsData;
-    private _notes: any[] = notesData;
+export class NotesMockApi {
+  private _labels: any[] = labelsData;
+  private _notes: any[] = notesData;
 
-    /**
-     * Constructor
-     */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
-        // Register Mock API handlers
-        this.registerHandlers();
-    }
+  /**
+   * Constructor
+   */
+  constructor(private _fuseMockApiService: FuseMockApiService) {
+    // Register Mock API handlers
+    this.registerHandlers();
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * Register Mock API handlers
+   */
+  registerHandlers(): void {
+    // -----------------------------------------------------------------------------------------------------
+    // @ Labels - GET
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onGet('api/apps/notes/labels').reply(() => [200, cloneDeep(this._labels)]);
 
     // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
+    // @ Labels - POST
     // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onPost('api/apps/notes/labels').reply(({ request }) => {
+      // Create a new label
+      const label = {
+        id: FuseMockApiUtils.guid(),
+        title: request.body.title,
+      };
 
-    /**
-     * Register Mock API handlers
-     */
-    registerHandlers(): void
-    {
-        // -----------------------------------------------------------------------------------------------------
-        // @ Labels - GET
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onGet('api/apps/notes/labels')
-            .reply(() => [
-                200,
-                cloneDeep(this._labels)
-            ]);
+      // Update the labels
+      this._labels.push(label);
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Labels - POST
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onPost('api/apps/notes/labels')
-            .reply(({request}) => {
+      return [200, cloneDeep(this._labels)];
+    });
 
-                // Create a new label
-                const label = {
-                    id   : FuseMockApiUtils.guid(),
-                    title: request.body.title
-                };
+    // -----------------------------------------------------------------------------------------------------
+    // @ Labels - PATCH
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onPatch('api/apps/notes/labels').reply(({ request }) => {
+      // Get label
+      const updatedLabel = request.body.label;
 
-                // Update the labels
-                this._labels.push(label);
+      // Update the label
+      this._labels = this._labels.map((label) => {
+        if (label.id === updatedLabel.id) {
+          return {
+            ...label,
+            title: updatedLabel.title,
+          };
+        }
 
-                return [
-                    200,
-                    cloneDeep(this._labels)
-                ];
-            });
+        return label;
+      });
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Labels - PATCH
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onPatch('api/apps/notes/labels')
-            .reply(({request}) => {
+      return [200, cloneDeep(this._labels)];
+    });
 
-                // Get label
-                const updatedLabel = request.body.label;
+    // -----------------------------------------------------------------------------------------------------
+    // @ Labels - DELETE
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onDelete('api/apps/notes/labels').reply(({ request }) => {
+      // Get label id
+      const id = request.params.get('id');
 
-                // Update the label
-                this._labels = this._labels.map((label) => {
-                    if ( label.id === updatedLabel.id )
-                    {
-                        return {
-                            ...label,
-                            title: updatedLabel.title
-                        };
-                    }
+      // Delete the label
+      this._labels = this._labels.filter((label) => label.id !== id);
 
-                    return label;
-                });
+      // Go through notes and delete the label
+      this._notes = this._notes.map((note) => ({
+        ...note,
+        labels: note.labels.filter((item) => item !== id),
+      }));
 
-                return [
-                    200,
-                    cloneDeep(this._labels)
-                ];
-            });
+      return [200, cloneDeep(this._labels)];
+    });
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Labels - DELETE
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onDelete('api/apps/notes/labels')
-            .reply(({request}) => {
+    // -----------------------------------------------------------------------------------------------------
+    // @ Note Tasks - POST
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onPost('api/apps/notes/tasks').reply(({ request }) => {
+      // Get note and task
+      let updatedNote = request.body.note;
+      const task = request.body.task;
 
-                // Get label id
-                const id = request.params.get('id');
+      // Update the note
+      this._notes = this._notes.map((note) => {
+        if (note.id === updatedNote.id) {
+          // Update the tasks
+          if (!note.tasks) {
+            note.tasks = [];
+          }
 
-                // Delete the label
-                this._labels = this._labels.filter(label => label.id !== id);
+          note.tasks.push({
+            id: FuseMockApiUtils.guid(),
+            content: task,
+            completed: false,
+          });
 
-                // Go through notes and delete the label
-                this._notes = this._notes.map(note => ({
-                    ...note,
-                    labels: note.labels.filter(item => item !== id)
-                }));
+          // Update the updatedNote with the new task
+          updatedNote = cloneDeep(note);
 
-                return [
-                    200,
-                    cloneDeep(this._labels)
-                ];
-            });
+          return {
+            ...note,
+          };
+        }
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Note Tasks - POST
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onPost('api/apps/notes/tasks')
-            .reply(({request}) => {
+        return note;
+      });
 
-                // Get note and task
-                let updatedNote = request.body.note;
-                const task = request.body.task;
+      return [200, updatedNote];
+    });
 
-                // Update the note
-                this._notes = this._notes.map((note) => {
-                    if ( note.id === updatedNote.id )
-                    {
-                        // Update the tasks
-                        if ( !note.tasks )
-                        {
-                            note.tasks = [];
-                        }
+    // -----------------------------------------------------------------------------------------------------
+    // @ Notes - GET
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onGet('api/apps/notes/all').reply(() => {
+      // Clone the labels and notes
+      const labels = cloneDeep(this._labels);
+      let notes = cloneDeep(this._notes);
 
-                        note.tasks.push({
-                            id       : FuseMockApiUtils.guid(),
-                            content  : task,
-                            completed: false
-                        });
+      // Attach the labels to the notes
+      notes = notes.map((note) => ({
+        ...note,
+        labels: note.labels.map((labelId) => labels.find((label) => label.id === labelId)),
+      }));
 
-                        // Update the updatedNote with the new task
-                        updatedNote = cloneDeep(note);
+      return [200, notes];
+    });
 
-                        return {
-                            ...note
-                        };
-                    }
+    // -----------------------------------------------------------------------------------------------------
+    // @ Notes - POST
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onPost('api/apps/notes').reply(({ request }) => {
+      // Get note
+      const note = request.body.note;
 
-                    return note;
-                });
+      // Add an id
+      note.id = FuseMockApiUtils.guid();
 
-                return [
-                    200,
-                    updatedNote
-                ];
-            });
+      // Push the note
+      this._notes.push(note);
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Notes - GET
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onGet('api/apps/notes/all')
-            .reply(() => {
+      return [200, note];
+    });
 
-                // Clone the labels and notes
-                const labels = cloneDeep(this._labels);
-                let notes = cloneDeep(this._notes);
+    // -----------------------------------------------------------------------------------------------------
+    // @ Notes - PATCH
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onPatch('api/apps/notes').reply(({ request }) => {
+      // Get note
+      const updatedNote = request.body.updatedNote;
 
-                // Attach the labels to the notes
-                notes = notes.map(note => (
-                    {
-                        ...note,
-                        labels: note.labels.map(labelId => labels.find(label => label.id === labelId))
-                    }
-                ));
+      // Update the note
+      this._notes = this._notes.map((note) => {
+        if (note.id === updatedNote.id) {
+          return {
+            ...updatedNote,
+          };
+        }
 
-                return [
-                    200,
-                    notes
-                ];
-            });
+        return note;
+      });
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Notes - POST
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onPost('api/apps/notes')
-            .reply(({request}) => {
+      return [200, updatedNote];
+    });
 
-                // Get note
-                const note = request.body.note;
+    // -----------------------------------------------------------------------------------------------------
+    // @ Notes - DELETE
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onDelete('api/apps/notes').reply(({ request }) => {
+      // Get the id
+      const id = request.params.get('id');
 
-                // Add an id
-                note.id = FuseMockApiUtils.guid();
+      // Find the note and delete it
+      this._notes.forEach((item, index) => {
+        if (item.id === id) {
+          this._notes.splice(index, 1);
+        }
+      });
 
-                // Push the note
-                this._notes.push(note);
-
-                return [
-                    200,
-                    note
-                ];
-            });
-
-        // -----------------------------------------------------------------------------------------------------
-        // @ Notes - PATCH
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onPatch('api/apps/notes')
-            .reply(({request}) => {
-
-                // Get note
-                const updatedNote = request.body.updatedNote;
-
-                // Update the note
-                this._notes = this._notes.map((note) => {
-                    if ( note.id === updatedNote.id )
-                    {
-                        return {
-                            ...updatedNote
-                        };
-                    }
-
-                    return note;
-                });
-
-                return [
-                    200,
-                    updatedNote
-                ];
-            });
-
-        // -----------------------------------------------------------------------------------------------------
-        // @ Notes - DELETE
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onDelete('api/apps/notes')
-            .reply(({request}) => {
-
-                // Get the id
-                const id = request.params.get('id');
-
-                // Find the note and delete it
-                this._notes.forEach((item, index) => {
-
-                    if ( item.id === id )
-                    {
-                        this._notes.splice(index, 1);
-                    }
-                });
-
-                // Return the response
-                return [200, true];
-            });
-    }
+      // Return the response
+      return [200, true];
+    });
+  }
 }
