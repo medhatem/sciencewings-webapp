@@ -94,6 +94,10 @@
             },
             "development": {
               "browserTarget": "fuse:build:development"
+            },
+            "options": {
+              "browserTarget": "science-wings:build",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

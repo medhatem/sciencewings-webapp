@@ -12,6 +12,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { Subject, takeUntil } from 'rxjs';
 import { User } from 'app/core/user/user.types';
 import { UserService } from 'app/core/user/user.service';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'user',
@@ -36,16 +37,10 @@ export class UserComponent implements OnInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _router: Router,
-    private _userService: UserService
+    private _userService: UserService,
+    private _keycloackService: KeycloakService,
   ) {}
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
   ngOnInit(): void {
     // Subscribe to user changes
     this._userService.user$.pipe(takeUntil(this._unsubscribeAll)).subscribe((user: User) => {
@@ -56,18 +51,11 @@ export class UserComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * On destroy
-   */
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
 
   /**
    * Update the user status
@@ -79,8 +67,6 @@ export class UserComponent implements OnInit, OnDestroy {
     if (!this.user) {
       return;
     }
-
-    // Update the user
     this._userService
       .update({
         ...this.user,
@@ -92,7 +78,8 @@ export class UserComponent implements OnInit, OnDestroy {
   /**
    * Sign out
    */
-  signOut(): void {
+  async signOut() {
+    await this._keycloackService.logout();
     this._router.navigate(['/sign-out']);
   }
 }
