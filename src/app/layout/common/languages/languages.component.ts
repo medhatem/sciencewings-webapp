@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { take } from 'rxjs';
 import { AvailableLangs, TranslocoService } from '@ngneat/transloco';
 import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
@@ -22,24 +15,10 @@ export class LanguagesComponent implements OnInit, OnDestroy {
   activeLang: string;
   flagCodes: any;
 
-  /**
-   * Constructor
-   */
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _fuseNavigationService: FuseNavigationService,
-    private _translocoService: TranslocoService
-  ) {}
+  constructor(private _fuseNavigationService: FuseNavigationService, private _translocoService: TranslocoService) {}
 
   ngOnDestroy(): void {}
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
   ngOnInit(): void {
     // Get the available languages from transloco
     this.availableLangs = this._translocoService.getAvailableLangs();
@@ -56,10 +35,6 @@ export class LanguagesComponent implements OnInit, OnDestroy {
       fr: 'fr',
     };
   }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
 
   /**
    * Set the active lang

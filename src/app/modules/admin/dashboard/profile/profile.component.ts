@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { ProfileService } from 'app/modules/admin/dashboards/profile/profile.service';
+import { ProfileService } from 'app/modules/admin/dashboard/profile/profile.service';
 
 @Component({
   selector: 'profile',

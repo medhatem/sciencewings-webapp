@@ -21,10 +21,10 @@ export class ProfileService {
    * Get data
    */
   getData(id?: string): Observable<any> {
-    return this._httpClient.get('api/dashboards/profile').pipe(
+    return this._httpClient.get('api/dashboard/profile').pipe(
       tap((response: any) => {
         this._data.next(response);
-      })
+      }),
     );
   }
 }

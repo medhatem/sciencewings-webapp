@@ -5,10 +5,10 @@ import { InitialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from './core/auth/keycloak/app.guard';
 
 export const appRoutes: Route[] = [
-  // Redirect empty path to '/dashboards/profile'
+  // Redirect empty path to '/dashboard/profile'
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
 
-  // Redirect signed in user to the '/dashboards/profile'
+  // Redirect signed in user to the '/dashboard/profile'
   { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'dashboard' },
 
   // Auth routes for guests
@@ -59,7 +59,7 @@ export const appRoutes: Route[] = [
           {
             path: 'profile',
             loadChildren: () =>
-              import('app/modules/admin/dashboards/profile/profile.module').then((m) => m.ProfileModule),
+              import('app/modules/admin/dashboard/profile/profile.module').then((m) => m.ProfileModule),
           },
         ],
       },
