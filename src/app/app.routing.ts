@@ -1,15 +1,15 @@
 import { Route } from '@angular/router';
-import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
+import { AuthGuard } from './core/auth/keycloak/app.guard';
 
 export const appRoutes: Route[] = [
   // Redirect empty path to '/dashboards/profile'
-  { path: '', pathMatch: 'full', redirectTo: 'dashboards/profile' },
+  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
 
   // Redirect signed in user to the '/dashboards/profile'
-  { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'dashboards/profile' },
+  { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'dashboard' },
 
   // Auth routes for guests
   {
@@ -21,13 +21,6 @@ export const appRoutes: Route[] = [
       layout: 'empty',
     },
     children: [
-      {
-        path: 'confirmation-required',
-        loadChildren: () =>
-          import('app/modules/auth/confirmation-required/confirmation-required.module').then(
-            (m) => m.AuthConfirmationRequiredModule,
-          ),
-      },
       {
         path: 'forgot-password',
         loadChildren: () =>
@@ -49,46 +42,9 @@ export const appRoutes: Route[] = [
     ],
   },
 
-  // Auth routes for authenticated users
-  {
-    path: '',
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
-    component: LayoutComponent,
-    data: {
-      layout: 'empty',
-    },
-    children: [
-      {
-        path: 'sign-out',
-        loadChildren: () => import('app/modules/auth/sign-out/sign-out.module').then((m) => m.AuthSignOutModule),
-      },
-      {
-        path: 'unlock-session',
-        loadChildren: () =>
-          import('app/modules/auth/unlock-session/unlock-session.module').then((m) => m.AuthUnlockSessionModule),
-      },
-    ],
-  },
-
-  // Landing routes
-  {
-    path: '',
-    component: LayoutComponent,
-    data: {
-      layout: 'empty',
-    },
-    children: [
-      {
-        path: 'home',
-        loadChildren: () => import('app/modules/landing/home/home.module').then((m) => m.LandingHomeModule),
-      },
-    ],
-  },
-
   // Admin routes
   {
-    path: '',
+    path: 'dashboard',
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
     component: LayoutComponent,
