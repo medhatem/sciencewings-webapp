@@ -17,7 +17,7 @@ export const activities = [
       '<strong>Leo Gill</strong> added you to <strong>Top Secret Project</strong> group and assigned you as a <strong>Project Manager</strong>',
     date: moment().subtract(50, 'minutes').toISOString(), // 50 minutes ago
     linkedContent: 'Top Secret Project',
-    link: '/dashboards/project',
+    link: '/dashboards/profile',
     useRouter: true,
   },
   {

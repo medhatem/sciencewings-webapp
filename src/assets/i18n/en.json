@@ -1,5 +1,4 @@
 {
-  "welcome-back": "Welcome back",
-  "Project": "Project",
-  "Analytics": "Analytics"
+  "WELCOME_BACK": "Welcome back",
+  "PROFILE": "Profile"
 }

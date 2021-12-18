@@ -1,7 +1,7 @@
 /* eslint-disable */
 import * as moment from 'moment';
 
-export const project = {
+export const profile = {
   githubIssues: {
     overview: {
       'this-week': {

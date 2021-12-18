@@ -3,37 +3,19 @@ import { FuseNavigationItem } from '@fuse/components/navigation';
 
 export const defaultNavigation: FuseNavigationItem[] = [
   {
-    id: 'example',
-    title: 'Example',
-    type: 'basic',
-    icon: 'heroicons_outline:chart-pie',
-    link: '/example',
-  },
-];
-export const compactNavigation: FuseNavigationItem[] = [
-  {
-    id: 'example',
-    title: 'Example',
-    type: 'basic',
-    icon: 'heroicons_outline:chart-pie',
-    link: '/example',
-  },
-];
-export const futuristicNavigation: FuseNavigationItem[] = [
-  {
-    id: 'example',
-    title: 'Example',
-    type: 'basic',
-    icon: 'heroicons_outline:chart-pie',
-    link: '/example',
-  },
-];
-export const horizontalNavigation: FuseNavigationItem[] = [
-  {
-    id: 'example',
-    title: 'Example',
-    type: 'basic',
-    icon: 'heroicons_outline:chart-pie',
-    link: '/example',
+    id: 'dashboards',
+    title: 'Dashboards',
+    subtitle: 'Unique dashboard designs',
+    type: 'group',
+    icon: 'heroicons_outline:home',
+    children: [
+      {
+        id: 'dashboards.profile',
+        title: 'Profile',
+        type: 'basic',
+        icon: 'heroicons_outline:clipboard-check',
+        link: '/dashboards/profile',
+      },
+    ],
   },
 ];
