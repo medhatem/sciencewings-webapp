@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "ScienceWings - WebApp",
   "author": "HatemD, MostaphaA, AbdeslamN",
-  "license": "ISC",
+  "license": "GPLv3",
   "private": true,
   "scripts": {
     "start": "npm run init-version && ng serve",
