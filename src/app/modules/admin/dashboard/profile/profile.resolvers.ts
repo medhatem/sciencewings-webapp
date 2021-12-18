@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ProfileService } from 'app/modules/admin/dashboards/profile/profile.service';
+import { ProfileService } from 'app/modules/admin/dashboard/profile/profile.service';
 
 @Injectable({
   providedIn: 'root',

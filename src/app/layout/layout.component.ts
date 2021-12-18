@@ -30,7 +30,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     private _renderer2: Renderer2,
     private _router: Router,
     private _fuseConfigService: FuseConfigService,
-    private _fuseMediaWatcherService: FuseMediaWatcherService
+    private _fuseMediaWatcherService: FuseMediaWatcherService,
   ) {}
 
   // -----------------------------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
           }
 
           return options;
-        })
+        }),
       )
       .subscribe((options) => {
         // Store the options
@@ -89,7 +89,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     this._router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),
-        takeUntil(this._unsubscribeAll)
+        takeUntil(this._unsubscribeAll),
       )
       .subscribe(() => {
         // Update the layout
