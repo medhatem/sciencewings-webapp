@@ -9,9 +9,9 @@
             <img class="w-full h-full object-cover" src="assets/images/avatars/brian-hughes.jpg" />
           </div>
           <div class="flex flex-col min-w-0 ml-4">
-            <ng-container *transloco="let t">
+            <ng-container>
               <div class="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-                {{ t('WELCOME_BACK') }}, Mostapha!
+                {{ 'WELCOME_BACK' | translate }}, Mostapha!
               </div>
             </ng-container>
             <div class="flex items-center">
@@ -34,20 +34,7 @@
       </div>
       <!-- Menu selector -->
       <div
-        class="
-          relative
-          flex
-          self-start
-          pt-2
-          pb-1
-          pl-5
-          pr-4
-          cursor-pointer
-          overflow-hidden
-          rounded-t-xl
-          border border-b-0
-          bg-default
-        "
+        class="relative flex self-start pt-2 pb-1 pl-5 pr-4 cursor-pointer overflow-hidden rounded-t-xl border border-b-0 bg-default"
         matRipple
         [matMenuTriggerFor]="projectsMenu"
       >

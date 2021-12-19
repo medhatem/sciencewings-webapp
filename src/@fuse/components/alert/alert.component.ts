@@ -20,7 +20,7 @@ import { FuseAlertService } from '@fuse/components/alert/alert.service';
 import { FuseUtilsService } from '@fuse/services/utils/utils.service';
 
 @Component({
-  selector: 'fuse-alert',
+  selector: 'app-fuse-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -51,7 +51,7 @@ export class FuseAlertComponent implements OnChanges, OnInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _fuseAlertService: FuseAlertService,
-    private _fuseUtilsService: FuseUtilsService
+    private _fuseUtilsService: FuseUtilsService,
   ) {}
 
   // -----------------------------------------------------------------------------------------------------
@@ -121,7 +121,7 @@ export class FuseAlertComponent implements OnChanges, OnInit, OnDestroy {
     this._fuseAlertService.onDismiss
       .pipe(
         filter((name) => this.name === name),
-        takeUntil(this._unsubscribeAll)
+        takeUntil(this._unsubscribeAll),
       )
       .subscribe(() => {
         // Dismiss the alert
@@ -132,7 +132,7 @@ export class FuseAlertComponent implements OnChanges, OnInit, OnDestroy {
     this._fuseAlertService.onShow
       .pipe(
         filter((name) => this.name === name),
-        takeUntil(this._unsubscribeAll)
+        takeUntil(this._unsubscribeAll),
       )
       .subscribe(() => {
         // Show the alert

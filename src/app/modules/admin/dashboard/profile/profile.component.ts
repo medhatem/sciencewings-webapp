@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulatio
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ProfileService } from 'app/modules/admin/dashboard/profile/profile.service';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'profile',
@@ -14,16 +15,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
   selectedMenu: string = 'Za3ma Menu selection example';
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-  constructor(private _profileService: ProfileService, private _router: Router) {}
+  constructor(
+    private _profileService: ProfileService,
+    private _keycloackService: KeycloakService,
+    private _router: Router,
+  ) {}
 
   /**
    * On init
    */
   ngOnInit(): void {
-    this._profileService.data$.pipe(takeUntil(this._unsubscribeAll)).subscribe((data) => {
-      this.data = data;
-      this._prepareChartData();
-    });
+    // this._keycloackService.
+    // this._profileService.data$.pipe(takeUntil(this._unsubscribeAll)).subscribe((data) => {
+    //   this.data = data;
+    //   this._prepareChartData();
+    // });
+    this._prepareChartData();
   }
 
   /**

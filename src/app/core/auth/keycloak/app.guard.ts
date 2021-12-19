@@ -10,12 +10,28 @@ export class AuthGuard extends KeycloakAuthGuard {
     super(router, keycloak);
   }
 
+  set accessToken(token: string) {
+    localStorage.setItem('accessToken', token);
+  }
+
+  get accessToken(): string {
+    return localStorage.getItem('accessToken') ?? '';
+  }
+
   public async isAccessAllowed(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     // Force the user to log in if currently unauthenticated.
     if (!this.authenticated) {
-      await this.keycloak.login({
-        redirectUri: window.location.origin + state.url,
-      });
+      try {
+        await this.keycloak.login({
+          redirectUri: window.location.origin + state.url,
+        });
+        const token = await this.keycloak.getToken();
+        localStorage.setItem('accessToken', token);
+        const username = this.keycloak.getUsername();
+        localStorage.setItem('username', username);
+        console.log('token ', token);
+        console.log('username ', username);
+      } catch (error) {}
     }
 
     // Get the roles required from the route.
