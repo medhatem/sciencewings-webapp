@@ -24,6 +24,8 @@ export class ProjectResolver implements Resolve<any> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const { id } = route.queryParams;
+    return;
+    // To Do
     return this._profileService.getData(id);
   }
 }

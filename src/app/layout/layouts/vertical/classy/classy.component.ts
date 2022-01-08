@@ -3,10 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
-import { Navigation } from 'app/core/navigation/navigation.types';
-import { NavigationService } from 'app/core/navigation/navigation.service';
 import { User } from 'app/core/user/user.types';
-import { UserService } from 'app/core/user/user.service';
 
 @Component({
   selector: 'classy-layout',
@@ -15,25 +12,16 @@ import { UserService } from 'app/core/user/user.service';
 })
 export class ClassyLayoutComponent implements OnInit, OnDestroy {
   isScreenSmall: boolean;
-  navigation: Navigation;
+  navigation: { default: any };
   user: User;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-  /**
-   * Constructor
-   */
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
-    private _navigationService: NavigationService,
-    private _userService: UserService,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
-    private _fuseNavigationService: FuseNavigationService
+    private _fuseNavigationService: FuseNavigationService,
   ) {}
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Accessors
-  // -----------------------------------------------------------------------------------------------------
 
   /**
    * Getter for current year
@@ -42,23 +30,50 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
     return new Date().getFullYear();
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
   ngOnInit(): void {
     // Subscribe to navigation data
-    this._navigationService.navigation$.pipe(takeUntil(this._unsubscribeAll)).subscribe((navigation: Navigation) => {
-      this.navigation = navigation;
-    });
+    this.navigation = {
+      default: [
+        {
+          id: 'dashboard',
+          title: 'Dashboard',
+          subtitle: 'Unique dashboard designs',
+          type: 'group',
+          icon: 'heroicons_outline:home',
+          children: [
+            {
+              id: 'dashboard.profile',
+              title: 'Profile',
+              type: 'basic',
+              icon: 'heroicons_outline:user',
+              link: '/dashboard/profile',
+            },
+            {
+              id: 'dashboard.project',
+              title: 'project',
+              type: 'basic',
+              icon: 'heroicons_outline:collection',
+              link: '/dashboard/project',
+            },
+            {
+              id: 'dashboard.calendar',
+              title: 'calendar',
+              type: 'basic',
+              icon: 'heroicons_outline:calendar',
+              link: '/dashboard/calendar',
+            },
+          ],
+        },
+      ],
+    };
 
-    // Subscribe to the user service
-    this._userService.user$.pipe(takeUntil(this._unsubscribeAll)).subscribe((user: User) => {
-      this.user = user;
-    });
+    this.user = {
+      id: 'cfaad35d-07a3-4447-a6c3-d8c3d54fd5df',
+      name: 'Brian Hughes',
+      email: 'hughes.brian@company.com',
+      avatar: 'assets/images/avatars/brian-hughes.jpg',
+      status: 'online',
+    };
 
     // Subscribe to media changes
     this._fuseMediaWatcherService.onMediaChange$

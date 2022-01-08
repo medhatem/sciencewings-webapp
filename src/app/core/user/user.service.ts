@@ -9,14 +9,7 @@ import { User } from 'app/core/user/user.types';
 export class UserService {
   private _user: ReplaySubject<User> = new ReplaySubject<User>(1);
 
-  /**
-   * Constructor
-   */
   constructor(private _httpClient: HttpClient) {}
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Accessors
-  // -----------------------------------------------------------------------------------------------------
 
   /**
    * Setter & getter for user
@@ -32,19 +25,13 @@ export class UserService {
     return this._user.asObservable();
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
-
   /**
    * Get the current logged in user data
    */
   get(): Observable<User> {
-    return this._httpClient.get<User>('api/common/user').pipe(
-      tap((user) => {
-        this._user.next(user);
-      })
-    );
+    // To Do
+    // implement keycloak and api
+    return new Observable<User>();
   }
 
   /**
@@ -56,7 +43,7 @@ export class UserService {
     return this._httpClient.patch<User>('api/common/user', { user }).pipe(
       map((response) => {
         this._user.next(response);
-      })
+      }),
     );
   }
 }
