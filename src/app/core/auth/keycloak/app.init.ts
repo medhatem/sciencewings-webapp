@@ -7,7 +7,7 @@ export function initializeKeycloak(keycloak: KeycloakService) {
         url: 'http://localhost:8080/auth',
         realm: 'sciencewings-web',
         clientId: 'sciencewings-web-client',
-      },
+      } ,
       initOptions: {
         checkLoginIframe: true,
         checkLoginIframeInterval: 25,

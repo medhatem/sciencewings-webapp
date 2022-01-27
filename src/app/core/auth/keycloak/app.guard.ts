@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
+
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
