@@ -7,14 +7,13 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
 
 import { ApiService } from '../../../../generated/services';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { KeycloakService } from 'keycloak-angular';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { User } from 'app/core/user/user.types';
-import { UserService } from 'app/core/user/user.service';
 
 @Component({
   selector: 'user',
@@ -39,19 +38,19 @@ export class UserComponent implements OnInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _router: Router,
-    private _userService: UserService,
     private _keycloackService: KeycloakService,
     private _swaggerService: ApiService,
   ) {}
 
   ngOnInit(): void {
-    // Subscribe to user changes
-    this._userService.user$.pipe(takeUntil(this._unsubscribeAll)).subscribe((user: User) => {
-      this.user = user;
-
-      // Mark for check
-      this._changeDetectorRef.markForCheck();
-    });
+    this.user = {
+      id: 'cfaad35d-07a3-4447-a6c3-d8c3d54fd5df',
+      name: 'Brian Hughes',
+      email: 'hughes.brian@company.com',
+      avatar: 'assets/images/avatars/brian-hughes.jpg',
+      status: 'online',
+    };
+    this._changeDetectorRef.markForCheck();
   }
 
   ngOnDestroy(): void {
@@ -70,12 +69,6 @@ export class UserComponent implements OnInit, OnDestroy {
     if (!this.user) {
       return;
     }
-    this._userService
-      .update({
-        ...this.user,
-        status,
-      })
-      .subscribe();
   }
 
   /**
