@@ -1,12 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { ToastrService } from 'app/core/toastr/toastr.service';
+import { constants } from 'app/shared/constants';
+import { TranslatePipe } from 'app/shared/pipes/transloco.pipe';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard extends KeycloakAuthGuard {
-  constructor(protected readonly router: Router, protected readonly keycloak: KeycloakService) {
+  constructor(
+    protected readonly router: Router,
+    protected readonly keycloak: KeycloakService,
+    private toastrService: ToastrService,
+    private translatePipe: TranslatePipe,
+  ) {
     super(router, keycloak);
   }
 
@@ -17,11 +25,10 @@ export class AuthGuard extends KeycloakAuthGuard {
         await this.keycloak.login({
           redirectUri: window.location.origin + state.url,
         });
-        const token = await this.keycloak.getToken();
-        localStorage.setItem('accessToken', token);
-        const username = this.keycloak.getUsername();
-        localStorage.setItem('username', username);
-      } catch (error) {}
+      } catch (error) {
+        const errorMessage = this.translatePipe.transform(constants.KEYCLOAK_LOGIN_ERROR);
+        this.toastrService.showError(error, errorMessage);
+      }
     }
 
     // Get the roles required from the route.
