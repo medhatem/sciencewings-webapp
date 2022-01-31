@@ -18,7 +18,9 @@
     "coverage": "ng test --code-coverage=true --browsers Chrome",
     "set-node": "nvm use 12.4.0",
     "memory": "node --max_old_space_size=8192",
-    "postinstall": "ngcc"
+    "postinstall": "ngcc",
+    "import-swagger": "node src/swagger/SwaggerUtil.js",
+    "generate": "npm run import-swagger ; ng-swagger-gen"
   },
   "dependencies": {
     "@angular/animations": "13.0.1",
@@ -41,7 +43,10 @@
     "lodash-es": "4.17.21",
     "moment": "2.29.1",
     "ng-apexcharts": "1.5.12",
+    "ng-swagger-gen": "^2.3.1",
     "ngx-markdown": "13.0.0",
+    "ngx-quill": "16.0.1",
+    "node-fetch": "2.6.1",
     "ngx-toastr": "^14.2.1",
     "perfect-scrollbar": "1.5.3",
     "rxjs": "7.4.0",

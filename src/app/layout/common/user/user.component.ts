@@ -7,11 +7,13 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { Router } from '@angular/router';
+
+import { ApiService } from '../../../../generated/services';
 import { BooleanInput } from '@angular/cdk/coercion';
+import { KeycloakService } from 'keycloak-angular';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { User } from 'app/core/user/user.types';
-import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'user',
@@ -37,6 +39,7 @@ export class UserComponent implements OnInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _router: Router,
     private _keycloackService: KeycloakService,
+    private _swaggerService: ApiService,
   ) {}
 
   ngOnInit(): void {
@@ -72,7 +75,8 @@ export class UserComponent implements OnInit, OnDestroy {
    * Sign out
    */
   async signOut() {
-    await this._keycloackService.logout();
-    this._router.navigate(['/sign-out']);
+    // await this._keycloackService.logout();
+    console.log('token *-- ', await this._keycloackService.getToken())
+    // this._router.navigate(['/sign-out']);
   }
 }
