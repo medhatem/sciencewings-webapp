@@ -1,7 +1,6 @@
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
-import { TranslatePipe } from 'app/shared/pipes/transloco.pipe';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 
 import { Injectable } from '@angular/core';
@@ -14,7 +13,6 @@ export class AuthGuard extends KeycloakAuthGuard {
     protected readonly router: Router,
     protected readonly keycloak: KeycloakService,
     private toastrService: ToastrService,
-    private translatePipe: TranslatePipe,
   ) {
     super(router, keycloak);
   }
@@ -27,8 +25,7 @@ export class AuthGuard extends KeycloakAuthGuard {
           redirectUri: window.location.origin + state.url,
         });
       } catch (error) {
-        const errorMessage = this.translatePipe.transform(constants.KEYCLOAK_LOGIN_ERROR);
-        this.toastrService.showError(error, errorMessage);
+        this.toastrService.showError(error, constants.KEYCLOAK_LOGIN_ERROR);
       }
     }
 

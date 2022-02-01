@@ -8,12 +8,13 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { ApiService } from '../../../../generated/services';
+import { ToastrService } from 'app/core/toastr/toastr.service';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { KeycloakService } from 'keycloak-angular';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { User } from 'app/core/user/user.types';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'user',
@@ -23,23 +24,17 @@ import { User } from 'app/core/user/user.types';
   exportAs: 'user',
 })
 export class UserComponent implements OnInit, OnDestroy {
-  /* eslint-disable @typescript-eslint/naming-convention */
   static ngAcceptInputType_showAvatar: BooleanInput;
-  /* eslint-enable @typescript-eslint/naming-convention */
-
   @Input() showAvatar: boolean = true;
   user: User;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-  /**
-   * Constructor
-   */
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _router: Router,
     private _keycloackService: KeycloakService,
-    private _swaggerService: ApiService,
+    private _toastrService: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -72,11 +67,13 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sign out
+   * Sign out using keycloack
    */
   async signOut() {
-    // await this._keycloackService.logout();
-    console.log('token *-- ', await this._keycloackService.getToken())
-    // this._router.navigate(['/sign-out']);
+    try {
+      await this._keycloackService.logout();
+    } catch (error) {
+      this._toastrService.showError(error, constants.KEYCLOAK_LOGOUT_ERROR);
+    }
   }
 }

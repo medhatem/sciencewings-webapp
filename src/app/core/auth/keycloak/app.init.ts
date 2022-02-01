@@ -15,5 +15,8 @@ export function initializeKeycloak(keycloak: KeycloakService) {
         checkLoginIframeInterval: 25,
       },
       loadUserProfileAtStartUp: true,
+      enableBearerInterceptor: true,
+      bearerPrefix: 'Bearer',
+      bearerExcludedUrls: ['/assets'],
     });
 }
