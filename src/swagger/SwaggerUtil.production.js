@@ -1,4 +1,3 @@
-const { fstat } = require('fs');
 let fetch = require('node-fetch');
 let fs = require('fs');
 (async () => {

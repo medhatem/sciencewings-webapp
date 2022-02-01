@@ -1,10 +1,13 @@
-# Fuse - Admin template and Starter project for Angular
+# Science Wings - from Fuse template Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli)
 
-## Development server
+## Development server | Staging
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm run clean`. On windows install WSL and Ubuntu image the run `npm run clean:windows`.
+Run `npm run generate-swagger:staging`. That will create api routes from deployed the api.
+Run `npm install`.
+Run `npm run start:staging`. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
@@ -12,15 +15,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Run `npm run build:staging` to build the project | Staging. The build artifacts will be stored in the `dist/` directory.
 
 ## Further help
 
