@@ -1,4 +1,7 @@
 {
-  "WELCOME_BACK": "Welcome back",
+  "APP": {
+    "KEYCLOAK_LOGIN_ERROR": "An error occurred while connecting keycloak"
+  },
+  "WELCOME_BACK": "Hello",
   "PROFILE": "Profile"
 }

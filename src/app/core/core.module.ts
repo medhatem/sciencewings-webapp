@@ -1,10 +1,12 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { IconsModule } from 'app/core/icons/icons.module';
 import { TranslocoCoreModule } from 'app/core/transloco/transloco.module';
+import { TranslatePipe } from 'app/shared/pipes/transloco.pipe';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [IconsModule, TranslocoCoreModule, ToastrModule.forRoot()],
+  providers: [TranslatePipe],
 })
 export class CoreModule {
   /**
