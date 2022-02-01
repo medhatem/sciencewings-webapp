@@ -19,6 +19,8 @@ import { appConfig } from 'app/core/config/app.config';
 import { appRoutes } from 'app/app.routing';
 import { initializeKeycloak } from './core/auth/keycloak/app.init';
 import { mockApiServices } from 'app/mock-api';
+import { EnvServiceProvider } from './environment/env.service.provider';
+import { environment } from 'environments/environment';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy: PreloadAllModules,
@@ -28,14 +30,13 @@ const routerConfig: ExtraOptions = {
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
   useExisting: forwardRef(() => ApiInterceptor),
-  multi: true
+  multi: true,
 };
-
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    ApiModule.forRoot({rootUrl: 'http://localhost:3000' }),
+    ApiModule.forRoot({ rootUrl: environment.apiUrl }),
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes, routerConfig),
@@ -57,6 +58,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
   ],
   providers: [
     ApiInterceptor,
+    EnvServiceProvider,
     ApiService,
     API_INTERCEPTOR_PROVIDER,
     {

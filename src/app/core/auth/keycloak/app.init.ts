@@ -1,13 +1,15 @@
 import { KeycloakService } from 'keycloak-angular';
+import { EnvService } from '../../../environment/env.service';
 
 export function initializeKeycloak(keycloak: KeycloakService) {
+  const env = new EnvService();
   return () =>
     keycloak.init({
       config: {
-        url: 'http://localhost:8080/auth',
-        realm: 'sciencewings-web',
-        clientId: 'sciencewings-web-client',
-      } ,
+        url: `${env.keycloakUrl}/auth`,
+        realm: env.sciencewingsWebRealm,
+        clientId: env.clientId,
+      },
       initOptions: {
         checkLoginIframe: true,
         checkLoginIframeInterval: 25,
