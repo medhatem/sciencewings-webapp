@@ -12,7 +12,7 @@ import { KeycloakService } from 'keycloak-angular';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   data: any;
-  selectedMenu: string = 'Za3ma Menu selection example';
+  selectedMenu: string = 'Select organization';
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
