@@ -4,10 +4,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server | Staging
 
-Run `npm run clean`. On windows install WSL and Ubuntu image the run `npm run clean:windows`.
-Run `npm run generate-swagger:staging`. That will create api routes from deployed the api.
 Run `npm install`.
 Run `npm run start:staging`. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Scripts infos
+
+Run `npm run clean`. On windows install WSL and Ubuntu image, then run `npm run clean:windows`.
+Run `npm run generate-swagger:staging`. That will create api routes from the deployed api.
 
 ## Code scaffolding
 
