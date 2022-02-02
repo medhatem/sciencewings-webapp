@@ -1,3 +1,4 @@
+import { KEYCLOAK_TOKEN } from '@fuse/services/config/config.constants';
 import { KeycloakService } from 'keycloak-angular';
 import { EnvService } from '../../../environment/env.service';
 
@@ -15,5 +16,8 @@ export function initializeKeycloak(keycloak: KeycloakService) {
         checkLoginIframeInterval: 25,
       },
       loadUserProfileAtStartUp: true,
+      enableBearerInterceptor: true,
+      bearerPrefix: KEYCLOAK_TOKEN,
+      bearerExcludedUrls: ['/assets'],
     });
 }
