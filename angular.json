@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "fuse": {
+    "science-wings": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/fuse",
+            "outputPath": "dist/science-wings",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -34,6 +34,7 @@
               "src/favicon-16x16.png",
               "src/favicon-32x32.png",
               "src/assets",
+              "src/env.js",
               {
                 "glob": "_redirects",
                 "input": "src",
@@ -76,7 +77,7 @@
               ],
               "outputHashing": "all"
             },
-            "development": {
+            "staging": {
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
@@ -91,10 +92,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "fuse:build:production"
+              "browserTarget": "science-wings:build:production"
             },
-            "development": {
-              "browserTarget": "fuse:build:development"
+            "staging": {
+              "browserTarget": "science-wings:build:staging"
             },
             "options": {
               "browserTarget": "science-wings:build",
@@ -106,7 +107,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "fuse:build"
+            "browserTarget": "science-wings:build"
           }
         },
         "test": {
@@ -131,7 +132,7 @@
       }
     }
   },
-  "defaultProject": "fuse",
+  "defaultProject": "science-wings",
   "cli": {
     "analytics": "8d1b5abf-91a0-4071-8740-ee102cbe2875",
     "defaultCollection": "@angular-eslint/schematics"
