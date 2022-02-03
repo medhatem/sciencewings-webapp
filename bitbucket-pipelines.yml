@@ -35,18 +35,22 @@ definitions:
 pipelines:
   default:
     - step: *install
+    - step: *generate_swagger
     - step: *build
     - step: *lint
   branches:
     develop/*:
       - step: *install
+      - step: *generate_swagger
       - step: *build
       - step: *lint
     feature/*:
       - step: *install
+      - step: *generate_swagger
       - step: *build
       - step: *lint
     bugfix/*:
       - step: *install
+      - step: *generate_swagger
       - step: *build
       - step: *lint
