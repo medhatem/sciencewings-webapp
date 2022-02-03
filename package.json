@@ -8,7 +8,7 @@
   "scripts": {
     "start:staging": "npm run generate-swagger:staging && ng serve --configuration=staging",
     "generate-swagger:staging": "node src/swagger/SwaggerUtil.staging.js && ng-swagger-gen",
-    "build:staging": "node --max_old_space_size=4092 \"node_modules/@angular/cli/bin/ng\" build --staging --configuration=staging",
+    "build:staging": "node --max_old_space_size=4092 \"node_modules/@angular/cli/bin/ng\" build --configuration=staging",
     "start:production": "npm run generate-swagger:production && npm run memory && ng serve --configuration=production",
     "generate-swagger:production": "node src/swagger/SwaggerUtil.production.js && ng-swagger-gen",
     "build:production": "npm run memory \"node_modules/@angular/cli/bin/ng\" build --prod --configuration=production",
@@ -18,7 +18,8 @@
     "e2e": "ng e2e",
     "test": "ng test --browsers Chrome",
     "set-node": "nvm use 12.4.0",
-    "memory": "node --max_old_space_size=8192"
+    "memory": "node --max_old_space_size=8192",
+    "lint-and-fix": "eslint . --ext .ts --fix"
   },
   "dependencies": {
     "@angular/animations": "13.0.1",
@@ -44,8 +45,8 @@
     "ng-swagger-gen": "^2.3.1",
     "ngx-markdown": "13.0.0",
     "ngx-quill": "16.0.1",
-    "node-fetch": "2.6.1",
     "ngx-toastr": "^14.2.1",
+    "node-fetch": "2.6.1",
     "perfect-scrollbar": "1.5.3",
     "rxjs": "7.4.0",
     "tslib": "^2.3.1",
@@ -74,7 +75,7 @@
     "@typescript-eslint/parser": "5.3.1",
     "autoprefixer": "10.4.0",
     "chroma-js": "2.1.2",
-    "eslint": "7.32.0",
+    "eslint": "^7.32.0",
     "eslint-plugin-import": "2.25.3",
     "eslint-plugin-jsdoc": "37.0.3",
     "eslint-plugin-prefer-arrow": "1.2.3",

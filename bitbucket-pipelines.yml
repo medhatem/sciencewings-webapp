@@ -1,0 +1,50 @@
+# This is a sample build configuration for Python.
+# Check our guides at https://confluence.atlassian.com/x/x4UWN for more examples.
+# Only use spaces to indent your .yml configuration.
+
+options:
+  docker: false
+
+definitions:
+  steps:
+    - step: &install
+        name: install
+        script:
+          - npm -v
+          - npm run clean
+          - npm install
+        artifacts: # defining the artifacts to be passed to each future step.
+          - node_modules/**
+    - step: &generate_swagger
+        name: generate_swagger
+        script:
+          - npm run generate-swagger:staging
+        artifacts: # defining the artifacts to be passed to each future step.
+          - src/generated/**
+    - step: &build
+        name: build
+        script:
+          - npm run build:staging
+    - step: &lint
+        name: lint
+        script:
+          - npm run lint-and-fix
+
+pipelines:
+  default:
+    - step: *install
+    - step: *build
+    - step: *lint
+  branches:
+    develop/*:
+      - step: *install
+      - step: *build
+      - step: *lint
+    feature/*:
+      - step: *install
+      - step: *build
+      - step: *lint
+    bugfix/*:
+      - step: *install
+      - step: *build
+      - step: *lint
