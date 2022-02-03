@@ -1,21 +1,16 @@
 # This is a sample build configuration for Python.
 # Check our guides at https://confluence.atlassian.com/x/x4UWN for more examples.
 # Only use spaces to indent your .yml configuration.
+image: atlassian/default-image:3
 
 options:
-  docker: false
+  docker: true
 
 definitions:
   steps:
     - step: &install
         name: install
         script:
-          - sudo apt update -y
-          - sudo apt-get install -y nodejs
-          - npm -v
-          - node -v
-          - node --version
-          - npm install -g npm@latest
           - npm -v
           - node -v
           - npm run clean
