@@ -1,5 +1,6 @@
 import { EnvService } from './env.service';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const EnvServiceFactory = () => {
   // instanciate env
   const env = new EnvService();
@@ -20,6 +21,7 @@ export const EnvServiceFactory = () => {
   return env;
 };
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const EnvServiceProvider = {
   provide: EnvService,
   useFactory: EnvServiceFactory,

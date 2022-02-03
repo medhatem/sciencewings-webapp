@@ -58,7 +58,7 @@ export class AuthUtils {
     str = String(str).replace(/=+$/, '');
 
     if (str.length % 4 === 1) {
-      throw new Error("'atob' failed: The string to be decoded is not correctly encoded.");
+      throw new Error('\'atob\' failed: The string to be decoded is not correctly encoded.');
     }
 
     /* eslint-disable */
@@ -142,7 +142,7 @@ export class AuthUtils {
 
     if (parts.length !== 3) {
       throw new Error(
-        "The inspected token doesn't appear to be a JWT. Check to make sure it has three parts and see https://jwt.io for more."
+        'The inspected token doesn\'t appear to be a JWT. Check to make sure it has three parts and see https://jwt.io for more.'
       );
     }
 
