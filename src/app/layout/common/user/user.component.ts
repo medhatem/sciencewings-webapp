@@ -24,7 +24,7 @@ import { constants } from 'app/shared/constants';
   exportAs: 'user',
 })
 export class UserComponent implements OnInit, OnDestroy {
-  static ngAcceptInputType_showAvatar: BooleanInput;
+  static ngAcceptInputTypeshowAvatar: BooleanInput;
   @Input() showAvatar: boolean = true;
   user: User;
 

@@ -12,7 +12,6 @@ import { FuseConfigModule } from '@fuse/services/config';
 import { FuseMockApiModule } from '@fuse/lib/mock-api';
 import { FuseModule } from '@fuse';
 import { LayoutModule } from 'app/layout/layout.module';
-import { MarkdownModule } from 'ngx-markdown';
 import { appConfig } from 'app/core/config/app.config';
 import { appRoutes } from 'app/app.routing';
 import { initializeKeycloak } from './core/auth/keycloak/app.init';
@@ -44,8 +43,7 @@ const routerConfig: ExtraOptions = {
     // Layout module of your application
     LayoutModule,
 
-    // 3rd party modules that require global configuration via forRoot
-    MarkdownModule.forRoot({}),
+    // 3rd party modules that require global configuration
     KeycloakAngularModule,
   ],
   providers: [

@@ -8,17 +8,18 @@
   "scripts": {
     "start:staging": "npm run generate-swagger:staging && ng serve --configuration=staging",
     "generate-swagger:staging": "node src/swagger/SwaggerUtil.staging.js && ng-swagger-gen",
-    "build:staging": "node --max_old_space_size=4092 \"node_modules/@angular/cli/bin/ng\" build --staging --configuration=staging",
+    "build:staging": "node --max_old_space_size=4092 \"node_modules/@angular/cli/bin/ng\" build --configuration=staging",
     "start:production": "npm run generate-swagger:production && npm run memory && ng serve --configuration=production",
     "generate-swagger:production": "node src/swagger/SwaggerUtil.production.js && ng-swagger-gen",
     "build:production": "npm run memory \"node_modules/@angular/cli/bin/ng\" build --prod --configuration=production",
-    "clean": "rm -rf dist/ && rm -rf node_modules && rm -rf package-lock.json && npm i",
-    "clean:windows": "wsl rm -rf dist/ && wsl rm -rf node_modules && wsl rm -rf package-lock.json && npm i",
+    "clean": "rm -rf dist/ && rm -rf node_modules && rm -rf package-lock.json",
+    "clean:windows": "wsl rm -rf dist/ && wsl rm -rf node_modules && wsl rm -rf package-lock.json",
     "init-version": "node -e \"console.log('export const APP_VERSION = \\'' + process.env.npm_package_version +'\\';')\" > ./src/version.ts",
     "e2e": "ng e2e",
     "test": "ng test --browsers Chrome",
     "set-node": "nvm use 12.4.0",
-    "memory": "node --max_old_space_size=8192"
+    "memory": "node --max_old_space_size=8192",
+    "lint-and-fix": "eslint . --ext .ts --fix"
   },
   "dependencies": {
     "@angular/animations": "13.0.1",
