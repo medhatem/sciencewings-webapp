@@ -13,13 +13,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TranslocoModule } from '@ngneat/transloco';
 import { SharedModule } from 'app/shared/shared.module';
-import { MenuCalendarComponent } from './calendar.component';
-import { MenuCalendarRoutes } from './calendar.routing';
+import { ProfileComponent } from 'app/modules/admin/dashboard/profile/profile.component';
+import { projectRoutes } from 'app/modules/admin/dashboard/profile/profile.routing';
 
 @NgModule({
-  declarations: [MenuCalendarComponent],
+  declarations: [ProfileComponent],
   imports: [
-    RouterModule.forChild(MenuCalendarRoutes),
+    RouterModule.forChild(projectRoutes),
     MatButtonModule,
     MatButtonToggleModule,
     MatDividerModule,
@@ -35,4 +35,4 @@ import { MenuCalendarRoutes } from './calendar.routing';
     SharedModule,
   ],
 })
-export class MenuCalendarModule {}
+export class ProfileModule {}

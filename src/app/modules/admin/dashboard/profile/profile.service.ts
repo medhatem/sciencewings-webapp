@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class UserProfileService {
+export class ProfileService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient) {}

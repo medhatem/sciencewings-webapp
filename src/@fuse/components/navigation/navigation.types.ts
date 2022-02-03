@@ -30,15 +30,6 @@ export interface FuseNavigationItem {
   meta?: any;
 }
 
-export enum FuseNavigationItemTypeEnum {
-  aside = 'aside',
-  basic = 'basic',
-  collapsable = 'collapsable',
-  divider = 'divider',
-  group = 'group',
-  spacer = 'spacer',
-}
-
 export type FuseVerticalNavigationAppearance = 'default' | 'compact' | 'dense' | 'thin';
 
 export type FuseVerticalNavigationMode = 'over' | 'side';

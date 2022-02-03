@@ -1,22 +1,22 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { ProfileService } from 'app/modules/admin/dashboard/profile/profile.service';
 import { KeycloakService } from 'keycloak-angular';
-import { UserProfileService } from '../../resolvers/profile/user-profile.service';
 
 @Component({
-  selector: 'user-profile',
-  templateUrl: './user-profile.component.html',
+  selector: 'profile',
+  templateUrl: './profile.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit, OnDestroy {
   data: any;
   selectedMenu: string = 'Select organization';
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
-    private _profileService: UserProfileService,
+    private _profileService: ProfileService,
     private _keycloackService: KeycloakService,
     private _router: Router,
   ) {}

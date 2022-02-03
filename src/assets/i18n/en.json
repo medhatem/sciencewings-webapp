@@ -1,25 +1,5 @@
 {
   "APP": {
-    "ROUTES": {
-      "ORGANIZATION": {
-        "TITLE": "Organization",
-        "PROFILE": {
-          "TITLE": "Organization profile"
-        }
-      },
-      "USER": {
-        "TITLE": "User",
-        "PROFILE": {
-          "TITLE": "User profile"
-        }
-      },
-      "MENU": {
-        "TITLE": "Menu",
-        "CALENDAR": {
-          "TITLE": "Calendar"
-        }
-      }
-    },
     "KEYCLOAK_LOGIN_ERROR": "An error occurred while connecting keycloak",
     "KEYCLOAK_LOGOUT_ERROR": "An error occurred while trying to sign out keycloak"
   },
