@@ -14,12 +14,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { TranslocoModule } from '@ngneat/transloco';
 import { SharedModule } from 'app/shared/shared.module';
 import { MenuCalendarComponent } from './calendar.component';
-import { MenuCalendarRoutes } from './calendar.routing';
+import { menuCalendarRoutes } from './calendar.routing';
 
 @NgModule({
   declarations: [MenuCalendarComponent],
   imports: [
-    RouterModule.forChild(MenuCalendarRoutes),
+    RouterModule.forChild(menuCalendarRoutes),
     MatButtonModule,
     MatButtonToggleModule,
     MatDividerModule,

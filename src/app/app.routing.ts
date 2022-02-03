@@ -38,7 +38,7 @@ export const appRoutes: Route[] = [
               icon: 'heroicons_outline:office-building',
             },
             loadChildren: () =>
-              import('app/modules/admin/dashboard/profile/organization-profile.module').then(
+              import('app/modules/organization/dashboard/profile/organization-profile.module').then(
                 (m) => m.OrganizationProfileModule,
               ),
           },

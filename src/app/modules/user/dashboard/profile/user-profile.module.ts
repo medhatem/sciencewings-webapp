@@ -14,12 +14,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { TranslocoModule } from '@ngneat/transloco';
 import { SharedModule } from 'app/shared/shared.module';
 import { UserProfileComponent } from './user-profile.component';
-import { UserProfileRoutes } from './user-profile.routing';
+import { userProfileRoutes } from './user-profile.routing';
 
 @NgModule({
   declarations: [UserProfileComponent],
   imports: [
-    RouterModule.forChild(UserProfileRoutes),
+    RouterModule.forChild(userProfileRoutes),
     MatButtonModule,
     MatButtonToggleModule,
     MatDividerModule,
