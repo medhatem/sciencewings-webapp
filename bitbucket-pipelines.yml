@@ -11,8 +11,9 @@ definitions:
         name: install
         script:
           - sudo apt update -y
-          - sudo apt clean all
           - sudo apt-get install -y nodejs
+          - npm -v
+          - node -v
           - node --version
           - npm install -g npm@latest
           - npm -v
