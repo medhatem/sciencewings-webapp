@@ -10,6 +10,7 @@ definitions:
     - step: &install
         name: install
         script:
+          - node --version
           - npm install -g npm@latest
           - npm -v
           - npm run clean
