@@ -13,13 +13,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TranslocoModule } from '@ngneat/transloco';
 import { SharedModule } from 'app/shared/shared.module';
-import { OrganizationProfileComponent } from 'app/modules/admin/dashboard/profile/organization-profile.component';
-import { OrganizationProfileRoutes } from 'app/modules/admin/dashboard/profile/organization-profile.routing';
+import { OrganizationProfileComponent } from './organization-profile.component';
+import { organizationProfileRoutes } from './organization-profile.routing';
 
 @NgModule({
   declarations: [OrganizationProfileComponent],
   imports: [
-    RouterModule.forChild(OrganizationProfileRoutes),
+    RouterModule.forChild(organizationProfileRoutes),
     MatButtonModule,
     MatButtonToggleModule,
     MatDividerModule,
