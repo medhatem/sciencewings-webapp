@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ProfileService } from 'app/modules/admin/dashboard/profile/profile.service';
+import { OrganizationProfileService } from './organization-profile.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProjectResolver implements Resolve<any> {
+export class OrganizationProfileResolver implements Resolve<any> {
   /**
    * Constructor
    */
-  constructor(private _profileService: ProfileService) {}
+  constructor(private _profileService: OrganizationProfileService) {}
 
   // -----------------------------------------------------------------------------------------------------
   // @ Public methods

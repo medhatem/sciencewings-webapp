@@ -1,9 +1,16 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Route } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
+import {
+  FuseNavigationItem,
+  FuseNavigationItemTypeEnum,
+  FuseNavigationService,
+  FuseVerticalNavigationComponent,
+} from '@fuse/components/navigation';
 import { User } from 'app/core/user/user.types';
+import { appRoutes, routesParentPath } from 'app/app.routing';
+import { TranslatePipe } from 'app/shared/pipes/transloco.pipe';
 
 @Component({
   selector: 'classy-layout',
@@ -12,13 +19,14 @@ import { User } from 'app/core/user/user.types';
 })
 export class ClassyLayoutComponent implements OnInit, OnDestroy {
   isScreenSmall: boolean;
-  navigation: { default: any };
+  navigation: FuseNavigationItem[];
   user: User;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
+    private _translatePipe: TranslatePipe,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _fuseNavigationService: FuseNavigationService,
   ) {}
@@ -32,40 +40,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Subscribe to navigation data
-    this.navigation = {
-      default: [
-        {
-          id: 'dashboard',
-          title: 'Dashboard',
-          subtitle: 'Unique dashboard designs',
-          type: 'group',
-          icon: 'heroicons_outline:home',
-          children: [
-            {
-              id: 'dashboard.profile',
-              title: 'Profile',
-              type: 'basic',
-              icon: 'heroicons_outline:user',
-              link: '/dashboard/profile',
-            },
-            {
-              id: 'dashboard.project',
-              title: 'project',
-              type: 'basic',
-              icon: 'heroicons_outline:collection',
-              link: '/dashboard/project',
-            },
-            {
-              id: 'dashboard.calendar',
-              title: 'calendar',
-              type: 'basic',
-              icon: 'heroicons_outline:calendar',
-              link: '/dashboard/calendar',
-            },
-          ],
-        },
-      ],
-    };
+    const { children: dashboardsRoutesChildren = [] } = appRoutes.find(({ path }) => path === routesParentPath);
+    this.navigation = this.getNavigationItemsFromRoutes(dashboardsRoutesChildren, `/${routesParentPath}`);
 
     this.user = {
       id: 'cfaad35d-07a3-4447-a6c3-d8c3d54fd5df',
@@ -110,5 +86,33 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
       // Toggle the opened status
       navigation.toggle();
     }
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Private methods
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * Build navigation array of FuseNavigationItem
+   * from routes of type { Route } from '@angular/router';
+   *
+   * @param routes
+   * @param parentPath (optional)
+   */
+  private getNavigationItemsFromRoutes(routes: Route[], parentPath: string = ''): FuseNavigationItem[] {
+    return routes.map(({ path = '', data, children = [] }) => {
+      const { title = path, type = FuseNavigationItemTypeEnum.basic, icon } = data || {};
+      const translatedTitle = this._translatePipe.transform(title);
+      const id = `${parentPath}.${path}`.replace('/', '');
+      const link = `${parentPath ? `${parentPath}` : ''}/${path}`;
+      const navigationItem = { id, title: translatedTitle, type, link } as FuseNavigationItem;
+      if (children?.length) {
+        navigationItem.children = this.getNavigationItemsFromRoutes(children, link);
+      }
+      if (icon) {
+        navigationItem.icon = icon;
+      }
+      return navigationItem;
+    });
   }
 }

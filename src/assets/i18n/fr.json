@@ -1,5 +1,25 @@
 {
   "APP": {
+    "ROUTES": {
+      "ORGANIZATION": {
+        "TITLE": "Organisation",
+        "PROFILE": {
+          "TITLE": "Profil organization"
+        }
+      },
+      "USER": {
+        "TITLE": "Utilisateur",
+        "PROFILE": {
+          "TITLE": "Profil utilisateur"
+        }
+      },
+      "MENU": {
+        "TITLE": "Menu",
+        "CALENDAR": {
+          "TITLE": "Calendrier"
+        }
+      }
+    },
     "KEYCLOAK_LOGIN_ERROR": "Une erreur s'est produite lors de la connexion de keycloak",
     "KEYCLOAK_LOGOUT_ERROR": "Une erreur s'est produite lors de la déconnexion de keycloak"
   },
