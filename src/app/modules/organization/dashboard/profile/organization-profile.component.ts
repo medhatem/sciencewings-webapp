@@ -12,7 +12,6 @@ import { OrganizationProfileService } from '../../resolvers/profile/organization
 })
 export class OrganizationProfileComponent implements OnInit, OnDestroy {
   data: any;
-  selectedMenu: string = 'Select organization';
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
