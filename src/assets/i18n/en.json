@@ -1,10 +1,15 @@
 {
+  "WELCOME_BACK": "Hello",
+  "PROFILE": "Profile",
   "APP": {
     "ROUTES": {
       "ORGANIZATION": {
         "TITLE": "Organization",
         "PROFILE": {
           "TITLE": "Organization profile"
+        },
+        "USERS": {
+          "TITLE": "Organization users"
         }
       },
       "USER": {
@@ -23,6 +28,18 @@
     "KEYCLOAK_LOGIN_ERROR": "An error occurred while connecting keycloak",
     "KEYCLOAK_LOGOUT_ERROR": "An error occurred while trying to sign out keycloak"
   },
-  "WELCOME_BACK": "Hello",
-  "PROFILE": "Profile"
+  "ORGANIZATION": {
+    "PROFILE": {
+      "HEADER": {
+        "SELECT_ORGANIZATION": "Select an organization"
+      },
+      "DETAILS": {},
+      "TABS": {
+        "GENERAL_INFOS": "General informations",
+        "RESOURCES": "Resources",
+        "USERS": "Users",
+        "SUB_ORGANIZATIONS": "Sub-Organizations"
+      }
+    }
+  }
 }

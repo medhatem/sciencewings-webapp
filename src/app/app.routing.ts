@@ -22,7 +22,7 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
-        path: 'admin',
+        path: 'organization',
         canActivate: [AuthGuard],
         data: {
           title: 'APP.ROUTES.ORGANIZATION.TITLE',
@@ -39,6 +39,19 @@ export const appRoutes: Route[] = [
             },
             loadChildren: () =>
               import('app/modules/organization/dashboard/profile/organization-profile.module').then(
+                (m) => m.OrganizationProfileModule,
+              ),
+          },
+          {
+            path: 'users',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ORGANIZATION.USERS.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:users',
+            },
+            loadChildren: () =>
+              import('app/modules/organization/dashboard/users/organization-users.module').then(
                 (m) => m.OrganizationProfileModule,
               ),
           },
