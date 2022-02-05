@@ -30,6 +30,19 @@ export const appRoutes: Route[] = [
         },
         children: [
           {
+            path: 'my-organizations',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ORGANIZATION.MY_ORGANIZATIONS.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:office-building',
+            },
+            loadChildren: () =>
+              import('app/modules/organization/dashboard/my-organizations/my-organizations.module').then(
+                (m) => m.MyOrganizationsModule,
+              ),
+          },
+          {
             path: 'profile',
             canActivate: [AuthGuard],
             data: {

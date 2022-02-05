@@ -8,6 +8,7 @@ import { NotesMockApi } from 'app/mock-api/apps/notes/api';
 import { NotificationsMockApi } from 'app/mock-api/common/notifications/api';
 import { SearchMockApi } from 'app/mock-api/common/search/api';
 import { ShortcutsMockApi } from 'app/mock-api/common/shortcuts/api';
+import { MyOrganizationsMockApi } from './apps/my-organizations/api';
 import { OrganizationUsersMockApi } from './apps/organization-users/api';
 
 export const mockApiServices = [
@@ -21,5 +22,6 @@ export const mockApiServices = [
   NotificationsMockApi,
   SearchMockApi,
   ShortcutsMockApi,
+  MyOrganizationsMockApi,
   OrganizationUsersMockApi,
 ];

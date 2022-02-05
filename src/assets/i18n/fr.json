@@ -8,6 +8,9 @@
         "PROFILE": {
           "TITLE": "Profil organization"
         },
+        "MY_ORGANIZATIONS": {
+          "TITLE": "Mes organisations"
+        },
         "USERS": {
           "TITLE": "Utilisateurs"
         }
