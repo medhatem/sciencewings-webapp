@@ -5,6 +5,9 @@
         "TITLE": "Organization",
         "PROFILE": {
           "TITLE": "Organization profile"
+        },
+        "MY_ORGANIZATIONS": {
+          "TITLE": "My organizations"
         }
       },
       "USER": {
