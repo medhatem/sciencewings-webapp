@@ -11,10 +11,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { BehaviorSubject, combineLatest, Subject, takeUntil } from 'rxjs';
 import { MyOrganizationsService } from 'app/modules/organization/resolvers/my-organizations/my-organizations.service';
-import {
-  Course,
-  MyOrganizationsCategory,
-} from 'app/modules/organization/resolvers/my-organizations/my-organizations.types';
+import { MyOrganizationsCategory } from 'app/modules/organization/resolvers/my-organizations/my-organizations.types';
 
 @Component({
   selector: 'my-organizations-list',

@@ -12,7 +12,6 @@ import { OrganizationProfileService } from '../../resolvers/profile/organization
 })
 export class OrganizationProfileComponent implements OnInit, OnDestroy {
   data: any;
-  selectedMenu: string = 'Select organization';
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -40,6 +39,10 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
+  }
+
+  async createOrganizationRoute() {
+    await this._router.navigate(['/organization/profile']);
   }
 
   /**
