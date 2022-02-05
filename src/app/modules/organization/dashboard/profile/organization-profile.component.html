@@ -1,113 +1,123 @@
 <div class="flex flex-col flex-auto min-w-0">
   <!-- Header -->
-  <div class="bg-card">
+  <div class="bg-card relative flex-0 px-4 pt-4 overflow-hidden bg-gray-800 dark">
+    <svg
+      class="absolute inset-0 pointer-events-none"
+      viewBox="0 0 960 540"
+      width="100%"
+      height="100%"
+      preserveAspectRatio="xMidYMax slice"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+        <circle r="234" cx="196" cy="23"></circle>
+        <circle r="234" cx="790" cy="491"></circle>
+      </g>
+    </svg>
     <div class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-4">
-      <div class="flex flex-auto items-center min-w-0">
-        <div class="flex flex-col min-w-0 ml-4">
+      <!-- Back -->
+      <div class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none">
+        <button class="fuse-mat-button-rounded sm:ml-16" mat-flat-button [color]="'primary'" routerLink="{{ ['../'] }}">
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:arrow-circle-left'"></mat-icon>
+          <span class="ml-2">Back</span>
+        </button>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none">
+        Change Organization:
+        <button
+          class="fuse-mat-button-rounded"
+          mat-flat-button
+          mat-flat-button
+          [color]="'primary'"
+          [matMenuTriggerFor]="organizationsMenu"
+        >
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:view-list'"></mat-icon>
           <div class="flex items-center">
-            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:users'"></mat-icon>
-            <div class="ml-1.5 leading-6 truncate text-secondary">Vous avez 14 membres</div>
+            <div class="overflow-hidden">
+              <div class="font-medium leading-6 truncate">
+                {{ 'ORGANIZATION.PROFILE.HEADER.SELECT_ORGANIZATION' | translate }}
+              </div>
+            </div>
+            <div class="flex items-center justify-center">
+              <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:chevron-down'"></mat-icon>
+            </div>
           </div>
-        </div>
+          <mat-menu #organizationsMenu="matMenu" [xPosition]="'before'">
+            <button mat-menu-item>Science Wings</button>
+            <button mat-menu-item>Organization 01</button>
+            <button mat-menu-item>Organization 02</button>
+            <button mat-menu-item>Organization 03</button>
+          </mat-menu>
+        </button>
       </div>
       <!-- Actions -->
       <div class="flex items-center mt-6 sm:mt-0 sm:ml-2 space-x-3">
-        <button class="fuse-mat-button-rounded" mat-flat-button [color]="'primary'">
-          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:user'"></mat-icon>
+        <button class="fuse-mat-button-rounded" mat-flat-button (click)="createOrganizationRoute()" [color]="'primary'">
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
           <span class="ml-2">Ajouter une organisation</span>
         </button>
-        <button class="fuse-mat-button-rounded mr-12" mat-flat-button [color]="'primary'">
-          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
-          <span class="ml-2">Ajouter une sous-organisation </span>
-        </button>
-      </div>
-    </div>
-    <div class="flex flex-col w-full max-w-screen-xl mx-auto px-6 sm:px-8">
-      <!-- Menu selector -->
-      <div
-        class="relative flex self-start pb-1 pl-5 pr-4 cursor-pointer overflow-hidden rounded-t-xl border border-b-0 bg-default"
-        matRipple
-        [matMenuTriggerFor]="organizationsMenu"
-      >
-        <div class="flex items-center">
-          <div class="overflow-hidden">
-            <div class="font-medium leading-6 truncate">
-              {{ 'ORGANIZATION.PROFILE.HEADER.SELECT_ORGANIZATION' | translate }}
-            </div>
-          </div>
-          <div class="flex items-center justify-center pl-2">
-            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:chevron-down'"></mat-icon>
-          </div>
-        </div>
-        <mat-menu #organizationsMenu="matMenu" [xPosition]="'before'">
-          <button mat-menu-item>Science Wings</button>
-          <button mat-menu-item>Organization 01</button>
-          <button mat-menu-item>Organization 02</button>
-          <button mat-menu-item>Organization 03</button>
-        </mat-menu>
       </div>
     </div>
   </div>
 
   <!-- Main grid gap-4 grid-cols-3 -->
-  <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
-    <div class="grid grid-cols-3 gap-3 w-full max-w-screen-xl mx-auto">
-      <!-- About me -->
-      <fuse-card class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl">
-        <div class="flex flex-col items-center w-full p-4">
-          <div class="relative w-48">
-            <img class="w-full h-full rounded-full" src="assets/images/logo/logo-2.svg" alt="User avatar" />
+  <div class="flex flex-auto py-4">
+    <div class="flex flex-col flex-auto w-full max-w-lg sm:max-w-7xl mx-auto">
+      <div class="grid grid-cols-3 gap-3 w-full max-w-screen-xl mx-auto">
+        <!-- About me -->
+        <fuse-card class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl">
+          <div class="flex flex-col items-center w-full p-4">
+            <div class="relative w-48">
+              <img class="w-full h-full rounded-full" src="assets/images/logo/logo-2.svg" alt="User avatar" />
+            </div>
+            <div class="text-2xl font-semibold p-1 leading-tight">Science Wings</div>
+            <div class="text-2xl font-semibold p-1 leading-tight">administration@sciencewings.com</div>
           </div>
-          <div class="text-2xl font-semibold p-1 leading-tight">Science Wings</div>
-          <div class="text-2xl font-semibold p-1 leading-tight">administration@sciencewings.com</div>
+          <hr class="w-full border-t my-6" />
+          <div class="text-2xl font-semibold leading-tight">About the organization</div>
+          <div class="mt-4">
+            Software consulting and development for your digital success.
+            <br /><br />
+            Want to take your software and enterprise to another level? you’ve come to the proper location. We will help
+            you create a remarkable presence online while guiding you through the whole process.
+          </div>
+          <hr class="w-full border-t my-6" />
+          <div class="flex flex-col">
+            <div class="flex items-center">
+              <mat-icon class="icon-size-5 mr-3" [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+              <span class="leading-none">Ontario, CA</span>
+            </div>
+            <div class="flex items-center mt-4">
+              <mat-icon class="icon-size-5 mr-3" [svgIcon]="'heroicons_solid:briefcase'"></mat-icon>
+              <span class="leading-none">Software consulting and development</span>
+            </div>
+            <div class="flex items-center mt-4">
+              <mat-icon class="icon-size-5 mr-3" [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
+              <span class="leading-none">14 members</span>
+            </div>
+            <div class="flex items-center mt-4">
+              <mat-icon class="icon-size-5 mr-3" [svgIcon]="'heroicons_solid:server'"></mat-icon>
+              <span class="leading-none">184 resources</span>
+            </div>
+          </div>
+        </fuse-card>
+        <div class="col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+          <!-- Tabs -->
+          <mat-tab-group class="sm:px-2" animationDuration="500ms">
+            <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.GENERAL_INFOS' | translate }}">
+              <ng-template matTabContent>tab</ng-template>
+            </mat-tab>
+            <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.RESOURCES' | translate }}">
+              <ng-template matTabContent>tab</ng-template>
+            </mat-tab>
+            <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.USERS' | translate }}">
+              <ng-template matTabContent>tab</ng-template>
+            </mat-tab>
+            <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.SUB_ORGANIZATIONS' | translate }}">
+              <ng-template matTabContent>tab</ng-template>
+            </mat-tab>
+          </mat-tab-group>
         </div>
-        <hr class="w-full border-t my-6" />
-        <div class="text-2xl font-semibold leading-tight">About the organization</div>
-        <div class="mt-4">
-          Software consulting and development for your digital success.
-          <br /><br />
-          Want to take your software and enterprise to another level? you’ve come to the proper location. We will help
-          you create a remarkable presence online while guiding you through the whole process.
-        </div>
-        <hr class="w-full border-t my-6" />
-        <div class="flex flex-col">
-          <div class="flex items-center">
-            <mat-icon class="icon-size-5 mr-3" [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
-            <span class="leading-none">Ontario, CA</span>
-          </div>
-          <div class="flex items-center mt-4">
-            <mat-icon class="icon-size-5 mr-3" [svgIcon]="'heroicons_solid:briefcase'"></mat-icon>
-            <span class="leading-none">Software consulting and development</span>
-          </div>
-          <div class="flex items-center mt-4">
-            <mat-icon class="icon-size-5 mr-3" [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
-            <span class="leading-none">14 members</span>
-          </div>
-          <div class="flex items-center mt-4">
-            <mat-icon class="icon-size-5 mr-3" [svgIcon]="'heroicons_solid:server'"></mat-icon>
-            <span class="leading-none">184 resources</span>
-          </div>
-        </div>
-        <button class="px-6 mt-8" mat-flat-button [color]="'primary'" [routerLink]="['./profile54']">
-          See complete bio
-        </button>
-      </fuse-card>
-      <div class="col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
-        <!-- Tabs -->
-        <mat-tab-group class="sm:px-2" animationDuration="500ms">
-          <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.GENERAL_INFOS' | translate }}">
-            <ng-template matTabContent>tab</ng-template>
-          </mat-tab>
-          <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.RESOURCES' | translate }}">
-            <ng-template matTabContent>tab</ng-template>
-          </mat-tab>
-          <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.USERS' | translate }}">
-            <ng-template matTabContent>tab</ng-template>
-          </mat-tab>
-          <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.SUB_ORGANIZATIONS' | translate }}">
-            <ng-template matTabContent>tab</ng-template>
-          </mat-tab>
-        </mat-tab-group>
       </div>
     </div>
   </div>

@@ -35,7 +35,7 @@
       <mat-slide-toggle class="mt-8 sm:mt-0 sm:ml-auto" [color]="'primary'" (change)="toggleCompleted($event)">
         Hide completed
       </mat-slide-toggle>
-      <button class="fuse-mat-button-rounded sm:ml-16" mat-flat-button [color]="'primary'">
+      <button class="fuse-mat-button-rounded sm:ml-16" mat-flat-button [color]="'primary'" [routerLink]="['create']">
         <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
         <span class="ml-2">Ajouter une organisation</span>
       </button>

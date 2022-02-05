@@ -41,6 +41,10 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
+  async createOrganizationRoute() {
+    await this._router.navigate(['/organization/profile']);
+  }
+
   /**
    * Prepare the chart data from the data
    *

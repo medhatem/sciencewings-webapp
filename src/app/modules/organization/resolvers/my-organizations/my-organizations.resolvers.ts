@@ -55,7 +55,7 @@ export class MyOrganizationsDetailsResolver implements Resolve<any> {
 @Injectable({
   providedIn: 'root',
 })
-export class MyOrganizationsDetailResolver implements Resolve<any> {
+export class OrganizationFormResolver implements Resolve<any> {
   /**
    * Constructor
    */
