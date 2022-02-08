@@ -19,6 +19,8 @@ import { MyOrganizationsComponent } from './my-organizations.component';
 import { OrganizationFormComponent } from './form/organization-form.component';
 import { MyOrganizationsListComponent } from './list/my-organizations-list.component';
 import { myOrganizationsRoutes } from './my-organizations.routing';
+import { MatChipsModule } from '@angular/material/chips';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [MyOrganizationsComponent, OrganizationFormComponent, MyOrganizationsListComponent],
@@ -38,6 +40,8 @@ import { myOrganizationsRoutes } from './my-organizations.routing';
     MatTabsModule,
     MatStepperModule,
     MatCheckboxModule,
+    MatChipsModule,
+    NgSelectModule,
     MatRadioModule,
   ],
 })

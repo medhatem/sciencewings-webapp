@@ -1,59 +1,83 @@
 <div class="flex flex-col flex-auto min-w-0">
   <!-- Header -->
-  <div class="bg-card">
+  <div class="bg-card relative flex-0 px-4 pt-4 overflow-hidden bg-gray-800 dark">
+    <svg
+      class="absolute inset-0 pointer-events-none"
+      viewBox="0 0 960 540"
+      width="100%"
+      height="100%"
+      preserveAspectRatio="xMidYMax slice"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+        <circle r="234" cx="196" cy="23"></circle>
+        <circle r="234" cx="790" cy="491"></circle>
+      </g>
+    </svg>
     <div class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-4">
-      <!-- Avatar and name -->
-      <div class="flex flex-auto items-center min-w-0">
-        <div class="flex-0 w-16 h-16 rounded-full overflow-hidden">
-          <img class="w-full h-full object-cover" src="assets/images/logo/logo-2.svg" />
-        </div>
-        <div class="flex flex-col min-w-0 ml-4">
-          <ng-container>
-            <div class="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-              Science Wings
+      <!-- Back -->
+      <div class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none">
+        <button class="fuse-mat-button-rounded sm:mx-16" mat-flat-button [color]="'primary'" routerLink="{{ ['../'] }}">
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:arrow-circle-left'"></mat-icon>
+          <span class="ml-2">Back</span>
+        </button>
+        <div class="flex flex-auto items-center min-w-0">
+          <div class="flex-0 w-16 h-16 rounded-full overflow-hidden">
+            <img class="w-full h-full object-cover" src="assets/images/logo/logo-2.svg" />
+          </div>
+          <div class="flex flex-col min-w-0 ml-4">
+            <ng-container>
+              <div class="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+                Science Wings
+              </div>
+            </ng-container>
+            <div class="flex items-center">
+              <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:users'"></mat-icon>
+              <div class="ml-1.5 leading-6 truncate text-secondary">Vous avez 14 membres</div>
             </div>
-          </ng-container>
-          <div class="flex items-center">
-            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:users'"></mat-icon>
-            <div class="ml-1.5 leading-6 truncate text-secondary">Vous avez 14 membres</div>
           </div>
         </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none">
+        <button
+          class="fuse-mat-button-rounded"
+          mat-flat-button
+          mat-flat-button
+          [color]="'primary'"
+          [matMenuTriggerFor]="organizationsMenu"
+        >
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:view-list'"></mat-icon>
+          <div class="flex items-center">
+            <div class="overflow-hidden">
+              <div class="font-medium leading-6 truncate">
+                {{ 'ORGANIZATION.PROFILE.HEADER.SELECT_ORGANIZATION' | translate }}
+              </div>
+            </div>
+            <div class="flex items-center justify-center">
+              <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:chevron-down'"></mat-icon>
+            </div>
+          </div>
+          <mat-menu #organizationsMenu="matMenu" [xPosition]="'before'">
+            <button mat-menu-item>Science Wings</button>
+            <button mat-menu-item>Organization 01</button>
+            <button mat-menu-item>Organization 02</button>
+            <button mat-menu-item>Organization 03</button>
+          </mat-menu>
+        </button>
       </div>
       <!-- Actions -->
       <div class="flex items-center mt-6 sm:mt-0 sm:ml-2 space-x-3">
         <button class="fuse-mat-button-rounded" mat-flat-button [color]="'primary'">
           <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:user'"></mat-icon>
-          <span class="ml-2">Ajouter un utilisateur</span>
-        </button>
-        <button class="fuse-mat-button-rounded mr-12" mat-flat-button [color]="'primary'">
-          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
-          <span class="ml-2">Ajouter une organisation</span>
+          <span class="ml-2">Add user</span>
         </button>
       </div>
-    </div>
-    <div class="flex flex-col w-full max-w-screen-xl mx-auto px-6 sm:px-8">
-      <!-- Menu selector -->
-      <div
-        class="relative flex self-start pb-1 pl-5 pr-4 cursor-pointer overflow-hidden rounded-t-xl border border-b-0 bg-default"
-        matRipple
-        [matMenuTriggerFor]="organizationsMenu"
-      >
-        <div class="flex items-center">
-          <div class="overflow-hidden">
-            <div class="font-medium leading-6 truncate">
-              {{ 'ORGANIZATION.PROFILE.HEADER.SELECT_ORGANIZATION' | translate }}
-            </div>
-          </div>
-          <div class="flex items-center justify-center pl-2">
-            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:chevron-down'"></mat-icon>
-          </div>
-        </div>
-        <mat-menu #organizationsMenu="matMenu" [xPosition]="'before'">
-          <button mat-menu-item>Science Wings</button>
-          <button mat-menu-item>Organization 01</button>
-          <button mat-menu-item>Organization 02</button>
-          <button mat-menu-item>Organization 03</button>
-        </mat-menu>
+      <div class="flex items-center mt-6 sm:mt-0 sm:ml-2 space-x-3">
+        <button class="fuse-mat-button-rounded" mat-flat-button [color]="'primary'">
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+          <span class="ml-2">Add organisation</span>
+        </button>
       </div>
     </div>
   </div>
