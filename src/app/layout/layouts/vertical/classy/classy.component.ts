@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, Route } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
@@ -18,6 +18,7 @@ import { TranslatePipe } from 'app/shared/pipes/transloco.pipe';
   encapsulation: ViewEncapsulation.None,
 })
 export class ClassyLayoutComponent implements OnInit, OnDestroy {
+  @Input() hideMenusAndButtons = false;
   isScreenSmall: boolean;
   navigation: FuseNavigationItem[];
   user: User;
@@ -39,10 +40,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.resetNavigation(this.hideMenusAndButtons);
     // Subscribe to navigation data
-    const { children: dashboardsRoutesChildren = [] } = appRoutes.find(({ path }) => path === routesParentPath);
-    this.navigation = this.getNavigationItemsFromRoutes(dashboardsRoutesChildren, `/${routesParentPath}`);
-
     this.user = {
       id: 'cfaad35d-07a3-4447-a6c3-d8c3d54fd5df',
       name: 'Brian Hughes',
@@ -85,6 +84,21 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
     if (navigation) {
       // Toggle the opened status
       navigation.toggle();
+    }
+  }
+
+  /**
+   * Hide/Show navigation
+   *
+   * @param hideNavigation
+   */
+  resetNavigation(hideNavigation: boolean) {
+    this.hideMenusAndButtons = hideNavigation;
+    if (hideNavigation) {
+      this.navigation = [];
+    } else {
+      const { children: dashboardsRoutesChildren = [] } = appRoutes.find(({ path }) => path === routesParentPath);
+      this.navigation = this.getNavigationItemsFromRoutes(dashboardsRoutesChildren, `/${routesParentPath}`);
     }
   }
 

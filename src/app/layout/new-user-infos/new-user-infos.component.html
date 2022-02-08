@@ -1,0 +1,193 @@
+<!-- eslint-disable  -->
+<div *ngIf="user" class="inset-0 pt-8 flex flex-col min-w-0 overflow-y-auto" cdkScrollable>
+  <div class="flex flex-auto mt-2">
+    <div class="flex flex-col flex-auto w-full max-w-lg sm:max-w-7xl mx-auto">
+      <form class="p-4 mt-2 bg-card shadow rounded overflow-hidden" [formGroup]="stepperForm">
+        <mat-horizontal-stepper [linear]="false" #horizontalStepper>
+          <mat-step [formGroupName]="'step1'" [stepControl]="stepperForm.get('step1')" #horizontalStepperStep1>
+            <ng-template matStepLabel>Informations générales</ng-template>
+            <p class="my-6 font-medium"></p>
+            <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
+              <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
+                <input matInput [formControlName]="'firstName'" [placeholder]="'Nom de l organization'" required />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+                <input matInput [formControlName]="'lastName'" [placeholder]="'Numéro d entregistrement'" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:newspaper'"></mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
+              <mat-form-field class="flex-auto mx-4">
+                <input matInput [formControlName]="'email'" [placeholder]="'Email Address'" required />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="flex-auto mx-4">
+                <input matInput [formControlName]="'title'" [placeholder]="'Titre / Fonction'" required />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
+              <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
+                <input matInput [formControlName]="'phoneNumber'" [placeholder]="'Numéro téléphone'" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4" appearance="fill">
+                <mat-chip-list #chipList aria-label="Etiquette selection">
+                  <ng-container *ngFor="let organizationLabel of organizationLabels">
+                    <mat-chip (removed)="remove(organizationLabel)" color="primary" selected
+                      >{{ organizationLabel.name
+                      }}<button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                      </button></mat-chip
+                    >
+                  </ng-container>
+                  <input
+                    placeholder="Étiquettes..."
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="add($event)"
+                  />
+                </mat-chip-list>
+              </mat-form-field>
+            </div>
+            <div class="flex">
+              <mat-form-field class="fuse-mat-textarea flex-auto mx-4">
+                <textarea matInput [formControlName]="'description'" [placeholder]="'About'" [rows]="3"></textarea>
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:menu-alt-2'"></mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="flex justify-end">
+              <button
+                class="px-8"
+                mat-flat-button
+                [color]="'primary'"
+                [disabled]="horizontalStepperStep1.stepControl.pristine || horizontalStepperStep1.stepControl.invalid"
+                type="button"
+                matStepperNext
+              >
+                Next
+              </button>
+            </div>
+          </mat-step>
+
+          <mat-step [formGroupName]="'step2'" [stepControl]="stepperForm.get('step2')" #horizontalStepperStep2>
+            <ng-template matStepLabel>Adresse et Réseaux sociaux</ng-template>
+            <p class="my-6 font-medium">Adresse de l'organisation:</p>
+            <div class="grid grid-cols-4 flex flex-col gt-xs:flex-row">
+              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+                <input matInput [formControlName]="'apartNumber'" [placeholder]="'#Appart'" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:chip'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
+                <input matInput [formControlName]="'streetNumber'" [placeholder]="'#Rue'" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:chip'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="flex-auto col-span-2 gt-xs:pl-3 mx-4">
+                <input matInput [formControlName]="'street'" [placeholder]="'Rue'" required />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="grid grid-cols-4 flex flex-col gt-xs:flex-row">
+              <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
+                <mat-select [formControlName]="'country'" [placeholder]="'Country'" required>
+                  <mat-option value="country-1">Canada</mat-option>
+                  <mat-option value="country-2">USA</mat-option>
+                  <mat-option value="country-3">Country 3</mat-option>
+                  <mat-option value="country-3">Country 3</mat-option>
+                  <mat-option value="country-3">Country 3</mat-option>
+                  <mat-option value="country-3">Country 3</mat-option>
+                </mat-select>
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+                <input matInput [formControlName]="'province'" [placeholder]="'Province / Region'" required />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="col-span-2 flex-auto gt-xs:pl-3 mx-4">
+                <input matInput [formControlName]="'postalCode'" [placeholder]="'Code postal'" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
+              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+                <input matInput [formControlName]="'department'" [placeholder]="'Département'" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+                <input matInput [formControlName]="'sector'" [placeholder]="'Secteur / Domaine'" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+              </mat-form-field>
+            </div>
+            <hr class="w-full border-t my-4" />
+            <p class="my-6 font-medium">Réseaux sociaux:</p>
+            <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
+              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+                <input matInput [formControlName]="'facebook'" [placeholder]="'Facebook'" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+                <input matInput [formControlName]="'linkedin'" [placeholder]="'Linkedin'" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+                <input matInput [formControlName]="'twitter'" [placeholder]="'Twitter'" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+                <input matInput [formControlName]="'other'" [placeholder]="'Autre'" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="flex justify-end">
+              <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
+                Back
+              </button>
+              <button
+                class="px-8"
+                mat-flat-button
+                [color]="'primary'"
+                [disabled]="horizontalStepperStep2.stepControl.pristine || horizontalStepperStep2.stepControl.invalid"
+                type="button"
+                matStepperNext
+              >
+                Next
+              </button>
+            </div>
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <div>
+              <mat-icon
+                class="icon-size-8"
+                matPrefix
+                [svgIcon]="'heroicons_solid:check'"
+                style="color: green"
+              ></mat-icon>
+            </div>
+            <p class="my-6 font-medium">
+              <span>Merci d'avoir rempli les informations de votre Organization !.</span>
+            </p>
+            <p class="my-6 font-medium">
+              Vous pouvez maintenant gérer votre Organization et créer vos ressources et bien plein d'autres
+              fonctionnalités intéressantes.
+            </p>
+            <p class="my-6 font-medium">
+              Vous pouvez cliquer sur réinitialiser si vous souhaitez creer une autre organization.
+            </p>
+            <div class="flex justify-end mt-8">
+              <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
+                Back
+              </button>
+              <button class="px-8" mat-flat-button [color]="'primary'" type="reset" (click)="emitOnFormComplete()">
+                Done
+              </button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+      </form>
+    </div>
+  </div>
+</div>

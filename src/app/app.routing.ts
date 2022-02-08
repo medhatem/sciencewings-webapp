@@ -3,14 +3,12 @@ import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from './core/auth/keycloak/app.guard';
 import { FuseNavigationItemTypeEnum } from '@fuse/components/navigation/navigation.types';
+import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
 
 export const routesParentPath = 'dashboards';
 export const appRoutes: Route[] = [
   // Redirect empty path to '/dashboard/profile'
-  { path: '', pathMatch: 'full', redirectTo: 'dashboards' },
-
-  // Redirect signed in user to the '/dashboard/profile'
-  { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'dashboards' },
+  { path: '', pathMatch: 'full', redirectTo: routesParentPath },
 
   // dashboard routes
   {
@@ -19,6 +17,7 @@ export const appRoutes: Route[] = [
     component: LayoutComponent,
     resolve: {
       initialData: InitialDataResolver,
+      userData: NewUserInfosResolver,
     },
     children: [
       {

@@ -7,6 +7,7 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FUSE_VERSION } from '@fuse/version';
 import { Layout } from 'app/layout/layout.types';
 import { AppConfig } from 'app/core/config/app.config';
+import { NewUserInfosService } from './new-user-infos/new-user-infos.service';
 
 @Component({
   selector: 'layout',
@@ -19,6 +20,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
   layout: Layout;
   scheme: 'dark' | 'light';
   theme: string;
+  newUserInfos: any;
+  hideMenusAndButtons = true;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   /**
@@ -31,6 +34,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _fuseConfigService: FuseConfigService,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
+    private _newUserInfosService: NewUserInfosService,
   ) {}
 
   // -----------------------------------------------------------------------------------------------------
@@ -41,7 +45,16 @@ export class LayoutComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
-    // Set the theme and scheme based on the configuration
+    this._newUserInfosService.newLoggedUser$.subscribe((user) => {
+      // Hide all buttons and escapes, and display the new-user-infos form component
+      // TO DO : verify user required props
+      this.newUserInfos = user;
+
+      // If all user infos exists we show the dashboard
+      if (user) {
+        this.hideMenusAndButtons = false;
+      }
+    });
     combineLatest([
       this._fuseConfigService.config$,
       this._fuseMediaWatcherService.onMediaQueryChange$([
