@@ -18,6 +18,7 @@ import { initializeKeycloak } from './core/auth/keycloak/app.init';
 import { mockApiServices } from 'app/mock-api';
 import { EnvServiceProvider } from './environment/env.service.provider';
 import { environment } from 'environments/environment';
+import { NewUserInfosModule } from './layout/new-user-infos/new-user-infos.module';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy: PreloadAllModules,
@@ -42,6 +43,7 @@ const routerConfig: ExtraOptions = {
 
     // Layout module of your application
     LayoutModule,
+    NewUserInfosModule,
 
     // 3rd party modules that require global configuration
     KeycloakAngularModule,
