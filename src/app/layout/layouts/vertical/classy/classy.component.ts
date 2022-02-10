@@ -41,6 +41,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.resetNavigation(this.hideMenusAndButtons);
+    this.resetNavigation(this.hideMenusAndButtons);
     // Subscribe to navigation data
     this.user = {
       id: 'cfaad35d-07a3-4447-a6c3-d8c3d54fd5df',
@@ -100,6 +101,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
       const { children: dashboardsRoutesChildren = [] } = appRoutes.find(({ path }) => path === routesParentPath);
       this.navigation = this.getNavigationItemsFromRoutes(dashboardsRoutesChildren, `/${routesParentPath}`);
     }
+  }
+
+  onActiveOrganizationChange(organization: any) {
+    console.log('organization change :', organization);
   }
 
   // -----------------------------------------------------------------------------------------------------
