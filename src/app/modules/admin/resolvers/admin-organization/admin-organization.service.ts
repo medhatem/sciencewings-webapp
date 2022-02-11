@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
-import { Course, MyOrganizationsCategory } from './my-organizations.types';
+import { Course, AdminOrganizationsCategory } from './admin-organization.types';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MyOrganizationsService {
+export class AdminOrganizationsService {
   // Private
-  private _organizationTypes: BehaviorSubject<MyOrganizationsCategory[] | null> = new BehaviorSubject(null);
+  private _organizationTypes: BehaviorSubject<AdminOrganizationsCategory[] | null> = new BehaviorSubject(null);
   private _organization: BehaviorSubject<Course | null> = new BehaviorSubject(null);
   private _organizations: BehaviorSubject<Course[] | null> = new BehaviorSubject(null);
 
@@ -24,7 +24,7 @@ export class MyOrganizationsService {
   /**
    * Getter for categories
    */
-  get organizationTypes$(): Observable<MyOrganizationsCategory[]> {
+  get organizationTypes$(): Observable<AdminOrganizationsCategory[]> {
     return this._organizationTypes.asObservable();
   }
 
@@ -49,8 +49,8 @@ export class MyOrganizationsService {
   /**
    * Get categories
    */
-  getCategories(): Observable<MyOrganizationsCategory[]> {
-    return this._httpClient.get<MyOrganizationsCategory[]>('api/apps/organizations/organizations-categories').pipe(
+  getCategories(): Observable<AdminOrganizationsCategory[]> {
+    return this._httpClient.get<AdminOrganizationsCategory[]>('api/apps/organizations/organizations-categories').pipe(
       tap((response: any) => {
         this._organizationTypes.next(response);
       }),

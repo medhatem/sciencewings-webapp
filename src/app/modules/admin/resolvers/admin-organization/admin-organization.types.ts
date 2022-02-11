@@ -1,4 +1,4 @@
-export interface MyOrganizationsCategory {
+export interface AdminOrganizationsCategory {
   id?: string;
   title?: string;
   slug?: string;
