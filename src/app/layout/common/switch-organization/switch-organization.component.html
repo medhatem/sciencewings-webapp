@@ -1,25 +1,32 @@
 <!-- Button -->
-<button mat-icon-button [matMenuTriggerFor]="organizationsMatMenu">
+<button class="border-2 rounded-xl shadow p-1" [matMenuTriggerFor]="organizationsMatMenu">
   <ng-container *ngTemplateOutlet="organizationNameTemplate; context: { $implicit: activeOrganization }"></ng-container>
 </button>
 
-<!-- Language menu -->
 <mat-menu [xPosition]="'before'" #organizationsMatMenu="matMenu">
-  <ng-container *ngFor="let availableOrganization of availableOrganizations; trackBy: trackByFn">
-    <button mat-menu-item (click)="setOctiveOrganization(organization.id)">
-      <span class="flex items-center">
-        <ng-container
-          *ngTemplateOutlet="organizationNameTemplate; context: { $implicit: availableOrganization }"
-        ></ng-container>
-      </span>
-    </button>
+  <ng-container *ngIf="availableOrganizations?.length">
+    <ng-container *ngFor="let organization of availableOrganizations">
+      <button mat-menu-item (click)="setActiveOrganization(organization)">
+        <span class="flex items-center">
+          <ng-container
+            *ngTemplateOutlet="organizationNameTemplate; context: { $implicit: organization }"
+          ></ng-container>
+        </span>
+      </button>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!availableOrganizations?.length">
+    <span class="flex items-center">
+      <ng-container
+        *ngTemplateOutlet="organizationNameTemplate; context: { $implicit: activeOrganization }"
+      ></ng-container>
+    </span>
   </ng-container>
 </mat-menu>
 
-<!-- Flag image template -->
 <ng-template let-organization #organizationNameTemplate>
-  <span class="relative w-48 m-400 shadow rounded-sm overflow-hidden">
+  <span class="relative overflow-hidden">
     <mat-icon [svgIcon]="'heroicons_outline:office-building'"></mat-icon>
-    <span>{{ organization.name }}</span>
+    <span *ngIf="activeOrganization" class="hidden md:inline font-medium">{{ organization.name }}</span>
   </span>
 </ng-template>

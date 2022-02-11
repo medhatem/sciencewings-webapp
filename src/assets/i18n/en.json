@@ -1,6 +1,7 @@
 {
   "WELCOME_BACK": "Hello",
   "PROFILE": "Profile",
+  "EMPTY_ORGANIZATIONS": "No Organization",
   "APP": {
     "ROUTES": {
       "ORGANIZATION": {

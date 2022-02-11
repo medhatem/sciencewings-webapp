@@ -25,7 +25,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
-    private _activatedRoute: ActivatedRoute,
+    private _route: ActivatedRoute,
     private _router: Router,
     private _translatePipe: TranslatePipe,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
@@ -40,13 +40,14 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const { userData } = this._route.snapshot.data;
     this.resetNavigation(this.hideMenusAndButtons);
     this.resetNavigation(this.hideMenusAndButtons);
     // Subscribe to navigation data
     this.user = {
-      id: 'cfaad35d-07a3-4447-a6c3-d8c3d54fd5df',
-      name: 'Brian Hughes',
-      email: 'hughes.brian@company.com',
+      ...userData,
+      // Add fake data for test
+      // To Remove and use only userData
       avatar: 'assets/images/avatars/brian-hughes.jpg',
       status: 'online',
     };
@@ -104,7 +105,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
   }
 
   onActiveOrganizationChange(organization: any) {
-    console.log('organization change :', organization);
+    // TO DO : do logic to manage organization change
   }
 
   // -----------------------------------------------------------------------------------------------------

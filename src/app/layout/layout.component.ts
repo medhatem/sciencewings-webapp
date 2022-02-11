@@ -20,7 +20,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
   layout: Layout;
   scheme: 'dark' | 'light';
   theme: string;
-  newUserInfos: any;
   hideMenusAndButtons = true;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -28,6 +27,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
    * Constructor
    */
   constructor(
+    private _route: ActivatedRoute,
     private _activatedRoute: ActivatedRoute,
     @Inject(DOCUMENT) private _document: any,
     private _renderer2: Renderer2,
@@ -45,16 +45,14 @@ export class LayoutComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
-    this._newUserInfosService.newLoggedUser$.subscribe((user) => {
+    const { userData } = this._route.snapshot.data;
+    this._newUserInfosService.getUser(userData.id).subscribe((user) => {
       // Hide all buttons and escapes, and display the new-user-infos form component
       // TO DO : verify user required props
-      this.newUserInfos = user;
-      this.hideMenusAndButtons = false;
-
       // If all user infos exists we show the dashboard
-      // if (user) {
-      //   this.hideMenusAndButtons = false;
-      // }
+      if (user) {
+        this.hideMenusAndButtons = false;
+      }
     });
     combineLatest([
       this._fuseConfigService.config$,

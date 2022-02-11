@@ -8,10 +8,12 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { take } from 'rxjs';
-import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { SwitchOrganizationsService } from './switch-organization.service';
 import { NewUserInfosResolver } from 'app/layout/new-user-infos/new-user-infos.resolver';
+import { ActivatedRoute } from '@angular/router';
+import { TranslatePipe } from 'app/shared/pipes/transloco.pipe';
+import { User } from 'app/core/user/user.types';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'switch-organization',
@@ -21,58 +23,42 @@ import { NewUserInfosResolver } from 'app/layout/new-user-infos/new-user-infos.r
   exportAs: 'switch-organization',
 })
 export class SwitchOrganizationComponent implements OnInit, OnDestroy {
-  @Input() user: any;
+  @Input() user: User;
   @Output() onActiveOrganizationChange = new EventEmitter<any>();
   availableOrganizations: Array<any>;
-  activeOrganization: any = {
-    id: '0',
-    name: 'Organization 00',
-    avatar: '',
-  };
+  activeOrganization: any;
 
   constructor(
-    private _fuseNavigationService: FuseNavigationService,
     private _switchOrganizationsService: SwitchOrganizationsService,
     private _newUserInfosResolver: NewUserInfosResolver,
+    private _route: ActivatedRoute,
+    private _translatePipe: TranslatePipe,
   ) {}
 
   ngOnDestroy(): void {}
 
   async ngOnInit() {
     // fetch current user
-    this.user = this.user || (await this._newUserInfosResolver.getloadUserProfileKeycloak());
+    const { userData } = this._route.snapshot.data;
+    // Move this line to layout.component.ts
+    this.user = userData || (await this._newUserInfosResolver.getloadUserProfileKeycloak());
     // Get the available organizations for user
     this._switchOrganizationsService
-      .getAllAvailableOrganizationsForUser(this.user.id)
-      .subscribe((organizations) => (this.availableOrganizations = organizations));
-    this.availableOrganizations = [
-      {
-        id: '1',
-        name: 'Organization 01',
-        avatar: '',
-      },
-      {
-        id: '2',
-        name: 'Organization 02',
-        avatar: '',
-      },
-      {
-        id: '3',
-        name: 'Organization 03',
-        avatar: '',
-      },
-      {
-        id: '4',
-        name: 'Organization 04',
-        avatar: '',
-      },
-    ];
+      .getAllAvailableOrganizationsForUser(Number(this.user.id))
+      .subscribe((organizations) => {
+        this.availableOrganizations = organizations || [];
+        this.activeOrganization = this.availableOrganizations[0] || {
+          id: constants.EMPTY_ORGANIZATIONS,
+          name: this._translatePipe.transform(constants.EMPTY_ORGANIZATIONS),
+        };
+      });
   }
 
   /**
-   * Set the active lang
+   * Set the active organization
+   * Emit organization change
    *
-   * @param lang
+   * @param organization
    */
   setActiveOrganization(organization: any): void {
     // Set the active lang
@@ -80,39 +66,7 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
     this.onActiveOrganizationChange.emit(this.activeOrganization);
   }
 
-  /**
-   * Track by function for ngFor loops
-   *
-   * @param index
-   * @param item
-   */
-  trackByFn(index: number, item: any): any {
-    return item.id || index;
-  }
-
   // -----------------------------------------------------------------------------------------------------
   // @ Private methods
   // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Update the navigation
-   *
-   * @param lang
-   * @private
-   */
-  private _updateNavigation(lang: string): void {
-    // Get the component -> navigation data -> item
-    const navComponent = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>('mainNavigation');
-
-    // Return if the navigation component does not exist
-    if (!navComponent) {
-      return null;
-    }
-
-    // Get the flat navigation data
-    const navigation = navComponent.navigation;
-
-    // Get the Profile dashboard item and update its title
-    const profileDashboardItem = this._fuseNavigationService.getItem('dashboards.profile', navigation);
-  }
 }
