@@ -18,6 +18,7 @@ import { UserModule } from 'app/layout/common/user/user.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { ClassyLayoutComponent } from 'app/layout/layouts/vertical/classy/classy.component';
 import { NewUserInfosModule } from 'app/layout/new-user-infos/new-user-infos.module';
+import { SwitchOrganizationModule } from 'app/layout/common/switch-organization/switch-organization.module';
 
 @NgModule({
   declarations: [ClassyLayoutComponent],
@@ -39,6 +40,7 @@ import { NewUserInfosModule } from 'app/layout/new-user-infos/new-user-infos.mod
     ShortcutsModule,
     UserModule,
     SharedModule,
+    SwitchOrganizationModule,
     NewUserInfosModule,
   ],
   exports: [ClassyLayoutComponent],
