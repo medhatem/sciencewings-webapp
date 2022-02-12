@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Course, AdminOrganizationsCategory } from './admin-organization.types';
+import { ApiService } from 'generated/services';
+import { IOragnization } from 'app/models/organizations/organization.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -9,13 +11,13 @@ import { Course, AdminOrganizationsCategory } from './admin-organization.types';
 export class AdminOrganizationsService {
   // Private
   private _organizationTypes: BehaviorSubject<AdminOrganizationsCategory[] | null> = new BehaviorSubject(null);
-  private _organization: BehaviorSubject<Course | null> = new BehaviorSubject(null);
-  private _organizations: BehaviorSubject<Course[] | null> = new BehaviorSubject(null);
+  private _organization: BehaviorSubject<IOragnization | null> = new BehaviorSubject(null);
+  private _organizations: BehaviorSubject<IOragnization[] | null> = new BehaviorSubject(null);
 
   /**
    * Constructor
    */
-  constructor(private _httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient, private _swaggerService: ApiService) {}
 
   // -----------------------------------------------------------------------------------------------------
   // @ Accessors
@@ -71,22 +73,26 @@ export class AdminOrganizationsService {
   /**
    * Get organization by id
    */
-  getCourseById(id: string): Observable<Course> {
-    return this._httpClient.get<Course>('api/apps/organizations/organization', { params: { id } }).pipe(
+  getOrganization(id: string | number): Observable<IOragnization> {
+    return this._swaggerService.OrganizationRoutesGetById(Number(id)).pipe(
       map((organization) => {
         // Update the organization
         this._organization.next(organization);
-
         // Return the organization
         return organization;
       }),
       switchMap((organization) => {
         if (!organization) {
-          return throwError('Could not found organization with id of ' + id + '!');
+          throw Error('Could not found organization with id of ' + id + '!');
         }
-
         return of(organization);
       }),
     );
+  }
+
+  createOrganization(organization: IOragnization): Observable<any> {
+    // TO DO: change when interface implemented in BackEnd
+    const { name, parentId } = organization;
+    return this._swaggerService.OrganizationRoutesCreateOrganisation({ name, parentId });
   }
 }

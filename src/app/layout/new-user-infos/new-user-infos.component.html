@@ -34,13 +34,13 @@
               </mat-form-field>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4" appearance="fill">
                 <mat-chip-list #chipList aria-label="Etiquette selection">
-                  <ng-container *ngFor="let organizationLabel of organizationLabels">
-                    <mat-chip (removed)="remove(organizationLabel)" color="primary" selected
-                      >{{ organizationLabel.name
-                      }}<button matChipRemove>
+                  <ng-container *ngFor="let userLabel of userLabels">
+                    <mat-chip (removed)="remove(userLabel)" color="primary" selected>
+                      {{ userLabel.value }}
+                      <button matChipRemove>
                         <mat-icon>cancel</mat-icon>
-                      </button></mat-chip
-                    >
+                      </button>
+                    </mat-chip>
                   </ng-container>
                   <input
                     placeholder="Étiquettes..."

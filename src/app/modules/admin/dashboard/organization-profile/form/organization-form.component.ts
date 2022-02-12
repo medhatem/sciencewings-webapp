@@ -2,10 +2,13 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
-
-export interface Label {
-  name: string;
-}
+import { emailRegex } from 'app/shared/constants.regex';
+import { IOragnization } from 'app/models/organizations/organization.interface';
+import { Organization } from 'app/models/organizations/organization';
+import { IMatChipLabel } from 'app/models/mat-ui/mat-chip-label.interface';
+import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
+import { ToastrService } from 'app/core/toastr/toastr.service';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'organization-form',
@@ -13,32 +16,21 @@ export interface Label {
   encapsulation: ViewEncapsulation.None,
 })
 export class OrganizationFormComponent implements OnInit {
-  stepperForm: FormGroup;
-  isSubOrganization = false;
-  addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  organizationLabels: Label[] = [{ name: 'label 01' }, { name: 'label 01' }];
-  selectedCar: number;
-  admins = [
-    { id: 1, name: 'Mostapha Abbad' },
-    { id: 2, name: 'Administrateur 00002' },
-    { id: 3, name: 'Administrateur 00003' },
-    { id: 4, name: 'Administrateur 00004' },
-    { id: 5, name: 'Administrateur 00005' },
-    { id: 6, name: 'Administrateur 00006' },
-  ];
-  users = [
-    { id: 1, name: 'Mostapha Abbad' },
-    { id: 2, name: 'Utilisateur 00002' },
-    { id: 3, name: 'Utilisateur 00003' },
-    { id: 4, name: 'Utilisateur 00004' },
-    { id: 5, name: 'Utilisateur 00005' },
-    { id: 6, name: 'Utilisateur 00006' },
-  ];
+  stepperForm: FormGroup;
+  oragnization: IOragnization;
+  isSubOrganization = false;
+  organizationLabels: IMatChipLabel[] = [];
+  adminsEmailListLabels: IMatChipLabel[] = [];
+  usersEmailListLabels: IMatChipLabel[] = [];
   /**
    * Constructor
    */
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _adminOrganizationsService: AdminOrganizationsService,
+    private _toastrService: ToastrService,
+  ) {}
 
   // -----------------------------------------------------------------------------------------------------
   // @ Lifecycle hooks
@@ -48,6 +40,7 @@ export class OrganizationFormComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
+    this.oragnization = new Organization();
     // Horizontal stepper form
     this.stepperForm = this._formBuilder.group({
       step1: this._formBuilder.group({
@@ -78,30 +71,37 @@ export class OrganizationFormComponent implements OnInit {
         other: [''],
       }),
       step3: this._formBuilder.group({
-        admins: [''],
-        users: [''],
+        adminsEmails: this._formBuilder.array([]),
+        usersEmails: this._formBuilder.array([]),
       }),
     });
   }
 
-  add(event: MatChipInputEvent): void {
+  addItemMatChip(matItemLabelList: IMatChipLabel[], event: MatChipInputEvent, isEmail: boolean = false): void {
     const value = (event.value || '').trim();
-
-    // Add our fruit
+    const invalid = isEmail && !this.validateEmail(value);
     if (value) {
-      this.organizationLabels.push({ name: value });
+      matItemLabelList.push({ value, invalid });
     }
-
-    // Clear the input value
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    event.chipInput!.clear();
+    event.chipInput?.clear();
   }
 
-  remove(fruit: Label): void {
-    const index = this.organizationLabels.indexOf(fruit);
-
+  removeItemMatChip(matItemLabelList: IMatChipLabel[], matItemLabelToRemove: IMatChipLabel): void {
+    const index = matItemLabelList.indexOf(matItemLabelToRemove);
     if (index >= 0) {
-      this.organizationLabels.splice(index, 1);
+      matItemLabelList.splice(index, 1);
     }
+  }
+
+  private createOrganization() {
+    this._adminOrganizationsService.createOrganization(this.oragnization).subscribe({
+      next: (resOrganization) => resOrganization,
+      error: (err) => this._toastrService.showError(err, constants.CREATE_ORGANIZATION_FAILED),
+      complete: () => this._toastrService.showError('', constants.CREATE_ORGANIZATION_COMPLETED),
+    });
+  }
+
+  private validateEmail(email: string): boolean {
+    return emailRegex.test(String(email).toLowerCase());
   }
 }
