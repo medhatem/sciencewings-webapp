@@ -4,16 +4,16 @@
   "EMPTY_ORGANIZATIONS": "Aucune Organisation",
   "APP": {
     "ROUTES": {
-      "ORGANIZATION": {
-        "TITLE": "Organisation",
-        "PROFILE": {
+      "ADMIN": {
+        "TITLE": "Tableau de bord",
+        "USER_PROFILE": {
+          "TITLE": "Profil utilisateur"
+        },
+        "ORGANIZATION_PROFILE": {
           "TITLE": "Profil organization"
         },
-        "MY_ORGANIZATIONS": {
-          "TITLE": "Mes organisations"
-        },
-        "USERS": {
-          "TITLE": "Mes utilisateurs"
+        "ORGANIZATION_MEMBERS": {
+          "TITLE": "Members de l'organisation"
         }
       },
       "USER": {

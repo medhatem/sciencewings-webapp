@@ -3,7 +3,7 @@ import { Component, ViewEncapsulation, OnInit, Input, Output, EventEmitter } fro
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Router } from '@angular/router';
-import { Label } from 'app/modules/organization/dashboard/my-organizations/form/organization-form.component';
+import { Label } from 'app/modules/admin/dashboard/organization-profile/form/organization-form.component';
 import { NewUserInfosResolver } from './new-user-infos.resolver';
 
 @Component({

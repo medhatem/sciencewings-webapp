@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulatio
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
-import { UserProfileService } from '../../resolvers/profile/user-profile.service';
+import { UserProfileService } from '../../resolvers/user-profile/user-profile.service';
 
 @Component({
   selector: 'user-profile',

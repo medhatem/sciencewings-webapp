@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
-import { MyOrganizationsService } from './my-organizations.service';
-import { MyOrganizationsCategory } from './my-organizations.types';
+import { AdminOrganizationsService } from './admin-organization.service';
+import { AdminOrganizationsCategory } from './admin-organization.types';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MyOrganizationsResolver implements Resolve<any> {
+export class AdminOrganizationResolver implements Resolve<any> {
   /**
    * Constructor
    */
-  constructor(private _myOrganizationsService: MyOrganizationsService) {}
+  constructor(private _myOrganizationsService: AdminOrganizationsService) {}
 
   // -----------------------------------------------------------------------------------------------------
   // @ Public methods
@@ -23,7 +23,7 @@ export class MyOrganizationsResolver implements Resolve<any> {
    * @param route
    * @param state
    */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<MyOrganizationsCategory[]> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AdminOrganizationsCategory[]> {
     return this._myOrganizationsService.getCategories();
   }
 }
@@ -35,7 +35,7 @@ export class MyOrganizationsDetailsResolver implements Resolve<any> {
   /**
    * Constructor
    */
-  constructor(private _myOrganizationsService: MyOrganizationsService) {}
+  constructor(private _myOrganizationsService: AdminOrganizationsService) {}
 
   // -----------------------------------------------------------------------------------------------------
   // @ Public methods
@@ -47,7 +47,7 @@ export class MyOrganizationsDetailsResolver implements Resolve<any> {
    * @param route
    * @param state
    */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<MyOrganizationsCategory[]> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AdminOrganizationsCategory[]> {
     return this._myOrganizationsService.getOrganizations();
   }
 }
@@ -59,7 +59,7 @@ export class OrganizationFormResolver implements Resolve<any> {
   /**
    * Constructor
    */
-  constructor(private _router: Router, private _myOrganizationsService: MyOrganizationsService) {}
+  constructor(private _router: Router, private _myOrganizationsService: AdminOrganizationsService) {}
 
   // -----------------------------------------------------------------------------------------------------
   // @ Public methods
@@ -71,7 +71,7 @@ export class OrganizationFormResolver implements Resolve<any> {
    * @param route
    * @param state
    */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<MyOrganizationsCategory> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AdminOrganizationsCategory> {
     return this._myOrganizationsService.getCourseById(route.paramMap.get('id')).pipe(
       // Error here means the requested task is not available
       catchError((error) => {

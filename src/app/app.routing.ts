@@ -21,72 +21,49 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
-        path: 'organization',
+        path: 'admin',
         canActivate: [AuthGuard],
         data: {
-          title: 'APP.ROUTES.ORGANIZATION.TITLE',
+          title: 'APP.ROUTES.ADMIN.TITLE',
           type: FuseNavigationItemTypeEnum.group,
         },
         children: [
           {
-            path: 'my-organizations',
+            path: 'organization-profile',
             canActivate: [AuthGuard],
             data: {
-              title: 'APP.ROUTES.ORGANIZATION.MY_ORGANIZATIONS.TITLE',
+              title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.TITLE',
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:office-building',
             },
             loadChildren: () =>
-              import('app/modules/organization/dashboard/my-organizations/my-organizations.module').then(
-                (m) => m.MyOrganizationsModule,
+              import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then(
+                (m) => m.AdminOrganizationModule,
               ),
           },
           {
-            path: 'profile',
+            path: 'user-profile',
             canActivate: [AuthGuard],
             data: {
-              title: 'APP.ROUTES.ORGANIZATION.PROFILE.TITLE',
+              title: 'APP.ROUTES.ADMIN.USER_PROFILE.TITLE',
               type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:office-building',
+              icon: 'heroicons_outline:user',
             },
             loadChildren: () =>
-              import('app/modules/organization/dashboard/profile/organization-profile.module').then(
-                (m) => m.OrganizationProfileModule,
-              ),
+              import('app/modules/admin/dashboard/user-profile/user-profile.module').then((m) => m.UserProfileModule),
           },
           {
             path: 'users',
             canActivate: [AuthGuard],
             data: {
-              title: 'APP.ROUTES.ORGANIZATION.USERS.TITLE',
+              title: 'APP.ROUTES.ADMIN.ORGANIZATION_MEMBERS.TITLE',
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:users',
             },
             loadChildren: () =>
-              import('app/modules/organization/dashboard/users/organization-users.module').then(
-                (m) => m.OrganizationProfileModule,
+              import('app/modules/admin/dashboard/users/organization-users.module').then(
+                (m) => m.OrganizationUsersModule,
               ),
-          },
-        ],
-      },
-      {
-        path: 'user',
-        canActivate: [AuthGuard],
-        data: {
-          title: 'APP.ROUTES.USER.TITLE',
-          type: FuseNavigationItemTypeEnum.group,
-        },
-        children: [
-          {
-            path: 'profile',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.USER.PROFILE.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:user',
-            },
-            loadChildren: () =>
-              import('app/modules/user/dashboard/profile/user-profile.module').then((m) => m.UserProfileModule),
           },
         ],
       },

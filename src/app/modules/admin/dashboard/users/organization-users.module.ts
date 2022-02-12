@@ -35,4 +35,4 @@ import { organizationUsersRoutes } from './organization-users.routing';
     SharedModule,
   ],
 })
-export class OrganizationProfileModule {}
+export class OrganizationUsersModule {}
