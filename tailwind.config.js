@@ -20,12 +20,16 @@ const customPalettes = {
 const themes = {
   default: {
     primary: {
-      ...colors.rose,
-      DEFAULT: colors.rose[600],
+      ...colors.indigo,
+      DEFAULT: colors.indigo[600],
     },
     accent: {
-      ...colors.blueGray,
-      DEFAULT: colors.blueGray[800],
+      ...colors.gray,
+      DEFAULT: colors.gray[600],
+    },
+    success: {
+      ...colors.green,
+      DEFAULT: colors.green[600],
     },
     warn: {
       ...colors.red,

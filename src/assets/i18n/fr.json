@@ -44,6 +44,12 @@
         "USERS": "Utilisateurs",
         "SUB_ORGANIZATIONS": "Sous-Organisations"
       }
+    },
+    "ERROR": {
+      "CREATE_FAILED": "La creation de l'organisation a échouée"
+    },
+    "SUCCESS": {
+      "CREATE_COMPLETED": "La création de l'organisation a réussi"
     }
   }
 }

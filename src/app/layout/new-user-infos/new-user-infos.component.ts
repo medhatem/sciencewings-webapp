@@ -3,7 +3,7 @@ import { Component, ViewEncapsulation, OnInit, Input, Output, EventEmitter } fro
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Router } from '@angular/router';
-import { Label } from 'app/modules/admin/dashboard/organization-profile/form/organization-form.component';
+import { IMatChipLabel } from 'app/models/mat-ui/mat-chip-label.interface';
 import { NewUserInfosResolver } from './new-user-infos.resolver';
 
 @Component({
@@ -20,7 +20,7 @@ export class NewUserInfosComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   // temp data to replace with mock api or actual api
-  organizationLabels: Label[] = [];
+  userLabels: IMatChipLabel[] = [];
 
   constructor(
     private _newUserInfosResolver: NewUserInfosResolver,
@@ -68,7 +68,7 @@ export class NewUserInfosComponent implements OnInit {
 
     // Add our fruit
     if (value) {
-      this.organizationLabels.push({ name: value });
+      this.userLabels.push({ value });
     }
 
     // Clear the input value
@@ -76,11 +76,11 @@ export class NewUserInfosComponent implements OnInit {
     event.chipInput!.clear();
   }
 
-  remove(fruit: Label): void {
-    const index = this.organizationLabels.indexOf(fruit);
+  remove(fruit: IMatChipLabel): void {
+    const index = this.userLabels.indexOf(fruit);
 
     if (index >= 0) {
-      this.organizationLabels.splice(index, 1);
+      this.userLabels.splice(index, 1);
     }
   }
 }

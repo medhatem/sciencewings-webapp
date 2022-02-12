@@ -90,21 +90,25 @@
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4" appearance="fill">
-                <mat-chip-list #chipList aria-label="Etiquette selection">
+                <mat-chip-list #organizationLabelsChipList aria-label="Etiquette selection">
                   <ng-container *ngFor="let organizationLabel of organizationLabels">
-                    <mat-chip (removed)="remove(organizationLabel)" color="primary" selected
-                      >{{ organizationLabel.name
-                      }}<button matChipRemove>
-                        <mat-icon>cancel</mat-icon>
-                      </button></mat-chip
+                    <mat-chip
+                      (removed)="removeItemMatChip(organizationLabels, organizationLabel)"
+                      color="primary"
+                      selected
                     >
+                      {{ organizationLabel.value }}
+                      <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip>
                   </ng-container>
                   <input
                     placeholder="Étiquettes..."
-                    [matChipInputFor]="chipList"
+                    [matChipInputFor]="organizationLabelsChipList"
                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                    [matChipInputAddOnBlur]="addOnBlur"
-                    (matChipInputTokenEnd)="add($event)"
+                    [matChipInputAddOnBlur]="true"
+                    (matChipInputTokenEnd)="addItemMatChip(organizationLabels, $event)"
                   />
                 </mat-chip-list>
               </mat-form-field>
@@ -216,45 +220,67 @@
 
           <mat-step [formGroupName]="'step3'" [stepControl]="stepperForm.get('step3')">
             <ng-template matStepLabel>Admins & Utilisateurs</ng-template>
-            <p class="my-6 font-medium">Choisir les administrateurs pour cette organization.</p>
+            <p class="my-6 font-medium">Inviter les administrateurs pour cette organization.</p>
             <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
-              <div class="flex-auto gt-xs:pl-3 mx-4">
-                <ng-select
-                  [formControlName]="'admins'"
-                  [items]="admins"
-                  [multiple]="true"
-                  [searchable]="true"
-                  [placeholder]="'Liste des administrateurs'"
-                  bindLabel="name"
-                  bindValue="id"
-                >
-                </ng-select>
-              </div>
-              <div class="flex-auto gt-xs:pl-3 ml-12">
-                <button class="px-8 mr-2" mat-flat-button [color]="'primary'" type="button">
-                  Creation administrateur
-                </button>
+              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4" appearance="fill">
+                <mat-chip-list #adminEmailsChipList formArrayName="adminsEmails" aria-label="Etiquette selection">
+                  <ng-container *ngFor="let adminEmail of adminsEmailListLabels">
+                    <mat-chip
+                      class="py-2 mt-2"
+                      (removed)="removeItemMatChip(adminsEmailListLabels, adminEmail)"
+                      [color]="adminEmail.invalid ? 'warn' : 'secondary'"
+                      selected
+                    >
+                      {{ adminEmail.value }}
+                      <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                  </ng-container>
+                  <input
+                    matInput
+                    placeholder="Enter admin email..."
+                    [matChipInputFor]="adminEmailsChipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="true"
+                    (matChipInputTokenEnd)="addItemMatChip(adminsEmailListLabels, $event, true)"
+                  />
+                </mat-chip-list>
+              </mat-form-field>
+              <div class="text-gray-700 text-opacity-60">
+                <p>Séparer avec avec des commas ou cliquez sur ENTER</p>
+                <p>Exemple: exemple@exemple.com</p>
+                <p>Exemple: exemple01@exemple.com,exemple02@exemple.com</p>
               </div>
             </div>
             <hr class="w-full border-t my-4" />
-            <p class="my-6 font-medium">Choisir les utilisateurs pour cette organization.</p>
+            <p class="my-6 font-medium">Inviter les utilisateurs pour cette organization.</p>
             <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
-              <div class="flex-auto gt-xs:pl-3 mx-4">
-                <ng-select
-                  [formControlName]="'users'"
-                  [items]="users"
-                  [multiple]="true"
-                  [searchable]="true"
-                  [placeholder]="'Liste des utilisateurs'"
-                  bindLabel="name"
-                  bindValue="id"
-                >
-                </ng-select>
-              </div>
-              <div class="flex-auto gt-xs:pl-3 ml-12">
-                <button class="px-8 mr-2" mat-flat-button [color]="'primary'" type="button">
-                  Creation utilisateur
-                </button>
+              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4" appearance="fill">
+                <mat-chip-list #usersEmailLChipList formArrayName="usersEmails" aria-label="Etiquette selection">
+                  <ng-container *ngFor="let userEmail of usersEmailListLabels">
+                    <mat-chip
+                      class="py-2 mt-2"
+                      (removed)="removeItemMatChip(usersEmailListLabels, userEmail)"
+                      [color]="userEmail.invalid ? 'warn' : 'secondary'"
+                      selected
+                    >
+                      {{ userEmail.value }}
+                      <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                  </ng-container>
+                  <input
+                    matInput
+                    placeholder="Enter admin email..."
+                    [matChipInputFor]="usersEmailLChipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="true"
+                    (matChipInputTokenEnd)="addItemMatChip(usersEmailListLabels, $event, true)"
+                  />
+                </mat-chip-list>
+              </mat-form-field>
+              <div class="text-gray-700 text-opacity-60">
+                <p>Séparer avec avec des commas ou cliquez sur ENTER</p>
+                <p>Exemple: exemple@exemple.com</p>
+                <p>Exemple: exemple01@exemple.com,exemple02@exemple.com</p>
               </div>
             </div>
             <div class="flex justify-end mt-8">
@@ -290,7 +316,10 @@
                 Back
               </button>
               <button class="px-8" mat-flat-button [color]="'primary'" type="reset" (click)="horizontalStepper.reset()">
-                Reset
+                Done
+              </button>
+              <button class="px-8" mat-flat-button [color]="'primary'" type="reset" routerLink="{{ ['../'] }}">
+                Create new
               </button>
             </div>
           </mat-step>

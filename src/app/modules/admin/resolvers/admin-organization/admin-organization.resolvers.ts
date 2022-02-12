@@ -72,7 +72,7 @@ export class OrganizationFormResolver implements Resolve<any> {
    * @param state
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AdminOrganizationsCategory> {
-    return this._myOrganizationsService.getCourseById(route.paramMap.get('id')).pipe(
+    return this._myOrganizationsService.getOrganization(route.paramMap.get('id')).pipe(
       // Error here means the requested task is not available
       catchError((error) => {
         // Log the error

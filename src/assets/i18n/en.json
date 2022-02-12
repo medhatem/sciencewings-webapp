@@ -44,6 +44,12 @@
         "USERS": "Users",
         "SUB_ORGANIZATIONS": "Sub-Organizations"
       }
+    },
+    "ERROR": {
+      "CREATE_FAILED": "Organization creation failed"
+    },
+    "SUCCESS": {
+      "CREATE_COMPLETED": "The creation of the organization was successful"
     }
   }
 }
