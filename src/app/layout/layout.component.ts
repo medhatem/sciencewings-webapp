@@ -20,7 +20,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   layout: Layout;
   scheme: 'dark' | 'light';
   theme: string;
-  hideMenusAndButtons = false;
+  hideMenusAndButtons = true;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   /**
@@ -50,9 +50,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
       // Hide all buttons and escapes, and display the new-user-infos form component
       // TO DO : verify user required props
       // If all user infos exists we show the dashboard
-      // if (user) {
-      //   this.hideMenusAndButtons = false;
-      // }
+      if (user) {
+        this.hideMenusAndButtons = false;
+      }
     });
     combineLatest([
       this._fuseConfigService.config$,
