@@ -11,7 +11,7 @@ import {
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { KeycloakService } from 'keycloak-angular';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { User } from 'app/core/user/user.types';
 import { constants } from 'app/shared/constants';
@@ -31,6 +31,7 @@ export class UserComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
+    private _route: ActivatedRoute,
     private _changeDetectorRef: ChangeDetectorRef,
     private _router: Router,
     private _keycloackService: KeycloakService,
@@ -38,10 +39,9 @@ export class UserComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    const { userData } = this._route.snapshot.data;
     this.user = {
-      id: 'cfaad35d-07a3-4447-a6c3-d8c3d54fd5df',
-      name: 'Brian Hughes',
-      email: 'hughes.brian@company.com',
+      ...userData,
       avatar: 'assets/images/avatars/brian-hughes.jpg',
       status: 'online',
     };

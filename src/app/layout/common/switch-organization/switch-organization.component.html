@@ -1,0 +1,32 @@
+<!-- Button -->
+<button class="border-2 rounded-xl shadow p-1" [matMenuTriggerFor]="organizationsMatMenu">
+  <ng-container *ngTemplateOutlet="organizationNameTemplate; context: { $implicit: activeOrganization }"></ng-container>
+</button>
+
+<mat-menu [xPosition]="'before'" #organizationsMatMenu="matMenu">
+  <ng-container *ngIf="availableOrganizations?.length">
+    <ng-container *ngFor="let organization of availableOrganizations">
+      <button mat-menu-item (click)="setActiveOrganization(organization)">
+        <span class="flex items-center">
+          <ng-container
+            *ngTemplateOutlet="organizationNameTemplate; context: { $implicit: organization }"
+          ></ng-container>
+        </span>
+      </button>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!availableOrganizations?.length">
+    <span class="flex items-center">
+      <ng-container
+        *ngTemplateOutlet="organizationNameTemplate; context: { $implicit: activeOrganization }"
+      ></ng-container>
+    </span>
+  </ng-container>
+</mat-menu>
+
+<ng-template let-organization #organizationNameTemplate>
+  <span class="relative overflow-hidden">
+    <mat-icon [svgIcon]="'heroicons_outline:office-building'"></mat-icon>
+    <span *ngIf="activeOrganization" class="hidden md:inline font-medium">{{ organization.name }}</span>
+  </span>
+</ng-template>

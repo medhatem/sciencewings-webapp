@@ -1,18 +1,19 @@
 {
   "WELCOME_BACK": "Hello",
   "PROFILE": "Profile",
+  "EMPTY_ORGANIZATIONS": "No Organization",
   "APP": {
     "ROUTES": {
-      "ORGANIZATION": {
-        "TITLE": "Organization",
-        "PROFILE": {
+      "ADMIN": {
+        "TITLE": "Dashboard",
+        "USER_PROFILE": {
+          "TITLE": "Profil utilisateur"
+        },
+        "ORGANIZATION_PROFILE": {
           "TITLE": "Organization profile"
         },
-        "MY_ORGANIZATIONS": {
-          "TITLE": "My organizations"
-        },
-        "USERS": {
-          "TITLE": "My Organizations users"
+        "ORGANIZATION_MEMBERS": {
+          "TITLE": "Organization members"
         }
       },
       "USER": {
@@ -49,6 +50,12 @@
         "USERS": "Users",
         "SUB_ORGANIZATIONS": "Sub-Organizations"
       }
+    },
+    "ERROR": {
+      "CREATE_FAILED": "Organization creation failed"
+    },
+    "SUCCESS": {
+      "CREATE_COMPLETED": "The creation of the organization was successful"
     }
   }
 }
