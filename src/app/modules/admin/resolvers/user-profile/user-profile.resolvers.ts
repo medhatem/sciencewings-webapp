@@ -23,9 +23,6 @@ export class UserProfileResolver implements Resolve<any> {
    * @param state
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    const { id } = route.queryParams;
-    return;
-    // To Do
-    return this._profileService.getData(id);
+    return this._profileService.getData();
   }
 }

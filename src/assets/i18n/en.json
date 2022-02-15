@@ -18,6 +18,12 @@
       },
       "USER": {
         "TITLE": "User",
+        "TABS": {
+          "ABOUT": "About",
+          "CONTACTS": "Contacts",
+          "TRAINING": "Training & certificats",
+          "MEMBERS": "Supervised members"
+        },
         "PROFILE": {
           "TITLE": "User profile"
         }
