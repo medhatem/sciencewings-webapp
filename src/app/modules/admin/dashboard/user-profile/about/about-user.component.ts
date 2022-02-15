@@ -30,6 +30,5 @@ export class AboutUserComponent implements OnInit, OnDestroy {
 
   private _prepareChartData(): void {
     this.data = this._route.snapshot.data;
-    console.log(this.data);
   }
 }
