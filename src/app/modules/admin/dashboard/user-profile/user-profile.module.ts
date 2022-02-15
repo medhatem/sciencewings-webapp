@@ -12,7 +12,7 @@ import { userProfileRoutes } from './user-profile.routing';
   imports: [
     RouterModule.forChild(userProfileRoutes),
     TranslocoModule,
-    SharedModule
+    SharedModule,
   ],
 })
 export class UserProfileModule {}
