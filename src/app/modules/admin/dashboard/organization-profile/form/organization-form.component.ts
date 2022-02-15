@@ -3,12 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { emailRegex } from 'app/shared/constants.regex';
-import { IOragnization } from 'app/models/organizations/organization.interface';
 import { Organization } from 'app/models/organizations/organization';
 import { IMatChipLabel } from 'app/models/mat-ui/mat-chip-label.interface';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
+import { CreateOrganizationRO } from 'generated/models/create-organization-ro';
+
 
 @Component({
   selector: 'organization-form',
@@ -18,7 +19,7 @@ import { constants } from 'app/shared/constants';
 export class OrganizationFormComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   stepperForm: FormGroup;
-  oragnization: IOragnization;
+  oragnization: CreateOrganizationRO;
   isSubOrganization = false;
   organizationLabels: IMatChipLabel[] = [];
   adminsEmailListLabels: IMatChipLabel[] = [];

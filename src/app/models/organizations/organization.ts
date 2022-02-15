@@ -1,7 +1,6 @@
-import { IOragnization } from './organization.interface';
+import { CreateOrganizationRO } from 'generated/models/create-organization-ro';
 
-export class Organization implements IOragnization {
-  id?: string;
+export class Organization implements CreateOrganizationRO {
   name: string;
   address: any;
   type: any;
@@ -10,47 +9,34 @@ export class Organization implements IOragnization {
   organizationNumber?: string;
   isSubOrganization?: boolean;
   parentId?: string;
-  phones?: any[];
+  phones: any[];
   description?: string;
-  labels?: any[];
+  labels: any[];
   department?: any;
   sector?: any;
   socialMedia?: any[];
+  adminContact: number;
+  direction: number;
+  members: number[];
 
-  constructor(organization?: IOragnization) {
+  constructor(organization?: CreateOrganizationRO) {
     const {
-      id,
       name = '',
       address,
       type,
-      dealingType,
       email = '',
-      organizationNumber,
-      isSubOrganization = false,
       parentId,
       phones,
-      description,
       labels,
-      department,
-      sector,
-      socialMedia,
     } = organization || {};
     Object.assign(this, {
-      id,
       name,
       address,
-      type,
-      dealingType,
+      type,  
       email,
-      organizationNumber,
-      isSubOrganization,
       parentId,
       phones,
-      description,
       labels,
-      department,
-      sector,
-      socialMedia,
     });
   }
 }

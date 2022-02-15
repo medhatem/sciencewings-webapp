@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@a
 import { catchError, Observable, throwError } from 'rxjs';
 import { AdminOrganizationsService } from './admin-organization.service';
 import { AdminOrganizationsCategory } from './admin-organization.types';
+import { CreateOrganizationRO } from 'generated/models';
 
 @Injectable({
   providedIn: 'root',
@@ -71,7 +72,7 @@ export class OrganizationFormResolver implements Resolve<any> {
    * @param route
    * @param state
    */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AdminOrganizationsCategory> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AdminOrganizationsCategory | CreateOrganizationRO> {
     return this._myOrganizationsService.getOrganization(route.paramMap.get('id')).pipe(
       // Error here means the requested task is not available
       catchError((error) => {

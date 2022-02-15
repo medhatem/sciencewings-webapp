@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Course, AdminOrganizationsCategory } from './admin-organization.types';
 import { ApiService } from 'generated/services';
-import { IOragnization } from 'app/models/organizations/organization.interface';
+import { CreateOrganizationRO } from 'generated/models/create-organization-ro';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +11,8 @@ import { IOragnization } from 'app/models/organizations/organization.interface';
 export class AdminOrganizationsService {
   // Private
   private _organizationTypes: BehaviorSubject<AdminOrganizationsCategory[] | null> = new BehaviorSubject(null);
-  private _organization: BehaviorSubject<IOragnization | null> = new BehaviorSubject(null);
-  private _organizations: BehaviorSubject<IOragnization[] | null> = new BehaviorSubject(null);
+  private _organization: BehaviorSubject<CreateOrganizationRO | null> = new BehaviorSubject(null);
+  private _organizations: BehaviorSubject<CreateOrganizationRO[] | null> = new BehaviorSubject(null);
 
   /**
    * Constructor
@@ -33,7 +33,7 @@ export class AdminOrganizationsService {
   /**
    * Getter for organizations
    */
-  get organizations$(): Observable<Course[]> {
+  get organizations$(): Observable<any> {
     return this._organizations.asObservable();
   }
 
@@ -73,7 +73,7 @@ export class AdminOrganizationsService {
   /**
    * Get organization by id
    */
-  getOrganization(id: string | number): Observable<IOragnization> {
+  getOrganization(id: string | number): Observable<CreateOrganizationRO> {
     return this._swaggerService.OrganizationRoutesGetById(Number(id)).pipe(
       map((organization) => {
         // Update the organization
@@ -90,9 +90,8 @@ export class AdminOrganizationsService {
     );
   }
 
-  createOrganization(organization: IOragnization): Observable<any> {
-    // TO DO: change when interface implemented in BackEnd
-    const { name, parentId } = organization;
-    return this._swaggerService.OrganizationRoutesCreateOrganisation({ name, parentId });
+  createOrganization(organization: CreateOrganizationRO): Observable<any> {
+    const { name, parentId, address, adminContact, direction, email, labels, members, phones, type } = organization;
+    return this._swaggerService.OrganizationRoutesCreateOrganization({ name, parentId, address, adminContact, direction, email, labels, members, phones, type });
   }
 }
