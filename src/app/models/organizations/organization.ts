@@ -1,4 +1,3 @@
-//import { IOragnization } from './organization.interface';
 import { CreateOrganizationRO } from 'generated/models/create-organization-ro';
 
 export class Organization implements CreateOrganizationRO {

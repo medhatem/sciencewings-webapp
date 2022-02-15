@@ -91,7 +91,6 @@ export class AdminOrganizationsService {
   }
 
   createOrganization(organization: CreateOrganizationRO): Observable<any> {
-    // TO DO: change when interface implemented in BackEnd
     const { name, parentId, address, adminContact, direction, email, labels, members, phones, type } = organization;
     return this._swaggerService.OrganizationRoutesCreateOrganization({ name, parentId, address, adminContact, direction, email, labels, members, phones, type });
   }
