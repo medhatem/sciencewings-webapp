@@ -12,13 +12,9 @@ import { UserProfileService } from '../../../resolvers/user-profile/user-profile
 })
 export class AboutUserComponent implements OnInit, OnDestroy {
   data: any;
-  selectedMenu: string = 'Select organization';
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
-    private _profileService: UserProfileService,
-    private _keycloackService: KeycloakService,
-    private _router: Router,
     private _route: ActivatedRoute,
   ) {}
 
@@ -34,6 +30,6 @@ export class AboutUserComponent implements OnInit, OnDestroy {
 
   private _prepareChartData(): void {
     this.data = this._route.snapshot.data;
-    console.log('dtata:', this.data.data);
+    console.log(this.data);
   }
 }

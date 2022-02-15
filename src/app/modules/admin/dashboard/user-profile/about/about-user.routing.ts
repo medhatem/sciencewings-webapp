@@ -7,8 +7,6 @@ export const aboutUserRoutes: Route[] = [
   {
     path: '',
     component: AboutUserComponent,
-    resolve: {
-      data: UserProfileResolver,
-    },
+    resolve: { user: UserProfileResolver },
   },
 ];

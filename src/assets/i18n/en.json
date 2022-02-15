@@ -24,6 +24,9 @@
           "TRAINING": "Training & certificats",
           "MEMBERS": "Supervised members"
         },
+        "ABOUT": {
+          "ABOUT_ME": "About me"
+        },
         "PROFILE": {
           "TITLE": "User profile"
         }
