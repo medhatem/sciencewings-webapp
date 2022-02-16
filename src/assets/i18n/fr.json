@@ -18,6 +18,16 @@
       },
       "USER": {
         "TITLE": "Utilisateur",
+        "TABS": {
+          "ABOUT": "À propos",
+          "CONTACTS": "Contacts",
+          "TRAINING": "Formations",
+          "MEMBERS": "Membres"
+        },
+        
+        "ABOUT": {
+          "ABOUT_ME": "À propos de moi"
+        },
         "PROFILE": {
           "TITLE": "Profil utilisateur"
         }

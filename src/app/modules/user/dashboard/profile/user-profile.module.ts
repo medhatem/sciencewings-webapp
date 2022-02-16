@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 import { SharedModule } from 'app/shared/shared.module';
 
-import { UserProfileComponent } from './user-profile.component';
-import { userProfileRoutes } from './user-profile.routing';
+import { UserProfileComponent } from 'app/modules/admin/dashboard/user-profile/user-profile.component';
+import { userProfileRoutes } from 'app/modules/admin/dashboard/user-profile/user-profile.routing';
 
 @NgModule({
   declarations: [UserProfileComponent],

@@ -4,15 +4,17 @@ import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 import { SharedModule } from 'app/shared/shared.module';
 
-import { UserProfileComponent } from './user-profile.component';
-import { userProfileRoutes } from './user-profile.routing';
+import { AboutUserComponent } from './about-user.component';
+import { aboutUserRoutes } from './about-user.routing';
 
 @NgModule({
-  declarations: [UserProfileComponent],
+  declarations: [
+    AboutUserComponent,
+  ],
   imports: [
-    RouterModule.forChild(userProfileRoutes),
+    RouterModule.forChild(aboutUserRoutes),
     TranslocoModule,
     SharedModule,
   ],
 })
-export class UserProfileModule {}
+export class AboutUserModule {}

@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
-import { UserProfileService } from '../../resolvers/user-profile/user-profile.service';
+import { UserProfileService } from '../../../resolvers/user-profile/user-profile.service';
 
 @Component({
-  selector: 'user-profile',
-  templateUrl: './user-profile.component.html',
+  selector: 'about-user',
+  templateUrl: './about-user.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserProfileComponent implements OnInit, OnDestroy {
+export class AboutUserComponent implements OnInit, OnDestroy {
   data: any;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -23,6 +23,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }

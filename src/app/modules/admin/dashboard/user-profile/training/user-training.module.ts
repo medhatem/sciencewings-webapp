@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { TranslocoModule } from '@ngneat/transloco';
 import { SharedModule } from 'app/shared/shared.module';
 
-import { UserProfileComponent } from './user-profile.component';
-import { userProfileRoutes } from './user-profile.routing';
+import { UserTrainingComponent } from './user-training.component';
+import { userTrainingRoutes } from './user-training.routing';
 
 @NgModule({
-  declarations: [UserProfileComponent],
+  declarations: [
+    UserTrainingComponent,
+  ],
   imports: [
-    RouterModule.forChild(userProfileRoutes),
+    RouterModule.forChild(userTrainingRoutes),
     TranslocoModule,
     SharedModule,
   ],
 })
-export class UserProfileModule {}
+export class UserTrainingModule {}
