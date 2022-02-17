@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TranslatePipe } from './pipes/transloco.pipe';
 import { FuseCardModule } from '@fuse/components/card/card.module';
 import { A11yModule } from '@angular/cdk/a11y';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
@@ -49,7 +48,6 @@ import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
-  declarations: [TranslatePipe],
   imports: [
     CommonModule,
     FormsModule,
@@ -105,7 +103,6 @@ import { OverlayModule } from '@angular/cdk/overlay';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    TranslatePipe,
     FuseCardModule,
     A11yModule,
     CdkAccordionModule,
