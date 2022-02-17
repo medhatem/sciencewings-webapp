@@ -4,13 +4,7 @@ import { Error404Component } from './error-404.component';
 import { error404Routes } from 'app/modules/admin/pages/error/error-404/error-404.routing';
 
 @NgModule({
-    declarations: [
-        Error404Component
-    ],
-    imports     : [
-        RouterModule.forChild(error404Routes)
-    ]
+  declarations: [Error404Component],
+  imports: [RouterModule.forChild(error404Routes)],
 })
-export class Error404Module
-{
-}
+export class Error404Module {}
