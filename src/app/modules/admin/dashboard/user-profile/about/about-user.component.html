@@ -75,7 +75,7 @@
 
     <div class="flex flex-col items-start">
         <fuse-card class="flex flex-col max-w-140 w-full p-6 sm:p-8 pb-6">
-            <div class="text-2xl font-semibold leading-tight">{{ 'APP.ROUTES.USER.ABOUT.ABOUT_ME' | translate }}</div>
+            <div class="text-2xl font-semibold leading-tight">{{ 'APP.ROUTES.USER.ABOUT.ABOUT_ME' | transloco }}</div>
             
             <div class="mt-4" [innerHTML]="data.user.notes">
                 <!-- using the notes property in user mock-api, it contains HTML so for now i'm using innerHTML -->    
