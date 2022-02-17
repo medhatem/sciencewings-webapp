@@ -11,7 +11,6 @@ import {
 import { SwitchOrganizationsService } from './switch-organization.service';
 import { NewUserInfosResolver } from 'app/layout/new-user-infos/new-user-infos.resolver';
 import { ActivatedRoute } from '@angular/router';
-import { TranslatePipe } from 'app/shared/pipes/transloco.pipe';
 import { User } from 'app/core/user/user.types';
 import { constants } from 'app/shared/constants';
 
@@ -32,7 +31,6 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
     private _switchOrganizationsService: SwitchOrganizationsService,
     private _newUserInfosResolver: NewUserInfosResolver,
     private _route: ActivatedRoute,
-    private _translatePipe: TranslatePipe,
   ) {}
 
   ngOnDestroy(): void {}
@@ -49,7 +47,7 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
         this.availableOrganizations = organizations || [];
         this.activeOrganization = this.availableOrganizations[0] || {
           id: constants.EMPTY_ORGANIZATIONS,
-          name: this._translatePipe.transform(constants.EMPTY_ORGANIZATIONS),
+          name: constants.EMPTY_ORGANIZATIONS, // TODO: Check for translation issues
         };
       });
   }
