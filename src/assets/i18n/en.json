@@ -7,7 +7,7 @@
       "ADMIN": {
         "TITLE": "Dashboard",
         "USER_PROFILE": {
-          "TITLE": "Profil utilisateur"
+          "TITLE": "User profile"
         },
         "ORGANIZATION_PROFILE": {
           "TITLE": "Organization profile"
