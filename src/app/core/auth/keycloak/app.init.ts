@@ -1,4 +1,4 @@
-import { KEYCLOAK_TOKEN } from '@fuse/services/config/config.constants';
+import { KEYCLOAK_BEARER } from '@fuse/services/config/config.constants';
 import { KeycloakService } from 'keycloak-angular';
 import { EnvService } from '../../../environment/env.service';
 
@@ -17,7 +17,7 @@ export const initializeKeycloak = (keycloak: KeycloakService) => {
       },
       loadUserProfileAtStartUp: true,
       enableBearerInterceptor: true,
-      bearerPrefix: KEYCLOAK_TOKEN,
+      bearerPrefix: KEYCLOAK_BEARER,
       bearerExcludedUrls: ['/assets'],
     });
 };
