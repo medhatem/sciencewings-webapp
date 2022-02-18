@@ -24,7 +24,7 @@
           "TRAINING": "Formations",
           "MEMBERS": "Membres"
         },
-        
+
         "ABOUT": {
           "ABOUT_ME": "À propos de moi"
         },
@@ -44,9 +44,6 @@
   },
   "ORGANIZATION": {
     "PROFILE": {
-      "HEADER": {
-        "SELECT_ORGANIZATION": "Sélectionnez une organisation"
-      },
       "DETAILS": {},
       "TABS": {
         "GENERAL_INFOS": "Informations générales",
@@ -54,6 +51,9 @@
         "USERS": "Utilisateurs",
         "SUB_ORGANIZATIONS": "Sous-Organisations"
       }
+    },
+    "FORM": {
+      "TITLE": "Création d'Organisation"
     },
     "ERROR": {
       "CREATE_FAILED": "La creation de l'organisation a échouée"

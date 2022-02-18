@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -8,8 +8,10 @@ import { IMatChipLabel } from 'app/models/mat-ui/mat-chip-label.interface';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
-import { CreateOrganizationRO } from 'generated/models/create-organization-ro';
-
+import { MatStepper } from '@angular/material/stepper';
+import { ActivatedRoute } from '@angular/router';
+import { Address } from 'app/models/organizations/address';
+import { Phone } from 'app/models/organizations/phone';
 
 @Component({
   selector: 'organization-form',
@@ -17,65 +19,75 @@ import { CreateOrganizationRO } from 'generated/models/create-organization-ro';
   encapsulation: ViewEncapsulation.None,
 })
 export class OrganizationFormComponent implements OnInit {
+  @ViewChild(MatStepper) horizontalStepper: MatStepper;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   stepperForm: FormGroup;
-  oragnization: CreateOrganizationRO;
+  oragnization = new Organization();
   isSubOrganization = false;
   organizationLabels: IMatChipLabel[] = [];
   adminsEmailListLabels: IMatChipLabel[] = [];
   usersEmailListLabels: IMatChipLabel[] = [];
-  /**
-   * Constructor
-   */
+
   constructor(
     private _formBuilder: FormBuilder,
     private _adminOrganizationsService: AdminOrganizationsService,
     private _toastrService: ToastrService,
+    private _route: ActivatedRoute,
   ) {}
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
   ngOnInit(): void {
-    this.oragnization = new Organization();
-    // Horizontal stepper form
+    const { parentId = '' } = this._route.snapshot.data;
     this.stepperForm = this._formBuilder.group({
       step1: this._formBuilder.group({
-        dealingType: ['', [Validators.required]],
-        isSubOrganization: [''],
-        subOrganization: [''],
+        dealingType: [''],
+        isSubOrganization: [this.isSubOrganization],
+        parentId: [parentId],
         name: ['', [Validators.required]],
-        organizationNumber: [''],
+        adminContact: [''],
+        direction: [''],
         email: ['', [Validators.required, Validators.email]],
         organizationType: ['', Validators.required],
         description: [''],
         phoneNumber: [''],
-        labels: [''],
+        phoneCode: [''],
+        phoneLabel: [''],
+        labels: [this.organizationLabels],
       }),
       step2: this._formBuilder.group({
-        apartNumber: [''],
-        about: [''],
-        streetNumber: [''],
-        street: [''],
+        appartement: [''],
+        city: [''],
+        code: [''],
         country: [''],
         province: [''],
-        postalCode: [''],
+        street: [''],
         department: [''],
-        sector: ['', Validators.required],
-        facebook: [''],
-        linkedin: [''],
-        twitter: [''],
-        other: [''],
+        sector: [''],
+        socialFacebook: [''],
+        socialGithub: [''],
+        socialInstagram: [''],
+        socialLinkedin: [''],
+        socialTwitter: [''],
+        socialYoutube: [''],
       }),
       step3: this._formBuilder.group({
         adminsEmails: this._formBuilder.array([]),
         usersEmails: this._formBuilder.array([]),
       }),
     });
+  }
+
+  onDone() {
+    this.createOrganization();
+  }
+
+  onDoneAndCreateNew() {
+    if (this.stepperForm.valid) {
+      this.createOrganization();
+      this.horizontalStepper.reset();
+    } else {
+      this._toastrService.showError('', constants.CREATE_ORGANIZATION_FAILED);
+      return;
+    }
   }
 
   addItemMatChip(matItemLabelList: IMatChipLabel[], event: MatChipInputEvent, isEmail: boolean = false): void {
@@ -94,12 +106,38 @@ export class OrganizationFormComponent implements OnInit {
     }
   }
 
+  // -----------------------------------------------------------------------------------------------------
+  // @ Private methods
+  // -----------------------------------------------------------------------------------------------------
+
   private createOrganization() {
-    this._adminOrganizationsService.createOrganization(this.oragnization).subscribe({
-      next: (resOrganization) => resOrganization,
-      error: (err) => this._toastrService.showError(err, constants.CREATE_ORGANIZATION_FAILED),
-      complete: () => this._toastrService.showError('', constants.CREATE_ORGANIZATION_COMPLETED),
-    });
+    this.setOrganizationInfo();
+    if (this.stepperForm.valid) {
+      console.log('this.stepperForm.valid ', this.stepperForm.valid);
+      console.log('this.stepperForm ', this.stepperForm);
+      this._adminOrganizationsService.createOrganization(this.oragnization).subscribe({
+        next: (res) => console.log('res ', res),
+        error: (err) => {
+          this._toastrService.showError(err, constants.CREATE_ORGANIZATION_FAILED);
+          return false;
+        },
+        complete: () => {
+          this._toastrService.showSuccess('', constants.CREATE_ORGANIZATION_COMPLETED);
+          this.stepperForm.reset();
+          return true;
+        },
+      });
+    }
+  }
+
+  private setOrganizationInfo() {
+    const { step1, step2, step3 } = this.stepperForm.getRawValue();
+    const phones = [new Phone({ ...step1 })];
+    const address = new Address({ type: 'ORGANIZATION', ...step2 });
+    const { adminsEmails = [], usersEmails = [] } = step3;
+    this.adminsEmailListLabels = adminsEmails;
+    this.usersEmailListLabels = usersEmails;
+    this.oragnization = new Organization({ ...this.oragnization, phones, address, ...step1, ...step2 });
   }
 
   private validateEmail(email: string): boolean {

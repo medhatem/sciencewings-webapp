@@ -43,9 +43,6 @@
   },
   "ORGANIZATION": {
     "PROFILE": {
-      "HEADER": {
-        "SELECT_ORGANIZATION": "Select an organization"
-      },
       "DETAILS": {},
       "TABS": {
         "GENERAL_INFOS": "General informations",
@@ -53,6 +50,9 @@
         "USERS": "Users",
         "SUB_ORGANIZATIONS": "Sub-Organizations"
       }
+    },
+    "FORM": {
+      "TITLE": "Create Organization"
     },
     "ERROR": {
       "CREATE_FAILED": "Organization creation failed"

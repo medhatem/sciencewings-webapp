@@ -7,7 +7,7 @@
         <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:arrow-circle-left'"></mat-icon>
         <span class="ml-2">Back</span>
       </button>
-      <div class="font-semibold"><b>Creation d'entreprise</b></div>
+      <div class="font-semibold"><b>{{ 'ORGANIZATION.FORM.TITLE' | transloco }}</b></div>
       <div></div>
     </div>
   </div>
@@ -15,7 +15,7 @@
   <div class="flex flex-auto mt-2">
     <div class="flex flex-col flex-auto w-full max-w-lg sm:max-w-7xl mx-auto">
       <form class="p-4 mt-2 bg-card shadow rounded overflow-hidden" [formGroup]="stepperForm">
-        <mat-horizontal-stepper [linear]="false" #horizontalStepper>
+        <mat-horizontal-stepper [linear]="true" #horizontalStepper>
           <mat-step [formGroupName]="'step1'" [stepControl]="stepperForm.get('step1')" #horizontalStepperStep1>
             <ng-template matStepLabel>Informations générales</ng-template>
             <p class="my-6 font-medium">Remplissez vos informations de base pour votre organization</p>
@@ -315,10 +315,24 @@
               <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
                 Back
               </button>
-              <button class="px-8" mat-flat-button [color]="'primary'" type="reset" (click)="horizontalStepper.reset()">
+              <button
+                class="px-8 mr-2"
+                [disabled]="!stepperForm.valid"
+                mat-flat-button
+                [color]="'primary'"
+                type="button"
+                (click)="onDone()"
+              >
                 Done
               </button>
-              <button class="px-8" mat-flat-button [color]="'primary'" type="reset" routerLink="{{ ['../'] }}">
+              <button
+                class="px-8"
+                [disabled]="!stepperForm.valid"
+                mat-flat-button
+                [color]="'primary'"
+                type="reset"
+                (click)="onDoneAndCreateNew()"
+              >
                 Create new
               </button>
             </div>
