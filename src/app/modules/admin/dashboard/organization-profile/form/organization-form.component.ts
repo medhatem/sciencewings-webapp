@@ -113,10 +113,8 @@ export class OrganizationFormComponent implements OnInit {
   private createOrganization() {
     this.setOrganizationInfo();
     if (this.stepperForm.valid) {
-      console.log('this.stepperForm.valid ', this.stepperForm.valid);
-      console.log('this.stepperForm ', this.stepperForm);
       this._adminOrganizationsService.createOrganization(this.oragnization).subscribe({
-        next: (res) => console.log('res ', res),
+        next: (result) => result,
         error: (err) => {
           this._toastrService.showError(err, constants.CREATE_ORGANIZATION_FAILED);
           return false;

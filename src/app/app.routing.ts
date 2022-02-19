@@ -90,10 +90,10 @@ export const appRoutes: Route[] = [
       },
     ],
   },
-  
   {
     path: '**',
     pathMatch: 'full',
-    loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.module').then(m => m.Error404Module)
-  }
+    loadChildren: () =>
+      import('app/modules/admin/pages/error/error-404/error-404.module').then((m) => m.Error404Module),
+  },
 ];
