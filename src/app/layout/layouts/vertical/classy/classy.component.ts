@@ -9,7 +9,7 @@ import {
   FuseVerticalNavigationComponent,
 } from '@fuse/components/navigation';
 import { User } from 'app/core/user/user.types';
-import { appRoutes, routesParentPath } from 'app/app.routing';
+import { appRoutes, errorPath } from 'app/app.routing';
 
 @Component({
   selector: 'classy-layout',
@@ -39,7 +39,6 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const { userData } = this._route.snapshot.data;
-    this.resetNavigation(this.hideMenusAndButtons);
     this.resetNavigation(this.hideMenusAndButtons);
     // Subscribe to navigation data
     this.user = {
@@ -97,8 +96,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
     if (hideNavigation) {
       this.navigation = [];
     } else {
-      const { children: dashboardsRoutesChildren = [] } = appRoutes.find(({ path }) => path === routesParentPath);
-      this.navigation = this.getNavigationItemsFromRoutes(dashboardsRoutesChildren, `/${routesParentPath}`);
+      const { children: dashboardsRoutesChildren = [] } = appRoutes.find(({ path }) => path === '');
+      this.navigation = this.getNavigationItemsFromRoutes(dashboardsRoutesChildren, '/');
     }
   }
 
@@ -118,8 +117,11 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
    * @param parentPath (optional)
    */
   private getNavigationItemsFromRoutes(routes: Route[], parentPath: string = ''): FuseNavigationItem[] {
-    return routes.map(({ path = '', data, children = [] }) => {
+    return routes.reduce((acc, { path = '', data, children = [] }) => {
       const { title = path, type = FuseNavigationItemTypeEnum.basic, icon } = data || {};
+      if (path === errorPath) {
+        return acc;
+      }
       const id = `${parentPath}.${path}`.replace('/', '');
       const link = `${parentPath ? `${parentPath}` : ''}/${path}`;
       const navigationItem = { id, title, type, link } as FuseNavigationItem;
@@ -129,7 +131,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
       if (icon) {
         navigationItem.icon = icon;
       }
-      return navigationItem;
-    });
+      acc.push(navigationItem);
+      return acc;
+    }, []);
   }
 }
