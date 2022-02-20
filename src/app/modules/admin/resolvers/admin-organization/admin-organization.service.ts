@@ -4,6 +4,7 @@ import { BehaviorSubject, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Course, AdminOrganizationsCategory } from './admin-organization.types';
 import { ApiService } from 'generated/services';
 import { CreateOrganizationRO } from 'generated/models/create-organization-ro';
+import { Organization } from 'app/models/organizations/organization';
 
 @Injectable({
   providedIn: 'root',
@@ -90,8 +91,21 @@ export class AdminOrganizationsService {
     );
   }
 
-  createOrganization(organization: CreateOrganizationRO): Observable<any> {
+  createOrganization(organization: Organization): Observable<Organization> {
     const { name, parentId, address, adminContact, direction, email, labels, members, phones, type } = organization;
-    return this._swaggerService.OrganizationRoutesCreateOrganization({ name, parentId, address, adminContact, direction, email, labels, members, phones, type });
+    return this._swaggerService
+      .OrganizationRoutesCreateOrganization({
+        name,
+        parentId,
+        address,
+        adminContact,
+        direction,
+        email,
+        labels,
+        members,
+        phones,
+        type,
+      })
+      .pipe(map(({ body }) => new Organization(body)));
   }
 }

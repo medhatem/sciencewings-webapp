@@ -1,26 +1,45 @@
-import { CreateOrganizationRO } from 'generated/models/create-organization-ro';
+import { CreateOrganizationRO } from 'generated/models';
+import { Address } from './address';
+import { Phone } from './phone';
 
 export class Organization implements CreateOrganizationRO {
-  name: string;
-  address: any;
-  type: any;
-  dealingType: any;
-  email: any;
-  organizationNumber?: string;
-  isSubOrganization?: boolean;
-  parentId?: string;
-  phones: any[];
+  id?: string;
   description?: string;
-  labels: any[];
-  department?: any;
-  sector?: any;
-  socialMedia?: any[];
+  department?: string;
+  sector?: string;
+  address: Address[];
   adminContact: number;
   direction: number;
+  email: string;
+  labels: string[];
   members: number[];
+  name: string;
+  parentId?: string;
+  phones: Phone[];
+  socialFacebook?: string;
+  socialGithub?: string;
+  socialInstagram?: string;
+  socialLinkedin?: string;
+  socialTwitter?: string;
+  socialYoutube?: string;
+  type: string;
+  dealingType: string;
 
-  constructor(organization?: CreateOrganizationRO) {
+  constructor(organization?: any) {
     const {
+      id,
+      description,
+      department,
+      sector,
+      adminContact,
+      direction,
+      members,
+      socialFacebook,
+      socialGithub,
+      socialInstagram,
+      socialLinkedin,
+      socialTwitter,
+      socialYoutube,
       name = '',
       address,
       type,
@@ -28,15 +47,30 @@ export class Organization implements CreateOrganizationRO {
       parentId,
       phones,
       labels,
+      dealingType,
     } = organization || {};
     Object.assign(this, {
-      name,
+      id,
+      description,
+      department,
+      sector,
       address,
-      type,  
+      adminContact,
+      direction,
       email,
+      labels,
+      members,
+      name,
       parentId,
       phones,
-      labels,
+      socialFacebook,
+      socialGithub,
+      socialInstagram,
+      socialLinkedin,
+      socialTwitter,
+      socialYoutube,
+      type,
+      dealingType,
     });
   }
 }
