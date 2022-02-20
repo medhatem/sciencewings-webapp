@@ -9,6 +9,7 @@ import {
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { environment } from 'environments/environment';
 import { TranslocoHttpLoader } from 'app/core/transloco/transloco.http-loader';
+import { lastValueFrom } from 'rxjs';
 
 @NgModule({
   exports: [TranslocoModule],
@@ -47,7 +48,7 @@ import { TranslocoHttpLoader } from 'app/core/transloco/transloco.http-loader';
         (): Promise<Translation> => {
           const defaultLang = translocoService.getDefaultLang();
           translocoService.setActiveLang(defaultLang);
-          return translocoService.load(defaultLang).toPromise();
+          return lastValueFrom(translocoService.load(defaultLang));
         },
       multi: true,
     },
