@@ -1,8 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
-import { KeycloakService } from 'keycloak-angular';
-import { MenuCalendarService } from '../../resolvers/calendar/calendar.service';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { CalendarOptions, EventClickArg, FullCalendarComponent } from '@fullcalendar/angular';
 
 @Component({
   selector: 'calendar-profile',
@@ -10,44 +7,52 @@ import { MenuCalendarService } from '../../resolvers/calendar/calendar.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MenuCalendarComponent implements OnInit, OnDestroy {
-  data: any;
-  selectedMenu: string = 'Select organization';
-  private _unsubscribeAll: Subject<any> = new Subject<any>();
+export class MenuCalendarComponent implements OnInit {
+  @ViewChild('calendar') calendarComponent: FullCalendarComponent;
+  events: any[] = [];
+  calendarOptions: CalendarOptions = {
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+    },
+    initialView: 'dayGridMonth',
+    weekends: true,
+    editable: true,
+    selectable: true,
+    selectMirror: true,
+    dayMaxEvents: true,
+    dateClick: this.onDateClick.bind(this),
+    // Example :
+    events: [
+      { title: 'event 1', date: '2022-02-24', textColor: 'black' },
+      { title: 'event 2', date: '2022-02-20' },
+      { title: 'event 3', date: '2022-02-20' },
+      { title: 'event 4', date: '2022-02-22', allDay: true, editable: true },
+    ],
+    eventClick: this.eventClick,
+  };
+  constructor() {}
 
-  constructor(
-    private _profileService: MenuCalendarService,
-    private _keycloackService: KeycloakService,
-    private _router: Router,
-  ) {}
-
-  /**
-   * On init
-   */
-  ngOnInit(): void {
-    // this._keycloackService.
-    // this._profileService.data$.pipe(takeUntil(this._unsubscribeAll)).subscribe((data) => {
-    //   this.data = data;
-    //   this._prepareChartData();
-    // });
-    this._prepareChartData();
+  onDateClick(res: any) {
+    // To Do
+    // On click open a modal with the date clicked on
+    // in the modal we can set new event or modify or view or delete
+    alert('Clicked on date : ' + res.dateStr);
   }
 
-  /**
-   * On destroy
-   */
-  ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
-    this._unsubscribeAll.next(null);
-    this._unsubscribeAll.complete();
+  // Example of fullCalendar options
+  eventClick(event: EventClickArg) {
+    alert('event : ' + event);
   }
 
-  /**
-   * Prepare the chart data from the data
-   *
-   * @private
-   */
-  private _prepareChartData(): void {
-    // Za3ma To Do
+  ngOnInit() {
+    // To Do
+    setTimeout(() => {
+      // return get events .subscribe((res: any) => {
+      //   this.Events.push(res);
+      //   console.log(this.Events);
+      // });
+    }, 2200);
   }
 }
