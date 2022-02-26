@@ -65,16 +65,16 @@
         <div class="col-span-2 flex flex-col flex-auto py-6 bg-card shadow rounded-2xl overflow-hidden">
           <!-- Tabs -->
           <mat-tab-group class="sm:px-2" animationDuration="500ms">
-            <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.GENERAL_INFOS' | translate }}">
+            <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.GENERAL_INFOS' | transloco }}">
               <ng-container *ngTemplateOutlet="organizationInfosTemplate"></ng-container>
             </mat-tab>
-            <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.RESOURCES' | translate }}">
+            <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.RESOURCES' | transloco }}">
               <ng-container *ngTemplateOutlet="organizationResourcesTemplate"></ng-container>
             </mat-tab>
-            <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.USERS' | translate }}">
+            <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.USERS' | transloco }}">
               <ng-container *ngTemplateOutlet="organizationUsersTemplate"></ng-container>
             </mat-tab>
-            <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.SUB_ORGANIZATIONS' | translate }}">
+            <mat-tab label="{{ 'ORGANIZATION.PROFILE.TABS.SUB_ORGANIZATIONS' | transloco }}">
               <ng-container *ngTemplateOutlet="organizationSubOrganizationsListTemplate"></ng-container>
             </mat-tab>
           </mat-tab-group>

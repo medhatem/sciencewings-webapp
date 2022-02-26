@@ -10,7 +10,6 @@ import {
 } from '@fuse/components/navigation';
 import { User } from 'app/core/user/user.types';
 import { appRoutes, routesParentPath } from 'app/app.routing';
-import { TranslatePipe } from 'app/shared/pipes/transloco.pipe';
 
 @Component({
   selector: 'classy-layout',
@@ -27,7 +26,6 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _translatePipe: TranslatePipe,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _fuseNavigationService: FuseNavigationService,
   ) {}
@@ -122,10 +120,9 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
   private getNavigationItemsFromRoutes(routes: Route[], parentPath: string = ''): FuseNavigationItem[] {
     return routes.map(({ path = '', data, children = [] }) => {
       const { title = path, type = FuseNavigationItemTypeEnum.basic, icon } = data || {};
-      const translatedTitle = this._translatePipe.transform(title);
       const id = `${parentPath}.${path}`.replace('/', '');
       const link = `${parentPath ? `${parentPath}` : ''}/${path}`;
-      const navigationItem = { id, title: translatedTitle, type, link } as FuseNavigationItem;
+      const navigationItem = { id, title, type, link } as FuseNavigationItem;
       if (children?.length) {
         navigationItem.children = this.getNavigationItemsFromRoutes(children, link);
       }

@@ -11,6 +11,12 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [AdminOrganizationComponent, OrganizationFormComponent, OrganizationProfileComponent],
-  imports: [RouterModule.forChild(adminOrganizationRoutes), FuseFindByKeyPipeModule, SharedModule, NgSelectModule],
+  imports: [
+    RouterModule.forChild(adminOrganizationRoutes),
+    FuseFindByKeyPipeModule,
+    SharedModule,
+    NgSelectModule,
+    TranslocoModule,
+  ],
 })
 export class AdminOrganizationModule {}
