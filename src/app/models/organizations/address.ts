@@ -1,6 +1,7 @@
-import { AddressOrganizationDTO } from 'generated/models';
+import { AddressDTO } from 'generated/models';
 
-export class Address implements AddressOrganizationDTO {
+export class Address implements AddressDTO {
+  id: number;
   appartement: number;
   city: string;
   code: string;

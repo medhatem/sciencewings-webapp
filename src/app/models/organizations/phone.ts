@@ -1,6 +1,7 @@
 import { PhoneDTO } from 'generated/models';
 
 export class Phone implements PhoneDTO {
+  id: number;
   code: string;
   label: string;
   value: number;
@@ -8,7 +9,7 @@ export class Phone implements PhoneDTO {
   userId?: number;
   // To remove once DTO updated
   // eslint-disable-next-line id-blacklist
-  number: number;
+  number: string;
 
   constructor(phone: any) {
     const { code, label, value, organizationId, userId } = phone || {};
