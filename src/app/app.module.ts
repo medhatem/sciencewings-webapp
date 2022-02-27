@@ -19,11 +19,16 @@ import { mockApiServices } from 'app/mock-api';
 import { EnvServiceProvider } from './environment/env.service.provider';
 import { environment } from 'environments/environment';
 import { NewUserInfosModule } from './layout/new-user-infos/new-user-infos.module';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import interactionPlugin from '@fullcalendar/interaction';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy: PreloadAllModules,
   scrollPositionRestoration: 'enabled',
 };
+
+FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
 @NgModule({
   declarations: [AppComponent],
@@ -47,6 +52,7 @@ const routerConfig: ExtraOptions = {
 
     // 3rd party modules that require global configuration
     KeycloakAngularModule,
+    FullCalendarModule,
   ],
   providers: [
     EnvServiceProvider,

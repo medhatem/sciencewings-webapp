@@ -5,14 +5,11 @@ import { AuthGuard } from './core/auth/keycloak/app.guard';
 import { FuseNavigationItemTypeEnum } from '@fuse/components/navigation/navigation.types';
 import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
 
-export const routesParentPath = 'dashboards';
+export const errorPath = '**';
 export const appRoutes: Route[] = [
-  // Redirect empty path to '/dashboard/profile'
-  { path: '', pathMatch: 'full', redirectTo: routesParentPath },
-
   // dashboard routes
   {
-    path: routesParentPath,
+    path: '',
     canActivate: [AuthGuard],
     component: LayoutComponent,
     resolve: {
@@ -88,14 +85,12 @@ export const appRoutes: Route[] = [
           },
         ],
       },
+      {
+        path: errorPath,
+        pathMatch: 'full',
+        loadChildren: () =>
+          import('app/modules/admin/pages/error/error-404/error-404.module').then((m) => m.Error404Module),
+      },
     ],
   },
-  
-  // 404 & Catch all
-  {
-    path: '404-not-found',
-    pathMatch: 'full',
-    loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.module').then(m => m.Error404Module)
-  },
-  { path: '**', redirectTo: '404-not-found' }
 ];
