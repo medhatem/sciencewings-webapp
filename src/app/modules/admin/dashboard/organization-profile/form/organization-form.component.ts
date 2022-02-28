@@ -7,11 +7,12 @@ import { Organization } from 'app/models/organizations/organization';
 import { IMatChipLabel } from 'app/models/mat-ui/mat-chip-label.interface';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { constants } from 'app/shared/constants';
+import { constants, countries, enterprisesTypes } from 'app/shared/constants';
 import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
 import { Address } from 'app/models/organizations/address';
 import { Phone } from 'app/models/organizations/phone';
+import moment from 'moment-timezone';
 
 @Component({
   selector: 'organization-form',
@@ -27,6 +28,9 @@ export class OrganizationFormComponent implements OnInit {
   organizationLabels: IMatChipLabel[] = [];
   adminsEmailListLabels: IMatChipLabel[] = [];
   usersEmailListLabels: IMatChipLabel[] = [];
+  countries = countries;
+  enterprisesTypes = enterprisesTypes;
+  timezoneList = moment.tz.names();
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -48,6 +52,7 @@ export class OrganizationFormComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         organizationType: ['', Validators.required],
         description: [''],
+        timezone: ['America/Montreal', Validators.required],
         phoneNumber: [''],
         phoneCode: [''],
         phoneLabel: [''],

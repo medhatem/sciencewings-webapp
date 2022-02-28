@@ -7,7 +7,9 @@
         <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:arrow-circle-left'"></mat-icon>
         <span class="ml-2">Back</span>
       </button>
-      <div class="font-semibold"><b>{{ 'ORGANIZATION.FORM.TITLE' | transloco }}</b></div>
+      <div class="font-semibold">
+        <b>{{ 'ORGANIZATION.FORM.TITLE' | transloco }}</b>
+      </div>
       <div></div>
     </div>
   </div>
@@ -17,24 +19,22 @@
       <form class="p-4 mt-2 bg-card shadow rounded overflow-hidden" [formGroup]="stepperForm">
         <mat-horizontal-stepper [linear]="true" #horizontalStepper>
           <mat-step [formGroupName]="'step1'" [stepControl]="stepperForm.get('step1')" #horizontalStepperStep1>
-            <ng-template matStepLabel>Informations générales</ng-template>
-            <p class="my-6 font-medium">Remplissez vos informations de base pour votre organization</p>
+            <ng-template matStepLabel>{{ 'ORGANIZATION.FORM.STEP1.TITLE' | transloco }}</ng-template>
+            <p class="my-6 font-medium">{{ 'ORGANIZATION.FORM.STEP1.SUB_TITLE' | transloco }}</p>
             <div class="flex flex-col gt-xs:flex-row">
-              <div
-                class="sm:grid sm:grid-cols-3 mx-4 flex items-center pt-4 px-8 border-solid border-inherit border rounded-lg min-h-22"
-              >
+              <div class="sm:grid sm:grid-cols-3 mx-4 flex items-center pt-4 px-8 border-solid border-inherit border rounded-lg min-h-22">
                 <mat-checkbox
                   class="mb-4"
                   [formControlName]="'isSubOrganization'"
                   (change)="isSubOrganization = !isSubOrganization"
                   [color]="'primary'"
                 >
-                  Définir comme sous-organisation:
+                  {{ 'ORGANIZATION.FORM.STEP1.SUB_ORGANIZATION' | transloco }}:
                 </mat-checkbox>
                 <mat-form-field *ngIf="isSubOrganization" class="flex-auto gt-xs:pl-3 mx-4">
                   <mat-select
                     [formControlName]="'subOrganization'"
-                    [placeholder]="'Choose parent organization'"
+                    placeholder="{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}"
                     required
                   >
                     <mat-option value="language-1">Organization 01</mat-option>
@@ -45,10 +45,14 @@
                 </mat-form-field>
               </div>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 mt-4">
-                <mat-select [formControlName]="'dealingType'" [placeholder]="'Organization Interne/Externe'" required>
-                  <mat-option value="language-1">Seulement a l Interne/Externe</mat-option>
-                  <mat-option value="language-1">Seulement a l Externe</mat-option>
-                  <mat-option value="language-1">Interne & Externe</mat-option>
+                <mat-select
+                  [formControlName]="'dealingType'"
+                  placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}"
+                  required
+                >
+                  <mat-option value="language-1">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.BOTH' | transloco }}</mat-option>
+                  <mat-option value="language-1">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.INTERNAL' | transloco }}</mat-option>
+                  <mat-option value="language-1">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.EXTERNAL' | transloco }}</mat-option>
                 </mat-select>
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
               </mat-form-field>
@@ -56,47 +60,40 @@
             <hr class="w-full border-t my-4" />
             <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
               <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
-                <input matInput [formControlName]="'name'" [placeholder]="'Nom de l organization'" required />
+                <input matInput [formControlName]="'name'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.NAME' | transloco }}" required />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-                <input matInput [formControlName]="'organizationNumber'" [placeholder]="'Numéro d entregistrement'" />
-                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:newspaper'"></mat-icon>
+                <mat-select [formControlName]="'timezone'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.TIMEZONE' | transloco }}" required>
+                  <mat-option *ngFor="let timezone of timezoneList" [value]="timezone">{{ timezone }}</mat-option>
+                </mat-select>
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:library'"></mat-icon>
               </mat-form-field>
             </div>
             <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
               <mat-form-field class="flex-auto mx-4">
-                <input matInput [formControlName]="'email'" [placeholder]="'Email Address'" required />
+                <input matInput [formControlName]="'email'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.EMAIL' | transloco }}" required />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-                <mat-select [formControlName]="'organizationType'" [placeholder]="'Choose organization type'" required>
-                  <mat-option value="language-1">Entreprise individuelle.</mat-option>
-                  <mat-option value="language-2">Société par actions (compagnie)</mat-option>
-                  <mat-option value="language-2">Société en nom collectif (S.E.N.C.)</mat-option>
-                  <mat-option value="language-2">Société en commandite (S.E.C.)</mat-option>
-                  <mat-option value="language-2">Société en participation</mat-option>
-                  <mat-option value="language-2">Personne morale sans but lucratif</mat-option>
-                  <mat-option value="language-2">Syndicat de copropriété</mat-option>
-                  <mat-option value="language-2">Association</mat-option>
-                  <mat-option value="language-2">autre</mat-option>
+                <mat-select [formControlName]="'organizationType'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.TYPE' | transloco }}" required>
+                  <mat-option value="" disabled selected>{{ 'ORGANIZATION.FORM.STEP1.TYPE' | transloco }}</mat-option>
+                  <mat-option *ngFor="let enterprisesType of enterprisesTypes" [value]="enterprisesType.name"
+                    >{{ enterprisesType.name }} - {{ enterprisesType.abbr }}</mat-option
+                  >
                 </mat-select>
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:library'"></mat-icon>
               </mat-form-field>
             </div>
             <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
               <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
-                <input matInput [formControlName]="'phoneNumber'" [placeholder]="'Numéro téléphone'" />
+                <input matInput [formControlName]="'phoneNumber'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.PHONE' | transloco }}" />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4" appearance="fill">
                 <mat-chip-list #organizationLabelsChipList aria-label="Etiquette selection">
                   <ng-container *ngFor="let organizationLabel of organizationLabels">
-                    <mat-chip
-                      (removed)="removeItemMatChip(organizationLabels, organizationLabel)"
-                      color="primary"
-                      selected
-                    >
+                    <mat-chip (removed)="removeItemMatChip(organizationLabels, organizationLabel)" color="primary" selected>
                       {{ organizationLabel.value }}
                       <button matChipRemove>
                         <mat-icon>cancel</mat-icon>
@@ -104,7 +101,7 @@
                     </mat-chip>
                   </ng-container>
                   <input
-                    placeholder="Étiquettes..."
+                    placeholder="{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}..."
                     [matChipInputFor]="organizationLabelsChipList"
                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                     [matChipInputAddOnBlur]="true"
@@ -115,7 +112,12 @@
             </div>
             <div class="flex">
               <mat-form-field class="fuse-mat-textarea flex-auto mx-4">
-                <textarea matInput [formControlName]="'description'" [placeholder]="'About'" [rows]="3"></textarea>
+                <textarea
+                  matInput
+                  [formControlName]="'description'"
+                  placeholder="{{ 'ORGANIZATION.FORM.STEP1.DESCRIPTION' | transloco }}"
+                  [rows]="3"
+                ></textarea>
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:menu-alt-2'"></mat-icon>
               </mat-form-field>
             </div>
@@ -128,82 +130,86 @@
                 type="button"
                 matStepperNext
               >
-                Next
+                {{ 'APP.BTN.NEXT' | transloco }}
               </button>
             </div>
           </mat-step>
 
           <mat-step [formGroupName]="'step2'" [stepControl]="stepperForm.get('step2')" #horizontalStepperStep2>
-            <ng-template matStepLabel>Adresse et Réseaux sociaux</ng-template>
-            <p class="my-6 font-medium">Adresse de l'organisation:</p>
+            <ng-template matStepLabel>{{ 'ORGANIZATION.FORM.STEP2.TITLE' | transloco }}</ng-template>
+            <p class="my-6 font-medium">{{ 'ORGANIZATION.FORM.STEP2.SUB_TITLE' | transloco }}:</p>
             <div class="grid grid-cols-4 flex flex-col gt-xs:flex-row">
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-                <input matInput [formControlName]="'apartNumber'" [placeholder]="'#Appart'" />
-                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:chip'"></mat-icon>
-              </mat-form-field>
-              <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
-                <input matInput [formControlName]="'streetNumber'" [placeholder]="'#Rue'" />
+                <input matInput [formControlName]="'appartement'" placeholder="#{{ 'ORGANIZATION.FORM.STEP2.APARTMENT' | transloco }}" />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:chip'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="flex-auto col-span-2 gt-xs:pl-3 mx-4">
-                <input matInput [formControlName]="'street'" [placeholder]="'Rue'" required />
+                <input matInput [formControlName]="'street'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.STREET' | transloco }}" required />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
+                <input matInput [formControlName]="'city'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.CITY' | transloco }}" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:chip'"></mat-icon>
               </mat-form-field>
             </div>
             <div class="grid grid-cols-4 flex flex-col gt-xs:flex-row">
               <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
-                <mat-select [formControlName]="'country'" [placeholder]="'Country'" required>
-                  <mat-option value="country-1">Canada</mat-option>
-                  <mat-option value="country-2">USA</mat-option>
-                  <mat-option value="country-3">Country 3</mat-option>
-                  <mat-option value="country-3">Country 3</mat-option>
-                  <mat-option value="country-3">Country 3</mat-option>
-                  <mat-option value="country-3">Country 3</mat-option>
+                <mat-select [formControlName]="'country'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.COUNTRY' | transloco }}" required>
+                  <mat-option value="" disabled selected>{{ 'ORGANIZATION.FORM.STEP2.SELECT_COUNTRY' | transloco }}</mat-option>
+                  <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
                 </mat-select>
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-                <input matInput [formControlName]="'province'" [placeholder]="'Province / Region'" required />
+                <input matInput [formControlName]="'province'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.PROVINCE' | transloco }}" required />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="col-span-2 flex-auto gt-xs:pl-3 mx-4">
-                <input matInput [formControlName]="'postalCode'" [placeholder]="'Code postal'" />
+                <input matInput [formControlName]="'code'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.POSTAL_CODE' | transloco }}" />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
               </mat-form-field>
             </div>
             <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-                <input matInput [formControlName]="'department'" [placeholder]="'Département'" />
+                <input matInput [formControlName]="'department'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.DEPARTMENT' | transloco }}" />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-                <input matInput [formControlName]="'sector'" [placeholder]="'Secteur / Domaine'" />
+                <input matInput [formControlName]="'sector'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.SECTOR' | transloco }}" />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
               </mat-form-field>
             </div>
             <hr class="w-full border-t my-4" />
-            <p class="my-6 font-medium">Réseaux sociaux:</p>
+            <p class="my-6 font-medium">{{ 'ORGANIZATION.FORM.STEP2.SOCIAL_MEDIA' | transloco }}:</p>
             <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-                <input matInput [formControlName]="'facebook'" [placeholder]="'Facebook'" />
+                <input matInput [formControlName]="'socialFacebook'" [placeholder]="'Facebook'" />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-                <input matInput [formControlName]="'linkedin'" [placeholder]="'Linkedin'" />
+                <input matInput [formControlName]="'socialLinkedin'" [placeholder]="'Linkedin'" />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-                <input matInput [formControlName]="'twitter'" [placeholder]="'Twitter'" />
+                <input matInput [formControlName]="'socialTwitter'" [placeholder]="'Twitter'" />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-                <input matInput [formControlName]="'other'" [placeholder]="'Autre'" />
+                <input matInput [formControlName]="'socialYoutube'" [placeholder]="'Youtube'" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+                <input matInput [formControlName]="'socialGithub'" [placeholder]="'GitHub'" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+                <input matInput [formControlName]="'socialInstagram'" [placeholder]="'Instagram'" />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
               </mat-form-field>
             </div>
             <div class="flex justify-end">
               <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
-                Back
+                {{ 'APP.BTN.PREVIOUS' | transloco }}
               </button>
               <button
                 class="px-8"
@@ -213,14 +219,14 @@
                 type="button"
                 matStepperNext
               >
-                Next
+                {{ 'APP.BTN.NEXT' | transloco }}
               </button>
             </div>
           </mat-step>
 
           <mat-step [formGroupName]="'step3'" [stepControl]="stepperForm.get('step3')">
-            <ng-template matStepLabel>Admins & Utilisateurs</ng-template>
-            <p class="my-6 font-medium">Inviter les administrateurs pour cette organization.</p>
+            <ng-template matStepLabel>{{ 'ORGANIZATION.FORM.STEP3.TITLE' | transloco }}</ng-template>
+            <p class="my-6 font-medium">{{ 'ORGANIZATION.FORM.STEP3.SUB_TITLE_ADMIN' | transloco }}.</p>
             <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4" appearance="fill">
                 <mat-chip-list #adminEmailsChipList formArrayName="adminsEmails" aria-label="Etiquette selection">
@@ -237,7 +243,7 @@
                   </ng-container>
                   <input
                     matInput
-                    placeholder="Enter admin email..."
+                    placeholder="{{ 'ORGANIZATION.FORM.STEP3.ENTER_EMAIL' | transloco }}..."
                     [matChipInputFor]="adminEmailsChipList"
                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                     [matChipInputAddOnBlur]="true"
@@ -246,13 +252,13 @@
                 </mat-chip-list>
               </mat-form-field>
               <div class="text-gray-700 text-opacity-60">
-                <p>Séparer avec avec des commas ou cliquez sur ENTER</p>
-                <p>Exemple: exemple@exemple.com</p>
-                <p>Exemple: exemple01@exemple.com,exemple02@exemple.com</p>
+                <p>{{ 'ORGANIZATION.FORM.STEP3.HELPER1' | transloco }}</p>
+                <p>{{ 'ORGANIZATION.FORM.STEP3.HELPER2' | transloco }}</p>
+                <p>{{ 'ORGANIZATION.FORM.STEP3.HELPER3' | transloco }}</p>
               </div>
             </div>
             <hr class="w-full border-t my-4" />
-            <p class="my-6 font-medium">Inviter les utilisateurs pour cette organization.</p>
+            <p class="my-6 font-medium">{{ 'ORGANIZATION.FORM.STEP3.SUB_TITLE_USER' | transloco }}.</p>
             <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4" appearance="fill">
                 <mat-chip-list #usersEmailLChipList formArrayName="usersEmails" aria-label="Etiquette selection">
@@ -269,7 +275,7 @@
                   </ng-container>
                   <input
                     matInput
-                    placeholder="Enter admin email..."
+                    placeholder="{{ 'ORGANIZATION.FORM.STEP3.ENTER_EMAIL' | transloco }}..."
                     [matChipInputFor]="usersEmailLChipList"
                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                     [matChipInputAddOnBlur]="true"
@@ -278,52 +284,37 @@
                 </mat-chip-list>
               </mat-form-field>
               <div class="text-gray-700 text-opacity-60">
-                <p>Séparer avec avec des commas ou cliquez sur ENTER</p>
-                <p>Exemple: exemple@exemple.com</p>
-                <p>Exemple: exemple01@exemple.com,exemple02@exemple.com</p>
+                <p>{{ 'ORGANIZATION.FORM.STEP3.HELPER1' | transloco }}</p>
+                <p>{{ 'ORGANIZATION.FORM.STEP3.HELPER2' | transloco }}</p>
+                <p>{{ 'ORGANIZATION.FORM.STEP3.HELPER3' | transloco }}</p>
               </div>
             </div>
             <div class="flex justify-end mt-8">
               <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
-                Back
+                {{ 'APP.BTN.PREVIOUS' | transloco }}
               </button>
-              <button class="px-8" mat-flat-button [color]="'primary'" type="button" matStepperNext>Next</button>
+              <button class="px-8" mat-flat-button [color]="'primary'" type="button" matStepperNext>
+                {{ 'APP.BTN.NEXT' | transloco }}
+              </button>
             </div>
           </mat-step>
 
           <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
+            <ng-template matStepLabel>{{ 'ORGANIZATION.FORM.DONE.TITLE' | transloco }}</ng-template>
             <div>
-              <mat-icon
-                class="icon-size-8"
-                matPrefix
-                [svgIcon]="'heroicons_solid:check'"
-                style="color: green"
-              ></mat-icon>
+              <mat-icon class="icon-size-8" matPrefix [svgIcon]="'heroicons_solid:check'" style="color: green"></mat-icon>
             </div>
             <p class="my-6 font-medium">
-              <span>Merci d'avoir rempli les informations de votre Organization !.</span>
+              <span>{{ 'ORGANIZATION.FORM.DONE.HELPER1' | transloco }}.</span>
             </p>
-            <p class="my-6 font-medium">
-              Vous pouvez maintenant gérer votre Organization et créer vos ressources et bien plein d'autres
-              fonctionnalités intéressantes.
-            </p>
-            <p class="my-6 font-medium">
-              Vous pouvez cliquer sur réinitialiser si vous souhaitez creer une autre organization.
-            </p>
+            <p class="my-6 font-medium">{{ 'ORGANIZATION.FORM.DONE.HELPER2' | transloco }}.</p>
+            <p class="my-6 font-medium">{{ 'ORGANIZATION.FORM.DONE.HELPER3' | transloco }}.</p>
             <div class="flex justify-end mt-8">
               <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
-                Back
+                {{ 'APP.BTN.PREVIOUS' | transloco }}
               </button>
-              <button
-                class="px-8 mr-2"
-                [disabled]="!stepperForm.valid"
-                mat-flat-button
-                [color]="'primary'"
-                type="button"
-                (click)="onDone()"
-              >
-                Done
+              <button class="px-8 mr-2" [disabled]="!stepperForm.valid" mat-flat-button [color]="'primary'" type="button" (click)="onDone()">
+                {{ 'APP.BTN.SUBMIT' | transloco }}
               </button>
               <button
                 class="px-8"
@@ -333,7 +324,7 @@
                 type="reset"
                 (click)="onDoneAndCreateNew()"
               >
-                Create new
+                {{ 'APP.BTN.DONE_AND_CREATE_NEW' | transloco }}
               </button>
             </div>
           </mat-step>

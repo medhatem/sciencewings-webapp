@@ -10,7 +10,7 @@ export class Address implements AddressDTO {
   street: string;
   type: 'USER' | 'ORGANIZATION';
 
-  constructor(address: any) {
+  constructor(address?: any) {
     const { appartement, city, code, country, province, street, type } = address || {};
     Object.assign(this, { appartement, city, code, country, province, street, type });
   }
