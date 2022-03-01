@@ -25,7 +25,8 @@
           "MEMBERS": "Supervised members"
         },
         "ABOUT": {
-          "ABOUT_ME": "About me"
+          "NAME": "Name",
+          "EDIT": "Edit"
         },
         "PROFILE": {
           "TITLE": "User profile"

@@ -26,7 +26,9 @@
         },
 
         "ABOUT": {
-          "ABOUT_ME": "À propos de moi"
+          "NAME": "Nom",
+          "EDIT": "Modifier",
+          "EDIT_DESC": "Modifier les informations"
         },
         "PROFILE": {
           "TITLE": "Profil utilisateur"

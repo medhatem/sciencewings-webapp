@@ -9,12 +9,11 @@ import { Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
-  data: any;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
+  data: any;
+  editMode: boolean;
 
-  constructor(
-    private _route: ActivatedRoute,
-  ) {}
+  constructor(private _route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this._prepareChartData();
@@ -27,5 +26,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   private _prepareChartData(): void {
     this.data = this._route.snapshot.data;
+  }
+
+  toggleEdit() {
+    this.editMode = !this.editMode;
   }
 }
