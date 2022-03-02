@@ -36,7 +36,7 @@ definitions:
     - step: &deploy_stagging
         trigger: manual
         name: Deploy To Stagging
-        deployment: Stagging
+        deployment: Staging
         script:
           - npm install -g firebase-tool
           - firebase deploy --token $FIREBASE_TOKEN
