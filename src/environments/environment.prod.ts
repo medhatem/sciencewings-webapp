@@ -1,6 +1,6 @@
 export const environment = {
   // apiUrl: To replace when api is deployed in prod
-  keycloakUrl: 'http://keycloak-app-staging-env.eba-fsrexfym.ca-central-1.elasticbeanstalk.com',
+  keycloakUrl: 'https://keycloak.sciencewings.com',
   apiUrl: 'https://sciencewings-api-staging.herokuapp.com',
   swaggerUrl: 'https://sciencewings-api-staging.herokuapp.com/swagger/swagger.json',
   sciencewingsWebRealm: 'sciencewings-web',
@@ -8,4 +8,5 @@ export const environment = {
   enableDebug: false,
   production: true,
   staging: false,
+  local: false,
 };

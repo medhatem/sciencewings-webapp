@@ -6,7 +6,7 @@
   "license": "GPLv3",
   "private": true,
   "scripts": {
-    "start:staging": "npm run generate-swagger:staging && ng serve --configuration=staging",
+    "start:local": "npm run generate-swagger:staging && ng serve --configuration=local",
     "generate-swagger:staging": "node src/swagger/SwaggerUtil.staging.js && ng-swagger-gen",
     "build:staging": "node --max_old_space_size=4092 \"node_modules/@angular/cli/bin/ng\" build --configuration=staging",
     "start:production": "npm run generate-swagger:production && npm run memory && ng serve --configuration=production",
