@@ -51,9 +51,6 @@
               "src/styles/styles.scss",
               "src/styles/tailwind.scss",
               "node_modules/ngx-toastr/toastr.css"
-            ],
-            "scripts": [
-                "src/environments/env.js"
             ]
           },
           "configurations": {
@@ -84,6 +81,20 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ]
+            },
+            "local": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
               "namedChunks": true
             }
           },
@@ -97,6 +108,9 @@
             },
             "staging": {
               "browserTarget": "science-wings:build:staging"
+            },
+            "local": {
+              "browserTarget": "science-wings:build:local"
             },
             "options": {
               "browserTarget": "science-wings:build",
