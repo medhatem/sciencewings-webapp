@@ -41,7 +41,7 @@ definitions:
           - node
         script:
           - npm install firebase-tools
-          - firebase deploy --token $FIREBASE_TOKEN  --project sciencewings-webapp --non-interactive
+          - node_modules/firebase-tools/lib/bin/firebase.js deploy --token $FIREBASE_TOKEN  --project sciencewings-webapp --non-interactive
 pipelines:
   default:
     - step: *install
