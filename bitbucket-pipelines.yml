@@ -37,17 +37,15 @@ definitions:
         trigger: manual
         name: Deploy To Stagging
         deployment: Staging
-        caches:
-          - node
         script:
           - npm install firebase-tools
-          - node_modules/firebase-tools/lib/bin/firebase.js deploy --token $FIREBASE_TOKEN  --project sciencewings-webapp --non-interactive
+          - node_modules/firebase-tools/lib/bin/firebase.js deploy --token $FIREBASE_TOKEN  --project $FIREBASE_PROJECT --non-interactive
 pipelines:
   default:
     - step: *install
     - step: *generate_swagger
     - step: *build
-    # - step: *lint
+    - step: *lint
     - step: *deploy_stagging
   branches:
     develop/*:
