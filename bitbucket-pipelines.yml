@@ -46,7 +46,6 @@ pipelines:
     - step: *generate_swagger
     - step: *build
     - step: *lint
-    - step: *deploy_stagging
   branches:
     develop/*:
       - step: *install
