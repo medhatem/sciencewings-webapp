@@ -1,7 +1,7 @@
 (function (window) {
   window.__env = window.__env || {};
   // API url
-  window.__env.keycloakUrl = 'http://keycloak-app-staging-env.eba-fsrexfym.ca-central-1.elasticbeanstalk.com';
+  window.__env.keycloakUrl = 'https://keycloak-app-staging-env.eba-fsrexfym.ca-central-1.elasticbeanstalk.com';
   window.__env.apiUrl = 'https://sciencewings-api-staging.herokuapp.com';
   window.__env.swaggerUrl = 'https://sciencewings-api-staging.herokuapp.com/swagger/swagger.json';
   window.__env.production = false;
