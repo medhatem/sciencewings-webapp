@@ -38,7 +38,8 @@ definitions:
         name: Deploy To Stagging
         deployment: Staging
         script:
-          - npm install -g firebase-tool
+          - apt-get update && apt-get install -y --no-install-recommends git  curl libmcrypt-dev openssl mysql-client libmagickwand-dev
+          - curl -sL https://firebase.tools | upgrade=true bash
           - firebase deploy --token $FIREBASE_TOKEN
 pipelines:
   default:
