@@ -31,7 +31,7 @@ definitions:
         name: lint
         script:
           - npm run lint-and-fix
-    - step:
+    - step: &deploy_stagging
         trigger: manual
         name: Deploy To Stagging
         deployment: production
@@ -47,12 +47,14 @@ pipelines:
     - step: *generate_swagger
     - step: *build
     - step: *lint
+    - step: *deploy_stagging
   branches:
     develop/*:
       - step: *install
       - step: *generate_swagger
       - step: *build
       - step: *lint
+      - step: *deploy_stagging
     feature/*:
       - step: *install
       - step: *generate_swagger
