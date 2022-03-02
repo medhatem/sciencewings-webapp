@@ -1,50 +1,117 @@
-<div class="relative flex flex-col flex-auto items-center px-6 sm:px-12">
-  <div class="w-full max-w-3xl">
-    <form>
-      
-      <!-- Avatar -->
-      <div class="flex flex-auto items-end -mt-16">
-        <div
-          class="relative flex items-center justify-center w-32 h-32 rounded-full overflow-hidden ring-4 ring-bg-card"
-        >
-          <!-- Upload / Remove avatar -->
-          <div class="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
-          <div class="absolute inset-0 flex items-center justify-center z-20">
-            <div>
-              <input
-                id="avatar-file-input"
-                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none"
-                type="file"
-                [multiple]="false"
-                [accept]="'image/jpeg, image/png'"
-                
-                #avatarFileInput
-              />
-              <label
-                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                for="avatar-file-input"
-                matRipple
-              >
-                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-              </label>
-            </div>
-            <div>
-              <button mat-icon-button >
-                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:trash'"></mat-icon>
-              </button>
-            </div>
+<div class="flex flex-col mt-4 pt-6 space-y-8">
+  <form>
+    <ng-container *ngIf="data.user.avatar">
+      <div class="relative flex items-center justify-center w-32 h-32 rounded-full overflow-hidden ring-4 ring-bg-card">
+        <div class="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
+        <div class="absolute inset-0 flex items-center justify-center z-20">
+          <div>
+            <input
+              id="avatar-file-input"
+              class="absolute h-0 w-0 opacity-0 invisible pointer-events-none"
+              type="file"
+              [multiple]="false"
+              [accept]="'image/jpeg, image/png'"
+              #avatarFileInput
+            />
+            <label
+              class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+              for="avatar-file-input"
+              matRipple
+            >
+              <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+            </label>
           </div>
-          <!-- Image/Letter -->
-          <img class="object-cover w-full h-full" *ngIf="data.user.avatar" [src]="data.user.avatar" />
-          <div
-            class="flex items-center justify-center w-full h-full rounded overflow-hidden uppercase text-8xl font-bold leading-none bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200"
-            *ngIf="!data.user.avatar"
-          >
-            {{ data.user.name.charAt(0) }}
+          <div>
+            <button mat-icon-button>
+              <mat-icon class="text-white" [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+            </button>
           </div>
         </div>
+
+        <img class="object-cover w-full h-full" *ngIf="data.user.avatar" [src]="data.user.avatar" />
+        <div
+          class="flex items-center justify-center w-full h-full rounded overflow-hidden uppercase text-8xl font-bold leading-none bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200"
+          *ngIf="!data.user.avatar"
+        >
+          {{ data.user.name.charAt(0) }}
+        </div>
       </div>
-      
-    </form>
-  </div>
+    </ng-container>
+
+    <div class="mt-8">
+      <mat-form-field class="fuse-mat-no-subscript w-full">
+        <mat-label>{{ 'APP.ROUTES.USER.ABOUT.NAME' | transloco }}</mat-label>
+        <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+        <input
+          matInput
+          [formControl]="userForm.controls['name']"
+          placeholder="{{ 'APP.ROUTES.USER.ABOUT.NAME' | transloco }}"
+          [spellcheck]="false"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="mt-8">
+      <mat-form-field class="fuse-mat-no-subscript w-full">
+        <mat-label>{{ 'APP.ROUTES.USER.ABOUT.TITLE' | transloco }}</mat-label>
+        <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:briefcase'"></mat-icon>
+        <input
+          matInput
+          [formControl]="userForm.controls['title']"
+          placeholder="{{ 'APP.ROUTES.USER.ABOUT.TITLE' | transloco }}"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="mt-8">
+      <mat-form-field class="fuse-mat-no-subscript w-full">
+        <mat-label>{{ 'APP.ROUTES.USER.ABOUT.COMPANY' | transloco }}</mat-label>
+        <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+        <input
+          matInput
+          [formControl]="userForm.controls['company']"
+          placeholder="{{ 'APP.ROUTES.USER.ABOUT.COMPANY' | transloco }}"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="mt-8">
+      <div class="space-y-4">
+        <ng-container
+          *ngFor="
+            let email of userForm.get('emails')['controls'];
+            let i = index;
+            let first = first;
+            let last = last;
+          "
+        >
+          <div class="flex">
+            <mat-form-field class="fuse-mat-no-subscript flex-auto">
+              <mat-label *ngIf="first">Email</mat-label>
+              <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+              <input matInput [formControl]="email.get('email')" [placeholder]="'Email address'" [spellcheck]="false" />
+            </mat-form-field>
+            
+            <mat-form-field class="fuse-mat-no-subscript flex-auto w-full max-w-24 sm:max-w-40 ml-2 sm:ml-4">
+              <mat-label *ngIf="first">Label</mat-label>
+              <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:tag'"></mat-icon>
+              <input matInput [formControl]="email.get('label')" [placeholder]="'Label'" />
+            </mat-form-field>
+            
+            <ng-container *ngIf="!(first && last)">
+              <div class="flex items-center w-10 pl-2" [ngClass]="{ 'mt-6': first }">
+                <button class="w-8 h-8 min-h-8" mat-icon-button (click)="removeEmailField(i)" matTooltip="Remove">
+                  <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
+                </button>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+      <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer" (click)="addEmailField()">
+        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+        <span class="ml-2 font-medium text-secondary group-hover:underline">Add an email address</span>
+      </div>
+    </div>
+  </form>
 </div>

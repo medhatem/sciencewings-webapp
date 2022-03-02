@@ -9,7 +9,7 @@ export const initializeKeycloak = (keycloak: KeycloakService) => {
       config: {
         url: `${env.keycloakUrl}/auth`,
         realm: env.sciencewingsWebRealm,
-        clientId: env.clientId,
+        clientId: env.clientIdLocal,
       },
       initOptions: {
         checkLoginIframe: true,

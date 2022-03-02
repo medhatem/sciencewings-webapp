@@ -27,6 +27,8 @@
 
         "ABOUT": {
           "NAME": "Nom",
+          "TITLE": "Intitulé de poste",
+          "COMPANY": "Société",
           "EDIT": "Modifier",
           "EDIT_DESC": "Modifier les informations"
         },
