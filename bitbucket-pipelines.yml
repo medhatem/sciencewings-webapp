@@ -27,6 +27,8 @@ definitions:
         name: build
         script:
           - npm run build:staging
+        artifacts:
+          - dist/**
     - step: &lint
         name: lint
         script:
@@ -34,13 +36,10 @@ definitions:
     - step: &deploy_stagging
         trigger: manual
         name: Deploy To Stagging
-        deployment: production
+        deployment: Stagging
         script:
-          - pipe: atlassian/firebase-deploy:0.2.1
-            variables:
-              FIREBASE_TOKEN: $FIREBASE_TOKEN
-              PROJECT_ID: $FIREBASE_PROJECT
-
+          - npm install -g firebase-tool
+          - firebase deploy --token $FIREBASE_TOKEN
 pipelines:
   default:
     - step: *install
