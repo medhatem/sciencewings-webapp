@@ -31,6 +31,15 @@ definitions:
         name: lint
         script:
           - npm run lint-and-fix
+    - step:
+        trigger: manual
+        name: Deploy To Stagging
+        deployment: production
+        script:
+          - pipe: atlassian/firebase-deploy:0.2.1
+            variables:
+              FIREBASE_TOKEN: $FIREBASE_TOKEN
+              PROJECT_ID: $FIREBASE_PROJECT
 
 pipelines:
   default:
