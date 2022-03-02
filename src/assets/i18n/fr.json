@@ -96,9 +96,9 @@
         "SOCIAL_MEDIA": "Réseaux sociaux"
       },
       "STEP3": {
-        "TITLE": "Administrateurs et Utilisateurs",
+        "TITLE": "Administrateurs et Membres",
         "SUB_TITLE_ADMIN": "Inviter des administrateurs pour cette organisation",
-        "SUB_TITLE_USER": "Inviter des utilisateurs pour cette organisation",
+        "SUB_TITLE_USER": "Inviter des membres pour cette organisation",
         "ENTER_EMAIL": "Entrez e-mail",
         "HELPER1": "Fractionnez avec des virgules ou cliquez sur ENTRÉE",
         "HELPER2": "Exemple 01: exemple@exemple.com",

@@ -7,7 +7,7 @@ import { Organization } from 'app/models/organizations/organization';
 import { IMatChipLabel } from 'app/models/mat-ui/mat-chip-label.interface';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { constants, countries, enterprisesTypes } from 'app/shared/constants';
+import { constants, countries, organizationTypes } from 'app/shared/constants';
 import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
 import { Address } from 'app/models/organizations/address';
@@ -29,7 +29,7 @@ export class OrganizationFormComponent implements OnInit {
   adminsEmailListLabels: IMatChipLabel[] = [];
   usersEmailListLabels: IMatChipLabel[] = [];
   countries = countries;
-  enterprisesTypes = enterprisesTypes;
+  organizationTypes = organizationTypes;
   timezoneList = moment.tz.names();
 
   constructor(

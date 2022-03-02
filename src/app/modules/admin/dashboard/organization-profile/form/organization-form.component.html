@@ -78,8 +78,8 @@
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
                 <mat-select [formControlName]="'organizationType'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.TYPE' | transloco }}" required>
                   <mat-option value="" disabled selected>{{ 'ORGANIZATION.FORM.STEP1.TYPE' | transloco }}</mat-option>
-                  <mat-option *ngFor="let enterprisesType of enterprisesTypes" [value]="enterprisesType.name"
-                    >{{ enterprisesType.name }} - {{ enterprisesType.abbr }}</mat-option
+                  <mat-option *ngFor="let organizationType of organizationTypes" [value]="organizationType.name"
+                    >{{ organizationType.name }} - {{ organizationType.abbr }}</mat-option
                   >
                 </mat-select>
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:library'"></mat-icon>

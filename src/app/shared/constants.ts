@@ -268,12 +268,12 @@ export const countries: Countries[] = [
   { code: 'AX', code3: 'ALA', name: 'Åland Islands', callingCode: '248' },
 ];
 
-export interface IEnterprisesTypes {
+export interface IOrganizationTypes {
   abbr?: string;
   name: string;
 }
 
-export const enterprisesTypes: IEnterprisesTypes[] = [
+export const organizationTypes: IOrganizationTypes[] = [
   { abbr: 'compagnie', name: 'Société par actions' },
   { abbr: 'S.E.N.C.', name: 'Société en nom collectif' },
   { abbr: 'S.E.C.', name: 'Société en commandite' },
