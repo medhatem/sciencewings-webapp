@@ -1,4 +1,6 @@
 /* eslint-disable */
+export const resources = [];
+
 export const contacts = [
   {
     id: 'cd5fa417-b667-482d-b208-798d9da3213c',

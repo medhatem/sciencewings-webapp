@@ -1,9 +1,9 @@
-import { Route } from '@angular/router';
-import { LayoutComponent } from 'app/layout/layout.component';
-import { InitialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from './core/auth/keycloak/app.guard';
 import { FuseNavigationItemTypeEnum } from '@fuse/components/navigation/navigation.types';
+import { InitialDataResolver } from 'app/app.resolvers';
+import { LayoutComponent } from 'app/layout/layout.component';
 import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
+import { Route } from '@angular/router';
 
 export const errorPath = '**';
 export const appRoutes: Route[] = [
@@ -60,6 +60,19 @@ export const appRoutes: Route[] = [
             loadChildren: () =>
               import('app/modules/admin/dashboard/users/organization-users.module').then(
                 (m) => m.OrganizationUsersModule,
+              ),
+          },
+          {
+            path: 'resource',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:office-building',
+            },
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/resource/resource.module').then(
+                (m) => m.ResourceModule,
               ),
           },
         ],
