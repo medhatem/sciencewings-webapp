@@ -9,9 +9,9 @@ import { Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
-  private _unsubscribeAll: Subject<any> = new Subject<any>();
   data: any;
   editMode: boolean;
+  private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(private _route: ActivatedRoute) {}
 
@@ -24,11 +24,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  private _prepareChartData(): void {
-    this.data = this._route.snapshot.data;
-  }
-
   toggleEdit() {
     this.editMode = !this.editMode;
+  }
+
+  private _prepareChartData(): void {
+    this.data = this._route.snapshot.data;
   }
 }

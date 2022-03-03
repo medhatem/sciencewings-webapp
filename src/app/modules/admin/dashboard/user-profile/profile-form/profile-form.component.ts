@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -18,9 +18,17 @@ export class ProfileFormComponent implements OnInit {
     private _formBuilder: FormBuilder,
   ) {}
 
+  get emails(): FormArray {
+    return this.userForm.controls['emails'] as FormArray;
+  }
+
+  get phoneNumbers(): FormArray {
+    return this.userForm.controls['phoneNumbers'] as FormArray;
+  }
+
   ngOnInit(): void {
     this._prepareUserData();
-    this._prepareCountries(); 
+    this._prepareCountries();
 
     this.userForm = this._formBuilder.group({
       name: this.data.user.name,
@@ -53,10 +61,6 @@ export class ProfileFormComponent implements OnInit {
     });
   }
 
-  get emails(): FormArray {
-    return this.userForm.controls['emails'] as FormArray;
-  }
-
   addEmail() {
     const emailForm = this._formBuilder.group({
       email: ['', Validators.email],
@@ -68,10 +72,6 @@ export class ProfileFormComponent implements OnInit {
 
   deleteEmail(index) {
     this.emails.removeAt(index);
-  }
-
-  get phoneNumbers(): FormArray {
-    return this.userForm.controls['phoneNumbers'] as FormArray;
   }
 
   addPhoneNumber() {
@@ -86,15 +86,6 @@ export class ProfileFormComponent implements OnInit {
 
   deletePhoneNumber(index) {
     this.phoneNumbers.removeAt(index);
-  }
-
-  private _prepareUserData() {
-    this.data = this._route.snapshot.data;
-  }
-
-  private _prepareCountries() {
-    // TODO: Use backend service instead of mock api for country codes
-    this._http.get('api/apps/contacts/countries').subscribe((countries) => (this.countries = countries));
   }
 
   getCountryByIso(iso: string) {
@@ -116,5 +107,14 @@ export class ProfileFormComponent implements OnInit {
     }
 
     // TODO: Use backend service to upload the profile picture
+  }
+
+  private _prepareUserData() {
+    this.data = this._route.snapshot.data;
+  }
+
+  private _prepareCountries() {
+    // TODO: Use backend service instead of mock api for country codes
+    this._http.get('api/apps/contacts/countries').subscribe((countries) => (this.countries = countries));
   }
 }

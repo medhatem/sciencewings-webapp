@@ -17,17 +17,17 @@ export class ProfileViewComponent implements OnInit {
     this._prepareCountries();
   }
 
+  getCountryByIso(iso: string) {
+    if (this.countries) {
+      return this.countries.find((country) => country.iso === iso);
+    }
+  }
+
   private _prepareUserData() {
     this.data = this._route.snapshot.data;
   }
 
   private _prepareCountries() {
     this._http.get('api/apps/contacts/countries').subscribe((countries) => (this.countries = countries));
-  }
-
-  getCountryByIso(iso: string) {
-    if (this.countries) {
-      return this.countries.find((country) => country.iso === iso);
-    }
   }
 }
