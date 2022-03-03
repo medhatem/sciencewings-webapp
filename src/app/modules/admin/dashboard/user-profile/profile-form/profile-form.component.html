@@ -90,10 +90,188 @@
                   [formControl]="emailForm.controls['email']"
                   placeholder="{{ 'APP.ROUTES.USER.ABOUT.EMAIL' | transloco }}"
                   [spellcheck]="false">
-          </mat-form-field>
+            </mat-form-field>
+            <mat-form-field class="fuse-mat-no-subscript flex-auto w-full max-w-24 sm:max-w-40 ml-2 sm:ml-4">
+              <mat-label *ngIf="first">{{ 'APP.ROUTES.USER.ABOUT.LABEL' | transloco }}</mat-label>
+              <mat-icon
+                  matPrefix
+                  class="hidden sm:flex icon-size-5"
+                  [svgIcon]="'heroicons_solid:tag'"></mat-icon>
+              <input
+                  matInput
+                  [formControl]="emailForm.controls['label']"
+                  placeholder="{{ 'APP.ROUTES.USER.ABOUT.LABEL' | transloco }}">
+            </mat-form-field>
+            <ng-container *ngIf="!(first && last)">
+              <div
+                class="flex items-center w-10 pl-2"
+                [ngClass]="{'mt-6': first}">
+                <button
+                  class="w-8 h-8 min-h-8"
+                  mat-icon-button
+                  (click)="deleteEmail(i)"
+                  [matTooltip]="'APP.ROUTES.USER.ABOUT.REMOVE' | transloco">
+                  <mat-icon
+                    class="icon-size-5"
+                    [svgIcon]="'heroicons_solid:trash'"
+                  ></mat-icon>
+                </button>
+              </div>
+            </ng-container>
           </div>
         </ng-container>
       </div>
+      <div
+        class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
+        (click)="addEmail()"
+      >
+        <mat-icon
+          class="icon-size-5"
+          [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+        <span class="ml-2 font-medium text-secondary group-hover:underline">{{ 'APP.ROUTES.USER.ABOUT.ADD_EMAIL' | transloco }}</span>
+      </div>
+    </div>
+
+    <div class="mt-8" formArrayName="phoneNumbers">
+      <div class="space-y-4">
+        <ng-container *ngFor="let phoneNumberForm of phoneNumbers.controls; let i = index; let first = first">
+          <div class="flex" [fromGroup]="phoneNumberForm">
+            <mat-form-field class="fuse-mat-no-subscript flex-auto">
+              <mat-label *ngIf="first">{{ 'APP.ROUTES.USER.ABOUT.PHONE' | transloco }}</mat-label>
+              <input
+                matInput
+                [formControl]="phoneNumberForm.controls['phoneNumber']"
+                placeholder="{{ 'APP.ROUTES.USER.ABOUT.PHONE' | transloco }}"
+                [spellcheck]="false"
+              >
+              <mat-select
+                class="mr-1.5"
+                [formControl]="phoneNumberForm.controls['country']"
+                matPrefix>
+                <mat-select-trigger>
+                  <span class="flex items-center">
+                    <span
+                      class="hidden sm:flex w-6 h-4 mr-1 overflow-hidden"
+                      [style.background]="'url(\'/assets/images/flags.png\') no-repeat 0 0'"
+                      [style.backgroundSize]="'24px 3876px'"
+                      [style.backgroundPosition]="getCountryByIso(phoneNumberForm.controls['country'].value).flagImagePos"></span>
+                    <span class="sm:mx-0.5 font-medium text-default">
+                      {{ getCountryByIso(phoneNumberForm.controls['country'].value).code }}
+                    </span>
+                  </span>
+                </mat-select-trigger>
+                <ng-container *ngFor="let country of countries">
+                  <mat-option [value]="country.iso">
+                    <span class="flex items-center">
+                      <span
+                        class="w-6 h-4 overflow-hidden"
+                        [style.background]="'url(\'/assets/images/apps/contacts/flags.png\') no-repeat 0 0'"
+                        [style.backgroundSize]="'24px 3876px'"
+                        [style.backgroundPosition]="country.flagImagePos"></span>
+                      <span class="ml-2">{{ country.name }}</span>
+                      <span class="ml-2 font-medium">{{ country.code }}</span>
+                    </span>
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="fuse-mat-no-subscript flex-auto w-full max-w-24 sm:max-w-40 ml-2 sm:ml-4">
+              <mat-label *ngIf="first">{{ 'APP.ROUTES.USER.ABOUT.LABEL' | transloco }}</mat-label>
+              <mat-icon
+                matPrefix
+                class="hidden sm:flex icon-size-5"
+                [svgIcon]="'heroicons_solid:tag'"
+              ></mat-icon>
+              <input
+                matInput
+                [formControl]="phoneNumberForm.controls['label']"
+                placeholder="{{ 'APP.ROUTES.USER.ABOUT.LABEL' | transloco }}"
+              >
+            </mat-form-field>
+            <ng-container *ngIf="!(first && last)">
+              <div
+                class="flex items-center w-10 pl-2"
+                [ngClass]="{'mt-6': first}">
+                <button
+                  class="w-8 h-8 min-h-8"
+                  mat-icon-button
+                  (click)="deletePhoneNumber(i)"
+                  [matTooltip]="'APP.ROUTES.USER.ABOUT.REMOVE' | transloco">
+                  <mat-icon
+                    class="icon-size-5"
+                    [svgIcon]="'heroicons_solid:trash'"
+                  ></mat-icon>
+                </button>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+      <div
+        class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
+        (click)="addPhoneNumber()"
+      >
+        <mat-icon
+          class="icon-size-5"
+          [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+        <span class="ml-2 font-medium text-secondary group-hover:underline">{{ 'APP.ROUTES.USER.ABOUT.ADD_PHONE_NUMBER' | transloco }}</span>
+      </div>
+    </div>
+
+    <div class="mt-8">
+      <mat-form-field class="fuse-mat-no-subscript w-full">
+        <mat-label>{{ 'APP.ROUTES.USER.ABOUT.ADDRESS' | transloco }}</mat-label>
+        <mat-icon
+          matPrefix
+          class="hidden sm:flex icon-size-5"
+          [svgIcon]="'heroicons_solid:location-marker'"
+        ></mat-icon>
+        <input
+          matInput
+          [formControl]="userForm.controls['address']"
+          placeholder="{{ 'APP.ROUTES.USER.ABOUT.ADDRESS' | transloco }}"
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="mt-8">
+      <mat-form-field class="fuse-mat-no-subscript w-full">
+        <mat-label>{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}</mat-label>
+        <mat-icon
+          matPrefix
+          class="hidden sm:flex icon-size-5"
+          [svgIcon]="'heroicons_solid:cake'"></mat-icon>
+        <input
+          matInput
+          [matDatepicker]="birthdayDatepicker"
+          [formControl]="userForm.controls['birthday']"
+          placeholder="{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}"
+        >
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="birthdayDatepicker">
+        </mat-datepicker-toggle>
+        <mat-datepicker #birthdayDatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-8">
+      <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+        <mat-label>{{ 'APP.ROUTES.USER.ABOUT.NOTES' | transloco }}</mat-label>
+        <mat-icon
+          matPrefix
+          class="hidden sm:flex icon-size-5"
+          [svgIcon]="'heroicons_solid:menu-alt-2'"
+        ></mat-icon>
+        <textarea
+          matInput
+          [formControl]="userForm.controls['notes']"
+          placeholder="{{ 'APP.ROUTES.USER.ABOUT.NOTES' | transloco }}'"
+          [rows]="5"
+          [spellcheck]="false"
+          matTextareaAutosize
+        ></textarea>
+      </mat-form-field>
     </div>
     
   </form>

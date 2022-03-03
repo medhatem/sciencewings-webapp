@@ -1,63 +1,4 @@
 <div class="flex flex-col flex-auto min-w-0">
-  <!--<div class="flex flex-col shadow bg-card">
-    <div>
-      <img
-        class="h-40 lg:h-80 object-cover"
-        src="{{ data.user.background }}"
-        alt="Cover image"
-      >
-    </div>
-
-    <div class="flex flex-col flex-0 lg:flex-row items-center max-w-5xl w-full mx-auto px-8 lg:h-18 bg-card">
-      <div class="-mt-26 lg:-mt-22 rounded-full">
-        <img
-          class="w-32 h-32 rounded-full ring-4 ring-bg-card"
-          src="{{ data.user.avatar }}"
-          alt="User avatar"
-        >
-      </div>
-      
-      <div class="flex flex-col items-center lg:items-start mt-4 lg:mt-0 lg:ml-8">
-        <div class="text-lg font-bold leading-none">{{ data.user.name }}</div>
-        <div class="text-secondary">{{ data.user.address }}</div>
-      </div>
-
-      <div class="flex items-center mt-8 mb-4 lg:m-0 lg:ml-auto space-x-6">
-        <a
-          class="text-secondary"
-          routerLinkActive="font-medium"
-          [routerLink]="['/admin/user-profile/about']"
-        >
-          {{ 'APP.ROUTES.USER.TABS.ABOUT' | transloco }}
-        </a>
-
-        <a
-          class="text-secondary"
-          routerLinkActive="font-medium"
-          routerLink="/admin/user-profile/contacts"
-        >
-          {{ 'APP.ROUTES.USER.TABS.CONTACTS' | transloco }}
-        </a>
-
-        <a
-          class="text-secondary"
-          routerLinkActive="font-medium"
-          routerLink="/admin/user-profile/training"
-        >
-          {{ 'APP.ROUTES.USER.TABS.TRAINING' | transloco }}
-        </a>
-
-        <a
-          class="text-secondary"
-          routerLinkActive="font-medium"
-          routerLink="/admin/user-profile/members"
-        >
-          {{ 'APP.ROUTES.USER.TABS.MEMBERS' | transloco }}
-        </a>
-      </div>
-    </div>
-  </div>-->
-
   <div class="flex flex-auto justify-center w-full max-w-5xl mx-auto p-6 sm:p-8">
     <div class="flex flex-col items-start">
       <fuse-card class="flex flex-col w-full p-6 sm:p-8 pb-6">
@@ -65,7 +6,7 @@
           <div class="w-full max-w-3xl">
             <div class="flex flex-auto items-end" *ngIf="!editMode">
               <div class="flex items-center ml-auto mb-1">
-                <button mat-stroked-button (click)="toggleEdit()">
+                <button mat-stroked-button (click)="toggleEdit()" [matTooltip]="'APP.ROUTES.USER.ABOUT.EDIT_DESC' | transloco">
                   <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
                   <span class="ml-2">{{ 'APP.ROUTES.USER.ABOUT.EDIT' | transloco }}</span>
                 </button>
@@ -79,33 +20,31 @@
               *ngIf="editMode"
               class="flex items-center mt-10 -mx-6 sm:-mx-12 py-4 pr-4 pl-1 sm:pr-12 sm:pl-7 border-t bg-gray-50 dark:bg-transparent"
             >
-              <!-- Delete -->
-              <!--<button
-                  mat-button
-                  [color]="'warn'"
-                  [matTooltip]="'Delete'"
-                  (click)="deleteContact()">
-                  Delete
-              </button>-->
-              <!-- Cancel -->
-              <!--<button
-                  class="ml-auto"
-                  mat-button
-                  [matTooltip]="'Cancel'"
-                  (click)="toggleEditMode(false)">
-                  Cancel
-              </button>-->
-              <button class="ml-auto" mat-button [matTooltip]="'Cancel'" (click)="toggleEdit()">Cancel</button>
-              <!-- Save -->
-              <!--<button
-                  class="ml-2"
-                  mat-flat-button
-                  [color]="'primary'"
-                  [disabled]="contactForm.invalid"
-                  [matTooltip]="'Save'"
-                  (click)="updateContact()">
-                  Save
-              </button>-->
+              <button
+                mat-button
+                [color]="'warn'"
+                [matTooltip]="'APP.ROUTES.USER.ABOUT.DELETE_DESC' | transloco"
+              >
+                {{ 'APP.ROUTES.USER.ABOUT.DELETE' | transloco }}
+              </button>
+              
+              <button
+                class="ml-auto"
+                mat-button
+                [matTooltip]="'APP.ROUTES.USER.ABOUT.CANCEL_DESC' | transloco"
+                (click)="toggleEdit()"
+              >
+                {{ 'APP.ROUTES.USER.ABOUT.CANCEL' | transloco }}
+              </button>
+              
+              <button
+                class="ml-2"
+                mat-flat-button
+                [color]="'primary'"
+                [matTooltip]="'APP.ROUTES.USER.ABOUT.SAVE_DESC' | transloco"
+              >
+                {{ 'APP.ROUTES.USER.ABOUT.SAVE' | transloco }}
+              </button>
             </div>
           </div>
         </div>
