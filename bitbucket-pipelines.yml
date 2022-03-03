@@ -1,7 +1,7 @@
 # This is a sample build configuration for Python.
 # Check our guides at https://confluence.atlassian.com/x/x4UWN for more examples.
 # Only use spaces to indent your .yml configuration.
-image: atlassian/default-image:3
+image: node:14
 
 options:
   docker: true
@@ -27,11 +27,19 @@ definitions:
         name: build
         script:
           - npm run build:staging
+        artifacts:
+          - dist/**
     - step: &lint
         name: lint
         script:
           - npm run lint-and-fix
-
+    - step: &deploy_stagging
+        trigger: manual
+        name: Deploy To Stagging
+        deployment: Staging
+        script:
+          - npm install firebase-tools
+          - node_modules/firebase-tools/lib/bin/firebase.js deploy --token $FIREBASE_TOKEN  --project $FIREBASE_PROJECT --non-interactive
 pipelines:
   default:
     - step: *install
@@ -44,6 +52,7 @@ pipelines:
       - step: *generate_swagger
       - step: *build
       - step: *lint
+      - step: *deploy_stagging
     feature/*:
       - step: *install
       - step: *generate_swagger

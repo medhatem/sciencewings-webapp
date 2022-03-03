@@ -7,6 +7,7 @@
   "private": true,
   "scripts": {
     "start:staging": "npm run generate-swagger:staging && ng serve --configuration=staging",
+    "start:local": "npm run generate-swagger:staging && ng serve --configuration=local",
     "start:production": "npm run generate-swagger:production && npm run memory && ng serve --configuration=production",
     "build:staging": "ng build --configuration=staging",
     "build:production": "ng build --prod --configuration=production",

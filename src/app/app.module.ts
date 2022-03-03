@@ -16,7 +16,6 @@ import { appConfig } from 'app/core/config/app.config';
 import { appRoutes } from 'app/app.routing';
 import { initializeKeycloak } from './core/auth/keycloak/app.init';
 import { mockApiServices } from 'app/mock-api';
-import { EnvServiceProvider } from './environment/env.service.provider';
 import { environment } from 'environments/environment';
 import { NewUserInfosModule } from './layout/new-user-infos/new-user-infos.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -55,7 +54,6 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     FullCalendarModule,
   ],
   providers: [
-    EnvServiceProvider,
     ApiService,
     {
       provide: APP_INITIALIZER,

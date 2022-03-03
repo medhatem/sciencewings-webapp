@@ -7,9 +7,9 @@ export const environment = {
   apiUrl: 'https://sciencewings-api-staging.herokuapp.com',
   swaggerUrl: 'https://sciencewings-api-staging.herokuapp.com/swagger/swagger.json',
   sciencewingsWebRealm: 'sciencewings-web',
-  clientId: 'sciencewings-local-web-client',
+  clientId: 'sciencewings-web-client',
   enableDebug: true,
   production: false,
-  staging: false,
-  local: true,
+  staging: true,
+  local: false,
 };
