@@ -28,6 +28,7 @@
           "NAME": "Name",
           "TITLE": "Job title",
           "COMPANY": "Company",
+          "EMAIL": "Email address",
           "EDIT": "Edit",
           "EDIT_DESC": "Edit information"
         },

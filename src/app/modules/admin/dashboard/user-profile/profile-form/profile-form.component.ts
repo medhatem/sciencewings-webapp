@@ -1,6 +1,7 @@
+import { R } from '@angular/cdk/keycodes';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 // TODO: Use backend service instead of mock api service
@@ -23,14 +24,35 @@ export class ProfileFormComponent implements OnInit {
 
   ngOnInit(): void {
     this._prepareUserData();
-    this._prepareCountries();
+    this._prepareCountries(); 
 
     this.userForm = this._formBuilder.group({
       name: [this.data.user.name],
       title: [this.data.user.title],
       company: [this.data.user.company],
-      emails: [this.data.user.emails],
+      emails: this._formBuilder.array([]),
+      phoneNumbers: this._formBuilder.array([]),
+      birthday    : [null],
+      address     : [null],
+      notes       : [null],
     });
+  }
+
+  get emails(): FormArray {
+    return this.userForm.controls['emails'] as FormArray;
+  }
+
+  addEmail() {
+    const emailForm = this._formBuilder.group({
+      email: ['', Validators.email],
+      label: ['Home']
+    });
+
+    this.emails.push(emailForm);
+  }
+
+  deleteEmail(index) {
+    this.emails.removeAt(index);
   }
 
   private _prepareUserData() {
@@ -77,19 +99,4 @@ export class ProfileFormComponent implements OnInit {
     );
     */
   }
-
-  addEmailField(): void
-    {
-        // Create an empty email form group
-        const emailFormGroup = this._formBuilder.group({
-            email: [''],
-            label: ['']
-        });
-
-        // Add the email form group to the emails form array
-        (this.userForm.get('emails') as FormArray).push(emailFormGroup);
-
-        // Mark for check
-        this._changeDetectorRef.markForCheck();
-    }
 }

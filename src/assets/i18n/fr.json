@@ -29,6 +29,7 @@
           "NAME": "Nom",
           "TITLE": "Intitulé de poste",
           "COMPANY": "Société",
+          "EMAIL": "Adresse e-mail",
           "EDIT": "Modifier",
           "EDIT_DESC": "Modifier les informations"
         },
