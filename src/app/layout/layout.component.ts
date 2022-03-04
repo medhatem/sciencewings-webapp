@@ -50,7 +50,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
       // Hide all buttons and escapes, and display the new-user-infos form component
       // TO DO : verify user required props
       // If all user infos exists we show the dashboard
-      if (user?.error && !user?.body) {
+      if (!user?.error && user?.body) {
         this.hideMenusAndButtons = false;
       }
     });
