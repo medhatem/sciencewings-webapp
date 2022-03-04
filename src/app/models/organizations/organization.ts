@@ -24,6 +24,7 @@ export class Organization implements CreateOrganizationRO {
   socialYoutube?: string;
   type: string;
   dealingType: string;
+  timezone: string;
 
   constructor(organization?: any) {
     const {
@@ -41,13 +42,14 @@ export class Organization implements CreateOrganizationRO {
       socialTwitter,
       socialYoutube,
       name = '',
-      address,
+      address = new Address(),
       type,
       email = '',
       parentId,
       phones,
       labels,
       dealingType,
+      timezone,
     } = organization || {};
     Object.assign(this, {
       id,
@@ -71,6 +73,7 @@ export class Organization implements CreateOrganizationRO {
       socialYoutube,
       type,
       dealingType,
+      timezone,
     });
   }
 }
