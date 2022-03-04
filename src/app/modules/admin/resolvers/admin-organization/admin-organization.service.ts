@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, Observable, of, switchMap, tap } from 'rxjs';
-import { Course, AdminOrganizationsCategory } from './admin-organization.types';
+import { AdminOrganizationsCategory, Course } from './admin-organization.types';
+import { BehaviorSubject, Observable, map, of, switchMap, tap } from 'rxjs';
+
 import { ApiService } from 'generated/services';
 import { CreateOrganizationRO } from 'generated/models/create-organization-ro';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Organization } from 'app/models/organizations/organization';
 
 @Injectable({
