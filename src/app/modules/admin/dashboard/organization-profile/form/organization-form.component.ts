@@ -59,7 +59,7 @@ export class OrganizationFormComponent implements OnInit {
         labels: [this.organizationLabels],
       }),
       step2: this._formBuilder.group({
-        appartement: [''],
+        apartment: [''],
         city: [''],
         code: [''],
         country: [''],
