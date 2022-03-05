@@ -92,20 +92,6 @@ export class AdminOrganizationsService {
   }
 
   createOrganization(organization: Organization): Observable<Organization> {
-    const { name, parentId, address, adminContact, direction, email, labels, members, phones, type } = organization;
-    return this._swaggerService
-      .OrganizationRoutesCreateOrganization({
-        name,
-        parentId,
-        address,
-        adminContact,
-        direction,
-        email,
-        labels,
-        members,
-        phones,
-        type,
-      })
-      .pipe(map(({ body }) => new Organization(body)));
+    return this._swaggerService.OrganizationRoutesCreateOrganization(organization).pipe(map(({ body }) => new Organization(body)));
   }
 }

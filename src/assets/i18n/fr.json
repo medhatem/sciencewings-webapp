@@ -59,7 +59,15 @@
       }
     },
     "KEYCLOAK_LOGIN_ERROR": "Une erreur s'est produite lors de la connexion de keycloak",
-    "KEYCLOAK_LOGOUT_ERROR": "Une erreur s'est produite lors de la déconnexion de keycloak"
+    "KEYCLOAK_LOGOUT_ERROR": "Une erreur s'est produite lors de la déconnexion de keycloak",
+    "BTN": {
+      "NEXT": "Suivant",
+      "CANCEL": "Annuler",
+      "PREVIOUS": "Précédent",
+      "SUBMIT": "Soumettre",
+      "RELOAD": "Recharger",
+      "DONE_AND_CREATE_NEW": "Soumettre et créer un nouveau"
+    }
   },
   "ORGANIZATION": {
     "PROFILE": {
@@ -72,7 +80,55 @@
       }
     },
     "FORM": {
-      "TITLE": "Création d'Organisation"
+      "TITLE": "Création d'Organisation",
+      "STEP1": {
+        "TITLE": "Informations générales",
+        "SUB_TITLE": "Remplissez vos informations de base pour votre organization",
+        "SUB_ORGANIZATION": "Définir comme sous-organisation",
+        "CHOOSE_SUB_ORGANIZATION": "Choisissez l'organisation mère",
+        "TIMEZONE": "Fuseau horaire",
+        "DEALING_TYPE": {
+          "TITLE": "Organisation Interne/Externe",
+          "BOTH": "Interne et externe",
+          "INTERNAL": "Uniquement en interne",
+          "EXTERNAL": "Uniquement en externe"
+        },
+        "NAME": "nom de l'organisation",
+        "EMAIL": "Adresse e-mail",
+        "TYPE": "Choisissez le type d'organisation",
+        "PHONE": "Numéro de téléphone",
+        "LABELS": "Étiquettes",
+        "DESCRIPTION": "À propos (description)"
+      },
+      "STEP2": {
+        "TITLE": "Adresse et réseaux sociaux",
+        "SUB_TITLE": "Adresse de l'organisation",
+        "APARTMENT": "Appartement",
+        "CITY": "Ville",
+        "STREET": "Rue",
+        "COUNTRY": "Pays",
+        "SELECT_COUNTRY": "Choisissez un pays",
+        "PROVINCE": "Province/région",
+        "POSTAL_CODE": "Code postal",
+        "DEPARTMENT": "Département",
+        "SECTOR": "Secteur",
+        "SOCIAL_MEDIA": "Réseaux sociaux"
+      },
+      "STEP3": {
+        "TITLE": "Administrateurs et Membres",
+        "SUB_TITLE_ADMIN": "Inviter des administrateurs pour cette organisation",
+        "SUB_TITLE_USER": "Inviter des membres pour cette organisation",
+        "ENTER_EMAIL": "Entrez e-mail",
+        "HELPER1": "Fractionnez avec des virgules ou cliquez sur ENTRÉE",
+        "HELPER2": "Exemple 01: exemple@exemple.com",
+        "HELPER3": "Exemple 02: exemple01@exemple.com,exemple02@exemple.com"
+      },
+      "DONE": {
+        "TITLE": "Terminé",
+        "HELPER1": "Merci d'avoir rempli les informations de votre Organization !",
+        "HELPER2": "Vous pouvez maintenant gérer votre Organization et créer vos ressources et bien plein d'autres fonctionnalités intéressantes",
+        "HELPER3": "Vous pouvez cliquer sur réinitialiser si vous souhaitez creer une autre organization"
+      }
     },
     "ERROR": {
       "CREATE_FAILED": "La creation de l'organisation a échouée"

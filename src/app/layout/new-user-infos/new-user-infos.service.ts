@@ -21,8 +21,8 @@ export class NewUserInfosService {
     return this._newLoggedUser.asObservable();
   }
 
-  getUser(id: number) {
-    return this._swaggerService.UserRoutesGetById(id).pipe(
+  getUser(id: string) {
+    return this._swaggerService.UserRoutesGetUserByKeycloakId(id).pipe(
       tap((response: any) => {
         this._newLoggedUser.next(response);
       }),
