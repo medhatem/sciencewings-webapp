@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ErrorHandler, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { Observable } from 'rxjs';
@@ -16,6 +16,14 @@ export class NewUserInfosResolver implements Resolve<any> {
   }
 
   async getloadUserProfileKeycloak() {
+    this._keycloackService.loadUserProfile()
+      .then(user => {
+        localStorage.setItem('kcid', user.id);
+      })
+      .catch(error => {
+        throw error;
+      });
+
     return await this._keycloackService.loadUserProfile();
   }
 }
