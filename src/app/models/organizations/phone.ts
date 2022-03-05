@@ -1,6 +1,6 @@
-import { PhoneDTO } from 'generated/models';
+import { PhoneRO } from 'generated/models';
 
-export class Phone implements PhoneDTO {
+export class Phone implements PhoneRO {
   id: number;
   code: string;
   label: string;
