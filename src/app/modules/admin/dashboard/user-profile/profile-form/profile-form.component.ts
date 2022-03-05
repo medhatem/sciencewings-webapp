@@ -1,22 +1,16 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'profile-form',
   templateUrl: './profile-form.component.html',
 })
 export class ProfileFormComponent implements OnInit {
-  data: any;
-  countries: any;
+  @Input() user: any;
+  @Input() countries: any;
   userForm: FormGroup;
 
-  constructor(
-    private _route: ActivatedRoute,
-    private _http: HttpClient,
-    private _formBuilder: FormBuilder,
-  ) {}
+  constructor(private _formBuilder: FormBuilder) {}
 
   get emails(): FormArray {
     return this.userForm.controls['emails'] as FormArray;
@@ -27,21 +21,18 @@ export class ProfileFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._prepareUserData();
-    this._prepareCountries();
-
     this.userForm = this._formBuilder.group({
-      name: this.data.user.name,
-      title: this.data.user.title,
-      company: this.data.user.company,
+      name: this.user.name,
+      title: this.user.title,
+      company: this.user.company,
       emails: this._formBuilder.array([]),
       phoneNumbers: this._formBuilder.array([]),
-      address     : this.data.user.address,
-      birthday    : this.data.user.birthday,
-      notes       : this.data.user.notes,
+      address: this.user.address,
+      birthday: this.user.birthday,
+      notes: this.user.notes,
     });
 
-    this.data.user.emails.forEach(email => {
+    this.user.emails.forEach((email) => {
       const emailForm = this._formBuilder.group({
         email: email.email,
         label: email.label,
@@ -50,7 +41,7 @@ export class ProfileFormComponent implements OnInit {
       this.emails.push(emailForm);
     });
 
-    this.data.user.phoneNumbers.forEach(phoneNumber => {
+    this.user.phoneNumbers.forEach((phoneNumber) => {
       const emailForm = this._formBuilder.group({
         country: phoneNumber.country,
         phoneNumber: phoneNumber.phoneNumber,
@@ -64,7 +55,7 @@ export class ProfileFormComponent implements OnInit {
   addEmail() {
     const emailForm = this._formBuilder.group({
       email: ['', Validators.email],
-      label: ['Work']
+      label: ['Work'],
     });
 
     this.emails.push(emailForm);
@@ -107,14 +98,5 @@ export class ProfileFormComponent implements OnInit {
     }
 
     // TODO: Use backend service to upload the profile picture
-  }
-
-  private _prepareUserData() {
-    this.data = this._route.snapshot.data;
-  }
-
-  private _prepareCountries() {
-    // TODO: Use backend service instead of mock api for country codes
-    this._http.get('api/apps/contacts/countries').subscribe((countries) => (this.countries = countries));
   }
 }

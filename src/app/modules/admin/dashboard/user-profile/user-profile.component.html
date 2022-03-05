@@ -13,36 +13,22 @@
               </div>
             </div>
 
-            <profile-view *ngIf="!editMode"></profile-view>
-            <profile-form *ngIf="editMode"></profile-form>
+            <profile-view *ngIf="!editMode" [user]="this.data.user" [countries]="this.countries"></profile-view>
+            <profile-form *ngIf="editMode" [user]="this.data.user" [countries]="this.countries"></profile-form>
 
             <div
               *ngIf="editMode"
               class="flex items-center mt-10 -mx-6 sm:-mx-12 py-4 pr-4 pl-1 sm:pr-12 sm:pl-7 border-t bg-gray-50 dark:bg-transparent"
             >
-              <button
-                mat-button
-                [color]="'warn'"
-                [matTooltip]="'APP.ROUTES.USER.ABOUT.DELETE_DESC' | transloco"
-              >
+              <button mat-button [color]="'warn'" [matTooltip]="'APP.ROUTES.USER.ABOUT.DELETE_DESC' | transloco">
                 {{ 'APP.ROUTES.USER.ABOUT.DELETE' | transloco }}
               </button>
-              
-              <button
-                class="ml-auto"
-                mat-button
-                [matTooltip]="'APP.ROUTES.USER.ABOUT.CANCEL_DESC' | transloco"
-                (click)="toggleEdit()"
-              >
+
+              <button class="ml-auto" mat-button [matTooltip]="'APP.ROUTES.USER.ABOUT.CANCEL_DESC' | transloco" (click)="toggleEdit()">
                 {{ 'APP.ROUTES.USER.ABOUT.CANCEL' | transloco }}
               </button>
-              
-              <button
-                class="ml-2"
-                mat-flat-button
-                [color]="'primary'"
-                [matTooltip]="'APP.ROUTES.USER.ABOUT.SAVE_DESC' | transloco"
-              >
+
+              <button class="ml-2" mat-flat-button [color]="'primary'" [matTooltip]="'APP.ROUTES.USER.ABOUT.SAVE_DESC' | transloco">
                 {{ 'APP.ROUTES.USER.ABOUT.SAVE' | transloco }}
               </button>
             </div>

@@ -1,31 +1,31 @@
 <div class="flex flex-col mt-4 pt-6 space-y-8">
-  <ng-container *ngIf="data.user.avatar">
+  <ng-container *ngIf="user.avatar">
     <div class="-mt-26 lg:-mt-22 rounded-full">
-      <img class="w-32 h-32 rounded-full ring-4 ring-bg-card" src="{{ data.user.avatar }}" alt="User avatar" />
+      <img class="w-32 h-32 rounded-full ring-4 ring-bg-card" src="{{ user.avatar }}" alt="User avatar" />
     </div>
   </ng-container>
 
-  <div class="mt-3 text-4xl font-bold truncate border-b">{{ data.user.name }}</div>
+  <div class="mt-3 text-4xl font-bold truncate border-b">{{ user.name }}</div>
 
-  <ng-container *ngIf="data.user.title">
+  <ng-container *ngIf="user.title">
     <div class="flex sm:items-center">
       <mat-icon [svgIcon]="'heroicons_outline:briefcase'"></mat-icon>
-      <div class="ml-6 leading-6">{{ data.user.title }}</div>
+      <div class="ml-6 leading-6">{{ user.title }}</div>
     </div>
   </ng-container>
 
-  <ng-container *ngIf="data.user.company">
+  <ng-container *ngIf="user.company">
     <div class="flex sm:items-center">
       <mat-icon [svgIcon]="'heroicons_outline:office-building'"></mat-icon>
-      <div class="ml-6 leading-6">{{ data.user.company }}</div>
+      <div class="ml-6 leading-6">{{ user.company }}</div>
     </div>
   </ng-container>
 
-  <ng-container *ngIf="data.user.emails.length">
+  <ng-container *ngIf="user.emails.length">
     <div class="flex">
       <mat-icon [svgIcon]="'heroicons_outline:mail'"></mat-icon>
       <div class="min-w-0 ml-6 space-y-1">
-        <ng-container *ngFor="let email of data.user.emails">
+        <ng-container *ngFor="let email of user.emails">
           <div class="flex items-center leading-6">
             <a class="hover:underline text-primary-500" [href]="'mailto:' + email.email" target="_blank">
               {{ email.email }}
@@ -40,11 +40,11 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="data.user.phoneNumbers.length">
+  <ng-container *ngIf="user.phoneNumbers.length">
     <div class="flex">
       <mat-icon [svgIcon]="'heroicons_outline:phone'"></mat-icon>
       <div class="min-w-0 ml-6 space-y-1">
-        <ng-container *ngFor="let phoneNumber of data.user.phoneNumbers">
+        <ng-container *ngFor="let phoneNumber of user.phoneNumbers">
           <div class="flex items-center leading-6">
             <div
               class="hidden sm:flex w-6 h-4 overflow-hidden"
@@ -65,24 +65,24 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="data.user.address">
+  <ng-container *ngIf="user.address">
     <div class="flex sm:items-center">
       <mat-icon [svgIcon]="'heroicons_outline:location-marker'"></mat-icon>
-      <div class="ml-6 leading-6">{{ data.user.address }}</div>
+      <div class="ml-6 leading-6">{{ user.address }}</div>
     </div>
   </ng-container>
 
-  <ng-container *ngIf="data.user.birthday">
+  <ng-container *ngIf="user.birthday">
     <div class="flex sm:items-center">
       <mat-icon [svgIcon]="'heroicons_outline:cake'"></mat-icon>
-      <div class="ml-6 leading-6">{{ data.user.birthday | date: 'longDate' }}</div>
+      <div class="ml-6 leading-6">{{ user.birthday | date: 'longDate' }}</div>
     </div>
   </ng-container>
 
-  <ng-container *ngIf="data.user.notes">
+  <ng-container *ngIf="user.notes">
     <div class="flex">
       <mat-icon [svgIcon]="'heroicons_outline:menu-alt-2'"></mat-icon>
-      <div class="max-w-none ml-6 prose prose-sm" [innerHTML]="data.user.notes"></div>
+      <div class="max-w-none ml-6 prose prose-sm" [innerHTML]="user.notes"></div>
     </div>
   </ng-container>
 </div>
