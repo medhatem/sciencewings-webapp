@@ -47,8 +47,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { AvatarComponent } from 'app/components/avatar/avatar.component';
 
 @NgModule({
+  declarations: [AvatarComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -101,6 +103,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     ScrollingModule,
   ],
   exports: [
+    AvatarComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

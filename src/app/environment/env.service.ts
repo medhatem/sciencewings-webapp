@@ -9,7 +9,6 @@ export class EnvService {
   swaggerUrl = 'https://sciencewings-api-staging.herokuapp.com/swagger/swagger.json';
   sciencewingsWebRealm = 'sciencewings-web';
   clientId = 'sciencewings-web-client';
-  clientIdLocal = 'sciencewings-local-web-client';
   enableDebug = true;
   production = false;
   staging = true;

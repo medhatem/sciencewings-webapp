@@ -28,13 +28,7 @@
           </div>
         </div>
 
-        <img class="object-cover w-full h-full" *ngIf="data.user.avatar" [src]="data.user.avatar" />
-        <div
-          class="flex items-center justify-center w-full h-full rounded overflow-hidden uppercase text-8xl font-bold leading-none bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200"
-          *ngIf="!data.user.avatar"
-        >
-          {{ data.user.name.charAt(0) }}
-        </div>
+        <app-avatar [avatar]="data.user.avatar" [name]="data.user.name"></app-avatar>
       </div>
     </ng-container>
 
@@ -138,7 +132,7 @@
                     <span class="flex items-center">
                       <span
                         class="w-6 h-4 overflow-hidden"
-                        [style.background]="'url(\'/assets/images/apps/contacts/flags.png\') no-repeat 0 0'"
+                        [style.background]="'url(\'/assets/images/flags.png\') no-repeat 0 0'"
                         [style.backgroundSize]="'24px 3876px'"
                         [style.backgroundPosition]="country.flagImagePos"
                       ></span>
