@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { Resolve } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
-import { NewUserInfosService } from './new-user-infos.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-
-import { Observable } from 'rxjs';
-import { from } from 'rxjs';
-
+import { Observable, from } from 'rxjs';
 import { constants } from '../../shared/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NewUserInfosResolver implements Resolve<any> {
-  constructor(private _newUserInfosService: NewUserInfosService, private _keycloackService: KeycloakService, private _toastr: ToastrService) {}
+  constructor(private _keycloackService: KeycloakService, private _toastr: ToastrService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+  resolve(): Observable<any> {
     return from(this.getloadUserProfileKeycloak());
   }
 
@@ -26,7 +22,7 @@ export class NewUserInfosResolver implements Resolve<any> {
         localStorage.setItem(constants.KEYCLOAK_USER_ID, user.id);
       })
       .catch((error) => {
-        this._toastr.showError('An error occured while trying to get the kcid', 'Keycloak service');
+        this._toastr.showError('KEYCLOAK_LOGIN_ERROR', 'APP.LOGIN_ERROR_TITLE');
       });
 
     return await this._keycloackService.loadUserProfile();

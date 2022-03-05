@@ -39,6 +39,7 @@
         }
       }
     },
+    "LOGIN_ERROR_TITLE": "Login error!",
     "KEYCLOAK_LOGIN_ERROR": "Une erreur s'est produite lors de la connexion de keycloak",
     "KEYCLOAK_LOGOUT_ERROR": "Une erreur s'est produite lors de la déconnexion de keycloak",
     "BTN": {
