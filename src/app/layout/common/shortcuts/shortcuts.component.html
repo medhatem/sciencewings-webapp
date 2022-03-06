@@ -1,13 +1,11 @@
 <!-- Shortcuts toggle -->
 <button mat-icon-button (click)="openPanel()" #shortcutsOrigin>
-  <mat-icon [svgIcon]="'heroicons_outline:bookmark'"></mat-icon>
+  <mat-icon [svgIcon]="'mat_solid:apps'"></mat-icon>
 </button>
 
 <!-- Shortcuts panel -->
 <ng-template #shortcutsPanel>
-  <div
-    class="fixed inset-0 sm:static sm:inset-auto flex flex-col sm:min-w-90 sm:w-90 sm:rounded-2xl overflow-hidden shadow-lg"
-  >
+  <div class="fixed inset-0 sm:static sm:inset-auto flex flex-col sm:min-w-90 sm:w-90 sm:rounded-2xl overflow-hidden shadow-lg">
     <!-- Header -->
     <div class="flex flex-shrink-0 items-center py-4 pr-4 pl-6 bg-primary text-on-primary">
       <div class="sm:hidden -ml-1 mr-3">
@@ -95,19 +93,13 @@
               </a>
               <!-- Link content template -->
               <ng-template #linkContent>
-                <div
-                  class="relative flex flex-shrink-0 items-center justify-center w-12 h-12 mb-3 rounded-full bg-gray-100 dark:bg-gray-700"
-                >
+                <div class="relative flex flex-shrink-0 items-center justify-center w-12 h-12 mb-3 rounded-full bg-gray-100 dark:bg-gray-700">
                   <mat-icon
                     class="absolute opacity-0 group-hover:opacity-100 z-20 icon-size-5"
                     *ngIf="mode === 'modify'"
                     [svgIcon]="'heroicons_solid:pencil'"
                   ></mat-icon>
-                  <mat-icon
-                    class="z-10"
-                    [ngClass]="{ 'group-hover:opacity-0': mode === 'modify' }"
-                    [svgIcon]="shortcut.icon"
-                  ></mat-icon>
+                  <mat-icon class="z-10" [ngClass]="{ 'group-hover:opacity-0': mode === 'modify' }" [svgIcon]="shortcut.icon"></mat-icon>
                 </div>
                 <div class="font-medium text-center">{{ shortcut.label }}</div>
                 <div class="text-md text-center text-secondary">{{ shortcut.description }}</div>
@@ -123,9 +115,7 @@
               <mat-icon class="text-primary-500-700" [svgIcon]="'heroicons_outline:bookmark'"></mat-icon>
             </div>
             <div class="mt-5 text-2xl font-semibold tracking-tight">No shortcuts</div>
-            <div class="w-full max-w-60 mt-1 text-md text-center text-secondary">
-              When you have shortcuts, they will appear here.
-            </div>
+            <div class="w-full max-w-60 mt-1 text-md text-center text-secondary">When you have shortcuts, they will appear here.</div>
           </div>
         </ng-container>
       </ng-container>
@@ -149,14 +139,10 @@
             <mat-label>Link</mat-label>
             <input matInput [formControlName]="'link'" required />
           </mat-form-field>
-          <mat-slide-toggle [color]="'primary'" [formControlName]="'useRouter'">
-            Use router for the link
-          </mat-slide-toggle>
+          <mat-slide-toggle [color]="'primary'" [formControlName]="'useRouter'"> Use router for the link </mat-slide-toggle>
           <!-- Actions -->
           <div class="flex items-center justify-end mt-4">
-            <button class="mr-2" *ngIf="mode === 'edit'" mat-flat-button type="button" (click)="delete()">
-              Delete
-            </button>
+            <button class="mr-2" *ngIf="mode === 'edit'" mat-flat-button type="button" (click)="delete()">Delete</button>
             <button mat-flat-button [color]="'primary'" [disabled]="!shortcutForm.valid" type="button" (click)="save()">
               <ng-container *ngIf="mode === 'add'">Add</ng-container>
               <ng-container *ngIf="mode === 'edit'">Update</ng-container>
