@@ -3,59 +3,45 @@
   <div class="flex flex-auto mt-2">
     <div class="flex flex-col flex-auto w-full max-w-lg sm:max-w-7xl mx-auto">
       <form class="p-4 mt-2 bg-card shadow rounded overflow-hidden" [formGroup]="stepperForm">
-        <mat-horizontal-stepper [linear]="false" #horizontalStepper>
+        <mat-horizontal-stepper [linear]="false" labelPosition="bottom" #horizontalStepper>
           <mat-step [formGroupName]="'step1'" [stepControl]="stepperForm.get('step1')" #horizontalStepperStep1>
-            <ng-template matStepLabel>Informations générales</ng-template>
+            <ng-template matStepLabel>{{ 'APP.ROUTES.USER.NEW_USER_FORM.STEP_1.TITLE' | transloco }}</ng-template>
             <p class="my-6 font-medium"></p>
             <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
               <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
-                <input matInput [formControlName]="'firstName'" [placeholder]="'Nom de l organization'" required />
-                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+                <mat-label>{{ 'APP.ROUTES.USER.ABOUT.FIRST_NAME' | transloco }}</mat-label>
+                <input matInput [formControlName]="'firstName'" placeholder="{{ 'APP.ROUTES.USER.ABOUT.FIRST_NAME' | transloco }}" required />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-                <input matInput [formControlName]="'lastName'" [placeholder]="'Numéro d entregistrement'" />
-                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:newspaper'"></mat-icon>
+                <mat-label>{{ 'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco }}</mat-label>
+                <input matInput [formControlName]="'lastName'" placeholder="{{ 'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco }}" required />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
               </mat-form-field>
             </div>
             <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
               <mat-form-field class="flex-auto mx-4">
-                <input matInput [formControlName]="'email'" [placeholder]="'Email Address'" required />
+                <mat-label>{{ 'APP.ROUTES.USER.ABOUT.EMAIL' | transloco }}</mat-label>
+                <input
+                  matInput
+                  [formControlName]="'email'"
+                  placeholder="<mat-label>{{ 'APP.ROUTES.USER.ABOUT.EMAIL' | transloco }}</mat-label>"
+                  required
+                />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="flex-auto mx-4">
-                <input matInput [formControlName]="'title'" [placeholder]="'Titre / Fonction'" required />
-                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
-              </mat-form-field>
-            </div>
-            <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
-              <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
-                <input matInput [formControlName]="'phoneNumber'" [placeholder]="'Numéro téléphone'" />
-                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
-              </mat-form-field>
-              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4" appearance="fill">
-                <mat-chip-list #chipList aria-label="Etiquette selection">
-                  <ng-container *ngFor="let userLabel of userLabels">
-                    <mat-chip (removed)="remove(userLabel)" color="primary" selected>
-                      {{ userLabel.value }}
-                      <button matChipRemove>
-                        <mat-icon>cancel</mat-icon>
-                      </button>
-                    </mat-chip>
-                  </ng-container>
-                  <input
-                    placeholder="Étiquettes..."
-                    [matChipInputFor]="chipList"
-                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                    [matChipInputAddOnBlur]="addOnBlur"
-                    (matChipInputTokenEnd)="add($event)"
-                  />
-                </mat-chip-list>
-              </mat-form-field>
-            </div>
-            <div class="flex">
-              <mat-form-field class="fuse-mat-textarea flex-auto mx-4">
-                <textarea matInput [formControlName]="'description'" [placeholder]="'About'" [rows]="3"></textarea>
-                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:menu-alt-2'"></mat-icon>
+                <mat-label>{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="dateOfBirthDatePicker"
+                  [formControlName]="'dateOfBirth'"
+                  placeholder="{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}"
+                  required
+                />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:cake'"></mat-icon>
+                <mat-datepicker-toggle matSuffix [for]="dateOfBirthDatePicker"> </mat-datepicker-toggle>
+                <mat-datepicker #dateOfBirthDatePicker></mat-datepicker>
               </mat-form-field>
             </div>
             <div class="flex justify-end">
@@ -67,7 +53,7 @@
                 type="button"
                 matStepperNext
               >
-                Next
+                {{ 'APP.GENERAL.NEXT' | transloco }}
               </button>
             </div>
           </mat-step>
@@ -141,9 +127,7 @@
               </mat-form-field>
             </div>
             <div class="flex justify-end">
-              <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
-                Back
-              </button>
+              <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>Back</button>
               <button
                 class="px-8"
                 mat-flat-button
@@ -160,30 +144,18 @@
           <mat-step>
             <ng-template matStepLabel>Done</ng-template>
             <div>
-              <mat-icon
-                class="icon-size-8"
-                matPrefix
-                [svgIcon]="'heroicons_solid:check'"
-                style="color: green"
-              ></mat-icon>
+              <mat-icon class="icon-size-8" matPrefix [svgIcon]="'heroicons_solid:check'" style="color: green"></mat-icon>
             </div>
             <p class="my-6 font-medium">
               <span>Merci d'avoir rempli les informations de votre Organization !.</span>
             </p>
             <p class="my-6 font-medium">
-              Vous pouvez maintenant gérer votre Organization et créer vos ressources et bien plein d'autres
-              fonctionnalités intéressantes.
+              Vous pouvez maintenant gérer votre Organization et créer vos ressources et bien plein d'autres fonctionnalités intéressantes.
             </p>
-            <p class="my-6 font-medium">
-              Vous pouvez cliquer sur réinitialiser si vous souhaitez creer une autre organization.
-            </p>
+            <p class="my-6 font-medium">Vous pouvez cliquer sur réinitialiser si vous souhaitez creer une autre organization.</p>
             <div class="flex justify-end mt-8">
-              <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
-                Back
-              </button>
-              <button class="px-8" mat-flat-button [color]="'primary'" type="reset" (click)="emitOnFormComplete()">
-                Done
-              </button>
+              <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>Back</button>
+              <button class="px-8" mat-flat-button [color]="'primary'" type="reset" (click)="emitOnFormComplete()">Done</button>
             </div>
           </mat-step>
         </mat-horizontal-stepper>

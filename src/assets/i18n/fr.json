@@ -3,6 +3,9 @@
   "PROFILE": "Profil",
   "EMPTY_ORGANIZATIONS": "Aucune Organisation",
   "APP": {
+    "GENERAL": {
+      "NEXT": "Suivant"
+    },
     "ROUTES": {
       "ADMIN": {
         "TITLE": "Tableau de bord",
@@ -17,6 +20,11 @@
         }
       },
       "USER": {
+        "NEW_USER_FORM": {
+          "STEP_1": {
+            "TITLE": "Informations générales"
+          }
+        },
         "TITLE": "Utilisateur",
         "TABS": {
           "ABOUT": "À propos",
@@ -24,9 +32,10 @@
           "TRAINING": "Formations",
           "MEMBERS": "Membres"
         },
-
         "ABOUT": {
           "NAME": "Nom",
+          "FIRST_NAME": "Prénom",
+          "LAST_NAME": "Nom",
           "TITLE": "Intitulé de poste",
           "COMPANY": "Société",
           "EMAIL": "Adresse e-mail",

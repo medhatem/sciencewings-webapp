@@ -22,11 +22,7 @@ export class NewUserInfosComponent implements OnInit {
   // temp data to replace with mock api or actual api
   userLabels: IMatChipLabel[] = [];
 
-  constructor(
-    private _newUserInfosResolver: NewUserInfosResolver,
-    private _router: Router,
-    private _formBuilder: FormBuilder,
-  ) {}
+  constructor(private _newUserInfosResolver: NewUserInfosResolver, private _router: Router, private _formBuilder: FormBuilder) {}
 
   emitOnFormComplete() {
     // false to emit that : hideMenusAndButtons = false
@@ -40,10 +36,7 @@ export class NewUserInfosComponent implements OnInit {
         firstName: [this.user.firstName, [Validators.required]],
         lastName: [this.user.lastName, [Validators.required]],
         email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
-        title: ['', []],
-        description: [''],
-        phoneNumber: [''],
-        labels: [''],
+        dateOfBirth: ['', Validators.required],
       }),
       step2: this._formBuilder.group({
         apartNumber: [''],
