@@ -25,7 +25,26 @@
           "MEMBERS": "Supervised members"
         },
         "ABOUT": {
-          "ABOUT_ME": "About me"
+          "NAME": "Name",
+          "TITLE": "Job title",
+          "COMPANY": "Company",
+          "EMAIL": "Email address",
+          "LABEL": "Label",
+          "REMOVE": "Remove",
+          "ADD_EMAIL": "Add an e-mail address",
+          "PHONE": "Phone number",
+          "ADD_PHONE_NUMBER": "Add a phone number",
+          "ADDRESS": "Address",
+          "BIRTH_DATE": "Date of birth",
+          "NOTES": "Notes",
+          "EDIT": "Edit",
+          "EDIT_DESC": "Edit information",
+          "CANCEL": "Cancel",
+          "CANCEL_DESC": "Cancel modifications",
+          "DELETE": "Delete",
+          "DELETE_DESC": "Delete user",
+          "SAVE": "Save",
+          "SAVE_DESC": "Save modifications"
         },
         "PROFILE": {
           "TITLE": "User profile"
