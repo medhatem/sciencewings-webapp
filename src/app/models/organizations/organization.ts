@@ -1,6 +1,6 @@
 import { CreateOrganizationRO } from 'generated/models';
-import { Address } from './address';
-import { Phone } from './phone';
+import { Address } from '../address';
+import { Phone } from '../phone';
 
 export class Organization implements CreateOrganizationRO {
   id?: string;
