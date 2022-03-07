@@ -1,5 +1,6 @@
 import { BehaviorSubject, Observable, map, take } from 'rxjs';
 
+import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -9,12 +10,12 @@ import { Injectable } from '@angular/core';
 export class ResourceService {
     private _data: BehaviorSubject<any> = new BehaviorSubject(null);
 
-    constructor(private _httpClient: HttpClient) { }
+    constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) { }
 
-   /**
-    * Getter for data
-    * k
-    */
+    /**
+     * Getter for data
+     * k
+     */
     get data$(): Observable<any> {
         return this._data.asObservable();
     }
@@ -22,11 +23,19 @@ export class ResourceService {
     /**
      * Get data
      */
-  getData(id?: string): Observable<any> {
-    return this._httpClient.get('api/apps/resources/all').pipe(
-      take(1),
-      map((contacts: any) => contacts.find(res => res.id === 'cd5fa417-b667-482d-b208-798d9da3213c') || null)
-    );
-  }
+    getData(id?: string): Observable<any> {
+        return this._httpClient.get('api/apps/resources/all').pipe(
+            take(1),
+            map((contacts: any) => contacts.find(res => res.id === 'cd5fa417-b667-482d-b208-798d9da3213c') || null)
+        );
+    }
+
+    /**
+     * Get data
+     */
+    getOrgResource(id?: string): Observable<any> {
+        this.swaggerAPI.ResourceRoutesGetOgranizationResources(1).subscribe((data) => console.log({ x:data }));
+        return this._httpClient.get('http://localhost:3000/resources/getOgranizationResourcesById/1');
+    }
 
 }

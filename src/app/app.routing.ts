@@ -63,12 +63,12 @@ export const appRoutes: Route[] = [
               ),
           },
           {
-            path: 'resource',
+            path: 'resources',
             canActivate: [AuthGuard],
             data: {
-              title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.TITLE',
+              title: 'APP.ROUTES.ADMIN.RESOURCE.TITLE',
               type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:office-building',
+              icon: 'heroicons_outline:cube',
             },
             loadChildren: () =>
               import('app/modules/admin/dashboard/resource/resource.module').then(
