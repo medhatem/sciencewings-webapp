@@ -29,7 +29,26 @@
         },
 
         "ABOUT": {
-          "ABOUT_ME": "À propos de moi"
+          "NAME": "Nom",
+          "TITLE": "Intitulé de poste",
+          "COMPANY": "Société",
+          "EMAIL": "Adresse e-mail",
+          "LABEL": "Étiquette",
+          "REMOVE": "Enlever",
+          "ADD_EMAIL": "Ajouter une adresse e-mail",
+          "PHONE": "Numéro de téléphone",
+          "ADD_PHONE_NUMBER": "Ajouter un numéro de téléphone",
+          "ADDRESS": "Adresse",
+          "BIRTH_DATE": "Date de naissance",
+          "NOTES": "Notes",
+          "EDIT": "Modifier",
+          "EDIT_DESC": "Modifier les informations",
+          "CANCEL": "Annuler",
+          "CANCEL_DESC": "Annuler les modifications",
+          "DELETE": "Supprimer",
+          "DELETE_DESC": "Supprimer l'utilisateur",
+          "SAVE": "Enregistrer",
+          "SAVE_DESC": "Enregistrer les modifications"
         },
         "PROFILE": {
           "TITLE": "Profil utilisateur"
@@ -42,6 +61,7 @@
         }
       }
     },
+    "LOGIN_ERROR_TITLE": "Login error!",
     "KEYCLOAK_LOGIN_ERROR": "Une erreur s'est produite lors de la connexion de keycloak",
     "KEYCLOAK_LOGOUT_ERROR": "Une erreur s'est produite lors de la déconnexion de keycloak",
     "BTN": {
