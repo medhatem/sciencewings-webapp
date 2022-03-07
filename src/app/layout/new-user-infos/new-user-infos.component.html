@@ -59,7 +59,7 @@
           </mat-step>
 
           <mat-step [formGroupName]="'step2'" [stepControl]="stepperForm.get('step2')" #horizontalStepperStep2>
-            <ng-template matStepLabel>Adresse et Réseaux sociaux</ng-template>
+            <ng-template matStepLabel>{{ 'APP.ROUTES.USER.NEW_USER_FORM.STEP_2.TITLE' | transloco }}</ng-template>
             <p class="my-6 font-medium">Adresse de l'organisation:</p>
             <div class="grid grid-cols-4 flex flex-col gt-xs:flex-row">
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">

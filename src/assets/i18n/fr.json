@@ -23,6 +23,9 @@
         "NEW_USER_FORM": {
           "STEP_1": {
             "TITLE": "Informations générales"
+          },
+          "STEP_2": {
+            "TITLE": "Informations de contact"
           }
         },
         "TITLE": "Utilisateur",
