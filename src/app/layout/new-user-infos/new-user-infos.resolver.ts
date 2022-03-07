@@ -22,7 +22,7 @@ export class NewUserInfosResolver implements Resolve<any> {
         localStorage.setItem(constants.KEYCLOAK_USER_ID, user.id);
       })
       .catch((error) => {
-        this._toastr.showError('KEYCLOAK_LOGIN_ERROR', 'APP.LOGIN_ERROR_TITLE');
+        this._toastr.showError('APP.LOGIN_ERROR_TITLE', 'KEYCLOAK_LOGIN_ERROR');
       });
 
     return await this._keycloackService.loadUserProfile();
