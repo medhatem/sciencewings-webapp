@@ -4,7 +4,17 @@
   "EMPTY_ORGANIZATIONS": "No Organization",
   "APP": {
     "GENERAL": {
-      "NEXT": "Next"
+      "NEXT": "Next",
+      "ADDRESS": {
+        "ADDRESS": "Address",
+        "ADDRESSES": "Addresses",
+        "STREET": "Street",
+        "APPARTMENT": "Apartment",
+        "PROVINCE": "Province",
+        "CITY": "City",
+        "POSTAL_CODE": "Postal code",
+        "COUNTRY": "Country"
+      }
     },
     "ROUTES": {
       "ADMIN": {

@@ -4,7 +4,17 @@
   "EMPTY_ORGANIZATIONS": "Aucune Organisation",
   "APP": {
     "GENERAL": {
-      "NEXT": "Suivant"
+      "NEXT": "Suivant",
+      "ADDRESS": {
+        "ADDRESS": "Adresse",
+        "ADDRESSES": "Adresses",
+        "STREET": "Rue",
+        "APPARTMENT": "Appartement",
+        "PROVINCE": "Province",
+        "CITY": "Cité",
+        "POSTAL_CODE": "Code postal",
+        "COUNTRY": "Pays"
+      }
     },
     "ROUTES": {
       "ADMIN": {
