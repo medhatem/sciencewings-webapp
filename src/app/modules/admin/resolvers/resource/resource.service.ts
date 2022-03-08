@@ -38,4 +38,9 @@ export class ResourceService {
         return this._httpClient.get('http://localhost:3000/resources/getOgranizationResourcesById/1');
     }
 
+    getResource(id?: number): Observable<any> {
+        // this.swaggerAPI.ResourceRoutesGetOgranizationResources(1).subscribe((data) => console.log({ x:data }));
+        return this._httpClient.get('http://localhost:3000/resources/getById/' + id);
+    }
+
 }

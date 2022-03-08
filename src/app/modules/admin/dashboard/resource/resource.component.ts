@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { Observable, Subject, debounceTime, map, merge, switchMap, takeUntil } from 'rxjs';
+import { Observable, Subject, debounceTime, map, merge, of, switchMap, takeUntil } from 'rxjs';
 
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { MatPaginator } from '@angular/material/paginator';
@@ -19,28 +19,6 @@ export interface ResourceType {
     selector: 'app-resource',
     templateUrl: './resource.component.html',
     styleUrls: ['./resource.component.scss'],
-    styles: [
-        /* language=SCSS */
-        `
-            .inventory-grid {
-                grid-template-columns: 48px auto 40px;
-
-                @screen sm {
-                    grid-template-columns: 48px auto 112px 72px;
-                }
-
-                @screen md {
-                    grid-template-columns: 48px 112px auto 112px 72px;
-                }
-
-                @screen lg {
-                    grid-template-columns: 48px 112px auto 112px 96px 96px 72px;
-                }
-            }
-        `
-    ],
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     animations: fuseAnimations
 })
 export class ResourceComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -49,8 +27,9 @@ export class ResourceComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(MatSort) private _sort: MatSort;
 
     resources = [];
+    // resources$: Observable<any[]>;
     isLoading: boolean = false;
-    selectedProduct = null;
+    selectedResource = null;
 
     searchInputControl: FormControl = new FormControl();
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -69,7 +48,6 @@ export class ResourceComponent implements OnInit, AfterViewInit, OnDestroy {
                 this._toastrService.showError(errorMessage, 'Something went wrong!');
             }
             this.resources = body.resources;
-            console.log({ resources: this.resources });
         });
     }
 
@@ -128,8 +106,7 @@ export class ResourceComponent implements OnInit, AfterViewInit, OnDestroy {
      * @param index
      * @param item
      */
-     trackByFn(index: number, item: any): any
-    {
+    trackByFn(index: number, item: any): any {
         return item.id || index;
     }
 
@@ -137,7 +114,7 @@ export class ResourceComponent implements OnInit, AfterViewInit, OnDestroy {
      * Close the details
      */
     closeDetails(): void {
-        this.selectedProduct = null;
+        this.selectedResource = null;
     }
 
     /**
@@ -151,7 +128,22 @@ export class ResourceComponent implements OnInit, AfterViewInit, OnDestroy {
      *
      * @param productId
      */
-    toggleDetails(productId: string): void {
+    toggleDetails(resourceId: number): void {
+
+        // If the product is already selected...
+        if ( this.selectedResource && this.selectedResource.id === resourceId )
+        {
+            // Close the details
+            this.closeDetails();
+            return;
+        }
+
+        this._resourceService.getResource(resourceId).subscribe(({ statusCode, body, errorMessage }) => {
+            if (statusCode === 500) {
+                this._toastrService.showError(errorMessage, 'Something went wrong!');
+            }
+            this.selectedResource = body;
+        });
     }
 
 }
