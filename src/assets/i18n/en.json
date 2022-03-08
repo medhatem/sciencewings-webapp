@@ -13,7 +13,8 @@
         "PROVINCE": "Province",
         "CITY": "City",
         "POSTAL_CODE": "Postal code",
-        "COUNTRY": "Country"
+        "COUNTRY": "Country",
+        "ADD_ADDRESS": "Add and address"
       }
     },
     "ROUTES": {

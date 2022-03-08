@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { NewUserInfosResolver } from './new-user-infos.resolver';
 import { User, Phone, Address } from 'app/models';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'new-user-infos',
@@ -54,16 +55,35 @@ export class NewUserInfosComponent implements OnInit {
       }),
     });
 
-    (this.stepperForm.controls['step2'] as FormGroup).controls['addresses'] = this._formBuilder.group({
-      id: 0,
+    (this.stepperForm.controls['step2'] as FormGroup).controls['addresses'] = this._formBuilder.array([
+      this._formBuilder.group({
+        street: '',
+        apartment: '',
+        province: '',
+        city: '',
+        code: '',
+        country: constants.NEW_USER.DEFAULT_COUNTRY,
+        type: constants.NEW_USER.DEFAULT_TYPE,
+      }),
+    ]);
+  }
+
+  addAddress() {
+    const addressForm = this._formBuilder.group({
       street: '',
       apartment: '',
       province: '',
       city: '',
       code: '',
-      country: 'Algeria',
-      type: 'USER',
+      country: constants.NEW_USER.DEFAULT_COUNTRY,
+      type: constants.NEW_USER.DEFAULT_TYPE,
     });
+
+    this.addresses.push(addressForm);
+  }
+
+  deleteAddress(index) {
+    this.addresses.removeAt(index);
   }
 
   getCountryByName(name: string) {
