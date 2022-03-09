@@ -9,7 +9,8 @@ export const constants = {
   KEYCLOAK_LOGOUT_ERROR: 'APP.KEYCLOAK_LOGOUT_ERROR',
   KEYCLOAK_USER_ID: 'kcid',
   NEW_USER: {
-    DEFAULT_COUNTRY: 'Canada',
+    DEFAULT_COUNTRY: 'Algeria',
+    DEFAULT_COUNTRY_CODE: '+213',
     DEFAULT_TYPE: 'USER',
   },
 };

@@ -15,6 +15,9 @@
         "POSTAL_CODE": "Code postal",
         "COUNTRY": "Pays",
         "ADD_ADDRESS": "Ajouter une addresse"
+      },
+      "PHONE": {
+        "PHONE_NUMBERS": "Numéros de téléphone"
       }
     },
     "ROUTES": {

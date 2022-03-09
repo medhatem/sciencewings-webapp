@@ -15,6 +15,9 @@
         "POSTAL_CODE": "Postal code",
         "COUNTRY": "Country",
         "ADD_ADDRESS": "Add and address"
+      },
+      "PHONE": {
+        "PHONE_NUMBERS": "Phone numbers"
       }
     },
     "ROUTES": {

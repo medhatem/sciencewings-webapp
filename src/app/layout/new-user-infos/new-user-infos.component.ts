@@ -28,6 +28,10 @@ export class NewUserInfosComponent implements OnInit {
     return (this.stepperForm.controls['step2'] as FormGroup).controls['addresses'] as FormArray;
   }
 
+  get phones(): FormArray {
+    return (this.stepperForm.controls['step2'] as FormGroup).controls['phones'] as FormArray;
+  }
+
   emitOnFormComplete() {
     // false to emit that : hideMenusAndButtons = false
     this.onFormComplete.emit(false);
@@ -55,6 +59,14 @@ export class NewUserInfosComponent implements OnInit {
       }),
     });
 
+    (this.stepperForm.controls['step2'] as FormGroup).controls['phones'] = this._formBuilder.array([
+      this._formBuilder.group({
+        code: constants.NEW_USER.DEFAULT_COUNTRY_CODE,
+        phone: '',
+        label: '',
+      }),
+    ]);
+
     (this.stepperForm.controls['step2'] as FormGroup).controls['addresses'] = this._formBuilder.array([
       this._formBuilder.group({
         street: '',
@@ -66,6 +78,21 @@ export class NewUserInfosComponent implements OnInit {
         type: constants.NEW_USER.DEFAULT_TYPE,
       }),
     ]);
+  }
+
+  dateFilter(d: Date | null): boolean {
+    const date = d || new Date();
+    return date < new Date();
+  }
+
+  addPhone() {
+    const phoneForm = this._formBuilder.group({
+      code: constants.NEW_USER.DEFAULT_COUNTRY_CODE,
+      phone: '',
+      label: '',
+    });
+
+    this.phones.push(phoneForm);
   }
 
   addAddress() {
@@ -82,6 +109,10 @@ export class NewUserInfosComponent implements OnInit {
     this.addresses.push(addressForm);
   }
 
+  deletePhone(index) {
+    this.phones.removeAt(index);
+  }
+
   deleteAddress(index) {
     this.addresses.removeAt(index);
   }
@@ -89,6 +120,12 @@ export class NewUserInfosComponent implements OnInit {
   getCountryByName(name: string) {
     if (this.countries) {
       return this.countries.find((country) => country.name === name);
+    }
+  }
+
+  getCountryByCode(code: string) {
+    if (this.countries) {
+      return this.countries.find((country) => country.code === code);
     }
   }
 
