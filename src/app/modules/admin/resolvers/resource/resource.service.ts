@@ -42,5 +42,9 @@ export class ResourceService {
         // this.swaggerAPI.ResourceRoutesGetOgranizationResources(1).subscribe((data) => console.log({ x:data }));
         return this._httpClient.get('http://localhost:3000/resources/getById/' + id);
     }
+    deleteResource(id?: number): Observable<any> {
+        // this.swaggerAPI.ResourceRoutesGetOgranizationResources(1).subscribe((data) => console.log({ x:data }));
+        return this._httpClient.delete('http://localhost:3000/resources/' + id);
+    }
 
 }

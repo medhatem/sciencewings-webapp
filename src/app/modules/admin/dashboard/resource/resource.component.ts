@@ -131,8 +131,7 @@ export class ResourceComponent implements OnInit, AfterViewInit, OnDestroy {
     toggleDetails(resourceId: number): void {
 
         // If the product is already selected...
-        if ( this.selectedResource && this.selectedResource.id === resourceId )
-        {
+        if (this.selectedResource && this.selectedResource.id === resourceId) {
             // Close the details
             this.closeDetails();
             return;
@@ -143,6 +142,16 @@ export class ResourceComponent implements OnInit, AfterViewInit, OnDestroy {
                 this._toastrService.showError(errorMessage, 'Something went wrong!');
             }
             this.selectedResource = body;
+        });
+    }
+
+    onDelete(id: number) {
+        this._resourceService.deleteResource(id).subscribe(({ statusCode, body, errorMessage }) => {
+            if (statusCode === 500) {
+                this._toastrService.showError(errorMessage, 'Something went wrong!');
+            } else {
+                this.resources = this.resources.filter((resource) => resource.id !== id);
+            }
         });
     }
 
