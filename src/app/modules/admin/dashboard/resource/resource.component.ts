@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { ResourceService } from './../../resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { fuseAnimations } from '@fuse/animations';
+import { ActivatedRoute } from '@angular/router';
 
 export interface ResourceType {
     name: string;
@@ -40,7 +41,8 @@ export class ResourceComponent implements OnInit, AfterViewInit, OnDestroy {
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseConfirmationService: FuseConfirmationService,
         private _formBuilder: FormBuilder,
-    ) { }
+        private route: ActivatedRoute
+    ) { this.route.params.subscribe(params => console.log({params})); }
 
     ngOnInit(): void {
         this._resourceService.getOrgResource().subscribe(({ statusCode, body, errorMessage }) => {
