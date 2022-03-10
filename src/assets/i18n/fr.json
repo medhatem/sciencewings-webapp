@@ -5,6 +5,7 @@
   "APP": {
     "GENERAL": {
       "NEXT": "Suivant",
+      "BACK": "Précédent",
       "ADDRESS": {
         "ADDRESS": "Adresse",
         "ADDRESSES": "Adresses",
@@ -40,6 +41,10 @@
           },
           "STEP_2": {
             "TITLE": "Informations de contact"
+          }, 
+          "STEP_3": {
+            "TITLE": "Terminé",
+            "MESSAGE": "Merci d'avoir rempli vos informations!\nVous pouvez maintenant gérer votre organisation et créer vos ressources et faire plein d'autres fonctionnalités intéressantes."
           }
         },
         "TITLE": "Utilisateur",
