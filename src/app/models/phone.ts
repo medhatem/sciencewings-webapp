@@ -9,7 +9,7 @@ export class Phone implements PhoneRO {
   phoneNumber: string;
 
   constructor(phone: any) {
-    const { code, label, value, organizationId, userId } = phone || {};
-    Object.assign(this, { code, label, value, organizationId, userId });
+    const { phoneCode, phoneLabel, value, organizationId, userId, phoneNumber } = phone || {};
+    Object.assign(this, { phoneCode, phoneLabel, value, organizationId, userId, phoneNumber });
   }
 }
