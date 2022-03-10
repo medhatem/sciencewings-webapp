@@ -112,7 +112,7 @@
               <mat-card-subtitle *ngIf="resource.organization"> <strong>Owned by:</strong> {{ resource.organization.name }} </mat-card-subtitle>
               <mat-card-actions style="display: flex; justify-content: end">
                 <button mat-button color="warn" (click)="onDelete(resource.id)">Remove</button>
-                <button mat-button color="primary" routerLinkActive="active" [routerLink]="['/admin/resources/', resource.id]" >Update</button>
+                <button mat-button color="primary" routerLinkActive="active" [routerLink]="['/admin/resources/', resource.id]">Update</button>
               </mat-card-actions>
             </mat-card>
           </div>
@@ -121,4 +121,4 @@
     </div>
   </div>
 </div>
-<router-outlet></router-outlet>
+<!-- YOU DON'T WANT A ROUTER OUTLET HERE -->

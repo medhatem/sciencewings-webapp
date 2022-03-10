@@ -4,18 +4,18 @@ import { ResourceResolver } from '../../resolvers/resource/resource.resolvers';
 import { Route } from '@angular/router';
 
 export const resourceRoutes: Route[] = [
-    {
-        path: '',
-        component: ResourceComponent,
-        resolve: {
-            data: ResourceResolver,
-        },
+  {
+    path: '',
+    component: ResourceComponent,
+    resolve: {
+      data: ResourceResolver,
     },
-    {
-        path: '/:id',
-        component: ResourceProfileFormComponent,
-        resolve: {
-            data: ResourceResolver,
-        },
+  },
+  {
+    path: ':id' /* Remove the leading '/' */,
+    component: ResourceProfileFormComponent,
+    resolve: {
+      data: ResourceResolver,
     },
+  },
 ];
