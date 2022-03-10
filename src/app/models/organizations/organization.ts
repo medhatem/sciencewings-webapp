@@ -7,7 +7,7 @@ export class Organization implements CreateOrganizationRO {
   description?: string;
   department?: string;
   sector?: string;
-  address: Address[];
+  addresses: Address[];
   adminContact: number;
   direction: number;
   email: string;

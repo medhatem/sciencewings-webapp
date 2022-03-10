@@ -1,15 +1,12 @@
 import { PhoneRO } from 'generated/models';
 
 export class Phone implements PhoneRO {
-  id: number;
-  code: string;
-  label: string;
+  phoneCode: string;
+  phoneLabel: string;
   value: number;
   organizationId?: number;
   userId?: number;
-  // To remove once DTO updated
-  // eslint-disable-next-line id-blacklist
-  number: string;
+  phoneNumber: string;
 
   constructor(phone: any) {
     const { code, label, value, organizationId, userId } = phone || {};
