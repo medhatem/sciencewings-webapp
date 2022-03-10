@@ -10,12 +10,12 @@
             <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
               <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
                 <mat-label>{{ 'APP.ROUTES.USER.ABOUT.FIRST_NAME' | transloco }}</mat-label>
-                <input matInput [formControlName]="'firstName'" [placeholder]="'APP.ROUTES.USER.ABOUT.FIRST_NAME' | transloco" required />
+                <input matInput [formControlName]="'firstname'" [placeholder]="'APP.ROUTES.USER.ABOUT.FIRST_NAME' | transloco" required />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
                 <mat-label>{{ 'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco }}</mat-label>
-                <input matInput [formControlName]="'lastName'" [placeholder]="'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco" required />
+                <input matInput [formControlName]="'lastname'" [placeholder]="'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco" required />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
               </mat-form-field>
             </div>
@@ -30,7 +30,7 @@
                 <input
                   matInput
                   [matDatepicker]="dateOfBirthDatePicker"
-                  [formControlName]="'dateOfBirth'"
+                  [formControlName]="'dateofbirth'"
                   [placeholder]="'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco"
                   [matDatepickerFilter]="dateFilter"
                   required
@@ -68,7 +68,7 @@
                   <mat-form-field class="fuse-mat-no-subscript flex-auto">
                     <input
                       matInput
-                      [formControl]="phoneForm.controls['phone']"
+                      [formControl]="phoneForm.controls['number']"
                       placeholder="{{ 'APP.ROUTES.USER.ABOUT.PHONE' | transloco }}"
                       [spellcheck]="false"
                     />
@@ -264,10 +264,10 @@
             </p>
             <div class="flex justify-end mt-8">
               <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
-                {{ 'APP.GENERAL.NEXT' | transloco }}
+                {{ 'APP.GENERAL.BACK' | transloco }}
               </button>
               <button class="px-8" mat-flat-button [color]="'primary'" type="reset" (click)="emitOnFormComplete()">
-                {{ 'APP.GENERAL.BACK' | transloco }}
+                {{ 'APP.GENERAL.NEXT' | transloco }}
               </button>
             </div>
           </mat-step>

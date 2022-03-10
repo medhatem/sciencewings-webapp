@@ -33,7 +33,15 @@ export class NewUserInfosComponent implements OnInit {
   }
 
   emitOnFormComplete() {
-    // false to emit that : hideMenusAndButtons = false
+    // TODO: clear up things about the use of ROs, for example: ids should be optional
+    const userInfos = this.stepperForm.controls['step1'].value;
+    userInfos['email'] = this.user.email;
+    userInfos['phones'] = (this.stepperForm.controls['step2'] as FormGroup).controls['phones'].value;
+    userInfos['address'] = (this.stepperForm.controls['step2'] as FormGroup).controls['addresses'].value;
+
+    console.log('addresses: ', userInfos);
+
+    console.log((this.stepperForm.controls['step1'] as FormGroup).controls['firstName'].value);
     this.onFormComplete.emit(false);
   }
 
@@ -48,10 +56,10 @@ export class NewUserInfosComponent implements OnInit {
 
     this.stepperForm = this._formBuilder.group({
       step1: this._formBuilder.group({
-        firstName: [this.user.firstName, [Validators.required]],
-        lastName: [this.user.lastName, [Validators.required]],
+        firstname: [this.user.firstName, [Validators.required]],
+        lastname: [this.user.lastName, [Validators.required]],
         email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
-        dateOfBirth: ['', Validators.required],
+        dateofbirth: ['', Validators.required],
       }),
       step2: this._formBuilder.group({
         phones: this._formBuilder.array([]),
@@ -62,7 +70,8 @@ export class NewUserInfosComponent implements OnInit {
     (this.stepperForm.controls['step2'] as FormGroup).controls['phones'] = this._formBuilder.array([
       this._formBuilder.group({
         code: constants.NEW_USER.DEFAULT_COUNTRY_CODE,
-        phone: '',
+        // eslint-disable-next-line id-blacklist
+        number: '',
         label: '',
       }),
     ]);
@@ -88,7 +97,8 @@ export class NewUserInfosComponent implements OnInit {
   addPhone() {
     const phoneForm = this._formBuilder.group({
       code: constants.NEW_USER.DEFAULT_COUNTRY_CODE,
-      phone: '',
+      // eslint-disable-next-line id-blacklist
+      number: '',
       label: '',
     });
 
