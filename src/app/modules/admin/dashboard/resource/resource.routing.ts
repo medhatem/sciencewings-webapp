@@ -12,7 +12,14 @@ export const resourceRoutes: Route[] = [
     },
   },
   {
-    path: ':id' /* Remove the leading '/' */,
+    path: ':id',
+    component: ResourceProfileFormComponent,
+    resolve: {
+      data: ResourceResolver,
+    },
+  },
+  {
+    path: ':create',
     component: ResourceProfileFormComponent,
     resolve: {
       data: ResourceResolver,

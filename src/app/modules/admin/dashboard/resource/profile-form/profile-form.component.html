@@ -1,12 +1,18 @@
-<mat-form-field appearance="fill">
-  <mat-label>Name</mat-label>
-  <input matInput />
-</mat-form-field>
-<mat-form-field appearance="fill">
-  <mat-label>Time Efficiency</mat-label>
-  <input matInput />
-</mat-form-field>
-<mat-form-field appearance="fill">
-  <mat-label>Timezone</mat-label>
-  <input matInput />
-</mat-form-field>
+<mat-card class="columns-1 card">
+<form [formGroup]="form">
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Time Efficiency</mat-label>
+            <input matInput formControlName="timeEfficiency" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Timezone</mat-label>
+            <input matInput formControlName="timezone" />
+        </mat-form-field>
+        <button mat-button>Cancel</button>
+        <button mat-button color="primary" (click)="onSubmit()">{{btnTitle}}</button>
+    </form>
+</mat-card>

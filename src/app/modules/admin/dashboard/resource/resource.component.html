@@ -15,7 +15,7 @@
         <input matInput [formControl]="searchInputControl" [autocomplete]="'off'" [placeholder]="'Search resources$'" />
       </mat-form-field>
       <!-- Add resource button -->
-      <button class="ml-4" mat-flat-button [color]="'primary'" (click)="createResource()">
+      <button class="ml-4" mat-flat-button [color]="'primary'" routerLinkActive="active" [routerLink]="['/admin/resources/create']">
         <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
         <span class="ml-2 mr-1">Add</span>
       </button>
@@ -121,4 +121,3 @@
     </div>
   </div>
 </div>
-<!-- YOU DON'T WANT A ROUTER OUTLET HERE -->
