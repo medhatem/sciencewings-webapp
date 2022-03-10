@@ -33,15 +33,13 @@ export class NewUserInfosComponent implements OnInit {
   }
 
   emitOnFormComplete() {
-    // TODO: clear up things about the use of ROs, for example: ids should be optional
-    const userInfos = this.stepperForm.controls['step1'].value;
+    const userInfos: User = this.stepperForm.controls['step1'].value;
     userInfos['email'] = this.user.email;
-    userInfos['phones'] = (this.stepperForm.controls['step2'] as FormGroup).controls['phones'].value;
-    userInfos['address'] = (this.stepperForm.controls['step2'] as FormGroup).controls['addresses'].value;
+    userInfos['phones'] = this.phones.value;
+    userInfos['address'] = this.addresses.value;
 
-    console.log('addresses: ', userInfos);
+    console.log('user: ', userInfos);
 
-    console.log((this.stepperForm.controls['step1'] as FormGroup).controls['firstName'].value);
     this.onFormComplete.emit(false);
   }
 
@@ -67,16 +65,15 @@ export class NewUserInfosComponent implements OnInit {
       }),
     });
 
-    (this.stepperForm.controls['step2'] as FormGroup).controls['phones'] = this._formBuilder.array([
+    this.phones.push(
       this._formBuilder.group({
-        code: constants.NEW_USER.DEFAULT_COUNTRY_CODE,
-        // eslint-disable-next-line id-blacklist
-        number: '',
-        label: '',
+        phoneCode: constants.NEW_USER.DEFAULT_COUNTRY_CODE,
+        phoneNumber: '',
+        phoneLabel: '',
       }),
-    ]);
+    );
 
-    (this.stepperForm.controls['step2'] as FormGroup).controls['addresses'] = this._formBuilder.array([
+    this.addresses.push(
       this._formBuilder.group({
         street: '',
         apartment: '',
@@ -86,7 +83,10 @@ export class NewUserInfosComponent implements OnInit {
         country: constants.NEW_USER.DEFAULT_COUNTRY,
         type: constants.NEW_USER.DEFAULT_TYPE,
       }),
-    ]);
+    );
+
+    this.phones.valueChanges.subscribe((value) => console.log(value));
+    this.addresses.valueChanges.subscribe((value) => console.log(value));
   }
 
   dateFilter(d: Date | null): boolean {
@@ -96,10 +96,9 @@ export class NewUserInfosComponent implements OnInit {
 
   addPhone() {
     const phoneForm = this._formBuilder.group({
-      code: constants.NEW_USER.DEFAULT_COUNTRY_CODE,
-      // eslint-disable-next-line id-blacklist
-      number: '',
-      label: '',
+      phoneCode: constants.NEW_USER.DEFAULT_COUNTRY_CODE,
+      phoneNumber: '',
+      phoneLabel: '',
     });
 
     this.phones.push(phoneForm);

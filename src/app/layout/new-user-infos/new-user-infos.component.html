@@ -3,7 +3,7 @@
   <div class="flex flex-auto mt-2">
     <div class="flex flex-col flex-auto w-full max-w-lg sm:max-w-7xl mx-auto">
       <form class="p-4 mt-2 bg-card shadow rounded overflow-hidden" [formGroup]="stepperForm">
-        <mat-horizontal-stepper [linear]="false" labelPosition="bottom" #horizontalStepper>
+        <mat-horizontal-stepper [linear]="true" labelPosition="bottom" #horizontalStepper>
           <mat-step [formGroupName]="'step1'" [stepControl]="stepperForm.get('step1')" #horizontalStepperStep1>
             <ng-template matStepLabel>{{ 'APP.ROUTES.USER.NEW_USER_FORM.STEP_1.TITLE' | transloco }}</ng-template>
             <p class="my-6 font-medium"></p>
@@ -68,21 +68,21 @@
                   <mat-form-field class="fuse-mat-no-subscript flex-auto">
                     <input
                       matInput
-                      [formControl]="phoneForm.controls['number']"
+                      [formControl]="phoneForm.controls['phoneNumber']"
                       placeholder="{{ 'APP.ROUTES.USER.ABOUT.PHONE' | transloco }}"
                       [spellcheck]="false"
                     />
-                    <mat-select class="mr-1.5" [formControl]="phoneForm.controls['code']" matPrefix>
+                    <mat-select class="mr-1.5" [formControl]="phoneForm.controls['phoneCode']" matPrefix>
                       <mat-select-trigger>
                         <span class="flex items-center">
                           <span
                             class="hidden sm:flex w-6 h-4 mr-1 overflow-hidden"
                             [style.background]="'url(\'/assets/images/flags.png\') no-repeat 0 0'"
                             [style.backgroundSize]="'24px 3876px'"
-                            [style.backgroundPosition]="getCountryByCode(phoneForm.controls['code'].value).flagImagePos"
+                            [style.backgroundPosition]="getCountryByCode(phoneForm.controls['phoneCode'].value).flagImagePos"
                           ></span>
                           <span class="sm:mx-0.5 font-medium text-default">
-                            {{ getCountryByCode(phoneForm.controls['code'].value).code }}
+                            {{ getCountryByCode(phoneForm.controls['phoneCode'].value).code }}
                           </span>
                         </span>
                       </mat-select-trigger>
@@ -106,7 +106,11 @@
 
                   <mat-form-field class="fuse-mat-no-subscript flex-auto w-full max-w-24 sm:max-w-40 ml-2 sm:ml-4">
                     <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:tag'"></mat-icon>
-                    <input matInput [formControl]="phoneForm.controls['label']" placeholder="{{ 'APP.ROUTES.USER.ABOUT.LABEL' | transloco }}" />
+                    <input
+                      matInput
+                      [formControl]="phoneForm.controls['phoneLabel']"
+                      placeholder="{{ 'APP.ROUTES.USER.ABOUT.LABEL' | transloco }}"
+                    />
                   </mat-form-field>
 
                   <div *ngIf="first" class="flex items-center w-10 pl-2" [ngClass]="{ 'mt-6': first }"></div>
