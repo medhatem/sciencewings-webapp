@@ -8,7 +8,7 @@ export class User implements UserRO {
   lastname: string;
   email: string;
   phones: Array<Phone>;
-  address: Array<Address>;
+  addresses: Array<Address>;
   dateofbirth: string;
   keycloakId: string;
 
