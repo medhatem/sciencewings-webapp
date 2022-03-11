@@ -5,6 +5,7 @@ import { NewUserInfosResolver } from './new-user-infos.resolver';
 import { User, Phone, Address } from 'app/models';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
+import { NewUserInfosService } from './new-user-infos.service';
 
 @Component({
   selector: 'new-user-infos',
@@ -22,6 +23,7 @@ export class NewUserInfosComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _toastr: ToastrService,
     private _http: HttpClient,
+    private _newUserService: NewUserInfosService,
   ) {}
 
   get addresses(): FormArray {
@@ -33,12 +35,18 @@ export class NewUserInfosComponent implements OnInit {
   }
 
   emitOnFormComplete() {
-    const userInfos: User = this.stepperForm.controls['step1'].value;
-    userInfos['email'] = this.user.email;
-    userInfos['phones'] = this.phones.value;
-    userInfos['address'] = this.addresses.value;
+    const formUser: User = this.stepperForm.controls['step1'].value;
+    const formUserAddresses: Array<Address> = this.addresses.value;
+    const formUserPhones: Array<Phone> = this.phones.value;
 
-    console.log('user: ', userInfos);
+    formUser['email'] = this.user.email;
+    formUser['phones'] = formUserPhones;
+    formUser['addresses'] = formUserAddresses;
+
+    // TODO: remove before PR
+    console.log('user: ', formUser);
+    // TODO: remove before PR
+    this._newUserService.createUser(formUser).subscribe((res) => console.log('created:', res));
 
     this.onFormComplete.emit(false);
   }
@@ -58,6 +66,7 @@ export class NewUserInfosComponent implements OnInit {
         lastname: [this.user.lastName, [Validators.required]],
         email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
         dateofbirth: ['', Validators.required],
+        keycloakId: localStorage.getItem(constants.KEYCLOAK_USER_ID),
       }),
       step2: this._formBuilder.group({
         phones: this._formBuilder.array([]),
@@ -67,26 +76,23 @@ export class NewUserInfosComponent implements OnInit {
 
     this.phones.push(
       this._formBuilder.group({
-        phoneCode: constants.NEW_USER.DEFAULT_COUNTRY_CODE,
-        phoneNumber: '',
+        phoneCode: [constants.NEW_USER.DEFAULT_COUNTRY_CODE, Validators.required],
+        phoneNumber: ['', Validators.required],
         phoneLabel: '',
       }),
     );
 
     this.addresses.push(
       this._formBuilder.group({
-        street: '',
-        apartment: '',
-        province: '',
-        city: '',
-        code: '',
-        country: constants.NEW_USER.DEFAULT_COUNTRY,
+        street: ['', Validators.required],
+        apartment: ['', Validators.required],
+        province: ['', Validators.required],
+        city: ['', Validators.required],
+        code: ['', Validators.required],
+        country: [constants.NEW_USER.DEFAULT_COUNTRY, Validators.required],
         type: constants.NEW_USER.DEFAULT_TYPE,
       }),
     );
-
-    this.phones.valueChanges.subscribe((value) => console.log(value));
-    this.addresses.valueChanges.subscribe((value) => console.log(value));
   }
 
   dateFilter(d: Date | null): boolean {
@@ -96,8 +102,8 @@ export class NewUserInfosComponent implements OnInit {
 
   addPhone() {
     const phoneForm = this._formBuilder.group({
-      phoneCode: constants.NEW_USER.DEFAULT_COUNTRY_CODE,
-      phoneNumber: '',
+      phoneCode: [constants.NEW_USER.DEFAULT_COUNTRY_CODE, Validators.required],
+      phoneNumber: ['', Validators.required],
       phoneLabel: '',
     });
 
@@ -106,12 +112,12 @@ export class NewUserInfosComponent implements OnInit {
 
   addAddress() {
     const addressForm = this._formBuilder.group({
-      street: '',
-      apartment: '',
-      province: '',
-      city: '',
-      code: '',
-      country: constants.NEW_USER.DEFAULT_COUNTRY,
+      street: ['', Validators.required],
+      apartment: ['', Validators.required],
+      province: ['', Validators.required],
+      city: ['', Validators.required],
+      code: ['', Validators.required],
+      country: [constants.NEW_USER.DEFAULT_COUNTRY, Validators.required],
       type: constants.NEW_USER.DEFAULT_TYPE,
     });
 

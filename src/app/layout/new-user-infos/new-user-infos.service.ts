@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { User } from 'app/models';
+import { CreatedUserDTO } from 'generated/models';
 import { ApiService } from 'generated/services';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
@@ -27,5 +29,9 @@ export class NewUserInfosService {
         this._newLoggedUser.next(response);
       }),
     );
+  }
+
+  createUser(user: User): Observable<CreatedUserDTO> {
+    return this._swaggerService.UserRoutesCreateUser(user);
   }
 }
