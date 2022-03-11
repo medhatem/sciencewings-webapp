@@ -7,7 +7,7 @@ export class Organization implements CreateOrganizationRO {
   description?: string;
   department?: string;
   sector?: string;
-  address: Address[];
+  addresses: Address[];
   adminContact: number;
   direction: number;
   email: string;
@@ -42,7 +42,7 @@ export class Organization implements CreateOrganizationRO {
       socialTwitter,
       socialYoutube,
       name = '',
-      address = new Address(),
+      addresses = new Array<Address>(),
       type,
       email = '',
       parentId,
@@ -56,7 +56,7 @@ export class Organization implements CreateOrganizationRO {
       description,
       department,
       sector,
-      address,
+      addresses,
       adminContact,
       direction,
       email,
