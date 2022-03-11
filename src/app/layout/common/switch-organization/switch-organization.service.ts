@@ -1,39 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { forkJoin, map, Observable } from 'rxjs';
 import { ApiService } from 'generated/services';
+import { UserOrganizations } from 'app/models/organizations/user-organizations';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SwitchOrganizationsService {
-  private _availableOrganizations: ReplaySubject<[]> = new ReplaySubject<[]>(1);
-
-  /**
-   * Constructor
-   */
   constructor(private _swaggerService: ApiService) {}
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Accessors
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Getter for shortcuts
-   */
-  get availableOrganizations$(): Observable<[]> {
-    return this._availableOrganizations.asObservable();
-  }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Get all messages
-   */
-  getAllAvailableOrganizationsForUser(userId: number): Observable<[]> {
-    // To do: get organizations by user id
-    // ASK BACKEND TO ADD USERID TO ROUTE
-    return this._swaggerService.OrganizationRoutesGetAll();
+  getAllUserOrganizations(userId: number): Observable<UserOrganizations[]> {
+    return forkJoin([this._swaggerService.OrganizationRoutesGetUserOrganizations(userId)]).pipe(
+      map((userOrganizations) =>
+        userOrganizations.reduce((acc, { body, error }) => {
+          acc.push(new UserOrganizations(body));
+          return acc;
+        }, [] as UserOrganizations[]),
+      ),
+    );
   }
 }
