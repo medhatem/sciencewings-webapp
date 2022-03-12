@@ -8,6 +8,7 @@ export const constants = {
   KEYCLOAK_LOGIN_ERROR: 'APP.KEYCLOAK_LOGIN_ERROR',
   KEYCLOAK_LOGOUT_ERROR: 'APP.KEYCLOAK_LOGOUT_ERROR',
   KEYCLOAK_USER_ID: 'kcid',
+  USER_ORGANIZATION_ID: 'orgId',
 };
 
 export interface Countries {
