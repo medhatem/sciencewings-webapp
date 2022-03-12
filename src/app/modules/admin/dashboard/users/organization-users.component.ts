@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { OrganizationUsersService } from '../../resolvers/users/organization-users.service';
 
 @Component({
   selector: 'organization-users',
@@ -9,15 +9,16 @@ import { OrganizationUsersService } from '../../resolvers/users/organization-use
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrganizationUsersComponent implements OnInit {
+  readonly componentName = 'OrganizationUsersComponent';
   teamMembers: any;
   selectedProject: string = 'ACME Corp. Backend App';
-  constructor(private _organizationUsersService: OrganizationUsersService, private _toastrService: ToastrService) {}
+  constructor(private route: ActivatedRoute, private _toastrService: ToastrService) {}
 
   async ngOnInit() {
-    try {
-      this.teamMembers = await this._organizationUsersService.getData();
-    } catch (error) {
-      this._toastrService.showError(error);
+    const { data } = this.route.snapshot.data;
+    if (!data) {
+      this._toastrService.showError(this.componentName);
     }
+    this.teamMembers = data;
   }
 }
