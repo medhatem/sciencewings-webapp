@@ -68,7 +68,9 @@
       "SUBMIT": "Soumettre",
       "RELOAD": "Recharger",
       "DONE_AND_CREATE_NEW": "Soumettre et créer un nouveau"
-    }
+    },
+    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "échec du chargement des organisations d'utilisateur",
+    "NEW_USER_INFOS_REQUIRED": "Veuillez remplir vos informations avant de passer à votre tableau de bord"
   },
   "ORGANIZATION": {
     "PROFILE": {

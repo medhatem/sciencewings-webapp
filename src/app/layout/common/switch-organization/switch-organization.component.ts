@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from 'app/core/user/user.types';
 import { constants } from 'app/shared/constants';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
+import { ToastrService } from 'app/core/toastr/toastr.service';
 
 @Component({
   selector: 'switch-organization',
@@ -18,19 +19,25 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
   availableOrganizations: Array<UserOrganizations>;
   activeOrganization: any;
 
-  constructor(private _switchOrganizationsService: SwitchOrganizationsService, private _route: ActivatedRoute) {}
+  constructor(
+    private _switchOrganizationsService: SwitchOrganizationsService,
+    private _toastrService: ToastrService,
+    private _route: ActivatedRoute,
+  ) {}
 
   ngOnDestroy(): void {}
 
   async ngOnInit() {
     const { userData } = this._route.snapshot.data;
-    this._switchOrganizationsService.getAllUserOrganizations(Number(userData.id)).subscribe((organizations) => {
-      this.availableOrganizations = organizations || [];
+    try {
+      this.availableOrganizations = await this._switchOrganizationsService.getAllUserOrganizations(Number(userData.id));
       this.activeOrganization = this.availableOrganizations[0] || {
         id: constants.EMPTY_ORGANIZATIONS,
         name: constants.EMPTY_ORGANIZATIONS,
       };
-    });
+    } catch (error) {
+      this._toastrService.showError('APP.SWITCH_ORGANIZATIONS_LOAD_FAILED');
+    }
   }
 
   setActiveOrganization(organization: UserOrganizations): void {

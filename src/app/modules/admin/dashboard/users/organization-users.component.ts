@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ToastrService } from 'app/core/toastr/toastr.service';
 import { OrganizationUsersService } from '../../resolvers/users/organization-users.service';
 
 @Component({
@@ -9,38 +8,16 @@ import { OrganizationUsersService } from '../../resolvers/users/organization-use
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrganizationUsersComponent implements OnInit, OnDestroy {
+export class OrganizationUsersComponent implements OnInit {
   teamMembers: any;
   selectedProject: string = 'ACME Corp. Backend App';
-  private _unsubscribeAll: Subject<any> = new Subject<any>();
+  constructor(private _organizationUsersService: OrganizationUsersService, private _toastrService: ToastrService) {}
 
-  /**
-   * Constructor
-   */
-  constructor(private _organizationUsersService: OrganizationUsersService, private _router: Router) {}
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
-  ngOnInit(): void {
-    // Get the data
-    this._organizationUsersService.data$.pipe(takeUntil(this._unsubscribeAll)).subscribe((data) => {
-      // Store the data teamMembers
-      this.teamMembers = data;
-      this.teamMembers = data;
-    });
-  }
-
-  /**
-   * On destroy
-   */
-  ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
-    this._unsubscribeAll.next(null);
-    this._unsubscribeAll.complete();
+  async ngOnInit() {
+    try {
+      this.teamMembers = await this._organizationUsersService.getData();
+    } catch (error) {
+      this._toastrService.showError(error);
+    }
   }
 }

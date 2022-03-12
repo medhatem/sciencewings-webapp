@@ -67,7 +67,9 @@
       "SUBMIT": "Submit",
       "RELOAD": "Reload",
       "DONE_AND_CREATE_NEW": "Submit and create new"
-    }
+    },
+    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Failed to load user organizations",
+    "NEW_USER_INFOS_REQUIRED": "Please fill in your information before proceeding to your dashboard"
   },
   "ORGANIZATION": {
     "PROFILE": {
