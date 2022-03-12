@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { Observable, from } from 'rxjs';
 import { constants } from '../../shared/constants';
+import { KeycloakProfile } from 'keycloak-js';
 
 @Injectable({
   providedIn: 'root',
@@ -11,20 +11,17 @@ import { constants } from '../../shared/constants';
 export class NewUserInfosResolver implements Resolve<any> {
   constructor(private _keycloackService: KeycloakService, private _toastr: ToastrService) {}
 
-  resolve(): Observable<any> {
-    return from(this.getloadUserProfileKeycloak());
+  resolve(): Promise<KeycloakProfile> {
+    return this.getloadUserProfileKeycloak();
   }
 
   async getloadUserProfileKeycloak() {
-    this._keycloackService
-      .loadUserProfile()
-      .then((user) => {
-        localStorage.setItem(constants.KEYCLOAK_USER_ID, user.id);
-      })
-      .catch((error) => {
-        this._toastr.showError('APP.LOGIN_ERROR_TITLE', 'KEYCLOAK_LOGIN_ERROR');
-      });
-
-    return await this._keycloackService.loadUserProfile();
+    try {
+      const user = await this._keycloackService.loadUserProfile();
+      localStorage.setItem(constants.KEYCLOAK_USER_ID, user.id);
+      return user;
+    } catch (error) {
+      this._toastr.showError('APP.LOGIN_ERROR_TITLE', 'KEYCLOAK_LOGIN_ERROR');
+    }
   }
 }
