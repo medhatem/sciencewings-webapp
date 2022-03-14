@@ -21,7 +21,7 @@ import { NewUserInfosModule } from './layout/new-user-infos/new-user-infos.modul
 import { FullCalendarModule } from '@fullcalendar/angular';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { CookieModule } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie-service';
 
 
 const routerConfig: ExtraOptions = {
@@ -56,7 +56,7 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
         FullCalendarModule,
 
         // cookies
-        CookieModule.forRoot()
+        CookieService
     ],
     providers: [
         ApiService,
