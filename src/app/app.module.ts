@@ -54,9 +54,6 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
         // 3rd party modules that require global configuration
         KeycloakAngularModule,
         FullCalendarModule,
-
-        // cookies
-        CookieService
     ],
     providers: [
         ApiService,
@@ -66,6 +63,8 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
             multi: true,
             deps: [KeycloakService],
         },
+        // cookies
+        CookieService
     ],
     bootstrap: [AppComponent],
 })
