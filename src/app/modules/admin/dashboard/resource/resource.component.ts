@@ -49,7 +49,7 @@ export class ResourceComponent implements OnInit, AfterViewInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _fuseConfirmationService: FuseConfirmationService,
     private _formBuilder: FormBuilder,
-    private route: ActivatedRoute,
+    private _route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {

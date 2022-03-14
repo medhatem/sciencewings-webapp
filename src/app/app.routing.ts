@@ -106,7 +106,7 @@ export const appResourceRoutes: Route[] = [
         },
         children: [
             {
-                path: '',
+                path: 'admin',
                 canActivate: [AuthGuard],
                 data: {
                     title: 'APP.ROUTES.ADMIN.TITLE',
@@ -114,7 +114,7 @@ export const appResourceRoutes: Route[] = [
                 },
                 children: [
                     {
-                        path: '',
+                        path: 'resource',
                         canActivate: [AuthGuard],
                         data: {
                             title: 'APP.ROUTES.ADMIN.RESOURCE.TITLE',
@@ -126,32 +126,32 @@ export const appResourceRoutes: Route[] = [
                                 (m) => m.ResourceModule,
                             ),
                     },
-                    {
-                        path: 'list',
-                        canActivate: [AuthGuard],
-                        data: {
-                            title: 'APP.ROUTES.ADMIN.RESOURCE_LIST.TITLE',
-                            type: FuseNavigationItemTypeEnum.basic,
-                            icon: 'heroicons_outline:cube',
-                        },
-                        loadChildren: () =>
-                            import('app/modules/admin/dashboard/resource/resource.module').then(
-                                (m) => m.ResourceModule,
-                            ),
-                    },
-                    {
-                        path: 'schedule',
-                        canActivate: [AuthGuard],
-                        data: {
-                            title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
-                            type: FuseNavigationItemTypeEnum.basic,
-                            icon: 'heroicons_outline:cube',
-                        },
-                        loadChildren: () =>
-                            import('app/modules/admin/dashboard/resource/resource.module').then(
-                                (m) => m.ResourceModule,
-                            ),
-                    },
+                    // {
+                    //     path: 'resource/list',
+                    //     canActivate: [AuthGuard],
+                    //     data: {
+                    //         title: 'APP.ROUTES.ADMIN.RESOURCE_LIST.TITLE',
+                    //         type: FuseNavigationItemTypeEnum.basic,
+                    //         icon: 'heroicons_outline:cube',
+                    //     },
+                    //     loadChildren: () =>
+                    //         import('app/modules/admin/dashboard/resource/resource.module').then(
+                    //             (m) => m.ResourceModule,
+                    //         ),
+                    // },
+                    // {
+                    //     path: 'resource/schedule',
+                    //     canActivate: [AuthGuard],
+                    //     data: {
+                    //         title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
+                    //         type: FuseNavigationItemTypeEnum.basic,
+                    //         icon: 'heroicons_outline:cube',
+                    //     },
+                    //     loadChildren: () =>
+                    //         import('app/modules/admin/dashboard/resource/resource.module').then(
+                    //             (m) => m.ResourceModule,
+                    //         ),
+                    // },
                 ],
             },
             {

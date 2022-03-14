@@ -91,7 +91,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
      *
      * @param hideNavigation
      */
-    resetNavigation(hideNavigation: boolean, url: string = '') {
+    resetNavigation(hideNavigation: boolean) {
         this.hideMenusAndButtons = hideNavigation;
         if (hideNavigation) {
             this.navigation = [];
@@ -103,7 +103,15 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
                     break;
                 case 'resources':
                     const { children: dashboardsResourceRoutesChildren = [] } = appResourceRoutes.find(({ path }) => path === '');
-                    this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourceRoutesChildren, '/resource');
+                    // this._router.resetConfig(appResourceRoutes);
+                    // console.log({ config: this._router.config });
+                    console.log({ dashboardsResourceRoutesChildren });
+                    console.log({ appResourceRoutes });
+
+                    this._router.resetConfig(appResourceRoutes);
+                    this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourceRoutesChildren, '/');
+                    // this._router.config = dashboardsResourceRoutesChildren;
+                    // console.log({ config: this._router.config });
                     break;
                 default:
                     break;
