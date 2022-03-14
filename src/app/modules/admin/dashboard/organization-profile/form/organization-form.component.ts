@@ -115,21 +115,17 @@ export class OrganizationFormComponent implements OnInit {
   // @ Private methods
   // -----------------------------------------------------------------------------------------------------
 
-  private createOrganization() {
+  private async createOrganization(): Promise<boolean> {
     this.setOrganizationInfo();
     if (this.stepperForm.valid) {
-      this._adminOrganizationsService.createOrganization(this.oragnization).subscribe({
-        next: (result) => result,
-        error: (err) => {
-          this._toastrService.showError(constants.CREATE_ORGANIZATION_FAILED);
-          return false;
-        },
-        complete: () => {
-          this._toastrService.showSuccess(constants.CREATE_ORGANIZATION_COMPLETED);
-          this.stepperForm.reset();
-          return true;
-        },
-      });
+      try {
+        const result = await this._adminOrganizationsService.createOrganization(this.oragnization);
+        this._toastrService.showSuccess(constants.CREATE_ORGANIZATION_COMPLETED);
+        return result;
+      } catch (error) {
+        this._toastrService.showError(constants.CREATE_ORGANIZATION_FAILED);
+        return false;
+      }
     }
   }
 

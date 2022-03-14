@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
-import { OrganizationUsersService } from '../../resolvers/users/organization-users.service';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'app/core/toastr/toastr.service';
 
 @Component({
   selector: 'organization-users',
@@ -9,38 +8,17 @@ import { OrganizationUsersService } from '../../resolvers/users/organization-use
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrganizationUsersComponent implements OnInit, OnDestroy {
+export class OrganizationUsersComponent implements OnInit {
+  readonly componentName = 'OrganizationUsersComponent';
   teamMembers: any;
   selectedProject: string = 'ACME Corp. Backend App';
-  private _unsubscribeAll: Subject<any> = new Subject<any>();
+  constructor(private route: ActivatedRoute, private _toastrService: ToastrService) {}
 
-  /**
-   * Constructor
-   */
-  constructor(private _organizationUsersService: OrganizationUsersService, private _router: Router) {}
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
-  ngOnInit(): void {
-    // Get the data
-    this._organizationUsersService.data$.pipe(takeUntil(this._unsubscribeAll)).subscribe((data) => {
-      // Store the data teamMembers
-      this.teamMembers = data;
-      this.teamMembers = data;
-    });
-  }
-
-  /**
-   * On destroy
-   */
-  ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
-    this._unsubscribeAll.next(null);
-    this._unsubscribeAll.complete();
+  async ngOnInit() {
+    const { data } = this.route.snapshot.data;
+    if (!data) {
+      this._toastrService.showError(this.componentName);
+    }
+    this.teamMembers = data;
   }
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 
@@ -15,7 +15,7 @@ export interface InventoryPagination {
 
 @Component({
   selector: 'organization-profile',
-  templateUrl: './organization-profile.component.html',
+  templateUrl: 'organization-profile.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -131,7 +131,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
-    private _profileService: AdminOrganizationsService,
+    private _adminOrganizationsService: AdminOrganizationsService,
     private _keycloackService: KeycloakService,
     private _router: Router,
   ) {}

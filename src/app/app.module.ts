@@ -16,54 +16,57 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { NewUserInfosModule } from './layout/new-user-infos/new-user-infos.module';
 import { appConfig } from 'app/core/config/app.config';
 import { appResourceRoutes, appRoutes } from 'app/app.routing';
-import dayGridPlugin from '@fullcalendar/daygrid';
 import { environment } from 'environments/environment';
 import { initializeKeycloak } from './core/auth/keycloak/app.init';
 import interactionPlugin from '@fullcalendar/interaction';
 import { mockApiServices } from 'app/mock-api';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import { CookieService } from 'ngx-cookie-service';
 
 const routerConfig: ExtraOptions = {
-    preloadingStrategy: PreloadAllModules,
-    scrollPositionRestoration: 'enabled',
+  preloadingStrategy: PreloadAllModules,
+  scrollPositionRestoration: 'enabled',
 };
 
 FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
 @NgModule({
-    declarations: [AppComponent],
-    imports: [
-        ApiModule.forRoot({ rootUrl: environment.apiUrl }),
-        BrowserModule,
-        BrowserAnimationsModule,
-        RouterModule.forRoot([...appRoutes, ...appResourceRoutes], routerConfig),
-        // RouterModule.forRoot(appRoutes, routerConfig),
-        // RouterModule.forRoot(appResourceRoutes, routerConfig),
+  declarations: [AppComponent],
+  imports: [
+    ApiModule.forRoot({ rootUrl: environment.apiUrl }),
+    BrowserModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot([...appRoutes, ...appResourceRoutes], routerConfig),
+    // RouterModule.forRoot(appRoutes, routerConfig),
+    // RouterModule.forRoot(appResourceRoutes, routerConfig),
 
-        // Fuse, FuseConfig & FuseMockAPI
-        FuseModule,
-        FuseConfigModule.forRoot(appConfig),
-        FuseMockApiModule.forRoot(mockApiServices),
+    // Fuse, FuseConfig & FuseMockAPI
+    FuseModule,
+    FuseConfigModule.forRoot(appConfig),
+    FuseMockApiModule.forRoot(mockApiServices),
 
-        // Core module of your application
-        CoreModule,
+    // Core module of your application
+    CoreModule,
 
-        // Layout module of your application
-        LayoutModule,
-        NewUserInfosModule,
+    // Layout module of your application
+    LayoutModule,
+    NewUserInfosModule,
 
-        // 3rd party modules that require global configuration
-        KeycloakAngularModule,
-        FullCalendarModule,
-    ],
-    providers: [
-        ApiService,
-        {
-            provide: APP_INITIALIZER,
-            useFactory: initializeKeycloak,
-            multi: true,
-            deps: [KeycloakService],
-        },
-    ],
-    bootstrap: [AppComponent],
+    // 3rd party modules that require global configuration
+    KeycloakAngularModule,
+    FullCalendarModule,
+  ],
+  providers: [
+    ApiService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService],
+    },
+    // cookies
+    CookieService,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
