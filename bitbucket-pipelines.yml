@@ -8,6 +8,13 @@ options:
 
 definitions:
   steps:
+    - step: &caching
+        caches:
+          - node
+        script:
+          - npm install
+        artifacts: # defining the artifacts to be passed to each future step.
+          - node_modules/**
     - step: &install
         name: install
         script:
@@ -42,24 +49,28 @@ definitions:
           - node_modules/firebase-tools/lib/bin/firebase.js deploy --token $FIREBASE_TOKEN  --project $FIREBASE_PROJECT --non-interactive
 pipelines:
   default:
-    - step: *install
+    #- step: *install
+    - step: *caching
     - step: *generate_swagger
     - step: *build
     - step: *lint
   branches:
     develop/*:
-      - step: *install
+      #- step: *install
+      - step: *caching
       - step: *generate_swagger
       - step: *build
       - step: *lint
       - step: *deploy_stagging
     feature/*:
-      - step: *install
+      #- step: *install
+      - step: *caching
       - step: *generate_swagger
       - step: *build
       - step: *lint
     bugfix/*:
-      - step: *install
+      #- step: *install
+      - step: *caching
       - step: *generate_swagger
       - step: *build
       - step: *lint
