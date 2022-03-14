@@ -85,7 +85,7 @@ export class NewUserInfosComponent implements OnInit {
     this.addresses.push(
       this._formBuilder.group({
         street: ['', Validators.required],
-        apartment: ['', Validators.required],
+        apartment: [''],
         province: ['', Validators.required],
         city: ['', Validators.required],
         code: ['', Validators.required],
@@ -113,7 +113,7 @@ export class NewUserInfosComponent implements OnInit {
   addAddress() {
     const addressForm = this._formBuilder.group({
       street: ['', Validators.required],
-      apartment: ['', Validators.required],
+      apartment: [''],
       province: ['', Validators.required],
       city: ['', Validators.required],
       code: ['', Validators.required],
