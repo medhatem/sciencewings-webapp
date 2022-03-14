@@ -12,7 +12,10 @@
             <mat-label>Timezone</mat-label>
             <input matInput formControlName="timezone" />
         </mat-form-field>
-        <button mat-button>Cancel</button>
-        <button mat-button color="primary" (click)="onSubmit()">{{btnTitle}}</button>
+        <full-calendar class="fc-container" deepChangeDetection="true" [options]="calendarOptions"></full-calendar>
+        <div style="display: flex;justify-content: end;">
+            <button mat-button color="warn">Cancel</button>
+            <button mat-raised-button color="primary" (click)="onSubmit()">{{btnTitle}}</button>
+        </div>
     </form>
 </mat-card>

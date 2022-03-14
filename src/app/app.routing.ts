@@ -7,103 +7,159 @@ import { Route } from '@angular/router';
 
 export const errorPath = '**';
 export const appRoutes: Route[] = [
-  // dashboard routes
-  {
-    path: '',
-    canActivate: [AuthGuard],
-    component: LayoutComponent,
-    resolve: {
-      initialData: InitialDataResolver,
-      userData: NewUserInfosResolver,
+    // dashboard routes
+    {
+        path: '',
+        canActivate: [AuthGuard],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+            userData: NewUserInfosResolver,
+        },
+        children: [
+            {
+                path: 'admin',
+                canActivate: [AuthGuard],
+                data: {
+                    title: 'APP.ROUTES.ADMIN.TITLE',
+                    type: FuseNavigationItemTypeEnum.group,
+                },
+                children: [
+                    {
+                        path: 'organization-profile',
+                        canActivate: [AuthGuard],
+                        data: {
+                            title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.TITLE',
+                            type: FuseNavigationItemTypeEnum.basic,
+                            icon: 'heroicons_outline:office-building',
+                        },
+                        loadChildren: () =>
+                            import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then(
+                                (m) => m.AdminOrganizationModule,
+                            ),
+                    },
+                    {
+                        path: 'user-profile',
+                        canActivate: [AuthGuard],
+                        data: {
+                            title: 'APP.ROUTES.ADMIN.USER_PROFILE.TITLE',
+                            type: FuseNavigationItemTypeEnum.basic,
+                            icon: 'heroicons_outline:user',
+                        },
+                        loadChildren: () =>
+                            import('app/modules/admin/dashboard/user-profile/user-profile.module').then((m) => m.UserProfileModule),
+                    },
+                    {
+                        path: 'users',
+                        canActivate: [AuthGuard],
+                        data: {
+                            title: 'APP.ROUTES.ADMIN.ORGANIZATION_MEMBERS.TITLE',
+                            type: FuseNavigationItemTypeEnum.basic,
+                            icon: 'heroicons_outline:users',
+                        },
+                        loadChildren: () =>
+                            import('app/modules/admin/dashboard/users/organization-users.module').then(
+                                (m) => m.OrganizationUsersModule,
+                            ),
+                    },
+                ],
+            },
+            {
+                path: 'menu',
+                canActivate: [AuthGuard],
+                data: {
+                    title: 'APP.ROUTES.MENU.TITLE',
+                    type: FuseNavigationItemTypeEnum.group,
+                },
+                children: [
+                    {
+                        path: 'calendar',
+                        canActivate: [AuthGuard],
+                        data: {
+                            title: 'APP.ROUTES.MENU.CALENDAR.TITLE',
+                            type: FuseNavigationItemTypeEnum.basic,
+                            icon: 'heroicons_outline:calendar',
+                        },
+                        loadChildren: () =>
+                            import('app/modules/menu/dashboard/calendar/calendar.module').then((m) => m.MenuCalendarModule),
+                    },
+                ],
+            },
+            {
+                path: errorPath,
+                pathMatch: 'full',
+                loadChildren: () =>
+                    import('app/modules/admin/pages/error/error-404/error-404.module').then((m) => m.Error404Module),
+            },
+        ],
     },
-    children: [
-      {
-        path: 'admin',
+];
+export const appResourceRoutes: Route[] = [
+    // resource routes
+    {
+        path: '',
         canActivate: [AuthGuard],
-        data: {
-          title: 'APP.ROUTES.ADMIN.TITLE',
-          type: FuseNavigationItemTypeEnum.group,
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+            userData: NewUserInfosResolver,
         },
         children: [
-          {
-            path: 'organization-profile',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:office-building',
+            {
+                path: '',
+                canActivate: [AuthGuard],
+                data: {
+                    title: 'APP.ROUTES.ADMIN.TITLE',
+                    type: FuseNavigationItemTypeEnum.group,
+                },
+                children: [
+                    {
+                        path: '',
+                        canActivate: [AuthGuard],
+                        data: {
+                            title: 'APP.ROUTES.ADMIN.RESOURCE.TITLE',
+                            type: FuseNavigationItemTypeEnum.basic,
+                            icon: 'heroicons_outline:cube',
+                        },
+                        loadChildren: () =>
+                            import('app/modules/admin/dashboard/resource/resource.module').then(
+                                (m) => m.ResourceModule,
+                            ),
+                    },
+                    {
+                        path: 'list',
+                        canActivate: [AuthGuard],
+                        data: {
+                            title: 'APP.ROUTES.ADMIN.RESOURCE_LIST.TITLE',
+                            type: FuseNavigationItemTypeEnum.basic,
+                            icon: 'heroicons_outline:cube',
+                        },
+                        loadChildren: () =>
+                            import('app/modules/admin/dashboard/resource/resource.module').then(
+                                (m) => m.ResourceModule,
+                            ),
+                    },
+                    {
+                        path: 'schedule',
+                        canActivate: [AuthGuard],
+                        data: {
+                            title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
+                            type: FuseNavigationItemTypeEnum.basic,
+                            icon: 'heroicons_outline:cube',
+                        },
+                        loadChildren: () =>
+                            import('app/modules/admin/dashboard/resource/resource.module').then(
+                                (m) => m.ResourceModule,
+                            ),
+                    },
+                ],
             },
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then(
-                (m) => m.AdminOrganizationModule,
-              ),
-          },
-          {
-            path: 'user-profile',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.USER_PROFILE.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:user',
+            {
+                path: errorPath,
+                pathMatch: 'full',
+                loadChildren: () =>
+                    import('app/modules/admin/pages/error/error-404/error-404.module').then((m) => m.Error404Module),
             },
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/user-profile/user-profile.module').then((m) => m.UserProfileModule),
-          },
-          {
-            path: 'users',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.ORGANIZATION_MEMBERS.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:users',
-            },
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/users/organization-users.module').then(
-                (m) => m.OrganizationUsersModule,
-              ),
-          },
-          {
-            path: 'resources',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.RESOURCE.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:cube',
-            },
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/resource/resource.module').then(
-                (m) => m.ResourceModule,
-              ),
-          },
         ],
-      },
-      {
-        path: 'menu',
-        canActivate: [AuthGuard],
-        data: {
-          title: 'APP.ROUTES.MENU.TITLE',
-          type: FuseNavigationItemTypeEnum.group,
-        },
-        children: [
-          {
-            path: 'calendar',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.MENU.CALENDAR.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:calendar',
-            },
-            loadChildren: () =>
-              import('app/modules/menu/dashboard/calendar/calendar.module').then((m) => m.MenuCalendarModule),
-          },
-        ],
-      },
-      {
-        path: errorPath,
-        pathMatch: 'full',
-        loadChildren: () =>
-          import('app/modules/admin/pages/error/error-404/error-404.module').then((m) => m.Error404Module),
-      },
-    ],
-  },
+    },
 ];

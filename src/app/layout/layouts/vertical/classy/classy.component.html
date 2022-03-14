@@ -62,7 +62,7 @@
       <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
       <messages *ngIf="!hideMenusAndButtons"></messages>
       <notifications *ngIf="!hideMenusAndButtons"></notifications>
-      <shortcuts *ngIf="!hideMenusAndButtons"></shortcuts>
+      <shortcuts *ngIf="!hideMenusAndButtons" (messageEvent)="receiveMessage($event)"></shortcuts>
       <user [showAvatar]="false"></user>
       <button *ngIf="!hideMenusAndButtons" class="lg:hidden" mat-icon-button (click)="quickChat.toggle()">
         <mat-icon [svgIcon]="'heroicons_outline:chat-alt-2'"></mat-icon>

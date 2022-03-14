@@ -17,6 +17,12 @@
         },
         "RESOURCE": {
           "TITLE": "Resource"
+        },
+        "RESOURCE_LIST": {
+            "TITLE": "Resource List"
+        },
+        "RESOURCE_SCHEDULE": {
+            "TITLE": "Resource Schedule"
         }
       },
       "USER": {

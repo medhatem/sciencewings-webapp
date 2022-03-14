@@ -16,8 +16,15 @@
           "TITLE": "Members de l'organisation"
         },
         "RESOURCE": {
-          "TITLE": "Resource"
-        }
+            "TITLE": "Resource"
+          },
+          "RESOURCE_LIST": {
+              "TITLE": "Resource List"
+          },
+          "RESOURCE_SCHEDULE": {
+              "TITLE": "Resource Schedule"
+          }
+
       },
       "USER": {
         "TITLE": "Utilisateur",

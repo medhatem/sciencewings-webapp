@@ -9,8 +9,9 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { TranslocoModule } from '@ngneat/transloco';
 import { resourceRoutes } from './resource.routing';
+import { ResourceScheduleComponent } from './schedule/schedule.component';
 @NgModule({
-    declarations: [ResourceComponent, ResourceProfileFormComponent],
+    declarations: [ResourceComponent, ResourceProfileFormComponent, ResourceScheduleComponent],
     imports: [
         RouterModule.forChild(resourceRoutes),
         FuseFindByKeyPipeModule,
