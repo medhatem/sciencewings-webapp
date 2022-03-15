@@ -21,6 +21,7 @@ import { NewUserInfosModule } from './layout/new-user-infos/new-user-infos.modul
 import { FullCalendarModule } from '@fullcalendar/angular';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import { CookieService } from 'ngx-cookie-service';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy: PreloadAllModules,
@@ -61,6 +62,8 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
       multi: true,
       deps: [KeycloakService],
     },
+    // cookies
+    CookieService,
   ],
   bootstrap: [AppComponent],
 })

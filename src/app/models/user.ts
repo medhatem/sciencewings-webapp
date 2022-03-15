@@ -1,19 +1,14 @@
-import { UserRO } from 'generated/models';
-import { Phone } from './phone';
-import { Address } from './address';
-
-export class User implements UserRO {
-  id: number;
-  firstname: string;
-  lastname: string;
+export class User /* implements UserRO */ {
+  id: string;
+  name: string;
   email: string;
-  phones: Array<Phone>;
-  addresses: Array<Address>;
-  dateofbirth: string;
-  keycloakId: string;
+  avatar?: string;
+  status?: string;
+  firstName: string;
+  lastName: string;
 
   constructor(user?: any) {
-    const { firstname, lastname, email, phones, address, dateofbirth, keycloakId } = user || {};
-    Object.assign(this, { firstname, lastname, email, phones, address, dateofbirth, keycloakId });
+    const { id, name, email, avatar, status, firstName, lastName } = user || {};
+    Object.assign(this, { id, name, email, avatar, status, firstName, lastName });
   }
 }
