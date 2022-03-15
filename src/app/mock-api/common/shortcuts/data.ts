@@ -37,7 +37,7 @@ export const shortcuts = [
         label: 'Dashboard',
         description: 'User analytics',
         icon: 'heroicons_outline:chart-pie',
-        link: '',
+        link: 'dashboard',
         useRouter: true,
     },
     {

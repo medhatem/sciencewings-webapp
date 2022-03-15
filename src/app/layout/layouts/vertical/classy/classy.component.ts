@@ -3,159 +3,165 @@ import { ActivatedRoute, Router, Route } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import {
-    FuseNavigationItem,
-    FuseNavigationItemTypeEnum,
-    FuseNavigationService,
-    FuseVerticalNavigationComponent,
+  FuseNavigationItem,
+  FuseNavigationItemTypeEnum,
+  FuseNavigationService,
+  FuseVerticalNavigationComponent,
 } from '@fuse/components/navigation';
 import { User } from 'app/core/user/user.types';
 import { appRoutes, appResourceRoutes, errorPath } from 'app/app.routing';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
-    selector: 'classy-layout',
-    templateUrl: './classy.component.html',
-    encapsulation: ViewEncapsulation.None,
+  selector: 'classy-layout',
+  templateUrl: './classy.component.html',
+  encapsulation: ViewEncapsulation.None,
 })
 export class ClassyLayoutComponent implements OnInit, OnDestroy {
-    @Input() hideMenusAndButtons = false;
-    isScreenSmall: boolean;
-    navigation: FuseNavigationItem[];
-    user: User;
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+  @Input() hideMenusAndButtons = false;
+  isScreenSmall: boolean;
+  navigation: FuseNavigationItem[];
+  user: User;
+  private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-    constructor(
-        private _route: ActivatedRoute,
-        private _router: Router,
-        private _fuseMediaWatcherService: FuseMediaWatcherService,
-        private _fuseNavigationService: FuseNavigationService,
-    ) { }
+  constructor(
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _fuseMediaWatcherService: FuseMediaWatcherService,
+    private _fuseNavigationService: FuseNavigationService,
+    private _coookies: CookieService,
+  ) {}
 
-    /**
-     * Getter for current year
-     */
-    get currentYear(): number {
-        return new Date().getFullYear();
+  /**
+   * Getter for current year
+   */
+  get currentYear(): number {
+    return new Date().getFullYear();
+  }
+
+  ngOnInit(): void {
+    const { userData } = this._route.snapshot.data;
+    this.resetNavigation(this.hideMenusAndButtons);
+    // Subscribe to navigation data
+    this.user = {
+      ...userData,
+      // Add fake data for test
+      // To Remove and use only userData
+      avatar: 'assets/images/avatars/brian-hughes.jpg',
+      status: 'online',
+    };
+
+    // Subscribe to media changes
+    this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
+      // Check if the screen is small
+      this.isScreenSmall = !matchingAliases.includes('md');
+    });
+  }
+
+  /**
+   * On destroy
+   */
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next(null);
+    this._unsubscribeAll.complete();
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * Toggle navigation
+   *
+   * @param name
+   */
+  toggleNavigation(name: string): void {
+    // Get the navigation
+    const navigation = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>(name);
+
+    if (navigation) {
+      // Toggle the opened status
+      navigation.toggle();
     }
+  }
 
-    ngOnInit(): void {
-        const { userData } = this._route.snapshot.data;
-        this.resetNavigation(this.hideMenusAndButtons);
-        // Subscribe to navigation data
-        this.user = {
-            ...userData,
-            // Add fake data for test
-            // To Remove and use only userData
-            avatar: 'assets/images/avatars/brian-hughes.jpg',
-            status: 'online',
-        };
-
-        // Subscribe to media changes
-        this._fuseMediaWatcherService.onMediaChange$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(({ matchingAliases }) => {
-                // Check if the screen is small
-                this.isScreenSmall = !matchingAliases.includes('md');
-            });
+  /**
+   * Hide/Show navigation
+   *
+   * @param hideNavigation
+   */
+  resetNavigation(hideNavigation: boolean) {
+    this.hideMenusAndButtons = hideNavigation;
+    if (hideNavigation) {
+      this.navigation = [];
+    } else {
+      const url = this._coookies.get('url');
+      switch (url) {
+        case 'dashboard':
+          const { children: dashboardsMainRoutesChildren = [] } = appRoutes.find(({ path }) => path === '');
+          this.navigation = this.getNavigationItemsFromRoutes(dashboardsMainRoutesChildren, '/');
+          break;
+        case 'resources':
+          const { children: dashboardsResourceRoutesChildren = [] } = appResourceRoutes.find(({ path }) => path === '');
+          this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourceRoutesChildren, '/');
+          break;
+        default:
+          break;
+      }
     }
+  }
 
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void {
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next(null);
-        this._unsubscribeAll.complete();
+  receiveMessage($event) {
+    switch ($event) {
+      case 'resources':
+        this._coookies.set('url', 'resources');
+        this._router.resetConfig(appResourceRoutes);
+        break;
+      case 'dashboard':
+        this._coookies.set('url', 'dashboard');
+        this._router.resetConfig(appRoutes);
+        break;
+      default:
+        this._coookies.set('url', '');
+        this._router.resetConfig(appRoutes);
+        break;
     }
+    this.resetNavigation(false);
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  onActiveOrganizationChange(organization: any) {
+    // TO DO : do logic to manage organization change
+  }
 
-    /**
-     * Toggle navigation
-     *
-     * @param name
-     */
-    toggleNavigation(name: string): void {
-        // Get the navigation
-        const navigation = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>(name);
+  // -----------------------------------------------------------------------------------------------------
+  // @ Private methods
+  // -----------------------------------------------------------------------------------------------------
 
-        if (navigation) {
-            // Toggle the opened status
-            navigation.toggle();
-        }
-    }
-
-    /**
-     * Hide/Show navigation
-     *
-     * @param hideNavigation
-     */
-    resetNavigation(hideNavigation: boolean) {
-        this.hideMenusAndButtons = hideNavigation;
-        if (hideNavigation) {
-            this.navigation = [];
-        } else {
-            switch (url) {
-                case '':
-                    const { children: dashboardsMainRoutesChildren = [] } = appRoutes.find(({ path }) => path === '');
-                    this.navigation = this.getNavigationItemsFromRoutes(dashboardsMainRoutesChildren, '/');
-                    break;
-                case 'resources':
-                    const { children: dashboardsResourceRoutesChildren = [] } = appResourceRoutes.find(({ path }) => path === '');
-                    // this._router.resetConfig(appResourceRoutes);
-                    // console.log({ config: this._router.config });
-                    console.log({ dashboardsResourceRoutesChildren });
-                    console.log({ appResourceRoutes });
-
-                    this._router.resetConfig(appResourceRoutes);
-                    this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourceRoutesChildren, '/');
-                    // this._router.config = dashboardsResourceRoutesChildren;
-                    // console.log({ config: this._router.config });
-                    break;
-                default:
-                    break;
-            }
-
-        }
-    }
-
-    receiveMessage($event) {
-        this.resetNavigation(false, $event);
-    }
-
-    onActiveOrganizationChange(organization: any) {
-        // TO DO : do logic to manage organization change
-    }
-
-    // -----------------------------------------------------------------------------------------------------
-    // @ Private methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Build navigation array of FuseNavigationItem
-     * from routes of type { Route } from '@angular/router';
-     *
-     * @param routes
-     * @param parentPath (optional)
-     */
-    private getNavigationItemsFromRoutes(routes: Route[], parentPath: string = ''): FuseNavigationItem[] {
-        return routes.reduce((acc, { path = '', data, children = [] }) => {
-            const { title = path, type = FuseNavigationItemTypeEnum.basic, icon } = data || {};
-            if (path === errorPath) {
-                return acc;
-            }
-            const id = `${parentPath}.${path}`.replace('/', '');
-            const link = `${parentPath ? `${parentPath}` : ''}/${path}`;
-            const navigationItem = { id, title, type, link } as FuseNavigationItem;
-            if (children?.length) {
-                navigationItem.children = this.getNavigationItemsFromRoutes(children, link);
-            }
-            if (icon) {
-                navigationItem.icon = icon;
-            }
-            acc.push(navigationItem);
-            return acc;
-        }, []);
-    }
+  /**
+   * Build navigation array of FuseNavigationItem
+   * from routes of type { Route } from '@angular/router';
+   *
+   * @param routes
+   * @param parentPath (optional)
+   */
+  private getNavigationItemsFromRoutes(routes: Route[], parentPath: string = ''): FuseNavigationItem[] {
+    return routes.reduce((acc, { path = '', data, children = [] }) => {
+      const { title = path, type = FuseNavigationItemTypeEnum.basic, icon } = data || {};
+      if (path === errorPath) {
+        return acc;
+      }
+      const id = `${parentPath}.${path}`.replace('/', '');
+      const link = `${parentPath ? `${parentPath}` : ''}/${path}`;
+      const navigationItem = { id, title, type, link } as FuseNavigationItem;
+      if (children?.length) {
+        navigationItem.children = this.getNavigationItemsFromRoutes(children, link);
+      }
+      if (icon) {
+        navigationItem.icon = icon;
+      }
+      acc.push(navigationItem);
+      return acc;
+    }, []);
+  }
 }

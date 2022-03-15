@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, map, take } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateResourceRO } from 'generated/models';
+import { ResourceRO } from 'generated/models';
 
 @Injectable({
     providedIn: 'root',
@@ -39,10 +39,10 @@ export class ResourceService {
         return this._httpClient.get('http://localhost:3000/resources/getOgranizationResourcesById/1');
     }
 
-    createResource(payload: CreateResourceRO) {
+    createResource(payload: ResourceRO) {
         return this._httpClient.post('http://localhost:3000/resources/create', payload);
     }
-    updateResource(id: number, payload: CreateResourceRO) {
+    updateResource(id: number, payload: ResourceRO) {
         return this._httpClient.put('http://localhost:3000/resources/update/' + id, payload);
     }
     getResource(id?: number): Observable<any> {
