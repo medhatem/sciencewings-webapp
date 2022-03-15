@@ -1,11 +1,16 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NewUserInfosResolver } from './new-user-infos.resolver';
 import { User, Phone, Address } from 'app/models';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { NewUserInfosService } from './new-user-infos.service';
+
+import * as _moment from 'moment';
+import { default as _rollupMoment, Moment } from 'moment';
+
+const moment = _rollupMoment || _moment;
 
 @Component({
   selector: 'new-user-infos',
@@ -44,7 +49,8 @@ export class NewUserInfosComponent implements OnInit {
     formUser['addresses'] = formUserAddresses;
 
     // TODO: remove before PR
-    console.log('user: ', formUser);
+    formUser['dateofbirth'] = moment(formUser['dateofbirth']).format(constants.DATE_FORMAT_YYYY_MM_DD);
+
     // TODO: remove before PR
     this._newUserService.createUser(formUser).subscribe((res) => console.log('created:', res));
 
@@ -65,7 +71,7 @@ export class NewUserInfosComponent implements OnInit {
         firstname: [this.user.firstName, [Validators.required]],
         lastname: [this.user.lastName, [Validators.required]],
         email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
-        dateofbirth: ['', Validators.required],
+        dateofbirth: new FormControl(moment()),
         keycloakId: localStorage.getItem(constants.KEYCLOAK_USER_ID),
       }),
       step2: this._formBuilder.group({
@@ -95,10 +101,19 @@ export class NewUserInfosComponent implements OnInit {
     );
   }
 
+  /**
+   * Use this for [matDatepickerFilter] property to give
+   * the user selection from previous dates only
+   */
+
   dateFilter(d: Date | null): boolean {
     const date = d || new Date();
     return date < new Date();
   }
+
+  /**
+   * Adds a phone form to the phones FormArray
+   */
 
   addPhone() {
     const phoneForm = this._formBuilder.group({
@@ -109,6 +124,10 @@ export class NewUserInfosComponent implements OnInit {
 
     this.phones.push(phoneForm);
   }
+
+  /**
+   * Adds an address form to the phones FormArray
+   */
 
   addAddress() {
     const addressForm = this._formBuilder.group({
@@ -124,13 +143,25 @@ export class NewUserInfosComponent implements OnInit {
     this.addresses.push(addressForm);
   }
 
+  /**
+   * Removes a phone form to the phones FormArray
+   */
+
   deletePhone(index) {
     this.phones.removeAt(index);
   }
 
+  /**
+   * Removes an address form to the phones FormArray
+   */
+
   deleteAddress(index) {
     this.addresses.removeAt(index);
   }
+
+  /**
+   * Gets a country (by name) from the list of countries provided in the mock api
+   */
 
   getCountryByName(name: string) {
     if (this.countries) {
@@ -138,11 +169,19 @@ export class NewUserInfosComponent implements OnInit {
     }
   }
 
+  /**
+   * Gets a country (by code) from the list of countries provided in the mock api
+   */
+
   getCountryByCode(code: string) {
     if (this.countries) {
       return this.countries.find((country) => country.code === code);
     }
   }
+
+  /**
+   * Fills the country array from the list of countries provided in the mock api
+   */
 
   private _prepareCountries() {
     // TODO: retrieve countries from the backend instead of mock api

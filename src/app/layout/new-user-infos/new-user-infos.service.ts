@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { User } from 'app/models/user';
+import { CreatedUserDTO } from 'generated/models';
 import { ApiService } from 'generated/services';
-import { lastValueFrom, map } from 'rxjs';
+import { lastValueFrom, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,8 @@ export class NewUserInfosService {
           if (error) {
             throw Error(`${error}`);
           }
-          return new User(body);
+          // Check with UserBaseBodyGetDTO
+          return new User((body as any).user);
         }),
       ),
     );

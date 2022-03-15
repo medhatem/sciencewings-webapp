@@ -1,7 +1,7 @@
 import { AddressRO } from 'generated/models';
 
 export class Address implements AddressRO {
-  apartment: string;
+  apartment?: string;
   city: string;
   code: string;
   country: string;
