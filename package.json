@@ -7,10 +7,11 @@
   "private": true,
   "scripts": {
     "start:staging": "npm run generate-swagger:staging && ng serve --configuration=staging",
-    "start:local": "npm run generate-swagger:staging && ng serve --configuration=local",
+    "start:local": "npm run generate-swagger:local && ng serve --configuration=local",
     "start:production": "npm run generate-swagger:production && npm run memory && ng serve --configuration=production",
     "build:staging": "ng build --configuration=staging",
     "build:production": "ng build --prod --configuration=production",
+    "generate-swagger:local": "node src/swagger/SwaggerUtil.local.js && ng-swagger-gen",
     "generate-swagger:staging": "node src/swagger/SwaggerUtil.staging.js && ng-swagger-gen",
     "generate-swagger:production": "node src/swagger/SwaggerUtil.production.js && ng-swagger-gen",
     "clean": "rm -rf dist/ && rm -rf node_modules && rm -rf package-lock.json",
