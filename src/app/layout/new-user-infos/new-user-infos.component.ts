@@ -47,12 +47,7 @@ export class NewUserInfosComponent implements OnInit {
     formUser['email'] = this.user.email;
     formUser['phones'] = formUserPhones;
     formUser['addresses'] = formUserAddresses;
-
-    // TODO: remove before PR
     formUser['dateofbirth'] = moment(formUser['dateofbirth']).format(constants.DATE_FORMAT_YYYY_MM_DD);
-
-    // TODO: remove before PR
-    this._newUserService.createUser(formUser).subscribe((res) => console.log('created:', res));
 
     this.onFormComplete.emit(false);
   }

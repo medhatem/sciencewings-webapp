@@ -50,7 +50,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
     const { userData } = this._route.snapshot.data;
     try {
       const user = await this._newUserInfosService.getUser(userData.id);
-      console.log('layout: ', user);
       // Hide all buttons and escapes, and display the new-user-infos form component
       if (user) {
         this.hideMenusAndButtons = false;
