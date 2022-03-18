@@ -8,8 +8,8 @@
   "scripts": {
     "generate-swagger": "npx ts-node -O '{\"module\": \"commonjs\"}'  src/swagger/SwaggerUtil.ts",
     "build:local": "npm run generate-swagger ; node --max_old_space_size=4092 \"node_modules/@angular/cli/bin/ng\" build --configuration=local",
-    "build:staging": "npm run generate-swagger -- staging ; npm run node --max_old_space_size=4092 \"node_modules/@angular/cli/bin/ng\" build --configuration=staging",
-    "build:production": "npm run generate-swagger --prod ; npm run memory \"node_modules/@angular/cli/bin/ng\" build --prod --configuration=production",
+    "build:staging": "npm run generate-swagger -- staging ; node --max_old_space_size=4092 \"node_modules/@angular/cli/bin/ng\" build --configuration=staging",
+    "build:production": "npm run generate-swagger --prod ; memory \"node_modules/@angular/cli/bin/ng\" build --prod --configuration=production",
     "start:local": "ng serve --configuration=local",
     "start:staging": "ng serve --configuration=staging",
     "start:production": "npm run memory && ng serve --configuration=production",
