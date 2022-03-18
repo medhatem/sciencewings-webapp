@@ -1,31 +1,24 @@
 import { Injectable } from '@angular/core';
+import { User } from 'app/models/user';
 import { ApiService } from 'generated/services';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { lastValueFrom, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NewUserInfosService {
-  private _newLoggedUser: BehaviorSubject<any | null> = new BehaviorSubject(null);
-
   constructor(private _swaggerService: ApiService) {}
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Accessors
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Getter for user from DB
-   */
-  get newLoggedUser$(): Observable<any> {
-    return this._newLoggedUser.asObservable();
-  }
-
-  getUser(id: number) {
-    return this._swaggerService.UserRoutesGetById(id).pipe(
-      tap((response: any) => {
-        this._newLoggedUser.next(response);
-      }),
+  getUser(id: string): Promise<User> {
+    return lastValueFrom(
+      this._swaggerService.UserRoutesGetUserByKeycloakId(id).pipe(
+        map(({ body, error }) => {
+          if (error) {
+            throw Error(`${error}`);
+          }
+          return new User(body);
+        }),
+      ),
     );
   }
 }

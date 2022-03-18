@@ -1,17 +1,21 @@
-import { AddressDTO } from 'generated/models';
+import { AddressRO } from 'generated/models';
 
-export class Address implements AddressDTO {
-  id: number;
-  appartement: number;
+export class Address implements AddressRO {
+  apartment: string;
   city: string;
   code: string;
   country: string;
   province: string;
   street: string;
-  type: 'USER' | 'ORGANIZATION';
+  type: AddressType;
 
-  constructor(address: any) {
+  constructor(address?: any) {
     const { appartement, city, code, country, province, street, type } = address || {};
     Object.assign(this, { appartement, city, code, country, province, street, type });
   }
+}
+
+export enum AddressType {
+  user = 'USER',
+  organization = 'ORGANIZATION',
 }

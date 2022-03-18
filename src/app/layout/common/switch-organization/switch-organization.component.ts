@@ -1,18 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { SwitchOrganizationsService } from './switch-organization.service';
-import { NewUserInfosResolver } from 'app/layout/new-user-infos/new-user-infos.resolver';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'app/core/user/user.types';
 import { constants } from 'app/shared/constants';
+import { UserOrganizations } from 'app/models/organizations/user-organizations';
+import { ToastrService } from 'app/core/toastr/toastr.service';
 
 @Component({
   selector: 'switch-organization',
@@ -23,48 +15,34 @@ import { constants } from 'app/shared/constants';
 })
 export class SwitchOrganizationComponent implements OnInit, OnDestroy {
   @Input() user: User;
-  @Output() onActiveOrganizationChange = new EventEmitter<any>();
-  availableOrganizations: Array<any>;
+  @Output() onActiveOrganizationChange = new EventEmitter<UserOrganizations>();
+  availableOrganizations: Array<UserOrganizations>;
   activeOrganization: any;
 
   constructor(
     private _switchOrganizationsService: SwitchOrganizationsService,
-    private _newUserInfosResolver: NewUserInfosResolver,
+    private _toastrService: ToastrService,
     private _route: ActivatedRoute,
   ) {}
 
   ngOnDestroy(): void {}
 
   async ngOnInit() {
-    // fetch current user
     const { userData } = this._route.snapshot.data;
-    // Move this line to layout.component.ts
-    this.user = userData || (await this._newUserInfosResolver.getloadUserProfileKeycloak());
-    // Get the available organizations for user
-    this._switchOrganizationsService
-      .getAllAvailableOrganizationsForUser(Number(this.user.id))
-      .subscribe((organizations) => {
-        this.availableOrganizations = organizations || [];
-        this.activeOrganization = this.availableOrganizations[0] || {
-          id: constants.EMPTY_ORGANIZATIONS,
-          name: constants.EMPTY_ORGANIZATIONS, // TODO: Check for translation issues
-        };
-      });
+    try {
+      this.availableOrganizations = await this._switchOrganizationsService.getAllUserOrganizations(Number(userData.id));
+      this.activeOrganization = this.availableOrganizations[0] || {
+        id: constants.EMPTY_ORGANIZATIONS,
+        name: constants.EMPTY_ORGANIZATIONS,
+      };
+    } catch (error) {
+      this._toastrService.showError('APP.SWITCH_ORGANIZATIONS_LOAD_FAILED');
+    }
   }
 
-  /**
-   * Set the active organization
-   * Emit organization change
-   *
-   * @param organization
-   */
-  setActiveOrganization(organization: any): void {
-    // Set the active lang
+  setActiveOrganization(organization: UserOrganizations): void {
     this.activeOrganization = organization;
+    localStorage.setItem(constants.USER_ORGANIZATION_ID, `${organization.id}`);
     this.onActiveOrganizationChange.emit(this.activeOrganization);
   }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Private methods
-  // -----------------------------------------------------------------------------------------------------
 }

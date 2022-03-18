@@ -8,6 +8,7 @@ import { FUSE_VERSION } from '@fuse/version';
 import { Layout } from 'app/layout/layout.types';
 import { AppConfig } from 'app/core/config/app.config';
 import { NewUserInfosService } from './new-user-infos/new-user-infos.service';
+import { ToastrService } from 'app/core/toastr/toastr.service';
 
 @Component({
   selector: 'layout',
@@ -35,6 +36,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     private _fuseConfigService: FuseConfigService,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _newUserInfosService: NewUserInfosService,
+    private _toastrService: ToastrService,
   ) {}
 
   // -----------------------------------------------------------------------------------------------------
@@ -44,22 +46,21 @@ export class LayoutComponent implements OnInit, OnDestroy {
   /**
    * On init
    */
-  ngOnInit(): void {
+  async ngOnInit() {
     const { userData } = this._route.snapshot.data;
-    this._newUserInfosService.getUser(userData.id).subscribe((user) => {
+    try {
+      const user = await this._newUserInfosService.getUser(userData.id);
       // Hide all buttons and escapes, and display the new-user-infos form component
-      // TO DO : verify user required props
-      // If all user infos exists we show the dashboard
       if (user) {
         this.hideMenusAndButtons = false;
       }
-    });
+    } catch (error) {
+      this.hideMenusAndButtons = true;
+      this._toastrService.showWarning('APP.NEW_USER_INFOS_REQUIRED');
+    }
     combineLatest([
       this._fuseConfigService.config$,
-      this._fuseMediaWatcherService.onMediaQueryChange$([
-        '(prefers-color-scheme: dark)',
-        '(prefers-color-scheme: light)',
-      ]),
+      this._fuseMediaWatcherService.onMediaQueryChange$(['(prefers-color-scheme: dark)', '(prefers-color-scheme: light)']),
     ])
       .pipe(
         takeUntil(this._unsubscribeAll),

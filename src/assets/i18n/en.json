@@ -25,7 +25,26 @@
           "MEMBERS": "Supervised members"
         },
         "ABOUT": {
-          "ABOUT_ME": "About me"
+          "NAME": "Name",
+          "TITLE": "Job title",
+          "COMPANY": "Company",
+          "EMAIL": "Email address",
+          "LABEL": "Label",
+          "REMOVE": "Remove",
+          "ADD_EMAIL": "Add an e-mail address",
+          "PHONE": "Phone number",
+          "ADD_PHONE_NUMBER": "Add a phone number",
+          "ADDRESS": "Address",
+          "BIRTH_DATE": "Date of birth",
+          "NOTES": "Notes",
+          "EDIT": "Edit",
+          "EDIT_DESC": "Edit information",
+          "CANCEL": "Cancel",
+          "CANCEL_DESC": "Cancel modifications",
+          "DELETE": "Delete",
+          "DELETE_DESC": "Delete user",
+          "SAVE": "Save",
+          "SAVE_DESC": "Save modifications"
         },
         "PROFILE": {
           "TITLE": "User profile"
@@ -38,8 +57,19 @@
         }
       }
     },
+    "LOGIN_ERROR_TITLE": "Erreur d'authentification",
     "KEYCLOAK_LOGIN_ERROR": "An error occurred while connecting keycloak",
-    "KEYCLOAK_LOGOUT_ERROR": "An error occurred while trying to sign out keycloak"
+    "KEYCLOAK_LOGOUT_ERROR": "An error occurred while trying to sign out keycloak",
+    "BTN": {
+      "NEXT": "Next",
+      "CANCEL": "Cancel",
+      "PREVIOUS": "Previous",
+      "SUBMIT": "Submit",
+      "RELOAD": "Reload",
+      "DONE_AND_CREATE_NEW": "Submit and create new"
+    },
+    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Failed to load user organizations",
+    "NEW_USER_INFOS_REQUIRED": "Please fill in your information before proceeding to your dashboard"
   },
   "ORGANIZATION": {
     "PROFILE": {
@@ -52,7 +82,55 @@
       }
     },
     "FORM": {
-      "TITLE": "Create Organization"
+      "TITLE": "Create Organization",
+      "STEP1": {
+        "TITLE": "General Information",
+        "SUB_TITLE": "Fill in your basic information for your organization",
+        "SUB_ORGANIZATION": "Set as sub-organization",
+        "CHOOSE_SUB_ORGANIZATION": "Choose Sub Organization",
+        "TIMEZONE": "Time zone",
+        "DEALING_TYPE": {
+          "TITLE": "Internal/External Organization",
+          "BOTH": "Internal and external",
+          "INTERNAL": "Internal only",
+          "EXTERNAL": "External only"
+        },
+        "NAME": "organization name",
+        "EMAIL": "Email address",
+        "TYPE": "Choose organization type",
+        "PHONE": "Phone Number",
+        "LABELS": "Labels",
+        "DESCRIPTION": "About (description)"
+      },
+      "STEP2": {
+        "TITLE": "Address and social networks",
+        "SUB_TITLE": "Organization Address",
+        "APARTMENT": "Apartment",
+        "CITY": "City",
+        "STREET": "Street",
+        "COUNTRY": "Country",
+        "SELECT_COUNTRY": "Choose a country",
+        "PROVINCE": "Province/region",
+        "POSTAL_CODE": "Postal Code",
+        "DEPARTMENT": "Department",
+        "SECTOR": "Sector",
+        "SOCIAL_MEDIA": "Social Networks"
+      },
+      "STEP3": {
+        "TITLE": "Admins and Members",
+        "SUB_TITLE_ADMIN": "Invite administrators for this organization",
+        "SUB_TITLE_USER": "Invite members for this organization",
+        "ENTER_EMAIL": "Enter email",
+        "HELPER1": "Split with commas or click ENTER",
+        "HELPER2": "Example 01: example@example.com",
+        "HELPER3": "Example 02: example01@example.com,example02@example.com"
+      },
+      "DONE": {
+        "TITLE": "Done",
+        "HELPER1": "Thank you for filling in your Organization information!",
+        "HELPER2": "You can now manage your Organization and create your resources and many other interesting features",
+        "HELPER3": "You can click reset if you want to create another organization"
+      }
     },
     "ERROR": {
       "CREATE_FAILED": "Organization creation failed"

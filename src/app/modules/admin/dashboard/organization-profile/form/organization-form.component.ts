@@ -7,11 +7,12 @@ import { Organization } from 'app/models/organizations/organization';
 import { IMatChipLabel } from 'app/models/mat-ui/mat-chip-label.interface';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { constants } from 'app/shared/constants';
+import { constants, countries, organizationTypes } from 'app/shared/constants';
 import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
-import { Address } from 'app/models/organizations/address';
-import { Phone } from 'app/models/organizations/phone';
+import { Address, AddressType } from 'app/models/address';
+import { Phone } from 'app/models/phone';
+import moment from 'moment-timezone';
 
 @Component({
   selector: 'organization-form',
@@ -27,6 +28,9 @@ export class OrganizationFormComponent implements OnInit {
   organizationLabels: IMatChipLabel[] = [];
   adminsEmailListLabels: IMatChipLabel[] = [];
   usersEmailListLabels: IMatChipLabel[] = [];
+  countries = countries;
+  organizationTypes = organizationTypes;
+  timezoneList = moment.tz.names();
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -48,13 +52,14 @@ export class OrganizationFormComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         organizationType: ['', Validators.required],
         description: [''],
+        timezone: ['America/Montreal', Validators.required],
         phoneNumber: [''],
         phoneCode: [''],
         phoneLabel: [''],
         labels: [this.organizationLabels],
       }),
       step2: this._formBuilder.group({
-        appartement: [''],
+        apartment: [''],
         city: [''],
         code: [''],
         country: [''],
@@ -85,7 +90,7 @@ export class OrganizationFormComponent implements OnInit {
       this.createOrganization();
       this.horizontalStepper.reset();
     } else {
-      this._toastrService.showError('', constants.CREATE_ORGANIZATION_FAILED);
+      this._toastrService.showError(constants.CREATE_ORGANIZATION_FAILED);
       return;
     }
   }
@@ -110,28 +115,24 @@ export class OrganizationFormComponent implements OnInit {
   // @ Private methods
   // -----------------------------------------------------------------------------------------------------
 
-  private createOrganization() {
+  private async createOrganization(): Promise<boolean> {
     this.setOrganizationInfo();
     if (this.stepperForm.valid) {
-      this._adminOrganizationsService.createOrganization(this.oragnization).subscribe({
-        next: (result) => result,
-        error: (err) => {
-          this._toastrService.showError(err, constants.CREATE_ORGANIZATION_FAILED);
-          return false;
-        },
-        complete: () => {
-          this._toastrService.showSuccess('', constants.CREATE_ORGANIZATION_COMPLETED);
-          this.stepperForm.reset();
-          return true;
-        },
-      });
+      try {
+        const result = await this._adminOrganizationsService.createOrganization(this.oragnization);
+        this._toastrService.showSuccess(constants.CREATE_ORGANIZATION_COMPLETED);
+        return result;
+      } catch (error) {
+        this._toastrService.showError(constants.CREATE_ORGANIZATION_FAILED);
+        return false;
+      }
     }
   }
 
   private setOrganizationInfo() {
     const { step1, step2, step3 } = this.stepperForm.getRawValue();
     const phones = [new Phone({ ...step1 })];
-    const address = new Address({ type: 'ORGANIZATION', ...step2 });
+    const address = new Address({ type: AddressType.organization, ...step2 });
     const { adminsEmails = [], usersEmails = [] } = step3;
     this.adminsEmailListLabels = adminsEmails;
     this.usersEmailListLabels = usersEmails;

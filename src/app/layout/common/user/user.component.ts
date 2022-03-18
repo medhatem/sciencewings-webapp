@@ -1,17 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { KeycloakService } from 'keycloak-angular';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { User } from 'app/core/user/user.types';
 import { constants } from 'app/shared/constants';
@@ -33,7 +25,6 @@ export class UserComponent implements OnInit, OnDestroy {
   constructor(
     private _route: ActivatedRoute,
     private _changeDetectorRef: ChangeDetectorRef,
-    private _router: Router,
     private _keycloackService: KeycloakService,
     private _toastrService: ToastrService,
   ) {}
@@ -73,7 +64,7 @@ export class UserComponent implements OnInit, OnDestroy {
     try {
       await this._keycloackService.logout();
     } catch (error) {
-      this._toastrService.showError(error, constants.KEYCLOAK_LOGOUT_ERROR);
+      this._toastrService.showError(constants.KEYCLOAK_LOGOUT_ERROR);
     }
   }
 }

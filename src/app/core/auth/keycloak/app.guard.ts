@@ -9,11 +9,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthGuard extends KeycloakAuthGuard {
-  constructor(
-    protected readonly router: Router,
-    protected readonly keycloak: KeycloakService,
-    private toastrService: ToastrService,
-  ) {
+  constructor(protected readonly router: Router, protected readonly keycloak: KeycloakService, private toastrService: ToastrService) {
     super(router, keycloak);
   }
 
@@ -25,7 +21,7 @@ export class AuthGuard extends KeycloakAuthGuard {
           redirectUri: window.location.origin + state.url,
         });
       } catch (error) {
-        this.toastrService.showError(error, constants.KEYCLOAK_LOGIN_ERROR);
+        this.toastrService.showError(constants.KEYCLOAK_LOGIN_ERROR);
       }
     }
 

@@ -1,13 +1,13 @@
 import { CreateOrganizationRO } from 'generated/models';
-import { Address } from './address';
-import { Phone } from './phone';
+import { Address } from '../address';
+import { Phone } from '../phone';
 
 export class Organization implements CreateOrganizationRO {
   id?: string;
   description?: string;
   department?: string;
   sector?: string;
-  address: Address[];
+  addresses: Address[];
   adminContact: number;
   direction: number;
   email: string;
@@ -24,6 +24,7 @@ export class Organization implements CreateOrganizationRO {
   socialYoutube?: string;
   type: string;
   dealingType: string;
+  timezone: string;
 
   constructor(organization?: any) {
     const {
@@ -41,20 +42,21 @@ export class Organization implements CreateOrganizationRO {
       socialTwitter,
       socialYoutube,
       name = '',
-      address,
+      addresses = new Array<Address>(),
       type,
       email = '',
       parentId,
       phones,
       labels,
       dealingType,
+      timezone,
     } = organization || {};
     Object.assign(this, {
       id,
       description,
       department,
       sector,
-      address,
+      addresses,
       adminContact,
       direction,
       email,
@@ -71,6 +73,7 @@ export class Organization implements CreateOrganizationRO {
       socialYoutube,
       type,
       dealingType,
+      timezone,
     });
   }
 }
