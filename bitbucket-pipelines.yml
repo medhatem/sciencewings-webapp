@@ -27,7 +27,7 @@ definitions:
     - step: &generate_swagger
         name: generate_swagger
         script:
-          - npm run generate-swagger:staging
+          - npm run generate-swagger -- staging
         artifacts: # defining the artifacts to be passed to each future step.
           - src/generated/**
     - step: &build
