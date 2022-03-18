@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/ng-openapi-gen/ng-openapi-gen-schema.json",
+  "input": "src/swagger/swagger.json",
+  "output": "src/generated",
+  "prefix": "Api",
+  "ignoreUnusedModels": true,
+  "minParamsForContainer": 2,
+  "sortParams": "desc",
+  "defaultTag": "Api",
+  "removeStaleFiles": true,
+  "modelIndex": true,
+  "serviceIndex": true,
+  "apiModule": true,
+  "enumModule": true,
+  "generateExamples": false,
+  "camelCase": false,
+  "customFileSuffix": {
+    "model": "",
+    "example": ".example",
+    "service": ".service"
+  },
+  "timeout": 20000,
+  "skipProxySetup": false
+}

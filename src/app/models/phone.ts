@@ -1,6 +1,6 @@
-import { PhoneRO } from 'generated/models';
+import { PhoneRo } from 'generated/models';
 
-export class Phone implements PhoneRO {
+export class Phone implements PhoneRo {
   phoneCode: string;
   phoneLabel: string;
   value: number;
