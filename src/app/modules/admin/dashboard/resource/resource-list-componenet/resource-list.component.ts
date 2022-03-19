@@ -1,13 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Observable, Subject, debounceTime, map, merge, of, switchMap, takeUntil } from 'rxjs';
 
@@ -57,6 +48,8 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
       if (statusCode === 500) {
         this._toastrService.showError(errorMessage, 'Something went wrong!');
       }
+      console.log({ body });
+
       this.resources = body.resources;
     });
   }

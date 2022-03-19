@@ -23,6 +23,9 @@
           },
           "RESOURCE_SCHEDULE": {
               "TITLE": "Resource Schedule"
+          },
+          "RESOURCE_SETTINGS": {
+              "TITLE": "Resource Settings"
           }
 
       },

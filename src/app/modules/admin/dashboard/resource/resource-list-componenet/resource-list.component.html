@@ -107,12 +107,28 @@
                     <div class="flex border-b">
                         <mat-card class="resource-card-detail">
                             <mat-card-title>{{ resource.name }}</mat-card-title>
-                            <mat-card-subtitle><strong>Created at:</strong> {{ resource.createdAt.replace('T', '
-                                ').replace('Z', '') }}</mat-card-subtitle>
+                            <mat-card-subtitle><strong>Description:</strong> {{ resource.description }}
+                            </mat-card-subtitle>
                             <mat-card-subtitle *ngIf="resource.user"><strong>Created by:</strong> {{
                                 resource.user.firstname + ' ' + resource.user.lastname }}</mat-card-subtitle>
                             <mat-card-subtitle *ngIf="resource.organization"> <strong>Owned by:</strong> {{
                                 resource.organization.name }} </mat-card-subtitle>
+                            <mat-card-subtitle style="margin-bottom: 0px;">
+                                <strong>Managers:</strong>
+                            </mat-card-subtitle>
+                            <mat-list role="list">
+                                <ng-container *ngFor="let manager of resource.managers">
+                                    <mat-list-item role="listitem">{{manager.name}}</mat-list-item>
+                                </ng-container>
+                            </mat-list>
+                            <mat-card-subtitle style="margin-top: 8px;">
+                                <strong>Tags:</strong>
+                            </mat-card-subtitle>
+                            <mat-chip-list>
+                                <ng-container *ngFor="let tag of resource.tags">
+                                    <mat-chip>{{tag.title}}</mat-chip>
+                                </ng-container>
+                            </mat-chip-list>
                             <mat-card-actions style="display: flex; justify-content: end">
                                 <button mat-button color="warn" (click)="onDelete(resource.id)">Remove</button>
                                 <button mat-button color="primary" routerLinkActive="active"

@@ -4,8 +4,8 @@ import { InitialDataResolver } from 'app/app.resolvers';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
 import { Route } from '@angular/router';
-import { ResourceComponent } from './modules/admin/dashboard/resource/resource.component';
 import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
+import { ResourceSettingsComponent } from './modules/admin/dashboard/resource/resource-settings/resource-settings.component';
 
 export const errorPath = '**';
 export const appRoutes: Route[] = [
@@ -123,24 +123,42 @@ export const appResourceRoutes: Route[] = [
             data: {
               title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
               type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:cube',
+              icon: 'heroicons_outline:calendar',
             },
-             component: ResourceScheduleComponent,
-            //loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
+            component: ResourceScheduleComponent,
           },
-          // {
-          //     path: 'resource/list',
-          //     canActivate: [AuthGuard],
-          //     data: {
-          //         title: 'APP.ROUTES.ADMIN.RESOURCE_LIST.TITLE',
-          //         type: FuseNavigationItemTypeEnum.basic,
-          //         icon: 'heroicons_outline:cube',
-          //     },
-          //     loadChildren: () =>
-          //         import('app/modules/admin/dashboard/resource/resource.module').then(
-          //             (m) => m.ResourceModule,
-          //         ),
-          // },
+          {
+            path: 'settings',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE',
+              type: FuseNavigationItemTypeEnum.collapsable,
+              icon: 'heroicons_outline:adjustments',
+            },
+            component: ResourceSettingsComponent,
+            children: [
+              {
+                path: 'tag',
+                canActivate: [AuthGuard],
+                data: {
+                  title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
+                  type: FuseNavigationItemTypeEnum.basic,
+                  icon: 'heroicons_outline:calendar',
+                },
+                component: ResourceScheduleComponent,
+              },
+              {
+                path: 'billing',
+                canActivate: [AuthGuard],
+                data: {
+                  title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
+                  type: FuseNavigationItemTypeEnum.basic,
+                  icon: 'heroicons_outline:calendar',
+                },
+                component: ResourceScheduleComponent,
+              },
+            ],
+          },
         ],
       },
       {

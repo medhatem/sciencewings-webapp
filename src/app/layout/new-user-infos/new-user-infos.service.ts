@@ -12,12 +12,12 @@ export class NewUserInfosService {
   getUser(id: string): Promise<User> {
     return lastValueFrom(
       this._swaggerService.UserRoutesGetUserByKeycloakId(id).pipe(
-        map(({ body, error }) => {
-          if (error) {
-            throw Error(`${error}`);
-          }
-          return new User(body);
-        }),
+        map((body) =>
+        //   if (data.error) {
+        //     throw Error(`${error}`);
+        //   }
+           new User(body)
+        ),
       ),
     );
   }

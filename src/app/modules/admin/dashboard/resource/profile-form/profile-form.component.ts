@@ -1,10 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { CalendarOptions, FullCalendarComponent } from '@fullcalendar/angular';
-import listPlugin from '@fullcalendar/list';
+import { FormControl } from '@angular/forms';
+import { map, Observable, startWith } from 'rxjs';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-profile-form',
@@ -12,24 +16,28 @@ import listPlugin from '@fullcalendar/list';
   styleUrls: ['./profile-form.component.scss'],
 })
 export class ResourceProfileFormComponent implements OnInit {
-  @ViewChild('calendar') calendarComponent: FullCalendarComponent;
+  @ViewChild('managerInput') managerInput: ElementRef<HTMLInputElement>;
+  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   form!: FormGroup;
   btnTitle: string = 'Add';
   params: any;
-  calendarOptions: CalendarOptions = {
-    selectable: true,
-    initialView: 'dayGridMonth',
-    // dateClick: this.handleDateClick.bind(this), // bind is important!
-    select: this.handleDateClick.bind(this),
-    events: [],
-  };
+
+  // TAGS
+  tags = [];
+  tagsEditMode: boolean = false;
+  filteredTags = [];
+
+  // MANAGERS
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  managerCtrl = new FormControl();
+  filteredManagers: Observable<any[]>;
+  managers = [];
+  allManagers = [];
 
   private resource;
-  private _selectedStartDate;
-  private _selectedEndDate;
-  private _selectedTitleDate = 'calendar name';
 
   constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     private _resourceService: ResourceService,
     private fb: FormBuilder,
@@ -41,31 +49,24 @@ export class ResourceProfileFormComponent implements OnInit {
     });
   }
 
-  handleDateClick(arg) {
-    const title = prompt('Event Title:');
-    if (title) {
-      this.calendarComponent.getApi().addEvent({
-        title: title,
-        start: arg.start,
-        end: arg.end,
-        allDay: arg.allDay,
-      });
-    }
-    this.calendarComponent.getApi().unselect();
-    // this._selectedStartDate = arg.startStr;
-    // this._selectedEndDate = arg.endStr;
-    // console.log({
-    //   startStr: this._selectedStartDate,
-    //   endStr: this._selectedEndDate,
-    // });
-  }
-
   ngOnInit(): void {
     this.form = this.fb.group({
       name: '',
-      timeEfficiency: '',
+      description: '',
       timezone: '',
     });
+
+    this._resourceService.getOrgMembers().subscribe(({ body, error }) => {
+      if (error?.statusCode === 500) {
+        this._toastrService.showError(error.errorMessage, 'Something went wrong!');
+      }
+      this.allManagers = body.members;
+      this.filteredManagers = this.managerCtrl.valueChanges.pipe(
+        startWith(null),
+        map((manager: any) => (manager ? this._filter(manager.name) : this.allManagers.slice())),
+      );
+    });
+
     if (this.params.id !== 'create') {
       this._resourceService.getResource(this.params.id).subscribe(({ statusCode, body, errorMessage }) => {
         if (statusCode === 500) {
@@ -73,7 +74,7 @@ export class ResourceProfileFormComponent implements OnInit {
         }
         this.form.setValue({
           name: body.name,
-          timeEfficiency: body.timeEfficiency,
+          description: body.description,
           timezone: body.timezone,
         });
         this.resource = body.resources;
@@ -82,31 +83,24 @@ export class ResourceProfileFormComponent implements OnInit {
   }
 
   onSubmit() {
-    const _events = this.calendarComponent.getApi().getEvents();
-    const events = _events.map((event) => ({ dateFrom: event.start, dateTo: event.end, title: event.title }));
-
     const timezone = new Date().toString().match(/([A-Z]+[\+-][0-9]+)/)[1];
 
     const _resource = {
       name: this.form.value.name,
-      timeEfficiency: this.form.value.timeEfficiency,
       timezone: this.form.value.timezone,
+      description: this.form.value.description,
       active: true,
       organization: 1,
       user: 1,
+      resourceType: 'USER',
+      tags: this.tags.map((tag) => ({ title: tag })),
+      managers: this.managers.map((manager) => manager.id),
     };
     if (this.params.id === 'create') {
       console.log('Creating...');
-      this._resourceService
-        .createResource({
-          ..._resource,
-          resourceType: 'USER',
-          calendar: { name: this._selectedTitleDate, timezone },
-          events,
-        })
-        .subscribe((response) => {
-          console.log({ response });
-        });
+      this._resourceService.createResource(_resource).subscribe((response) => {
+        console.log({ response });
+      });
     } else {
       console.log('Updating...');
       this._resourceService
@@ -118,5 +112,193 @@ export class ResourceProfileFormComponent implements OnInit {
           console.log({ response });
         });
     }
+  }
+
+  // TAG METHODS //
+  /**
+   * Toggle the tags edit mode
+   */
+  toggleTagsEditMode(): void {
+    this.tagsEditMode = !this.tagsEditMode;
+  }
+
+  /**
+   * Filter tags
+   *
+   * @param event
+   */
+  filterTags(event): void {
+    // Get the value
+    const value = event.target.value.toLowerCase();
+
+    // Filter the tags
+    this.filteredTags = this.tags.filter((tag) => tag.title.toLowerCase().includes(value));
+  }
+
+  /**
+   * Filter tags input key down event
+   *
+   * @param event
+   */
+  filterTagsInputKeyDown(event): void {
+    // Return if the pressed key is not 'Enter'
+    if (event.key !== 'Enter') {
+      return;
+    }
+
+    // If there is no tag available...
+    if (this.filteredTags.length === 0) {
+      // Create the tag
+      this.createTag(event.target.value);
+
+      // Clear the input
+      event.target.value = '';
+
+      // Return
+      return;
+    }
+
+    // // If there is a tag...
+    // const tag = this.filteredTags[0];
+    // const isTagApplied = this.tags.find((id) => id === tag.id);
+
+    // // If the found tag is already applied to the product...
+    // if (isTagApplied) {
+    //   // Remove the tag from the product
+    //   this.removeTagFromProduct(tag);
+    // } else {
+    //   // Otherwise add the tag to the product
+    //   this.addTagToProduct(tag);
+    // }
+  }
+
+  /**
+   * Create a new tag
+   *
+   * @param title
+   */
+  createTag(title: string): void {
+    const tag = {
+      title,
+    };
+    this.tags.push(title);
+    this.filteredTags.push(title);
+  }
+
+  /**
+   * Update the tag title
+   *
+   * @param tag
+   * @param event
+   */
+  updateTagTitle(tag: any, event): void {
+    // Update the title on the tag
+    tag = event.target.value;
+
+    // Mark for check
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /**
+   * Delete the tag
+   *
+   * @param tag
+   */
+  deleteTag(tag: any): void {
+    this.filteredTags.splice(this.filteredTags.indexOf(tag), 1);
+    this.tags.splice(this.tags.indexOf(tag), 1);
+    // Mark for check
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /**
+   * Add tag to the product
+   *
+   * @param tag
+   */
+  addTagToProduct(tag: any): void {
+    console.log({ tag });
+    console.log({ tags: this.tags });
+
+    // Add the tag
+    this.tags.unshift(tag);
+
+    // Mark for check
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /**
+   * Remove tag from the product
+   *
+   * @param tag
+   */
+  removeTagFromProduct(tag: any): void {
+    // Remove the tag
+    this.tags.splice(
+      this.tags.findIndex((item) => item === tag.id),
+      1,
+    );
+
+    // Mark for check
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /**
+   * Toggle product tag
+   *
+   * @param tag
+   * @param change
+   */
+  toggleProductTag(tag: any, change: MatCheckboxChange): void {
+    if (change.checked) {
+      this.addTagToProduct(tag);
+    } else {
+      this.removeTagFromProduct(tag);
+    }
+  }
+
+  /**
+   * Should the create tag button be visible
+   *
+   * @param inputValue
+   */
+  shouldShowCreateTagButton(inputValue: string): boolean {
+    return !!!(inputValue === '' || this.tags.findIndex((tag) => tag.toLowerCase() === inputValue.toLowerCase()) > -1);
+  }
+
+  // MANAGERS METHODS //
+
+  addManager(event: MatChipInputEvent): void {
+    // const value = (event.value || '').trim();
+    // // Add our fruit
+    // if (value) {
+    //   this.managers.push(value);
+    // }
+    // // Clear the input value
+    // event.chipInput?.clear();
+    // this.managerCtrl.setValue(null);
+  }
+
+  removeManager(manager: string): void {
+    const index = this.managers.indexOf(manager);
+
+    if (index >= 0) {
+      this.managers.splice(index, 1);
+    }
+  }
+
+  selectedManager(event: MatAutocompleteSelectedEvent): void {
+    const x = this.managers.filter((man) => man.name === event.option.viewValue);
+    if (x.length === 0) {
+      this.managers.push(...this.allManagers.filter((man) => man.name === event.option.viewValue));
+      this.managerInput.nativeElement.value = '';
+      this.managerCtrl.setValue(null);
+    }
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.allManagers.filter((manager) => manager.toLowerCase().includes(filterValue));
   }
 }
