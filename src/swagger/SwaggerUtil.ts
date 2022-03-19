@@ -16,7 +16,7 @@ import { writeFileSync } from 'fs';
 const environments = ['staging', 'prod'];
 
 (async () => {
-  const env = process.argv[2];
+  const env = process.env.ENV;
   if (!env) {
     console.log('No environment passed using local as default');
   } else if (!environments.includes(env)) {

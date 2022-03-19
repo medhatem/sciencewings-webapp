@@ -6,10 +6,10 @@
   "license": "GPLv3",
   "private": true,
   "scripts": {
-    "generate-swagger": "npx ts-node -O '{\"module\": \"commonjs\"}'  src/swagger/SwaggerUtil.ts",
+    "generate-swagger": "npx ts-node -O '{\"module\": \"commonjs\"}'  src/swagger/SwaggerUtil.ts ; ng-openapi-gen",
     "build:local": "npm run generate-swagger ; node --max_old_space_size=4092 \"node_modules/@angular/cli/bin/ng\" build --configuration=local",
-    "build:staging": "npm run generate-swagger -- staging ; node --max_old_space_size=4092 \"node_modules/@angular/cli/bin/ng\" build --configuration=staging",
-    "build:production": "npm run generate-swagger --prod ; memory \"node_modules/@angular/cli/bin/ng\" build --prod --configuration=production",
+    "build:staging": "ENV=staging npm run generate-swagger ; node --max_old_space_size=4092 \"node_modules/@angular/cli/bin/ng\" build --configuration=staging",
+    "build:production": "ENV=prod npm run generate-swagger ; memory \"node_modules/@angular/cli/bin/ng\" build --prod --configuration=production",
     "start:local": "ng serve --configuration=local",
     "start:staging": "ng serve --configuration=staging",
     "start:production": "npm run memory && ng serve --configuration=production",
