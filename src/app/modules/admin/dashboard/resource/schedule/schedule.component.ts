@@ -12,14 +12,35 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 })
 export class ResourceScheduleComponent implements OnInit {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
+
   calendarOptions: CalendarOptions = {
     plugins: [listPlugin],
     initialView: 'listWeek',
     themeSystem: 'litera',
     selectable: true,
     headerToolbar: {
-      left: 'dayGridMonth,timeGridWeek,timeGridDay custom1',
-      right: 'custom2 prevYear,prev,next,nextYear',
+      left: 'l,c,r',
+      //   right: 'custom2 prevYear,prev,next,nextYear',
+    },
+    customButtons: {
+      l: {
+        text: 'Past',
+        click: () => {
+          this.calendarOptions.events = this.allEvents.filter((event) => this.diffDates(event.start) === -1);
+        },
+      },
+      c: {
+        text: 'Current',
+        click: () => {
+          this.calendarOptions.events = this.allEvents.filter((event) => this.diffDates(event.start) === 0);
+        },
+      },
+      r: {
+        text: 'Upcoming',
+        click: () => {
+          this.calendarOptions.events = this.allEvents.filter((event) => this.diffDates(event.start) === 1);
+        },
+      },
     },
     eventDidMount: (mountAg: EventMountArg) => {
       console.log({ mountAg });
@@ -38,54 +59,40 @@ export class ResourceScheduleComponent implements OnInit {
         console.log(this.selectedEvents);
       });
     },
-    events: [
-      {
-        title: 'PAST',
-        start: new Date('2022-03-18T14:00:00.000+01:00'),
-        end: new Date('2022-03-18T20:00:00.000+01:00'),
-        id: '1',
-        extendedProps: {
-          status: 'done',
-          eventID: 1,
-        },
-      },
-      {
-        title: 'TODAY - MORNING',
-        start: new Date('2022-03-19T07:00:00.000+01:00'),
-        end: new Date('2022-03-19T07:12:00.000+01:00'),
-        backgroundColor: 'green',
-        borderColor: 'green',
-        id: '2',
-      },
-      {
-        title: 'TODAY - NOW',
-        start: new Date('2022-03-19T19:00:00.000+01:00'),
-        end: new Date('2022-03-19T21:00:00.000+01:00'),
-        backgroundColor: 'green',
-        borderColor: 'green',
-        id: '2',
-      },
-      {
-        title: 'TODAY - LATE',
-        start: new Date('2022-03-19T22:00:00.000+01:00'),
-        end: new Date('2022-03-19T23:00:00.000+01:00'),
-        backgroundColor: 'green',
-        borderColor: 'green',
-        id: '2',
-      },
-      {
-        title: 'FUTURE',
-        start: new Date('2022-03-20T07:00:00.000+01:00'),
-        end: new Date('2022-03-20T11:00:00.000+01:00'),
-        backgroundColor: 'red',
-        borderColor: 'green',
-        id: '3',
-      },
-    ],
+    events: [],
   };
 
   resources = [];
   private selectedEvents = [];
+  private allEvents = [
+    {
+      title: 'PAST',
+      start: new Date('2022-03-18T14:00:00.000+01:00'),
+      end: new Date('2022-03-18T20:00:00.000+01:00'),
+      id: '1',
+      extendedProps: {
+        status: 'done',
+        eventID: 1,
+      },
+    },
+    {
+      title: 'TODAY - MORNING',
+      start: new Date('2022-03-21T07:00:00.000+01:00'),
+      end: new Date('2022-03-21T07:12:00.000+01:00'),
+      backgroundColor: 'green',
+      borderColor: 'green',
+      id: '2',
+    },
+    {
+      title: 'FUTURE',
+      start: new Date('2022-03-23T07:00:00.000+01:00'),
+      end: new Date('2022-03-23T11:00:00.000+01:00'),
+      backgroundColor: 'red',
+      borderColor: 'green',
+      id: '3',
+    },
+  ];
+
   constructor(private _resourceService: ResourceService, private _toastrService: ToastrService, private _changeDetectorRef: ChangeDetectorRef, private renderer: Renderer2) {}
 
   ngOnInit(): void {
@@ -95,7 +102,6 @@ export class ResourceScheduleComponent implements OnInit {
       }
       this.resources = body.resources;
       const events = [];
-      const backgroundColors = ['red', 'green', 'blue'];
       body.resources.map((resource, i: number) => {
         resource.calendar.events.map((event) => {
           events.push({
@@ -108,11 +114,24 @@ export class ResourceScheduleComponent implements OnInit {
       console.log({ events });
 
       this.calendarComponent.getApi().addEvent(events);
-      this.calendarOptions.events = events;
+      //this.calendarOptions.events = events;
+      this.calendarOptions.events = this.allEvents;
     });
   }
 
   onCheckboxChange($event) {
     console.log($event);
+  }
+
+  // -1: past, 0: today, 1: future
+  // https://stackoverflow.com/questions/2698725/comparing-date-part-only-without-comparing-time-in-javascript#answer-55782480
+  diffDates(date: Date) {
+    if (new Date().toISOString().split('T')[0] === date.toISOString().split('T')[0]) {
+      return 0;
+    } else if (new Date().toISOString().split('T')[0] > date.toISOString().split('T')[0]) {
+      return -1;
+    } else {
+      return 1;
+    }
   }
 }
