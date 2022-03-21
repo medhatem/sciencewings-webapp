@@ -78,6 +78,9 @@ export class ResourceProfileFormComponent implements OnInit {
           timezone: body.timezone,
         });
         this.resource = body.resources;
+        this.tags = body.tags.map((tag)=>tag.title);
+        this.filteredTags = this.tags;
+        this.managers = body.managers.map((tag)=>tag.title);
       });
     }
   }
