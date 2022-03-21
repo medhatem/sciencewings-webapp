@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { forkJoin, lastValueFrom, map, Observable } from 'rxjs';
+import { Observable, forkJoin, lastValueFrom, map } from 'rxjs';
+
 import { ApiService } from 'generated/services';
+import { Injectable } from '@angular/core';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
 
 @Injectable({
@@ -11,7 +12,7 @@ export class SwitchOrganizationsService {
 
   getAllUserOrganizations(userId: number): Promise<UserOrganizations[]> {
     return lastValueFrom(
-      forkJoin([this._swaggerService.OrganizationRoutesGetUserOrganizations(userId)]).pipe(
+      forkJoin([this._swaggerService.organizationRoutesGetUserOrganizations({id:userId})]).pipe(
         map((userOrganizations) =>
           userOrganizations.reduce((acc, { body, error }) => {
             acc.push(new UserOrganizations(body));

@@ -4,8 +4,8 @@
 
 export const environment = {
   keycloakUrl: 'http://localhost:8080',
-  apiUrl: 'localhost:3000',
-  swaggerUrl: 'localhost:3000/swagger/swagger.json',
+  apiUrl: 'http://localhost:3000',
+  swaggerUrl: 'http://localhost:3000/swagger/swagger.json',
   sciencewingsWebRealm: 'sciencewings-web',
   clientId: 'sciencewings-web-client',
   enableDebug: true,
