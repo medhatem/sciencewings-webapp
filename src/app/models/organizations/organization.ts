@@ -1,8 +1,8 @@
-import { CreateOrganizationRO } from 'generated/models';
 import { Address } from '../address';
+import { CreateOrganizationRo } from 'generated/models';
 import { Phone } from '../phone';
 
-export class Organization implements CreateOrganizationRO {
+export class Organization implements CreateOrganizationRo {
   id?: string;
   description?: string;
   department?: string;
