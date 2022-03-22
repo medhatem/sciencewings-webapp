@@ -6,6 +6,8 @@ import { FuseNavigationItemTypeEnum } from '@fuse/components/navigation/navigati
 import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
 
 export const errorPath = '**';
+export const adminPath = 'admin';
+export const userProfilePath = 'user-profile';
 export const voidRoutes: Route[] = [];
 export const appRoutes: Route[] = [
   // dashboard routes
@@ -19,7 +21,7 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
-        path: 'admin',
+        path: adminPath,
         canActivate: [AuthGuard],
         data: {
           title: 'APP.ROUTES.ADMIN.TITLE',
@@ -38,7 +40,7 @@ export const appRoutes: Route[] = [
               import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
           },
           {
-            path: 'user-profile',
+            path: userProfilePath,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.USER_PROFILE.TITLE',
