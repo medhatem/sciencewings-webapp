@@ -1,8 +1,8 @@
-import { UserRO } from 'generated/models';
+import { UserRo } from 'generated/models';
 import { Phone } from '.';
 import { Address } from './address';
 
-export class User implements UserRO {
+export class User implements UserRo {
   name: string;
   email: string;
   avatar?: string;

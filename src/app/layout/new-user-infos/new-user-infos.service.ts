@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from 'app/models/user';
-import { CreatedUserDTO } from 'generated/models';
+import { CreatedUserDto } from 'generated/models';
 import { ApiService } from 'generated/services';
 import { lastValueFrom, map, Observable } from 'rxjs';
 
@@ -12,7 +12,7 @@ export class NewUserInfosService {
 
   getUser(id: string): Promise<User> {
     return lastValueFrom(
-      this._swaggerService.UserRoutesGetUserByKeycloakId(id).pipe(
+      this._swaggerService.userRoutesGetUserByKeycloakId({ kcid: id }).pipe(
         map(({ body, error }) => {
           if (error) {
             throw Error(`${error}`);
@@ -24,7 +24,7 @@ export class NewUserInfosService {
     );
   }
 
-  createUser(user: User): Observable<CreatedUserDTO> {
-    return this._swaggerService.UserRoutesCreateUser(user);
+  createUser(user: User): Observable<CreatedUserDto> {
+    return this._swaggerService.userRoutesCreateUser({ body: user });
   }
 }

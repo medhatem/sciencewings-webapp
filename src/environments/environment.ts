@@ -3,11 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  keycloakUrl: 'http://Keycloak-app-staging-env.eba-fsrexfym.ca-central-1.elasticbeanstalk.com',
-  apiUrl: 'https://sciencewings-api-staging.herokuapp.com',
-  swaggerUrl: 'https://sciencewings-api-staging.herokuapp.com/swagger/swagger.json',
+  keycloakUrl: 'http://localhost:8080',
+  apiUrl: 'http://localhost:3000',
+  swaggerUrl: 'http://localhost:3000/swagger/swagger.json',
   sciencewingsWebRealm: 'sciencewings-web',
-  clientId: 'sciencewings-local-web-client',
+  clientId: 'sciencewings-web-client',
   enableDebug: true,
   production: false,
   staging: false,

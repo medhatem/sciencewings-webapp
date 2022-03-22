@@ -2,15 +2,22 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli)
 
+## Development server | local
+
+Run `npm install`.
+Run `npm run build:local`.
+Run `npm run start:local` Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
 ## Development server | Staging
 
 Run `npm install`.
-Run `npm run start:staging`. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm run build:staging`.
+Run `npm run start:staging` Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Scripts infos
 
 Run `npm run clean`. On windows install WSL and Ubuntu image, then run `npm run clean:windows`.
-Run `npm run generate-swagger:staging`. That will create api routes from the deployed api.
+Run `npm run generate-swagger`. That will create api routes from the local api.
 
 ## Code scaffolding
 
