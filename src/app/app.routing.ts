@@ -6,6 +6,8 @@ import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.res
 import { Route } from '@angular/router';
 import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
 import { ResourceSettingsComponent } from './modules/admin/dashboard/resource/resource-settings/resource-settings.component';
+import { ResourceSettingTagComponent } from './modules/admin/dashboard/resource/resource-setting-tag/resource-setting-tag.component';
+import { ResurceSettingRuleComponent } from './modules/admin/dashboard/resource/resurce-setting-rule/resurce-setting-rule.component';
 
 export const errorPath = '**';
 export const appRoutes: Route[] = [
@@ -35,8 +37,7 @@ export const appRoutes: Route[] = [
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:office-building',
             },
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
+            loadChildren: () => import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
           },
           {
             path: 'user-profile',
@@ -141,21 +142,21 @@ export const appResourceRoutes: Route[] = [
                 path: 'tag',
                 canActivate: [AuthGuard],
                 data: {
-                  title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
+                  title: 'APP.ROUTES.ADMIN.RESOURCE_TAGS.TITLE',
                   type: FuseNavigationItemTypeEnum.basic,
-                  icon: 'heroicons_outline:calendar',
+                  icon: 'heroicons_outline:hashtag',
                 },
-                component: ResourceScheduleComponent,
+                component: ResourceSettingTagComponent,
               },
               {
-                path: 'billing',
+                path: 'rules',
                 canActivate: [AuthGuard],
                 data: {
-                  title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
+                  title: 'APP.ROUTES.ADMIN.RESOURCE_RULES.TITLE',
                   type: FuseNavigationItemTypeEnum.basic,
-                  icon: 'heroicons_outline:calendar',
+                  icon: 'heroicons_outline:exclamation',
                 },
-                component: ResourceScheduleComponent,
+                component: ResurceSettingRuleComponent,
               },
             ],
           },

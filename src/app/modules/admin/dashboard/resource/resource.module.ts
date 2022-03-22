@@ -14,18 +14,18 @@ import { ResourceListComponent } from './resource-list-componenet/resource-list.
 import { MatChipsModule } from '@angular/material/chips';
 import { ResourceSettingsComponent } from './resource-settings/resource-settings.component';
 import { ResourceSettingTagComponent } from './resource-setting-tag/resource-setting-tag.component';
+import { ResurceSettingRuleComponent } from './resurce-setting-rule/resurce-setting-rule.component';
 
 @NgModule({
-  declarations: [ResourceComponent, ResourceProfileFormComponent, ResourceScheduleComponent, ResourceListComponent, ResourceSettingsComponent, ResourceSettingTagComponent],
-  imports: [
-    RouterModule.forChild(resourceRoutes),
-    FuseFindByKeyPipeModule,
-    SharedModule,
-    NgSelectModule,
-    TranslocoModule,
-    MatCardModule,
-    MatButtonModule,
-    MatChipsModule,
+  declarations: [
+    ResourceComponent,
+    ResourceProfileFormComponent,
+    ResourceScheduleComponent,
+    ResourceListComponent,
+    ResourceSettingsComponent,
+    ResourceSettingTagComponent,
+    ResurceSettingRuleComponent,
   ],
+  imports: [RouterModule.forChild(resourceRoutes), FuseFindByKeyPipeModule, SharedModule, NgSelectModule, TranslocoModule, MatCardModule, MatButtonModule, MatChipsModule],
 })
 export class ResourceModule {}

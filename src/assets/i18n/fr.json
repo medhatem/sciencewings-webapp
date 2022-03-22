@@ -16,18 +16,23 @@
           "TITLE": "Members de l'organisation"
         },
         "RESOURCE": {
-            "TITLE": "Resource"
-          },
-          "RESOURCE_LIST": {
-              "TITLE": "Resource List"
-          },
-          "RESOURCE_SCHEDULE": {
-              "TITLE": "Resource Schedule"
-          },
-          "RESOURCE_SETTINGS": {
-              "TITLE": "Resource Settings"
-          }
-
+          "TITLE": "Resource"
+        },
+        "RESOURCE_LIST": {
+          "TITLE": "Resource List"
+        },
+        "RESOURCE_SCHEDULE": {
+          "TITLE": "Resource Schedule"
+        },
+        "RESOURCE_SETTINGS": {
+          "TITLE": "Resource Settings"
+        },
+        "RESOURCE_TAGS": {
+          "TITLE": "Resource tags"
+        },
+        "RESOURCE_RULES": {
+          "TITLE": "Resource Rules"
+        }
       },
       "USER": {
         "TITLE": "Utilisateur",
