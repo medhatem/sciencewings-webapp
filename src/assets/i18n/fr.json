@@ -27,6 +27,9 @@
         "RESOURCE_SETTINGS": {
           "TITLE": "Resource Settings"
         },
+        "RESOURCE_PROFILE": {
+          "TITLE": "Resource Profile"
+        },
         "RESOURCE_TAGS": {
           "TITLE": "Resource tags"
         },

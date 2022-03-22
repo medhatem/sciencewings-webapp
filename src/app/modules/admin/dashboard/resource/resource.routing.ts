@@ -20,13 +20,6 @@ export const resourceRoutes: Route[] = [
         },
       },
       {
-        path: ':id',
-        component: ResourceProfileFormComponent,
-        resolve: {
-          data: ResourceResolver,
-        },
-      },
-      {
         path: 'create',
         component: ResourceProfileFormComponent,
         resolve: {

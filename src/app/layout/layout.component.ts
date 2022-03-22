@@ -21,7 +21,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   layout: Layout;
   scheme: 'dark' | 'light';
   theme: string;
-  hideMenusAndButtons = true;
+  hideMenusAndButtons = false;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   /**
@@ -51,9 +51,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
     try {
       const user = await this._newUserInfosService.getUser(userData.id);
       // Hide all buttons and escapes, and display the new-user-infos form component
-      if (user) {
-        this.hideMenusAndButtons = false;
-      }
+    //   if (user) {
+    //     this.hideMenusAndButtons = false;
+    //   }
     } catch (error) {
       this.hideMenusAndButtons = true;
       this._toastrService.showWarning('APP.NEW_USER_INFOS_REQUIRED');
