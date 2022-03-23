@@ -18,9 +18,7 @@ import { MatButton } from '@angular/material/button';
 import { Subject, takeUntil } from 'rxjs';
 import { Shortcut } from 'app/layout/common/shortcuts/shortcuts.types';
 import { ShortcutsService } from 'app/layout/common/shortcuts/shortcuts.service';
-import { ClassyLayoutComponent } from 'app/layout/layouts/vertical/classy/classy.component';
 import { Router } from '@angular/router';
-import { appResourceRoutes, appRoutes } from 'app/app.routing';
 import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'shortcuts',
@@ -202,23 +200,6 @@ export class ShortcutsComponent implements OnInit, OnDestroy {
   }
 
   changingRoutes(url: string) {
-    console.log({ url });
-
-    // switch (url) {
-    //   case 'resources':
-    //     this._coookies.set('url', 'resources');
-    //     this._router.resetConfig(appResourceRoutes);
-    //     break;
-    //   case 'dashboard':
-    //     this._coookies.set('url', 'dashboard');
-    //     this._router.resetConfig(appRoutes);
-    //     break;
-    //   default:
-    //     this._coookies.set('url', '');
-    //     this._router.resetConfig(appRoutes);
-    //     break;
-    // }
-
     switch (url) {
       case 'resources':
         this.messageEvent.emit('resources');

@@ -15,13 +15,14 @@ import { FuseModule } from '@fuse';
 import { LayoutModule } from 'app/layout/layout.module';
 import { NewUserInfosModule } from './layout/new-user-infos/new-user-infos.module';
 import { appConfig } from 'app/core/config/app.config';
-import { appResourceRoutes, appRoutes } from 'app/app.routing';
+import { appResourceRoutes, appResourcesRoutes, appRoutes } from 'app/app.routing';
 import { environment } from 'environments/environment';
 import { initializeKeycloak } from './core/auth/keycloak/app.init';
 import interactionPlugin from '@fullcalendar/interaction';
 import { mockApiServices } from 'app/mock-api';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { CookieService } from 'ngx-cookie-service';
+import {  } from 'rxjs';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy: PreloadAllModules,
@@ -36,9 +37,7 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot([...appRoutes, ...appResourceRoutes], routerConfig),
-    // RouterModule.forRoot(appRoutes, routerConfig),
-    // RouterModule.forRoot(appResourceRoutes, routerConfig),
+    RouterModule.forRoot([...appRoutes, ...appResourcesRoutes, ...appResourceRoutes], routerConfig),
 
     // Fuse, FuseConfig & FuseMockAPI
     FuseModule,

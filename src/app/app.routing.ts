@@ -91,8 +91,8 @@ export const appRoutes: Route[] = [
     ],
   },
 ];
-export const appResourceRoutes: Route[] = [
-  // resource routes
+
+export const appResourcesRoutes: Route[] = [
   {
     path: '',
     canActivate: [AuthGuard],
@@ -120,64 +120,140 @@ export const appResourceRoutes: Route[] = [
             },
             loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
           },
-          {
-            path: 'schedule',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:calendar',
-            },
-            component: ResourceScheduleComponent,
-          },
-          {
-            path: 'settings',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE',
-              type: FuseNavigationItemTypeEnum.collapsable,
-              icon: 'heroicons_outline:adjustments',
-            },
-            component: ResourceSettingsComponent,
-            children: [
-              {
-                path: 'resource/:id',
-                canActivate: [AuthGuard],
-                data: {
-                  title: 'APP.ROUTES.ADMIN.RESOURCE_PROFILE.TITLE',
-                  type: FuseNavigationItemTypeEnum.basic,
-                  icon: 'heroicons_outline:information-circle',
-                },
-                component: ResourceProfileFormComponent,
-              },
-              {
-                path: 'tag',
-                canActivate: [AuthGuard],
-                data: {
-                  title: 'APP.ROUTES.ADMIN.RESOURCE_TAGS.TITLE',
-                  type: FuseNavigationItemTypeEnum.basic,
-                  icon: 'heroicons_outline:hashtag',
-                },
-                component: ResourceSettingTagComponent,
-              },
-              {
-                path: 'rules',
-                canActivate: [AuthGuard],
-                data: {
-                  title: 'APP.ROUTES.ADMIN.RESOURCE_RULES.TITLE',
-                  type: FuseNavigationItemTypeEnum.basic,
-                  icon: 'heroicons_outline:exclamation',
-                },
-                component: ResurceSettingRuleComponent,
-              },
-            ],
-          },
+          //   {
+          //     path: 'schedule',
+          //     canActivate: [AuthGuard],
+          //     data: {
+          //       title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
+          //       type: FuseNavigationItemTypeEnum.basic,
+          //       icon: 'heroicons_outline:calendar',
+          //     },
+          //     component: ResourceScheduleComponent,
+          //   },
+          //   {
+          //     path: 'settings',
+          //     canActivate: [AuthGuard],
+          //     data: {
+          //       title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE',
+          //       type: FuseNavigationItemTypeEnum.collapsable,
+          //       icon: 'heroicons_outline:adjustments',
+          //     },
+          //     component: ResourceSettingsComponent,
+          //     children: [
+          //       {
+          //         path: 'resource/:id',
+          //         canActivate: [AuthGuard],
+          //         data: {
+          //           title: 'APP.ROUTES.ADMIN.RESOURCE_PROFILE.TITLE',
+          //           type: FuseNavigationItemTypeEnum.basic,
+          //           icon: 'heroicons_outline:information-circle',
+          //         },
+          //         component: ResourceProfileFormComponent,
+          //       },
+          //       {
+          //         path: 'tag',
+          //         canActivate: [AuthGuard],
+          //         data: {
+          //           title: 'APP.ROUTES.ADMIN.RESOURCE_TAGS.TITLE',
+          //           type: FuseNavigationItemTypeEnum.basic,
+          //           icon: 'heroicons_outline:hashtag',
+          //         },
+          //         component: ResourceSettingTagComponent,
+          //       },
+          //       {
+          //         path: 'rules',
+          //         canActivate: [AuthGuard],
+          //         data: {
+          //           title: 'APP.ROUTES.ADMIN.RESOURCE_RULES.TITLE',
+          //           type: FuseNavigationItemTypeEnum.basic,
+          //           icon: 'heroicons_outline:exclamation',
+          //         },
+          //         component: ResurceSettingRuleComponent,
+          //       },
+          //     ],
+          //   },
         ],
       },
       {
         path: errorPath,
         pathMatch: 'full',
         loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.module').then((m) => m.Error404Module),
+      },
+    ],
+  },
+];
+
+export const appResourceRoutes: Route[] = [
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: InitialDataResolver,
+      userData: NewUserInfosResolver,
+    },
+    children: [
+      {
+        path: 'resource',
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.RESOURCE.TITLE',
+          type: FuseNavigationItemTypeEnum.basic,
+          icon: 'heroicons_outline:cube',
+        },
+        loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
+      },
+      {
+        path: 'resource/:id',
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.RESOURCE_PROFILE.TITLE',
+          type: FuseNavigationItemTypeEnum.basic,
+          icon: 'heroicons_outline:information-circle',
+        },
+        component: ResourceProfileFormComponent,
+      },
+      {
+        path: 'schedule',
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
+          type: FuseNavigationItemTypeEnum.basic,
+          icon: 'heroicons_outline:calendar',
+        },
+        component: ResourceScheduleComponent,
+      },
+      {
+        path: 'settings',
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE',
+          type: FuseNavigationItemTypeEnum.collapsable,
+          icon: 'heroicons_outline:adjustments',
+        },
+        component: ResourceSettingsComponent,
+        children: [
+          {
+            path: 'tag',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.RESOURCE_TAGS.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:hashtag',
+            },
+            component: ResourceSettingTagComponent,
+          },
+          {
+            path: 'rules',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.RESOURCE_RULES.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:exclamation',
+            },
+            component: ResurceSettingRuleComponent,
+          },
+        ],
       },
     ],
   },

@@ -80,7 +80,7 @@
     ></new-user-infos>
     <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
              Otherwise, layout changes won't be registered and the view won't be updated! -->
-    <router-outlet *ngIf="true && !hideMenusAndButtons"></router-outlet>
+    <router-outlet (messageEvent)="receiveMessage($event)" *ngIf="true && !hideMenusAndButtons"></router-outlet>
   </div>
 
   <!-- Footer -->

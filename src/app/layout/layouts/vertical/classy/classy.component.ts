@@ -1,16 +1,12 @@
 import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, Route } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import {
-  FuseNavigationItem,
-  FuseNavigationItemTypeEnum,
-  FuseNavigationService,
-  FuseVerticalNavigationComponent,
-} from '@fuse/components/navigation';
+import { FuseNavigationItem, FuseNavigationItemTypeEnum, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { User } from 'app/core/user/user.types';
-import { appRoutes, appResourceRoutes, errorPath } from 'app/app.routing';
+import { appRoutes, appResourcesRoutes, errorPath, appResourceRoutes } from 'app/app.routing';
 import { CookieService } from 'ngx-cookie-service';
+import { DataService } from 'app/data.service';
 
 @Component({
   selector: 'classy-layout',
@@ -23,6 +19,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
   navigation: FuseNavigationItem[];
   user: User;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
+  private message: string;
+  private subscription: Subscription;
 
   constructor(
     private _route: ActivatedRoute,
@@ -30,6 +28,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _fuseNavigationService: FuseNavigationService,
     private _coookies: CookieService,
+    private data: DataService
   ) {}
 
   /**
@@ -56,6 +55,15 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
       // Check if the screen is small
       this.isScreenSmall = !matchingAliases.includes('md');
     });
+
+    // resource profile
+    this.subscription = this.data.currentMessage.subscribe(message => {
+        this._coookies.set('url', 'resource');
+        this._coookies.set('resourceID', message.resource.id);
+        const { children: dashboardsResourceRoutesChildren = [] } = appResourceRoutes.find(({ path }) => path === '');
+        this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourceRoutesChildren, '/');
+        this._router.resetConfig(appResourceRoutes);
+    });
   }
 
   /**
@@ -65,6 +73,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
+    this.subscription.unsubscribe();
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -103,8 +112,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
           this.navigation = this.getNavigationItemsFromRoutes(dashboardsMainRoutesChildren, '/');
           break;
         case 'resources':
-          const { children: dashboardsResourceRoutesChildren = [] } = appResourceRoutes.find(({ path }) => path === '');
-          this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourceRoutesChildren, '/');
+          const { children: dashboardsResourcesRoutesChildren = [] } = appResourcesRoutes.find(({ path }) => path === '');
+          this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourcesRoutesChildren, '/');
           break;
         default:
           break;
@@ -113,10 +122,12 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
   }
 
   receiveMessage($event) {
+    console.log({ event: $event });
+
     switch ($event) {
       case 'resources':
         this._coookies.set('url', 'resources');
-        this._router.resetConfig(appResourceRoutes);
+        this._router.resetConfig(appResourcesRoutes);
         break;
       case 'dashboard':
         this._coookies.set('url', 'dashboard');

@@ -1,14 +1,14 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { Observable, Subject, debounceTime, map, merge, of, switchMap, takeUntil } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ResourceService } from '../../../resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { fuseAnimations } from '@fuse/animations';
 import { ActivatedRoute } from '@angular/router';
+import { DataService } from 'app/data.service';
 
 export interface ResourceType {
   name: string;
@@ -23,25 +23,18 @@ export interface ResourceType {
   styleUrls: ['./resource-list.component.scss'],
 })
 export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Output() messageEvent = new EventEmitter<string>();
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
   @ViewChild(MatSort) private _sort: MatSort;
 
   resources = [];
-  // resources$: Observable<any[]>;
   isLoading: boolean = false;
   selectedResource = null;
 
   searchInputControl: FormControl = new FormControl();
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-  constructor(
-    private _resourceService: ResourceService,
-    private _toastrService: ToastrService,
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _fuseConfirmationService: FuseConfirmationService,
-    private _formBuilder: FormBuilder,
-    private _route: ActivatedRoute,
-  ) {}
+  constructor(private _resourceService: ResourceService, private _toastrService: ToastrService, private _changeDetectorRef: ChangeDetectorRef, private data: DataService) {}
 
   ngOnInit(): void {
     this._resourceService.getOrgResource().subscribe(({ statusCode, body, errorMessage }) => {
@@ -77,18 +70,6 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
         // Close the details
         this.closeDetails();
       });
-
-      // Get products if sort or page changes
-      /* merge(this._sort.sortChange, this._paginator.page).pipe(
-                  switchMap(() => {
-                      this.closeDetails();
-                      this.isLoading = true;
-                      // return this._inventoryService.getProducts(this._paginator.pageIndex, this._paginator.pageSize, this._sort.active, this._sort.direction);
-                  }),
-                  map(() => {
-                      this.isLoading = false;
-                  })
-              ).subscribe(); */
     }
   }
 
@@ -152,5 +133,10 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.resources = this.resources.filter((resource) => resource.id !== id);
       }
     });
+  }
+
+  showResourceProfile(id) {
+    console.log({ id });
+    this.data.changeMessage({ resource: id });
   }
 }
