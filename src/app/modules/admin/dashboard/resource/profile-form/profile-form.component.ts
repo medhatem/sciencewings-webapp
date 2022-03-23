@@ -78,9 +78,9 @@ export class ResourceProfileFormComponent implements OnInit {
           timezone: body.timezone,
         });
         this.resource = body.resources;
-        this.tags = body.tags.map((tag)=>tag.title);
+        this.tags = body.tags.map((tag) => tag.title);
         this.filteredTags = this.tags;
-        this.managers = body.managers.map((tag)=>tag.title);
+        this.managers = body.managers;
       });
     }
   }
@@ -97,7 +97,10 @@ export class ResourceProfileFormComponent implements OnInit {
       user: 1,
       resourceType: 'USER',
       tags: this.tags.map((tag) => ({ title: tag })),
-      managers: this.managers.map((manager) => manager.id),
+      managers: this.managers.map((manager) => ({
+        organization: manager.organization,
+        user: manager.user,
+      })),
     };
     if (this.params.id === 'create') {
       console.log('Creating...');
