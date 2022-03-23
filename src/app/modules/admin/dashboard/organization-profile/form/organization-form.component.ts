@@ -40,19 +40,19 @@ export class OrganizationFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const { parentId = '' } = this._route.snapshot.data;
+    const { parentId = null } = this._route.snapshot.data;
     this.stepperForm = this._formBuilder.group({
       step1: this._formBuilder.group({
-        dealingType: [''],
-        isSubOrganization: [this.isSubOrganization],
+        type: [''],
+        // isSubOrganization: [this.isSubOrganization],
         parentId: [parentId],
         name: ['', [Validators.required]],
-        adminContact: [''],
-        direction: [''],
+        adminContact: [1],
+        direction: [1],
         email: ['', [Validators.required, Validators.email]],
         organizationType: ['', Validators.required],
         description: [''],
-        timezone: ['America/Montreal', Validators.required],
+        // timezone: ['America/Montreal', Validators.required],
         phoneNumber: [''],
         phoneCode: [''],
         phoneLabel: [''],
@@ -65,8 +65,8 @@ export class OrganizationFormComponent implements OnInit {
         country: [''],
         province: [''],
         street: [''],
-        department: [''],
-        sector: [''],
+        // department: [''],
+        // sector: [''],
         socialFacebook: [''],
         socialGithub: [''],
         socialInstagram: [''],
