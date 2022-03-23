@@ -112,9 +112,9 @@
         "TIMEZONE": "Time zone",
         "DEALING_TYPE": {
           "TITLE": "Internal/External Organization",
-          "BOTH": "Internal and external",
-          "INTERNAL": "Internal only",
-          "EXTERNAL": "External only"
+          "PUBLIC": "Public",
+          "SERVICE": "Service",
+          "INSTITUT": "Institut"
         },
         "NAME": "organization name",
         "EMAIL": "Email address",
