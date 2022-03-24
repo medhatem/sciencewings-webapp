@@ -7,8 +7,8 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FUSE_VERSION } from '@fuse/version';
 import { Layout } from 'app/layout/layout.types';
 import { AppConfig } from 'app/core/config/app.config';
-import { NewUserInfosService } from './new-user-infos/new-user-infos.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { NewUserInfosResolver } from './new-user-infos/new-user-infos.resolver';
 
 @Component({
   selector: 'layout',
@@ -21,12 +21,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
   layout: Layout;
   scheme: 'dark' | 'light';
   theme: string;
-  hideMenusAndButtons = true;
+  hideMenusAndButtons: boolean = true;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-  /**
-   * Constructor
-   */
   constructor(
     private _route: ActivatedRoute,
     private _activatedRoute: ActivatedRoute,
@@ -35,24 +32,18 @@ export class LayoutComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _fuseConfigService: FuseConfigService,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
-    private _newUserInfosService: NewUserInfosService,
+    private _newUserInfosResolver: NewUserInfosResolver,
     private _toastrService: ToastrService,
   ) {}
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
   async ngOnInit() {
     const { userData } = this._route.snapshot.data;
     try {
-      const user = await this._newUserInfosService.getUser(userData.id);
-      // Hide all buttons and escapes, and display the new-user-infos form component
+      const user = await this._newUserInfosResolver.getUser(userData.id);
       if (user) {
         this.hideMenusAndButtons = false;
+      } else {
+        this.hideMenusAndButtons = true;
       }
     } catch (error) {
       this.hideMenusAndButtons = true;

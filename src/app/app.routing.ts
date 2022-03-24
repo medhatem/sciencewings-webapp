@@ -6,6 +6,9 @@ import { FuseNavigationItemTypeEnum } from '@fuse/components/navigation/navigati
 import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
 
 export const errorPath = '**';
+export const adminPath = 'admin';
+export const userProfilePath = 'user-profile';
+export const voidRoutes: Route[] = [];
 export const appRoutes: Route[] = [
   // dashboard routes
   {
@@ -18,7 +21,7 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
-        path: 'admin',
+        path: adminPath,
         canActivate: [AuthGuard],
         data: {
           title: 'APP.ROUTES.ADMIN.TITLE',
@@ -34,20 +37,17 @@ export const appRoutes: Route[] = [
               icon: 'heroicons_outline:office-building',
             },
             loadChildren: () =>
-              import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then(
-                (m) => m.AdminOrganizationModule,
-              ),
+              import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
           },
           {
-            path: 'user-profile',
+            path: userProfilePath,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.USER_PROFILE.TITLE',
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:user',
             },
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/user-profile/user-profile.module').then((m) => m.UserProfileModule),
+            loadChildren: () => import('app/modules/admin/dashboard/user-profile/user-profile.module').then((m) => m.UserProfileModule),
           },
           {
             path: 'users',
@@ -57,10 +57,7 @@ export const appRoutes: Route[] = [
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:users',
             },
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/users/organization-users.module').then(
-                (m) => m.OrganizationUsersModule,
-              ),
+            loadChildren: () => import('app/modules/admin/dashboard/users/organization-users.module').then((m) => m.OrganizationUsersModule),
           },
         ],
       },
@@ -80,16 +77,14 @@ export const appRoutes: Route[] = [
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:calendar',
             },
-            loadChildren: () =>
-              import('app/modules/menu/dashboard/calendar/calendar.module').then((m) => m.MenuCalendarModule),
+            loadChildren: () => import('app/modules/menu/dashboard/calendar/calendar.module').then((m) => m.MenuCalendarModule),
           },
         ],
       },
       {
         path: errorPath,
         pathMatch: 'full',
-        loadChildren: () =>
-          import('app/modules/admin/pages/error/error-404/error-404.module').then((m) => m.Error404Module),
+        loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.module').then((m) => m.Error404Module),
       },
     ],
   },

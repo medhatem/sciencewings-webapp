@@ -48,6 +48,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AvatarComponent } from 'app/components/avatar/avatar.component';
+import { MomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [AvatarComponent],
@@ -101,6 +102,7 @@ import { AvatarComponent } from 'app/components/avatar/avatar.component';
     OverlayModule,
     PortalModule,
     ScrollingModule,
+    MomentDateModule,
   ],
   exports: [
     AvatarComponent,
@@ -154,6 +156,7 @@ import { AvatarComponent } from 'app/components/avatar/avatar.component';
     PortalModule,
     ScrollingModule,
     FullCalendarModule,
+    MomentDateModule,
   ],
 })
 export class SharedModule {}

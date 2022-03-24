@@ -3,6 +3,24 @@
   "PROFILE": "Profile",
   "EMPTY_ORGANIZATIONS": "No Organization",
   "APP": {
+    "GENERAL": {
+      "NEXT": "Next",
+      "BACK": "Back",
+      "ADDRESS": {
+        "ADDRESS": "Address",
+        "ADDRESSES": "Addresses",
+        "STREET": "Street",
+        "APPARTMENT": "Apartment",
+        "PROVINCE": "Province",
+        "CITY": "City",
+        "POSTAL_CODE": "Postal code",
+        "COUNTRY": "Country",
+        "ADD_ADDRESS": "Add and address"
+      },
+      "PHONE": {
+        "PHONE_NUMBERS": "Phone numbers"
+      }
+    },
     "ROUTES": {
       "ADMIN": {
         "TITLE": "Dashboard",
@@ -17,6 +35,18 @@
         }
       },
       "USER": {
+        "NEW_USER_FORM": {
+          "STEP_1": {
+            "TITLE": "General information"
+          },
+          "STEP_2": {
+            "TITLE": "Contact information"
+          }, 
+          "STEP_3": {
+            "TITLE": "Done",
+            "MESSAGE": "Thank you for filling in your information!\nYou can now manage your organization and create your resources and many other interesting features."
+          }
+        },
         "TITLE": "User",
         "TABS": {
           "ABOUT": "About",
@@ -26,6 +56,8 @@
         },
         "ABOUT": {
           "NAME": "Name",
+          "FIRST_NAME": "First name",
+          "LAST_NAME": "Last name",
           "TITLE": "Job title",
           "COMPANY": "Company",
           "EMAIL": "Email address",
@@ -57,7 +89,8 @@
         }
       }
     },
-    "LOGIN_ERROR_TITLE": "Erreur d'authentification",
+    "LOGIN_ERROR_TITLE": "An error occurred while getting user infos",
+    "SAVE_NEW_USER_FAILED": "An error occurred while saving user infos",
     "KEYCLOAK_LOGIN_ERROR": "An error occurred while connecting keycloak",
     "KEYCLOAK_LOGOUT_ERROR": "An error occurred while trying to sign out keycloak",
     "BTN": {

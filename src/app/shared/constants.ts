@@ -9,6 +9,24 @@ export const constants = {
   KEYCLOAK_LOGOUT_ERROR: 'APP.KEYCLOAK_LOGOUT_ERROR',
   KEYCLOAK_USER_ID: 'kcid',
   USER_ORGANIZATION_ID: 'orgId',
+  NEW_USER: {
+    DEFAULT_COUNTRY: 'Algeria',
+    DEFAULT_COUNTRY_CODE: '+213',
+    DEFAULT_TYPE: 'User',
+  },
+  // Date of birth format:
+  DATE_FORMAT_YYYY_MM_DD: 'YYYY-MM-DD',
+  DATE_OF_BIRTH_FORMATS: {
+    parse: {
+      dateInput: 'YYYY/MM/DD',
+    },
+    display: {
+      dateInput: 'YYYY/MM/DD',
+      monthYearLabel: 'MMM YYYY',
+      dateA11yLabel: 'LL',
+      monthYearA11yLabel: 'MMMM YYYY',
+    },
+  },
 };
 
 export interface Countries {
