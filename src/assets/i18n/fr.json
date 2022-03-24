@@ -122,10 +122,10 @@
         "CHOOSE_SUB_ORGANIZATION": "Choisissez l'organisation mère",
         "TIMEZONE": "Fuseau horaire",
         "DEALING_TYPE": {
-          "TITLE": "Organisation Interne/Externe",
-          "BOTH": "Interne et externe",
-          "INTERNAL": "Uniquement en interne",
-          "EXTERNAL": "Uniquement en externe"
+          "TITLE": "Internal/External Organization",
+          "PUBLIC": "Public",
+          "SERVICE": "Service",
+          "INSTITUT": "Institut"
         },
         "NAME": "nom de l'organisation",
         "EMAIL": "Adresse e-mail",

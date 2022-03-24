@@ -46,13 +46,13 @@
               </div>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 mt-4">
                 <mat-select
-                  [formControlName]="'dealingType'"
-                  placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}"
+                  [formControlName]="'type'"
+                  placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}"
                   required
                 >
-                  <mat-option value="language-1">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.BOTH' | transloco }}</mat-option>
-                  <mat-option value="language-1">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.INTERNAL' | transloco }}</mat-option>
-                  <mat-option value="language-1">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.EXTERNAL' | transloco }}</mat-option>
+                  <mat-option value="Public">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}</mat-option>
+                  <mat-option value="Service">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.SERVICE' | transloco }}</mat-option>
+                  <mat-option value="Institut">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.INSTITUT' | transloco }}</mat-option>
                 </mat-select>
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
               </mat-form-field>
