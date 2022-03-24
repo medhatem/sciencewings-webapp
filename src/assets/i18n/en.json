@@ -89,7 +89,8 @@
         }
       }
     },
-    "LOGIN_ERROR_TITLE": "Erreur d'authentification",
+    "LOGIN_ERROR_TITLE": "An error occurred while getting user infos",
+    "SAVE_NEW_USER_FAILED": "An error occurred while saving user infos",
     "KEYCLOAK_LOGIN_ERROR": "An error occurred while connecting keycloak",
     "KEYCLOAK_LOGOUT_ERROR": "An error occurred while trying to sign out keycloak",
     "BTN": {

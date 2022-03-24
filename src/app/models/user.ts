@@ -1,21 +1,20 @@
-import { UserRo } from 'generated/models';
-import { Phone } from '.';
-import { Address } from './address';
+import { AddressRo, PhoneRo, UserRo } from 'generated/models';
 
 export class User implements UserRo {
-  name: string;
+  id?: number | string;
   email: string;
-  avatar?: string;
-  status?: string;
-  firstname: string;
-  lastname: string;
-  addresses: Array<Address>;
-  phones: Array<Phone>;
+  actionId?: number;
+  addresses: AddressRo[];
   dateofbirth: string;
+  firstname: string;
   keycloakId: string;
+  lastname: string;
+  phones: PhoneRo[];
+  share?: boolean;
+  signature?: string;
 
   constructor(user?: any) {
-    const { id, name, email, avatar, status, firstname, lastname, addresses, phones, dateofbirth, keycloakId } = user || {};
-    Object.assign(this, { id, name, email, avatar, status, firstname, lastname, addresses, phones, dateofbirth, keycloakId });
+    const { id, actionId, email, addresses, dateofbirth, firstname, keycloakId, lastname, phones, share, signature } = user || {};
+    Object.assign(this, { id, actionId, email, addresses, dateofbirth, firstname, keycloakId, lastname, phones, share, signature });
   }
 }

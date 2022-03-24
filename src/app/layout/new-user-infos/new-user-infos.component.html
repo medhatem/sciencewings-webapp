@@ -9,14 +9,12 @@
             <p class="my-6 font-medium"></p>
             <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
               <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
-                <mat-label>{{ 'APP.ROUTES.USER.ABOUT.FIRST_NAME' | transloco }}</mat-label>
-                <input matInput [formControlName]="'firstname'" [placeholder]="'APP.ROUTES.USER.ABOUT.FIRST_NAME' | transloco" required />
-                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                <input matInput [formControlName]="'firstname'" [placeholder]="'Nom de l organization'" required />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
               </mat-form-field>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-                <mat-label>{{ 'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco }}</mat-label>
-                <input matInput [formControlName]="'lastname'" [placeholder]="'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco" required />
-                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                <input matInput [formControlName]="'lastname'" [placeholder]="'Numéro d entregistrement'" />
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:newspaper'"></mat-icon>
               </mat-form-field>
             </div>
             <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
@@ -82,7 +80,7 @@
                             [style.backgroundPosition]="getCountryByCode(phoneForm.controls['phoneCode'].value).flagImagePos"
                           ></span>
                           <span class="sm:mx-0.5 font-medium text-default">
-                            {{ getCountryByCode(phoneForm.controls['phoneCode'].value).code }}
+                            {{ getCountryByCode(phoneForm.controls['phoneCode'].value)?.code }}
                           </span>
                         </span>
                       </mat-select-trigger>
@@ -214,7 +212,7 @@
                             [style.backgroundPosition]="getCountryByName(addressForm.controls['country'].value).flagImagePos"
                           ></span>
                           <span class="sm:mx-0.5 font-medium text-default">
-                            {{ getCountryByName(addressForm.controls['country'].value).name }}
+                            {{ getCountryByName(addressForm.controls['country'].value)?.name }}
                           </span>
                         </span>
                       </mat-select-trigger>

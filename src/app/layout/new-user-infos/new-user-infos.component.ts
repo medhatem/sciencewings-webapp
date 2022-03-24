@@ -5,10 +5,8 @@ import { NewUserInfosResolver } from './new-user-infos.resolver';
 import { User, Phone, Address } from 'app/models';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
-import { NewUserInfosService } from './new-user-infos.service';
-
 import * as _moment from 'moment';
-import { default as _rollupMoment, Moment } from 'moment';
+import { default as _rollupMoment } from 'moment';
 
 const moment = _rollupMoment || _moment;
 
@@ -17,7 +15,6 @@ const moment = _rollupMoment || _moment;
   templateUrl: './new-user-infos.component.html',
 })
 export class NewUserInfosComponent implements OnInit {
-  @Input() hideMenusAndButtons: boolean;
   @Output() onFormComplete = new EventEmitter<boolean>();
   user: any;
   countries: any;
@@ -28,7 +25,6 @@ export class NewUserInfosComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _toastr: ToastrService,
     private _http: HttpClient,
-    private _newUserService: NewUserInfosService,
   ) {}
 
   get addresses(): FormArray {
@@ -39,24 +35,11 @@ export class NewUserInfosComponent implements OnInit {
     return (this.stepperForm.controls['step2'] as FormGroup).controls['phones'] as FormArray;
   }
 
-  emitOnFormComplete() {
-    const formUser: User = this.stepperForm.controls['step1'].value;
-    const formUserAddresses: Array<Address> = this.addresses.value;
-    const formUserPhones: Array<Phone> = this.phones.value;
-
-    formUser['email'] = this.user.email;
-    formUser['phones'] = formUserPhones;
-    formUser['addresses'] = formUserAddresses;
-    formUser['dateofbirth'] = moment(formUser['dateofbirth']).format(constants.DATE_FORMAT_YYYY_MM_DD);
-
-    this.onFormComplete.emit(false);
-  }
-
   async ngOnInit() {
     this._prepareCountries();
 
     try {
-      this.user = await this._newUserInfosResolver.getloadUserProfileKeycloak();
+      this.user = await this._newUserInfosResolver.loadUserProfileKeycloak();
     } catch (err) {
       this._toastr.showError(err);
     }
@@ -94,6 +77,19 @@ export class NewUserInfosComponent implements OnInit {
         type: constants.NEW_USER.DEFAULT_TYPE,
       }),
     );
+  }
+
+  async emitOnFormComplete() {
+    const formUser: User = this.stepperForm.controls['step1'].value;
+    const userRo = {
+      ...formUser,
+      email: this.user.email,
+      phones: this.phones.value as Array<Phone>,
+      addresses: this.addresses.value as Array<Address>,
+      dateofbirth: moment(formUser['dateofbirth']).format(constants.DATE_FORMAT_YYYY_MM_DD),
+    };
+    const result = await this._newUserInfosResolver.createUser(userRo);
+    this.onFormComplete.emit(false);
   }
 
   /**
