@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, Route } from '@angular/router';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
@@ -13,8 +13,9 @@ import { DataService } from 'app/data.service';
   templateUrl: './classy.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class ClassyLayoutComponent implements OnInit, OnDestroy {
-  @Input() hideMenusAndButtons = false;
+export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() hideMenusAndButtons: boolean;
+  @Output() onHideMenusAndButtonsChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   isScreenSmall: boolean;
   navigation: FuseNavigationItem[];
   user: User;
@@ -38,14 +39,15 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
     return new Date().getFullYear();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.resetNavigation(changes.hideMenusAndButtons.currentValue);
+  }
+
   ngOnInit(): void {
     const { userData } = this._route.snapshot.data;
     this.resetNavigation(this.hideMenusAndButtons);
-    // Subscribe to navigation data
     this.user = {
       ...userData,
-      // Add fake data for test
-      // To Remove and use only userData
       avatar: 'assets/images/avatars/brian-hughes.jpg',
       status: 'online',
     };
@@ -63,6 +65,9 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
         const { children: dashboardsResourceRoutesChildren = [] } = appResourceRoutes.find(({ path }) => path === '');
         this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourceRoutesChildren, '/');
         this._router.resetConfig(appResourceRoutes);
+    });
+    this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
+      this.isScreenSmall = !matchingAliases.includes('md');
     });
   }
 
@@ -102,6 +107,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
    */
   resetNavigation(hideNavigation: boolean) {
     this.hideMenusAndButtons = hideNavigation;
+    this.onHideMenusAndButtonsChange.emit(this.hideMenusAndButtons);
     if (hideNavigation) {
       this.navigation = [];
     } else {

@@ -3384,13 +3384,6 @@ export const countries = [
     flagImagePos: '-1px -2670px',
   },
   {
-    id: '0a15f5a3-7571-478a-9fcd-6cbd6563e08c',
-    iso: 'il',
-    name: 'Israel',
-    code: '+972',
-    flagImagePos: '-1px -426px',
-  },
-  {
     id: '2cbab786-d79b-4ea1-ab26-0553c5e423d3',
     iso: 'it',
     name: 'Italy',

@@ -1,86 +1,181 @@
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { Component, ViewEncapsulation, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { Router } from '@angular/router';
-import { IMatChipLabel } from 'app/models/mat-ui/mat-chip-label.interface';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import { NewUserInfosResolver } from './new-user-infos.resolver';
+import { User, Phone, Address } from 'app/models';
+import { ToastrService } from 'app/core/toastr/toastr.service';
+import { constants } from 'app/shared/constants';
+import * as _moment from 'moment';
+import { default as _rollupMoment } from 'moment';
+
+const moment = _rollupMoment || _moment;
 
 @Component({
   selector: 'new-user-infos',
   templateUrl: './new-user-infos.component.html',
-  encapsulation: ViewEncapsulation.None,
 })
 export class NewUserInfosComponent implements OnInit {
-  @Input() hideMenusAndButtons: boolean;
   @Output() onFormComplete = new EventEmitter<boolean>();
   user: any;
+  countries: any;
   stepperForm: FormGroup;
-  isSubOrganization = false;
-  addOnBlur = true;
-  readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  // temp data to replace with mock api or actual api
-  userLabels: IMatChipLabel[] = [];
 
   constructor(
     private _newUserInfosResolver: NewUserInfosResolver,
-    private _router: Router,
     private _formBuilder: FormBuilder,
+    private _toastr: ToastrService,
+    private _http: HttpClient,
   ) {}
 
-  emitOnFormComplete() {
-    // false to emit that : hideMenusAndButtons = false
-    this.onFormComplete.emit(false);
+  get addresses(): FormArray {
+    return (this.stepperForm.controls['step2'] as FormGroup).controls['addresses'] as FormArray;
+  }
+
+  get phones(): FormArray {
+    return (this.stepperForm.controls['step2'] as FormGroup).controls['phones'] as FormArray;
   }
 
   async ngOnInit() {
-    this.user = await this._newUserInfosResolver.getloadUserProfileKeycloak();
+    this._prepareCountries();
+
+    try {
+      this.user = await this._newUserInfosResolver.loadUserProfileKeycloak();
+    } catch (err) {
+      this._toastr.showError(err);
+    }
+
     this.stepperForm = this._formBuilder.group({
       step1: this._formBuilder.group({
-        firstName: [this.user.firstName, [Validators.required]],
-        lastName: [this.user.lastName, [Validators.required]],
+        firstname: [this.user.firstName, [Validators.required]],
+        lastname: [this.user.lastName, [Validators.required]],
         email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
-        title: ['', []],
-        description: [''],
-        phoneNumber: [''],
-        labels: [''],
+        dateofbirth: new FormControl(moment()),
+        keycloakId: localStorage.getItem(constants.KEYCLOAK_USER_ID),
       }),
       step2: this._formBuilder.group({
-        apartNumber: [''],
-        about: [''],
-        streetNumber: [''],
-        street: [''],
-        country: [''],
-        province: [''],
-        postalCode: [''],
-        department: [''],
-        sector: [''],
-        facebook: [''],
-        linkedin: [''],
-        twitter: [''],
-        other: [''],
+        phones: this._formBuilder.array([]),
+        addresses: this._formBuilder.array([]),
       }),
     });
+
+    this.phones.push(
+      this._formBuilder.group({
+        phoneCode: [constants.NEW_USER.DEFAULT_COUNTRY_CODE, Validators.required],
+        phoneNumber: ['', Validators.required],
+        phoneLabel: '',
+      }),
+    );
+
+    this.addresses.push(
+      this._formBuilder.group({
+        street: ['', Validators.required],
+        apartment: [''],
+        province: ['', Validators.required],
+        city: ['', Validators.required],
+        code: ['', Validators.required],
+        country: [constants.NEW_USER.DEFAULT_COUNTRY, Validators.required],
+        type: constants.NEW_USER.DEFAULT_TYPE,
+      }),
+    );
   }
 
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    // Add our fruit
-    if (value) {
-      this.userLabels.push({ value });
-    }
-
-    // Clear the input value
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    event.chipInput!.clear();
+  async emitOnFormComplete() {
+    const formUser: User = this.stepperForm.controls['step1'].value;
+    const userRo = {
+      ...formUser,
+      email: this.user.email,
+      phones: this.phones.value as Array<Phone>,
+      addresses: this.addresses.value as Array<Address>,
+      dateofbirth: moment(formUser['dateofbirth']).format(constants.DATE_FORMAT_YYYY_MM_DD),
+    };
+    const result = await this._newUserInfosResolver.createUser(userRo);
+    this.onFormComplete.emit(false);
   }
 
-  remove(fruit: IMatChipLabel): void {
-    const index = this.userLabels.indexOf(fruit);
+  /**
+   * Use this for [matDatepickerFilter] property to give
+   * the user selection from previous dates only
+   */
 
-    if (index >= 0) {
-      this.userLabels.splice(index, 1);
+  dateFilter(d: Date | null): boolean {
+    const date = d || new Date();
+    return date < new Date();
+  }
+
+  /**
+   * Adds a phone form to the phones FormArray
+   */
+
+  addPhone() {
+    const phoneForm = this._formBuilder.group({
+      phoneCode: [constants.NEW_USER.DEFAULT_COUNTRY_CODE, Validators.required],
+      phoneNumber: ['', Validators.required],
+      phoneLabel: '',
+    });
+
+    this.phones.push(phoneForm);
+  }
+
+  /**
+   * Adds an address form to the phones FormArray
+   */
+
+  addAddress() {
+    const addressForm = this._formBuilder.group({
+      street: ['', Validators.required],
+      apartment: [''],
+      province: ['', Validators.required],
+      city: ['', Validators.required],
+      code: ['', Validators.required],
+      country: [constants.NEW_USER.DEFAULT_COUNTRY, Validators.required],
+      type: constants.NEW_USER.DEFAULT_TYPE,
+    });
+
+    this.addresses.push(addressForm);
+  }
+
+  /**
+   * Removes a phone form to the phones FormArray
+   */
+
+  deletePhone(index) {
+    this.phones.removeAt(index);
+  }
+
+  /**
+   * Removes an address form to the phones FormArray
+   */
+
+  deleteAddress(index) {
+    this.addresses.removeAt(index);
+  }
+
+  /**
+   * Gets a country (by name) from the list of countries provided in the mock api
+   */
+
+  getCountryByName(name: string) {
+    if (this.countries) {
+      return this.countries.find((country) => country.name === name);
     }
+  }
+
+  /**
+   * Gets a country (by code) from the list of countries provided in the mock api
+   */
+
+  getCountryByCode(code: string) {
+    if (this.countries) {
+      return this.countries.find((country) => country.code === code);
+    }
+  }
+
+  /**
+   * Fills the country array from the list of countries provided in the mock api
+   */
+
+  private _prepareCountries() {
+    // TODO: retrieve countries from the backend instead of mock api
+    this._http.get('api/apps/contacts/countries').subscribe((countries) => (this.countries = countries));
   }
 }

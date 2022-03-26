@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { User } from 'app/core/user/user.types';
 import { constants } from 'app/shared/constants';
+import { adminPath, userProfilePath } from 'app/app.routing';
 
 @Component({
   selector: 'user',
@@ -19,6 +20,7 @@ export class UserComponent implements OnInit, OnDestroy {
   static ngAcceptInputTypeshowAvatar: BooleanInput;
   @Input() showAvatar: boolean = true;
   user: User;
+  profilePath = `/${adminPath}/${userProfilePath}`;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 

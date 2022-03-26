@@ -11,6 +11,8 @@ export class AdminOrganizationResolver implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Organization> {
     const { id } = route.params || route.data || route.queryParams;
-    return this._myOrganizationsService.getOrganization(id);
+    if (id) {
+      return this._myOrganizationsService.getOrganization(id);
+    }
   }
 }

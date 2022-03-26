@@ -12,6 +12,9 @@ import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource
 import { ResourceListComponent } from './modules/admin/dashboard/resource/resource-list-componenet/resource-list.component';
 
 export const errorPath = '**';
+export const adminPath = 'admin';
+export const userProfilePath = 'user-profile';
+export const voidRoutes: Route[] = [];
 export const appRoutes: Route[] = [
   // dashboard routes
   {
@@ -24,7 +27,7 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
-        path: 'admin',
+        path: adminPath,
         canActivate: [AuthGuard],
         data: {
           title: 'APP.ROUTES.ADMIN.TITLE',
@@ -39,10 +42,11 @@ export const appRoutes: Route[] = [
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:office-building',
             },
-            loadChildren: () => import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
           },
           {
-            path: 'user-profile',
+            path: userProfilePath,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.USER_PROFILE.TITLE',
