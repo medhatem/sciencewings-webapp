@@ -12,6 +12,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { FuseConfigModule } from '@fuse/services/config';
 import { FuseMockApiModule } from '@fuse/lib/mock-api';
 import { FuseModule } from '@fuse';
+import { FuseAlertModule } from '@fuse/components/alert';
 import { LayoutModule } from 'app/layout/layout.module';
 import { NewUserInfosModule } from './layout/new-user-infos/new-user-infos.module';
 import { appConfig } from 'app/core/config/app.config';
@@ -41,6 +42,7 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
     // Fuse, FuseConfig & FuseMockAPI
     FuseModule,
+    FuseAlertModule,
     FuseConfigModule.forRoot(appConfig),
     FuseMockApiModule.forRoot(mockApiServices),
 
