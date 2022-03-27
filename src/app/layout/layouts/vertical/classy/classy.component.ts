@@ -128,8 +128,6 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   receiveMessage($event) {
-    console.log({ event: $event });
-
     switch ($event) {
       case 'resources':
         this._coookies.set('url', 'resources');

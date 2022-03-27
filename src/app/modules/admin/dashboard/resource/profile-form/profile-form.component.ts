@@ -86,8 +86,6 @@ export class ResourceProfileFormComponent implements OnInit {
   }
 
   onSubmit() {
-    const timezone = new Date().toString().match(/([A-Z]+[\+-][0-9]+)/)[1];
-
     const _resource = {
       name: this.form.value.name,
       timezone: this.form.value.timezone,
@@ -103,20 +101,14 @@ export class ResourceProfileFormComponent implements OnInit {
       })),
     };
     if (this.params.id === 'create') {
-      console.log('Creating...');
-      this._resourceService.createResource(_resource).subscribe((response) => {
-        console.log({ response });
-      });
+      this._resourceService.createResource(_resource).subscribe((response) => {});
     } else {
-      console.log('Updating...');
       this._resourceService
         .updateResource(this.params.id, {
           ...this.resource,
           ..._resource,
         })
-        .subscribe((response) => {
-          console.log({ response });
-        });
+        .subscribe((response) => {});
     }
   }
 
@@ -163,19 +155,6 @@ export class ResourceProfileFormComponent implements OnInit {
       // Return
       return;
     }
-
-    // // If there is a tag...
-    // const tag = this.filteredTags[0];
-    // const isTagApplied = this.tags.find((id) => id === tag.id);
-
-    // // If the found tag is already applied to the product...
-    // if (isTagApplied) {
-    //   // Remove the tag from the product
-    //   this.removeTagFromProduct(tag);
-    // } else {
-    //   // Otherwise add the tag to the product
-    //   this.addTagToProduct(tag);
-    // }
   }
 
   /**
@@ -223,9 +202,6 @@ export class ResourceProfileFormComponent implements OnInit {
    * @param tag
    */
   addTagToProduct(tag: any): void {
-    console.log({ tag });
-    console.log({ tags: this.tags });
-
     // Add the tag
     this.tags.unshift(tag);
 
@@ -273,17 +249,6 @@ export class ResourceProfileFormComponent implements OnInit {
   }
 
   // MANAGERS METHODS //
-
-  addManager(event: MatChipInputEvent): void {
-    // const value = (event.value || '').trim();
-    // // Add our fruit
-    // if (value) {
-    //   this.managers.push(value);
-    // }
-    // // Clear the input value
-    // event.chipInput?.clear();
-    // this.managerCtrl.setValue(null);
-  }
 
   removeManager(manager: string): void {
     const index = this.managers.indexOf(manager);

@@ -92,7 +92,7 @@
                 <ng-container *ngTemplateOutlet="linkContent"></ng-container>
               </a> -->
 
-              <div class="flex flex-col items-center justify-center w-full h-full py-6 no-underline"  (click)="changingRoutes(shortcut.link)">
+              <div class="flex flex-col items-center justify-center w-full h-full py-6 no-underline"  (click)="messageEvent.emit('resources')(shortcut.link)">
                   <ng-container *ngTemplateOutlet="linkContent"></ng-container>
               </div>
               <!-- Link content template -->

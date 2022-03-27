@@ -41,7 +41,6 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
       if (statusCode === 500) {
         this._toastrService.showError(errorMessage, 'Something went wrong!');
       }
-      console.log({ body });
 
       this.resources = body.resources;
     });
@@ -136,7 +135,6 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showResourceProfile(id) {
-    console.log({ id });
     this.data.changeMessage({ resource: id });
   }
 }

@@ -199,20 +199,6 @@ export class ShortcutsComponent implements OnInit, OnDestroy {
     return item.id || index;
   }
 
-  changingRoutes(url: string) {
-    switch (url) {
-      case 'resources':
-        this.messageEvent.emit('resources');
-        break;
-      case 'dashboard':
-        this.messageEvent.emit('dashboard');
-        break;
-      default:
-        this.messageEvent.emit('');
-        break;
-    }
-  }
-
   // -----------------------------------------------------------------------------------------------------
   // @ Private methods
   // -----------------------------------------------------------------------------------------------------
