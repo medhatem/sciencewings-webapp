@@ -20,6 +20,7 @@ import { Shortcut } from 'app/layout/common/shortcuts/shortcuts.types';
 import { ShortcutsService } from 'app/layout/common/shortcuts/shortcuts.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+
 @Component({
   selector: 'shortcuts',
   templateUrl: './shortcuts.component.html',

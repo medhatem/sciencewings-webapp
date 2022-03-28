@@ -74,23 +74,6 @@
                 <div class="absolute inset-0 z-99 cursor-pointer" (click)="editShortcut(shortcut)"></div>
               </ng-container>
               <!-- Normal links -->
-              <!-- <a
-                class="flex flex-col items-center justify-center w-full h-full py-6 no-underline"
-                *ngIf="!shortcut.useRouter"
-                [ngClass]="{ 'pointer-events-none': mode === 'modify' }"
-                [href]="shortcut.link"
-              >
-                <ng-container *ngTemplateOutlet="linkContent"></ng-container>
-              </a> -->
-              <!-- Router links -->
-              <!-- <a
-                class="flex flex-col items-center justify-center w-full h-full py-6 no-underline"
-                *ngIf="shortcut.useRouter"
-                [ngClass]="{ 'pointer-events-none': mode === 'modify' }"
-                [routerLink]="shortcut.link"
-              >
-                <ng-container *ngTemplateOutlet="linkContent"></ng-container>
-              </a> -->
 
               <div class="flex flex-col items-center justify-center w-full h-full py-6 no-underline"  (click)="messageEvent.emit('resources')(shortcut.link)">
                   <ng-container *ngTemplateOutlet="linkContent"></ng-container>

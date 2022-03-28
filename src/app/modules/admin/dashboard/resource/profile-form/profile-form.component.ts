@@ -6,7 +6,6 @@ import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.s
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
-import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
@@ -40,7 +39,7 @@ export class ResourceProfileFormComponent implements OnInit {
     private _changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     private _resourceService: ResourceService,
-    private fb: FormBuilder,
+    private _formBuilder: FormBuilder,
     private _toastrService: ToastrService,
   ) {
     this.route.params.subscribe((params) => {
@@ -50,7 +49,7 @@ export class ResourceProfileFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form = this.fb.group({
+    this.form = this._formBuilder.group({
       name: '',
       description: '',
       timezone: '',
@@ -259,8 +258,8 @@ export class ResourceProfileFormComponent implements OnInit {
   }
 
   selectedManager(event: MatAutocompleteSelectedEvent): void {
-    const x = this.managers.filter((man) => man.name === event.option.viewValue);
-    if (x.length === 0) {
+    const managersListLength = this.managers.filter(({name}) => name === event.option.viewValue)?.length;
+    if (managersListLength === 0) {
       this.managers.push(...this.allManagers.filter((man) => man.name === event.option.viewValue));
       this.managerInput.nativeElement.value = '';
       this.managerCtrl.setValue(null);
