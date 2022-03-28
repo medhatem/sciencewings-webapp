@@ -11,7 +11,7 @@ import { ResourceListComponent } from './resource-list-componenet/resource-list.
 import { ResourceSettingsComponent } from './resource-settings/resource-settings.component';
 import { ResourceSettingTagComponent } from './resource-setting-tag/resource-setting-tag.component';
 import { ResurceSettingRuleComponent } from './resurce-setting-rule/resurce-setting-rule.component';
-
+import { TranslocoModule } from '@ngneat/transloco';
 @NgModule({
   declarations: [
     ResourceComponent,
@@ -22,6 +22,6 @@ import { ResurceSettingRuleComponent } from './resurce-setting-rule/resurce-sett
     ResourceSettingTagComponent,
     ResurceSettingRuleComponent,
   ],
-  imports: [RouterModule.forChild(resourceRoutes), FuseFindByKeyPipeModule, SharedModule, NgSelectModule],
+  imports: [RouterModule.forChild(resourceRoutes), FuseFindByKeyPipeModule, SharedModule, NgSelectModule,TranslocoModule],
 })
 export class ResourceModule {}
