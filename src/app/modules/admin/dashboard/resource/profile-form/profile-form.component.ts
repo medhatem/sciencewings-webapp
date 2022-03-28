@@ -84,7 +84,7 @@ export class ResourceProfileFormComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  async onSubmit()  {
     const _resource = {
       name: this.form.value.name,
       timezone: this.form.value.timezone,
@@ -100,7 +100,7 @@ export class ResourceProfileFormComponent implements OnInit {
       })),
     };
     if (this.params.id === 'create') {
-      this._resourceService.createResource(_resource).subscribe((response) => {});
+      await this._resourceService.createResource(_resource).subscribe((response) => {});
     } else {
       this._resourceService
         .updateResource(this.params.id, {
