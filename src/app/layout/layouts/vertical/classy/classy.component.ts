@@ -61,7 +61,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     // resource profile
     this.subscription = this.data.currentMessage.subscribe(message => {
         this._coookies.set('url', 'resource');
-        this._coookies.set('resourceID', message.resource.id);
+        this._coookies.set('resourceID', message.resource);
         const { children: dashboardsResourceRoutesChildren = [] } = appResourceRoutes.find(({ path }) => path === '');
         this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourceRoutesChildren, '/');
         this._router.resetConfig(appResourceRoutes);
@@ -128,8 +128,6 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   receiveMessage($event) {
-    console.log({ event: $event });
-
     switch ($event) {
       case 'resources':
         this._coookies.set('url', 'resources');

@@ -43,7 +43,9 @@
           "TITLE": "Resource Schedule"
         },
         "RESOURCE_SETTINGS": {
-          "TITLE": "Resource Settings"
+            "TITLE": "Resource Settings",
+            "GENERAL": "Genral",
+            "RESERVATION": "Reservation"
         },
         "RESOURCE_PROFILE": {
           "TITLE": "Resource Profile"
@@ -62,7 +64,7 @@
           },
           "STEP_2": {
             "TITLE": "Contact information"
-          }, 
+          },
           "STEP_3": {
             "TITLE": "Done",
             "MESSAGE": "Thank you for filling in your information!\nYou can now manage your organization and create your resources and many other interesting features."
