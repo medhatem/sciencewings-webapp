@@ -1,0 +1,118 @@
+<div class="w-full max-w-3xl">
+
+    <!-- Form -->
+    <form [formGroup]="form">
+
+        <div class="w-full mb-5">
+            <div class="text-xl">General Reservation Options</div>
+            <div class="text-secondary">Following information is publicly displayed, be careful!</div>
+        </div>
+
+        <!-- Section -->
+        <div class="w-full">
+
+            <div class="w-full mb-5">
+                <div class="text-xl">Reservations Enabled</div>
+                <div class="text-secondary">All site users will be unable to make new reservations if this value is set
+                    to 'No'.</div>
+                <div class="flex sm:col-span-4 justify-between my-1">
+                    <mat-slide-toggle [formControlName]="'isEnabled'" [color]="'primary'">
+                    </mat-slide-toggle>
+                </div>
+            </div>
+
+            <div class="w-full mb-5">
+                <div class="text-xl">Loanable</div>
+                <div class="text-secondary">Following information is publicly displayed, be careful!</div>
+            </div>
+
+            <div class="flex sm:col-span-4 justify-between my-1">
+                <mat-label>Loanable Resource</mat-label>
+                <mat-slide-toggle [formControlName]="'isLoanable'" [color]="'primary'">
+                </mat-slide-toggle>
+            </div>
+            <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are
+                allowed.</div>
+
+            <div class="flex sm:col-span-4 justify-between my-1">
+                <mat-label>Users Can Return Their Own Loans</mat-label>
+                <mat-slide-toggle [formControlName]="'isReturnTheirOwnLoans'" [color]="'primary'">
+                </mat-slide-toggle>
+            </div>
+            <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are
+                allowed.</div>
+
+            <div class="flex sm:col-span-4 justify-between my-1">
+                <mat-label>Allow Reserving Loans at Future Dates</mat-label>
+                <mat-slide-toggle [formControlName]="'isReservingLoansAtFutureDates'" [color]="'primary'">
+                </mat-slide-toggle>
+            </div>
+            <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are
+                allowed.</div>
+
+            <div class="flex sm:col-span-4 justify-between my-1">
+                <mat-label>Fixed Loan Duration {{isFixedLoanDurationOptionhidden}}</mat-label>
+                <mat-slide-toggle [(ngModel)]="isFixedLoanDurationOptionhidden" [color]="'primary'"
+                    [ngModelOptions]="{standalone: true}">
+                </mat-slide-toggle>
+            </div>
+            <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are
+                allowed.</div>
+            <div class="sm:col-span-4" [ngClass]="{'hidden': !isFixedLoanDurationOptionhidden}">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-select [formControlName]="'fixedLoanDuration'">
+                        <mat-option [value]="'week'">7 Days</mat-option>
+                        <mat-option [value]="'day'">1 Day</mat-option>
+                        <mat-option [value]="'hour'">1 Hour</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="flex sm:col-span-4 justify-between my-1">
+                <mat-label>Overdue Notice Delay</mat-label>
+                <mat-slide-toggle [(ngModel)]="isOverdueNoticeDelayOptionhidden" [color]="'primary'"
+                    [ngModelOptions]="{standalone: true}">
+                </mat-slide-toggle>
+            </div>
+            <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are
+                allowed.</div>
+            <div class="sm:col-span-4" [ngClass]="{'hidden': !isOverdueNoticeDelayOptionhidden}">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-select [formControlName]="'overdueNoticeDelay'">
+                        <mat-option [value]="'week'">7 Days</mat-option>
+                        <mat-option [value]="'day'">1 Day</mat-option>
+                        <mat-option [value]="'hour'">1 Hour</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="w-full mb-5">
+                <div class="text-xl">Recurring Reservations</div>
+                <div class="text-secondary">Following information is publicly displayed, be careful!</div>
+            </div>
+
+            <div class="sm:col-span-4">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-select [formControlName]="'recurringReservations'">
+                        <mat-option [value]="'user'">Users</mat-option>
+                        <mat-option [value]="'staff'">Staff</mat-option>
+                        <mat-option [value]="'both'">Users or Staff</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+        </div>
+
+        <!-- Divider -->
+        <div class="mt-11 mb-10 border-t"></div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end">
+            <button mat-stroked-button type="button">
+                Cancel
+            </button>
+            <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">Save
+            </button>
+        </div>
+    </form>
+</div>
