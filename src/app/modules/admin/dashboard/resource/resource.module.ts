@@ -12,20 +12,37 @@ import { resourceRoutes } from './resource.routing';
 import { ResourceScheduleComponent } from './schedule/schedule.component';
 import { ResourceListComponent } from './resource-list-componenet/resource-list.component';
 import { MatChipsModule } from '@angular/material/chips';
-import { ResourceSettingsComponent } from './resource-settings/resource-settings.component';
 import { ResourceSettingTagComponent } from './resource-setting-tag/resource-setting-tag.component';
 import { ResurceSettingRuleComponent } from './resurce-setting-rule/resurce-setting-rule.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { DialogComponent } from './schedule/dialog.component';
 
 @NgModule({
   declarations: [
     ResourceComponent,
     ResourceProfileFormComponent,
     ResourceScheduleComponent,
+    DialogComponent,
     ResourceListComponent,
-    ResourceSettingsComponent,
     ResourceSettingTagComponent,
     ResurceSettingRuleComponent,
   ],
-  imports: [RouterModule.forChild(resourceRoutes), FuseFindByKeyPipeModule, SharedModule, NgSelectModule, TranslocoModule, MatCardModule, MatButtonModule, MatChipsModule],
+  imports: [
+    RouterModule.forChild(resourceRoutes),
+    FuseFindByKeyPipeModule,
+    SharedModule,
+    NgSelectModule,
+    TranslocoModule,
+    MatCardModule,
+    MatButtonModule,
+    MatChipsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+  ],
 })
 export class ResourceModule {}
