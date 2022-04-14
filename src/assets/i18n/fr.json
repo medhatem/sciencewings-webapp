@@ -21,6 +21,10 @@
         "PHONE_NUMBERS": "Numéros de téléphone"
       }
     },
+    "RESOURCES": {
+        "MANAGER": "Manageur",
+        "MANAGERS": "Manageurs"
+    },
     "ROUTES": {
       "ADMIN": {
         "TITLE": "Tableau de bord",
@@ -37,10 +41,10 @@
           "TITLE": "Resource"
         },
         "RESOURCE_LIST": {
-          "TITLE": "Resource List"
+          "TITLE": "Resource liste"
         },
         "RESOURCE_SCHEDULE": {
-          "TITLE": "Resource Schedule"
+          "TITLE": "Horaire des ressources"
         },
         "RESOURCE_SETTINGS": {
             "TITLE": "Resource Settings",
@@ -48,13 +52,13 @@
             "RESERVATION": "Reservation"
         },
         "RESOURCE_PROFILE": {
-          "TITLE": "Resource Profile"
+          "TITLE": "Profile du resource "
         },
         "RESOURCE_TAGS": {
-          "TITLE": "Resource tags"
+          "TITLE": "Tags des ressources"
         },
         "RESOURCE_RULES": {
-          "TITLE": "Resource Rules"
+          "TITLE": "Règles des ressources"
         }
       },
       "USER": {

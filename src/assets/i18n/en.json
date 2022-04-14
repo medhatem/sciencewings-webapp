@@ -21,6 +21,10 @@
         "PHONE_NUMBERS": "Phone numbers"
       }
     },
+    "RESOURCES": {
+        "MANAGER": "Manager",
+        "MANAGERS": "Managers"
+    },
     "ROUTES": {
       "ADMIN": {
         "TITLE": "Dashboard",
