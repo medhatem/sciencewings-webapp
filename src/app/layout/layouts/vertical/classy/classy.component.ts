@@ -114,22 +114,16 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       const url = this._coookies.get('url');
       switch (url) {
         case 'dashboard':
-          const { children: dashboardsMainRoutesChildren = [] } = appRoutes.find(({ path }) => path === '');
-          this.navigation = this.getNavigationItemsFromRoutes(dashboardsMainRoutesChildren, '/');
+            this.navigation = this.getNavigationItemsFromRoutes(appRoutes[0].children, '/');
           break;
         case 'resources':
-          const { children: dashboardsResourcesRoutesChildren = [] } = appResourcesRoutes.find(({ path }) => path === '');
-          this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourcesRoutesChildren, '/');
-          break;
-        default:
+            this.navigation = this.getNavigationItemsFromRoutes(appResourcesRoutes[0].children, '/');
           break;
       }
     }
   }
 
   receiveMessage($event) {
-    console.log({ event: $event });
-
     switch ($event) {
       case 'resources':
         this._coookies.set('url', 'resources');
