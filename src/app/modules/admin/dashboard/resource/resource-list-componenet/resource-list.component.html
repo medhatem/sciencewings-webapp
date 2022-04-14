@@ -94,7 +94,7 @@
                             <mat-card-subtitle *ngIf="resource.organization"> <strong>Owned by:</strong> {{
                                 resource.organization.name }} </mat-card-subtitle>
                             <mat-card-subtitle style="margin-bottom: 0px;">
-                                <strong>Managers:</strong>
+                                <strong>{{'APP.RESOURCES.MANAGERS'| transloco}}:</strong>
                             </mat-card-subtitle>
                             <mat-list role="list">
                                 <ng-container *ngFor="let manager of resource.managers">

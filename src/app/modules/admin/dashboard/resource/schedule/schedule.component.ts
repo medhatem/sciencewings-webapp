@@ -43,8 +43,6 @@ export class ResourceScheduleComponent implements OnInit {
       },
     },
     eventDidMount: (mountAg: EventMountArg) => {
-      console.log({ mountAg });
-
       const checkbox = this.renderer.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.setAttribute('id', mountAg.event._def.publicId);
@@ -56,7 +54,6 @@ export class ResourceScheduleComponent implements OnInit {
         } else {
           this.selectedEvents.splice(this.selectedEvents.indexOf(target.id), 1);
         }
-        console.log(this.selectedEvents);
       });
     },
     events: [],
@@ -111,7 +108,6 @@ export class ResourceScheduleComponent implements OnInit {
           });
         });
       });
-      console.log({ events });
 
       this.calendarComponent.getApi().addEvent(events);
       //this.calendarOptions.events = events;
@@ -119,9 +115,7 @@ export class ResourceScheduleComponent implements OnInit {
     });
   }
 
-  onCheckboxChange($event) {
-    console.log($event);
-  }
+  onCheckboxChange($event) {}
 
   // -1: past, 0: today, 1: future
   // https://stackoverflow.com/questions/2698725/comparing-date-part-only-without-comparing-time-in-javascript#answer-55782480
