@@ -1,17 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  /**
-   * Constructor
-   */
-  constructor(private router: Router) {}
-  ngOnInit() {
-    console.log('configured routes: ', this.router.config);
-  }
+export class AppComponent {
+  constructor() {}
 }

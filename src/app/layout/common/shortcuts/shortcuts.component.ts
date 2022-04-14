@@ -20,6 +20,7 @@ import { Shortcut } from 'app/layout/common/shortcuts/shortcuts.types';
 import { ShortcutsService } from 'app/layout/common/shortcuts/shortcuts.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+
 @Component({
   selector: 'shortcuts',
   templateUrl: './shortcuts.component.html',
@@ -197,20 +198,6 @@ export class ShortcutsComponent implements OnInit, OnDestroy {
    */
   trackByFn(index: number, item: any): any {
     return item.id || index;
-  }
-
-  changingRoutes(url: string) {
-    switch (url) {
-      case 'resources':
-        this.messageEvent.emit('resources');
-        break;
-      case 'dashboard':
-        this.messageEvent.emit('dashboard');
-        break;
-      default:
-        this.messageEvent.emit('');
-        break;
-    }
   }
 
   // -----------------------------------------------------------------------------------------------------
