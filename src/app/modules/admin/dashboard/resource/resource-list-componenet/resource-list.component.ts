@@ -34,14 +34,18 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   searchInputControl: FormControl = new FormControl();
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-  constructor(private _resourceService: ResourceService, private _toastrService: ToastrService, private _changeDetectorRef: ChangeDetectorRef, private data: DataService) {}
+  constructor(
+    private _resourceService: ResourceService,
+    private _toastrService: ToastrService,
+    private _changeDetectorRef: ChangeDetectorRef,
+    private data: DataService,
+  ) {}
 
   ngOnInit(): void {
     this._resourceService.getOrgResource().subscribe(({ statusCode, body, errorMessage }) => {
       if (statusCode === 500) {
         this._toastrService.showError(errorMessage, 'Something went wrong!');
       }
-      console.log({ body });
 
       this.resources = body.resources;
     });
@@ -57,18 +61,6 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
         id: 'name',
         start: 'asc',
         disableClear: true,
-      });
-
-      // Mark for check
-      this._changeDetectorRef.markForCheck();
-
-      // If the user changes the sort order...
-      this._sort.sortChange.pipe(takeUntil(this._unsubscribeAll)).subscribe(() => {
-        // Reset back to the first page
-        this._paginator.pageIndex = 0;
-
-        // Close the details
-        this.closeDetails();
       });
     }
   }
@@ -98,11 +90,6 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   closeDetails(): void {
     this.selectedResource = null;
   }
-
-  /**
-   * Create resource
-   */
-  createResource(): void {}
 
   /**
    * Toggle product details
@@ -136,7 +123,6 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showResourceProfile(id) {
-    console.log({ id });
     this.data.changeMessage({ resource: id });
   }
 }

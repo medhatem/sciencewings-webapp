@@ -23,7 +23,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { mockApiServices } from 'app/mock-api';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { CookieService } from 'ngx-cookie-service';
-import {  } from 'rxjs';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy: PreloadAllModules,
