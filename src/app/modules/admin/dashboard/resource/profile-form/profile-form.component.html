@@ -65,7 +65,7 @@
         </div>
 
         <mat-form-field class="example-chip-list" appearance="fill">
-            <mat-label>Managers</mat-label>
+            <mat-label>{{'APP.RESOURCES.MANAGERS'| transloco}}</mat-label>
             <mat-chip-list #chipList>
                 <mat-chip *ngFor="let manager of managers" (removed)="remove(manager)">
                     {{manager.name}}
@@ -74,8 +74,7 @@
                     </button>
                 </mat-chip>
                 <input placeholder="New manager..." #managerInput [formControl]="managerCtrl" [matAutocomplete]="auto"
-                    [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                    (matChipInputTokenEnd)="addManager($event)">
+                    [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
             </mat-chip-list>
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedManager($event)">
                 <mat-option *ngFor="let manager of filteredManagers | async" [value]="fruit">
@@ -85,8 +84,8 @@
         </mat-form-field>
 
         <div style="display: flex;justify-content: end;">
-            <button mat-button color="warn">Cancel</button>
-            <button mat-raised-button color="primary" (click)="onSubmit()">{{btnTitle}}</button>
+            <button mat-button color="warn">{{'APP.ROUTES.USER.ABOUT.CANCEL'| transloco}}</button>
+            <button mat-raised-button color="primary" (click)="onSubmit()">{{btnTitle | transloco}}</button>
         </div>
     </form>
 </mat-card>

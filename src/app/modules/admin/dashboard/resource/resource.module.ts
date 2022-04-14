@@ -1,13 +1,10 @@
 import { FuseFindByKeyPipeModule } from '@fuse/pipes/find-by-key';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { NgModule } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ResourceComponent } from './resource.component';
 import { ResourceProfileFormComponent } from './profile-form/profile-form.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
-import { TranslocoModule } from '@ngneat/transloco';
 import { resourceRoutes } from './resource.routing';
 import { ResourceScheduleComponent } from './schedule/schedule.component';
 import { ResourceListComponent } from './resource-list-componenet/resource-list.component';
@@ -18,14 +15,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { DialogComponent } from './schedule/dialog.component';
-
+import { TranslocoModule } from '@ngneat/transloco';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
     ResourceComponent,
     ResourceProfileFormComponent,
     ResourceScheduleComponent,
-    DialogComponent,
     ResourceListComponent,
     ResourceSettingTagComponent,
     ResurceSettingRuleComponent,

@@ -6,7 +6,6 @@ import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.s
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
-import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
@@ -40,7 +39,7 @@ export class ResourceProfileFormComponent implements OnInit {
     private _changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     private _resourceService: ResourceService,
-    private fb: FormBuilder,
+    private _formBuilder: FormBuilder,
     private _toastrService: ToastrService,
   ) {
     this.route.params.subscribe((params) => {
@@ -50,7 +49,7 @@ export class ResourceProfileFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form = this.fb.group({
+    this.form = this._formBuilder.group({
       name: '',
       description: '',
       timezone: '',
@@ -85,9 +84,7 @@ export class ResourceProfileFormComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    const timezone = new Date().toString().match(/([A-Z]+[\+-][0-9]+)/)[1];
-
+  async onSubmit()  {
     const _resource = {
       name: this.form.value.name,
       timezone: this.form.value.timezone,
@@ -103,20 +100,14 @@ export class ResourceProfileFormComponent implements OnInit {
       })),
     };
     if (this.params.id === 'create') {
-      console.log('Creating...');
-      this._resourceService.createResource(_resource).subscribe((response) => {
-        console.log({ response });
-      });
+      await this._resourceService.createResource(_resource).subscribe((response) => {});
     } else {
-      console.log('Updating...');
       this._resourceService
         .updateResource(this.params.id, {
           ...this.resource,
           ..._resource,
         })
-        .subscribe((response) => {
-          console.log({ response });
-        });
+        .subscribe((response) => {});
     }
   }
 
@@ -163,19 +154,6 @@ export class ResourceProfileFormComponent implements OnInit {
       // Return
       return;
     }
-
-    // // If there is a tag...
-    // const tag = this.filteredTags[0];
-    // const isTagApplied = this.tags.find((id) => id === tag.id);
-
-    // // If the found tag is already applied to the product...
-    // if (isTagApplied) {
-    //   // Remove the tag from the product
-    //   this.removeTagFromProduct(tag);
-    // } else {
-    //   // Otherwise add the tag to the product
-    //   this.addTagToProduct(tag);
-    // }
   }
 
   /**
@@ -223,9 +201,6 @@ export class ResourceProfileFormComponent implements OnInit {
    * @param tag
    */
   addTagToProduct(tag: any): void {
-    console.log({ tag });
-    console.log({ tags: this.tags });
-
     // Add the tag
     this.tags.unshift(tag);
 
@@ -274,17 +249,6 @@ export class ResourceProfileFormComponent implements OnInit {
 
   // MANAGERS METHODS //
 
-  addManager(event: MatChipInputEvent): void {
-    // const value = (event.value || '').trim();
-    // // Add our fruit
-    // if (value) {
-    //   this.managers.push(value);
-    // }
-    // // Clear the input value
-    // event.chipInput?.clear();
-    // this.managerCtrl.setValue(null);
-  }
-
   removeManager(manager: string): void {
     const index = this.managers.indexOf(manager);
 
@@ -294,8 +258,8 @@ export class ResourceProfileFormComponent implements OnInit {
   }
 
   selectedManager(event: MatAutocompleteSelectedEvent): void {
-    const x = this.managers.filter((man) => man.name === event.option.viewValue);
-    if (x.length === 0) {
+    const managersListLength = this.managers.filter(({name}) => name === event.option.viewValue)?.length;
+    if (managersListLength === 0) {
       this.managers.push(...this.allManagers.filter((man) => man.name === event.option.viewValue));
       this.managerInput.nativeElement.value = '';
       this.managerCtrl.setValue(null);
