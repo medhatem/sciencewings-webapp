@@ -9,7 +9,6 @@ import { ResourceSettingsComponent } from './modules/admin/dashboard/resource/re
 import { ResourceSettingTagComponent } from './modules/admin/dashboard/resource/resource-setting-tag/resource-setting-tag.component';
 import { ResurceSettingRuleComponent } from './modules/admin/dashboard/resource/resurce-setting-rule/resurce-setting-rule.component';
 import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource/profile-form/profile-form.component';
-import { ResourceListComponent } from './modules/admin/dashboard/resource/resource-list-componenet/resource-list.component';
 
 export const errorPath = '**';
 export const adminPath = 'admin';
@@ -124,58 +123,6 @@ export const appResourcesRoutes: Route[] = [
             },
             loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
           },
-          //   {
-          //     path: 'schedule',
-          //     canActivate: [AuthGuard],
-          //     data: {
-          //       title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
-          //       type: FuseNavigationItemTypeEnum.basic,
-          //       icon: 'heroicons_outline:calendar',
-          //     },
-          //     component: ResourceScheduleComponent,
-          //   },
-          //   {
-          //     path: 'settings',
-          //     canActivate: [AuthGuard],
-          //     data: {
-          //       title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE',
-          //       type: FuseNavigationItemTypeEnum.collapsable,
-          //       icon: 'heroicons_outline:adjustments',
-          //     },
-          //     component: ResourceSettingsComponent,
-          //     children: [
-          //       {
-          //         path: 'resource/:id',
-          //         canActivate: [AuthGuard],
-          //         data: {
-          //           title: 'APP.ROUTES.ADMIN.RESOURCE_PROFILE.TITLE',
-          //           type: FuseNavigationItemTypeEnum.basic,
-          //           icon: 'heroicons_outline:information-circle',
-          //         },
-          //         component: ResourceProfileFormComponent,
-          //       },
-          //       {
-          //         path: 'tag',
-          //         canActivate: [AuthGuard],
-          //         data: {
-          //           title: 'APP.ROUTES.ADMIN.RESOURCE_TAGS.TITLE',
-          //           type: FuseNavigationItemTypeEnum.basic,
-          //           icon: 'heroicons_outline:hashtag',
-          //         },
-          //         component: ResourceSettingTagComponent,
-          //       },
-          //       {
-          //         path: 'rules',
-          //         canActivate: [AuthGuard],
-          //         data: {
-          //           title: 'APP.ROUTES.ADMIN.RESOURCE_RULES.TITLE',
-          //           type: FuseNavigationItemTypeEnum.basic,
-          //           icon: 'heroicons_outline:exclamation',
-          //         },
-          //         component: ResurceSettingRuleComponent,
-          //       },
-          //     ],
-          //   },
         ],
       },
       {
