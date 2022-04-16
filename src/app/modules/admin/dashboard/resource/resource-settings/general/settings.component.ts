@@ -8,7 +8,7 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 
 @Component({
   selector: 'settings',
-  templateUrl: './settings.component.html',
+  templateUrl: 'settings.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
