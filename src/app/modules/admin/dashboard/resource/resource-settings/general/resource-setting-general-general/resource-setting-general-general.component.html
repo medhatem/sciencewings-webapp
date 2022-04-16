@@ -1,156 +1,153 @@
 <div class="w-full max-w-3xl">
+  <!-- Form -->
+  <form [formGroup]="form">
+    <!-- Section -->
+    <div class="w-full">
+      <div class="text-xl">{{ 'Profile' | transloco }}</div>
+      <div class="text-secondary">Following information is publicly displayed, be careful!</div>
+    </div>
+    <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'Name' | transloco }}</mat-label>
+          <input [formControlName]="'name'" matInput />
+        </mat-form-field>
+      </div>
 
-    <!-- Form -->
-    <form [formGroup]="form">
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'Class' | transloco }}</mat-label>
+          <mat-select [formControlName]="'resourceClass'">
+            <mat-option [value]="'equipement'">Equipement</mat-option>
+            <mat-option [value]="'service'">Service</mat-option>
+            <mat-option [value]="'person'">Person</mat-option>
+            <mat-option [value]="'software'">Software</mat-option>
+            <mat-option [value]="'event'">Event</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'Type' | transloco }}</mat-label>
+          <mat-select [formControlName]="'resourceType'">
+            <mat-option [value]="'reservable'">Reservable</mat-option>
+            <mat-option [value]="'requestable'">Requestable</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="mt-1 text-md text-hint">The type of resource, which defines what actions can take place on the resource.</div>
+      </div>
 
-        <!-- Section -->
-        <div class="w-full">
-            <div class="text-xl">Profile</div>
-            <div class="text-secondary">Following information is publicly displayed, be careful!</div>
-        </div>
-        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'Timezone' | transloco }}</mat-label>
+          <input matInput formControlName="timezone" />
+        </mat-form-field>
+      </div>
 
-            <div class="sm:col-span-4">
-                <mat-form-field class="fuse-mat-no-subscript w-full">
-                    <mat-label>Name</mat-label>
-                    <input [formControlName]="'name'" matInput>
-                </mat-form-field>
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'Description' | transloco }}</mat-label>
+          <textarea matInput [formControlName]="'description'" cdkTextareaAutosize [cdkAutosizeMinRows]="5"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="sm:col-span-4">
+        <!-- Tags -->
+        <span class="mb-px font-medium leading-tight">{{ 'Tags' | transloco }}</span>
+        <div class="mt-1.5 rounded-md border border-gray-300 dark:border-gray-500 shadow-sm overflow-hidden" style="margin-bottom: 16px">
+          <!-- Header -->
+          <div class="flex items-center -my-px py-2 px-3">
+            <div class="flex items-center flex-auto min-w-0">
+              <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:search'"></mat-icon>
+              <input
+                class="min-w-0 ml-2 py-1 border-0"
+                type="text"
+                placeholder="Enter tag name"
+                (input)="filterTags($event)"
+                (keydown)="filterTagsInputKeyDown($event)"
+                [maxLength]="50"
+                #newTagInput />
             </div>
-
-            <div class="sm:col-span-4">
-                <mat-form-field class="fuse-mat-no-subscript w-full">
-                    <mat-label>Class</mat-label>
-                    <mat-select [formControlName]="'resourceClass'">
-                        <mat-option [value]="'equipement'">Equipement</mat-option>
-                        <mat-option [value]="'service'">Service</mat-option>
-                        <mat-option [value]="'person'">Person</mat-option>
-                        <mat-option [value]="'software'">Software</mat-option>
-                        <mat-option [value]="'event'">Event</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="sm:col-span-4">
-                <mat-form-field class="fuse-mat-no-subscript w-full">
-                    <mat-label>Type</mat-label>
-                    <mat-select [formControlName]="'resourceType'">
-                        <mat-option [value]="'reservable'">Reservable</mat-option>
-                        <mat-option [value]="'requestable'">Requestable</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <div class="mt-1 text-md text-hint">
-                    The type of resource, which defines what actions can take place on the resource.
-                </div>
-            </div>
-
-            <div class="sm:col-span-4">
-                <mat-form-field class="fuse-mat-no-subscript w-full">
-                    <mat-label>Timezone</mat-label>
-                    <input matInput formControlName="timezone" />
-                </mat-form-field>
-            </div>
-
-            <div class="sm:col-span-4">
-                <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
-                    <mat-label>Description</mat-label>
-                    <textarea matInput [formControlName]="'description'" cdkTextareaAutosize
-                        [cdkAutosizeMinRows]="5"></textarea>
-                </mat-form-field>
-            </div>
-
-
-            <div class="sm:col-span-4">
-                <!-- Tags -->
-                <span class="mb-px font-medium leading-tight">Tags</span>
-                <div class="mt-1.5 rounded-md border border-gray-300 dark:border-gray-500 shadow-sm overflow-hidden"
-                    style="margin-bottom: 16px;">
-                    <!-- Header -->
-                    <div class="flex items-center -my-px py-2 px-3">
-                        <div class="flex items-center flex-auto min-w-0">
-                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:search'"></mat-icon>
-                            <input class="min-w-0 ml-2 py-1 border-0" type="text" placeholder="Enter tag name"
-                                (input)="filterTags($event)" (keydown)="filterTagsInputKeyDown($event)" [maxLength]="50"
-                                #newTagInput>
-                        </div>
-                        <button class="ml-3 w-8 h-8 min-h-8" mat-icon-button (click)="toggleTagsEditMode()">
-                            <mat-icon *ngIf="!tagsEditMode" class="icon-size-5"
-                                [svgIcon]="'heroicons_solid:pencil-alt'">
-                            </mat-icon>
-                            <mat-icon *ngIf="tagsEditMode" class="icon-size-5" [svgIcon]="'heroicons_solid:check'">
-                            </mat-icon>
-                        </button>
-                    </div>
-                    <!-- Available tags -->
-                    <div class="h-44 leading-none overflow-y-auto border-t border-gray-300 dark:border-gray-500">
-                        <!-- Tags -->
-                        <ng-container *ngIf="!tagsEditMode">
-                            <ng-container *ngFor="let tag of filteredTags; trackBy: trackByFn">
-                                <mat-checkbox class="flex items-center h-10 min-h-10 px-4" [color]="'primary'"
-                                    [checked]="tags.includes(tag)" (change)="toggleProductTag(tag, $event)">
-                                    {{tag}}
-                                </mat-checkbox>
-                            </ng-container>
-                        </ng-container>
-                        <!-- Tags editing -->
-                        <ng-container *ngIf="tagsEditMode">
-                            <div class="p-4 space-y-2">
-                                <ng-container *ngFor="let tag of filteredTags; trackBy: trackByFn">
-                                    <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript w-full">
-                                        <input matInput [value]="tag" (input)="updateTagTitle(tag, $event)">
-                                        <button mat-icon-button (click)="deleteTag(tag)" matSuffix>
-                                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'">
-                                            </mat-icon>
-                                        </button>
-                                    </mat-form-field>
-                                </ng-container>
-                            </div>
-                        </ng-container>
-                        <div class="flex items-center h-10 min-h-10 -ml-0.5 pl-4 pr-3 leading-none cursor-pointer border-t hover:bg-gray-50 dark:hover:bg-hover"
-                            *ngIf="shouldShowCreateTagButton(newTagInput.value)"
-                            (click)="createTag(newTagInput.value); newTagInput.value = ''" matRipple>
-                            <mat-icon class="mr-2 icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
-                            <div class="break-all">Create "<b>{{newTagInput.value}}</b>"</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="sm:col-span-4">
-                <mat-form-field class="example-chip-list fill w-full" appearance="fill">
-                    <mat-label>Managers</mat-label>
-                    <mat-chip-list #chipList>
-                        <mat-chip *ngFor="let manager of managers" (removed)="remove(manager)">
-                            {{manager.name}}
-                            <button matChipRemove>
-                                <mat-icon>cancel</mat-icon>
-                            </button>
-                        </mat-chip>
-                        <input placeholder="New manager..." #managerInput [formControl]="managerCtrl"
-                            [matAutocomplete]="auto" [matChipInputFor]="chipList"
-                            [matChipInputSeparatorKeyCodes]="separatorKeysCodesManager"
-                            (matChipInputTokenEnd)="addManager($event)">
-                    </mat-chip-list>
-                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedManager($event)">
-                        <mat-option *ngFor="let manager of filteredManagers | async" [value]="fruit">
-                            {{manager.name}}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-            </div>
-        </div>
-
-        <!-- Divider -->
-        <div class="mt-11 mb-10 border-t"></div>
-
-        <!-- Actions -->
-        <div class="flex items-center justify-end">
-            <button mat-stroked-button type="button">
-                Cancel
+            <button class="ml-3 w-8 h-8 min-h-8" mat-icon-button (click)="toggleTagsEditMode()">
+              <mat-icon *ngIf="!tagsEditMode" class="icon-size-5" [svgIcon]="'heroicons_solid:pencil-alt'"> </mat-icon>
+              <mat-icon *ngIf="tagsEditMode" class="icon-size-5" [svgIcon]="'heroicons_solid:check'"> </mat-icon>
             </button>
-            <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
-                Update
-            </button>
+          </div>
+          <!-- Available tags -->
+          <div class="h-44 leading-none overflow-y-auto border-t border-gray-300 dark:border-gray-500">
+            <!-- Tags -->
+            <ng-container *ngIf="!tagsEditMode">
+              <ng-container *ngFor="let tag of filteredTags; trackBy: trackByFn">
+                <mat-checkbox class="flex items-center h-10 min-h-10 px-4" [color]="'primary'" [checked]="tags.includes(tag)" (change)="toggleProductTag(tag, $event)">
+                  {{ tag }}
+                </mat-checkbox>
+              </ng-container>
+            </ng-container>
+            <!-- Tags editing -->
+            <ng-container *ngIf="tagsEditMode">
+              <div class="p-4 space-y-2">
+                <ng-container *ngFor="let tag of filteredTags; trackBy: trackByFn">
+                  <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript w-full">
+                    <input matInput [value]="tag" (input)="updateTagTitle(tag, $event)" />
+                    <button mat-icon-button (click)="deleteTag(tag)" matSuffix>
+                      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"> </mat-icon>
+                    </button>
+                  </mat-form-field>
+                </ng-container>
+              </div>
+            </ng-container>
+            <div
+              class="flex items-center h-10 min-h-10 -ml-0.5 pl-4 pr-3 leading-none cursor-pointer border-t hover:bg-gray-50 dark:hover:bg-hover"
+              *ngIf="shouldShowCreateTagButton(newTagInput.value)"
+              (click)="createTag(newTagInput.value); newTagInput.value = ''"
+              matRipple>
+              <mat-icon class="mr-2 icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+              <div class="break-all">
+                Create "<b>{{ newTagInput.value }}</b
+                >"
+              </div>
+            </div>
+          </div>
         </div>
-    </form>
+      </div>
 
+      <div class="sm:col-span-4">
+        <mat-form-field class="example-chip-list fill w-full" appearance="fill">
+          <mat-label>{{ 'Managers' | transloco }}</mat-label>
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let manager of managers" (removed)="remove(manager)">
+              {{ manager.name }}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+            <input
+              placeholder="New manager..."
+              #managerInput
+              [formControl]="managerCtrl"
+              [matAutocomplete]="auto"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodesManager"
+              (matChipInputTokenEnd)="addManager($event)" />
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedManager($event)">
+            <mat-option *ngFor="let manager of filteredManagers | async" [value]="fruit">
+              {{ manager.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="mt-11 mb-10 border-t"></div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-end">
+      <button mat-stroked-button type="button">{{ 'Cancel' | transloco }}</button>
+      <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
+        {{ 'Update' | transloco }}
+      </button>
+    </div>
+  </form>
 </div>

@@ -1,48 +1,42 @@
 <div class="w-full max-w-3xl">
+  <!-- Form -->
+  <form [formGroup]="form">
+    <!-- Section -->
+    <div class="w-full">
+      <div class="text-xl">{{ 'Status' | transloco }}</div>
+      <div class="text-secondary">Following information is publicly displayed, be careful!</div>
+    </div>
+    <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'Status' | transloco }}</mat-label>
+          <mat-select [formControlName]="'statusType'">
+            <mat-option [value]="'operational'">Operational</mat-option>
+            <mat-option [value]="'non-operational'">Non-operational</mat-option>
+            <mat-option [value]="'minor-repair'">Needs minor repair</mat-option>
+            <mat-option [value]="'major-repair'">Needs major repair</mat-option>
+            <mat-option [value]="'sold'">Sold</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-    <!-- Form -->
-    <form [formGroup]="form">
-
-        <!-- Section -->
-        <div class="w-full">
-            <div class="text-xl">Status</div>
-            <div class="text-secondary">Following information is publicly displayed, be careful!</div>
+        <div class="sm:col-span-4 mt-3">
+          <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+            <mat-label>{{ 'Description' | transloco }}</mat-label>
+            <textarea matInput [formControlName]="'statusDescription'" cdkTextareaAutosize [cdkAutosizeMinRows]="5"></textarea>
+          </mat-form-field>
+          <div class="mt-1 text-md text-hint">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
         </div>
-        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+      </div>
+    </div>
 
-            <div class="sm:col-span-4">
-                <mat-form-field class="fuse-mat-no-subscript w-full">
-                    <mat-label>Status</mat-label>
-                    <mat-select [formControlName]="'statusType'">
-                        <mat-option [value]="'operational'">Operational</mat-option>
-                        <mat-option [value]="'non-operational'">Non-operational</mat-option>
-                        <mat-option [value]="'minor-repair'">Needs minor repair</mat-option>
-                        <mat-option [value]="'major-repair'">Needs major repair</mat-option>
-                        <mat-option [value]="'sold'">Sold</mat-option>
-                    </mat-select>
-                </mat-form-field>
+    <!-- Divider -->
+    <div class="mt-11 mb-10 border-t"></div>
 
-                <div class="sm:col-span-4 mt-3">
-                    <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
-                        <mat-label>Description</mat-label>
-                        <textarea matInput [formControlName]="'statusDescription'" cdkTextareaAutosize
-                            [cdkAutosizeMinRows]="5"></textarea>
-                    </mat-form-field>
-                    <div class="mt-1 text-md text-hint">Brief description for your profile. Basic HTML and Emoji are
-                        allowed.</div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Divider -->
-        <div class="mt-11 mb-10 border-t"></div>
-
-        <!-- Actions -->
-        <div class="flex items-center justify-end">
-            <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
-                Save
-            </button>
-        </div>
-    </form>
+    <!-- Actions -->
+    <div class="flex items-center justify-end">
+      <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
+        {{ 'Save' | transloco }}
+      </button>
+    </div>
+  </form>
 </div>
