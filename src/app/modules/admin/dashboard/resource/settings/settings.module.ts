@@ -16,29 +16,17 @@ import { SettingsPlanBillingComponent } from './plan-billing/plan-billing.compon
 import { SettingsNotificationsComponent } from './notifications/notifications.component';
 import { SettingsTeamComponent } from './team/team.component';
 import { settingsRoutes } from './settings.routing';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @NgModule({
-    declarations: [
-        SettingsComponent,
-        SettingsAccountComponent,
-        SettingsSecurityComponent,
-        SettingsPlanBillingComponent,
-        SettingsNotificationsComponent,
-        SettingsTeamComponent
-    ],
-    imports     : [
-        RouterModule.forChild(settingsRoutes),
-        MatButtonModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MatRadioModule,
-        MatSelectModule,
-        MatSidenavModule,
-        MatSlideToggleModule,
-        SharedModule
-    ]
+  declarations: [
+    SettingsComponent,
+    SettingsAccountComponent,
+    SettingsSecurityComponent,
+    SettingsPlanBillingComponent,
+    SettingsNotificationsComponent,
+    SettingsTeamComponent,
+  ],
+  imports: [RouterModule.forChild(settingsRoutes), MatFormFieldModule, SharedModule, TranslocoModule],
 })
-export class SettingsModule
-{
-}
+export class SettingsModule {}

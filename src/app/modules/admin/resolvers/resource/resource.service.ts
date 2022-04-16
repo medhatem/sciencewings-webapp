@@ -42,7 +42,6 @@ export class ResourceService {
   }
 
   getOrgMembers(id?: number): Observable<any> {
-    // this.swaggerAPI.ResourceRoutesGetOgranizationResources(1).subscribe((data) => console.log({ x:data }));
     return this._httpClient.get('http://localhost:3000/organization/getMembers/'+id);
   }
   getOrgResource(id?: string): Observable<any> {
