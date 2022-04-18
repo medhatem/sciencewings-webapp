@@ -41,59 +41,57 @@ export class ResourceService {
     );
   }
 
-  getOrgMembers(id?: number): Observable<any> {
-    return this._httpClient.get('http://localhost:3000/organization/getMembers/'+id);
+  getOrgMembers(id: number): Observable<any> {
+    return this.swaggerAPI.organizationRoutesGetUsers({ id });
   }
-  getOrgResource(id?: string): Observable<any> {
-    return this._httpClient.get('http://localhost:3000/organization/resources/getOgranizationResourcesById/1');
+  getOrgResource(id: number): Observable<any> {
+    return this.swaggerAPI.organizationRoutesGetOgranizationResources({ organizationId: 1 });
   }
-  createResource(payload: ResourceRo): Observable<any> {
-    return this._httpClient.post('http://localhost:3000/organization/resources/create', payload);
+  createResource(body: ResourceRo): Observable<any> {
+    return this.swaggerAPI.organizationRoutesCreateResource({ body });
   }
-  updateResource(id: number, payload: ResourceRo): Observable<any> {
-    return this._httpClient.put('http://localhost:3000/organization/resources/update/' + id, payload);
+  updateResource(id: number, body: ResourceRo): Observable<any> {
+    return this.swaggerAPI.organizationRoutesUpdateResource({ id, body });
   }
-  getResource(id?: number): Observable<any> {
-    return this._httpClient.get('http://localhost:3000/resources/getById/' + id);
+  getResource(id: number): Observable<any> {
+    return this.swaggerAPI.resourceRoutesGetById({ id });
   }
-  deleteResource(id?: number): Observable<any> {
-    return this._httpClient.delete('http://localhost:3000/resources/' + id);
+  deleteResource(id: number): Observable<any> {
+    return this.swaggerAPI.resourceRoutesRemove({ id });
   }
   // resource settings
-  getResourceSettings(id?: number): Observable<any> {
-    return this._httpClient.get('http://localhost:3000/organization/resources/settings/' + id);
+  getResourceSettings(id: number): Observable<any> {
+    return this.swaggerAPI.organizationRoutesGetResourceSettings({ id });
   }
   // general
-  updateResourceSettingsGeneralStatus(id: number, payload: ResourceSettingsGeneralStatusRo): Observable<any> {
-    return this._httpClient.put('http://localhost:3000/organization/resources/settings/general/status/' + id, payload);
+  updateResourceSettingsGeneralStatus(id: number, body: ResourceSettingsGeneralStatusRo): Observable<any> {
+    return this.swaggerAPI.organizationRoutesUpdateResourcesSettingsGeneralStatus({ id, body });
   }
-  updateResourceSettingsGeneralVisibility(id: number, payload: ResourceSettingsGeneralVisibilityRo): Observable<any> {
-    return this._httpClient.put('http://localhost:3000/organization/resources/settings/general/visibility/' + id, payload);
+  updateResourceSettingsGeneralVisibility(id: number, body: ResourceSettingsGeneralVisibilityRo): Observable<any> {
+    return this.swaggerAPI.organizationRoutesUpdateResourcesSettingsGeneralVisibility({ id, body });
   }
-  updateResourceSettingsGeneralProperties(id: number, payload: ResourceSettingsGeneralPropertiesRo): Observable<any> {
-    return this._httpClient.put('http://localhost:3000/organization/resources/settings/general/properties/' + id, payload);
+  updateResourceSettingsGeneralProperties(id: number, body: ResourceSettingsGeneralPropertiesRo): Observable<any> {
+    return this.swaggerAPI.organizationRoutesUpdateResourcesSettingsnGeneralProperties({ id, body });
   }
 
   // reservation
-  getResourceSettingsReservationRate(id: number): Observable<any> {
-    return this._httpClient.get('http://localhost:3000/organization/resources/settings/reservation/rate/' + id);
+
+  createResourceSettingsReservationRate(id: number, body: ResourceRateRo): Observable<any> {
+    return this.swaggerAPI.organizationRoutesCreateResourceRate({ id, body });
   }
-  createResourceSettingsReservationRate(id: number, payload: ResourceRateRo): Observable<any> {
-    return this._httpClient.post('http://localhost:3000/organization/resources/settings/reservation/rate/' + id, payload);
+  updateResourceSettingsReservationRate(id: number, body: ResourceRateRo): Observable<any> {
+    return this.swaggerAPI.organizationRoutesUpdateResourceRate({ id, body });
   }
-  updateResourceSettingsReservationRate(id: number, payload: ResourceRateRo): Observable<any> {
-    return this._httpClient.put('http://localhost:3000/organization/resources/settings/reservation/rate/' + id, payload);
+  updateResourcesSettingsReservationGeneral(id: number, body: ResourcesSettingsReservationGeneralRo): Observable<any> {
+    return this.swaggerAPI.organizationRoutesUpdateResourcesSettingsReservationGeneral({ id, body });
   }
-  updateResourcesSettingsReservationGeneral(id: number, payload: ResourcesSettingsReservationGeneralRo): Observable<any> {
-    return this._httpClient.put('http://localhost:3000/organization/resources/settings/reservation/general/' + id, payload);
+  updateResourceSettingsReservationUnit(id: number, body: ResourcesSettingsReservationUnitRo): Observable<any> {
+    return this.swaggerAPI.organizationRoutesUpdateResourcesSettingsReservationUnit({ id, body });
   }
-  updateResourceSettingsReservationUnit(id: number, payload: ResourcesSettingsReservationUnitRo): Observable<any> {
-    return this._httpClient.put('http://localhost:3000/organization/resources/settings/reservation/unit/' + id, payload);
+  updateResourceSettingsReservationTimeRestriction(id: number, body: ResourceTimerRestrictionRo): Observable<any> {
+    return this.swaggerAPI.organizationRoutesUpdateResourceTimerRestriction({ id, body });
   }
-  updateResourceSettingsReservationTimeRestriction(id: number, payload: ResourceTimerRestrictionRo): Observable<any> {
-    return this._httpClient.put('http://localhost:3000/organization/resources/settings/reservation/time_restriction/' + id, payload);
-  }
-  updateResourceSettingsReservationVisibility(id: number, payload: ResourceReservationVisibilityRo): Observable<any> {
-    return this._httpClient.put('http://localhost:3000/organization/resources/settings/reservation/visibility/' + id, payload);
+  updateResourceSettingsReservationVisibility(id: number, body: ResourceReservationVisibilityRo): Observable<any> {
+    return this.swaggerAPI.organizationRoutesUpdateResourceRestrictionVisibility({ id, body });
   }
 }
