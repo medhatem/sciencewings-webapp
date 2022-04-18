@@ -7,7 +7,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { CookieService } from 'ngx-cookie-service';
-import { map, Observable, startWith } from 'rxjs';
+import { lastValueFrom, map, Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-resource-setting-general-general',
@@ -75,7 +75,7 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
     );
   }
 
-  onSubmit() {
+  async onSubmit() {
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
     const generalData = {
       ...this.form.value,
@@ -89,13 +89,18 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
     if (this.isTagsDirty) {
       generalData['tags'] = this.tags.map((tag) => ({ title: tag }));
     }
-    this._resourceService.updateResource(selectedResourceId, generalData).subscribe((response) => {
+
+    try {
+      const response: any = await lastValueFrom(this._resourceService.updateResource(selectedResourceId, generalData));
       if (response.body.statusCode === 204) {
         this._toastrService.showSuccess('Updated Successfully');
       } else {
         this._toastrService.showError('Something went wrong!');
       }
-    });
+    } catch (error) {
+      console.log({ error });
+      this._toastrService.showError('Something went wrong!');
+    }
   }
 
   // TAG METHODS //
@@ -275,7 +280,6 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
   private getCurrentResourceData() {
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
     this._resourceService.getResource(selectedResourceId).subscribe(({ body }) => {
-
       if (body.statusCode !== 200) {
         this._toastrService.showError('Something went wrong!');
         return;
