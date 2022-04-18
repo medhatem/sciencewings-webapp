@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { FormControl } from '@angular/forms';
-import { map, Observable, startWith } from 'rxjs';
+import { lastValueFrom, map, Observable, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
@@ -99,23 +99,26 @@ export class ResourceProfileFormComponent implements OnInit {
         user: manager.user,
       })),
     };
-    if (this.params.id === 'create') {
-      this._resourceService.createResource(_resource).subscribe((response) => {
-        if (response.statusCode === 500) {
+    try {
+      let response = null;
+      if (this.params.id === 'create') {
+        response = await lastValueFrom(this._resourceService.createResource(_resource));
+      } else {
+        response = await lastValueFrom(
+          this._resourceService.updateResource(this.params.id, {
+            ...this.resource,
+            ..._resource,
+          }),
+        );
+        if (response.body.statusCode === 201) {
+          this._toastrService.showSuccess('Updated Successfully');
+        } else {
           this._toastrService.showError('Something went wrong!');
         }
-      });
-    } else {
-      this._resourceService
-        .updateResource(this.params.id, {
-          ...this.resource,
-          ..._resource,
-        })
-        .subscribe((response) => {
-          if (response.statusCode === 500) {
-            this._toastrService.showError('Something went wrong!');
-          }
-        });
+      }
+    } catch (error) {
+      console.log({ error });
+      this._toastrService.showError('Something went wrong!');
     }
   }
 
