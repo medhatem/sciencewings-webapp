@@ -22,8 +22,8 @@
       }
     },
     "RESOURCES": {
-        "MANAGER": "Manageur",
-        "MANAGERS": "Manageurs"
+      "MANAGER": "Manageur",
+      "MANAGERS": "Manageurs"
     },
     "ROUTES": {
       "ADMIN": {
@@ -47,7 +47,9 @@
           "TITLE": "Horaire des ressources"
         },
         "RESOURCE_SETTINGS": {
-          "TITLE": "Paramètres des ressources"
+            "TITLE": "Resource Settings",
+            "GENERAL": "Génerale",
+            "RESERVATION": "Reservation"
         },
         "RESOURCE_PROFILE": {
           "TITLE": "Profile du resource "
