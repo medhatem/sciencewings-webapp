@@ -21,6 +21,10 @@
         "PHONE_NUMBERS": "Phone numbers"
       }
     },
+    "RESOURCES": {
+      "MANAGER": "Manager",
+      "MANAGERS": "Managers"
+    },
     "ROUTES": {
       "ADMIN": {
         "TITLE": "Dashboard",
@@ -62,7 +66,7 @@
           },
           "STEP_2": {
             "TITLE": "Contact information"
-          }, 
+          },
           "STEP_3": {
             "TITLE": "Done",
             "MESSAGE": "Thank you for filling in your information!\nYou can now manage your organization and create your resources and many other interesting features."

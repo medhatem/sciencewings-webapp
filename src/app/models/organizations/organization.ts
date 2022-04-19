@@ -4,7 +4,7 @@ import { Phone } from '../phone';
 
 export class Organization implements CreateOrganizationRo {
   id?: string;
-  description?: string;
+  description: string;
   department?: string;
   sector?: string;
   addresses: Address[];
