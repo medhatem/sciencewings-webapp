@@ -43,7 +43,6 @@ export class ResourceSettingGeneralPropertiesComponent implements OnInit {
         this._toastrService.showError('Something went wrong!');
       }
     } catch (error) {
-      console.log({ error });
       this._toastrService.showError('Something went wrong!');
     }
   }
