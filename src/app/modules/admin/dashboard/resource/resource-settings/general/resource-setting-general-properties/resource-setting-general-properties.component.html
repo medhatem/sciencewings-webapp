@@ -1,0 +1,43 @@
+<div class="w-full max-w-3xl">
+  <!-- Form -->
+  <form [formGroup]="form">
+    <!-- Section -->
+    <div class="w-full">
+      <div class="text-xl">{{ 'Status' | transloco }}</div>
+      <div class="text-secondary">Following information is publicly displayed, be careful!</div>
+    </div>
+    <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'Properties' | transloco }}</mat-label>
+          <mat-select [formControlName]="'language'">
+            <mat-option [value]="'prop1'">Prop1</mat-option>
+            <mat-option [value]="'prop2'">Prop2</mat-option>
+            <mat-option [value]="'prop3'">Prop3</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'Access To Resource' | transloco }}</mat-label>
+          <mat-select [formControlName]="'accessToResource'">
+            <mat-option [value]="'users'">Users</mat-option>
+            <mat-option [value]="'staff'">Staff</mat-option>
+            <mat-option [value]="'both'">Users or Staff</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="mt-11 mb-10 border-t"></div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-end">
+      <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
+        {{ 'Save' | transloco }}
+      </button>
+    </div>
+  </form>
+</div>
