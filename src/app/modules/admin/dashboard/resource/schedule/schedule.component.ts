@@ -90,7 +90,12 @@ export class ResourceScheduleComponent implements OnInit {
     },
   ];
 
-  constructor(private _resourceService: ResourceService, private _toastrService: ToastrService, private _changeDetectorRef: ChangeDetectorRef, private renderer: Renderer2) {}
+  constructor(
+    private _resourceService: ResourceService,
+    private _toastrService: ToastrService,
+    private _changeDetectorRef: ChangeDetectorRef,
+    private renderer: Renderer2,
+  ) {}
 
   ngOnInit(): void {
     this._resourceService.getOrgResource().subscribe(({ statusCode, body, errorMessage }) => {
