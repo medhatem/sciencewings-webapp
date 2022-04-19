@@ -8,20 +8,20 @@ import { SharedModule } from 'app/shared/shared.module';
 import { resourceRoutes } from './resource.routing';
 import { ResourceScheduleComponent } from './schedule/schedule.component';
 import { ResourceListComponent } from './resource-list-componenet/resource-list.component';
-import { ResourceSettingsComponent } from './resource-settings/resource-settings.component';
 import { ResourceSettingTagComponent } from './resource-setting-tag/resource-setting-tag.component';
 import { ResurceSettingRuleComponent } from './resurce-setting-rule/resurce-setting-rule.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslocoModule } from '@ngneat/transloco';
+
 @NgModule({
   declarations: [
     ResourceComponent,
     ResourceProfileFormComponent,
     ResourceScheduleComponent,
     ResourceListComponent,
-    ResourceSettingsComponent,
     ResourceSettingTagComponent,
     ResurceSettingRuleComponent,
   ],
-  imports: [RouterModule.forChild(resourceRoutes), FuseFindByKeyPipeModule, SharedModule, NgSelectModule,TranslocoModule],
+  imports: [RouterModule.forChild(resourceRoutes), FuseFindByKeyPipeModule, SharedModule, NgSelectModule, TranslocoModule, MatFormFieldModule],
 })
 export class ResourceModule {}

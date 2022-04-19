@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { FormControl } from '@angular/forms';
-import { map, Observable, startWith } from 'rxjs';
+import { lastValueFrom, map, Observable, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
@@ -84,7 +84,7 @@ export class ResourceProfileFormComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     const _resource = {
       name: this.form.value.name,
       timezone: this.form.value.timezone,
@@ -99,15 +99,26 @@ export class ResourceProfileFormComponent implements OnInit {
         user: manager.user,
       })),
     };
-    if (this.params.id === 'create') {
-      this._resourceService.createResource(_resource).subscribe((response) => {});
-    } else {
-      this._resourceService
-        .updateResource(this.params.id, {
-          ...this.resource,
-          ..._resource,
-        })
-        .subscribe((response) => {});
+    try {
+      let response = null;
+      if (this.params.id === 'create') {
+        response = await lastValueFrom(this._resourceService.createResource(_resource));
+      } else {
+        response = await lastValueFrom(
+          this._resourceService.updateResource(this.params.id, {
+            ...this.resource,
+            ..._resource,
+          }),
+        );
+        if (response.body.statusCode === 201) {
+          this._toastrService.showSuccess('Updated Successfully');
+        } else {
+          this._toastrService.showError('Something went wrong!');
+        }
+      }
+    } catch (error) {
+      console.log({ error });
+      this._toastrService.showError('Something went wrong!');
     }
   }
 
@@ -258,7 +269,7 @@ export class ResourceProfileFormComponent implements OnInit {
   }
 
   selectedManager(event: MatAutocompleteSelectedEvent): void {
-    const managersListLength = this.managers.filter(({name}) => name === event.option.viewValue)?.length;
+    const managersListLength = this.managers.filter(({ name }) => name === event.option.viewValue)?.length;
     if (managersListLength === 0) {
       this.managers.push(...this.allManagers.filter((man) => man.name === event.option.viewValue));
       this.managerInput.nativeElement.value = '';
