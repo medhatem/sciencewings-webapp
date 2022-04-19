@@ -22,8 +22,8 @@
       }
     },
     "RESOURCES": {
-        "MANAGER": "Manager",
-        "MANAGERS": "Managers"
+      "MANAGER": "Manager",
+      "MANAGERS": "Managers"
     },
     "ROUTES": {
       "ADMIN": {
