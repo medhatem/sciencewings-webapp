@@ -2,12 +2,15 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
+import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'app/core/toastr/toastr.service';
 
 @Component({
-    selector       : 'settings',
-    templateUrl    : 'settings.component.html',
-    encapsulation  : ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'settings',
+  templateUrl: 'settings.component.html',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') drawer: MatDrawer;
@@ -15,12 +18,19 @@ export class SettingsComponent implements OnInit, OnDestroy {
   drawerOpened: boolean = true;
   panels: any[] = [];
   selectedPanel: string = 'account';
+  settings = null;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   /**
    * Constructor
    */
-  constructor(private _changeDetectorRef: ChangeDetectorRef, private _fuseMediaWatcherService: FuseMediaWatcherService) {}
+  constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _fuseMediaWatcherService: FuseMediaWatcherService,
+    private _resourceService: ResourceService,
+    private _toastrService: ToastrService,
+    private _coookies: CookieService,
+  ) {}
 
   // -----------------------------------------------------------------------------------------------------
   // @ Lifecycle hooks
@@ -33,34 +43,34 @@ export class SettingsComponent implements OnInit, OnDestroy {
     // Setup available panels
     this.panels = [
       {
-        id: 'account',
-        icon: 'heroicons_outline:user-circle',
-        title: 'Account',
+        id: 'general',
+        icon: 'heroicons_outline:clipboard-check',
+        title: 'General',
         description: 'Manage your public profile and private information',
       },
       {
-        id: 'security',
-        icon: 'heroicons_outline:lock-closed',
-        title: 'Security',
+        id: 'status',
+        icon: 'heroicons_outline:refresh',
+        title: 'Status',
         description: 'Manage your password and 2-step verification preferences',
       },
       {
-        id: 'plan-billing',
-        icon: 'heroicons_outline:credit-card',
-        title: 'Plan & Billing',
+        id: 'barcodes',
+        icon: 'heroicons_outline:chart-bar',
+        title: 'Barcodes',
+        description: 'Manage your password and 2-step verification preferences',
+      },
+      {
+        id: 'visibility',
+        icon: 'heroicons_outline:eye',
+        title: 'Visibility',
         description: 'Manage your subscription plan, payment method and billing information',
       },
       {
-        id: 'notifications',
-        icon: 'heroicons_outline:bell',
-        title: 'Notifications',
+        id: 'properties',
+        icon: 'heroicons_outline:view-list',
+        title: 'Properties',
         description: 'Manage when you\'ll be notified on which channels',
-      },
-      {
-        id: 'team',
-        icon: 'heroicons_outline:user-group',
-        title: 'Team',
-        description: 'Manage your existing team and change roles/permissions',
       },
     ];
 
@@ -77,6 +87,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
       // Mark for check
       this._changeDetectorRef.markForCheck();
+    });
+
+    const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
+    this._resourceService.getResourceSettings(selectedResourceId).subscribe(({ body }) => {
+      if (body.statusCode === 500) {
+        this._toastrService.showError('Something went wrong!');
+        return;
+      }
+      this.settings = body;
     });
   }
 
@@ -124,5 +143,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
    */
   trackByFn(index: number, item: any): any {
     return item.id || index;
+  }
+
+  updateLocalSettings(payload) {
+    this.settings = {
+      ...this.settings,
+      ...payload,
+    };
   }
 }
