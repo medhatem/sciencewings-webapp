@@ -2,8 +2,10 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   OnDestroy,
   OnInit,
+  Output,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
@@ -16,6 +18,8 @@ import { MatButton } from '@angular/material/button';
 import { Subject, takeUntil } from 'rxjs';
 import { Shortcut } from 'app/layout/common/shortcuts/shortcuts.types';
 import { ShortcutsService } from 'app/layout/common/shortcuts/shortcuts.service';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'shortcuts',
@@ -25,6 +29,7 @@ import { ShortcutsService } from 'app/layout/common/shortcuts/shortcuts.service'
   exportAs: 'shortcuts',
 })
 export class ShortcutsComponent implements OnInit, OnDestroy {
+  @Output() messageEvent = new EventEmitter<string>();
   @ViewChild('shortcutsOrigin') private _shortcutsOrigin: MatButton;
   @ViewChild('shortcutsPanel') private _shortcutsPanel: TemplateRef<any>;
 
@@ -42,7 +47,9 @@ export class ShortcutsComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     private _shortcutsService: ShortcutsService,
     private _overlay: Overlay,
-    private _viewContainerRef: ViewContainerRef
+    private _viewContainerRef: ViewContainerRef,
+    private _router: Router,
+    private _coookies: CookieService,
   ) {}
 
   // -----------------------------------------------------------------------------------------------------

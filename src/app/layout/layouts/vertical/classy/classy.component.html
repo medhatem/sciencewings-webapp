@@ -59,7 +59,7 @@
       <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
       <messages *ngIf="!hideMenusAndButtons"></messages>
       <notifications *ngIf="!hideMenusAndButtons"></notifications>
-      <shortcuts *ngIf="!hideMenusAndButtons"></shortcuts>
+      <shortcuts *ngIf="!hideMenusAndButtons" (messageEvent)="receiveMessage($event)"></shortcuts>
       <user [showAvatar]="false"></user>
       <button *ngIf="!hideMenusAndButtons" class="lg:hidden" mat-icon-button (click)="quickChat.toggle()">
         <mat-icon [svgIcon]="'heroicons_outline:chat-alt-2'"></mat-icon>
@@ -76,7 +76,7 @@
       (onFormComplete)="resetNavigation($event)"></new-user-infos>
     <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
              Otherwise, layout changes won't be registered and the view won't be updated! -->
-    <router-outlet *ngIf="true && !hideMenusAndButtons"></router-outlet>
+    <router-outlet (messageEvent)="receiveMessage($event)" *ngIf="true && !hideMenusAndButtons"></router-outlet>
   </div>
 
   <!-- Footer -->

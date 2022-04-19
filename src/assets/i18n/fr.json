@@ -21,6 +21,10 @@
         "PHONE_NUMBERS": "Numéros de téléphone"
       }
     },
+    "RESOURCES": {
+      "MANAGER": "Manageur",
+      "MANAGERS": "Manageurs"
+    },
     "ROUTES": {
       "ADMIN": {
         "TITLE": "Tableau de bord",
@@ -32,6 +36,27 @@
         },
         "ORGANIZATION_MEMBERS": {
           "TITLE": "Members de l'organisation"
+        },
+        "RESOURCE": {
+          "TITLE": "Resource"
+        },
+        "RESOURCE_LIST": {
+          "TITLE": "Resource liste"
+        },
+        "RESOURCE_SCHEDULE": {
+          "TITLE": "Horaire des ressources"
+        },
+        "RESOURCE_SETTINGS": {
+          "TITLE": "Paramètres des ressources"
+        },
+        "RESOURCE_PROFILE": {
+          "TITLE": "Profile du resource "
+        },
+        "RESOURCE_TAGS": {
+          "TITLE": "Tags des ressources"
+        },
+        "RESOURCE_RULES": {
+          "TITLE": "Règles des ressources"
         }
       },
       "USER": {
@@ -41,7 +66,7 @@
           },
           "STEP_2": {
             "TITLE": "Informations de contact"
-          }, 
+          },
           "STEP_3": {
             "TITLE": "Terminé",
             "MESSAGE": "Merci d'avoir rempli vos informations!\nVous pouvez maintenant gérer votre organisation et créer vos ressources et faire plein d'autres fonctionnalités intéressantes."

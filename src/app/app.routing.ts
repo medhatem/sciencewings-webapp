@@ -1,9 +1,14 @@
-import { Route } from '@angular/router';
-import { LayoutComponent } from 'app/layout/layout.component';
-import { InitialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from './core/auth/keycloak/app.guard';
 import { FuseNavigationItemTypeEnum } from '@fuse/components/navigation/navigation.types';
+import { InitialDataResolver } from 'app/app.resolvers';
+import { LayoutComponent } from 'app/layout/layout.component';
 import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
+import { Route } from '@angular/router';
+import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
+import { ResourceSettingsComponent } from './modules/admin/dashboard/resource/resource-settings/resource-settings.component';
+import { ResourceSettingTagComponent } from './modules/admin/dashboard/resource/resource-setting-tag/resource-setting-tag.component';
+import { ResurceSettingRuleComponent } from './modules/admin/dashboard/resource/resurce-setting-rule/resurce-setting-rule.component';
+import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource/profile-form/profile-form.component';
 
 export const errorPath = '**';
 export const adminPath = 'admin';
@@ -85,6 +90,121 @@ export const appRoutes: Route[] = [
         path: errorPath,
         pathMatch: 'full',
         loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.module').then((m) => m.Error404Module),
+      },
+    ],
+  },
+];
+
+export const appResourcesRoutes: Route[] = [
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: InitialDataResolver,
+      userData: NewUserInfosResolver,
+    },
+    children: [
+      {
+        path: 'resources',
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.TITLE',
+          type: FuseNavigationItemTypeEnum.group,
+        },
+        children: [
+          {
+            path: 'resource',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.RESOURCE.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:cube',
+            },
+            loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
+          },
+        ],
+      },
+      {
+        path: errorPath,
+        pathMatch: 'full',
+        loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.module').then((m) => m.Error404Module),
+      },
+    ],
+  },
+];
+
+export const appResourceRoutes: Route[] = [
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: InitialDataResolver,
+      userData: NewUserInfosResolver,
+    },
+    children: [
+      {
+        path: 'resource',
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.RESOURCE.TITLE',
+          type: FuseNavigationItemTypeEnum.basic,
+          icon: 'heroicons_outline:cube',
+        },
+        loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
+      },
+      {
+        path: 'resource/:id',
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.RESOURCE_PROFILE.TITLE',
+          type: FuseNavigationItemTypeEnum.basic,
+          icon: 'heroicons_outline:information-circle',
+        },
+        component: ResourceProfileFormComponent,
+      },
+      {
+        path: 'schedule',
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
+          type: FuseNavigationItemTypeEnum.basic,
+          icon: 'heroicons_outline:calendar',
+        },
+        component: ResourceScheduleComponent,
+      },
+      {
+        path: 'settings',
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE',
+          type: FuseNavigationItemTypeEnum.collapsable,
+          icon: 'heroicons_outline:adjustments',
+        },
+        component: ResourceSettingsComponent,
+        children: [
+          {
+            path: 'tag',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.RESOURCE_TAGS.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:hashtag',
+            },
+            component: ResourceSettingTagComponent,
+          },
+          {
+            path: 'rules',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.RESOURCE_RULES.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:exclamation',
+            },
+            component: ResurceSettingRuleComponent,
+          },
+        ],
       },
     ],
   },

@@ -1,17 +1,20 @@
-import { Injectable } from '@angular/core';
-import { from, map } from 'rxjs';
-import { assign, cloneDeep } from 'lodash-es';
 import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
+import { assign, cloneDeep } from 'lodash-es';
 import {
   contacts as contactsData,
   countries as countriesData,
+  resources as resourcesData,
   tags as tagsData,
 } from 'app/mock-api/apps/contacts/data';
+import { from, map } from 'rxjs';
+
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactsMockApi {
+  private _resources: any[] = resourcesData;
   private _contacts: any[] = contactsData;
   private _countries: any[] = countriesData;
   private _tags: any[] = tagsData;
@@ -32,6 +35,20 @@ export class ContactsMockApi {
    * Register Mock API handlers
    */
   registerHandlers(): void {
+      // -----------------------------------------------------------------------------------------------------
+    // @ Contacts - GET
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onGet('api/apps/resources/all').reply(() => {
+        // Clone the contacts
+        const resources = cloneDeep(this._resources);
+
+        // Sort the contacts by the name field by default
+        resources.sort((a, b) => a.name.localeCompare(b.name));
+
+        // Return the response
+        return [200, resources];
+      });
+
     // -----------------------------------------------------------------------------------------------------
     // @ Contacts - GET
     // -----------------------------------------------------------------------------------------------------

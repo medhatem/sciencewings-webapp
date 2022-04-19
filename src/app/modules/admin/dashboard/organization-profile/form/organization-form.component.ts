@@ -131,6 +131,7 @@ export class OrganizationFormComponent implements OnInit {
 
   private setOrganizationInfo() {
     const { step1, step2, step3 } = this.stepperForm.getRawValue();
+
     const phones = [new Phone({ ...step1 })];
     const address = new Address({ type: AddressType.organization, ...step2 });
     const { adminsEmails = [], usersEmails = [] } = step3;
