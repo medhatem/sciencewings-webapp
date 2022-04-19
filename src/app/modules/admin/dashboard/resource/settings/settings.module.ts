@@ -10,35 +10,21 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SharedModule } from 'app/shared/shared.module';
 import { SettingsComponent } from './settings.component';
-import { SettingsAccountComponent } from './account/account.component';
-import { SettingsSecurityComponent } from './security/security.component';
-import { SettingsPlanBillingComponent } from './plan-billing/plan-billing.component';
-import { SettingsNotificationsComponent } from './notifications/notifications.component';
-import { SettingsTeamComponent } from './team/team.component';
 import { settingsRoutes } from './settings.routing';
 
 @NgModule({
-    declarations: [
-        SettingsComponent,
-        SettingsAccountComponent,
-        SettingsSecurityComponent,
-        SettingsPlanBillingComponent,
-        SettingsNotificationsComponent,
-        SettingsTeamComponent
-    ],
-    imports     : [
-        RouterModule.forChild(settingsRoutes),
-        MatButtonModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MatRadioModule,
-        MatSelectModule,
-        MatSidenavModule,
-        MatSlideToggleModule,
-        SharedModule
-    ]
+  declarations: [SettingsComponent],
+  imports: [
+    RouterModule.forChild(settingsRoutes),
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSlideToggleModule,
+    SharedModule,
+  ],
 })
-export class SettingsModule
-{
-}
+export class SettingsModule {}
