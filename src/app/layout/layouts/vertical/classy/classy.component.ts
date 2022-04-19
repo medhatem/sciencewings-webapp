@@ -64,12 +64,12 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     });
 
     // resource profile
-    this.subscription = this.data.currentMessage.subscribe(message => {
-        this._coookies.set('url', 'resource');
-        this._coookies.set('resourceID', message.resource);
-        const { children: dashboardsResourceRoutesChildren = [] } = appResourceRoutes.find(({ path }) => path === '');
-        this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourceRoutesChildren, '/');
-        this._router.resetConfig(appResourceRoutes);
+    this.subscription = this.data.currentMessage.subscribe((message) => {
+      this._coookies.set('url', 'resource');
+      this._coookies.set('resourceID', message.resource.id);
+      const { children: dashboardsResourceRoutesChildren = [] } = appResourceRoutes.find(({ path }) => path === '');
+      this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourceRoutesChildren, '/');
+      this._router.resetConfig(appResourceRoutes);
     });
     this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
       this.isScreenSmall = !matchingAliases.includes('md');

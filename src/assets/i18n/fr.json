@@ -47,9 +47,7 @@
           "TITLE": "Horaire des ressources"
         },
         "RESOURCE_SETTINGS": {
-            "TITLE": "Resource Settings",
-            "GENERAL": "Génerale",
-            "RESERVATION": "Reservation"
+          "TITLE": "Paramètres des ressources"
         },
         "RESOURCE_PROFILE": {
           "TITLE": "Profile du resource "
