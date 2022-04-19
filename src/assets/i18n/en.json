@@ -47,7 +47,9 @@
           "TITLE": "Resource Schedule"
         },
         "RESOURCE_SETTINGS": {
-          "TITLE": "Resource Settings"
+            "TITLE": "Resource Settings",
+            "GENERAL": "Genral",
+            "RESERVATION": "Reservation"
         },
         "RESOURCE_PROFILE": {
           "TITLE": "Resource Profile"

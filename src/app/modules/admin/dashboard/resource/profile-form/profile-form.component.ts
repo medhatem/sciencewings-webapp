@@ -84,7 +84,7 @@ export class ResourceProfileFormComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     const _resource = {
       name: this.form.value.name,
       timezone: this.form.value.timezone,
@@ -100,14 +100,22 @@ export class ResourceProfileFormComponent implements OnInit {
       })),
     };
     if (this.params.id === 'create') {
-      this._resourceService.createResource(_resource).subscribe((response) => {});
+      await this._resourceService.createResource(_resource).subscribe((response) => {
+        if (response.statusCode === 500) {
+          this._toastrService.showError('Something went wrong!');
+        }
+      });
     } else {
       this._resourceService
         .updateResource(this.params.id, {
           ...this.resource,
           ..._resource,
         })
-        .subscribe((response) => {});
+        .subscribe((response) => {
+          if (response.statusCode === 500) {
+            this._toastrService.showError('Something went wrong!');
+          }
+        });
     }
   }
 
@@ -258,7 +266,7 @@ export class ResourceProfileFormComponent implements OnInit {
   }
 
   selectedManager(event: MatAutocompleteSelectedEvent): void {
-    const managersListLength = this.managers.filter(({name}) => name === event.option.viewValue)?.length;
+    const managersListLength = this.managers.filter(({ name }) => name === event.option.viewValue)?.length;
     if (managersListLength === 0) {
       this.managers.push(...this.allManagers.filter((man) => man.name === event.option.viewValue));
       this.managerInput.nativeElement.value = '';
