@@ -2,7 +2,12 @@ import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, S
 import { ActivatedRoute, Router, Route } from '@angular/router';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { FuseNavigationItem, FuseNavigationItemTypeEnum, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
+import {
+  FuseNavigationItem,
+  FuseNavigationItemTypeEnum,
+  FuseNavigationService,
+  FuseVerticalNavigationComponent,
+} from '@fuse/components/navigation';
 import { User } from 'app/core/user/user.types';
 import { appRoutes, appResourcesRoutes, errorPath, appResourceRoutes } from 'app/app.routing';
 import { CookieService } from 'ngx-cookie-service';
@@ -29,7 +34,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _fuseNavigationService: FuseNavigationService,
     private _coookies: CookieService,
-    private data: DataService
+    private data: DataService,
   ) {}
 
   /**
@@ -114,10 +119,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       const url = this._coookies.get('url');
       switch (url) {
         case 'dashboard':
-            this.navigation = this.getNavigationItemsFromRoutes(appRoutes[0].children, '/');
+          this.navigation = this.getNavigationItemsFromRoutes(appRoutes[0].children, '/');
           break;
         case 'resources':
-            this.navigation = this.getNavigationItemsFromRoutes(appResourcesRoutes[0].children, '/');
+          this.navigation = this.getNavigationItemsFromRoutes(appResourcesRoutes[0].children, '/');
           break;
       }
     }
