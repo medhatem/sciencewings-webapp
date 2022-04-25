@@ -17,7 +17,12 @@ export class ResourceSettingReservationRatesComponent implements OnInit {
   selectedRateId: number = null;
   isCardHidden: boolean = true;
   private selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
-  constructor(private _formBuilder: FormBuilder, private _resourceService: ResourceService, private _toastrService: ToastrService, private _coookies: CookieService) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _resourceService: ResourceService,
+    private _toastrService: ToastrService,
+    private _coookies: CookieService,
+  ) {}
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
@@ -59,7 +64,7 @@ export class ResourceSettingReservationRatesComponent implements OnInit {
         rateData['id'] = response.body.id;
         this.rates.push(rateData);
         if (response.body.statusCode === 201) {
-           this.updateLocalSettings.emit(this.form.value);
+          this.updateLocalSettings.emit(this.form.value);
           this._toastrService.showSuccess('Updated Successfully');
         } else {
           this._toastrService.showError('Something went wrong!');

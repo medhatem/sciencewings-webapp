@@ -5,9 +5,6 @@ import { LayoutComponent } from 'app/layout/layout.component';
 import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
 import { Route } from '@angular/router';
 import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
-import { ResourceSettingsComponent } from './modules/admin/dashboard/resource/resource-settings/resource-settings.component';
-import { ResourceSettingTagComponent } from './modules/admin/dashboard/resource/resource-setting-tag/resource-setting-tag.component';
-import { ResurceSettingRuleComponent } from './modules/admin/dashboard/resource/resurce-setting-rule/resurce-setting-rule.component';
 import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource/profile-form/profile-form.component';
 
 export const errorPath = '**';
@@ -95,45 +92,6 @@ export const appRoutes: Route[] = [
   },
 ];
 
-export const appResourcesRoutes: Route[] = [
-  {
-    path: '',
-    canActivate: [AuthGuard],
-    component: LayoutComponent,
-    resolve: {
-      initialData: InitialDataResolver,
-      userData: NewUserInfosResolver,
-    },
-    children: [
-      {
-        path: 'resources',
-        canActivate: [AuthGuard],
-        data: {
-          title: 'APP.ROUTES.ADMIN.TITLE',
-          type: FuseNavigationItemTypeEnum.group,
-        },
-        children: [
-          {
-            path: 'resource',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.RESOURCE.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:cube',
-            },
-            loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
-          },
-        ],
-      },
-      {
-        path: errorPath,
-        pathMatch: 'full',
-        loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.module').then((m) => m.Error404Module),
-      },
-    ],
-  },
-];
-
 export const appResourceRoutes: Route[] = [
   {
     path: '',
@@ -155,7 +113,7 @@ export const appResourceRoutes: Route[] = [
         loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
       },
       {
-        path: 'resource/:id',
+        path: 'resource/update',
         canActivate: [AuthGuard],
         data: {
           title: 'APP.ROUTES.ADMIN.RESOURCE_PROFILE.TITLE',
@@ -174,37 +132,52 @@ export const appResourceRoutes: Route[] = [
         },
         component: ResourceScheduleComponent,
       },
+    ],
+  },
+];
+
+export const appResourceSettingsRoutes: Route[] = [
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: InitialDataResolver,
+      userData: NewUserInfosResolver,
+    },
+    children: [
       {
-        path: 'settings',
+        path: '',
+        redirectTo: 'resource',
+        pathMatch: 'full',
+        data: {
+          title: 'Back',
+          type: FuseNavigationItemTypeEnum.basic,
+          icon: 'heroicons_outline:arrow-circle-left',
+          action: 'resources',
+        },
+      },
+      {
+        path: 'settings-general',
         canActivate: [AuthGuard],
         data: {
-          title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE',
-          type: FuseNavigationItemTypeEnum.collapsable,
-          icon: 'heroicons_outline:adjustments',
+          title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.GENERAL',
+          type: FuseNavigationItemTypeEnum.basic,
+          icon: 'heroicons_outline:users',
         },
-        component: ResourceSettingsComponent,
-        children: [
-          {
-            path: 'tag',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.RESOURCE_TAGS.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:hashtag',
-            },
-            component: ResourceSettingTagComponent,
-          },
-          {
-            path: 'rules',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.RESOURCE_RULES.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:exclamation',
-            },
-            component: ResurceSettingRuleComponent,
-          },
-        ],
+        loadChildren: () =>
+          import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
+      },
+      {
+        path: 'settings-reservation',
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.RESERVATION',
+          type: FuseNavigationItemTypeEnum.basic,
+          icon: 'heroicons_outline:users',
+        },
+        loadChildren: () =>
+          import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then((m) => m.SettingsReservationModule),
       },
     ],
   },

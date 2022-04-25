@@ -16,7 +16,7 @@ import { FuseAlertModule } from '@fuse/components/alert';
 import { LayoutModule } from 'app/layout/layout.module';
 import { NewUserInfosModule } from './layout/new-user-infos/new-user-infos.module';
 import { appConfig } from 'app/core/config/app.config';
-import { appResourceRoutes, appResourcesRoutes, appRoutes } from 'app/app.routing';
+import { appResourceRoutes, appRoutes } from 'app/app.routing';
 import { environment } from 'environments/environment';
 import { initializeKeycloak } from './core/auth/keycloak/app.init';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -37,7 +37,7 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot([...appRoutes, ...appResourcesRoutes, ...appResourceRoutes], routerConfig),
+    RouterModule.forRoot([...appRoutes, ...appResourceRoutes], routerConfig),
 
     // Fuse, FuseConfig & FuseMockAPI
     FuseModule,

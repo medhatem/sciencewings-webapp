@@ -1,13 +1,10 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
-import { Subject, Subscription, takeUntil } from 'rxjs';
-
-import { FuseConfirmationService } from '@fuse/services/confirmation';
+import { FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ResourceService } from '../../../resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'app/data.service';
 
 export interface ResourceType {
@@ -105,11 +102,12 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    this._resourceService.getResource(resourceId).subscribe(({ statusCode, body, errorMessage }) => {
-      if (statusCode === 500) {
-        this._toastrService.showError(errorMessage, 'Something went wrong!');
+    this._resourceService.getResource(resourceId).subscribe(({ body }) => {
+      if (body.statusCode === 500) {
+        this._toastrService.showError('Something went wrong!');
       }
-      this.selectedResource = body;
+
+      this.selectedResource = body.data[0];
     });
   }
 
@@ -123,7 +121,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  showResourceProfile(id) {
-    this.data.changeMessage({ resource: id });
+  showResourceProfile(resourceID) {
+    this.data.changeMessage({ resourceID });
   }
 }

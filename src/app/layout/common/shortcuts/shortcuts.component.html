@@ -76,7 +76,7 @@
 
               <div
                 class="flex flex-col items-center justify-center w-full h-full py-6 no-underline"
-                (click)="messageEvent.emit('resources')(shortcut.link)">
+                (click)="messageEvent.emit(shortcut.link)">
                 <ng-container *ngTemplateOutlet="linkContent"></ng-container>
               </div>
               <!-- Link content template -->

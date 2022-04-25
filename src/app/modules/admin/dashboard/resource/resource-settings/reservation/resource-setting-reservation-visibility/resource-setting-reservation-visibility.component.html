@@ -13,7 +13,7 @@
           <mat-select [formControlName]="'reservationDetailsVisibilityToNonModerators'">
             <mat-option [value]="'timeslotNDuser'">Reservation Timeslot and User Only</mat-option>
             <mat-option [value]="'timeslot'">Reservation Timeslot Only</mat-option>
-            <mat-option [value]="'all'">{{All Reservation Details}}</mat-option>
+            <mat-option [value]="'all'">{{'All Reservation Details'| transloco}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

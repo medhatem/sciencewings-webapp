@@ -77,7 +77,9 @@ export class ResourceService {
   }
 
   // reservation
-
+  getResourceSettingsReservationRate(resourceId: number): Observable<any> {
+    return this.swaggerAPI.resourceRoutesGetResourceRate({ resourceId });
+  }
   createResourceSettingsReservationRate(resourceId: number, body: ResourceRateRo): Observable<any> {
     return this.swaggerAPI.resourceRoutesCreateResourceRate({ resourceId, body });
   }
