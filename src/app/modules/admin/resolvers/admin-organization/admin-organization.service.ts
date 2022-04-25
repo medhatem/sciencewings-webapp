@@ -15,6 +15,6 @@ export class AdminOrganizationsService {
   }
 
   async createOrganization(organization: Organization): Promise<boolean> {
-    return lastValueFrom(this._swaggerService.organizationRoutesCreateOrganization({body:organization as any})).then(() => true);
+    return lastValueFrom(this._swaggerService.organizationRoutesCreateOrganization$Json({body:organization as any})).then(() => true);
   }
 }

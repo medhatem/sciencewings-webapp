@@ -98,7 +98,7 @@ export class ResourceScheduleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._resourceService.getOrgResource().subscribe(({ statusCode, body, errorMessage }) => {
+    this._resourceService.getOrgResource(1).subscribe(({ statusCode, body, errorMessage }) => {
       if (statusCode === 500) {
         this._toastrService.showError(errorMessage, 'Something went wrong!');
       }
