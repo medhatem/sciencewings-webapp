@@ -44,14 +44,16 @@ export class ResourceService {
   getOrgMembers(id: number): Observable<any> {
     return this.swaggerAPI.organizationRoutesGetUsers({ id });
   }
-  getOrgResource(id: number): Observable<any> {
-    return this.swaggerAPI.organizationRoutesGetOgranizationResources({ organizationId: 1 });
+  getOrgResource(organizationId: number): Observable<any> {
+      console.log({organizationId});
+
+    return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId });
   }
   createResource(body: ResourceRo): Observable<any> {
-    return this.swaggerAPI.organizationRoutesCreateResource({ body });
+    return this.swaggerAPI.resourceRoutesCreateResource({ body });
   }
   updateResource(id: number, body: ResourceRo): Observable<any> {
-    return this.swaggerAPI.organizationRoutesUpdateResource({ id, body });
+    return this.swaggerAPI.resourceRoutesUpdateResource({ id, body });
   }
   getResource(id: number): Observable<any> {
     return this.swaggerAPI.resourceRoutesGetById({ id });
@@ -60,38 +62,40 @@ export class ResourceService {
     return this.swaggerAPI.resourceRoutesRemove({ id });
   }
   // resource settings
-  getResourceSettings(id: number): Observable<any> {
-    return this.swaggerAPI.organizationRoutesGetResourceSettings({ id });
+  getResourceSettings(resourceId: number): Observable<any> {
+    return this.swaggerAPI.resourceRoutesGetResourceSettings({ resourceId });
   }
   // general
-  updateResourceSettingsGeneralStatus(id: number, body: ResourceSettingsGeneralStatusRo): Observable<any> {
-    return this.swaggerAPI.organizationRoutesUpdateResourcesSettingsGeneralStatus({ id, body });
+  updateResourceSettingsGeneralStatus(resourceId: number, body: ResourceSettingsGeneralStatusRo): Observable<any> {
+    return this.swaggerAPI.resourceRoutesUpdateResourcesSettingsGeneralStatus({ resourceId, body });
   }
-  updateResourceSettingsGeneralVisibility(id: number, body: ResourceSettingsGeneralVisibilityRo): Observable<any> {
-    return this.swaggerAPI.organizationRoutesUpdateResourcesSettingsGeneralVisibility({ id, body });
+  updateResourceSettingsGeneralVisibility(resourceId: number, body: ResourceSettingsGeneralVisibilityRo): Observable<any> {
+    return this.swaggerAPI.resourceRoutesUpdateResourcesSettingsGeneralVisibility({ resourceId, body });
   }
-  updateResourceSettingsGeneralProperties(id: number, body: ResourceSettingsGeneralPropertiesRo): Observable<any> {
-    return this.swaggerAPI.organizationRoutesUpdateResourcesSettingsnGeneralProperties({ id, body });
+  updateResourceSettingsGeneralProperties(resourceId: number, body: ResourceSettingsGeneralPropertiesRo): Observable<any> {
+    return this.swaggerAPI.resourceRoutesUpdateResourcesSettingsnGeneralProperties({ resourceId, body });
   }
 
   // reservation
-
-  createResourceSettingsReservationRate(id: number, body: ResourceRateRo): Observable<any> {
-    return this.swaggerAPI.organizationRoutesCreateResourceRate({ id, body });
+  getResourceSettingsReservationRate(resourceId: number): Observable<any> {
+    return this.swaggerAPI.resourceRoutesGetResourceRate({ resourceId });
   }
-  updateResourceSettingsReservationRate(id: number, body: ResourceRateRo): Observable<any> {
-    return this.swaggerAPI.organizationRoutesUpdateResourceRate({ id, body });
+  createResourceSettingsReservationRate(resourceId: number, body: ResourceRateRo): Observable<any> {
+    return this.swaggerAPI.resourceRoutesCreateResourceRate({ resourceId, body });
   }
-  updateResourcesSettingsReservationGeneral(id: number, body: ResourcesSettingsReservationGeneralRo): Observable<any> {
-    return this.swaggerAPI.organizationRoutesUpdateResourcesSettingsReservationGeneral({ id, body });
+  updateResourceSettingsReservationRate(resourceRateId: number, body: ResourceRateRo): Observable<any> {
+    return this.swaggerAPI.resourceRoutesUpdateResourceRate({ resourceRateId, body });
   }
-  updateResourceSettingsReservationUnit(id: number, body: ResourcesSettingsReservationUnitRo): Observable<any> {
-    return this.swaggerAPI.organizationRoutesUpdateResourcesSettingsReservationUnit({ id, body });
+  updateResourcesSettingsReservationGeneral(resourceId: number, body: ResourcesSettingsReservationGeneralRo): Observable<any> {
+    return this.swaggerAPI.resourceRoutesUpdateResourcesSettingsReservationGeneral({ resourceId, body });
   }
-  updateResourceSettingsReservationTimeRestriction(id: number, body: ResourceTimerRestrictionRo): Observable<any> {
-    return this.swaggerAPI.organizationRoutesUpdateResourceTimerRestriction({ id, body });
+  updateResourceSettingsReservationUnit(resourceId: number, body: ResourcesSettingsReservationUnitRo): Observable<any> {
+    return this.swaggerAPI.resourceRoutesUpdateResourcesSettingsReservationUnit({ resourceId, body });
   }
-  updateResourceSettingsReservationVisibility(id: number, body: ResourceReservationVisibilityRo): Observable<any> {
-    return this.swaggerAPI.organizationRoutesUpdateResourceRestrictionVisibility({ id, body });
+  updateResourceSettingsReservationTimeRestriction(resourceId: number, body: ResourceTimerRestrictionRo): Observable<any> {
+    return this.swaggerAPI.resourceRoutesUpdateResourceTimerRestriction({ resourceId, body });
+  }
+  updateResourceSettingsReservationVisibility(resourceId: number, body: ResourceReservationVisibilityRo): Observable<any> {
+    return this.swaggerAPI.resourceRoutesUpdateResourceRestrictionVisibility({ resourceId, body });
   }
 }

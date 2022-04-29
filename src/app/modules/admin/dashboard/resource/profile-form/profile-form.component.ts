@@ -52,10 +52,12 @@ export class ResourceProfileFormComponent implements OnInit {
     this.form = this._formBuilder.group({
       name: '',
       description: '',
+      resourceType: 'equipement',
+      resourceClass: 'reservable',
       timezone: '',
     });
 
-    this._resourceService.getOrgMembers().subscribe(({ body, error }) => {
+    this._resourceService.getOrgMembers(1).subscribe(({ body, error }) => {
       if (error?.statusCode === 500) {
         this._toastrService.showError(error.errorMessage, 'Something went wrong!');
       }
@@ -66,22 +68,20 @@ export class ResourceProfileFormComponent implements OnInit {
       );
     });
 
-    if (this.params.id !== 'create') {
-      this._resourceService.getResource(this.params.id).subscribe(({ statusCode, body, errorMessage }) => {
-        if (statusCode === 500) {
-          this._toastrService.showError(errorMessage, 'Something went wrong!');
-        }
-        this.form.setValue({
-          name: body.name,
-          description: body.description,
-          timezone: body.timezone,
-        });
-        this.resource = body.resources;
-        this.tags = body.tags.map((tag) => tag.title);
-        this.filteredTags = this.tags;
-        this.managers = body.managers;
+    this._resourceService.getResource(this.params.id).subscribe(({ statusCode, body, errorMessage }) => {
+      if (statusCode === 500) {
+        this._toastrService.showError(errorMessage, 'Something went wrong!');
+      }
+      this.form.setValue({
+        name: body.name,
+        description: body.description,
+        timezone: body.timezone,
       });
-    }
+      this.resource = body.resources;
+      this.tags = body.tags.map((tag) => tag.title);
+      this.filteredTags = this.tags;
+      this.managers = body.managers;
+    });
   }
 
   async onSubmit() {
@@ -93,6 +93,7 @@ export class ResourceProfileFormComponent implements OnInit {
       organization: 1,
       user: 1,
       resourceType: 'USER',
+      resourceClass: 'USER',
       tags: this.tags.map((tag) => ({ title: tag })),
       managers: this.managers.map((manager) => ({
         organization: manager.organization,

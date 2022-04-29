@@ -13,7 +13,12 @@ export class ResourceSettingReservationVisibilityComponent implements OnInit {
   @Input() settings: any;
   @Output() updateLocalSettings = new EventEmitter<string>();
   form: FormGroup;
-  constructor(private _formBuilder: FormBuilder, private _resourceService: ResourceService, private _toastrService: ToastrService, private _coookies: CookieService) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _resourceService: ResourceService,
+    private _toastrService: ToastrService,
+    private _coookies: CookieService,
+  ) {}
   ngOnInit(): void {
     this.form = this._formBuilder.group({
       reservationDetailsVisibilityToNonModerators: 'all',
@@ -28,7 +33,7 @@ export class ResourceSettingReservationVisibilityComponent implements OnInit {
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
     this._resourceService.updateResourceSettingsReservationVisibility(selectedResourceId, this.form.value).subscribe(({ body }) => {
       if (body.statusCode === 204) {
-         this.updateLocalSettings.emit(this.form.value);
+        this.updateLocalSettings.emit(this.form.value);
         this._toastrService.showSuccess('Updated Successfully');
       } else {
         this._toastrService.showError('Something went wrong!');

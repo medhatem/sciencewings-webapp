@@ -9,7 +9,7 @@ import {
   FuseVerticalNavigationComponent,
 } from '@fuse/components/navigation';
 import { User } from 'app/core/user/user.types';
-import { appRoutes, appResourcesRoutes, errorPath, appResourceRoutes } from 'app/app.routing';
+import { appRoutes, errorPath, appResourceRoutes, appResourceSettingsRoutes } from 'app/app.routing';
 import { CookieService } from 'ngx-cookie-service';
 import { DataService } from 'app/data.service';
 
@@ -65,11 +65,13 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
 
     // resource profile
     this.subscription = this.data.currentMessage.subscribe((message) => {
-      this._coookies.set('url', 'resource');
-      this._coookies.set('resourceID', message.resource.id);
-      const { children: dashboardsResourceRoutesChildren = [] } = appResourceRoutes.find(({ path }) => path === '');
-      this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourceRoutesChildren, '/');
-      this._router.resetConfig(appResourceRoutes);
+      if (message.resourceID) {
+        this._coookies.set('url', 'resource');
+        this._coookies.set('resourceID', message.resourceID);
+        const { children: dashboardsResourceRoutesChildren = [] } = appResourceSettingsRoutes.find(({ path }) => path === '');
+        this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourceRoutesChildren, '/');
+        this._router.resetConfig(appResourceSettingsRoutes);
+      }
     });
     this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
       this.isScreenSmall = !matchingAliases.includes('md');
@@ -122,7 +124,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
           this.navigation = this.getNavigationItemsFromRoutes(appRoutes[0].children, '/');
           break;
         case 'resources':
-          this.navigation = this.getNavigationItemsFromRoutes(appResourcesRoutes[0].children, '/');
+          this.navigation = this.getNavigationItemsFromRoutes(appResourceRoutes[0].children, '/');
           break;
       }
     }
@@ -132,7 +134,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     switch ($event) {
       case 'resources':
         this._coookies.set('url', 'resources');
-        this._router.resetConfig(appResourcesRoutes);
+        this._router.resetConfig(appResourceRoutes);
         break;
       case 'dashboard':
         this._coookies.set('url', 'dashboard');
@@ -163,7 +165,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    */
   private getNavigationItemsFromRoutes(routes: Route[], parentPath: string = ''): FuseNavigationItem[] {
     return routes.reduce((acc, { path = '', data, children = [] }) => {
-      const { title = path, type = FuseNavigationItemTypeEnum.basic, icon } = data || {};
+      const { title = path, type = FuseNavigationItemTypeEnum.basic, icon, action } = data || {};
       if (path === errorPath) {
         return acc;
       }
@@ -175,6 +177,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       }
       if (icon) {
         navigationItem.icon = icon;
+      }
+      if (action && action === 'resources') {
+        this._coookies.set('url', 'resources');
+        this._router.resetConfig(appResourceRoutes);
       }
       acc.push(navigationItem);
       return acc;
