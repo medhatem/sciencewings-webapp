@@ -14,7 +14,7 @@ export class Organization implements CreateOrganizationRo {
   labels: string[];
   members: number[];
   name: string;
-  parentId?: string;
+  parentId?: number;
   phones: Phone[];
   socialFacebook?: string;
   socialGithub?: string;
