@@ -18,6 +18,7 @@
         "ADD_ADDRESS": "Ajouter une addresse"
       },
       "PHONE": {
+        "PHONE_NUMBER": "Numéro de téléphone",
         "PHONE_NUMBERS": "Numéros de téléphone"
       }
     },
@@ -145,7 +146,7 @@
         "TITLE": "Informations générales",
         "SUB_TITLE": "Remplissez vos informations de base pour votre organization",
         "SUB_ORGANIZATION": "Définir comme sous-organisation",
-        "CHOOSE_SUB_ORGANIZATION": "Choisissez l'organisation mère",
+        "CHOOSE_SUB_ORGANIZATION": "Choisissez l'organisation mère si c'est applicable",
         "TIMEZONE": "Fuseau horaire",
         "DEALING_TYPE": {
           "TITLE": "Internal/External Organization",
@@ -153,10 +154,13 @@
           "SERVICE": "Service",
           "INSTITUT": "Institut"
         },
-        "NAME": "nom de l'organisation",
+        "NAME": "Nom de l'organisation",
         "EMAIL": "Adresse e-mail",
         "TYPE": "Choisissez le type d'organisation",
         "PHONE": "Numéro de téléphone",
+        "PHONE_CODE": "Code de téléphone",
+        "PHONE_NUMBER": "Numéro de téléphone",
+        "PHONE_LABEL": "Libler de téléphone",
         "LABELS": "Étiquettes",
         "DESCRIPTION": "À propos (description)"
       },

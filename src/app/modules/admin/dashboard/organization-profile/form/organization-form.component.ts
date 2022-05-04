@@ -22,7 +22,7 @@ import moment from 'moment-timezone';
 export class OrganizationFormComponent implements OnInit {
   @ViewChild(MatStepper) horizontalStepper: MatStepper;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  stepperForm: FormGroup;
+  form: FormGroup;
   oragnization = new Organization();
   isSubOrganization = false;
   organizationLabels: IMatChipLabel[] = [];
@@ -41,7 +41,7 @@ export class OrganizationFormComponent implements OnInit {
 
   ngOnInit(): void {
     const { parentId = null } = this._route.snapshot.data;
-    this.stepperForm = this._formBuilder.group({
+    this.form = this._formBuilder.group({
       step1: this._formBuilder.group({
         type: [''],
         // isSubOrganization: [this.isSubOrganization],
@@ -57,8 +57,6 @@ export class OrganizationFormComponent implements OnInit {
         phoneCode: [''],
         phoneLabel: [''],
         labels: [this.organizationLabels],
-      }),
-      step2: this._formBuilder.group({
         apartment: [''],
         city: [''],
         code: [''],
@@ -86,7 +84,7 @@ export class OrganizationFormComponent implements OnInit {
   }
 
   onDoneAndCreateNew() {
-    if (this.stepperForm.valid) {
+    if (this.form.valid) {
       this.createOrganization();
       this.horizontalStepper.reset();
     } else {
@@ -117,7 +115,7 @@ export class OrganizationFormComponent implements OnInit {
 
   private async createOrganization(): Promise<boolean> {
     this.setOrganizationInfo();
-    if (this.stepperForm.valid) {
+    if (this.form.valid) {
       try {
         const result = await this._adminOrganizationsService.createOrganization(this.oragnization);
         this._toastrService.showSuccess(constants.CREATE_ORGANIZATION_COMPLETED);
@@ -130,7 +128,7 @@ export class OrganizationFormComponent implements OnInit {
   }
 
   private setOrganizationInfo() {
-    const { step1, step2, step3 } = this.stepperForm.getRawValue();
+    const { step1, step2, step3 } = this.form.getRawValue();
 
     const phones = [new Phone({ ...step1 })];
     const address = new Address({ type: AddressType.organization, ...step2 });
