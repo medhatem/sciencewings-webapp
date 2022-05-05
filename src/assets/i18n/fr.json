@@ -195,6 +195,25 @@
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
+    },
+    "SETTINGS": {
+      "RESERVATIONS": {
+        "ReservationOptions": "Options de réservation",
+        "GeneralReservationOptions": "Options générales de réservation",
+        "ApproversCanEditReservations": "Les approbateurs peuvent modifier les réservations",
+        "RequireAReasonWhenEditingAReservation": "Exiger un motif lors de la modification d'une réservation",
+        "HideOrganisationCalendar": "Masquer le calendrier de l'organisation",
+        "HideAccountNumberWhenMakingReservation": "Masquer le numéro de compte lors de la réservation",
+        "ShowResourceImagesInReservation": "Afficher les images de ressources dans la réservation",
+        "ReservationEmails": "E-mails de réservation",
+        "ConfirmationEmailWhenMakingReservation": "E-mail de confirmation lors de la réservation",
+        "AttachedICSCalendarFeeds": "Flux de calendrier ICS joints",
+        "EmailAddressToReciveReservationReplayMessages": "Adresse e-mail pour recevoir les messages de relecture de réservation",
+        "Cancel": "Annuler",
+        "Update": "Modifier",
+        "HideCalanderForEveryone": "Masquer le calendrier pour tout le monde",
+        "Utilisateur HideCalenderForMemberOnly": "Masquer le calendrier pour les membres uniquement"
+      }
     }
   }
 }
