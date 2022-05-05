@@ -102,17 +102,16 @@ export const appRoutes: Route[] = [
         loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.module').then((m) => m.Error404Module),
       },
     ],
-  },
-];
-
-export const appResourceRoutes: Route[] = [
-  {
+  }, {
     path: '',
     canActivate: [AuthGuard],
     component: LayoutComponent,
     resolve: {
       initialData: InitialDataResolver,
       userData: NewUserInfosResolver,
+    },
+    data: {
+      moduleSelected: true,
     },
     children: [
       {
@@ -147,9 +146,6 @@ export const appResourceRoutes: Route[] = [
       },
     ],
   },
-];
-
-export const appResourceSettingsRoutes: Route[] = [
   {
     path: '',
     canActivate: [AuthGuard],
@@ -195,3 +191,7 @@ export const appResourceSettingsRoutes: Route[] = [
     ],
   },
 ];
+
+export const appResourceRoutes: Route[] = [];
+
+export const appResourceSettingsRoutes: Route[] = [];

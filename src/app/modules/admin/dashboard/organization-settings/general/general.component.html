@@ -3,48 +3,64 @@
   <form [formGroup]="form">
     <!-- Section -->
     <div class="w-full">
-      <div class="text-xl">{{ 'General Informations' | transloco }}</div>
+      <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.GENERAL.GENERAL_INFORMATION' | transloco }}</div>
     </div>
 
     <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
-      <div class="sm:col-span-6">
+      <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
-          <mat-label>{{ 'Name' | transloco }}</mat-label>
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.NAME' | transloco }}</mat-label>
           <input matInput formControlName="name" />
         </mat-form-field>
       </div>
-      <div class="sm:col-span-6">
+      <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
-          <mat-label>{{ 'Email' | transloco }}</mat-label>
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.EMAIL' | transloco }}</mat-label>
           <input matInput formControlName="email" />
         </mat-form-field>
       </div>
-      <div class="sm:col-span-6 grid grid-cols-12 gap-4">
-        <div class="sm:col-span-4">
-          <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>{{ 'Phone Code' | transloco }}</mat-label>
-            <input matInput formControlName="phoneCode" />
-          </mat-form-field>
-        </div>
-        <div class="sm:col-span-4">
-          <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>{{ 'Phone Number' | transloco }}</mat-label>
-            <input matInput formControlName="phoneNumber" />
-          </mat-form-field>
-        </div>
-        <div class="sm:col-span-4">
-          <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>{{ 'Phone Label' | transloco }}</mat-label>
-            <input matInput formControlName="PhoneLabel" />
-          </mat-form-field>
-        </div>
+
+      <div class="relative flex sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript flex-auto">
+          <input matInput formControlName="phoneNumber" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.PHONE'|transloco" />
+          <mat-select class="mr-1.5" formControlName="phoneCode" matPrefix>
+            <mat-select-trigger>
+              <span class="flex items-center">
+                <span
+                  class="hidden sm:flex w-6 h-4 mr-1 overflow-hidden"
+                  [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
+                  [style.backgroundSize]="'24px 3876px'"
+                  [style.backgroundPosition]="getCountryByIso().flagImagePos"></span>
+                <span class="sm:mx-0.5 font-medium text-default">{{ getCountryByIso().code }}</span>
+              </span>
+            </mat-select-trigger>
+            <ng-container *ngFor="let country of countries; trackBy: trackByFn">
+              <mat-option [value]="country.iso">
+                <span class="flex items-center">
+                  <span
+                    class="w-6 h-4 overflow-hidden"
+                    [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
+                    [style.backgroundSize]="'24px 3876px'"
+                    [style.backgroundPosition]="country.flagImagePos"></span>
+                  <span class="ml-2">{{ country.name }}</span>
+                  <span class="ml-2 font-medium">{{ country.code }}</span>
+                </span>
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="fuse-mat-no-subscript flex-auto w-full max-w-24 sm:max-w-40 ml-2 sm:ml-4">
+          <!-- Label -->
+          <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:tag'"></mat-icon>
+          <input matInput formControlName="phoneLabel" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.LABEL'|transloco" />
+        </mat-form-field>
       </div>
 
-      <div class="sm:col-span-6">
-        <mat-form-field class="w-100">
-          <mat-label>{{ 'Type' | transloco }}</mat-label>
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.TYPE' | transloco }}</mat-label>
           <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}" required>
             <mat-option value="Public">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}</mat-option>
             <mat-option value="Service">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.SERVICE' | transloco }}</mat-option>
@@ -52,10 +68,10 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="sm:col-span-6">
-        <mat-form-field class="w-100">
-          <mat-label>{{ 'Direction' | transloco }}</mat-label>
-          <mat-select [formControlName]="'direction'" placeholder="{{ 'Direction' | transloco }}" required>
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.DIRECTION' | transloco }}</mat-label>
+          <mat-select [formControlName]="'direction'" placeholder="{{ 'ORGANIZATION.SETTINGS.GENERAL.DIRECTION' | transloco }}" required>
             <mat-option value="1">User 1</mat-option>
             <mat-option value="2">User 2</mat-option>
             <mat-option value="3">User 3</mat-option>
@@ -63,9 +79,9 @@
         </mat-form-field>
       </div>
 
-      <div class="sm:col-span-6">
+      <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'Note' | transloco }}</mat-label>
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.NOTE' | transloco }}</mat-label>
           <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:view-list'"></mat-icon>
           <textarea matInput formControlName="note"></textarea>
         </mat-form-field>
@@ -77,9 +93,9 @@
 
     <!-- Actions -->
     <div class="flex items-center justify-end">
-      <button mat-stroked-button type="button">{{ 'Cancel' | transloco }}</button>
+      <button mat-stroked-button type="button">{{ 'APP.BTN.CANCEL' | transloco }}</button>
       <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
-        {{ 'Update' | transloco }}
+        {{ 'ORGANIZATION.SETTINGS.GENERAL.UPDATE' | transloco }}
       </button>
     </div>
   </form>

@@ -124,7 +124,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
           this.navigation = this.getNavigationItemsFromRoutes(appRoutes[0].children, '/');
           break;
         case 'resources':
-          this.navigation = this.getNavigationItemsFromRoutes(appResourceRoutes[0].children, '/');
+          this.navigation = this.getNavigationItemsFromRoutes(appRoutes[1].children, '/');
           break;
       }
     }
@@ -134,17 +134,17 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     switch ($event) {
       case 'resources':
         this._coookies.set('url', 'resources');
-        this._router.resetConfig(appResourceRoutes);
+        // this._router.resetConfig(appRoutes);
         break;
       case 'dashboard':
         this._coookies.set('url', 'dashboard');
-        this._router.resetConfig(appRoutes);
+        // this._router.resetConfig(appRoutes);
         break;
       default:
         this._coookies.set('url', '');
-        this._router.resetConfig(appRoutes);
         break;
     }
+    this._router.resetConfig(appRoutes);
     this.resetNavigation(false);
   }
 
@@ -165,10 +165,11 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    */
   private getNavigationItemsFromRoutes(routes: Route[], parentPath: string = ''): FuseNavigationItem[] {
     return routes.reduce((acc, { path = '', data, children = [] }) => {
-      const { title = path, type = FuseNavigationItemTypeEnum.basic, icon, action } = data || {};
-      if (path === errorPath) {
+      const { title = path, type = FuseNavigationItemTypeEnum.basic, icon, action, moduleSelected } = data || {};
+      if (path === errorPath || !moduleSelected) {
         return acc;
       }
+
       const id = `${parentPath}.${path}`.replace('/', '');
       const link = `${parentPath ? `${parentPath}` : ''}/${path}`;
       const navigationItem = { id, title, type, link } as FuseNavigationItem;
@@ -182,6 +183,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
         this._coookies.set('url', 'resources');
         this._router.resetConfig(appResourceRoutes);
       }
+
       acc.push(navigationItem);
       return acc;
     }, []);
