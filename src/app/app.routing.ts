@@ -42,6 +42,19 @@ export const appRoutes: Route[] = [
               import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
           },
           {
+            path: 'organization-settings',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:office-building',
+            },
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-settings/organization-settings.module').then(
+                (m) => m.OrganizationSettingsModule,
+              ),
+          },
+          {
             path: userProfilePath,
             canActivate: [AuthGuard],
             data: {
