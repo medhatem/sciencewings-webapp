@@ -52,7 +52,7 @@
           "error",
           {
             "ignorePattern": "^import |^export | implements",
-            "code": 144
+            "code": 168
           }
         ],
         "no-underscore-dangle": "off",
