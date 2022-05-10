@@ -195,6 +195,20 @@
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
+    },
+    "SETTINGS": {
+      "ACCESS": {
+        "TITLE": "Paramètres d'accès",
+        "OPTION_1": "Tous les membres peuvent rejoindre votre organisation et accéder aux plannings des ressources.",
+        "OPTION_2": "Le membre doit accéder par code d'adhésion",
+        "OPTION_3": "Rejoindre le code",
+        "OPTION_4": "Votre organisation n'apparaîtra jamais dans les résultats de recherche",
+        "OPTION_5": "Notifier les administrateurs lorsque des membres rejoignent l'organisation",
+        "OPTION_6": "Répertorier les ressources aux non-membres",
+        "OPTION_7": "Message envoyé aux nouveaux membres",
+        "Cancel": "Annuler",
+        "Update": "Modifier"
+      }
     }
   }
 }
