@@ -195,6 +195,19 @@
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"
+    },
+    "SETTINGS": {
+      "MEMBERS": {
+        "TITLE": "Member Account Options",
+        "SECTION_1_TITLE": "Member Acount Number",
+        "OPTION_1_1": "Members can edit account numbers",
+        "OPTION_1_2": "Prompt for accouant numbers",
+        "OPTION_1_3": "Acount Number Note",
+        "SECTION_2_TITLE": "Member list visibility",
+        "OPTION_2_1": "Allow Members to See All Other Members",
+        "Cancel": "Cancel",
+        "Update": "Update"
+      }
     }
   }
 }

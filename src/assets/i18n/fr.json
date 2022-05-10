@@ -195,6 +195,19 @@
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
+    },
+    "SETTINGS": {
+      "MEMBERS": {
+        "TITLE": "Options de compte de membre",
+        "SECTION_1_TITLE": "Numéro de compte membre",
+        "OPTION_1_1": "Les membres peuvent modifier les numéros de compte",
+        "OPTION_1_2": "Inviter les numéros de compte",
+        "OPTION_1_3": "Remarque sur le numéro de compte",
+        "SECTION_2_TITLE": "Visibilité de la liste des membres",
+        "OPTION_2_1": "Autoriser les membres à voir tous les autres membres",
+        "Cancel": "Annuler",
+        "Update": "Modifier"
+      }
     }
   }
 }
