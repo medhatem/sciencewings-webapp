@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NewUserInfosResolver } from './new-user-infos.resolver';
-import { User } from 'app/models/user';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import * as _moment from 'moment';
@@ -22,19 +21,24 @@ export class NewUserInfosComponent implements OnInit {
   user: any;
   countries: any;
   form: FormGroup;
+  selectedCountry: any = {
+    id: '4c8ba1fc-0203-4a8f-8321-4dda4a0c6732',
+    iso: 'fr',
+    name: 'France',
+    code: '+33',
+    flagImagePos: '-1px -324px',
+  };
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
     private _newUserInfosResolver: NewUserInfosResolver,
     private _formBuilder: FormBuilder,
     private _toastr: ToastrService,
-    private _http: HttpClient,
-    private _contactsService: ContactsService,
-    private _changeDetectorRef: ChangeDetectorRef,
+    private _contactsService: ContactsService, // private _changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   async ngOnInit() {
-    this._prepareCountries();
+    // this._prepareCountries();
 
     try {
       this.user = await this._newUserInfosResolver.loadUserProfileKeycloak();
@@ -48,17 +52,15 @@ export class NewUserInfosComponent implements OnInit {
       email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
       dateofbirth: new FormControl(moment()),
       keycloakId: localStorage.getItem(constants.KEYCLOAK_USER_ID),
-      phoneNumber: [''],
-      phoneCode: ['fr'],
-      phoneLabel: [''],
-      addresses: this._formBuilder.array([]),
+      phoneNumber: ['', [Validators.required]],
+      phoneCode: ['fr', [Validators.required]],
+      phoneLabel: ['', [Validators.required]],
       street: ['', Validators.required],
       apartment: [''],
       province: ['', Validators.required],
       city: ['', Validators.required],
       code: ['', Validators.required],
       country: [constants.NEW_USER.DEFAULT_COUNTRY, Validators.required],
-      type: constants.NEW_USER.DEFAULT_TYPE,
     });
 
     // Get the country telephone codes
@@ -66,12 +68,41 @@ export class NewUserInfosComponent implements OnInit {
       this.countries = countriesData;
 
       // Mark for check
-      this._changeDetectorRef.markForCheck();
+      //   this._changeDetectorRef.markForCheck();
     });
   }
 
   async emitOnFormComplete() {
-    const formUser: User = { ...this.form.value };
+    const formUser = { ...this.form.value };
+    delete formUser.phoneNumber;
+    delete formUser.phoneCode;
+    delete formUser.phoneLabel;
+    formUser.phones = [
+      {
+        phoneNumber: formUser.phoneNumber,
+        phoneCode: formUser.phoneCode,
+        phoneLabel: formUser.phoneLabel,
+      },
+    ];
+
+    delete formUser.street;
+    delete formUser.apartment;
+    delete formUser.province;
+    delete formUser.city;
+    delete formUser.code;
+    delete formUser.country;
+    formUser.addresses = [
+      {
+        street: formUser.street,
+        apartment: formUser.apartment,
+        province: formUser.province,
+        city: formUser.city,
+        code: formUser.code,
+        country: formUser.country,
+      },
+    ];
+    console.log({ formUser });
+
     const userRo = {
       ...formUser,
       email: this.user.email,
@@ -91,31 +122,8 @@ export class NewUserInfosComponent implements OnInit {
     return date < new Date();
   }
 
-  /**
-   * Gets a country (by name) from the list of countries provided in the mock api
-   */
-
-  getCountryByName(name: string) {
-    if (this.countries) {
-      return this.countries.find((country) => country.name === name);
-    }
-  }
-
-  /**
-   * Gets a country (by code) from the list of countries provided in the mock api
-   */
-
-  getCountryByCode(code: string) {
-    if (this.countries) {
-      return this.countries.find((country) => country.code === code);
-    }
-  }
-
-  onSubmit() {}
-
-  getCountryByIso(): any {
-    console.log({ form: this.form.value.phoneCode });
-    return this.countries.find((country) => country.iso === this.form.value.phoneCode);
+  onSelectedCountryCodeChange($event): any {
+    this.selectedCountry = this.countries.find((country) => country.iso === $event);
   }
 
   trackByFn(index: number, item: any): any {
@@ -126,8 +134,8 @@ export class NewUserInfosComponent implements OnInit {
    * Fills the country array from the list of countries provided in the mock api
    */
 
-  private _prepareCountries() {
-    // TODO: retrieve countries from the backend instead of mock api
-    this._http.get('api/apps/contacts/countries').subscribe((countries) => (this.countries = countries));
-  }
+  //   private _prepareCountries() {
+  //     // TODO: retrieve countries from the backend instead of mock api
+  //     this._http.get('api/apps/contacts/countries').subscribe((countries) => (this.countries = countries));
+  //   }
 }
