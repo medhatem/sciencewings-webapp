@@ -2,278 +2,131 @@
 <div *ngIf="user" class="inset-0 pt-8 flex flex-col min-w-0 overflow-y-auto" cdkScrollable>
   <div class="flex flex-auto mt-2">
     <div class="flex flex-col flex-auto w-full max-w-lg sm:max-w-7xl mx-auto">
-      <form class="p-4 mt-2 bg-card shadow rounded overflow-hidden" [formGroup]="stepperForm">
-        <mat-horizontal-stepper [linear]="true" labelPosition="bottom" #horizontalStepper>
-          <mat-step [formGroupName]="'step1'" [stepControl]="stepperForm.get('step1')" #horizontalStepperStep1>
-            <ng-template matStepLabel>{{ 'APP.ROUTES.USER.NEW_USER_FORM.STEP_1.TITLE' | transloco }}</ng-template>
-            <p class="my-6 font-medium"></p>
-            <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
-              <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
-                <input matInput [formControlName]="'firstname'" [placeholder]="'Nom de l organization'" required />
-                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
-              </mat-form-field>
-              <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-                <input matInput [formControlName]="'lastname'" [placeholder]="'Numéro d entregistrement'" />
-                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:newspaper'"></mat-icon>
-              </mat-form-field>
-            </div>
-            <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
-              <mat-form-field class="flex-auto mx-4">
-                <mat-label>{{ 'APP.ROUTES.USER.ABOUT.EMAIL' | transloco }}</mat-label>
-                <input matInput [formControlName]="'email'" [placeholder]="'APP.ROUTES.USER.ABOUT.EMAIL' | transloco" required />
-                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
-              </mat-form-field>
-              <mat-form-field class="flex-auto mx-4">
-                <mat-label>{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}</mat-label>
-                <input
-                  matInput
-                  [matDatepicker]="dateOfBirthDatePicker"
-                  [formControlName]="'dateofbirth'"
-                  [placeholder]="'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco"
-                  [matDatepickerFilter]="dateFilter"
-                  required
-                />
-                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:cake'"></mat-icon>
-                <mat-datepicker-toggle matSuffix [for]="dateOfBirthDatePicker"> </mat-datepicker-toggle>
-                <mat-datepicker #dateOfBirthDatePicker startView="multi-year"></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="flex justify-end">
-              <button
-                class="px-8"
-                mat-flat-button
-                [color]="'primary'"
-                [disabled]="horizontalStepperStep1.stepControl.pristine || horizontalStepperStep1.stepControl.invalid"
-                type="button"
-                matStepperNext
-              >
-                {{ 'APP.GENERAL.NEXT' | transloco }}
-              </button>
-            </div>
-          </mat-step>
+      <form class="p-4 mt-2 bg-card shadow rounded overflow-hidden" [formGroup]="form">
+        <p class="my-6 font-medium"></p>
+        <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
+          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
+            <mat-label>{{ 'APP.ROUTES.USER.ABOUT.FIRST_NAME' | transloco }}</mat-label>
+            <input matInput [formControlName]="'firstname'" [placeholder]="'APP.ROUTES.USER.ABOUT.FIRST_NAME' | transloco" required />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+            <mat-label>{{ 'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco }}</mat-label>
+            <input matInput [formControlName]="'lastname'" [placeholder]="'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco" />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:newspaper'"></mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
+          <mat-form-field class="flex-auto mx-4">
+            <mat-label>{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}</mat-label>
+            <input
+              matInput
+              [matDatepicker]="dateOfBirthDatePicker"
+              [formControlName]="'dateofbirth'"
+              [placeholder]="'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco"
+              [matDatepickerFilter]="dateFilter"
+              required />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:cake'"></mat-icon>
+            <mat-datepicker-toggle matSuffix [for]="dateOfBirthDatePicker"> </mat-datepicker-toggle>
+            <mat-datepicker #dateOfBirthDatePicker startView="multi-year"></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
+          <mat-form-field class="flex-auto mx-4">
+            <mat-label>{{ 'APP.ROUTES.USER.ABOUT.EMAIL' | transloco }}</mat-label>
+            <input matInput [formControlName]="'email'" [placeholder]="'APP.ROUTES.USER.ABOUT.EMAIL' | transloco" required />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+          </mat-form-field>
+        </div>
 
-          <mat-step [formGroupName]="'step2'" [stepControl]="stepperForm.get('step2')" #horizontalStepperStep2>
-            <ng-template matStepLabel>{{ 'APP.ROUTES.USER.NEW_USER_FORM.STEP_2.TITLE' | transloco }}</ng-template>
-
-            <p class="my-6 font-medium">{{ 'APP.GENERAL.PHONE.PHONE_NUMBERS' | transloco }}</p>
-            <div formArrayName="phones">
-              <ng-container *ngFor="let phoneForm of phones.controls; let i = index; let first = first" [formGroup]="phoneForm">
-                <div class="grid grid-cols-11">
-                  <hr class="col-span-11 w-full border-t my-4" *ngIf="!first" />
-                </div>
-
-                <div class="flex" [fromGroup]="phoneForm">
-                  <mat-form-field class="fuse-mat-no-subscript flex-auto">
-                    <input
-                      matInput
-                      [formControl]="phoneForm.controls['phoneNumber']"
-                      placeholder="{{ 'APP.ROUTES.USER.ABOUT.PHONE' | transloco }}"
-                      [spellcheck]="false"
-                    />
-                    <mat-select class="mr-1.5" [formControl]="phoneForm.controls['phoneCode']" matPrefix>
-                      <mat-select-trigger>
-                        <span class="flex items-center">
-                          <span
-                            class="hidden sm:flex w-6 h-4 mr-1 overflow-hidden"
-                            [style.background]="'url(\'/assets/images/flags.png\') no-repeat 0 0'"
-                            [style.backgroundSize]="'24px 3876px'"
-                            [style.backgroundPosition]="getCountryByCode(phoneForm.controls['phoneCode'].value).flagImagePos"
-                          ></span>
-                          <span class="sm:mx-0.5 font-medium text-default">
-                            {{ getCountryByCode(phoneForm.controls['phoneCode'].value)?.code }}
-                          </span>
-                        </span>
-                      </mat-select-trigger>
-
-                      <ng-container *ngFor="let country of countries">
-                        <mat-option [value]="country.code">
-                          <span class="flex items-center">
-                            <span
-                              class="w-6 h-4 overflow-hidden"
-                              [style.background]="'url(\'/assets/images/flags.png\') no-repeat 0 0'"
-                              [style.backgroundSize]="'24px 3876px'"
-                              [style.backgroundPosition]="country.flagImagePos"
-                            ></span>
-                            <span class="ml-2">{{ country.name }}</span>
-                            <span class="ml-2 font-medium">{{ country.code }}</span>
-                          </span>
-                        </mat-option>
-                      </ng-container>
-                    </mat-select>
-                  </mat-form-field>
-
-                  <mat-form-field class="fuse-mat-no-subscript flex-auto w-full max-w-24 sm:max-w-40 ml-2 sm:ml-4">
-                    <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:tag'"></mat-icon>
-                    <input
-                      matInput
-                      [formControl]="phoneForm.controls['phoneLabel']"
-                      placeholder="{{ 'APP.ROUTES.USER.ABOUT.LABEL' | transloco }}"
-                    />
-                  </mat-form-field>
-
-                  <div *ngIf="first" class="flex items-center w-10 pl-2" [ngClass]="{ 'mt-6': first }"></div>
-                  <ng-container *ngIf="!first">
-                    <div class="flex items-center w-10 pl-2" [ngClass]="{ 'mt-6': first }">
-                      <button
-                        class="w-8 h-8 min-h-8"
-                        mat-icon-button
-                        (click)="deletePhone(i)"
-                        [matTooltip]="'APP.ROUTES.USER.ABOUT.REMOVE' | transloco"
-                      >
-                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
-                      </button>
-                    </div>
-                  </ng-container>
-                </div>
+        <div class="grid grid-cols-4 flex flex-col gt-xs:flex-row">
+          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
+            <mat-label>{{ 'APP.GENERAL.PHONE.PHONE_NUMBER' | transloco }}</mat-label>
+            <input matInput formControlName="phoneNumber" [placeholder]="'APP.GENERAL.PHONE' | transloco" />
+            <mat-select class="mr-1.5" formControlName="phoneCode" matPrefix>
+              <mat-select-trigger>
+                <span class="flex items-center">
+                  <span
+                    class="hidden sm:flex w-6 h-4 mr-1 overflow-hidden"
+                    [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
+                    [style.backgroundSize]="'24px 3876px'"
+                    [style.backgroundPosition]="getCountryByIso().flagImagePos"></span>
+                  <span class="sm:mx-0.5 font-medium text-default">{{ getCountryByIso().code }}</span>
+                </span>
+              </mat-select-trigger>
+              <ng-container *ngFor="let country of countries; trackBy: trackByFn">
+                <mat-option [value]="country.iso">
+                  <span class="flex items-center">
+                    <span
+                      class="w-6 h-4 overflow-hidden"
+                      [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
+                      [style.backgroundSize]="'24px 3876px'"
+                      [style.backgroundPosition]="country.flagImagePos"></span>
+                    <span class="ml-2">{{ country.name }}</span>
+                    <span class="ml-2 font-medium">{{ country.code }}</span>
+                  </span>
+                </mat-option>
               </ng-container>
-              <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer" (click)="addPhone()">
-                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
-                <span class="ml-2 font-medium text-secondary group-hover:underline">{{
-                  'APP.ROUTES.USER.ABOUT.ADD_PHONE_NUMBER' | transloco
-                }}</span>
-              </div>
-            </div>
+            </mat-select>
+          </mat-form-field>
+          <!-- Label -->
+          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP1.PHONE_LABEL' | transloco }}</mat-label>
+            <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:tag'"></mat-icon>
+            <input matInput formControlName="phoneLabel" [placeholder]="'ORGANIZATION.FORM.STEP1.PHONE_LABEL' | transloco" />
+          </mat-form-field>
+        </div>
 
-            <hr class="w-full border-t my-4" />
+        <div class="grid grid-cols-4 flex flex-col gt-xs:flex-row">
+          <!-- <mat-form-field class="flex-auto gt-xs:pr-3 mx-4"> -->
+          <p class="text-l pl-4 mb-4">{{ 'APP.GENERAL.ADDRESS.ADDRESSES' | transloco }}</p>
+          <!-- </mat-form-field> -->
+        </div>
+        <div class="grid grid-cols-4 flex flex-col gt-xs:flex-row">
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.APARTMENT' | transloco }}</mat-label>
+            <input matInput [formControlName]="'apartment'" placeholder="#{{ 'ORGANIZATION.FORM.STEP2.APARTMENT' | transloco }}" />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+          </mat-form-field>
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.STREET' | transloco }}</mat-label>
+            <input matInput [formControlName]="'street'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.STREET' | transloco }}" required />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+          </mat-form-field>
+          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.CITY' | transloco }}</mat-label>
+            <input matInput [formControlName]="'city'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.CITY' | transloco }}" />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="grid grid-cols-4 flex flex-col gt-xs:flex-row mt-3">
+          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.COUNTRY' | transloco }}</mat-label>
+            <mat-select [formControlName]="'country'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.COUNTRY' | transloco }}" required>
+              <mat-option value="" disabled selected>{{ 'ORGANIZATION.FORM.STEP2.SELECT_COUNTRY' | transloco }}</mat-option>
+              <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
+            </mat-select>
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+          </mat-form-field>
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.PROVINCE' | transloco }}</mat-label>
+            <input matInput [formControlName]="'province'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.PROVINCE' | transloco }}" required />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+          </mat-form-field>
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.POSTAL_CODE' | transloco }}</mat-label>
+            <input matInput [formControlName]="'code'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.POSTAL_CODE' | transloco }}" />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+          </mat-form-field>
+        </div>
 
-            <p class="my-6 font-medium">{{ 'APP.GENERAL.ADDRESS.ADDRESSES' | transloco }}</p>
-            <div formArrayName="addresses">
-              <ng-container *ngFor="let addressForm of addresses.controls; let i = index; let first = first" [formGroup]="addressForm">
-                <div class="grid grid-cols-11">
-                  <hr class="col-span-11 w-full border-t my-4" *ngIf="!first" />
-                </div>
-
-                <div class="grid grid-cols-11">
-                  <mat-form-field class="col-span-5 gt-xs:pl-3 mx-4">
-                    <input matInput [formControl]="addressForm.controls['street']" [placeholder]="'APP.GENERAL.ADDRESS.STREET' | transloco" />
-                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
-                  </mat-form-field>
-
-                  <mat-form-field class="col-span-5 gt-xs:pl-3 mx-4">
-                    <input
-                      matInput
-                      [formControl]="addressForm.controls['apartment']"
-                      [placeholder]="'APP.GENERAL.ADDRESS.APPARTMENT' | transloco"
-                    />
-                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
-                  </mat-form-field>
-                </div>
-
-                <div class="grid grid-cols-11">
-                  <mat-form-field class="col-span-5 gt-xs:pl-3 mx-4">
-                    <input
-                      matInput
-                      [formControl]="addressForm.controls['province']"
-                      [placeholder]="'APP.GENERAL.ADDRESS.PROVINCE' | transloco"
-                    />
-                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
-                  </mat-form-field>
-
-                  <mat-form-field class="col-span-5 gt-xs:pl-3 mx-4">
-                    <input matInput [formControl]="addressForm.controls['city']" [placeholder]="'APP.GENERAL.ADDRESS.CITY' | transloco" />
-                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
-                  </mat-form-field>
-
-                  <div class="col-span-1">
-                    <ng-container *ngIf="!first">
-                      <div class="flex items-center w-10 pl-2" [ngClass]="{ 'mt-6': first }">
-                        <p></p>
-                        <button
-                          class="w-8 h-8 min-h-8"
-                          mat-icon-button
-                          (click)="deleteAddress(i)"
-                          [matTooltip]="'APP.ROUTES.USER.ABOUT.REMOVE' | transloco"
-                        >
-                          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
-                        </button>
-                      </div>
-                    </ng-container>
-                  </div>
-                </div>
-
-                <div class="grid grid-cols-11">
-                  <mat-form-field class="col-span-5 gt-xs:pl-3 mx-4">
-                    <input
-                      matInput
-                      [formControl]="addressForm.controls['code']"
-                      [placeholder]="'APP.GENERAL.ADDRESS.POSTAL_CODE' | transloco"
-                    />
-                    <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
-                  </mat-form-field>
-
-                  <mat-form-field class="col-span-5 fuse-mat-no-subscript gt-xs:pl-3 mx-4">
-                    <mat-select class="mr-1.5" matPrefix [formControl]="addressForm.controls['country']">
-                      <mat-select-trigger>
-                        <span class="flex items-center">
-                          <span
-                            class="hidden sm:flex w-6 h-4 mr-1 overflow-hidden"
-                            [style.background]="'url(\'/assets/images/flags.png\') no-repeat 0 0'"
-                            [style.backgroundSize]="'24px 3876px'"
-                            [style.backgroundPosition]="getCountryByName(addressForm.controls['country'].value).flagImagePos"
-                          ></span>
-                          <span class="sm:mx-0.5 font-medium text-default">
-                            {{ getCountryByName(addressForm.controls['country'].value)?.name }}
-                          </span>
-                        </span>
-                      </mat-select-trigger>
-                      <ng-container *ngFor="let country of countries">
-                        <mat-option [value]="country.name">
-                          <span class="flex items-center">
-                            <span
-                              class="w-6 h-4 overflow-hidden"
-                              [style.background]="'url(\'/assets/images/flags.png\') no-repeat 0 0'"
-                              [style.backgroundSize]="'24px 3876px'"
-                              [style.backgroundPosition]="country.flagImagePos"
-                            ></span>
-                            <span class="ml-2">{{ country.name }}</span>
-                          </span>
-                        </mat-option>
-                      </ng-container>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </ng-container>
-              <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer" (click)="addAddress()">
-                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
-                <span class="ml-2 font-medium text-secondary group-hover:underline">{{ 'APP.GENERAL.ADDRESS.ADD_ADDRESS' | transloco }}</span>
-              </div>
-            </div>
-
-            <div class="flex justify-end">
-              <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
-                {{ 'APP.GENERAL.BACK' | transloco }}
-              </button>
-              <button
-                class="px-8"
-                mat-flat-button
-                [color]="'primary'"
-                [disabled]="horizontalStepperStep2.stepControl.pristine || horizontalStepperStep2.stepControl.invalid"
-                type="button"
-                matStepperNext
-              >
-                {{ 'APP.GENERAL.NEXT' | transloco }}
-              </button>
-            </div>
-          </mat-step>
-
-          <mat-step>
-            <ng-template matStepLabel>{{ 'APP.ROUTES.USER.NEW_USER_FORM.STEP_3.TITLE' | transloco }}</ng-template>
-            <div>
-              <mat-icon class="icon-size-8" matPrefix [svgIcon]="'heroicons_solid:check'" style="color: green"></mat-icon>
-            </div>
-            <p class="my-6 font-medium">
-              {{ 'APP.ROUTES.USER.NEW_USER_FORM.STEP_3.MESSAGE' | transloco }}
-            </p>
-            <div class="flex justify-end mt-8">
-              <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
-                {{ 'APP.GENERAL.BACK' | transloco }}
-              </button>
-              <button class="px-8" mat-flat-button [color]="'primary'" type="reset" (click)="emitOnFormComplete()">
-                {{ 'APP.GENERAL.NEXT' | transloco }}
-              </button>
-            </div>
-          </mat-step>
-        </mat-horizontal-stepper>
+        <div class="flex justify-end mt-8">
+          <button class="px-8" mat-flat-button [color]="'primary'" type="reset" (click)="emitOnFormComplete()">
+            {{ 'APP.ROUTES.USER.ABOUT.SAVE' | transloco }}
+          </button>
+        </div>
       </form>
     </div>
   </div>

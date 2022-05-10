@@ -1,12 +1,15 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NewUserInfosResolver } from './new-user-infos.resolver';
-import { User, Phone, Address } from 'app/models';
+import { User } from 'app/models/user';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
+import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
+import { Subject, takeUntil } from 'rxjs';
+import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
 
 const moment = _rollupMoment || _moment;
 
@@ -18,22 +21,17 @@ export class NewUserInfosComponent implements OnInit {
   @Output() onFormComplete = new EventEmitter<boolean>();
   user: any;
   countries: any;
-  stepperForm: FormGroup;
+  form: FormGroup;
+  private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
     private _newUserInfosResolver: NewUserInfosResolver,
     private _formBuilder: FormBuilder,
     private _toastr: ToastrService,
     private _http: HttpClient,
+    private _contactsService: ContactsService,
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {}
-
-  get addresses(): FormArray {
-    return (this.stepperForm.controls['step2'] as FormGroup).controls['addresses'] as FormArray;
-  }
-
-  get phones(): FormArray {
-    return (this.stepperForm.controls['step2'] as FormGroup).controls['phones'] as FormArray;
-  }
 
   async ngOnInit() {
     this._prepareCountries();
@@ -44,48 +42,39 @@ export class NewUserInfosComponent implements OnInit {
       this._toastr.showError(err);
     }
 
-    this.stepperForm = this._formBuilder.group({
-      step1: this._formBuilder.group({
-        firstname: [this.user.firstName, [Validators.required]],
-        lastname: [this.user.lastName, [Validators.required]],
-        email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
-        dateofbirth: new FormControl(moment()),
-        keycloakId: localStorage.getItem(constants.KEYCLOAK_USER_ID),
-      }),
-      step2: this._formBuilder.group({
-        phones: this._formBuilder.array([]),
-        addresses: this._formBuilder.array([]),
-      }),
+    this.form = this._formBuilder.group({
+      firstname: [this.user.firstName, [Validators.required]],
+      lastname: [this.user.lastName, [Validators.required]],
+      email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
+      dateofbirth: new FormControl(moment()),
+      keycloakId: localStorage.getItem(constants.KEYCLOAK_USER_ID),
+      phoneNumber: [''],
+      phoneCode: ['fr'],
+      phoneLabel: [''],
+      addresses: this._formBuilder.array([]),
+      street: ['', Validators.required],
+      apartment: [''],
+      province: ['', Validators.required],
+      city: ['', Validators.required],
+      code: ['', Validators.required],
+      country: [constants.NEW_USER.DEFAULT_COUNTRY, Validators.required],
+      type: constants.NEW_USER.DEFAULT_TYPE,
     });
 
-    this.phones.push(
-      this._formBuilder.group({
-        phoneCode: [constants.NEW_USER.DEFAULT_COUNTRY_CODE, Validators.required],
-        phoneNumber: ['', Validators.required],
-        phoneLabel: '',
-      }),
-    );
+    // Get the country telephone codes
+    this._contactsService.countries$.pipe(takeUntil(this._unsubscribeAll)).subscribe((codes: any[]) => {
+      this.countries = countriesData;
 
-    this.addresses.push(
-      this._formBuilder.group({
-        street: ['', Validators.required],
-        apartment: [''],
-        province: ['', Validators.required],
-        city: ['', Validators.required],
-        code: ['', Validators.required],
-        country: [constants.NEW_USER.DEFAULT_COUNTRY, Validators.required],
-        type: constants.NEW_USER.DEFAULT_TYPE,
-      }),
-    );
+      // Mark for check
+      this._changeDetectorRef.markForCheck();
+    });
   }
 
   async emitOnFormComplete() {
-    const formUser: User = this.stepperForm.controls['step1'].value;
+    const formUser: User = { ...this.form.value };
     const userRo = {
       ...formUser,
       email: this.user.email,
-      phones: this.phones.value as Array<Phone>,
-      addresses: this.addresses.value as Array<Address>,
       dateofbirth: moment(formUser['dateofbirth']).format(constants.DATE_FORMAT_YYYY_MM_DD),
     };
     const result = await this._newUserInfosResolver.createUser(userRo);
@@ -100,54 +89,6 @@ export class NewUserInfosComponent implements OnInit {
   dateFilter(d: Date | null): boolean {
     const date = d || new Date();
     return date < new Date();
-  }
-
-  /**
-   * Adds a phone form to the phones FormArray
-   */
-
-  addPhone() {
-    const phoneForm = this._formBuilder.group({
-      phoneCode: [constants.NEW_USER.DEFAULT_COUNTRY_CODE, Validators.required],
-      phoneNumber: ['', Validators.required],
-      phoneLabel: '',
-    });
-
-    this.phones.push(phoneForm);
-  }
-
-  /**
-   * Adds an address form to the phones FormArray
-   */
-
-  addAddress() {
-    const addressForm = this._formBuilder.group({
-      street: ['', Validators.required],
-      apartment: [''],
-      province: ['', Validators.required],
-      city: ['', Validators.required],
-      code: ['', Validators.required],
-      country: [constants.NEW_USER.DEFAULT_COUNTRY, Validators.required],
-      type: constants.NEW_USER.DEFAULT_TYPE,
-    });
-
-    this.addresses.push(addressForm);
-  }
-
-  /**
-   * Removes a phone form to the phones FormArray
-   */
-
-  deletePhone(index) {
-    this.phones.removeAt(index);
-  }
-
-  /**
-   * Removes an address form to the phones FormArray
-   */
-
-  deleteAddress(index) {
-    this.addresses.removeAt(index);
   }
 
   /**
@@ -168,6 +109,17 @@ export class NewUserInfosComponent implements OnInit {
     if (this.countries) {
       return this.countries.find((country) => country.code === code);
     }
+  }
+
+  onSubmit() {}
+
+  getCountryByIso(): any {
+    console.log({ form: this.form.value.phoneCode });
+    return this.countries.find((country) => country.iso === this.form.value.phoneCode);
+  }
+
+  trackByFn(index: number, item: any): any {
+    return item.id || index;
   }
 
   /**

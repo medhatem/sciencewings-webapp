@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -13,6 +13,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Address, AddressType } from 'app/models/address';
 import { Phone } from 'app/models/phone';
 import moment from 'moment-timezone';
+import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
+import { Subject, takeUntil } from 'rxjs';
+import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
 
 @Component({
   selector: 'organization-form',
@@ -20,31 +23,33 @@ import moment from 'moment-timezone';
   encapsulation: ViewEncapsulation.None,
 })
 export class OrganizationFormComponent implements OnInit {
+  @Input() countries: any;
   @ViewChild(MatStepper) horizontalStepper: MatStepper;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  stepperForm: FormGroup;
+  form: FormGroup;
   oragnization = new Organization();
   isSubOrganization = false;
   organizationLabels: IMatChipLabel[] = [];
   adminsEmailListLabels: IMatChipLabel[] = [];
   usersEmailListLabels: IMatChipLabel[] = [];
-  countries = countries;
   organizationTypes = organizationTypes;
   timezoneList = moment.tz.names();
+  private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
     private _formBuilder: FormBuilder,
     private _adminOrganizationsService: AdminOrganizationsService,
     private _toastrService: ToastrService,
     private _route: ActivatedRoute,
+    private _contactsService: ContactsService,
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
     const { parentId = null } = this._route.snapshot.data;
-    this.stepperForm = this._formBuilder.group({
-      step1: this._formBuilder.group({
+    this.form = this._formBuilder.group({
         type: [''],
-        // isSubOrganization: [this.isSubOrganization],
+        isSubOrganization: [this.isSubOrganization],
         parentId: [parentId],
         name: ['', [Validators.required]],
         adminContact: [1],
@@ -52,13 +57,11 @@ export class OrganizationFormComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         organizationType: ['', Validators.required],
         description: [''],
-        // timezone: ['America/Montreal', Validators.required],
+        timezone: ['America/Montreal', Validators.required],
         phoneNumber: [''],
-        phoneCode: [''],
+        phoneCode: ['fr'],
         phoneLabel: [''],
         labels: [this.organizationLabels],
-      }),
-      step2: this._formBuilder.group({
         apartment: [''],
         city: [''],
         code: [''],
@@ -73,11 +76,15 @@ export class OrganizationFormComponent implements OnInit {
         socialLinkedin: [''],
         socialTwitter: [''],
         socialYoutube: [''],
-      }),
-      step3: this._formBuilder.group({
         adminsEmails: this._formBuilder.array([]),
         usersEmails: this._formBuilder.array([]),
-      }),
+    });
+    // Get the country telephone codes
+    this._contactsService.countries$.pipe(takeUntil(this._unsubscribeAll)).subscribe((codes: any[]) => {
+      this.countries = countriesData;
+
+      // Mark for check
+      this._changeDetectorRef.markForCheck();
     });
   }
 
@@ -86,7 +93,7 @@ export class OrganizationFormComponent implements OnInit {
   }
 
   onDoneAndCreateNew() {
-    if (this.stepperForm.valid) {
+    if (this.form.valid) {
       this.createOrganization();
       this.horizontalStepper.reset();
     } else {
@@ -111,13 +118,23 @@ export class OrganizationFormComponent implements OnInit {
     }
   }
 
+  onSubmit() {}
+
+  getCountryByIso(): any {
+    return this.countries.find((country) => country.iso === this.form.value.phoneCode);
+  }
+
+  trackByFn(index: number, item: any): any {
+    return item.id || index;
+  }
+
   // -----------------------------------------------------------------------------------------------------
   // @ Private methods
   // -----------------------------------------------------------------------------------------------------
 
   private async createOrganization(): Promise<boolean> {
     this.setOrganizationInfo();
-    if (this.stepperForm.valid) {
+    if (this.form.valid) {
       try {
         const result = await this._adminOrganizationsService.createOrganization(this.oragnization);
         this._toastrService.showSuccess(constants.CREATE_ORGANIZATION_COMPLETED);
@@ -130,7 +147,7 @@ export class OrganizationFormComponent implements OnInit {
   }
 
   private setOrganizationInfo() {
-    const { step1, step2, step3 } = this.stepperForm.getRawValue();
+    const { step1, step2, step3 } = this.form.getRawValue();
 
     const phones = [new Phone({ ...step1 })];
     const address = new Address({ type: AddressType.organization, ...step2 });
