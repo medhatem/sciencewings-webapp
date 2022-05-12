@@ -195,6 +195,19 @@
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
+    },
+    "SETTINGS": {
+        "GENERAL": {
+            "GENERAL_INFORMATION": "Informations générales",
+            "NAME": "Nom",
+            "EMAIL": "Email",
+            "PHONE": "Téléphone",
+            "LABEL": "Étiquette",
+            "TYPE": "Type",
+            "DIRECTION": "Direction",
+            "NOTE": "Note",
+            "UPDATE": "Modifier"
+        }
     }
   }
 }
