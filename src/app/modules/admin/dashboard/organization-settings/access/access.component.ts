@@ -26,7 +26,6 @@ export class AccessComponent implements OnInit {
       messageSentToNewMembers: '',
     });
     this.isMemberShouldAccessByJoinCode = !!this.settings.joinCode;
-    console.log({isMemberShouldAccessByJoinCode: this.isMemberShouldAccessByJoinCode});
 
     this.form.setValue({
       anyMemberCanJoinYourOrganizationAndAccessResourceSchedules: this.settings.anyMemberCanJoinYourOrganizationAndAccessResourceSchedules,
