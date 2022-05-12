@@ -76,7 +76,7 @@ export class GeneralComponent implements OnInit {
   onSubmit() {
     const data = { ...this.form.value };
 
-    this.organizationService.updateOrganizationsSettingsProperties(1, data).subscribe((response) => {
+    this.organizationService.updateOrganization(1, data).subscribe((response) => {
       if (response.body.statusCode === 204) {
         this.updateLocalOrganization.emit(this.form.value);
         this._toastrService.showSuccess('Updated Successfully');
