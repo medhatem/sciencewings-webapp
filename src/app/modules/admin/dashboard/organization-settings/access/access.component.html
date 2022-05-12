@@ -10,38 +10,43 @@
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.ACCESS.OPTION_1' | transloco }}</mat-label>
 
-        <mat-slide-toggle [formControlName]="'x'" [color]="'primary'"> </mat-slide-toggle>
+        <mat-slide-toggle [formControlName]="'anyMemberCanJoinYourOrganizationAndAccessResourceSchedules'" [color]="'primary'"> </mat-slide-toggle>
       </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.ACCESS.OPTION_2' | transloco }}</mat-label>
 
-        <mat-slide-toggle [formControlName]="'x'" [color]="'primary'"> </mat-slide-toggle>
+        <mat-slide-toggle
+          [color]="'primary'"
+          [(ngModel)]="isMemberShouldAccessByJoinCode"
+          [ngModelOptions]="{ standalone: true }"
+          (change)="memberShouldAccessByJoinCodeListener($event)">
+        </mat-slide-toggle>
       </div>
 
-      <div class="sm:col-span-4">
+      <div *ngIf="isMemberShouldAccessByJoinCode" class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.SETTINGS.ACCESS.OPTION_3' | transloco }}</mat-label>
           <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:lock-closed'"></mat-icon>
-          <input matInput formControlName="z" />
+          <input matInput formControlName="joinCode" />
         </mat-form-field>
       </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.ACCESS.OPTION_4' | transloco }}</mat-label>
-        <mat-slide-toggle [formControlName]="'x'" [color]="'primary'"> </mat-slide-toggle>
+        <mat-slide-toggle [formControlName]="'yourOrganizationWillNeverAppearInSearchResults'" [color]="'primary'"> </mat-slide-toggle>
       </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.ACCESS.OPTION_5' | transloco }}</mat-label>
 
-        <mat-slide-toggle [formControlName]="'x'" [color]="'primary'"> </mat-slide-toggle>
+        <mat-slide-toggle [formControlName]="'notifyAdministratorsWhenMembersJoinOrganization'" [color]="'primary'"> </mat-slide-toggle>
       </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.ACCESS.OPTION_6' | transloco }}</mat-label>
 
-        <mat-slide-toggle [formControlName]="'x'" [color]="'primary'"> </mat-slide-toggle>
+        <mat-slide-toggle [formControlName]="'listResourceToNonMembers'" [color]="'primary'"> </mat-slide-toggle>
       </div>
 
       <div class="text-lg my-5">{{ 'ORGANIZATION.SETTINGS.ACCESS.OPTION_7' | transloco }}</div>
@@ -49,7 +54,7 @@
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-add'"></mat-icon>
-          <textarea matInput formControlName="z"></textarea>
+          <textarea matInput formControlName="messageSentToNewMembers"></textarea>
         </mat-form-field>
       </div>
     </div>
