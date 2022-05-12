@@ -5,6 +5,7 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { CookieService } from 'ngx-cookie-service';
+import { AdminOrganizationsService } from '../../resolvers/admin-organization/admin-organization.service';
 
 @Component({
   selector: 'organization-settings',
@@ -27,7 +28,7 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
-    private _resourceService: ResourceService,
+    private _organizationService: AdminOrganizationsService,
     private _toastrService: ToastrService,
     private _coookies: CookieService,
   ) {}
@@ -101,13 +102,13 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
       this._changeDetectorRef.markForCheck();
     });
 
-    const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
-    this._resourceService.getResourceSettings(selectedResourceId).subscribe(({ body }) => {
+    this._organizationService.getOrganizationSettingsById(1).subscribe(({ body }) => {
       if (body.statusCode === 500) {
         this._toastrService.showError('Something went wrong!');
         return;
       }
-      this.settings = body;
+
+      this.settings = body.data;
     });
   }
 
