@@ -108,7 +108,7 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
         return;
       }
 
-      this.settings = body.data;
+      this.settings = body.data.settings;
     });
   }
 
