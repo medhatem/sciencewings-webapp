@@ -24,7 +24,7 @@
 
       <div class="relative flex sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript flex-auto">
-          <input matInput formControlName="phoneNumber" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.PHONE'|transloco" />
+          <input matInput formControlName="phoneNumber" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.PHONE' | transloco" />
           <mat-select class="mr-1.5" formControlName="phoneCode" matPrefix>
             <mat-select-trigger>
               <span class="flex items-center">
@@ -54,7 +54,7 @@
         <mat-form-field class="fuse-mat-no-subscript flex-auto w-full max-w-24 sm:max-w-40 ml-2 sm:ml-4">
           <!-- Label -->
           <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:tag'"></mat-icon>
-          <input matInput formControlName="phoneLabel" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.LABEL'|transloco" />
+          <input matInput formControlName="phoneLabel" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.LABEL' | transloco" />
         </mat-form-field>
       </div>
 
@@ -81,9 +81,9 @@
 
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.NOTE' | transloco }}</mat-label>
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.DESCRIPTION' | transloco }}</mat-label>
           <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:view-list'"></mat-icon>
-          <textarea matInput formControlName="note"></textarea>
+          <textarea matInput formControlName="description"></textarea>
         </mat-form-field>
       </div>
     </div>

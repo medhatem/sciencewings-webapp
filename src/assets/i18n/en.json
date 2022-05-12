@@ -205,7 +205,7 @@
             "LABEL": "Label",
             "TYPE": "Type",
             "DIRECTION": "Direction",
-            "NOTE": "Note",
+            "DESCRIPTION": "Description",
             "UPDATE": "Update"
         }
     }

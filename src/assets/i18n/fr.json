@@ -205,7 +205,7 @@
             "LABEL": "Étiquette",
             "TYPE": "Type",
             "DIRECTION": "Direction",
-            "NOTE": "Note",
+            "DESCRIPTION": "Description",
             "UPDATE": "Modifier"
         }
     }
