@@ -9,36 +9,39 @@
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.ApproversCanEditReservations' | transloco }}</mat-label>
-        <mat-slide-toggle [formControlName]="'x'" [color]="'primary'"> </mat-slide-toggle>
+        <mat-slide-toggle [formControlName]="'approversCanEditReservations'" [color]="'primary'"> </mat-slide-toggle>
       </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.RequireAReasonWhenEditingAReservation' | transloco }}</mat-label>
-        <mat-slide-toggle [formControlName]="'x'" [color]="'primary'"> </mat-slide-toggle>
+        <mat-slide-toggle [formControlName]="'requireReasonWhenEditingReservation'" [color]="'primary'"> </mat-slide-toggle>
       </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.HideOrganisationCalendar' | transloco }}</mat-label>
-        <mat-slide-toggle [formControlName]="'x'" [color]="'primary'"> </mat-slide-toggle>
+        <mat-slide-toggle [formControlName]="'hideOrganizationCalendar'" [color]="'primary'"> </mat-slide-toggle>
       </div>
 
-      <div class="sm:col-span-4">
+      <!-- <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-select [formControlName]="'y'" placeholder="{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.HideCalanderForEveryone' | transloco }}" required>
-            <mat-option value="1">{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.HideCalanderForEveryone' | transloco }}</mat-option>
-            <mat-option value="2">{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.UserHideCalenderForMemberOnly' | transloco }}</mat-option>
+          <mat-select
+            [formControlName]="'hideAccountNumberWhenMakingReservation'"
+            placeholder="{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.HideCalanderForEveryone' | transloco }}"
+            required>
+            <mat-option value="EVERYONE">{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.HideCalanderForEveryone' | transloco }}</mat-option>
+            <mat-option value="MEMBER">{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.UserHideCalenderForMemberOnly' | transloco }}</mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
+      </div> -->
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.HideAccountNumberWhenMakingReservation' | transloco }}</mat-label>
-        <mat-slide-toggle [formControlName]="'x'" [color]="'primary'"> </mat-slide-toggle>
+        <mat-slide-toggle [formControlName]="'hideAccountNumberWhenMakingReservation'" [color]="'primary'"> </mat-slide-toggle>
       </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.ShowResourceImagesInReservation' | transloco }}</mat-label>
-        <mat-slide-toggle [formControlName]="'x'" [color]="'primary'"> </mat-slide-toggle>
+        <mat-slide-toggle [formControlName]="'showResourceImagesInReservation'" [color]="'primary'"> </mat-slide-toggle>
       </div>
 
       <div class="text-lg my-5">{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.ReservationEmails' | transloco }}</div>
@@ -47,13 +50,13 @@
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.ConfirmationEmailWhenMakingReservation' | transloco }}</mat-label>
           <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:view-list'"></mat-icon>
-          <input matInput formControlName="z" />
+          <input matInput formControlName="confirmationEmailWhenMakingReservation" />
         </mat-form-field>
       </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.AttachedICSCalendarFeeds' | transloco }}</mat-label>
-        <mat-slide-toggle [formControlName]="'x'" [color]="'primary'"> </mat-slide-toggle>
+        <mat-slide-toggle [formControlName]="'attachedIcsCalendarFeeds'" [color]="'primary'"> </mat-slide-toggle>
       </div>
 
       <div class="sm:col-span-4">
