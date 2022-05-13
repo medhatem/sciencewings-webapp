@@ -213,6 +213,28 @@
         "Update": "Modifier",
         "HideCalanderForEveryone": "Masquer le calendrier pour tout le monde",
         "Utilisateur HideCalenderForMemberOnly": "Masquer le calendrier pour les membres uniquement"
+      },
+      "MEMBERS": {
+        "TITLE": "Options de compte de membre",
+        "SECTION_1_TITLE": "Numéro de compte membre",
+        "OPTION_1_1": "Les membres peuvent modifier les numéros de compte",
+        "OPTION_1_2": "Inviter les numéros de compte",
+        "OPTION_1_3": "Remarque sur le numéro de compte",
+        "SECTION_2_TITLE": "Visibilité de la liste des membres",
+        "OPTION_2_1": "Autoriser les membres à voir tous les autres membres",
+        "Cancel": "Annuler",
+        "Update": "Modifier"
+      },
+      "GENERAL": {
+        "GENERAL_INFORMATION": "Informations générales",
+        "NAME": "Nom",
+        "EMAIL": "Email",
+        "PHONE": "Téléphone",
+        "LABEL": "Étiquette",
+        "TYPE": "Type",
+        "DIRECTION": "Direction",
+        "DESCRIPTION": "Description",
+        "UPDATE": "Modifier"
       }
     }
   }

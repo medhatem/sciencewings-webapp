@@ -199,20 +199,42 @@
     "SETTINGS": {
       "RESERVATIONS": {
         "ReservationOptions": "Reservation Options",
-        "GeneralReservationOptions":"General Reservation options",
-        "ApproversCanEditReservations":"Approvers can Edit Reservations",
-        "RequireAReasonWhenEditingAReservation":"Require a Reason when Editing a Reservation",
-        "HideOrganisationCalendar":"Hide organisation Calendar",
-        "HideAccountNumberWhenMakingReservation":"Hide Account Number when making reservation",
-        "ShowResourceImagesInReservation":"Show Resource Images in Reservation ",
-        "ReservationEmails":"Reservation Emails",
-        "ConfirmationEmailWhenMakingReservation":"Confirmation Email  When making reservation",
-        "AttachedICSCalendarFeeds":"Attached  ICS Calendar Feeds",
-        "EmailAddressToReciveReservationReplayMessages":"Email Address to recive reservation replay messages",
-        "Cancel":"Cancel",
-        "Update":"Update",
+        "GeneralReservationOptions": "General Reservation options",
+        "ApproversCanEditReservations": "Approvers can Edit Reservations",
+        "RequireAReasonWhenEditingAReservation": "Require a Reason when Editing a Reservation",
+        "HideOrganisationCalendar": "Hide organisation Calendar",
+        "HideAccountNumberWhenMakingReservation": "Hide Account Number when making reservation",
+        "ShowResourceImagesInReservation": "Show Resource Images in Reservation ",
+        "ReservationEmails": "Reservation Emails",
+        "ConfirmationEmailWhenMakingReservation": "Confirmation Email  When making reservation",
+        "AttachedICSCalendarFeeds": "Attached  ICS Calendar Feeds",
+        "EmailAddressToReciveReservationReplayMessages": "Email Address to recive reservation replay messages",
+        "Cancel": "Cancel",
+        "Update": "Update",
         "HideCalanderForEveryone": "Hide Calander For Everyone",
         "UserHideCalenderForMemberOnly": "User Hide Calender For Member Only"
+      },
+      "MEMBERS": {
+        "TITLE": "Member Account Options",
+        "SECTION_1_TITLE": "Member Acount Number",
+        "OPTION_1_1": "Members can edit account numbers",
+        "OPTION_1_2": "Prompt for accouant numbers",
+        "OPTION_1_3": "Acount Number Note",
+        "SECTION_2_TITLE": "Member list visibility",
+        "OPTION_2_1": "Allow Members to See All Other Members",
+        "Cancel": "Cancel",
+        "Update": "Update"
+      },
+      "GENERAL": {
+        "GENERAL_INFORMATION": "General Informations",
+        "NAME": "Name",
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "LABEL": "Label",
+        "TYPE": "Type",
+        "DIRECTION": "Direction",
+        "DESCRIPTION": "Description",
+        "UPDATE": "Update"
       }
     }
   }

@@ -20,6 +20,7 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
   panels: any[] = [];
   selectedPanel: string = 'account';
   settings = null;
+  currentOrganizations = null;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   /**
@@ -108,6 +109,7 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
         return;
       }
 
+      this.currentOrganizations = body.data.organization;
       this.settings = body.data.settings;
     });
   }
@@ -161,6 +163,13 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
   updateLocalSettings(payload) {
     this.settings = {
       ...this.settings,
+      ...payload,
+    };
+  }
+
+  updateLocalOrganization(payload) {
+    this.currentOrganizations = {
+      ...this.currentOrganizations,
       ...payload,
     };
   }
