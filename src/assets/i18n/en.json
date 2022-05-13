@@ -197,6 +197,23 @@
       "CREATE_COMPLETED": "The creation of the organization was successful"
     },
     "SETTINGS": {
+      "RESERVATIONS": {
+        "ReservationOptions": "Reservation Options",
+        "GeneralReservationOptions": "General Reservation options",
+        "ApproversCanEditReservations": "Approvers can Edit Reservations",
+        "RequireAReasonWhenEditingAReservation": "Require a Reason when Editing a Reservation",
+        "HideOrganisationCalendar": "Hide organisation Calendar",
+        "HideAccountNumberWhenMakingReservation": "Hide Account Number when making reservation",
+        "ShowResourceImagesInReservation": "Show Resource Images in Reservation ",
+        "ReservationEmails": "Reservation Emails",
+        "ConfirmationEmailWhenMakingReservation": "Confirmation Email  When making reservation",
+        "AttachedICSCalendarFeeds": "Attached  ICS Calendar Feeds",
+        "EmailAddressToReciveReservationReplayMessages": "Email Address to recive reservation replay messages",
+        "Cancel": "Cancel",
+        "Update": "Update",
+        "HideCalanderForEveryone": "Hide Calander For Everyone",
+        "UserHideCalenderForMemberOnly": "User Hide Calender For Member Only"
+      },
       "MEMBERS": {
         "TITLE": "Member Account Options",
         "SECTION_1_TITLE": "Member Acount Number",
