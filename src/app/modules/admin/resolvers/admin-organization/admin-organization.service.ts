@@ -18,6 +18,10 @@ export class AdminOrganizationsService {
     return lastValueFrom(this._swaggerService.organizationRoutesCreateOrganization({ body: organization as any })).then(() => true);
   }
 
+  updateOrganization(id: number, body: any): Observable<any> {
+    return this._swaggerService.organizationRoutesUpdate({ id, body });
+  }
+
   getOrganizationSettingsById(id: number): Observable<any> {
     return this._swaggerService.organizationRoutesGetOgranizationSettings({ id });
   }

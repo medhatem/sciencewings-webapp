@@ -21,7 +21,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   layout: Layout;
   scheme: 'dark' | 'light';
   theme: string;
-  hideMenusAndButtons: boolean = true;
+  hideMenusAndButtons: boolean = false;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -40,6 +40,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
     const { userData } = this._route.snapshot.data;
     try {
       const user = await this._newUserInfosResolver.getUser(userData.id);
+      console.log({ user });
+
       if (user) {
         this.hideMenusAndButtons = false;
       } else {
