@@ -197,6 +197,18 @@
       "CREATE_COMPLETED": "The creation of the organization was successful"
     },
     "SETTINGS": {
+      "ACCESS": {
+        "TITLE": "Access Settings",
+        "OPTION_1": "Any member may join your organisation and access resource schedules.",
+        "OPTION_2": "Member should access by join code ",
+        "OPTION_3": "Join Code",
+        "OPTION_4": "Your organisation will never appear in search results",
+        "OPTION_5": "Notify administrators when Memebers Join Organisation",
+        "OPTION_6": "List Resources to Non-Members",
+        "OPTION_7": "Message Sent to New Members",
+        "Cancel": "Cancel",
+        "Update": "Update"
+      },
       "RESERVATIONS": {
         "ReservationOptions": "Reservation Options",
         "GeneralReservationOptions": "General Reservation options",
