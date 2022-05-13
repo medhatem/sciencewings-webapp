@@ -207,6 +207,17 @@
         "OPTION_2_1": "Autoriser les membres à voir tous les autres membres",
         "Cancel": "Annuler",
         "Update": "Modifier"
+      },
+      "GENERAL": {
+        "GENERAL_INFORMATION": "Informations générales",
+        "NAME": "Nom",
+        "EMAIL": "Email",
+        "PHONE": "Téléphone",
+        "LABEL": "Étiquette",
+        "TYPE": "Type",
+        "DIRECTION": "Direction",
+        "DESCRIPTION": "Description",
+        "UPDATE": "Modifier"
       }
     }
   }

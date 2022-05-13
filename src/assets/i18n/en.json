@@ -207,6 +207,17 @@
         "OPTION_2_1": "Allow Members to See All Other Members",
         "Cancel": "Cancel",
         "Update": "Update"
+      },
+      "GENERAL": {
+        "GENERAL_INFORMATION": "General Informations",
+        "NAME": "Name",
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "LABEL": "Label",
+        "TYPE": "Type",
+        "DIRECTION": "Direction",
+        "DESCRIPTION": "Description",
+        "UPDATE": "Update"
       }
     }
   }
