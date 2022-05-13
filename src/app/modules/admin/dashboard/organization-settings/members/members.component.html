@@ -1,1 +1,59 @@
-<p>members works!</p>
+<div class="w-full max-w-3xl">
+  <!-- Form -->
+
+  <form [formGroup]="form">
+    <!-- Section -->
+
+    <div class="w-full">
+      <div class="text-xl my-3">{{ 'ORGANIZATION.SETTINGS.MEMBERS.TITLE' | transloco }}</div>
+      <div class="text-lg my-5">{{ 'ORGANIZATION.SETTINGS.MEMBERS.SECTION_1_TITLE' | transloco }}</div>
+
+      <div class="flex sm:col-span-4 justify-between my-1">
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.MEMBERS.OPTION_1_1' | transloco }}</mat-label>
+
+        <mat-slide-toggle [formControlName]="'membersCanEditAccountNumbers'" [color]="'primary'"> </mat-slide-toggle>
+      </div>
+      <div class="flex sm:col-span-4 justify-between my-1">
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.MEMBERS.OPTION_1_2' | transloco }}</mat-label>
+
+        <mat-slide-toggle [formControlName]="'promptForAccouantNumbers'" [color]="'primary'"> </mat-slide-toggle>
+      </div>
+      <div class="flex sm:col-span-4 justify-between my-1">
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.MEMBERS.OPTION_1_3' | transloco }}</mat-label>
+
+        <mat-slide-toggle [(ngModel)]="isAccountNumberNote" [ngModelOptions]="{ standalone: true }"
+        (change)="accountNumberNoteListener($event)"
+        [color]="'primary'"> </mat-slide-toggle>
+      </div>
+
+      <mat-form-field *ngIf="isAccountNumberNote" class="fuse-mat-no-subscript w-full">
+        <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:view-list'"></mat-icon>
+        <input matInput formControlName="acountNumberNote" />
+      </mat-form-field>
+
+      <div class="text-lg my-5">{{ 'ORGANIZATION.SETTINGS.MEMBERS.SECTION_2_TITLE' | transloco }}</div>
+
+      <div class="flex sm:col-span-4 justify-between my-1">
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.MEMBERS.OPTION_2_1' | transloco }}</mat-label>
+
+        <mat-slide-toggle [formControlName]="'allowMembersToSeeAllOtherMembers'" [color]="'primary'"> </mat-slide-toggle>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-4 gap-6 w-full mt-8"></div>
+
+    <!-- Divider -->
+
+    <div class="mt-11 mb-10 border-t"></div>
+
+    <!-- Actions -->
+
+    <div class="flex items-center justify-end">
+      <button mat-stroked-button type="button">{{ 'ORGANIZATION.SETTINGS.MEMBERS.Cancel' | transloco }}</button>
+
+      <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
+        {{ 'ORGANIZATION.SETTINGS.MEMBERS.Update' | transloco }}
+      </button>
+    </div>
+  </form>
+</div>
