@@ -61,7 +61,19 @@ export const appRoutes: Route[] = [
             },
             loadChildren: () => import('app/modules/admin/dashboard/users/organization-users.module').then((m) => m.OrganizationUsersModule),
           },
+          {
+            path: 'organization-members',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'Members',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:user',
+            },
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-members/organization-members.module').then((m) => m.OrganizationMembersModule),
+          },
         ],
+
       },
       {
         path: 'menu',
