@@ -116,7 +116,6 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       this.navigation = [];
     } else {
       const url = this._coookies.get('url');
-      console.log({ url });
 
       switch (url) {
         case 'dashboard':
@@ -127,16 +126,12 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
           break;
         case 'resource-settings':
           this.navigation = this.getNavigationItemsFromRoutes(appResourceSettingsRoutes[0].children, '/');
-          console.log({ _router: this._router.config });
-
           break;
       }
     }
   }
 
   receiveMessage($event) {
-    console.log({ event: $event });
-
     switch ($event) {
       case 'resources':
         this._coookies.set('url', 'resources');
@@ -188,9 +183,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       if (icon) {
         navigationItem.icon = icon;
       }
-    //   if (action && action === 'resources') {
-    //     this.receiveMessage(action);
-    //   }
+
       acc.push(navigationItem);
       return acc;
     }, []);
