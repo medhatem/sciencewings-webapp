@@ -19,7 +19,7 @@ export class AdminOrganizationsService {
   }
 
   updateOrganization(id: number, body: any): Observable<any> {
-    return this._swaggerService.organizationRoutesUpdate({ id, body });
+    return this._swaggerService.organizationRoutesUpdateOrganization({ id, body });
   }
 
   getOrganizationSettingsById(id: number): Observable<any> {

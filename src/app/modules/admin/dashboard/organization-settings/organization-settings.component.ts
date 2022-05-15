@@ -108,8 +108,11 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
         this._toastrService.showError('Something went wrong!');
         return;
       }
+      const organization = body.data.organization;
+      organization.phone = organization.phones[0];
+      this.currentOrganizations = organization;
+      console.log({ currentOrganizations: this.currentOrganizations });
 
-      this.currentOrganizations = body.data.organization;
       this.settings = body.data.settings;
     });
   }

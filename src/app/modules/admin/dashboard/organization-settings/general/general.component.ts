@@ -48,21 +48,6 @@ export class GeneralComponent implements OnInit {
       direction: this.currentOrganizations.direction,
       description: this.currentOrganizations.description,
     });
-    if (this.currentOrganizations.phone) {
-      this.form.setValue({
-        ...this.form.value,
-        phoneCode: this.currentOrganizations.phone.phoneCode,
-        phoneNumber: this.currentOrganizations.phone.phoneNumber,
-        phoneLabel: this.currentOrganizations.phone.phoneLabel,
-      });
-    } else {
-      this.form.setValue({
-        ...this.form.value,
-        phoneCode: 'fr',
-        phoneNumber: '',
-        phoneLabel: '',
-      });
-    }
 
     // Get the country telephone codes
     this._contactsService.countries$.pipe(takeUntil(this._unsubscribeAll)).subscribe((codes: any[]) => {
@@ -70,12 +55,39 @@ export class GeneralComponent implements OnInit {
 
       // Mark for check
       this._changeDetectorRef.markForCheck();
+
+      if (this.currentOrganizations.phone) {
+        this.form.setValue({
+          ...this.form.value,
+          phoneCode: this.currentOrganizations.phone.phoneCode,
+          phoneNumber: this.currentOrganizations.phone.phoneNumber,
+          phoneLabel: this.currentOrganizations.phone.phoneLabel,
+        });
+      } else {
+        this.form.setValue({
+          ...this.form.value,
+          phoneCode: 'fr',
+          phoneNumber: '',
+          phoneLabel: '',
+        });
+      }
     });
   }
 
   onSubmit() {
     const data = { ...this.form.value };
-
+    data.direction = this.form.value.direction.id;
+    delete data.phoneCode;
+    delete data.phoneNumber;
+    delete data.phoneLabel;
+    data.phones = [
+      {
+        id: this.currentOrganizations.phone.id,
+        phoneCode: this.form.value.phoneCode,
+        phoneNumber: this.form.value.phoneNumber,
+        phoneLabel: this.form.value.phoneLabel,
+      },
+    ];
     this.organizationService.updateOrganization(1, data).subscribe((response) => {
       if (response.body.statusCode === 204) {
         this.updateLocalOrganization.emit(this.form.value);
@@ -89,6 +101,7 @@ export class GeneralComponent implements OnInit {
   getCountryByIso(): any {
     return this.countries.find((country) => country.iso === this.form.value.phoneCode);
   }
+
   trackByFn(index: number, item: any): any {
     return item.id || index;
   }
