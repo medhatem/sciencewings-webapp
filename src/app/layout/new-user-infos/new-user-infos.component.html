@@ -44,7 +44,7 @@
         <div class="grid grid-cols-4 flex flex-col gt-xs:flex-row">
           <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
             <mat-label>{{ 'APP.GENERAL.PHONE.PHONE_NUMBER' | transloco }}</mat-label>
-            <input matInput formControlName="phoneNumber" [placeholder]="'APP.GENERAL.PHONE' | transloco" />
+            <input matInput formControlName="phoneNumber" [placeholder]="'APP.GENERAL.PHONE.PHONE_NUMBER' | transloco" />
             <mat-select class="mr-1.5" formControlName="phoneCode" matPrefix (ngModelChange)="onSelectedCountryCodeChange($event)">
               <mat-select-trigger>
                 <span class="flex items-center">

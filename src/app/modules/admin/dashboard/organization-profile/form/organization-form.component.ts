@@ -48,36 +48,36 @@ export class OrganizationFormComponent implements OnInit {
   ngOnInit(): void {
     const { parentId = null } = this._route.snapshot.data;
     this.form = this._formBuilder.group({
-        type: [''],
-        isSubOrganization: [this.isSubOrganization],
-        parentId: [parentId],
-        name: ['', [Validators.required]],
-        adminContact: [1],
-        direction: [1],
-        email: ['', [Validators.required, Validators.email]],
-        organizationType: ['', Validators.required],
-        description: [''],
-        timezone: ['America/Montreal', Validators.required],
-        phoneNumber: [''],
-        phoneCode: ['fr'],
-        phoneLabel: [''],
-        labels: [this.organizationLabels],
-        apartment: [''],
-        city: [''],
-        code: [''],
-        country: [''],
-        province: [''],
-        street: [''],
-        // department: [''],
-        // sector: [''],
-        socialFacebook: [''],
-        socialGithub: [''],
-        socialInstagram: [''],
-        socialLinkedin: [''],
-        socialTwitter: [''],
-        socialYoutube: [''],
-        adminsEmails: this._formBuilder.array([]),
-        usersEmails: this._formBuilder.array([]),
+      type: [''],
+      isSubOrganization: [this.isSubOrganization],
+      parentId: [parentId],
+      name: ['', [Validators.required]],
+      adminContact: [1],
+      direction: [1],
+      email: ['', [Validators.required, Validators.email]],
+      organizationType: ['', Validators.required],
+      description: [''],
+      timezone: ['America/Montreal', Validators.required],
+      phoneNumber: [''],
+      phoneCode: ['fr'],
+      phoneLabel: [''],
+      labels: [this.organizationLabels],
+      apartment: [''],
+      city: [''],
+      code: [''],
+      country: [''],
+      province: [''],
+      street: [''],
+      // department: [''],
+      // sector: [''],
+      socialFacebook: [''],
+      socialGithub: [''],
+      socialInstagram: [''],
+      socialLinkedin: [''],
+      socialTwitter: [''],
+      socialYoutube: [''],
+      adminsEmails: this._formBuilder.array([]),
+      usersEmails: this._formBuilder.array([]),
     });
     // Get the country telephone codes
     this._contactsService.countries$.pipe(takeUntil(this._unsubscribeAll)).subscribe((codes: any[]) => {
@@ -97,9 +97,23 @@ export class OrganizationFormComponent implements OnInit {
       this.createOrganization();
       this.horizontalStepper.reset();
     } else {
+      console.log('!this.form.valid');
+      this.getFormValidationErrors();
+
       this._toastrService.showError(constants.CREATE_ORGANIZATION_FAILED);
       return;
     }
+  }
+
+  getFormValidationErrors() {
+    Object.keys(this.form.controls).forEach((key) => {
+      const controlErrors = this.form.get(key).errors;
+      if (controlErrors != null) {
+        Object.keys(controlErrors).forEach((keyError) => {
+          console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
+        });
+      }
+    });
   }
 
   addItemMatChip(matItemLabelList: IMatChipLabel[], event: MatChipInputEvent, isEmail: boolean = false): void {
@@ -133,6 +147,8 @@ export class OrganizationFormComponent implements OnInit {
   // -----------------------------------------------------------------------------------------------------
 
   private async createOrganization(): Promise<boolean> {
+    console.log('createOrganization');
+
     this.setOrganizationInfo();
     if (this.form.valid) {
       try {
@@ -140,6 +156,7 @@ export class OrganizationFormComponent implements OnInit {
         this._toastrService.showSuccess(constants.CREATE_ORGANIZATION_COMPLETED);
         return result;
       } catch (error) {
+        console.log('createOrganization', { error });
         this._toastrService.showError(constants.CREATE_ORGANIZATION_FAILED);
         return false;
       }
@@ -147,14 +164,43 @@ export class OrganizationFormComponent implements OnInit {
   }
 
   private setOrganizationInfo() {
-    const { step1, step2, step3 } = this.form.getRawValue();
-
-    const phones = [new Phone({ ...step1 })];
-    const address = new Address({ type: AddressType.organization, ...step2 });
-    const { adminsEmails = [], usersEmails = [] } = step3;
-    this.adminsEmailListLabels = adminsEmails;
-    this.usersEmailListLabels = usersEmails;
-    this.oragnization = new Organization({ ...this.oragnization, phones, address, ...step1, ...step2 });
+    this.oragnization = new Organization({
+      description: this.form.value.description,
+      department: this.form.value.department,
+      sector: this.form.value.sector,
+      adminContact: this.form.value.adminContact,
+      direction: this.form.value.direction,
+      members: this.form.value.members,
+      socialFacebook: this.form.value.socialFacebook,
+      socialGithub: this.form.value.socialGithub,
+      socialInstagram: this.form.value.socialInstagram,
+      socialLinkedin: this.form.value.socialLinkedin,
+      socialTwitter: this.form.value.socialTwitter,
+      socialYoutube: this.form.value.socialYoutube,
+      name: this.form.value.name,
+      type: this.form.value.organizationType,
+      email: this.form.value.email,
+      parentId: this.form.value.parentId,
+      labels: [],
+      addresses: [
+        {
+          appartement: this.form.value.apartment,
+          city: this.form.value.city,
+          code: this.form.value.code,
+          country: this.form.value.country,
+          province: this.form.value.province,
+          street: this.form.value.street,
+          type: 'ORGANIZATION',
+        },
+      ],
+      phones: [
+        {
+          phoneCode: this.form.value.phoneCode,
+          phoneLabel: this.form.value.phoneLabel,
+          phoneNumber: this.form.value.phoneNumber,
+        },
+      ],
+    });
   }
 
   private validateEmail(email: string): boolean {
