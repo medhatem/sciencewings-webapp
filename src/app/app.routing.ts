@@ -38,8 +38,7 @@ export const appRoutes: Route[] = [
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:office-building',
             },
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
+            loadChildren: () => import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
           },
           {
             path: userProfilePath,
@@ -60,6 +59,16 @@ export const appRoutes: Route[] = [
               icon: 'heroicons_outline:users',
             },
             loadChildren: () => import('app/modules/admin/dashboard/users/organization-users.module').then((m) => m.OrganizationUsersModule),
+          },
+          {
+            path: 'project',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'project',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:users',
+            },
+            loadChildren: () => import('app/modules/admin/dashboard/project/project.module').then((m) => m.ProjectModule),
           },
         ],
       },
@@ -165,8 +174,7 @@ export const appResourceSettingsRoutes: Route[] = [
           type: FuseNavigationItemTypeEnum.basic,
           icon: 'heroicons_outline:users',
         },
-        loadChildren: () =>
-          import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
+        loadChildren: () => import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
       },
       {
         path: 'settings-reservation',
@@ -176,8 +184,7 @@ export const appResourceSettingsRoutes: Route[] = [
           type: FuseNavigationItemTypeEnum.basic,
           icon: 'heroicons_outline:users',
         },
-        loadChildren: () =>
-          import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then((m) => m.SettingsReservationModule),
+        loadChildren: () => import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then((m) => m.SettingsReservationModule),
       },
     ],
   },

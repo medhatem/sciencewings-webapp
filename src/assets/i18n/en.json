@@ -57,6 +57,9 @@
         },
         "RESOURCE_RULES": {
           "TITLE": "Resource Rules"
+        },
+        "PROJECT": {
+          "TITLE": "Project"
         }
       },
       "USER": {
