@@ -66,7 +66,7 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
         id: 'reservations',
         icon: 'heroicons_outline:bell',
         title: 'Reservations',
-        description: "Manage when you'll be notified on which channels",
+        description: 'Manage when you\'ll be notified on which channels',
       },
       {
         id: 'invocie',
