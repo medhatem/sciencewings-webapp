@@ -1,11 +1,8 @@
 import { BehaviorSubject, Observable, map, take } from 'rxjs';
-
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  UserInviteToOrgRo,
-} from 'generated/models';
+import { UserInviteToOrgRo } from 'generated/models';
 
 @Injectable({
   providedIn: 'root',
@@ -15,17 +12,10 @@ export class MemberService {
 
   constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
 
-  /**
-   * Getter for data
-   * k
-   */
   get data$(): Observable<any> {
     return this._data.asObservable();
   }
 
-  /**
-   * Get data
-   */
   getData(id?: string): Observable<any> {
     return this._httpClient.get('api/apps/members/all').pipe(
       take(1),
@@ -49,6 +39,4 @@ export class MemberService {
   deleteMember(id: number): Observable<any> {
     return this.swaggerAPI.memberRoutesRemove({ id });
   }
-
-
 }

@@ -9,35 +9,17 @@ import { DataService } from 'app/data.service';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { MatDialog } from '@angular/material/dialog';
 
-/*
-export interface MemberType {
-  id: number;
-  name: string;
-  role: string;
-  status: string;
-  date: string | Date ;
-}
-
-export interface UpdateMemberType {
-  profil?: string;
-  role?: string;
-  status?: string;
-  date?: string | Date ;
-}
-*/
-
 @Component({
   selector: 'app-member-list',
   templateUrl: './member-list.component.html',
-  styleUrls: ['./member-list.component.scss']
+  styleUrls: ['./member-list.component.scss'],
 })
-
 export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
- @Output() messageEvent = new EventEmitter<string>();
+  @Output() messageEvent = new EventEmitter<string>();
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
   @ViewChild(MatSort) private _sort: MatSort;
 
-  members: any[]= [];
+  members: any[] = [];
   isLoading: boolean = false;
   selectedMember = null;
   membersCount: number = 0;
@@ -50,26 +32,15 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _matDialog: MatDialog,
     private data: DataService,
-    ) {}
+  ) {}
 
   ngOnInit(): void {
-    // this._memberService.getOrgMembers(1).subscribe(({ body }) => {
-    //   console.log({ body });
-    //   if (body.statusCode === 500) {
-    //     this._toastrService.showError('Something went wrong!');
-    //   }
-    //   this.members = body.data;
-    //   });
-    this.members = [{name: 'Nasro', status: 'Soheyb'} ];
+    this.members = [{ name: 'Nasro', status: 'Soheyb' }];
     this.membersCount = this.members.length;
+  }
 
-    }
-    /**
-     * After view init
-     */
   ngAfterViewInit(): void {
     if (this._sort && this._paginator) {
-        // Set the initial sort
       this._sort.sort({
         id: 'memberProfil',
         start: 'asc',
@@ -77,52 +48,30 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
   }
-    /**
-     * On destroy
-     */
+
   ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
-/**   * Open Invite Member Form  */
 
   openMemberForm(): void {
     const dialogRef = this._matDialog.open(MemberFormComponent);
 
-    dialogRef.afterClosed().subscribe((result) =>{
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('Compose dialog was closed!');
     });
-
   }
 
-
-    /**
-     * Track by function for ngFor loops
-     *
-     * @param index
-     * @param item
-     */
   trackByFn(index: number, item: any): any {
     return item.id || index;
   }
 
-    /**
-     * Close the details
-     */
   closeDetails(): void {
     this.selectedMember = null;
   }
 
-    /**
-     * Toggle product details
-     *
-     * @param productId
-     */
   toggleDetails(memberId: number): void {
-    // If the product is already selected...
     if (this.selectedMember && this.selectedMember.id === memberId) {
-      // Close the details
       this.closeDetails();
       return;
     }

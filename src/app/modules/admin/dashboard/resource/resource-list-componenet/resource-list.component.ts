@@ -19,6 +19,7 @@ export interface ResourceType {
   templateUrl: './resource-list.component.html',
   styleUrls: ['./resource-list.component.scss'],
 })
+
 export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() messageEvent = new EventEmitter<string>();
   @ViewChild(MatPaginator) private _paginator: MatPaginator;

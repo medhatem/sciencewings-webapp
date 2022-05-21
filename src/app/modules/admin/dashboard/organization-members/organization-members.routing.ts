@@ -12,8 +12,6 @@ export const organizationMemebrsRoutes: Route[] = [
     },
     children: [
       {
-        // TO DO
-        // change to path: ':id' , when the change organizations implemented
         path: '',
         component: MemberListComponent,
         resolve: {

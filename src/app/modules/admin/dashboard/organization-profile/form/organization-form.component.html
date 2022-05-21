@@ -23,20 +23,11 @@
             <p class="my-6 font-medium">{{ 'ORGANIZATION.FORM.STEP1.SUB_TITLE' | transloco }}</p>
             <div class="flex flex-col gt-xs:flex-row">
               <div class="sm:grid sm:grid-cols-3 mx-4 flex items-center pt-4 px-8 border-solid border-inherit border rounded-lg min-h-22">
-                <mat-checkbox
-                  class="mb-4"
-                  [formControlName]="'isSubOrganization'"
-                  (change)="isSubOrganization = !isSubOrganization"
-                  [color]="'primary'"
-                >
+                <mat-checkbox class="mb-4" [formControlName]="'isSubOrganization'" (change)="isSubOrganization = !isSubOrganization" [color]="'primary'">
                   {{ 'ORGANIZATION.FORM.STEP1.SUB_ORGANIZATION' | transloco }}:
                 </mat-checkbox>
                 <mat-form-field *ngIf="isSubOrganization" class="flex-auto gt-xs:pl-3 mx-4">
-                  <mat-select
-                    [formControlName]="'subOrganization'"
-                    placeholder="{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}"
-                    required
-                  >
+                  <mat-select [formControlName]="'subOrganization'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}" required>
                     <mat-option value="language-1">Organization 01</mat-option>
                     <mat-option value="language-2">Organization 02</mat-option>
                     <mat-option value="language-3">Organization 03</mat-option>
@@ -45,11 +36,7 @@
                 </mat-form-field>
               </div>
               <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 mt-4">
-                <mat-select
-                  [formControlName]="'type'"
-                  placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}"
-                  required
-                >
+                <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}" required>
                   <mat-option value="Public">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}</mat-option>
                   <mat-option value="Service">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.SERVICE' | transloco }}</mat-option>
                   <mat-option value="Institut">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.INSTITUT' | transloco }}</mat-option>
@@ -105,19 +92,13 @@
                     [matChipInputFor]="organizationLabelsChipList"
                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                     [matChipInputAddOnBlur]="true"
-                    (matChipInputTokenEnd)="addItemMatChip(organizationLabels, $event)"
-                  />
+                    (matChipInputTokenEnd)="addItemMatChip(organizationLabels, $event)" />
                 </mat-chip-list>
               </mat-form-field>
             </div>
             <div class="flex">
               <mat-form-field class="fuse-mat-textarea flex-auto mx-4">
-                <textarea
-                  matInput
-                  [formControlName]="'description'"
-                  placeholder="{{ 'ORGANIZATION.FORM.STEP1.DESCRIPTION' | transloco }}"
-                  [rows]="3"
-                ></textarea>
+                <textarea matInput [formControlName]="'description'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DESCRIPTION' | transloco }}" [rows]="3"></textarea>
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:menu-alt-2'"></mat-icon>
               </mat-form-field>
             </div>
@@ -128,8 +109,7 @@
                 [color]="'primary'"
                 [disabled]="horizontalStepperStep1.stepControl.pristine || horizontalStepperStep1.stepControl.invalid"
                 type="button"
-                matStepperNext
-              >
+                matStepperNext>
                 {{ 'APP.BTN.NEXT' | transloco }}
               </button>
             </div>
@@ -217,8 +197,7 @@
                 [color]="'primary'"
                 [disabled]="horizontalStepperStep2.stepControl.pristine || horizontalStepperStep2.stepControl.invalid"
                 type="button"
-                matStepperNext
-              >
+                matStepperNext>
                 {{ 'APP.BTN.NEXT' | transloco }}
               </button>
             </div>
@@ -235,8 +214,7 @@
                       class="py-2 mt-2"
                       (removed)="removeItemMatChip(adminsEmailListLabels, adminEmail)"
                       [color]="adminEmail.invalid ? 'warn' : 'secondary'"
-                      selected
-                    >
+                      selected>
                       {{ adminEmail.value }}
                       <mat-icon matChipRemove>cancel</mat-icon>
                     </mat-chip>
@@ -247,8 +225,7 @@
                     [matChipInputFor]="adminEmailsChipList"
                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                     [matChipInputAddOnBlur]="true"
-                    (matChipInputTokenEnd)="addItemMatChip(adminsEmailListLabels, $event, true)"
-                  />
+                    (matChipInputTokenEnd)="addItemMatChip(adminsEmailListLabels, $event, true)" />
                 </mat-chip-list>
               </mat-form-field>
               <div class="text-gray-700 text-opacity-60">
@@ -267,8 +244,7 @@
                       class="py-2 mt-2"
                       (removed)="removeItemMatChip(usersEmailListLabels, userEmail)"
                       [color]="userEmail.invalid ? 'warn' : 'secondary'"
-                      selected
-                    >
+                      selected>
                       {{ userEmail.value }}
                       <mat-icon matChipRemove>cancel</mat-icon>
                     </mat-chip>
@@ -279,8 +255,7 @@
                     [matChipInputFor]="usersEmailLChipList"
                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                     [matChipInputAddOnBlur]="true"
-                    (matChipInputTokenEnd)="addItemMatChip(usersEmailListLabels, $event, true)"
-                  />
+                    (matChipInputTokenEnd)="addItemMatChip(usersEmailListLabels, $event, true)" />
                 </mat-chip-list>
               </mat-form-field>
               <div class="text-gray-700 text-opacity-60">
@@ -316,14 +291,7 @@
               <button class="px-8 mr-2" [disabled]="!stepperForm.valid" mat-flat-button [color]="'primary'" type="button" (click)="onDone()">
                 {{ 'APP.BTN.SUBMIT' | transloco }}
               </button>
-              <button
-                class="px-8"
-                [disabled]="!stepperForm.valid"
-                mat-flat-button
-                [color]="'primary'"
-                type="reset"
-                (click)="onDoneAndCreateNew()"
-              >
+              <button class="px-8" [disabled]="!stepperForm.valid" mat-flat-button [color]="'primary'" type="reset" (click)="onDoneAndCreateNew()">
                 {{ 'APP.BTN.DONE_AND_CREATE_NEW' | transloco }}
               </button>
             </div>
