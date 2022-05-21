@@ -66,7 +66,7 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
         id: 'reservations',
         icon: 'heroicons_outline:bell',
         title: 'Reservations',
-        description: 'Manage when you\'ll be notified on which channels',
+        description: "Manage when you'll be notified on which channels",
       },
       {
         id: 'invocie',
@@ -111,7 +111,6 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
       const organization = body.data.organization;
       organization.phone = organization.phones[0];
       this.currentOrganizations = organization;
-      console.log({ currentOrganizations: this.currentOrganizations });
 
       this.settings = body.data.settings;
     });

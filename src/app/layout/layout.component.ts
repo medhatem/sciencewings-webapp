@@ -40,7 +40,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
     const { userData } = this._route.snapshot.data;
     try {
       const user = await this._newUserInfosResolver.getUser(userData.id);
-      console.log({ user });
 
       if (user) {
         this.hideMenusAndButtons = false;
