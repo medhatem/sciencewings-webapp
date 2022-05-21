@@ -38,21 +38,17 @@ export const appRoutes: Route[] = [
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:office-building',
             },
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
+            loadChildren: () => import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
           },
           {
             path: 'organization-settings',
             canActivate: [AuthGuard],
             data: {
-              title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.TITLE',
+              title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.SETTINGS',
               type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:office-building',
+              icon: 'heroicons_outline:adjustments',
             },
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/organization-settings/organization-settings.module').then(
-                (m) => m.OrganizationSettingsModule,
-              ),
+            loadChildren: () => import('app/modules/admin/dashboard/organization-settings/organization-settings.module').then((m) => m.OrganizationSettingsModule),
           },
           {
             path: userProfilePath,
@@ -178,8 +174,7 @@ export const appResourceSettingsRoutes: Route[] = [
           type: FuseNavigationItemTypeEnum.basic,
           icon: 'heroicons_outline:users',
         },
-        loadChildren: () =>
-          import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
+        loadChildren: () => import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
       },
       {
         path: 'settings-reservation',
@@ -189,8 +184,7 @@ export const appResourceSettingsRoutes: Route[] = [
           type: FuseNavigationItemTypeEnum.basic,
           icon: 'heroicons_outline:users',
         },
-        loadChildren: () =>
-          import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then((m) => m.SettingsReservationModule),
+        loadChildren: () => import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then((m) => m.SettingsReservationModule),
       },
     ],
   },

@@ -32,7 +32,8 @@
           "TITLE": "User profile"
         },
         "ORGANIZATION_PROFILE": {
-          "TITLE": "Organization profile"
+          "TITLE": "Organization Profile",
+          "SETTINGS": "Organization Settings"
         },
         "ORGANIZATION_MEMBERS": {
           "TITLE": "Organization members"
