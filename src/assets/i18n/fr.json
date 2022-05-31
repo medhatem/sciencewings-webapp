@@ -1,42 +1,70 @@
 {
-  "WELCOME_BACK": "Bonjour",
-  "PROFILE": "Profil",
-  "EMPTY_ORGANIZATIONS": "Aucune Organisation",
   "APP": {
-    "GENERAL": {
+    "BTN": {
+      "CANCEL": "Annuler",
+      "DONE_AND_CREATE_NEW": "Soumettre et créer un nouveau",
       "NEXT": "Suivant",
-      "BACK": "Précédent",
+      "PREVIOUS": "Précédent",
+      "RELOAD": "Recharger",
+      "SUBMIT": "Soumettre"
+    },
+    "COMMON": {
+      "APP_MODULES": {
+        "ADMINISTRATION": {
+          "DESCRIPTION": "gestion de l'espace de travail",
+          "TITLE": "Administration"
+        },
+        "DOCUMENTATION": {
+          "DESCRIPTION": "Gestionnaire des ressources",
+          "TITLE": "Ressources"
+        },
+        "HELP_CENTER": {
+          "DESCRIPTION": "FAQ et guides",
+          "TITLE": "Centre d'aide"
+        },
+        "RESOUCES": {
+          "DESCRIPTION": "Demarrage...",
+          "TITLE": "Documentation"
+        },
+        "TITLE": "Modules"
+      },
+      "NO_APP_MODULES": "Aucun module d'application",
+      "NO_APP_MODULES_DESCRIPTION": "Lorsque vous avez des modules d'application, ils apparaîtront ici."
+    },
+    "GENERAL": {
       "ADDRESS": {
         "ADDRESS": "Adresse",
         "ADDRESSES": "Adresses",
-        "STREET": "Rue",
+        "ADD_ADDRESS": "Ajouter une addresse",
         "APPARTMENT": "Appartement",
-        "PROVINCE": "Province",
         "CITY": "Cité",
-        "POSTAL_CODE": "Code postal",
         "COUNTRY": "Pays",
-        "ADD_ADDRESS": "Ajouter une addresse"
+        "POSTAL_CODE": "Code postal",
+        "PROVINCE": "Province",
+        "STREET": "Rue"
       },
+      "BACK": "Précédent",
+      "NEXT": "Suivant",
       "PHONE": {
         "PHONE_NUMBER": "Numéro de téléphone",
         "PHONE_NUMBERS": "Numéros de téléphone"
       }
     },
+    "KEYCLOAK_LOGIN_ERROR": "Une erreur s'est produite lors de la connexion de keycloak",
+    "KEYCLOAK_LOGOUT_ERROR": "Une erreur s'est produite lors de la déconnexion de keycloak",
+    "LOGIN_ERROR_TITLE": "Une erreur s'est produite lors de la recherde d'utilisateur",
+    "NEW_USER_INFOS_REQUIRED": "Veuillez remplir vos informations avant de passer à votre tableau de bord",
     "RESOURCES": {
       "MANAGER": "Manageur",
       "MANAGERS": "Manageurs"
     },
     "ROUTES": {
       "ADMIN": {
-        "TITLE": "Tableau de bord",
-        "USER_PROFILE": {
-          "TITLE": "Profil utilisateur"
+        "ORGANIZATION_MEMBERS": {
+          "TITLE": "Members de l'organisation"
         },
         "ORGANIZATION_PROFILE": {
           "TITLE": "Profil organization"
-        },
-        "ORGANIZATION_MEMBERS": {
-          "TITLE": "Members de l'organisation"
         },
         "RESOURCE": {
           "TITLE": "Resource"
@@ -44,23 +72,57 @@
         "RESOURCE_LIST": {
           "TITLE": "Resource liste"
         },
+        "RESOURCE_PROFILE": {
+          "TITLE": "Profile du resource "
+        },
+        "RESOURCE_RULES": {
+          "TITLE": "Règles des ressources"
+        },
         "RESOURCE_SCHEDULE": {
           "TITLE": "Horaire des ressources"
         },
         "RESOURCE_SETTINGS": {
           "TITLE": "Paramètres des ressources"
         },
-        "RESOURCE_PROFILE": {
-          "TITLE": "Profile du resource "
-        },
         "RESOURCE_TAGS": {
           "TITLE": "Tags des ressources"
         },
-        "RESOURCE_RULES": {
-          "TITLE": "Règles des ressources"
+        "TITLE": "Tableau de bord",
+        "USER_PROFILE": {
+          "TITLE": "Profil utilisateur"
         }
       },
+      "MENU": {
+        "CALENDAR": {
+          "TITLE": "Calendrier"
+        },
+        "TITLE": "Menu"
+      },
       "USER": {
+        "ABOUT": {
+          "ADDRESS": "Adresse",
+          "ADD_EMAIL": "Ajouter une adresse e-mail",
+          "ADD_PHONE_NUMBER": "Ajouter un numéro de téléphone",
+          "BIRTH_DATE": "Date de naissance",
+          "CANCEL": "Annuler",
+          "CANCEL_DESC": "Annuler les modifications",
+          "COMPANY": "Société",
+          "DELETE": "Supprimer",
+          "DELETE_DESC": "Supprimer l'utilisateur",
+          "EDIT": "Modifier",
+          "EDIT_DESC": "Modifier les informations",
+          "EMAIL": "Adresse e-mail",
+          "FIRST_NAME": "Prénom",
+          "LABEL": "Étiquette",
+          "LAST_NAME": "Nom",
+          "NAME": "Nom",
+          "NOTES": "Notes",
+          "PHONE": "Numéro de téléphone",
+          "REMOVE": "Enlever",
+          "SAVE": "Enregistrer",
+          "SAVE_DESC": "Enregistrer les modifications",
+          "TITLE": "Intitulé de poste"
+        },
         "NEW_USER_FORM": {
           "STEP_1": {
             "TITLE": "Informations générales"
@@ -69,136 +131,96 @@
             "TITLE": "Informations de contact"
           },
           "STEP_3": {
-            "TITLE": "Terminé",
-            "MESSAGE": "Merci d'avoir rempli vos informations!\nVous pouvez maintenant gérer votre organisation et créer vos ressources et faire plein d'autres fonctionnalités intéressantes."
+            "MESSAGE": "Merci d'avoir rempli vos informations!\nVous pouvez maintenant gérer votre organisation et créer vos ressources et faire plein d'autres fonctionnalités intéressantes.",
+            "TITLE": "Terminé"
           }
-        },
-        "TITLE": "Utilisateur",
-        "TABS": {
-          "ABOUT": "À propos",
-          "CONTACTS": "Contacts",
-          "TRAINING": "Formations",
-          "MEMBERS": "Membres"
-        },
-        "ABOUT": {
-          "NAME": "Nom",
-          "FIRST_NAME": "Prénom",
-          "LAST_NAME": "Nom",
-          "TITLE": "Intitulé de poste",
-          "COMPANY": "Société",
-          "EMAIL": "Adresse e-mail",
-          "LABEL": "Étiquette",
-          "REMOVE": "Enlever",
-          "ADD_EMAIL": "Ajouter une adresse e-mail",
-          "PHONE": "Numéro de téléphone",
-          "ADD_PHONE_NUMBER": "Ajouter un numéro de téléphone",
-          "ADDRESS": "Adresse",
-          "BIRTH_DATE": "Date de naissance",
-          "NOTES": "Notes",
-          "EDIT": "Modifier",
-          "EDIT_DESC": "Modifier les informations",
-          "CANCEL": "Annuler",
-          "CANCEL_DESC": "Annuler les modifications",
-          "DELETE": "Supprimer",
-          "DELETE_DESC": "Supprimer l'utilisateur",
-          "SAVE": "Enregistrer",
-          "SAVE_DESC": "Enregistrer les modifications"
         },
         "PROFILE": {
           "TITLE": "Profil utilisateur"
-        }
-      },
-      "MENU": {
-        "TITLE": "Menu",
-        "CALENDAR": {
-          "TITLE": "Calendrier"
-        }
+        },
+        "TABS": {
+          "ABOUT": "À propos",
+          "CONTACTS": "Contacts",
+          "MEMBERS": "Membres",
+          "TRAINING": "Formations"
+        },
+        "TITLE": "Utilisateur"
       }
     },
-    "LOGIN_ERROR_TITLE": "Une erreur s'est produite lors de la recherde d'utilisateur",
     "SAVE_NEW_USER_FAILED": "Une erreur s'est produite lors de l'enregistrement d'utilisateur",
-    "KEYCLOAK_LOGIN_ERROR": "Une erreur s'est produite lors de la connexion de keycloak",
-    "KEYCLOAK_LOGOUT_ERROR": "Une erreur s'est produite lors de la déconnexion de keycloak",
-    "BTN": {
-      "NEXT": "Suivant",
-      "CANCEL": "Annuler",
-      "PREVIOUS": "Précédent",
-      "SUBMIT": "Soumettre",
-      "RELOAD": "Recharger",
-      "DONE_AND_CREATE_NEW": "Soumettre et créer un nouveau"
-    },
-    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "échec du chargement des organisations d'utilisateur",
-    "NEW_USER_INFOS_REQUIRED": "Veuillez remplir vos informations avant de passer à votre tableau de bord"
+    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "échec du chargement des organisations d'utilisateur"
   },
+  "EMPTY_ORGANIZATIONS": "Aucune Organisation",
   "ORGANIZATION": {
-    "PROFILE": {
-      "DETAILS": {},
-      "TABS": {
-        "GENERAL_INFOS": "Informations générales",
-        "RESOURCES": "Ressources",
-        "USERS": "Utilisateurs",
-        "SUB_ORGANIZATIONS": "Sous-Organisations"
-      }
+    "ERROR": {
+      "CREATE_FAILED": "La creation de l'organisation a échouée"
     },
     "FORM": {
-      "TITLE": "Création d'Organisation",
+      "DONE": {
+        "HELPER1": "Merci d'avoir rempli les informations de votre Organization !",
+        "HELPER2": "Vous pouvez maintenant gérer votre Organization et créer vos ressources et bien plein d'autres fonctionnalités intéressantes",
+        "HELPER3": "Vous pouvez cliquer sur réinitialiser si vous souhaitez creer une autre organization",
+        "TITLE": "Terminé"
+      },
       "STEP1": {
-        "TITLE": "Informations générales",
-        "SUB_TITLE": "Remplissez vos informations de base pour votre organization",
-        "SUB_ORGANIZATION": "Définir comme sous-organisation",
         "CHOOSE_SUB_ORGANIZATION": "Choisissez l'organisation mère si c'est applicable",
-        "TIMEZONE": "Fuseau horaire",
         "DEALING_TYPE": {
-          "TITLE": "Internal/External Organization",
+          "INSTITUT": "Institut",
           "PUBLIC": "Public",
           "SERVICE": "Service",
-          "INSTITUT": "Institut"
+          "TITLE": "Internal/External Organization"
         },
-        "NAME": "Nom de l'organisation",
+        "DESCRIPTION": "À propos (description)",
         "EMAIL": "Adresse e-mail",
-        "TYPE": "Choisissez le type d'organisation",
+        "LABELS": "Étiquettes",
+        "NAME": "Nom de l'organisation",
         "PHONE": "Numéro de téléphone",
         "PHONE_CODE": "Code de téléphone",
-        "PHONE_NUMBER": "Numéro de téléphone",
         "PHONE_LABEL": "Libler de téléphone",
-        "LABELS": "Étiquettes",
-        "DESCRIPTION": "À propos (description)"
+        "PHONE_NUMBER": "Numéro de téléphone",
+        "SUB_ORGANIZATION": "Définir comme sous-organisation",
+        "SUB_TITLE": "Remplissez vos informations de base pour votre organization",
+        "TIMEZONE": "Fuseau horaire",
+        "TITLE": "Informations générales",
+        "TYPE": "Choisissez le type d'organisation"
       },
       "STEP2": {
-        "TITLE": "Adresse et réseaux sociaux",
-        "SUB_TITLE": "Adresse de l'organisation",
         "APARTMENT": "Appartement",
         "CITY": "Ville",
-        "STREET": "Rue",
         "COUNTRY": "Pays",
-        "SELECT_COUNTRY": "Choisissez un pays",
-        "PROVINCE": "Province/région",
-        "POSTAL_CODE": "Code postal",
         "DEPARTMENT": "Département",
+        "POSTAL_CODE": "Code postal",
+        "PROVINCE": "Province/région",
         "SECTOR": "Secteur",
-        "SOCIAL_MEDIA": "Réseaux sociaux"
+        "SELECT_COUNTRY": "Choisissez un pays",
+        "SOCIAL_MEDIA": "Réseaux sociaux",
+        "STREET": "Rue",
+        "SUB_TITLE": "Adresse de l'organisation",
+        "TITLE": "Adresse et réseaux sociaux"
       },
       "STEP3": {
-        "TITLE": "Administrateurs et Membres",
-        "SUB_TITLE_ADMIN": "Inviter des administrateurs pour cette organisation",
-        "SUB_TITLE_USER": "Inviter des membres pour cette organisation",
         "ENTER_EMAIL": "Entrez e-mail",
         "HELPER1": "Fractionnez avec des virgules ou cliquez sur ENTRÉE",
         "HELPER2": "Exemple 01: exemple@exemple.com",
-        "HELPER3": "Exemple 02: exemple01@exemple.com,exemple02@exemple.com"
+        "HELPER3": "Exemple 02: exemple01@exemple.com,exemple02@exemple.com",
+        "SUB_TITLE_ADMIN": "Inviter des administrateurs pour cette organisation",
+        "SUB_TITLE_USER": "Inviter des membres pour cette organisation",
+        "TITLE": "Administrateurs et Membres"
       },
-      "DONE": {
-        "TITLE": "Terminé",
-        "HELPER1": "Merci d'avoir rempli les informations de votre Organization !",
-        "HELPER2": "Vous pouvez maintenant gérer votre Organization et créer vos ressources et bien plein d'autres fonctionnalités intéressantes",
-        "HELPER3": "Vous pouvez cliquer sur réinitialiser si vous souhaitez creer une autre organization"
-      }
+      "TITLE": "Création d'Organisation"
     },
-    "ERROR": {
-      "CREATE_FAILED": "La creation de l'organisation a échouée"
+    "PROFILE": {
+      "TABS": {
+        "GENERAL_INFOS": "Informations générales",
+        "RESOURCES": "Ressources",
+        "SUB_ORGANIZATIONS": "Sous-Organisations",
+        "USERS": "Utilisateurs"
+      }
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
     }
-  }
+  },
+  "PROFILE": "Profil",
+  "WELCOME_BACK": "Bonjour"
 }

@@ -10,10 +10,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ShortcutsComponent } from 'app/layout/common/shortcuts/shortcuts.component';
+import { AppModulesComponent } from './app-modules.component';
 
 @NgModule({
-  declarations: [ShortcutsComponent],
+  declarations: [AppModulesComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -27,6 +27,6 @@ import { ShortcutsComponent } from 'app/layout/common/shortcuts/shortcuts.compon
     MatSlideToggleModule,
     MatTooltipModule,
   ],
-  exports: [ShortcutsComponent],
+  exports: [AppModulesComponent],
 })
-export class ShortcutsModule {}
+export class AppModulesModule {}
