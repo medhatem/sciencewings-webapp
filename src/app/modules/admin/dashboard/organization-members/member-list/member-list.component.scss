@@ -1,0 +1,17 @@
+.inventory-grid {
+    grid-template-columns: auto auto auto;
+
+    @screen sm {
+      grid-template-columns: auto auto auto auto;
+    }
+
+    @screen md {
+      grid-template-columns: auto auto auto auto auto;
+    }
+
+    @screen lg {
+      grid-template-columns: auto auto auto auto auto;
+    }
+  }
+ 
+
