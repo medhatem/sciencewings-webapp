@@ -1,14 +1,12 @@
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GroupService } from './groups.service';
 
-
 @Injectable({
   providedIn: 'root',
 })
-export class ResourceResolver implements Resolve<any> {
+export class GroupResolver implements Resolve<any> {
   /**
    * Constructor
    */
