@@ -148,7 +148,7 @@
       }
     },
     "SAVE_NEW_USER_FAILED": "An error occurred while saving user infos",
-    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Failed to load user organizations"
+    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization"
   },
   "EMPTY_ORGANIZATIONS": "No Organization",
   "ORGANIZATION": {

@@ -10,7 +10,7 @@ export const shortcuts = [
   },
   {
     id: 'a1ae91d3-e2cb-459b-9be9-a184695g659c',
-    label: 'APP.COMMON.APP_MODULES.DOCUMENTATION>TITLE',
+    label: 'APP.COMMON.APP_MODULES.DOCUMENTATION.TITLE',
     description: 'APP.COMMON.APP_MODULES.DOCUMENTATION.DESCRIPTION',
     icon: 'heroicons_outline:cube',
     link: 'resources',

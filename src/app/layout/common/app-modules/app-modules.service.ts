@@ -7,19 +7,9 @@ import { AppModule } from './app-modules.types';
   providedIn: 'root',
 })
 export class AppModulesService {
-  private _appModules: ReplaySubject<AppModule[]> = new ReplaySubject<AppModule[]>(1);
-
   constructor(private _httpClient: HttpClient) {}
 
-  get appModules$(): Observable<AppModule[]> {
-    return this._appModules.asObservable();
-  }
-
   getAll(): Observable<AppModule[]> {
-    return this._httpClient.get<AppModule[]>('api/common/shortcuts').pipe(
-      tap((appModules) => {
-        this._appModules.next(appModules);
-      }),
-    );
+    return this._httpClient.get<AppModule[]>('api/common/shortcuts');
   }
 }

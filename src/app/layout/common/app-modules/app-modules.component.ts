@@ -41,14 +41,11 @@ export class AppModulesComponent implements OnInit, OnDestroy {
     private _viewContainerRef: ViewContainerRef,
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     // Get the app-modules
-    const appModulesSubscription = this._appModulesService.appModules$.pipe(takeUntil(this._unsubscribeAll));
-    lastValueFrom(appModulesSubscription).then((appModules: AppModule[]) => {
-      this.appModules = appModules;
-      // Mark for check
-      this._changeDetectorRef.markForCheck();
-    });
+    this.appModules = await lastValueFrom(this._appModulesService.getAll());
+    // Mark for check
+    this._changeDetectorRef.markForCheck();
   }
 
   ngOnDestroy(): void {

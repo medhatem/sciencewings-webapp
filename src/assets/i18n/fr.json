@@ -148,7 +148,7 @@
       }
     },
     "SAVE_NEW_USER_FAILED": "Une erreur s'est produite lors de l'enregistrement d'utilisateur",
-    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "échec du chargement des organisations d'utilisateur"
+    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation"
   },
   "EMPTY_ORGANIZATIONS": "Aucune Organisation",
   "ORGANIZATION": {
