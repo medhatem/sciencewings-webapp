@@ -14,10 +14,15 @@
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
     </mat-form-field>
     <mat-form-field class="flex-auto mx-4">
-      <input matInput [formControlName]="'role'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.MEMBER' | transloco }}" />
-      <mat-label>Role</mat-label>
-      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:academic-cap'"></mat-icon>
-      <input matInput [formControlName]="'Role'" />
+      <input matInput [formControlName]="'member'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.EMAIL' | transloco }}" />
+      <mat-label>Group's Members</mat-label>
+      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+      <input matInput [formControlName]="'Add Members to Group'" />
+    </mat-form-field>
+    <mat-form-field class="flex-auto mx-4">
+      <mat-label>Description</mat-label>
+      <textarea matInput [formControlName]="'description'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DESCRIPTION' | transloco }}" [rows]="3"></textarea>
+      <!-- Body -->
     </mat-form-field>
 
     <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">

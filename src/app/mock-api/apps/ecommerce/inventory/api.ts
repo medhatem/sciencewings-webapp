@@ -38,9 +38,7 @@ export class ECommerceInventoryMockApi {
     // -----------------------------------------------------------------------------------------------------
     // @ Categories - GET
     // -----------------------------------------------------------------------------------------------------
-    this._fuseMockApiService
-      .onGet('api/apps/ecommerce/inventory/categories')
-      .reply(() => [200, cloneDeep(this._categories)]);
+    this._fuseMockApiService.onGet('api/apps/ecommerce/inventory/categories').reply(() => [200, cloneDeep(this._categories)]);
 
     // -----------------------------------------------------------------------------------------------------
     // @ Brands - GET
@@ -59,7 +57,13 @@ export class ECommerceInventoryMockApi {
       const size = parseInt(request.params.get('size') ?? '10', 10);
 
       // Clone the products
-      let products: any[] | null = cloneDeep(this._products);
+      let products: any[] | null = [
+        { name: 'Admin', member: 3, status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Aprovers', member: 2, status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Managers', member: 2, status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Supervisors', member: 5, status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Humaine Resources', member: 5, status: 'Activate', date: 'April 29, 2022' },
+      ];
 
       // Sort the products
       if (sort === 'sku' || sort === 'name' || sort === 'active') {
@@ -75,9 +79,7 @@ export class ECommerceInventoryMockApi {
       // If search exists...
       if (search) {
         // Filter the products
-        products = products.filter(
-          (contact) => contact.name && contact.name.toLowerCase().includes(search.toLowerCase())
-        );
+        products = products.filter((contact) => contact.name && contact.name.toLowerCase().includes(search.toLowerCase()));
       }
 
       // Paginate - Start
