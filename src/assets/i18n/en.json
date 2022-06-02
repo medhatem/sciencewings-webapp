@@ -131,7 +131,9 @@
   },
   "ORGANIZATION": {
     "PROFILE": {
-      "DETAILS": {},
+      "DETAILS": {
+        "ROLE": "Role"
+      },
       "TABS": {
         "GENERAL_INFOS": "General informations",
         "RESOURCES": "Resources",
