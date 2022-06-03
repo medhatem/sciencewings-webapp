@@ -1,6 +1,6 @@
 <div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
   <!-- Header -->
-  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8">
     <!-- Loader -->
     <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
       <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
@@ -59,23 +59,22 @@
   <!-- Main -->
   <div class="flex flex-auto overflow-hidden">
     <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
-      <ng-container *ngIf="groups$ | async as groups">
-        <ng-container *ngIf="groups$.length > 0; else noGroups">
+      <ng-container *ngIf="(groups$ | async) as groups">
+        <ng-container *ngIf="groups.length > 0; else noGroups">
           <div class="grid">
             <!-- Header -->
             <div
               class="inventory-grid text-center z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
               matSort
               matSortDisableClear>
-              <div class="hidden lg:block" [mat-menu-trigger-for]="'name'">Group</div>
-              <div class="hidden lg:block" [mat-menu-trigger-for]="'member'">Members</div>
-              <div class="hidden lg:block" [mat-menu-trigger-for]="'status'">Status</div>
-              <div class="hidden lg:block" [mat-menu-trigger-for]="'date'">Date</div>
-              <div class="hidden lg:block" [mat-menu-trigger-for]="'action'">Action</div>
+              <div class="hidden lg:block" >Group</div>
+              <div class="hidden lg:block" >Members</div>
+              <div class="hidden lg:block" >Status</div>
+              <div class="hidden lg:block" >Date</div>
             </div>
 
-            <ng-container *ngIf="groups$ | async as groups">
-              <ng-container *ngFor="let group of groups$; trackBy: trackByFn">
+            <ng-container *ngIf="(groups$ | async) as groups">
+              <ng-container *ngFor="let group of groups; trackBy: trackByFn">
                 <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b">
                   <div class="hidden lg:block">
                     {{ group.name }}
@@ -94,12 +93,19 @@
             </ng-container>
           </div>
           <mat-paginator
-            [ngClass]="{ 'pointer-events-none': isLoading }"
-            [length]="100"
-            [pageSize]="10"
+            class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent"
+            (page)="handlePageEvent($event)"
+            [ngClass]="{'pointer-events-none': isLoading}"
+            [length]="pagination.length"
+            [pageIndex]="pagination.page"
+            [pageSize]="pagination.size"
             [pageSizeOptions]="[5, 10, 25, 100]"
-            aria-label="Select page"></mat-paginator>
+            [showFirstLastButtons]="true">
+          </mat-paginator>
         </ng-container>
+        <ng-template #noGroups>
+          <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no groups!</div>
+        </ng-template>
       </ng-container>
     </div>
   </div>

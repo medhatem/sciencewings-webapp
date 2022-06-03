@@ -7,22 +7,9 @@ import { GroupService } from './groups.service';
   providedIn: 'root',
 })
 export class GroupResolver implements Resolve<any> {
-  /**
-   * Constructor
-   */
-  constructor(private _profileService: GroupService) {}
+  constructor(private _groupService: GroupService) {}
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Resolver
-   *
-   * @param route
-   * @param state
-   */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this._profileService.getData();
+    return this._groupService.getGroups();
   }
 }

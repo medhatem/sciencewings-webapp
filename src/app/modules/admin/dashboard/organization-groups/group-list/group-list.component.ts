@@ -1,15 +1,15 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
 import { GroupFormComponent } from '../group-form/group-form.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { ToastrService } from 'app/core/toastr/toastr.service';
 import { DataService } from 'app/data.service';
-import { GroupService } from './group.service';
 import { MatDialog } from '@angular/material/dialog';
 import { InventoryPagination } from '../../organization-profile/profile/organization-profile.component';
-import { products } from 'app/mock-api/apps/ecommerce/inventory/data';
+import { GroupService } from 'app/modules/admin/resolvers/groups/groups.service';
+import { PageEvent } from '@angular/material/paginator';
+
 @Component({
   selector: 'app-group-list',
   templateUrl: './group-list.component.html',
@@ -26,36 +26,44 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   groupsCount: number = 0;
   pagination: InventoryPagination;
   searchInputControl: FormControl = new FormControl();
+  count = 0;
+
   private _unsubscribeAll: Subject<any> = new Subject<any>();
-  constructor(
-    private _groupService: GroupService,
-    private _toastrService: ToastrService,
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _matDialog: MatDialog,
-    // private _inventoryService: InventoryService,
-    private data: DataService,
-  ) {}
+
+  constructor(private _groupService: GroupService, private _changeDetectorRef: ChangeDetectorRef, private _matDialog: MatDialog, private data: DataService) {}
 
   ngOnInit(): void {
-    // // this.groups = [
-    // //   { name: 'Admin', member: 3, status: 'Activate', date: 'April 29, 2022' },
-    // //   { name: 'Aprovers', member: 2, status: 'Activate', date: 'April 29, 2022' },
-    // //   { name: 'Managers', member: 2, status: 'Activate', date: 'April 29, 2022' },
-    // //   { name: 'Supervisors', member: 5, status: 'Activate', date: 'April 29, 2022' },
-    // //   { name: 'Humaine Resources', member: 5, status: 'Activate', date: 'April 29, 2022' },
-    // // ];
-    // this.groupsCount = this.groups.length;
-    // Get the pagination
-    this._groupService.getGroups().subscribe((groups) => (this.groups$ = groups));
     this._groupService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
-      // Update the pagination
-      console.log('hhhh');
+      console.log('this.pagination', this.pagination, this.count);
+      this.count++;
       this.pagination = pagination;
-      // Mark for check
       this._changeDetectorRef.markForCheck();
     });
-    // Get the products
+
     this.groups$ = this._groupService.groups$;
+
+    // Subscribe to search input field value changes
+    this.searchInputControl.valueChanges
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        debounceTime(300),
+        switchMap((query) => {
+          this.closeDetails();
+          this.isLoading = true;
+          return this._groupService.getGroups(0, 10, 'name', 'asc', query);
+        }),
+        map(() => {
+          this.isLoading = false;
+        }),
+      )
+      .subscribe();
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.pagination.length = event.length;
+    this.pagination.size = event.pageSize;
+    this.pagination.page = event.pageIndex;
+    lastValueFrom(this._groupService.getGroups(event.pageIndex, event.pageSize));
   }
 
   ngAfterViewInit(): void {
