@@ -10,7 +10,7 @@
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
     </mat-form-field>
     <mat-form-field class="flex-auto mx-4">
-      <input matInput [formControlName]="'role'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.ROLE' | transloco }}" />
+      <input matInput [formControlName]="'role'" placeholder="{{ 'ORGANIZATION.PROFILE.DETAILS.ROLE' | transloco }}" />
       <mat-label>Role</mat-label>
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:academic-cap'"></mat-icon>
       <input matInput [formControlName]="'Role'" />
@@ -28,7 +28,7 @@
     </mat-form-field>
     <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
       <button mat-button>Cancel</button>
-      <button class="px-6 ml-3" mat-flat-button [color]="'primary'">Save</button>
+      <button class="px-6 ml-3" mat-flat-button [color]="'primary'" (click)="invite()">Save</button>
     </div>
     <!-- Actions -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">

@@ -19,24 +19,31 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
   @ViewChild(MatSort) private _sort: MatSort;
 
-  members: any[] = [];
+  members = [];
   isLoading: boolean = false;
   selectedMember = null;
-  membersCount: number = 0;
   searchInputControl: FormControl = new FormControl();
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
     private _memberService: MemberService,
-    private _toastrService: ToastrService,
     private _changeDetectorRef: ChangeDetectorRef,
+    private _toastrService: ToastrService,
     private _matDialog: MatDialog,
     private data: DataService,
   ) {}
 
   ngOnInit(): void {
-    this.members = [{ name: 'Nasro', status: 'Soheyb' }];
-    this.membersCount = this.members.length;
+    this._memberService.getOrgMembers(1).subscribe(({ body }) => {
+      if (body.statusCode === 500) {
+        this._toastrService.showError('Something went wrong!');
+      }
+      this.members = body.members.map((m: any) => ({
+        ...m,
+        joinDate: m.joinDate && m.slice(0, m.joinDate.indexOf('T')),
+      }));
+      this._changeDetectorRef.markForCheck();
+    });
   }
 
   ngAfterViewInit(): void {

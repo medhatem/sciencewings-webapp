@@ -21,7 +21,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   layout: Layout;
   scheme: 'dark' | 'light';
   theme: string;
-  hideMenusAndButtons: boolean = false;
+  hideMenusAndButtons: boolean = true;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
