@@ -40,7 +40,6 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
   ngOnInit(): void {
     this._memberService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
-      console.log('this.pagination', this.pagination, this.count);
       this.count++;
       this.pagination = pagination;
       this._changeDetectorRef.markForCheck();
