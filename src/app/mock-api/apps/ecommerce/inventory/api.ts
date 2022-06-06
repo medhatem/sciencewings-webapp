@@ -58,21 +58,21 @@ export class ECommerceInventoryMockApi {
 
       // Clone the products
       let products: any[] | null = [
-        { name: 'Admin', member: 1, status: 'Activate', date: 'April 29, 2022' },
-        { name: 'Aprovers', member: 2, status: 'Activate', date: 'April 29, 2022' },
-        { name: 'Managers', member: 3, status: 'Activate', date: 'April 29, 2022' },
-        { name: 'Supervisors', member: 4, status: 'Activate', date: 'April 29, 2022' },
-        { name: 'Humaine Resources', member: 5, status: 'Activate', date: 'April 29, 2022' },
-        { name: 'Humaine Resources', member: 6, status: 'Activate', date: 'April 29, 2022' },
-        { name: 'Humaine Resources', member: 7, status: 'Activate', date: 'April 29, 2022' },
-        { name: 'Humaine Resources', member: 8, status: 'Activate', date: 'April 29, 2022' },
-        { name: 'Humaine Resources', member: 9, status: 'Activate', date: 'April 29, 2022' },
-        { name: 'Humaine Resources', member: 10, status: 'Activate', date: 'April 29, 2022' },
-        { name: 'Humaine Resources', member: 11, status: 'Activate', date: 'April 29, 2022' },
-        { name: 'Humaine Resources', member: 12, status: 'Activate', date: 'April 29, 2022' },
-        { name: 'Humaine Resources', member: 13, status: 'Activate', date: 'April 29, 2022' },
-        { name: 'Humaine Resources', member: 14, status: 'Activate', date: 'April 29, 2022' },
-        { name: 'Humaine Resources', member: 15, status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Admin', member: 1, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Aprovers', member: 2, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Managers', member: 3, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Supervisors', member: 4, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 5, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 6, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 7, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 8, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 9, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 10, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 11, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 12, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 13, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 14, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 15, status: 'Activate', date: 'April 29, 2022', avatar: '' },
       ];
 
       // Sort the products
@@ -132,6 +132,98 @@ export class ECommerceInventoryMockApi {
         200,
         {
           groups: products,
+          pagination,
+        },
+      ];
+    });
+
+    this._fuseMockApiService.onGet('api/apps/ecommerce/inventory/members', 300).reply(({ request }) => {
+      // Get available queries
+      const search = request.params.get('search');
+      const sort = request.params.get('sort') || 'name';
+      const order = request.params.get('order') || 'asc';
+      const page = parseInt(request.params.get('page') ?? '1', 10);
+      const size = parseInt(request.params.get('size') ?? '10', 10);
+
+      // Clone the products
+      let products: any[] | null = [
+        { name: 'Nasro', role: 'Designer', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Moustapha', role: 'Owner', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Hatem', role: 'Owner', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Soheyb', role: 'Front End', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Basset', role: 'Backend', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'AbedSalam', role: 'Owner', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Nasro', role: 'Designer', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Moustapha', role: 'Owner', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Hatem', role: 'Owner', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Soheyb', role: 'Front End', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Basset', role: 'Backend', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'AbedSalam', role: 'Owner', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Nasro', role: 'Designer', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Moustapha', role: 'Owner', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Hatem', role: 'Owner', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Soheyb', role: 'Front End', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'Basset', role: 'Backend', status: 'Activate', date: 'April 29, 2022' },
+        { name: 'AbedSalam', role: 'Owner', status: 'Activate', date: 'April 29, 2022' },
+      ];
+
+      // Sort the products
+      if (sort === 'member' || sort === 'name' || sort === 'active') {
+        products.sort((a, b) => {
+          const fieldA = a[sort].toString().toUpperCase();
+          const fieldB = b[sort].toString().toUpperCase();
+          return order === 'asc' ? fieldA.localeCompare(fieldB) : fieldB.localeCompare(fieldA);
+        });
+      } else {
+        products.sort((a, b) => (order === 'asc' ? a[sort] - b[sort] : b[sort] - a[sort]));
+      }
+
+      // If search exists...
+      if (search) {
+        // Filter the products
+        products = products.filter((contact) => contact.name && contact.name.toLowerCase().includes(search.toLowerCase()));
+      }
+
+      // Paginate - Start
+      const productsLength = products.length;
+
+      // Calculate pagination details
+      const begin = page * size;
+      const end = Math.min(size * (page + 1), productsLength);
+      const lastPage = Math.max(Math.ceil(productsLength / size), 1);
+
+      // Prepare the pagination object
+      let pagination = {};
+
+      // If the requested page number is bigger than
+      // the last possible page number, return null for
+      // products but also send the last possible page so
+      // the app can navigate to there
+      if (page > lastPage) {
+        products = null;
+        pagination = {
+          lastPage,
+        };
+      } else {
+        // Paginate the results by size
+        products = products.slice(begin, end);
+
+        // Prepare the pagination mock-api
+        pagination = {
+          length: productsLength,
+          size: size,
+          page: page,
+          lastPage: lastPage,
+          startIndex: begin,
+          endIndex: end - 1,
+        };
+      }
+
+      // Return the response
+      return [
+        200,
+        {
+          members: products,
           pagination,
         },
       ];

@@ -14,7 +14,6 @@ export class GroupFormComponent implements OnInit {
   constructor(public matDialogRef: MatDialogRef<GroupFormComponent>, private _formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    // Create the form
     this.groupForm = this._formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
     });

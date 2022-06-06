@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { GroupListComponent } from './group-list/group-list.component';
-// import { MemberProfilComponent } from './member-profil/member-profil.component';
 import { GroupFormComponent } from './group-form/group-form.component';
 import { OrganizationGroupsComponent } from './organization-groups.component';
 import { RouterModule } from '@angular/router';

@@ -1,5 +1,4 @@
 import { BehaviorSubject, Observable, map, take, tap } from 'rxjs';
-
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

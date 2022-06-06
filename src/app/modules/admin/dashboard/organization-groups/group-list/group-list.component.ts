@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { InventoryPagination } from '../../organization-profile/profile/organization-profile.component';
 import { GroupService } from 'app/modules/admin/resolvers/groups/groups.service';
 import { PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-group-list',
@@ -26,23 +27,27 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   groupsCount: number = 0;
   pagination: InventoryPagination;
   searchInputControl: FormControl = new FormControl();
-  count = 0;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-  constructor(private _groupService: GroupService, private _changeDetectorRef: ChangeDetectorRef, private _matDialog: MatDialog, private data: DataService) {}
+  constructor(
+    private _groupService: GroupService,
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _matDialog: MatDialog,
+    private data: DataService,
+    private _route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
+    const { groups } = this._route.snapshot.data;
     this._groupService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
-      console.log('this.pagination', this.pagination, this.count);
-      this.count++;
       this.pagination = pagination;
       this._changeDetectorRef.markForCheck();
     });
 
     this.groups$ = this._groupService.groups$;
+    this.groupsCount = groups.length;
 
-    // Subscribe to search input field value changes
     this.searchInputControl.valueChanges
       .pipe(
         takeUntil(this._unsubscribeAll),
