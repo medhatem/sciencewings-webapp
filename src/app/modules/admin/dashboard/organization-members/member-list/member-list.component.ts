@@ -33,8 +33,8 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private _memberService: MemberService,
-    private _toastrService: ToastrService,
     private _changeDetectorRef: ChangeDetectorRef,
+    private _toastrService: ToastrService,
     private _matDialog: MatDialog,
     private data: DataService,
   ) {}
@@ -64,6 +64,7 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
       )
       .subscribe();
   }
+
   handlePageEvent(event: PageEvent) {
     this.pagination.length = event.length;
     this.pagination.size = event.pageSize;
