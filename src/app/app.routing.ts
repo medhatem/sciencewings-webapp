@@ -71,6 +71,16 @@ export const appRoutes: Route[] = [
             resolve: {},
             loadChildren: () => import('app/modules/admin/dashboard/organization-members/organization-members.module').then((m) => m.OrganizationMembersModule),
           },
+          {
+            path: 'organization-groups',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.ORGANIZATION_GROUPS.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:users',
+            },
+            loadChildren: () => import('app/modules/admin/dashboard/organization-groups/organization-groups.module').then((m) => m.OrganizationGroupsModule),
+          },
         ],
       },
       {
