@@ -151,9 +151,10 @@
       }
     },
     "SAVE_NEW_USER_FAILED": "An error occurred while saving user infos",
-    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization"
+    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Failed to load user organizations"
   },
   "EMPTY_ORGANIZATIONS": "No Organization",
+  "FAILED_LOAD_COUNTRIES": "Country list downloads failed",
   "FATAL_ERROR_OCCURED": "A fatal error has occurred",
   "ORGANIZATION": {
     "ERROR": {
@@ -253,5 +254,6 @@
     }
   },
   "PROFILE": "Profile",
+  "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
   "WELCOME_BACK": "Hello"
 }

@@ -151,9 +151,10 @@
       }
     },
     "SAVE_NEW_USER_FAILED": "Une erreur s'est produite lors de l'enregistrement d'utilisateur",
-    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation"
+    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "échec du chargement des organisations d'utilisateur"
   },
   "EMPTY_ORGANIZATIONS": "Aucune Organisation",
+  "FAILED_LOAD_COUNTRIES": "Les téléchargements de la liste des pays ont échoué",
   "FATAL_ERROR_OCCURED": "Une erreur fatale s'est produite",
   "ORGANIZATION": {
     "ERROR": {
@@ -254,5 +255,6 @@
     }
   },
   "PROFILE": "Profil",
+  "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
   "WELCOME_BACK": "Bonjour"
 }

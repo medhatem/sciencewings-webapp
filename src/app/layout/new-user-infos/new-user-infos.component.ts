@@ -1,13 +1,14 @@
-import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NewUserInfosResolver } from './new-user-infos.resolver';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { constants } from 'app/shared/constants';
+import { constants, countries } from 'app/shared/constants';
 import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
+import { lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { Country } from 'app/models/country.interface';
+import { HttpClient } from '@angular/common/http';
 import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
-import { Subject, takeUntil } from 'rxjs';
-import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
 
 const moment = _rollupMoment || _moment;
 
@@ -18,7 +19,7 @@ const moment = _rollupMoment || _moment;
 export class NewUserInfosComponent implements OnInit, OnDestroy {
   @Output() onFormComplete = new EventEmitter<boolean>();
   user: any;
-  countries: any;
+  countries: Country[] = [];
   form: FormGroup;
   selectedCountry: any = {
     id: '4c8ba1fc-0203-4a8f-8321-4dda4a0c6732',
@@ -32,14 +33,15 @@ export class NewUserInfosComponent implements OnInit, OnDestroy {
   constructor(
     private _newUserInfosResolver: NewUserInfosResolver,
     private _formBuilder: FormBuilder,
-    private _toastr: ToastrService,
-    private _contactsService: ContactsService,
+    private _httpClient: HttpClient,
+    private _toastrService: ToastrService,
     private _changeDetectorRef: ChangeDetectorRef,
+    private _contactsService: ContactsService,
   ) {}
 
   async ngOnInit() {
+    await this._prepareCountries();
     this.user = await this._newUserInfosResolver.loadUserProfileKeycloak();
-
     this.form = this._formBuilder.group({
       firstname: [this.user.firstName, [Validators.required]],
       lastname: [this.user.lastName, [Validators.required]],
@@ -56,10 +58,9 @@ export class NewUserInfosComponent implements OnInit, OnDestroy {
       code: ['', Validators.required],
       country: [constants.NEW_USER.DEFAULT_COUNTRY, Validators.required],
     });
-
     // Get the country telephone codes
     this._contactsService.countries$.pipe(takeUntil(this._unsubscribeAll)).subscribe((codes: any[]) => {
-      this.countries = countriesData;
+      this.countries = countries as any as Country[];
       this._changeDetectorRef.markForCheck();
     });
   }
@@ -132,12 +133,11 @@ export class NewUserInfosComponent implements OnInit, OnDestroy {
     return item.id || index;
   }
 
-  /**
-   * Fills the country array from the list of countries provided in the mock api
-   */
-
-  //   private _prepareCountries() {
-  //     // TODO: retrieve countries from the backend instead of mock api
-  //     this._http.get('api/apps/contacts/countries').subscribe((countries) => (this.countries = countries));
-  //   }
+  private async _prepareCountries() {
+    try {
+      this.countries = await lastValueFrom(this._httpClient.get<Country[]>('api/apps/contacts/countries'));
+    } catch (error) {
+      this._toastrService.showInfo(constants.FAILED_LOAD_COUNTRIES);
+    }
+  }
 }
