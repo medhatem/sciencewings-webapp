@@ -80,10 +80,10 @@ export class ProfileFormComponent implements OnInit {
     this.phoneNumbers.removeAt(index);
   }
 
-  getCountryByIso(ISO: string) {
+  getCountryByIso(isoImage: string) {
     // Default country Canada
     const countryCanada = { flagImagePos: '-1px -1803px' };
-    return this.countries?.find(({ iso }) => iso === ISO) || countryCanada;
+    return this.countries?.find(({ iso }) => iso === isoImage) || countryCanada;
   }
 
   uploadAvatar(fileList: FileList): void {

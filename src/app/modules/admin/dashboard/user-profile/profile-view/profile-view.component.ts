@@ -8,9 +8,9 @@ export class ProfileViewComponent {
   @Input() user: any;
   @Input() countries: any;
 
-  getCountryByIso(ISO: string) {
+  getCountryByIso(isoImage: string) {
     // Default country Canada
     const countryCanada = { flagImagePos: '-1px -1803px' };
-    return this.countries?.find(({ iso }) => iso === ISO) || countryCanada;
+    return this.countries?.find(({ iso }) => iso === isoImage) || countryCanada;
   }
 }
