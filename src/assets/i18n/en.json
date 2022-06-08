@@ -8,6 +8,29 @@
       "RELOAD": "Reload",
       "SUBMIT": "Submit"
     },
+    "COMMON": {
+      "APP_MODULES": {
+        "ADMINISTRATION": {
+          "DESCRIPTION": "workspace management",
+          "TITLE": "Administration"
+        },
+        "DOCUMENTATION": {
+          "DESCRIPTION": "Resources Manager",
+          "TITLE": "Resources"
+        },
+        "HELP_CENTER": {
+          "DESCRIPTION": "FAQs and guides",
+          "TITLE": "Help center"
+        },
+        "RESOUCES": {
+          "DESCRIPTION": "Getting started...",
+          "TITLE": "Documentation"
+        },
+        "TITLE": "Modules"
+      },
+      "NO_APP_MODULES": " No app modules",
+      "NO_APP_MODULES_DESCRIPTION": "When you have app modules, they will appear here."
+    },
     "GENERAL": {
       "ADDRESS": {
         "ADDRESS": "Address",
@@ -37,6 +60,9 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "ORGANIZATION_GROUPS": {
+          "TITLE": "Organization groups"
+        },
         "ORGANIZATION_MEMBERS": {
           "TITLE": "Organization members"
         },
@@ -129,6 +155,7 @@
   },
   "EMPTY_ORGANIZATIONS": "No Organization",
   "FAILED_LOAD_COUNTRIES": "Country list downloads failed",
+  "FATAL_ERROR_OCCURED": "A fatal error has occurred",
   "ORGANIZATION": {
     "ERROR": {
       "CREATE_FAILED": "Organization creation failed"
@@ -186,6 +213,31 @@
       },
       "TITLE": "Create Organization"
     },
+    "GROUPS": {
+      "CREATE_GROUP": "Create Group",
+      "EXPORT_GROUPS": "Export",
+      "FILTER_GROUPS": "Filter",
+      "FORM": {
+        "CANCEL": "Cancel",
+        "DESCRIPTION": "About (description)",
+        "GROUP_MEMBERS": "Group's Members",
+        "GROUP_NAME": "Group's Name",
+        "MESSAGE": "Members added to this group will be given the sames services and permissions",
+        "SAVE": "Save",
+        "TITLE": "Create Group"
+      },
+      "IMPORT_GROUPS": "Import",
+      "LIST": {
+        "GROUP_DATE": "Date",
+        "GROUP_MEMBERS": "Members",
+        "GROUP_NAME": "Group",
+        "GROUP_STATUS": "Status",
+        "MESSAGE": "There are no groups!"
+      },
+      "MESSAGE": "Manage Access for all groups in your organization in ",
+      "SEARCH_GROUPS": "Search Groups",
+      "TITLE": "Groups"
+    },
     "PROFILE": {
       "DETAILS": {
         "ROLE": "Role"
@@ -202,5 +254,6 @@
     }
   },
   "PROFILE": "Profile",
+  "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
   "WELCOME_BACK": "Hello"
 }

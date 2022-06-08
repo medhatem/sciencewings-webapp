@@ -8,6 +8,29 @@
       "RELOAD": "Recharger",
       "SUBMIT": "Soumettre"
     },
+    "COMMON": {
+      "APP_MODULES": {
+        "ADMINISTRATION": {
+          "DESCRIPTION": "gestion de l'espace de travail",
+          "TITLE": "Administration"
+        },
+        "DOCUMENTATION": {
+          "DESCRIPTION": "Gestionnaire des ressources",
+          "TITLE": "Ressources"
+        },
+        "HELP_CENTER": {
+          "DESCRIPTION": "FAQ et guides",
+          "TITLE": "Centre d'aide"
+        },
+        "RESOUCES": {
+          "DESCRIPTION": "Demarrage...",
+          "TITLE": "Documentation"
+        },
+        "TITLE": "Modules"
+      },
+      "NO_APP_MODULES": "Aucun module d'application",
+      "NO_APP_MODULES_DESCRIPTION": "Lorsque vous avez des modules d'application, ils apparaîtront ici."
+    },
     "GENERAL": {
       "ADDRESS": {
         "ADDRESS": "Adresse",
@@ -37,6 +60,9 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "ORGANIZATION_GROUPS": {
+          "TITLE": "Groupes de l'organisation "
+        },
         "ORGANIZATION_MEMBERS": {
           "TITLE": "Members de l'organisation"
         },
@@ -44,7 +70,7 @@
           "TITLE": "Profil organization"
         },
         "RESOURCE": {
-          "TITLE": "Resource"
+          "TITLE": "Resource de l'organisation"
         },
         "RESOURCE_LIST": {
           "TITLE": "Resource liste"
@@ -129,6 +155,7 @@
   },
   "EMPTY_ORGANIZATIONS": "Aucune Organisation",
   "FAILED_LOAD_COUNTRIES": "Les téléchargements de la liste des pays ont échoué",
+  "FATAL_ERROR_OCCURED": "Une erreur fatale s'est produite",
   "ORGANIZATION": {
     "ERROR": {
       "CREATE_FAILED": "La creation de l'organisation a échouée"
@@ -187,6 +214,31 @@
       },
       "TITLE": "Création d'Organisation"
     },
+    "GROUPS": {
+      "CREATE_GROUP": "Créer un groupe",
+      "EXPORT_GROUPS": "Exporter",
+      "FILTER_GROUPS": "Filtre",
+      "FORM": {
+        "CANCEL": "Annuler",
+        "DESCRIPTION": "À propos (description)",
+        "GROUP_MEMBERS": "Membres du groupe",
+        "GROUP_NAME": "Nom du groupe",
+        "MESSAGE": "Les membres ajoutés à ce groupe recevront les mêmes services et autorisations",
+        "SAVE": "Sauvegarder",
+        "TITLE": "Créer un nouveau groupe"
+      },
+      "IMPORT_GROUPS": "Importer",
+      "LIST": {
+        "GROUP_DATE": "Date",
+        "GROUP_MEMBERS": "Membres",
+        "GROUP_NAME": "Groupe",
+        "GROUP_STATUS": "Status",
+        "MESSAGE": "Il n'y a pas de groupes !"
+      },
+      "MESSAGE": "Gérer les accès pour tous les groupes de votre organisation dans ",
+      "SEARCH_GROUPS": "Chercher un groupe",
+      "TITLE": "Groupes"
+    },
     "PROFILE": {
       "DETAILS": {
         "ROLE": "Rôle"
@@ -203,5 +255,6 @@
     }
   },
   "PROFILE": "Profil",
+  "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
   "WELCOME_BACK": "Bonjour"
 }

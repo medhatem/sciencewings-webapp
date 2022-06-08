@@ -38,9 +38,7 @@ export class ECommerceInventoryMockApi {
     // -----------------------------------------------------------------------------------------------------
     // @ Categories - GET
     // -----------------------------------------------------------------------------------------------------
-    this._fuseMockApiService
-      .onGet('api/apps/ecommerce/inventory/categories')
-      .reply(() => [200, cloneDeep(this._categories)]);
+    this._fuseMockApiService.onGet('api/apps/ecommerce/inventory/categories').reply(() => [200, cloneDeep(this._categories)]);
 
     // -----------------------------------------------------------------------------------------------------
     // @ Brands - GET
@@ -50,7 +48,7 @@ export class ECommerceInventoryMockApi {
     // -----------------------------------------------------------------------------------------------------
     // @ Products - GET
     // -----------------------------------------------------------------------------------------------------
-    this._fuseMockApiService.onGet('api/apps/ecommerce/inventory/products', 300).reply(({ request }) => {
+    this._fuseMockApiService.onGet('api/apps/ecommerce/inventory/groups', 300).reply(({ request }) => {
       // Get available queries
       const search = request.params.get('search');
       const sort = request.params.get('sort') || 'name';
@@ -59,10 +57,26 @@ export class ECommerceInventoryMockApi {
       const size = parseInt(request.params.get('size') ?? '10', 10);
 
       // Clone the products
-      let products: any[] | null = cloneDeep(this._products);
+      let products: any[] | null = [
+        { name: 'Admin', member: 1, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Aprovers', member: 2, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Managers', member: 3, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Supervisors', member: 4, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 5, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 6, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 7, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 8, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 9, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 10, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 11, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 12, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 13, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 14, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Humaine Resources', member: 15, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+      ];
 
       // Sort the products
-      if (sort === 'sku' || sort === 'name' || sort === 'active') {
+      if (sort === 'member' || sort === 'name' || sort === 'active') {
         products.sort((a, b) => {
           const fieldA = a[sort].toString().toUpperCase();
           const fieldB = b[sort].toString().toUpperCase();
@@ -75,9 +89,7 @@ export class ECommerceInventoryMockApi {
       // If search exists...
       if (search) {
         // Filter the products
-        products = products.filter(
-          (contact) => contact.name && contact.name.toLowerCase().includes(search.toLowerCase())
-        );
+        products = products.filter((contact) => contact.name && contact.name.toLowerCase().includes(search.toLowerCase()));
       }
 
       // Paginate - Start
@@ -119,7 +131,7 @@ export class ECommerceInventoryMockApi {
       return [
         200,
         {
-          products,
+          groups: products,
           pagination,
         },
       ];

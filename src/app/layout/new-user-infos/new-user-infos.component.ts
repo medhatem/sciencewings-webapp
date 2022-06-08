@@ -1,13 +1,14 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { NewUserInfosResolver } from './new-user-infos.resolver';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { constants } from 'app/shared/constants';
+import { constants, countries } from 'app/shared/constants';
 import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { Country } from 'app/models/country.interface';
+import { HttpClient } from '@angular/common/http';
+import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
 
 const moment = _rollupMoment || _moment;
 
@@ -32,19 +33,15 @@ export class NewUserInfosComponent implements OnInit, OnDestroy {
   constructor(
     private _newUserInfosResolver: NewUserInfosResolver,
     private _formBuilder: FormBuilder,
-    private _toastr: ToastrService,
     private _httpClient: HttpClient,
     private _toastrService: ToastrService,
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _contactsService: ContactsService,
   ) {}
 
   async ngOnInit() {
     await this._prepareCountries();
-    try {
-      this.user = await this._newUserInfosResolver.loadUserProfileKeycloak();
-    } catch (err) {
-      this._toastr.showError(err);
-    }
-
+    this.user = await this._newUserInfosResolver.loadUserProfileKeycloak();
     this.form = this._formBuilder.group({
       firstname: [this.user.firstName, [Validators.required]],
       lastname: [this.user.lastName, [Validators.required]],
@@ -61,11 +58,16 @@ export class NewUserInfosComponent implements OnInit, OnDestroy {
       code: ['', Validators.required],
       country: [constants.NEW_USER.DEFAULT_COUNTRY, Validators.required],
     });
+    // Get the country telephone codes
+    this._contactsService.countries$.pipe(takeUntil(this._unsubscribeAll)).subscribe((codes: any[]) => {
+      this.countries = countries as any as Country[];
+      this._changeDetectorRef.markForCheck();
+    });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
-    this._unsubscribeAll.unsubscribe();
   }
 
   async emitOnFormComplete() {
@@ -97,15 +99,20 @@ export class NewUserInfosComponent implements OnInit, OnDestroy {
         country: formUser.country,
       },
     ];
-    console.log({ formUser });
-
     const userRo = {
       ...formUser,
       email: this.user.email,
       dateofbirth: moment(formUser['dateofbirth']).format(constants.DATE_FORMAT_YYYY_MM_DD),
     };
-    const result = await this._newUserInfosResolver.createUser(userRo);
-    this.onFormComplete.emit(false);
+    try {
+      const createdUser = await this._newUserInfosResolver.createUser(userRo);
+      if (createdUser) {
+        this.user = createdUser;
+        this.onFormComplete.emit(false);
+      }
+    } catch (error) {
+      this.onFormComplete.emit(true);
+    }
   }
 
   /**
