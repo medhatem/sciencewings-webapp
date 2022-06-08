@@ -14,7 +14,7 @@ export class MemberFormComponent implements OnInit {
   isInvitationPersonalize: boolean = false;
 
   constructor(
-    public matDialogRef:    <MemberFormComponent>,
+    public matDialogRef: MatDialogRef<MemberFormComponent>,
     private _toastrService: ToastrService,
     private _formBuilder: FormBuilder,
     private _memberService: MemberService,

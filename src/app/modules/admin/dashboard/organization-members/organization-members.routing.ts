@@ -3,7 +3,6 @@ import { AdminOrganizationResolver } from '../../resolvers/admin-organization/ad
 import { MemberListComponent } from './member-list/member-list.component';
 import { MemberProfilComponent } from './member-profil/member-profil.component';
 import { OrganizationMemebrsComponent } from './organization-members.component';
-
 export const organizationMemebrsRoutes: Route[] = [
   {
     path: '',
@@ -18,10 +17,6 @@ export const organizationMemebrsRoutes: Route[] = [
         resolve: {
           organization: AdminOrganizationResolver,
         },
-      },
-      {
-        path: 'create',
-        component: MemberProfilComponent,
       },
     ],
   },

@@ -131,6 +131,31 @@
     "NEW_USER_INFOS_REQUIRED": "Please fill in your information before proceeding to your dashboard"
   },
   "ORGANIZATION": {
+    "MEMBERS": {
+      "TITLE": "Members",
+      "INVITE_MEMBERS": "Invite Members",
+      "SEARCH_MEMBERS": "Search Members",
+      "FILTER_MEMBERS": "Filter",
+      "IMPORT_MEMBERS": "Import",
+      "EXPORT_MEMBERS": "Export",
+      "MESSAGE": "Manage Access for all members in your organization in ",
+      "LIST": {
+        "MEMBER_NAME": "Profil",
+        "MEMBER_ROLE": "Role",
+        "MEMBER_STATUS": "Status",
+        "DATE": "Joined Date",
+        "MESSAGE": "There are no members!"
+      },
+      "FORM": {
+        "TITLE": "Invite New Members To Your Organization",
+        "MEMBER_EMAIL": "Email",
+        "MEMBER_ROLE": "Role",
+        "PERSONALIZE_INVITATION": "Personalize Invitation",
+        "DESCRIPTION": "About (description)",
+        "CANCEL": "Cancel",
+        "SAVE": "Save"
+      }
+    },
     "PROFILE": {
       "DETAILS": {
         "ROLE": "Role"

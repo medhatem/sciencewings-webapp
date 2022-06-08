@@ -152,7 +152,7 @@ export class ECommerceInventoryMockApi {
       ];
 
       // Sort the products
-      if (sort === 'member' || sort === 'name' || sort === 'active') {
+      if (sort === 'Role' || sort === 'name' || sort === 'active') {
         products.sort((a, b) => {
           const fieldA = a[sort].toString().toUpperCase();
           const fieldB = b[sort].toString().toUpperCase();
@@ -208,6 +208,7 @@ export class ECommerceInventoryMockApi {
       return [
         200,
         {
+          products,
           members: products,
           pagination,
         },

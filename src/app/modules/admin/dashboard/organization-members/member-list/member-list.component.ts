@@ -10,6 +10,7 @@ import { InventoryPagination } from '../../organization-profile/profile/organiza
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { members } from 'app/mock-api/apps/tasks/data';
 
 @Component({
   selector: 'app-member-list',
@@ -17,7 +18,6 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./member-list.component.scss'],
 })
 export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Output() messageEvent = new EventEmitter<string>();
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
   @ViewChild(MatSort) private _sort: MatSort;
 
@@ -27,7 +27,6 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
   membersCount: number = 0;
   pagination: InventoryPagination;
   searchInputControl: FormControl = new FormControl();
-  count = 0;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -39,41 +38,27 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
     private data: DataService,
   ) {}
   ngOnInit(): void {
-    this._memberService.getOrgMembers(1).subscribe(({ body }) => {
-      if (body.statusCode === 500) {
-        this._toastrService.showError('Something went wrong!');
-      }
-      this._memberService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
-        this.count++;
-        this.pagination = pagination;
-        this._changeDetectorRef.markForCheck();
-      });
-
-      this.members$ = this._memberService.members$;
-      /*
-    map((m: any) => ({
-        ...m,
-        joinDate: m.joinDate && m.joinDate.slice(0, m.joinDate.indexOf('T')),
-      }));
-
-    */
-
-      // Subscribe to search input field value changes
-      this.searchInputControl.valueChanges
-        .pipe(
-          takeUntil(this._unsubscribeAll),
-          debounceTime(300),
-          switchMap((query) => {
-            this.closeDetails();
-            this.isLoading = true;
-            return this._memberService.getMembers(0, 10, 'name', 'asc', query);
-          }),
-          map(() => {
-            this.isLoading = false;
-          }),
-        )
-        .subscribe();
+    this._memberService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
+      this.pagination = pagination;
+      this._changeDetectorRef.markForCheck();
     });
+    this.members$ = this._memberService.members$;
+    this.membersCount = members.length;
+    // Subscribe to search input field value changes
+    this.searchInputControl.valueChanges
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        debounceTime(300),
+        switchMap((query) => {
+          this.closeDetails();
+          this.isLoading = true;
+          return this._memberService.getMembers(0, 10, 'name', 'asc', query);
+        }),
+        map(() => {
+          this.isLoading = false;
+        }),
+      )
+      .subscribe();
   }
 
   handlePageEvent(event: PageEvent) {
@@ -100,12 +85,7 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openMemberForm(): void {
     const dialogRef = this._matDialog.open(MemberFormComponent);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log({ result });
-
-      console.log('Compose dialog was closed!');
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   trackByFn(index: number, item: any): any {

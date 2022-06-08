@@ -5,12 +5,7 @@
   </div>
 
   <!-- Content -->
-  <div
-    class="fuse-vertical-navigation-content"
-    fuseScrollbar
-    [fuseScrollbarOptions]="{ wheelPropagation: inner, suppressScrollX: true }"
-    #navigationContent
-  >
+  <div class="fuse-vertical-navigation-content" fuseScrollbar [fuseScrollbarOptions]="{ wheelPropagation: inner, suppressScrollX: true }" #navigationContent>
     <!-- Content header -->
     <div class="fuse-vertical-navigation-content-header">
       <ng-content select="[fuseVerticalNavigationContentHeader]"></ng-content>
@@ -28,8 +23,7 @@
             [activeItemId]="activeAsideItemId"
             [autoCollapse]="autoCollapse"
             [skipChildren]="true"
-            (click)="toggleAside(item)"
-          ></fuse-vertical-navigation-aside-item>
+            (click)="toggleAside(item)"></fuse-vertical-navigation-aside-item>
         </ng-container>
 
         <!-- Basic -->
@@ -39,11 +33,7 @@
 
         <!-- Collapsable -->
         <ng-container *ngIf="item.type === 'collapsable'">
-          <fuse-vertical-navigation-collapsable-item
-            [item]="item"
-            [name]="name"
-            [autoCollapse]="autoCollapse"
-          ></fuse-vertical-navigation-collapsable-item>
+          <fuse-vertical-navigation-collapsable-item [item]="item" [name]="name" [autoCollapse]="autoCollapse"></fuse-vertical-navigation-collapsable-item>
         </ng-container>
 
         <!-- Divider -->
@@ -53,11 +43,7 @@
 
         <!-- Group -->
         <ng-container *ngIf="item.type === 'group'">
-          <fuse-vertical-navigation-group-item
-            [item]="item"
-            [name]="name"
-            [autoCollapse]="autoCollapse"
-          ></fuse-vertical-navigation-group-item>
+          <fuse-vertical-navigation-group-item [item]="item" [name]="name" [autoCollapse]="autoCollapse"></fuse-vertical-navigation-group-item>
         </ng-container>
 
         <!-- Spacer -->
@@ -88,19 +74,14 @@
     [@fadeInLeft]="position === 'left'"
     [@fadeInRight]="position === 'right'"
     [@fadeOutLeft]="position === 'left'"
-    [@fadeOutRight]="position === 'right'"
-  >
+    [@fadeOutRight]="position === 'right'">
     <!-- Items -->
     <ng-container *ngFor="let item of navigation; trackBy: trackByFn">
       <!-- Skip the hidden items -->
       <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
         <!-- Aside -->
         <ng-container *ngIf="item.type === 'aside' && item.id === activeAsideItemId">
-          <fuse-vertical-navigation-aside-item
-            [item]="item"
-            [name]="name"
-            [autoCollapse]="autoCollapse"
-          ></fuse-vertical-navigation-aside-item>
+          <fuse-vertical-navigation-aside-item [item]="item" [name]="name" [autoCollapse]="autoCollapse"></fuse-vertical-navigation-aside-item>
         </ng-container>
       </ng-container>
     </ng-container>
