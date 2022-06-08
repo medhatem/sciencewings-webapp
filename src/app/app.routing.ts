@@ -6,6 +6,7 @@ import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.res
 import { Route } from '@angular/router';
 import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
 import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource/profile-form/profile-form.component';
+import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
 
 export const errorPath = '**';
 export const adminPath = 'admin';
@@ -38,7 +39,8 @@ export const appRoutes: Route[] = [
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:office-building',
             },
-            loadChildren: () => import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
           },
           {
             path: userProfilePath,
@@ -69,7 +71,22 @@ export const appRoutes: Route[] = [
               icon: 'heroicons_outline:user',
             },
             resolve: {},
-            loadChildren: () => import('app/modules/admin/dashboard/organization-members/organization-members.module').then((m) => m.OrganizationMembersModule),
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-members/organization-members.module').then((m) => m.OrganizationMembersModule),
+          },
+          {
+            path: 'organization-groups',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.ORGANIZATION_GROUPS.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:users',
+            },
+            resolve: {
+              groups: GroupResolver,
+            },
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-groups/organization-groups.module').then((m) => m.OrganizationGroupsModule),
           },
         ],
       },
@@ -175,7 +192,8 @@ export const appResourceSettingsRoutes: Route[] = [
           type: FuseNavigationItemTypeEnum.basic,
           icon: 'heroicons_outline:users',
         },
-        loadChildren: () => import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
+        loadChildren: () =>
+          import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
       },
       {
         path: 'settings-reservation',
@@ -185,7 +203,8 @@ export const appResourceSettingsRoutes: Route[] = [
           type: FuseNavigationItemTypeEnum.basic,
           icon: 'heroicons_outline:users',
         },
-        loadChildren: () => import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then((m) => m.SettingsReservationModule),
+        loadChildren: () =>
+          import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then((m) => m.SettingsReservationModule),
       },
     ],
   },

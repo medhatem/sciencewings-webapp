@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
+import { ToastrService } from 'app/core/toastr/toastr.service';
+import { Country } from 'app/models/country.interface';
+import { constants } from 'app/shared/constants';
+import { lastValueFrom, Subject } from 'rxjs';
 
 @Component({
   selector: 'user-profile',
@@ -11,15 +14,15 @@ import { Subject } from 'rxjs';
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
   data: any;
-  countries: any;
+  countries: Country[] = [];
   editMode: boolean;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-  constructor(private _route: ActivatedRoute, private _http: HttpClient) {}
+  constructor(private _route: ActivatedRoute, private _http: HttpClient, private _toastrService: ToastrService) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this._prepareUserData();
-    this._prepareCountries();
+    await this._prepareCountries();
   }
 
   ngOnDestroy(): void {
@@ -35,8 +38,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.data = this._route.snapshot.data;
   }
 
-  private _prepareCountries() {
-    // TODO: retrieve countries from the backend instead of mock api
-    this._http.get('api/apps/contacts/countries').subscribe((countries) => (this.countries = countries));
+  private async _prepareCountries() {
+    try {
+      this.countries = await lastValueFrom(this._http.get<Country[]>('api/apps/contacts/countries'));
+    } catch (error) {
+      this._toastrService.showInfo(constants.FAILED_LOAD_COUNTRIES);
+    }
   }
 }
