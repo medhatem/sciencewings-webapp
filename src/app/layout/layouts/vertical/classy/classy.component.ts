@@ -66,11 +66,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     // resource profile
     this.subscription = this.data.currentMessage.subscribe((message) => {
       if (message.resourceID) {
-        this._coookies.set('url', 'resource');
         this._coookies.set('resourceID', message.resourceID);
-        const { children: dashboardsResourceRoutesChildren = [] } = appResourceSettingsRoutes.find(({ path }) => path === '');
-        this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourceRoutesChildren, '/');
-        this._router.resetConfig(appResourceSettingsRoutes);
+        this.receiveMessage('resource-settings');
       }
     });
     this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
@@ -119,12 +116,16 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       this.navigation = [];
     } else {
       const url = this._coookies.get('url');
+
       switch (url) {
         case 'dashboard':
           this.navigation = this.getNavigationItemsFromRoutes(appRoutes[0].children, '/');
           break;
         case 'resources':
           this.navigation = this.getNavigationItemsFromRoutes(appResourceRoutes[0].children, '/');
+          break;
+        case 'resource-settings':
+          this.navigation = this.getNavigationItemsFromRoutes(appResourceSettingsRoutes[0].children, '/');
           break;
       }
     }
@@ -139,6 +140,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       case 'dashboard':
         this._coookies.set('url', 'dashboard');
         this._router.resetConfig(appRoutes);
+        break;
+      case 'resource-settings':
+        this._coookies.set('url', 'resource-settings');
+        this._router.resetConfig(appResourceSettingsRoutes);
         break;
       default:
         this._coookies.set('url', '');
@@ -178,10 +183,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       if (icon) {
         navigationItem.icon = icon;
       }
-      if (action && action === 'resources') {
-        this._coookies.set('url', 'resources');
-        this._router.resetConfig(appResourceRoutes);
-      }
+
       acc.push(navigationItem);
       return acc;
     }, []);

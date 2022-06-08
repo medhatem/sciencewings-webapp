@@ -1,13 +1,15 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
 import { MemberFormComponent } from '../member-form/member-form.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { DataService } from 'app/data.service';
+import { InventoryPagination } from '../../organization-profile/profile/organization-profile.component';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-member-list',
@@ -19,10 +21,14 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
   @ViewChild(MatSort) private _sort: MatSort;
 
-  members = [];
+  members$: any;
   isLoading: boolean = false;
   selectedMember = null;
+  membersCount: number = 0;
+  pagination: InventoryPagination;
   searchInputControl: FormControl = new FormControl();
+  count = 0;
+
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -32,20 +38,49 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
     private _matDialog: MatDialog,
     private data: DataService,
   ) {}
-
   ngOnInit(): void {
     this._memberService.getOrgMembers(1).subscribe(({ body }) => {
       if (body.statusCode === 500) {
         this._toastrService.showError('Something went wrong!');
       }
-      console.log({ data: body.data });
+      this._memberService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
+        this.count++;
+        this.pagination = pagination;
+        this._changeDetectorRef.markForCheck();
+      });
 
-      this.members = body.data.map((m: any) => ({
+      this.members$ = this._memberService.members$;
+      /*
+    map((m: any) => ({
         ...m,
         joinDate: m.joinDate && m.joinDate.slice(0, m.joinDate.indexOf('T')),
       }));
-      this._changeDetectorRef.markForCheck();
+
+    */
+
+      // Subscribe to search input field value changes
+      this.searchInputControl.valueChanges
+        .pipe(
+          takeUntil(this._unsubscribeAll),
+          debounceTime(300),
+          switchMap((query) => {
+            this.closeDetails();
+            this.isLoading = true;
+            return this._memberService.getMembers(0, 10, 'name', 'asc', query);
+          }),
+          map(() => {
+            this.isLoading = false;
+          }),
+        )
+        .subscribe();
     });
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.pagination.length = event.length;
+    this.pagination.size = event.pageSize;
+    this.pagination.page = event.pageIndex;
+    lastValueFrom(this._memberService.getMembers(event.pageIndex, event.pageSize));
   }
 
   ngAfterViewInit(): void {
@@ -101,7 +136,7 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
       if (statusCode === 500) {
         this._toastrService.showError(errorMessage, 'Something went wrong!');
       } else {
-        this.members = this.members.filter((member) => member.id !== id);
+        this.members$ = this.members$.filter((member) => member.id !== id);
       }
     });
   }

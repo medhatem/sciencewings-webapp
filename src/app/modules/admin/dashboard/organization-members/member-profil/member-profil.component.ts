@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-member-profil',
-  templateUrl: './member-profil.component.html',
-  styleUrls: ['./member-profil.component.scss'],
+  selector: 'appmemberprofil',
+  templateUrl: './memberprofil.component.html',
+  styleUrls: ['./memberprofil.component.scss'],
 })
 export class MemberProfilComponent implements OnInit {
   constructor() {}

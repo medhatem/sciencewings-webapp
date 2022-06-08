@@ -3,24 +3,13 @@ import { BehaviorSubject, Observable, map, take } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  ResourceRateRo,
-  ResourceReservationVisibilityRo,
-  ResourceRo,
-  ResourceSettingsGeneralPropertiesRo,
-  ResourceSettingsGeneralStatusRo,
-  ResourceSettingsGeneralVisibilityRo,
-  ResourcesSettingsReservationGeneralRo,
-  ResourcesSettingsReservationUnitRo,
-  ResourceTimerRestrictionRo,
-} from 'generated/models';
+import {} from 'generated/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GroupService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
-
 
   constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
 
@@ -41,5 +30,4 @@ export class GroupService {
       map((contacts: any) => contacts.find((group) => group.id === 'cd5fa417-b667-482d-b208-798d9da3213c') || null),
     );
   }
-
 }
