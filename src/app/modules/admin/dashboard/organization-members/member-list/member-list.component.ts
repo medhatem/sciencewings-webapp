@@ -38,9 +38,11 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
       if (body.statusCode === 500) {
         this._toastrService.showError('Something went wrong!');
       }
-      this.members = body.members.map((m: any) => ({
+      console.log({ data: body.data });
+
+      this.members = body.data.map((m: any) => ({
         ...m,
-        joinDate: m.joinDate && m.slice(0, m.joinDate.indexOf('T')),
+        joinDate: m.joinDate && m.joinDate.slice(0, m.joinDate.indexOf('T')),
       }));
       this._changeDetectorRef.markForCheck();
     });
@@ -65,6 +67,8 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
     const dialogRef = this._matDialog.open(MemberFormComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
+      console.log({ result });
+
       console.log('Compose dialog was closed!');
     });
   }
