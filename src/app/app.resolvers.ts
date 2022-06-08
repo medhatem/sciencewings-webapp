@@ -10,9 +10,6 @@ import { AppModulesService } from 'app/layout/common/app-modules/app-modules.ser
   providedIn: 'root',
 })
 export class InitialDataResolver implements Resolve<any> {
-  /**
-   * Constructor
-   */
   constructor(
     private _messagesService: MessagesService,
     private _notificationsService: NotificationsService,
@@ -28,6 +25,11 @@ export class InitialDataResolver implements Resolve<any> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     // Fork join multiple API endpoint calls to wait all of them to finish
-    return forkJoin([this._messagesService.getAll(), this._notificationsService.getAll(), this._quickChatService.getChats(), this._appModulesService.getAll()]);
+    return forkJoin([
+      this._messagesService.getAll(),
+      this._notificationsService.getAll(),
+      this._quickChatService.getChats(),
+      this._appModulesService.getAll(),
+    ]);
   }
 }

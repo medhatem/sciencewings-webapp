@@ -60,6 +60,9 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "ORGANIZATION_GROUPS": {
+          "TITLE": "Organization groups"
+        },
         "ORGANIZATION_MEMBERS": {
           "TITLE": "Organization members"
         },
@@ -155,17 +158,6 @@
     "ERROR": {
       "CREATE_FAILED": "Organization creation failed"
     },
-    "PROFILE": {
-      "DETAILS": {
-        "ROLE": "Role"
-      },
-      "TABS": {
-        "GENERAL_INFOS": "General informations",
-        "RESOURCES": "Resources",
-        "USERS": "Users",
-        "SUB_ORGANIZATIONS": "Sub-Organizations"
-      }
-    },
     "FORM": {
       "DONE": {
         "HELPER1": "Thank you for filling in your Organization information!",
@@ -218,6 +210,42 @@
         "TITLE": "Admins and Members"
       },
       "TITLE": "Create Organization"
+    },
+    "GROUPS": {
+      "CREATE_GROUP": "Create Group",
+      "EXPORT_GROUPS": "Export",
+      "FILTER_GROUPS": "Filter",
+      "FORM": {
+        "CANCEL": "Cancel",
+        "DESCRIPTION": "About (description)",
+        "GROUP_MEMBERS": "Group's Members",
+        "GROUP_NAME": "Group's Name",
+        "MESSAGE": "Members added to this group will be given the sames services and permissions",
+        "SAVE": "Save",
+        "TITLE": "Create Group"
+      },
+      "IMPORT_GROUPS": "Import",
+      "LIST": {
+        "GROUP_DATE": "Date",
+        "GROUP_MEMBERS": "Members",
+        "GROUP_NAME": "Group",
+        "GROUP_STATUS": "Status",
+        "MESSAGE": "There are no groups!"
+      },
+      "MESSAGE": "Manage Access for all groups in your organization in ",
+      "SEARCH_GROUPS": "Search Groups",
+      "TITLE": "Groups"
+    },
+    "PROFILE": {
+      "DETAILS": {
+        "ROLE": "Role"
+      },
+      "TABS": {
+        "GENERAL_INFOS": "General informations",
+        "RESOURCES": "Resources",
+        "SUB_ORGANIZATIONS": "Sub-Organizations",
+        "USERS": "Users"
+      }
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"

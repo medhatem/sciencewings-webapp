@@ -60,6 +60,9 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "ORGANIZATION_GROUPS": {
+          "TITLE": "Groupes de l'organisation "
+        },
         "ORGANIZATION_MEMBERS": {
           "TITLE": "Members de l'organisation"
         },
@@ -67,7 +70,7 @@
           "TITLE": "Profil organization"
         },
         "RESOURCE": {
-          "TITLE": "Resource"
+          "TITLE": "Resource de l'organisation"
         },
         "RESOURCE_LIST": {
           "TITLE": "Resource liste"
@@ -155,17 +158,6 @@
     "ERROR": {
       "CREATE_FAILED": "La creation de l'organisation a échouée"
     },
-    "PROFILE": {
-      "DETAILS": {
-        "ROLE": "Rôle"
-      },
-      "TABS": {
-        "GENERAL_INFOS": "Informations générales",
-        "RESOURCES": "Ressources",
-        "USERS": "Utilisateurs",
-        "SUB_ORGANIZATIONS": "Sous-Organisations"
-      }
-    },
     "FORM": {
       "DONE": {
         "HELPER1": "Merci d'avoir rempli les informations de votre Organization !",
@@ -219,6 +211,42 @@
         "TITLE": "Administrateurs et Membres"
       },
       "TITLE": "Création d'Organisation"
+    },
+    "GROUPS": {
+      "CREATE_GROUP": "Créer un groupe",
+      "EXPORT_GROUPS": "Exporter",
+      "FILTER_GROUPS": "Filtre",
+      "FORM": {
+        "CANCEL": "Annuler",
+        "DESCRIPTION": "À propos (description)",
+        "GROUP_MEMBERS": "Membres du groupe",
+        "GROUP_NAME": "Nom du groupe",
+        "MESSAGE": "Les membres ajoutés à ce groupe recevront les mêmes services et autorisations",
+        "SAVE": "Sauvegarder",
+        "TITLE": "Créer un nouveau groupe"
+      },
+      "IMPORT_GROUPS": "Importer",
+      "LIST": {
+        "GROUP_DATE": "Date",
+        "GROUP_MEMBERS": "Membres",
+        "GROUP_NAME": "Groupe",
+        "GROUP_STATUS": "Status",
+        "MESSAGE": "Il n'y a pas de groupes !"
+      },
+      "MESSAGE": "Gérer les accès pour tous les groupes de votre organisation dans ",
+      "SEARCH_GROUPS": "Chercher un groupe",
+      "TITLE": "Groupes"
+    },
+    "PROFILE": {
+      "DETAILS": {
+        "ROLE": "Rôle"
+      },
+      "TABS": {
+        "GENERAL_INFOS": "Informations générales",
+        "RESOURCES": "Ressources",
+        "SUB_ORGANIZATIONS": "Sous-Organisations",
+        "USERS": "Utilisateurs"
+      }
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
