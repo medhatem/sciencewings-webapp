@@ -1,4 +1,4 @@
-export interface Shortcut {
+export interface AppModule {
   id: string;
   label: string;
   description?: string;
