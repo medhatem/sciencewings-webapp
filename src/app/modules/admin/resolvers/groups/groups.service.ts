@@ -26,13 +26,6 @@ export class GroupService {
     return this._groups.asObservable();
   }
 
-  getData(id?: string): Observable<any> {
-    return this._httpClient.get('api/apps/groups/all').pipe(
-      take(1),
-      map((contacts: any) => contacts.find((group) => group.id === 'cd5fa417-b667-482d-b208-798d9da3213c') || null),
-    );
-  }
-
   getGroups(
     page: number = 0,
     size: number = 10,

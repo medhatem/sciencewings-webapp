@@ -15,7 +15,9 @@ export class GroupFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.groupForm = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      name: ['', [Validators.required, Validators.name]],
+      member: [''],
+      description: [''],
     });
   }
 }

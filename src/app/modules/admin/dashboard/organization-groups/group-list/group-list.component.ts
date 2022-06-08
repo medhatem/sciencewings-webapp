@@ -17,7 +17,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./group-list.component.scss'],
 })
 export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Output() messageEvent = new EventEmitter<string>();
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
   @ViewChild(MatSort) private _sort: MatSort;
 

@@ -17,9 +17,6 @@ export const organizationGroupsRoutes: Route[] = [
           organization: AdminOrganizationResolver,
         },
       },
-      {
-        path: 'create',
-      },
     ],
   },
 ];

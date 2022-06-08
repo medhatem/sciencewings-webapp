@@ -38,6 +38,9 @@
         "ORGANIZATION_MEMBERS": {
           "TITLE": "Organization members"
         },
+        "ORGANIZATION_GROUPS": {
+          "TITLE": "Organization groups"
+        },
         "RESOURCE": {
           "TITLE": "Resource"
         },
@@ -131,6 +134,31 @@
     "NEW_USER_INFOS_REQUIRED": "Please fill in your information before proceeding to your dashboard"
   },
   "ORGANIZATION": {
+    "GROUPS": {
+      "TITLE": "Groups",
+      "CREATE_GROUP": "Create Group",
+      "SEARCH_GROUPS": "Search Groups",
+      "IMPORT_GROUPS": "Import",
+      "EXPORT_GROUPS": "Export",
+      "FILTER_GROUPS": "Filter",
+      "MESSAGE": "Manage Access for all groups in your organization in ",
+      "LIST": {
+        "GROUP_NAME": "Group",
+        "GROUP_MEMBERS": "Members",
+        "GROUP_STATUS": "Status",
+        "GROUP_DATE": "Date",
+        "MESSAGE": "There are no groups!"
+      },
+      "FORM": {
+        "TITLE": "Create Group",
+        "GROUP_NAME": "Group's Name",
+        "GROUP_MEMBERS": "Group's Members",
+        "DESCRIPTION": "About (description)",
+        "SAVE": "Save",
+        "CANCEL": "Cancel",
+        "MESSAGE": "Members added to this group will be given the sames services and permissions"
+      }
+    },
     "PROFILE": {
       "DETAILS": {
         "ROLE": "Role"
