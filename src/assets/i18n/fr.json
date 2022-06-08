@@ -151,20 +151,10 @@
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation"
   },
   "EMPTY_ORGANIZATIONS": "Aucune Organisation",
+  "FATAL_ERROR_OCCURED": "Une erreur fatale s'est produite",
   "ORGANIZATION": {
     "ERROR": {
       "CREATE_FAILED": "La creation de l'organisation a échouée"
-    },
-    "PROFILE": {
-      "DETAILS": {
-        "ROLE": "Rôle"
-      },
-      "TABS": {
-        "GENERAL_INFOS": "Informations générales",
-        "RESOURCES": "Ressources",
-        "USERS": "Utilisateurs",
-        "SUB_ORGANIZATIONS": "Sous-Organisations"
-      }
     },
     "FORM": {
       "DONE": {
@@ -219,6 +209,17 @@
         "TITLE": "Administrateurs et Membres"
       },
       "TITLE": "Création d'Organisation"
+    },
+    "PROFILE": {
+      "DETAILS": {
+        "ROLE": "Rôle"
+      },
+      "TABS": {
+        "GENERAL_INFOS": "Informations générales",
+        "RESOURCES": "Ressources",
+        "SUB_ORGANIZATIONS": "Sous-Organisations",
+        "USERS": "Utilisateurs"
+      }
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"

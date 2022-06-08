@@ -26,7 +26,7 @@ import { AppModulesService } from './app-modules.service';
   exportAs: 'app-modules',
 })
 export class AppModulesComponent implements OnInit, OnDestroy {
-  @Output() messageEvent = new EventEmitter<string>();
+  @Output() changeModuleEvent = new EventEmitter<string>();
   @ViewChild('appModulesOrigin') private _appModulesOrigin: MatButton;
   @ViewChild('appModulesPanel') private _appModulesPanel: TemplateRef<any>;
 
@@ -86,6 +86,11 @@ export class AppModulesComponent implements OnInit, OnDestroy {
    */
   trackByFn(index: number, item: any): any {
     return item.id || index;
+  }
+
+  onChangeModuleEvent(appModuleChosed: AppModule) {
+    this.closePanel();
+    this.changeModuleEvent.emit(appModuleChosed.link);
   }
 
   /**
