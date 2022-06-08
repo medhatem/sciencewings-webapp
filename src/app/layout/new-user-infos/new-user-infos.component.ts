@@ -1,6 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { NewUserInfosResolver } from './new-user-infos.resolver';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
@@ -16,7 +15,7 @@ const moment = _rollupMoment || _moment;
   selector: 'new-user-infos',
   templateUrl: './new-user-infos.component.html',
 })
-export class NewUserInfosComponent implements OnInit {
+export class NewUserInfosComponent implements OnInit, OnDestroy {
   @Output() onFormComplete = new EventEmitter<boolean>();
   user: any;
   countries: any;
@@ -34,17 +33,12 @@ export class NewUserInfosComponent implements OnInit {
     private _newUserInfosResolver: NewUserInfosResolver,
     private _formBuilder: FormBuilder,
     private _toastr: ToastrService,
-    private _contactsService: ContactsService, // private _changeDetectorRef: ChangeDetectorRef,
+    private _contactsService: ContactsService,
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   async ngOnInit() {
-    // this._prepareCountries();
-
-    try {
-      this.user = await this._newUserInfosResolver.loadUserProfileKeycloak();
-    } catch (err) {
-      this._toastr.showError(err);
-    }
+    this.user = await this._newUserInfosResolver.loadUserProfileKeycloak();
 
     this.form = this._formBuilder.group({
       firstname: [this.user.firstName, [Validators.required]],
@@ -66,10 +60,13 @@ export class NewUserInfosComponent implements OnInit {
     // Get the country telephone codes
     this._contactsService.countries$.pipe(takeUntil(this._unsubscribeAll)).subscribe((codes: any[]) => {
       this.countries = countriesData;
-
-      // Mark for check
-      //   this._changeDetectorRef.markForCheck();
+      this._changeDetectorRef.markForCheck();
     });
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next(null);
+    this._unsubscribeAll.complete();
   }
 
   async emitOnFormComplete() {
@@ -101,15 +98,20 @@ export class NewUserInfosComponent implements OnInit {
         country: formUser.country,
       },
     ];
-    console.log({ formUser });
-
     const userRo = {
       ...formUser,
       email: this.user.email,
       dateofbirth: moment(formUser['dateofbirth']).format(constants.DATE_FORMAT_YYYY_MM_DD),
     };
-    const result = await this._newUserInfosResolver.createUser(userRo);
-    this.onFormComplete.emit(false);
+    try {
+      const createdUser = await this._newUserInfosResolver.createUser(userRo);
+      if (createdUser) {
+        this.user = createdUser;
+        this.onFormComplete.emit(false);
+      }
+    } catch (error) {
+      this.onFormComplete.emit(true);
+    }
   }
 
   /**

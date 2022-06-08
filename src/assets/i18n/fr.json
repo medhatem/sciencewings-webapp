@@ -154,6 +154,7 @@
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation"
   },
   "EMPTY_ORGANIZATIONS": "Aucune Organisation",
+  "FATAL_ERROR_OCCURED": "Une erreur fatale s'est produite",
   "ORGANIZATION": {
     "ERROR": {
       "CREATE_FAILED": "La creation de l'organisation a échouée"
