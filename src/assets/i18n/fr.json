@@ -38,8 +38,11 @@
         "ORGANIZATION_MEMBERS": {
           "TITLE": "Members de l'organisation"
         },
+        "ORGANIZATION_GROUPS": {
+          "TITLE": "Groupes de l'organisation "
+        },
         "RESOURCE": {
-          "TITLE": "Resource"
+          "TITLE": "Resource de l'organisation"
         },
         "RESOURCE_LIST": {
           "TITLE": "Resource liste"
@@ -131,6 +134,31 @@
     "NEW_USER_INFOS_REQUIRED": "Veuillez remplir vos informations avant de passer à votre tableau de bord"
   },
   "ORGANIZATION": {
+    "GROUPS": {
+      "TITLE": "Groupes",
+      "CREATE_GROUP": "Créer un groupe",
+      "SEARCH_GROUPS": "Chercher un groupe",
+      "IMPORT_GROUPS": "Importer",
+      "EXPORT_GROUPS": "Exporter",
+      "FILTER_GROUPS": "Filtre",
+      "MESSAGE": "Gérer les accès pour tous les groupes de votre organisation dans ",
+      "LIST": {
+        "GROUP_NAME": "Groupe",
+        "GROUP_MEMBERS": "Membres",
+        "GROUP_STATUS": "Status",
+        "GROUP_DATE": "Date",
+        "MESSAGE": "Il n'y a pas de groupes !"
+      },
+      "FORM": {
+        "TITLE": "Créer un nouveau groupe",
+        "GROUP_NAME": "Nom du groupe",
+        "GROUP_MEMBERS": "Membres du groupe",
+        "DESCRIPTION": "À propos (description)",
+        "SAVE": "Sauvegarder",
+        "CANCEL": "Annuler",
+        "MESSAGE": "Les membres ajoutés à ce groupe recevront les mêmes services et autorisations"
+      }
+    },
     "PROFILE": {
       "DETAILS": {
         "ROLE": "Rôle"
