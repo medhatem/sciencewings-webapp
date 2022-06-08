@@ -155,6 +155,17 @@
     "ERROR": {
       "CREATE_FAILED": "Organization creation failed"
     },
+    "PROFILE": {
+      "DETAILS": {
+        "ROLE": "Role"
+      },
+      "TABS": {
+        "GENERAL_INFOS": "General informations",
+        "RESOURCES": "Resources",
+        "USERS": "Users",
+        "SUB_ORGANIZATIONS": "Sub-Organizations"
+      }
+    },
     "FORM": {
       "DONE": {
         "HELPER1": "Thank you for filling in your Organization information!",
@@ -207,14 +218,6 @@
         "TITLE": "Admins and Members"
       },
       "TITLE": "Create Organization"
-    },
-    "PROFILE": {
-      "TABS": {
-        "GENERAL_INFOS": "General informations",
-        "RESOURCES": "Resources",
-        "SUB_ORGANIZATIONS": "Sub-Organizations",
-        "USERS": "Users"
-      }
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"

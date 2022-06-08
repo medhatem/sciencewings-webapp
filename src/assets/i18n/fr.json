@@ -155,6 +155,17 @@
     "ERROR": {
       "CREATE_FAILED": "La creation de l'organisation a échouée"
     },
+    "PROFILE": {
+      "DETAILS": {
+        "ROLE": "Rôle"
+      },
+      "TABS": {
+        "GENERAL_INFOS": "Informations générales",
+        "RESOURCES": "Ressources",
+        "USERS": "Utilisateurs",
+        "SUB_ORGANIZATIONS": "Sous-Organisations"
+      }
+    },
     "FORM": {
       "DONE": {
         "HELPER1": "Merci d'avoir rempli les informations de votre Organization !",
@@ -208,14 +219,6 @@
         "TITLE": "Administrateurs et Membres"
       },
       "TITLE": "Création d'Organisation"
-    },
-    "PROFILE": {
-      "TABS": {
-        "GENERAL_INFOS": "Informations générales",
-        "RESOURCES": "Ressources",
-        "SUB_ORGANIZATIONS": "Sous-Organisations",
-        "USERS": "Utilisateurs"
-      }
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
