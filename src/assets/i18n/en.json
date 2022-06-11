@@ -157,8 +157,41 @@
   "FAILED_LOAD_COUNTRIES": "Country list downloads failed",
   "FATAL_ERROR_OCCURED": "A fatal error has occurred",
   "ORGANIZATION": {
-    "ERROR": {
-      "CREATE_FAILED": "Organization creation failed"
+    "MEMBERS": {
+      "TITLE": "Members",
+      "INVITE_MEMBERS": "Invite Members",
+      "SEARCH_MEMBERS": "Search Members",
+      "FILTER_MEMBERS": "Filter",
+      "IMPORT_MEMBERS": "Import",
+      "EXPORT_MEMBERS": "Export",
+      "MESSAGE": "Manage Access for all members in your organization in ",
+      "LIST": {
+        "MEMBER_NAME": "Profil",
+        "MEMBER_ROLE": "Role",
+        "MEMBER_STATUS": "Status",
+        "DATE": "Joined Date",
+        "MESSAGE": "There are no members!"
+      },
+      "FORM": {
+        "TITLE": "Invite New Members To Your Organization",
+        "MEMBER_EMAIL": "Email",
+        "MEMBER_ROLE": "Role",
+        "PERSONALIZE_INVITATION": "Personalize Invitation",
+        "DESCRIPTION": "About (description)",
+        "CANCEL": "Cancel",
+        "SAVE": "Save"
+      }
+    },
+    "PROFILE": {
+      "DETAILS": {
+        "ROLE": "Role"
+      },
+      "TABS": {
+        "GENERAL_INFOS": "General informations",
+        "RESOURCES": "Resources",
+        "USERS": "Users",
+        "SUB_ORGANIZATIONS": "Sub-Organizations"
+      }
     },
     "FORM": {
       "DONE": {

@@ -157,8 +157,41 @@
   "FAILED_LOAD_COUNTRIES": "Les téléchargements de la liste des pays ont échoué",
   "FATAL_ERROR_OCCURED": "Une erreur fatale s'est produite",
   "ORGANIZATION": {
-    "ERROR": {
-      "CREATE_FAILED": "La creation de l'organisation a échouée"
+    "MEMBERS": {
+      "TITLE": "Members",
+      "INVITE_MEMBERS": "Inviter un membre",
+      "SEARCH_MEMBERS": " Rechercher un membre",
+      "FILTER_MEMBERS": "Filte",
+      "IMPORT_MEMBERS": "Importer",
+      "EXPORT_MEMBERS": "Exporter",
+      "MESSAGE": "Gérer les accès pour tous les membres de votre organisation dans ",
+      "LIST": {
+        "MEMBER_NAME": "Profil",
+        "MEMBER_ROLE": "Rôle",
+        "MEMBER_STATUS": "Status",
+        "DATE": "Joined Date",
+        "MESSAGE": "There are no members!"
+      },
+      "FORM": {
+        "TITLE": "Invitez de nouveaux membres dans votre organisation",
+        "MEMBER_EMAIL": "E-mail",
+        "MEMBER_ROLE": "Rôle",
+        "PERSONALIZE_INVITATION": "Personnaliser l'invitation",
+        "DESCRIPTION": "À propos (description)",
+        "CANCEL": "Annuler",
+        "SAVE": "sauvegarder"
+      }
+    },
+    "PROFILE": {
+      "DETAILS": {
+        "ROLE": "Rôle"
+      },
+      "TABS": {
+        "GENERAL_INFOS": "Informations générales",
+        "RESOURCES": "Ressources",
+        "USERS": "Utilisateurs",
+        "SUB_ORGANIZATIONS": "Sous-Organisations"
+      }
     },
     "FORM": {
       "DONE": {
