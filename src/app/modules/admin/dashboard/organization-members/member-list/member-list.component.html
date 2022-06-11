@@ -1,0 +1,113 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+  <!-- Header -->
+  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8">
+    <!-- Loader -->
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+      <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+    <!-- Title -->
+    <div>
+      <div class="text-4xl font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.MEMBERS.TITLE' | transloco }}</div>
+      <div class="mt-8 text-md font-medium text-secondary text-center">
+        <span>{{ 'ORGANIZATION.MEMBERS.MESSAGE' | transloco }}</span>
+        <a class="ml-1 text-primary-500 hover:underline" [routerLink]="['/sign-in']">Organization settings </a>
+      </div>
+      <div class="mt-8 text-md font-medium text-secondary">
+        <ng-container *ngIf="membersCount > 0">
+          {{ membersCount }}
+        </ng-container>
+        {{
+          membersCount
+            | i18nPlural
+              : {
+                  '=0': 'No Members',
+                  '=1': 'Member',
+                  other: 'Members'
+                }
+        }}
+      </div>
+    </div>
+    <!-- Actions -->
+    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+      <button class="ml-4" mat-flat-button [color]="'primary'" (click)="openMemberForm()">
+        <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+        <span class="ml-2 mr-1">{{ 'ORGANIZATION.MEMBERS.INVITE_MEMBERS' | transloco }}</span>
+      </button>
+    </div>
+  </div>
+  <div>
+    <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded min-w-64">
+      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+      <input matInput [formControl]="searchInputControl" [autocomplete]="'off'" [placeholder]="'Search Members'" />
+    </mat-form-field>
+    <button class="ml-4" mat-flat-button [color]="'primary'" routerLinkActive="active" [routerLink]="['/members/member/create']">
+      <mat-icon [svgIcon]="'heroicons_outline:adjustments'"></mat-icon>
+      <span class="ml-2 mr-1">{{ 'ORGANIZATION.MEMBERS.FILTER_MEMBERS' | transloco }}</span>
+    </button>
+    <button class="ml-4" mat-flat-button [color]="'primary'" routerLinkActive="active" [routerLink]="['/members/member/create']">
+      <mat-icon [svgIcon]="'heroicons_outline:upload'"></mat-icon>
+      <span class="ml-2 mr-1">{{ 'ORGANIZATION.MEMBERS.IMPORT_MEMBERS' | transloco }}</span>
+    </button>
+    <button class="ml-4" mat-flat-button [color]="'primary'" routerLinkActive="active" [routerLink]="['/members/member/create']">
+      <mat-icon [svgIcon]="'heroicons_outline:download'"></mat-icon>
+      <span class="ml-2 mr-1">{{ 'ORGANIZATION.MEMBERS.EXPORT_MEMBERS' | transloco }}</span>
+    </button>
+  </div>
+  <br />
+  <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4"></div>
+
+  <!-- Main -->
+  <div class="flex flex-auto overflow-hidden">
+    <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
+      <ng-container *ngIf="members$ | async as members">
+        <ng-container *ngIf="members?.length > 0; else noMembers">
+          <div class="grid">
+            <!-- Header -->
+            <div
+              class="inventory-grid text-center z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
+              matSort
+              matSortDisableClear>
+              <div class="hidden lg:block">{{ 'ORGANIZATION.MEMBERS.LIST.MEMBER_NAME' | transloco }}</div>
+              <div class="hidden lg:block">{{ 'ORGANIZATION.MEMBERS.LIST.MEMBER_ROLE' | transloco }}</div>
+              <div class="hidden lg:block">{{ 'ORGANIZATION.MEMBERS.LIST.MEMBER_STATUS' | transloco }}</div>
+              <div class="hidden lg:block">{{ 'ORGANIZATION.MEMBERS.LIST.DATE' | transloco }}</div>
+            </div>
+
+            <ng-container *ngIf="members$ | async as members">
+              <ng-container *ngFor="let member of members; trackBy: trackByFn">
+                <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b">
+                  <div class="hidden lg:block">
+                    {{ member.name }}
+                  </div>
+                  <div class="hidden lg:block text-center">
+                    {{ member.role }}
+                  </div>
+                  <div class="hidden lg:block text-center">
+                    {{ member.status }}
+                  </div>
+                  <div class="hidden lg:block text-center">
+                    {{ member.date }}
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+          <div class="hidden lg:block"><p>...</p></div>
+          <mat-paginator
+            class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent"
+            (page)="handlePageEvent($event)"
+            [ngClass]="{ 'pointer-events-none': isLoading }"
+            [length]="pagination.length"
+            [pageIndex]="pagination.page"
+            [pageSize]="pagination.size"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            [showFirstLastButtons]="true">
+          </mat-paginator>
+        </ng-container>
+        <ng-template #noMembers>
+          <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">{{ 'ORGANIZATION.MEMBERS.LIST.MESSAGE' | transloco }}</div>
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+</div>

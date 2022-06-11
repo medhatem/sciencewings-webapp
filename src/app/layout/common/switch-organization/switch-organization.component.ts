@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { SwitchOrganizationsService } from './switch-organization.service';
-import { ActivatedRoute } from '@angular/router';
 import { User } from 'app/core/user/user.types';
 import { constants } from 'app/shared/constants';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
@@ -19,24 +18,20 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
   availableOrganizations: Array<UserOrganizations>;
   activeOrganization: any;
 
-  constructor(
-    private _switchOrganizationsService: SwitchOrganizationsService,
-    private _toastrService: ToastrService,
-    private _route: ActivatedRoute,
-  ) {}
+  constructor(private _switchOrganizationsService: SwitchOrganizationsService, private _toastrService: ToastrService) {}
 
   ngOnDestroy(): void {}
 
   async ngOnInit() {
-    const { userData } = this._route.snapshot.data;
+    const userId = localStorage.getItem(constants.CURRENT_USER_ID);
     try {
-      this.availableOrganizations = await this._switchOrganizationsService.getAllUserOrganizations(Number(userData.id));
+      this.availableOrganizations = await this._switchOrganizationsService.getAllUserOrganizations(Number(userId));
       this.activeOrganization = this.availableOrganizations[0] || {
         id: constants.EMPTY_ORGANIZATIONS,
         name: constants.EMPTY_ORGANIZATIONS,
       };
     } catch (error) {
-      this._toastrService.showError('APP.SWITCH_ORGANIZATIONS_LOAD_FAILED');
+      this._toastrService.showInfo('APP.SWITCH_ORGANIZATIONS_LOAD_FAILED');
     }
   }
 

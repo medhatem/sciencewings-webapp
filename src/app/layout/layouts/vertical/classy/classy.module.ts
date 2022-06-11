@@ -9,12 +9,12 @@ import { MessagesModule } from 'app/layout/common/messages/messages.module';
 import { NotificationsModule } from 'app/layout/common/notifications/notifications.module';
 import { QuickChatModule } from 'app/layout/common/quick-chat/quick-chat.module';
 import { SearchModule } from 'app/layout/common/search/search.module';
-import { ShortcutsModule } from 'app/layout/common/shortcuts/shortcuts.module';
 import { UserModule } from 'app/layout/common/user/user.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { ClassyLayoutComponent } from 'app/layout/layouts/vertical/classy/classy.component';
 import { NewUserInfosModule } from 'app/layout/new-user-infos/new-user-infos.module';
 import { SwitchOrganizationModule } from 'app/layout/common/switch-organization/switch-organization.module';
+import { AppModulesModule } from 'app/layout/common/app-modules/app-modules.module';
 
 @NgModule({
   declarations: [ClassyLayoutComponent],
@@ -29,7 +29,7 @@ import { SwitchOrganizationModule } from 'app/layout/common/switch-organization/
     NotificationsModule,
     QuickChatModule,
     SearchModule,
-    ShortcutsModule,
+    AppModulesModule,
     UserModule,
     SharedModule,
     SwitchOrganizationModule,

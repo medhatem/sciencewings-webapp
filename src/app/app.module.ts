@@ -1,7 +1,6 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { ExtraOptions, PreloadAllModules, RouterModule } from '@angular/router';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
-
 import { ApiModule } from '../generated/api.module';
 import { ApiService } from '../generated/services';
 import { AppComponent } from 'app/app.component';

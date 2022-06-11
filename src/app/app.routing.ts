@@ -6,6 +6,7 @@ import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.res
 import { Route } from '@angular/router';
 import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
 import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource/profile-form/profile-form.component';
+import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
 
 export const errorPath = '**';
 export const adminPath = 'admin';
@@ -69,6 +70,32 @@ export const appRoutes: Route[] = [
               icon: 'heroicons_outline:users',
             },
             loadChildren: () => import('app/modules/admin/dashboard/users/organization-users.module').then((m) => m.OrganizationUsersModule),
+          },
+          {
+            path: 'organization-members',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.ORGANIZATION_MEMBERS.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:user',
+            },
+            resolve: {},
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-members/organization-members.module').then((m) => m.OrganizationMembersModule),
+          },
+          {
+            path: 'organization-groups',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.ORGANIZATION_GROUPS.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:users',
+            },
+            resolve: {
+              groups: GroupResolver,
+            },
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-groups/organization-groups.module').then((m) => m.OrganizationGroupsModule),
           },
         ],
       },

@@ -16,11 +16,10 @@ import { FuseVerticalNavigationAsideItemComponent } from '@fuse/components/navig
 import { FuseVerticalNavigationBasicItemComponent } from '@fuse/components/navigation/vertical/components/basic/basic.component';
 import { FuseVerticalNavigationCollapsableItemComponent } from '@fuse/components/navigation/vertical/components/collapsable/collapsable.component';
 import { FuseVerticalNavigationDividerItemComponent } from '@fuse/components/navigation/vertical/components/divider/divider.component';
-import { FuseVerticalNavigationGroupItemComponent } from '@fuse/components/navigation/vertical/components/group/group.component';
 import { FuseVerticalNavigationSpacerItemComponent } from '@fuse/components/navigation/vertical/components/spacer/spacer.component';
 import { FuseVerticalNavigationComponent } from '@fuse/components/navigation/vertical/vertical.component';
 import { TranslocoModule } from '@ngneat/transloco';
-
+import { FuseVerticalNavigationGroupItemComponent } from './vertical/components/group/group.component';
 @NgModule({
   declarations: [
     FuseHorizontalNavigationBasicItemComponent,
@@ -36,17 +35,7 @@ import { TranslocoModule } from '@ngneat/transloco';
     FuseVerticalNavigationSpacerItemComponent,
     FuseVerticalNavigationComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatIconModule,
-    MatMenuModule,
-    MatTooltipModule,
-    FuseScrollbarModule,
-    TranslocoModule,
-  ],
+  imports: [CommonModule, RouterModule, MatButtonModule, MatDividerModule, MatIconModule, MatMenuModule, MatTooltipModule, FuseScrollbarModule, TranslocoModule],
   exports: [FuseHorizontalNavigationComponent, FuseVerticalNavigationComponent],
 })
 export class FuseNavigationModule {}
