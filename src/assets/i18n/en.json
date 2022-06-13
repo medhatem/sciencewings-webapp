@@ -1,41 +1,73 @@
 {
-  "WELCOME_BACK": "Hello",
-  "PROFILE": "Profile",
-  "EMPTY_ORGANIZATIONS": "No Organization",
   "APP": {
-    "GENERAL": {
+    "BTN": {
+      "CANCEL": "Cancel",
+      "DONE_AND_CREATE_NEW": "Submit and create new",
       "NEXT": "Next",
-      "BACK": "Back",
+      "PREVIOUS": "Previous",
+      "RELOAD": "Reload",
+      "SUBMIT": "Submit"
+    },
+    "COMMON": {
+      "APP_MODULES": {
+        "ADMINISTRATION": {
+          "DESCRIPTION": "workspace management",
+          "TITLE": "Administration"
+        },
+        "DOCUMENTATION": {
+          "DESCRIPTION": "Resources Manager",
+          "TITLE": "Resources"
+        },
+        "HELP_CENTER": {
+          "DESCRIPTION": "FAQs and guides",
+          "TITLE": "Help center"
+        },
+        "RESOUCES": {
+          "DESCRIPTION": "Getting started...",
+          "TITLE": "Documentation"
+        },
+        "TITLE": "Modules"
+      },
+      "NO_APP_MODULES": " No app modules",
+      "NO_APP_MODULES_DESCRIPTION": "When you have app modules, they will appear here."
+    },
+    "GENERAL": {
       "ADDRESS": {
         "ADDRESS": "Address",
         "ADDRESSES": "Addresses",
-        "STREET": "Street",
+        "ADD_ADDRESS": "Add and address",
         "APPARTMENT": "Apartment",
-        "PROVINCE": "Province",
         "CITY": "City",
-        "POSTAL_CODE": "Postal code",
         "COUNTRY": "Country",
-        "ADD_ADDRESS": "Add and address"
+        "POSTAL_CODE": "Postal code",
+        "PROVINCE": "Province",
+        "STREET": "Street"
       },
+      "BACK": "Back",
+      "NEXT": "Next",
       "PHONE": {
+        "PHONE_NUMBER": "Phone number",
         "PHONE_NUMBERS": "Phone numbers"
       }
     },
+    "KEYCLOAK_LOGIN_ERROR": "An error occurred while connecting keycloak",
+    "KEYCLOAK_LOGOUT_ERROR": "An error occurred while trying to sign out keycloak",
+    "LOGIN_ERROR_TITLE": "An error occurred while getting user infos",
+    "NEW_USER_INFOS_REQUIRED": "Please fill in your information before proceeding to your dashboard",
     "RESOURCES": {
       "MANAGER": "Manager",
       "MANAGERS": "Managers"
     },
     "ROUTES": {
       "ADMIN": {
-        "TITLE": "Dashboard",
-        "USER_PROFILE": {
-          "TITLE": "User profile"
-        },
-        "ORGANIZATION_PROFILE": {
-          "TITLE": "Organization profile"
+        "ORGANIZATION_GROUPS": {
+          "TITLE": "Organization groups"
         },
         "ORGANIZATION_MEMBERS": {
           "TITLE": "Organization members"
+        },
+        "ORGANIZATION_PROFILE": {
+          "TITLE": "Organization profile"
         },
         "RESOURCE": {
           "TITLE": "Resource"
@@ -43,26 +75,60 @@
         "RESOURCE_LIST": {
           "TITLE": "Resource List"
         },
+        "RESOURCE_PROFILE": {
+          "TITLE": "Resource Profile"
+        },
+        "RESOURCE_RULES": {
+          "TITLE": "Resource Rules"
+        },
         "RESOURCE_SCHEDULE": {
           "TITLE": "Resource Schedule"
         },
         "RESOURCE_SETTINGS": {
           "TITLE": "Resource Settings"
         },
-        "RESOURCE_PROFILE": {
-          "TITLE": "Resource Profile"
-        },
         "RESOURCE_TAGS": {
           "TITLE": "Resource tags"
         },
-        "RESOURCE_RULES": {
-          "TITLE": "Resource Rules"
-        },
         "PROJECT": {
           "TITLE": "Project"
+        },
+        "TITLE": "Dashboard",
+        "USER_PROFILE": {
+          "TITLE": "User profile"
         }
       },
+      "MENU": {
+        "CALENDAR": {
+          "TITLE": "Calendar"
+        },
+        "TITLE": "Menu"
+      },
       "USER": {
+        "ABOUT": {
+          "ADDRESS": "Address",
+          "ADD_EMAIL": "Add an e-mail address",
+          "ADD_PHONE_NUMBER": "Add a phone number",
+          "BIRTH_DATE": "Date of birth",
+          "CANCEL": "Cancel",
+          "CANCEL_DESC": "Cancel modifications",
+          "COMPANY": "Company",
+          "DELETE": "Delete",
+          "DELETE_DESC": "Delete user",
+          "EDIT": "Edit",
+          "EDIT_DESC": "Edit information",
+          "EMAIL": "Email address",
+          "FIRST_NAME": "First name",
+          "LABEL": "Label",
+          "LAST_NAME": "Last name",
+          "NAME": "Name",
+          "NOTES": "Notes",
+          "PHONE": "Phone number",
+          "REMOVE": "Remove",
+          "SAVE": "Save",
+          "SAVE_DESC": "Save modifications",
+          "TITLE": "Job title"
+        },
         "NEW_USER_FORM": {
           "STEP_1": {
             "TITLE": "General information"
@@ -71,70 +137,58 @@
             "TITLE": "Contact information"
           },
           "STEP_3": {
-            "TITLE": "Done",
-            "MESSAGE": "Thank you for filling in your information!\nYou can now manage your organization and create your resources and many other interesting features."
+            "MESSAGE": "Thank you for filling in your information!\nYou can now manage your organization and create your resources and many other interesting features.",
+            "TITLE": "Done"
           }
-        },
-        "TITLE": "User",
-        "TABS": {
-          "ABOUT": "About",
-          "CONTACTS": "Contacts",
-          "TRAINING": "Training & certificats",
-          "MEMBERS": "Supervised members"
-        },
-        "ABOUT": {
-          "NAME": "Name",
-          "FIRST_NAME": "First name",
-          "LAST_NAME": "Last name",
-          "TITLE": "Job title",
-          "COMPANY": "Company",
-          "EMAIL": "Email address",
-          "LABEL": "Label",
-          "REMOVE": "Remove",
-          "ADD_EMAIL": "Add an e-mail address",
-          "PHONE": "Phone number",
-          "ADD_PHONE_NUMBER": "Add a phone number",
-          "ADDRESS": "Address",
-          "BIRTH_DATE": "Date of birth",
-          "NOTES": "Notes",
-          "EDIT": "Edit",
-          "EDIT_DESC": "Edit information",
-          "CANCEL": "Cancel",
-          "CANCEL_DESC": "Cancel modifications",
-          "DELETE": "Delete",
-          "DELETE_DESC": "Delete user",
-          "SAVE": "Save",
-          "SAVE_DESC": "Save modifications"
         },
         "PROFILE": {
           "TITLE": "User profile"
-        }
-      },
-      "MENU": {
-        "TITLE": "Menu",
-        "CALENDAR": {
-          "TITLE": "Calendar"
-        }
+        },
+        "TABS": {
+          "ABOUT": "About",
+          "CONTACTS": "Contacts",
+          "MEMBERS": "Supervised members",
+          "TRAINING": "Training & certificats"
+        },
+        "TITLE": "User"
       }
     },
-    "LOGIN_ERROR_TITLE": "An error occurred while getting user infos",
     "SAVE_NEW_USER_FAILED": "An error occurred while saving user infos",
-    "KEYCLOAK_LOGIN_ERROR": "An error occurred while connecting keycloak",
-    "KEYCLOAK_LOGOUT_ERROR": "An error occurred while trying to sign out keycloak",
-    "BTN": {
-      "NEXT": "Next",
-      "CANCEL": "Cancel",
-      "PREVIOUS": "Previous",
-      "SUBMIT": "Submit",
-      "RELOAD": "Reload",
-      "DONE_AND_CREATE_NEW": "Submit and create new"
-    },
-    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Failed to load user organizations",
-    "NEW_USER_INFOS_REQUIRED": "Please fill in your information before proceeding to your dashboard"
+    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Failed to load user organizations"
   },
+  "EMPTY_ORGANIZATIONS": "No Organization",
+  "FAILED_LOAD_COUNTRIES": "Country list downloads failed",
+  "FATAL_ERROR_OCCURED": "A fatal error has occurred",
   "ORGANIZATION": {
+    "MEMBERS": {
+      "TITLE": "Members",
+      "INVITE_MEMBERS": "Invite Members",
+      "SEARCH_MEMBERS": "Search Members",
+      "FILTER_MEMBERS": "Filter",
+      "IMPORT_MEMBERS": "Import",
+      "EXPORT_MEMBERS": "Export",
+      "MESSAGE": "Manage Access for all members in your organization in ",
+      "LIST": {
+        "MEMBER_NAME": "Profil",
+        "MEMBER_ROLE": "Role",
+        "MEMBER_STATUS": "Status",
+        "DATE": "Joined Date",
+        "MESSAGE": "There are no members!"
+      },
+      "FORM": {
+        "TITLE": "Invite New Members To Your Organization",
+        "MEMBER_EMAIL": "Email",
+        "MEMBER_ROLE": "Role",
+        "PERSONALIZE_INVITATION": "Personalize Invitation",
+        "DESCRIPTION": "About (description)",
+        "CANCEL": "Cancel",
+        "SAVE": "Save"
+      }
+    },
     "PROFILE": {
-      "DETAILS": {},
+      "DETAILS": {
+        "ROLE": "Role"
+      },
       "TABS": {
         "GENERAL_INFOS": "General informations",
         "RESOURCES": "Resources",
@@ -143,61 +197,88 @@
       }
     },
     "FORM": {
-      "TITLE": "Create Organization",
+      "DONE": {
+        "HELPER1": "Thank you for filling in your Organization information!",
+        "HELPER2": "You can now manage your Organization and create your resources and many other interesting features",
+        "HELPER3": "You can click reset if you want to create another organization",
+        "TITLE": "Done"
+      },
       "STEP1": {
-        "TITLE": "General Information",
-        "SUB_TITLE": "Fill in your basic information for your organization",
-        "SUB_ORGANIZATION": "Set as sub-organization",
-        "CHOOSE_SUB_ORGANIZATION": "Choose Sub Organization",
-        "TIMEZONE": "Time zone",
+        "CHOOSE_SUB_ORGANIZATION": "Choose Sub Organization if applicable",
         "DEALING_TYPE": {
-          "TITLE": "Internal/External Organization",
+          "INSTITUT": "Institut",
           "PUBLIC": "Public",
           "SERVICE": "Service",
-          "INSTITUT": "Institut"
+          "TITLE": "Internal/External Organization"
         },
-        "NAME": "organization name",
+        "DESCRIPTION": "About (description)",
         "EMAIL": "Email address",
-        "TYPE": "Choose organization type",
-        "PHONE": "Phone Number",
         "LABELS": "Labels",
-        "DESCRIPTION": "About (description)"
+        "NAME": "Organization name",
+        "PHONE_CODE": "Phone Code",
+        "PHONE_LABEL": "Phone Label",
+        "PHONE_NUMBER": "Phone Number",
+        "SUB_ORGANIZATION": "Set as sub-organization",
+        "SUB_TITLE": "Fill in your basic information for your organization",
+        "TIMEZONE": "Time zone",
+        "TITLE": "General Information",
+        "TYPE": "Choose organization type"
       },
       "STEP2": {
-        "TITLE": "Address and social networks",
-        "SUB_TITLE": "Organization Address",
         "APARTMENT": "Apartment",
         "CITY": "City",
-        "STREET": "Street",
         "COUNTRY": "Country",
-        "SELECT_COUNTRY": "Choose a country",
-        "PROVINCE": "Province/region",
-        "POSTAL_CODE": "Postal Code",
         "DEPARTMENT": "Department",
+        "POSTAL_CODE": "Postal Code",
+        "PROVINCE": "Province/region",
         "SECTOR": "Sector",
-        "SOCIAL_MEDIA": "Social Networks"
+        "SELECT_COUNTRY": "Choose a country",
+        "SOCIAL_MEDIA": "Social Networks",
+        "STREET": "Street",
+        "SUB_TITLE": "Organization Address",
+        "TITLE": "Address and social networks"
       },
       "STEP3": {
-        "TITLE": "Admins and Members",
-        "SUB_TITLE_ADMIN": "Invite administrators for this organization",
-        "SUB_TITLE_USER": "Invite members for this organization",
         "ENTER_EMAIL": "Enter email",
         "HELPER1": "Split with commas or click ENTER",
         "HELPER2": "Example 01: example@example.com",
-        "HELPER3": "Example 02: example01@example.com,example02@example.com"
+        "HELPER3": "Example 02: example01@example.com,example02@example.com",
+        "SUB_TITLE_ADMIN": "Invite administrators for this organization",
+        "SUB_TITLE_USER": "Invite members for this organization",
+        "TITLE": "Admins and Members"
       },
-      "DONE": {
-        "TITLE": "Done",
-        "HELPER1": "Thank you for filling in your Organization information!",
-        "HELPER2": "You can now manage your Organization and create your resources and many other interesting features",
-        "HELPER3": "You can click reset if you want to create another organization"
-      }
+      "TITLE": "Create Organization"
     },
-    "ERROR": {
-      "CREATE_FAILED": "Organization creation failed"
+    "GROUPS": {
+      "CREATE_GROUP": "Create Group",
+      "EXPORT_GROUPS": "Export",
+      "FILTER_GROUPS": "Filter",
+      "FORM": {
+        "CANCEL": "Cancel",
+        "DESCRIPTION": "About (description)",
+        "GROUP_MEMBERS": "Group's Members",
+        "GROUP_NAME": "Group's Name",
+        "MESSAGE": "Members added to this group will be given the sames services and permissions",
+        "SAVE": "Save",
+        "TITLE": "Create Group"
+      },
+      "IMPORT_GROUPS": "Import",
+      "LIST": {
+        "GROUP_DATE": "Date",
+        "GROUP_MEMBERS": "Members",
+        "GROUP_NAME": "Group",
+        "GROUP_STATUS": "Status",
+        "MESSAGE": "There are no groups!"
+      },
+      "MESSAGE": "Manage Access for all groups in your organization in ",
+      "SEARCH_GROUPS": "Search Groups",
+      "TITLE": "Groups"
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"
     }
-  }
+  },
+  "PROFILE": "Profile",
+  "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
+  "WELCOME_BACK": "Hello"
 }

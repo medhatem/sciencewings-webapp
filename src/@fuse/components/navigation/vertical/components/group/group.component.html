@@ -1,24 +1,16 @@
 <!-- Item wrapper -->
-<div
-  class="fuse-vertical-navigation-item-wrapper"
-  [class.fuse-vertical-navigation-item-has-subtitle]="!!item.subtitle"
-  [ngClass]="item.classes?.wrapper"
->
+<div class="fuse-vertical-navigation-item-wrapper" [class.fuse-vertical-navigation-item-has-subtitle]="!!item.subtitle" [ngClass]="item.classes?.wrapper">
   <div class="fuse-vertical-navigation-item">
     <!-- Icon -->
     <ng-container *ngIf="item.icon">
-      <mat-icon
-        class="fuse-vertical-navigation-item-icon"
-        [ngClass]="item.classes?.icon"
-        [svgIcon]="item.icon"
-      ></mat-icon>
+      <mat-icon class="fuse-vertical-navigation-item-icon" [ngClass]="item.classes?.icon" [svgIcon]="item.icon"></mat-icon>
     </ng-container>
 
     <!-- Title & Subtitle -->
     <div class="fuse-vertical-navigation-item-title-wrapper">
       <div class="fuse-vertical-navigation-item-title">
         <span [ngClass]="item.classes?.title">
-          {{ item.title | transloco }}
+          {{ item.title }}
         </span>
       </div>
       <ng-container *ngIf="item.subtitle">
@@ -51,11 +43,7 @@
 
     <!-- Collapsable -->
     <ng-container *ngIf="item.type === 'collapsable'">
-      <fuse-vertical-navigation-collapsable-item
-        [item]="item"
-        [name]="name"
-        [autoCollapse]="autoCollapse"
-      ></fuse-vertical-navigation-collapsable-item>
+      <fuse-vertical-navigation-collapsable-item [item]="item" [name]="name" [autoCollapse]="autoCollapse"></fuse-vertical-navigation-collapsable-item>
     </ng-container>
 
     <!-- Divider -->

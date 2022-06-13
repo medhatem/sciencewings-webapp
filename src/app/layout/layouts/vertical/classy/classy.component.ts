@@ -12,6 +12,10 @@ import { User } from 'app/core/user/user.types';
 import { appRoutes, errorPath, appResourceRoutes, appResourceSettingsRoutes } from 'app/app.routing';
 import { CookieService } from 'ngx-cookie-service';
 import { DataService } from 'app/data.service';
+import { FuseSplashScreenService } from '@fuse/services/splash-screen/splash-screen.service';
+import { KeycloakService } from 'keycloak-angular';
+import { ToastrService } from 'app/core/toastr/toastr.service';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'classy-layout',
@@ -35,6 +39,9 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     private _fuseNavigationService: FuseNavigationService,
     private _coookies: CookieService,
     private data: DataService,
+    private _fuseSplashScreenService: FuseSplashScreenService,
+    private _keycloackService: KeycloakService,
+    private _toastrService: ToastrService,
   ) {}
 
   /**
@@ -66,11 +73,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     // resource profile
     this.subscription = this.data.currentMessage.subscribe((message) => {
       if (message.resourceID) {
-        this._coookies.set('url', 'resource');
         this._coookies.set('resourceID', message.resourceID);
-        const { children: dashboardsResourceRoutesChildren = [] } = appResourceSettingsRoutes.find(({ path }) => path === '');
-        this.navigation = this.getNavigationItemsFromRoutes(dashboardsResourceRoutesChildren, '/');
-        this._router.resetConfig(appResourceSettingsRoutes);
+        this.receiveMessage('resource-settings');
       }
     });
     this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
@@ -113,20 +117,34 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    * @param hideNavigation
    */
   resetNavigation(hideNavigation: boolean) {
-    this.hideMenusAndButtons = hideNavigation;
-    this.onHideMenusAndButtonsChange.emit(this.hideMenusAndButtons);
-    if (hideNavigation) {
-      this.navigation = [];
-    } else {
-      const url = this._coookies.get('url');
-      switch (url) {
-        case 'dashboard':
-          this.navigation = this.getNavigationItemsFromRoutes(appRoutes[0].children, '/');
-          break;
-        case 'resources':
-          this.navigation = this.getNavigationItemsFromRoutes(appResourceRoutes[0].children, '/');
-          break;
+    try {
+      this._fuseSplashScreenService.show();
+      this.hideMenusAndButtons = hideNavigation;
+      this.onHideMenusAndButtonsChange.emit(this.hideMenusAndButtons);
+      if (hideNavigation) {
+        this.navigation = [];
+      } else {
+        const url = this._coookies.get('url');
+
+        switch (url) {
+          case 'dashboard':
+            this.navigation = this.getNavigationItemsFromRoutes(appRoutes[0].children, '/');
+            break;
+          case 'resources':
+            this.navigation = this.getNavigationItemsFromRoutes(appResourceRoutes[0].children, '/');
+            break;
+          case 'resource-settings':
+            this.navigation = this.getNavigationItemsFromRoutes(appResourceSettingsRoutes[0].children, '/');
+            break;
+        }
       }
+    } catch (error) {
+      this._toastrService.showError(constants.FATAL_ERROR_OCCURED);
+      this.terminateAllTasksAndLogout();
+    } finally {
+      setTimeout(() => {
+        this._fuseSplashScreenService.hide();
+      }, 1000);
     }
   }
 
@@ -139,6 +157,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       case 'dashboard':
         this._coookies.set('url', 'dashboard');
         this._router.resetConfig(appRoutes);
+        break;
+      case 'resource-settings':
+        this._coookies.set('url', 'resource-settings');
+        this._router.resetConfig(appResourceSettingsRoutes);
         break;
       default:
         this._coookies.set('url', '');
@@ -178,12 +200,17 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       if (icon) {
         navigationItem.icon = icon;
       }
-      if (action && action === 'resources') {
-        this._coookies.set('url', 'resources');
-        this._router.resetConfig(appResourceRoutes);
-      }
+
       acc.push(navigationItem);
       return acc;
     }, []);
+  }
+
+  private terminateAllTasksAndLogout() {
+    this._coookies.deleteAll();
+    this._unsubscribeAll.closed = true;
+    this._unsubscribeAll.complete();
+    this._unsubscribeAll.unsubscribe();
+    this._keycloackService.logout();
   }
 }

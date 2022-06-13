@@ -8,7 +8,9 @@ export const constants = {
   KEYCLOAK_LOGIN_ERROR: 'APP.KEYCLOAK_LOGIN_ERROR',
   KEYCLOAK_LOGOUT_ERROR: 'APP.KEYCLOAK_LOGOUT_ERROR',
   KEYCLOAK_USER_ID: 'kcid',
+  CURRENT_USER_ID: 'pgid',
   USER_ORGANIZATION_ID: 'orgId',
+  FATAL_ERROR_OCCURED: 'FATAL_ERROR_OCCURED',
   NEW_USER: {
     DEFAULT_COUNTRY: 'Algeria',
     DEFAULT_COUNTRY_CODE: '+213',
@@ -27,6 +29,7 @@ export const constants = {
       monthYearA11yLabel: 'MMMM YYYY',
     },
   },
+  FAILED_LOAD_COUNTRIES: 'FAILED_LOAD_COUNTRIES',
 };
 
 export interface Countries {

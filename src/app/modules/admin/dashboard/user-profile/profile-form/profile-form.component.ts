@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { Country } from 'app/models/country.interface';
 
 @Component({
   selector: 'profile-form',
@@ -7,7 +8,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 })
 export class ProfileFormComponent implements OnInit {
   @Input() user: any;
-  @Input() countries: any;
+  @Input() countries: Country[];
   userForm: FormGroup;
 
   constructor(private _formBuilder: FormBuilder) {}
@@ -79,10 +80,10 @@ export class ProfileFormComponent implements OnInit {
     this.phoneNumbers.removeAt(index);
   }
 
-  getCountryByIso(iso: string) {
-    if (this.countries) {
-      return this.countries.find((country) => country.iso === iso);
-    }
+  getCountryByIso(isoImage: string) {
+    // Default country Canada
+    const countryCanada = { flagImagePos: '-1px -1803px' };
+    return this.countries?.find(({ iso }) => iso === isoImage) || countryCanada;
   }
 
   uploadAvatar(fileList: FileList): void {
