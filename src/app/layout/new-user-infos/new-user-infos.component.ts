@@ -1,14 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NewUserInfosResolver } from './new-user-infos.resolver';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { constants, countries } from 'app/shared/constants';
+import { constants } from 'app/shared/constants';
 import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
-import { lastValueFrom, Subject, takeUntil } from 'rxjs';
-import { Country } from 'app/models/country.interface';
-import { HttpClient } from '@angular/common/http';
-import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
 import { User } from 'app/models/user';
 import { Address, Phone } from 'app/models';
 
@@ -18,31 +14,18 @@ const moment = _rollupMoment || _moment;
   selector: 'new-user-infos',
   templateUrl: './new-user-infos.component.html',
 })
-export class NewUserInfosComponent implements OnInit, OnDestroy {
+export class NewUserInfosComponent implements OnInit {
   @Output() onFormNotComplete = new EventEmitter<boolean>();
   user: any;
-  countries: Country[] = [];
   form: FormGroup;
-  selectedCountry: any = {
-    id: '4c8ba1fc-0203-4a8f-8321-4dda4a0c6732',
-    iso: 'fr',
-    name: 'France',
-    code: '+33',
-    flagImagePos: '-1px -324px',
-  };
-  private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-  constructor(
-    private _newUserInfosResolver: NewUserInfosResolver,
-    private _formBuilder: FormBuilder,
-    private _httpClient: HttpClient,
-    private _toastrService: ToastrService,
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _contactsService: ContactsService,
-  ) {}
+  get formControls() {
+    return this.form?.controls;
+  }
+
+  constructor(private _newUserInfosResolver: NewUserInfosResolver, private _formBuilder: FormBuilder, private _toastrService: ToastrService) {}
 
   async ngOnInit() {
-    await this._prepareCountries();
     this.user = await this._newUserInfosResolver.loadUserProfileKeycloak();
     this.form = this._formBuilder.group({
       firstname: [this.user.firstName, [Validators.required]],
@@ -50,9 +33,7 @@ export class NewUserInfosComponent implements OnInit, OnDestroy {
       email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
       dateofbirth: new FormControl(moment()),
       keycloakId: localStorage.getItem(constants.KEYCLOAK_USER_ID),
-      phoneNumber: ['', [Validators.required]],
-      phoneCode: ['fr', [Validators.required]],
-      phoneLabel: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
       street: ['', Validators.required],
       apartment: [''],
       province: ['', Validators.required],
@@ -60,16 +41,6 @@ export class NewUserInfosComponent implements OnInit, OnDestroy {
       code: ['', Validators.required],
       country: [constants.NEW_USER.DEFAULT_COUNTRY, Validators.required],
     });
-    // Get the country telephone codes
-    this._contactsService.countries$.pipe(takeUntil(this._unsubscribeAll)).subscribe((codes: any[]) => {
-      this.countries = countries as any as Country[];
-      this._changeDetectorRef.markForCheck();
-    });
-  }
-
-  ngOnDestroy(): void {
-    this._unsubscribeAll.next(null);
-    this._unsubscribeAll.complete();
   }
 
   async emitOnFormComplete() {
@@ -114,19 +85,16 @@ export class NewUserInfosComponent implements OnInit, OnDestroy {
     return maxDateToPick < mustBeAtLeast14YearsOld;
   }
 
-  onSelectedCountryCodeChange($event): any {
-    this.selectedCountry = this.countries.find((country) => country.iso === $event);
-  }
-
   trackByFn(index: number, item: any): any {
     return item.id || index;
   }
 
-  private async _prepareCountries() {
-    try {
-      this.countries = await lastValueFrom(this._httpClient.get<Country[]>('api/apps/contacts/countries'));
-    } catch (error) {
-      this._toastrService.showInfo(constants.FAILED_LOAD_COUNTRIES);
+  //only number will be add
+  keyPress(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
     }
   }
 }

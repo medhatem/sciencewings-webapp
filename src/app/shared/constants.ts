@@ -12,8 +12,8 @@ export const constants = {
   USER_ORGANIZATION_ID: 'orgId',
   FATAL_ERROR_OCCURED: 'FATAL_ERROR_OCCURED',
   NEW_USER: {
-    DEFAULT_COUNTRY: 'Algeria',
-    DEFAULT_COUNTRY_CODE: '+213',
+    DEFAULT_COUNTRY: 'Canada',
+    DEFAULT_COUNTRY_CODE: '+1',
     DEFAULT_TYPE: 'User',
   },
   // Date of birth format:
