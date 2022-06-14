@@ -154,6 +154,7 @@
     "SAVE_NEW_USER_FAILED": "An error occurred while saving user infos",
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Failed to load user organizations"
   },
+  "COMPLETING_FORM_REQUIRED": "Please to complete all required fields to continue",
   "EMPTY_ORGANIZATIONS": "No Organization",
   "FAILED_LOAD_COUNTRIES": "Country list downloads failed",
   "FATAL_ERROR_OCCURED": "A fatal error has occurred",

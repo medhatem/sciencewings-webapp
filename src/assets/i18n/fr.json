@@ -154,6 +154,7 @@
     "SAVE_NEW_USER_FAILED": "Une erreur s'est produite lors de l'enregistrement d'utilisateur",
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "échec du chargement des organisations d'utilisateur"
   },
+  "COMPLETING_FORM_REQUIRED": "Veuillez remplir tous les champs obligatoires pour continuer",
   "EMPTY_ORGANIZATIONS": "Aucune Organisation",
   "FAILED_LOAD_COUNTRIES": "Les téléchargements de la liste des pays ont échoué",
   "FATAL_ERROR_OCCURED": "Une erreur fatale s'est produite",
