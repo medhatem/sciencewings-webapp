@@ -23,10 +23,12 @@ export class AdminOrganizationsService {
   }
 
   getOrganizationSettingsById(id: number): Observable<any> {
-    return this._swaggerService.organizationRoutesGetOgranizationSettings({ id });
+    return;
+    // return this._swaggerService.organizationRoutesGetOgranizationSettings({ id });
   }
 
   updateOrganizationsSettingsProperties(id: number, body: any): Observable<any> {
-    return this._swaggerService.organizationRoutesUpdateOrganizationsSettingsnAccessProperties({ id, body });
+    return;
+    // return this._swaggerService.organizationRoutesUpdateOrganizationsSettingsnAccessProperties({ id, body });
   }
 }

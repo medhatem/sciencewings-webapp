@@ -39,7 +39,8 @@ export const appRoutes: Route[] = [
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:office-building',
             },
-            loadChildren: () => import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
           },
           {
             path: 'organization-settings',
@@ -49,7 +50,10 @@ export const appRoutes: Route[] = [
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:adjustments',
             },
-            loadChildren: () => import('app/modules/admin/dashboard/organization-settings/organization-settings.module').then((m) => m.OrganizationSettingsModule),
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-settings/organization-settings.module').then(
+                (m) => m.OrganizationSettingsModule,
+              ),
           },
           {
             path: userProfilePath,
@@ -168,6 +172,28 @@ export const appResourceRoutes: Route[] = [
         },
         component: ResourceScheduleComponent,
       },
+      {
+        path: 'settings-general',
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.GENERAL',
+          type: FuseNavigationItemTypeEnum.basic,
+          icon: 'heroicons_outline:users',
+        },
+        loadChildren: () =>
+          import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
+      },
+      {
+        path: 'settings-reservation',
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.RESERVATION',
+          type: FuseNavigationItemTypeEnum.basic,
+          icon: 'heroicons_outline:users',
+        },
+        loadChildren: () =>
+          import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then((m) => m.SettingsReservationModule),
+      },
     ],
   },
 ];
@@ -201,7 +227,8 @@ export const appResourceSettingsRoutes: Route[] = [
           type: FuseNavigationItemTypeEnum.basic,
           icon: 'heroicons_outline:users',
         },
-        loadChildren: () => import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
+        loadChildren: () =>
+          import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
       },
       {
         path: 'settings-reservation',
@@ -211,7 +238,8 @@ export const appResourceSettingsRoutes: Route[] = [
           type: FuseNavigationItemTypeEnum.basic,
           icon: 'heroicons_outline:users',
         },
-        loadChildren: () => import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then((m) => m.SettingsReservationModule),
+        loadChildren: () =>
+          import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then((m) => m.SettingsReservationModule),
       },
     ],
   },
