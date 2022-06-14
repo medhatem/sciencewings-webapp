@@ -9,6 +9,8 @@ import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { Country } from 'app/models/country.interface';
 import { HttpClient } from '@angular/common/http';
 import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
+import { User } from 'app/models/user';
+import { Address, Phone } from 'app/models';
 
 const moment = _rollupMoment || _moment;
 
@@ -17,7 +19,7 @@ const moment = _rollupMoment || _moment;
   templateUrl: './new-user-infos.component.html',
 })
 export class NewUserInfosComponent implements OnInit, OnDestroy {
-  @Output() onFormComplete = new EventEmitter<boolean>();
+  @Output() onFormNotComplete = new EventEmitter<boolean>();
   user: any;
   countries: Country[] = [];
   form: FormGroup;
@@ -75,46 +77,24 @@ export class NewUserInfosComponent implements OnInit, OnDestroy {
       return this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
     }
     const formUser = { ...this.form.value };
-    delete formUser.phoneNumber;
-    delete formUser.phoneCode;
-    delete formUser.phoneLabel;
-    formUser.phones = [
-      {
-        phoneNumber: formUser.phoneNumber,
-        phoneCode: formUser.phoneCode,
-        phoneLabel: formUser.phoneLabel,
-      },
-    ];
-
-    delete formUser.street;
-    delete formUser.apartment;
-    delete formUser.province;
-    delete formUser.city;
-    delete formUser.code;
-    delete formUser.country;
-    formUser.addresses = [
-      {
-        street: formUser.street,
-        apartment: formUser.apartment,
-        province: formUser.province,
-        city: formUser.city,
-        code: formUser.code,
-        country: formUser.country,
-      },
-    ];
-    const userRo = {
-      ...formUser,
+    const phones = new Phone({ ...this.form.value });
+    const addresses = new Address({ ...this.form.value });
+    const userPayload = new User({
+      ...this.form.value,
+      phones,
+      addresses,
       email: this.user.email,
       dateofbirth: moment(formUser['dateofbirth']).format(constants.DATE_FORMAT_YYYY_MM_DD),
-    };
+    });
+
     try {
-      const createdUser = await this._newUserInfosResolver.createUser(userRo);
+      const createdUser = await this._newUserInfosResolver.createUser(userPayload);
       if (createdUser) {
         this.user = createdUser;
-        this.onFormComplete.emit(false);
+        this.onFormNotComplete.emit(false);
       }
     } catch (error) {
-      this.onFormComplete.emit(true);
+      return this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
     }
   }
 
@@ -122,10 +102,16 @@ export class NewUserInfosComponent implements OnInit, OnDestroy {
    * Use this for [matDatepickerFilter] property to give
    * the user selection from previous dates only
    */
-
   dateFilter(d: Date | null): boolean {
-    const date = d || new Date();
-    return date < new Date();
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const day = today.getDate();
+
+    const maxDateToPick = d || today;
+    const mustBeAtLeast14YearsOld = new Date(year - constants.MINIMUM_AGE, month, day);
+
+    return maxDateToPick < mustBeAtLeast14YearsOld;
   }
 
   onSelectedCountryCodeChange($event): any {
