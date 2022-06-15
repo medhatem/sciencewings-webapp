@@ -7,6 +7,7 @@ import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 import { User } from 'app/models/user';
 import { Address, Phone } from 'app/models';
+import { CookieService } from 'ngx-cookie-service';
 
 const moment = _rollupMoment || _moment;
 
@@ -23,7 +24,12 @@ export class NewUserInfosComponent implements OnInit {
     return this.form?.controls;
   }
 
-  constructor(private _newUserInfosResolver: NewUserInfosResolver, private _formBuilder: FormBuilder, private _toastrService: ToastrService) {}
+  constructor(
+    private _newUserInfosResolver: NewUserInfosResolver,
+    private _formBuilder: FormBuilder,
+    private _toastrService: ToastrService,
+    private _coookies: CookieService,
+  ) {}
 
   async ngOnInit() {
     this.user = await this._newUserInfosResolver.loadUserProfileKeycloak();
@@ -48,8 +54,8 @@ export class NewUserInfosComponent implements OnInit {
       return this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
     }
     const formUser = { ...this.form.value };
-    const phones = new Phone({ ...this.form.value });
-    const addresses = new Address({ ...this.form.value });
+    const phones = [new Phone({ ...this.form.value })];
+    const addresses = [new Address({ ...this.form.value })];
     const userPayload = new User({
       ...this.form.value,
       phones,
@@ -62,6 +68,7 @@ export class NewUserInfosComponent implements OnInit {
       const createdUser = await this._newUserInfosResolver.createUser(userPayload);
       if (createdUser) {
         this.user = createdUser;
+        this._coookies.set(constants.ROUTING_URL, 'dashboard');
         this.onFormNotComplete.emit(false);
       }
     } catch (error) {

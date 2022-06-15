@@ -32,6 +32,12 @@ export const constants = {
   FAILED_LOAD_COUNTRIES: 'FAILED_LOAD_COUNTRIES',
   COMPLETING_FORM_REQUIRED: 'COMPLETING_FORM_REQUIRED',
   MINIMUM_AGE: 14,
+  ROUTING_URL: 'url',
+  ROUTINGS_URLS: {
+    DASHBOARD: 'dashboard',
+    RESOURCES: 'resources',
+    RESOURCES_SETTINGS: 'resource-settings',
+  },
 };
 
 export interface Countries {
