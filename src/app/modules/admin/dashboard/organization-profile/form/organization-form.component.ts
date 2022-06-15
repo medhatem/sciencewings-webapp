@@ -108,7 +108,7 @@ export class OrganizationFormComponent implements OnInit {
   getFormValidationErrors() {
     Object.keys(this.form.controls).forEach((key) => {
       const controlErrors = this.form.get(key).errors;
-      if (controlErrors != null) {
+      if (controlErrors !== null) {
         Object.keys(controlErrors).forEach((keyError) => {
           console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
         });

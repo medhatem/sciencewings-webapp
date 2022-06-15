@@ -20,16 +20,16 @@ export class NewUserInfosComponent implements OnInit {
   user: any;
   form: FormGroup;
 
-  get formControls() {
-    return this.form?.controls;
-  }
-
   constructor(
     private _newUserInfosResolver: NewUserInfosResolver,
     private _formBuilder: FormBuilder,
     private _toastrService: ToastrService,
     private _coookies: CookieService,
   ) {}
+
+  get formControls() {
+    return this.form?.controls;
+  }
 
   async ngOnInit() {
     this.user = await this._newUserInfosResolver.loadUserProfileKeycloak();
@@ -99,8 +99,8 @@ export class NewUserInfosComponent implements OnInit {
   //only number will be add
   keyPress(event: any) {
     const pattern = /[0-9\+\-\ ]/;
-    let inputChar = String.fromCharCode(event.charCode);
-    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode !== 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
   }
