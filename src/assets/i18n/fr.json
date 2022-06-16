@@ -60,6 +60,9 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "LANDING_PAGE": {
+          "TITLE": "Page d'accueil"
+        },
         "ORGANIZATION_GROUPS": {
           "TITLE": "Groupes de l'organisation "
         },
@@ -157,6 +160,11 @@
   "FAILED_LOAD_COUNTRIES": "Les téléchargements de la liste des pays ont échoué",
   "FATAL_ERROR_OCCURED": "Une erreur fatale s'est produite",
   "ORGANIZATION": {
+    "LANDING_PAGE": {
+      "TITLE": "Mes Organisations",
+      "CREATE_ORGANIZATION": "Créer une rganisation",
+      "TOTAL": "Vous avez 3 organisations"
+    },
     "MEMBERS": {
       "TITLE": "Members",
       "INVITE_MEMBERS": "Inviter un membre",
