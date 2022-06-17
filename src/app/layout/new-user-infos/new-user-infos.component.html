@@ -14,7 +14,7 @@
         <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
           <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
             <mat-label>{{ 'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco }}</mat-label>
-            <input matInput [formControlName]="'lastname'" [placeholder]="'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco" />
+            <input matInput [formControlName]="'lastname'" [placeholder]="'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco" required/>
             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:newspaper'"></mat-icon>
           </mat-form-field>
         </div>

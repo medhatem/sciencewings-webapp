@@ -71,6 +71,9 @@ export class NewUserInfosComponent implements OnInit, OnDestroy {
   }
 
   async emitOnFormComplete() {
+    if (!this.form.valid) {
+      return this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
+    }
     const formUser = { ...this.form.value };
     delete formUser.phoneNumber;
     delete formUser.phoneCode;

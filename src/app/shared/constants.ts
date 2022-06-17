@@ -30,6 +30,8 @@ export const constants = {
     },
   },
   FAILED_LOAD_COUNTRIES: 'FAILED_LOAD_COUNTRIES',
+  COMPLETING_FORM_REQUIRED: 'COMPLETING_FORM_REQUIRED',
+  MINIMUM_AGE: 14,
 };
 
 export interface Countries {
