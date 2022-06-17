@@ -1,9 +1,13 @@
+<button *ngIf="isNoOrganization" class="border-2 rounded-xl shadow p-1">
+  Create organization
+</button>
+
 <!-- Button -->
-<button class="border-2 rounded-xl shadow p-1" [matMenuTriggerFor]="organizationsMatMenu">
+<button *ngIf="!isNoOrganization" class="border-2 rounded-xl shadow p-1" [matMenuTriggerFor]="organizationsMatMenu">
   <ng-container *ngTemplateOutlet="organizationNameTemplate; context: { $implicit: activeOrganization }"></ng-container>
 </button>
 
-<mat-menu [xPosition]="'before'" #organizationsMatMenu="matMenu">
+<mat-menu *ngIf="!isNoOrganization" [xPosition]="'before'" #organizationsMatMenu="matMenu">
   <ng-container *ngIf="availableOrganizations?.length">
     <ng-container *ngFor="let organization of availableOrganizations">
       <button mat-menu-item (click)="setActiveOrganization(organization)">

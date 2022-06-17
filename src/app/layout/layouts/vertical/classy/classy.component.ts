@@ -29,7 +29,6 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   navigation: FuseNavigationItem[];
   user: User;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
-  private message: string;
   private subscription: Subscription;
 
   constructor(
