@@ -60,6 +60,9 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "LANDING_PAGE": {
+          "TITLE": "Landing page"
+        },
         "ORGANIZATION_GROUPS": {
           "TITLE": "Organization groups"
         },
@@ -236,6 +239,11 @@
       "MESSAGE": "Manage Access for all groups in your organization in ",
       "SEARCH_GROUPS": "Search Groups",
       "TITLE": "Groups"
+    },
+    "LANDING_PAGE": {
+      "CREATE_ORGANIZATION": "Create Organization",
+      "TITLE": "My Organizations",
+      "TOTAL": "You have 3 Organizations"
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Export",
