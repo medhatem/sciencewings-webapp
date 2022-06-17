@@ -163,7 +163,7 @@
     "LANDING_PAGE": {
       "TITLE": "My Organizations",
       "CREATE_ORGANIZATION": "Create Organization",
-      "TOTAL": "You have 3 Organizations"
+      "MESSAGE": "Organizations"
     },
     "MEMBERS": {
       "TITLE": "Members",
