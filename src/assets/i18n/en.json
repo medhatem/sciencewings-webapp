@@ -70,7 +70,8 @@
           "TITLE": "Organization members"
         },
         "ORGANIZATION_PROFILE": {
-          "TITLE": "Organization profile"
+          "SETTINGS": "Organization Settings",
+          "TITLE": "Organization Profile"
         },
         "RESOURCE": {
           "TITLE": "Resource"
@@ -160,47 +161,6 @@
   "FAILED_LOAD_COUNTRIES": "Country list downloads failed",
   "FATAL_ERROR_OCCURED": "A fatal error has occurred",
   "ORGANIZATION": {
-    "LANDING_PAGE": {
-      "TITLE": "My Organizations",
-      "CREATE_ORGANIZATION": "Create Organization",
-      "TOTAL": "You have 3 Organizations"
-    },
-    "MEMBERS": {
-      "TITLE": "Members",
-      "INVITE_MEMBERS": "Invite Members",
-      "SEARCH_MEMBERS": "Search Members",
-      "FILTER_MEMBERS": "Filter",
-      "IMPORT_MEMBERS": "Import",
-      "EXPORT_MEMBERS": "Export",
-      "MESSAGE": "Manage Access for all members in your organization in ",
-      "LIST": {
-        "MEMBER_NAME": "Profil",
-        "MEMBER_ROLE": "Role",
-        "MEMBER_STATUS": "Status",
-        "DATE": "Joined Date",
-        "MESSAGE": "There are no members!"
-      },
-      "FORM": {
-        "TITLE": "Invite New Members To Your Organization",
-        "MEMBER_EMAIL": "Email",
-        "MEMBER_ROLE": "Role",
-        "PERSONALIZE_INVITATION": "Personalize Invitation",
-        "DESCRIPTION": "About (description)",
-        "CANCEL": "Cancel",
-        "SAVE": "Save"
-      }
-    },
-    "PROFILE": {
-      "DETAILS": {
-        "ROLE": "Role"
-      },
-      "TABS": {
-        "GENERAL_INFOS": "General informations",
-        "RESOURCES": "Resources",
-        "USERS": "Users",
-        "SUB_ORGANIZATIONS": "Sub-Organizations"
-      }
-    },
     "FORM": {
       "DONE": {
         "HELPER1": "Thank you for filling in your Organization information!",
@@ -279,6 +239,36 @@
       "SEARCH_GROUPS": "Search Groups",
       "TITLE": "Groups"
     },
+    "LANDING_PAGE": {
+      "CREATE_ORGANIZATION": "Create Organization",
+      "TITLE": "My Organizations",
+      "TOTAL": "You have 3 Organizations"
+    },
+    "MEMBERS": {
+      "EXPORT_MEMBERS": "Export",
+      "FILTER_MEMBERS": "Filter",
+      "FORM": {
+        "CANCEL": "Cancel",
+        "DESCRIPTION": "About (description)",
+        "MEMBER_EMAIL": "Email",
+        "MEMBER_ROLE": "Role",
+        "PERSONALIZE_INVITATION": "Personalize Invitation",
+        "SAVE": "Save",
+        "TITLE": "Invite New Members To Your Organization"
+      },
+      "IMPORT_MEMBERS": "Import",
+      "INVITE_MEMBERS": "Invite Members",
+      "LIST": {
+        "DATE": "Joined Date",
+        "MEMBER_NAME": "Profil",
+        "MEMBER_ROLE": "Role",
+        "MEMBER_STATUS": "Status",
+        "MESSAGE": "There are no members!"
+      },
+      "MESSAGE": "Manage Access for all members in your organization in ",
+      "SEARCH_MEMBERS": "Search Members",
+      "TITLE": "Members"
+    },
     "PROFILE": {
       "DETAILS": {
         "ROLE": "Role"
@@ -288,6 +278,59 @@
         "RESOURCES": "Resources",
         "SUB_ORGANIZATIONS": "Sub-Organizations",
         "USERS": "Users"
+      }
+    },
+    "SETTINGS": {
+      "ACCESS": {
+        "Cancel": "Cancel",
+        "OPTION_1": "Any member may join your organisation and access resource schedules.",
+        "OPTION_2": "Member should access by join code ",
+        "OPTION_3": "Join Code",
+        "OPTION_4": "Your organisation will never appear in search results",
+        "OPTION_5": "Notify administrators when Memebers Join Organisation",
+        "OPTION_6": "List Resources to Non-Members",
+        "OPTION_7": "Message Sent to New Members",
+        "TITLE": "Access Settings",
+        "Update": "Update"
+      },
+      "GENERAL": {
+        "DESCRIPTION": "Description",
+        "DIRECTION": "Direction",
+        "EMAIL": "Email",
+        "GENERAL_INFORMATION": "General Informations",
+        "LABEL": "Label",
+        "NAME": "Name",
+        "PHONE": "Phone",
+        "TYPE": "Type",
+        "UPDATE": "Update"
+      },
+      "MEMBERS": {
+        "Cancel": "Cancel",
+        "OPTION_1_1": "Members can edit account numbers",
+        "OPTION_1_2": "Prompt for accouant numbers",
+        "OPTION_1_3": "Account Number Note",
+        "OPTION_2_1": "Allow Members to See All Other Members",
+        "SECTION_1_TITLE": "Member Account Number",
+        "SECTION_2_TITLE": "Member list visibility",
+        "TITLE": "Member Account Options",
+        "Update": "Update"
+      },
+      "RESERVATIONS": {
+        "ApproversCanEditReservations": "Approvers can Edit Reservations",
+        "AttachedICSCalendarFeeds": "Attached  ICS Calendar Feeds",
+        "Cancel": "Cancel",
+        "ConfirmationEmailWhenMakingReservation": "Confirmation Email  When making reservation",
+        "EmailAddressToReciveReservationReplayMessages": "Email Address to recive reservation replay messages",
+        "GeneralReservationOptions": "General Reservation options",
+        "HideAccountNumberWhenMakingReservation": "Hide Account Number when making reservation",
+        "HideCalanderForEveryone": "Hide Calander For Everyone",
+        "HideOrganisationCalendar": "Hide organisation Calendar",
+        "RequireAReasonWhenEditingAReservation": "Require a Reason when Editing a Reservation",
+        "ReservationEmails": "Reservation Emails",
+        "ReservationOptions": "Reservation Options",
+        "ShowResourceImagesInReservation": "Show Resource Images in Reservation ",
+        "Update": "Update",
+        "UserHideCalenderForMemberOnly": "User Hide Calender For Member Only"
       }
     },
     "SUCCESS": {
