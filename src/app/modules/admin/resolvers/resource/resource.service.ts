@@ -45,8 +45,6 @@ export class ResourceService {
     return this.swaggerAPI.organizationRoutesGetUsers({ id });
   }
   getOrgResource(organizationId: number): Observable<any> {
-      console.log({organizationId});
-
     return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId });
   }
   createResource(body: ResourceRo): Observable<any> {

@@ -1,6 +1,8 @@
 import { PhoneRo } from 'generated/models';
 
 export class Phone implements PhoneRo {
+  id: number;
+  memberId?: number;
   phoneCode: string;
   phoneLabel: string;
   value: number;
