@@ -1,7 +1,7 @@
 import { PhoneRo } from 'generated/models';
 
 export class Phone implements PhoneRo {
-  id: number;
+  id?: number;
   memberId?: number;
   phoneCode: string;
   phoneLabel: string;
@@ -11,7 +11,7 @@ export class Phone implements PhoneRo {
   phoneNumber: string;
 
   constructor(phone: any) {
-    const { phoneCode, phoneLabel, value, organizationId, userId, phoneNumber } = phone || {};
+    const { phoneCode = '1', phoneLabel = 'User', value, organizationId, userId, phoneNumber } = phone || {};
     Object.assign(this, { phoneCode, phoneLabel, value, organizationId, userId, phoneNumber });
   }
 }

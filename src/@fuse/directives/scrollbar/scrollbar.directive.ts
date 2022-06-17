@@ -161,7 +161,7 @@ export class FuseScrollbarDirective implements OnChanges, OnInit, OnDestroy {
       this._elementRef.nativeElement[prefix + 'Left'],
       this._elementRef.nativeElement[prefix + 'Top'],
       this._elementRef.nativeElement[prefix + 'Width'],
-      this._elementRef.nativeElement[prefix + 'Height']
+      this._elementRef.nativeElement[prefix + 'Height'],
     );
   }
 
@@ -176,10 +176,7 @@ export class FuseScrollbarDirective implements OnChanges, OnInit, OnDestroy {
     if (!absolute && this._ps) {
       scrollbarPosition = new ScrollbarPosition(this._ps.reach.x || 0, this._ps.reach.y || 0);
     } else {
-      scrollbarPosition = new ScrollbarPosition(
-        this._elementRef.nativeElement.scrollLeft,
-        this._elementRef.nativeElement.scrollTop
-      );
+      scrollbarPosition = new ScrollbarPosition(this._elementRef.nativeElement.scrollLeft, this._elementRef.nativeElement.scrollTop);
     }
 
     return scrollbarPosition;
@@ -196,11 +193,11 @@ export class FuseScrollbarDirective implements OnChanges, OnInit, OnDestroy {
     if (y == null && speed == null) {
       this.animateScrolling('scrollTop', x, speed);
     } else {
-      if (x != null) {
+      if (x !== null) {
         this.animateScrolling('scrollLeft', x, speed);
       }
 
-      if (y != null) {
+      if (y !== null) {
         this.animateScrolling('scrollTop', y, speed);
       }
     }

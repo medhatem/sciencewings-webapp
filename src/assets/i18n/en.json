@@ -157,6 +157,7 @@
     "SAVE_NEW_USER_FAILED": "An error occurred while saving user infos",
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Failed to load user organizations"
   },
+  "COMPLETING_FORM_REQUIRED": "Please complete all required fields to continue.",
   "EMPTY_ORGANIZATIONS": "No Organization",
   "FAILED_LOAD_COUNTRIES": "Country list downloads failed",
   "FATAL_ERROR_OCCURED": "A fatal error has occurred",
@@ -181,7 +182,7 @@
         "LABELS": "Labels",
         "NAME": "Organization name",
         "PHONE_CODE": "Phone Code",
-        "PHONE_LABEL": "Phone Label",
+        "PHONE_LABEL": "Phone number: ex (1112223333)",
         "PHONE_NUMBER": "Phone Number",
         "SUB_ORGANIZATION": "Set as sub-organization",
         "SUB_TITLE": "Fill in your basic information for your organization",
