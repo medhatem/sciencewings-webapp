@@ -118,7 +118,6 @@ export class ResourceProfileFormComponent implements OnInit {
         }
       }
     } catch (error) {
-      console.log({ error });
       this._toastrService.showError('Something went wrong!');
     }
   }

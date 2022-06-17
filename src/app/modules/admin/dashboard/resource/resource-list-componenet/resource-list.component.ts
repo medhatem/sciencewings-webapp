@@ -40,7 +40,6 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this._resourceService.getOrgResource(1).subscribe(({ body }) => {
-      console.log({ body });
       if (body.statusCode === 500) {
         this._toastrService.showError('Something went wrong!');
       }

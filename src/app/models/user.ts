@@ -13,8 +13,11 @@ export class User implements UserRo {
   share?: boolean;
   signature?: string;
 
-  constructor(user?: any) {
+  constructor(user: any) {
     const { id, actionId, email, addresses, dateofbirth, firstname, keycloakId, lastname, phones, share, signature } = user || {};
-    Object.assign(this, { id, actionId, email, addresses, dateofbirth, firstname, keycloakId, lastname, phones, share, signature });
+    Object.assign(this, { actionId, email, addresses, dateofbirth, firstname, keycloakId, lastname, phones, share, signature });
+    if (id) {
+      this.id = id;
+    }
   }
 }
