@@ -74,7 +74,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     this.subscription = this.data.currentMessage.subscribe((message) => {
       if (message.resourceID) {
         this._coookies.set('resourceID', message.resourceID);
-        this.receiveMessage('resource-settings');
+        this.receiveMessage(constants.ROUTINGS_URLS.RESOURCES_SETTINGS);
       }
     });
     this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
@@ -124,16 +124,16 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       if (hideNavigation) {
         this.navigation = [];
       } else {
-        const url = this._coookies.get('url');
+        const url = this._coookies.get(constants.ROUTING_URL);
 
         switch (url) {
-          case 'dashboard':
+          case constants.ROUTINGS_URLS.DASHBOARD:
             this.navigation = this.getNavigationItemsFromRoutes(appRoutes[0].children, '/');
             break;
-          case 'resources':
+          case constants.ROUTINGS_URLS.RESOURCES:
             this.navigation = this.getNavigationItemsFromRoutes(appResourceRoutes[0].children, '/');
             break;
-          case 'resource-settings':
+          case constants.ROUTINGS_URLS.RESOURCES_SETTINGS:
             this.navigation = this.getNavigationItemsFromRoutes(appResourceSettingsRoutes[0].children, '/');
             break;
         }
@@ -149,21 +149,22 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   receiveMessage($event) {
+    // To remove the switch case and replace with one case after making sure we use constants everywhere !!!
     switch ($event) {
-      case 'resources':
-        this._coookies.set('url', 'resources');
+      case constants.ROUTINGS_URLS.RESOURCES:
+        this._coookies.set(constants.ROUTING_URL, constants.ROUTINGS_URLS.RESOURCES);
         this._router.resetConfig(appResourceRoutes);
         break;
-      case 'dashboard':
-        this._coookies.set('url', 'dashboard');
+      case constants.ROUTINGS_URLS.DASHBOARD:
+        this._coookies.set(constants.ROUTING_URL, constants.ROUTINGS_URLS.DASHBOARD);
         this._router.resetConfig(appRoutes);
         break;
-      case 'resource-settings':
-        this._coookies.set('url', 'resource-settings');
+      case constants.ROUTINGS_URLS.RESOURCES_SETTINGS:
+        this._coookies.set(constants.ROUTING_URL, constants.ROUTINGS_URLS.RESOURCES_SETTINGS);
         this._router.resetConfig(appResourceSettingsRoutes);
         break;
       default:
-        this._coookies.set('url', '');
+        this._coookies.set(constants.ROUTING_URL, '');
         this._router.resetConfig(appRoutes);
         break;
     }

@@ -179,7 +179,7 @@
         "LABELS": "Labels",
         "NAME": "Organization name",
         "PHONE_CODE": "Phone Code",
-        "PHONE_LABEL": "Phone Label",
+        "PHONE_LABEL": "Phone number: ex (1112223333)",
         "PHONE_NUMBER": "Phone Number",
         "SUB_ORGANIZATION": "Set as sub-organization",
         "SUB_TITLE": "Fill in your basic information for your organization",

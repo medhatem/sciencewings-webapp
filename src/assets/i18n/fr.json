@@ -180,7 +180,7 @@
         "NAME": "Nom de l'organisation",
         "PHONE": "Numéro de téléphone",
         "PHONE_CODE": "Code de téléphone",
-        "PHONE_LABEL": "Libler de téléphone",
+        "PHONE_LABEL": "Numéro de téléphone: ex (1112223333)",
         "PHONE_NUMBER": "Numéro de téléphone",
         "SUB_ORGANIZATION": "Définir comme sous-organisation",
         "SUB_TITLE": "Remplissez vos informations de base pour votre organization",
