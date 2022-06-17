@@ -9,7 +9,7 @@ export class Address implements AddressRo {
   street: string;
   type: AddressType;
 
-  constructor(address?: any) {
+  constructor(address: any) {
     const { appartement, city, code, country, province, street, type } = address || {};
     Object.assign(this, { appartement, city, code, country, province, street, type });
   }
