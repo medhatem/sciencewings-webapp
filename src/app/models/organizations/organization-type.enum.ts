@@ -1,0 +1,11 @@
+export enum OrganizationTypeTrasnlation {
+  PUBLIC = 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC',
+  INSTITUT = 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.SERVICE',
+  SERVICE = 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.INSTITUT',
+}
+
+export enum OrganizationType {
+  PUBLIC = 'Public',
+  INSTITUT = 'Institut',
+  SERVICE = 'Service',
+}

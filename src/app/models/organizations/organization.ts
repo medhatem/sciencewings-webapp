@@ -1,6 +1,7 @@
 import { Address } from '../address';
 import { CreateOrganizationRo } from 'generated/models';
 import { Phone } from '../phone';
+import { OrganizationType } from './organization-type.enum';
 
 export class Organization implements CreateOrganizationRo {
   id?: string;
@@ -25,8 +26,9 @@ export class Organization implements CreateOrganizationRo {
   type: string;
   dealingType: string;
   timezone: string;
+  parent?: number;
 
-  constructor(organization?: any) {
+  constructor(organization: any) {
     const {
       id,
       description,
@@ -43,7 +45,7 @@ export class Organization implements CreateOrganizationRo {
       socialYoutube,
       name = '',
       addresses = new Array<Address>(),
-      type,
+      type = OrganizationType.PUBLIC,
       email = '',
       parentId,
       phones,
@@ -52,7 +54,6 @@ export class Organization implements CreateOrganizationRo {
       timezone,
     } = organization || {};
     Object.assign(this, {
-      id,
       description,
       department,
       sector,
@@ -75,5 +76,19 @@ export class Organization implements CreateOrganizationRo {
       dealingType,
       timezone,
     });
+
+    if (id) {
+      this.id = id;
+    }
+  }
+}
+
+export class UserOrganizations {
+  id: number;
+  name: string;
+
+  constructor(organizationDto: any) {
+    const { id, name } = organizationDto;
+    Object.assign(id, name);
   }
 }
