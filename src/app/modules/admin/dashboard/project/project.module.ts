@@ -8,9 +8,10 @@ import { SharedModule } from 'app/shared/shared.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ProjectFormComponent } from './project-form/project-form.component';
 
 @NgModule({
-  declarations: [ProjectComponent, ProjectListComponent],
-  imports: [RouterModule.forChild(projectRoutes), FuseFindByKeyPipeModule, SharedModule, NgSelectModule, TranslocoModule, MatFormFieldModule],
+  declarations: [ProjectComponent, ProjectListComponent, ProjectFormComponent],
+  imports: [RouterModule.forChild(projectRoutes), SharedModule, NgSelectModule, TranslocoModule, MatFormFieldModule, FuseFindByKeyPipeModule],
 })
 export class ProjectModule {}

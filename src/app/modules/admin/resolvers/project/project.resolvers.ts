@@ -1,29 +1,15 @@
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ResourceService } from './project.service';
+import { ProjectService } from './project.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ResourceResolver implements Resolve<any> {
-  /**
-   * Constructor
-   */
-  constructor(private _profileService: ResourceService) {}
+export class ProjectResolver implements Resolve<any> {
+  constructor(private _groupService: ProjectService) {}
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Resolver
-   *
-   * @param route
-   * @param state
-   */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this._profileService.getData();
+    return this._groupService.getGroups();
   }
 }
