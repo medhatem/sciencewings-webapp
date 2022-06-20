@@ -67,7 +67,8 @@
           "TITLE": "Members de l'organisation"
         },
         "ORGANIZATION_PROFILE": {
-          "TITLE": "Profil organization"
+          "SETTINGS": "Réglages Organization",
+          "TITLE": "Profil Organization"
         },
         "RESOURCE": {
           "TITLE": "Resource de l'organisation"
@@ -153,46 +154,11 @@
     "SAVE_NEW_USER_FAILED": "Une erreur s'est produite lors de l'enregistrement d'utilisateur",
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "échec du chargement des organisations d'utilisateur"
   },
+  "COMPLETING_FORM_REQUIRED": "Veuillez remplir tous les champs obligatoires pour continuer.",
   "EMPTY_ORGANIZATIONS": "Aucune Organisation",
   "FAILED_LOAD_COUNTRIES": "Les téléchargements de la liste des pays ont échoué",
   "FATAL_ERROR_OCCURED": "Une erreur fatale s'est produite",
   "ORGANIZATION": {
-    "MEMBERS": {
-      "TITLE": "Members",
-      "INVITE_MEMBERS": "Inviter un membre",
-      "SEARCH_MEMBERS": " Rechercher un membre",
-      "FILTER_MEMBERS": "Filte",
-      "IMPORT_MEMBERS": "Importer",
-      "EXPORT_MEMBERS": "Exporter",
-      "MESSAGE": "Gérer les accès pour tous les membres de votre organisation dans ",
-      "LIST": {
-        "MEMBER_NAME": "Profil",
-        "MEMBER_ROLE": "Rôle",
-        "MEMBER_STATUS": "Status",
-        "DATE": "Joined Date",
-        "MESSAGE": "There are no members!"
-      },
-      "FORM": {
-        "TITLE": "Invitez de nouveaux membres dans votre organisation",
-        "MEMBER_EMAIL": "E-mail",
-        "MEMBER_ROLE": "Rôle",
-        "PERSONALIZE_INVITATION": "Personnaliser l'invitation",
-        "DESCRIPTION": "À propos (description)",
-        "CANCEL": "Annuler",
-        "SAVE": "sauvegarder"
-      }
-    },
-    "PROFILE": {
-      "DETAILS": {
-        "ROLE": "Rôle"
-      },
-      "TABS": {
-        "GENERAL_INFOS": "Informations générales",
-        "RESOURCES": "Ressources",
-        "USERS": "Utilisateurs",
-        "SUB_ORGANIZATIONS": "Sous-Organisations"
-      }
-    },
     "FORM": {
       "DONE": {
         "HELPER1": "Merci d'avoir rempli les informations de votre Organization !",
@@ -214,7 +180,7 @@
         "NAME": "Nom de l'organisation",
         "PHONE": "Numéro de téléphone",
         "PHONE_CODE": "Code de téléphone",
-        "PHONE_LABEL": "Libler de téléphone",
+        "PHONE_LABEL": "Numéro de téléphone: ex (1112223333)",
         "PHONE_NUMBER": "Numéro de téléphone",
         "SUB_ORGANIZATION": "Définir comme sous-organisation",
         "SUB_TITLE": "Remplissez vos informations de base pour votre organization",
@@ -272,6 +238,31 @@
       "SEARCH_GROUPS": "Chercher un groupe",
       "TITLE": "Groupes"
     },
+    "MEMBERS": {
+      "EXPORT_MEMBERS": "Exporter",
+      "FILTER_MEMBERS": "Filte",
+      "FORM": {
+        "CANCEL": "Annuler",
+        "DESCRIPTION": "À propos (description)",
+        "MEMBER_EMAIL": "E-mail",
+        "MEMBER_ROLE": "Rôle",
+        "PERSONALIZE_INVITATION": "Personnaliser l'invitation",
+        "SAVE": "sauvegarder",
+        "TITLE": "Invitez de nouveaux membres dans votre organisation"
+      },
+      "IMPORT_MEMBERS": "Importer",
+      "INVITE_MEMBERS": "Inviter un membre",
+      "LIST": {
+        "DATE": "Joined Date",
+        "MEMBER_NAME": "Profil",
+        "MEMBER_ROLE": "Rôle",
+        "MEMBER_STATUS": "Status",
+        "MESSAGE": "There are no members!"
+      },
+      "MESSAGE": "Gérer les accès pour tous les membres de votre organisation dans ",
+      "SEARCH_MEMBERS": " Rechercher un membre",
+      "TITLE": "Members"
+    },
     "PROFILE": {
       "DETAILS": {
         "ROLE": "Rôle"
@@ -281,6 +272,59 @@
         "RESOURCES": "Ressources",
         "SUB_ORGANIZATIONS": "Sous-Organisations",
         "USERS": "Utilisateurs"
+      }
+    },
+    "SETTINGS": {
+      "ACCESS": {
+        "Cancel": "Annuler",
+        "OPTION_1": "Tous les membres peuvent rejoindre votre organisation et accéder aux plannings des ressources.",
+        "OPTION_2": "Le membre doit accéder par code d'adhésion",
+        "OPTION_3": "Rejoindre le code",
+        "OPTION_4": "Votre organisation n'apparaîtra jamais dans les résultats de recherche",
+        "OPTION_5": "Notifier les administrateurs lorsque des membres rejoignent l'organisation",
+        "OPTION_6": "Répertorier les ressources aux non-membres",
+        "OPTION_7": "Message envoyé aux nouveaux membres",
+        "TITLE": "Paramètres d'accès",
+        "Update": "Modifier"
+      },
+      "GENERAL": {
+        "DESCRIPTION": "Description",
+        "DIRECTION": "Direction",
+        "EMAIL": "Email",
+        "GENERAL_INFORMATION": "Informations générales",
+        "LABEL": "Étiquette",
+        "NAME": "Nom",
+        "PHONE": "Téléphone",
+        "TYPE": "Type",
+        "UPDATE": "Modifier"
+      },
+      "MEMBERS": {
+        "Cancel": "Annuler",
+        "OPTION_1_1": "Les membres peuvent modifier les numéros de compte",
+        "OPTION_1_2": "Inviter les numéros de compte",
+        "OPTION_1_3": "Remarque sur le numéro de compte",
+        "OPTION_2_1": "Autoriser les membres à voir tous les autres membres",
+        "SECTION_1_TITLE": "Numéro de compte membre",
+        "SECTION_2_TITLE": "Visibilité de la liste des membres",
+        "TITLE": "Options de compte de membre",
+        "Update": "Modifier"
+      },
+      "RESERVATIONS": {
+        "ApproversCanEditReservations": "Les approbateurs peuvent modifier les réservations",
+        "AttachedICSCalendarFeeds": "Flux de calendrier ICS joints",
+        "Cancel": "Annuler",
+        "ConfirmationEmailWhenMakingReservation": "E-mail de confirmation lors de la réservation",
+        "EmailAddressToReciveReservationReplayMessages": "Adresse e-mail pour recevoir les messages de relecture de réservation",
+        "GeneralReservationOptions": "Options générales de réservation",
+        "HideAccountNumberWhenMakingReservation": "Masquer le numéro de compte lors de la réservation",
+        "HideCalanderForEveryone": "Masquer le calendrier pour tout le monde",
+        "HideOrganisationCalendar": "Masquer le calendrier de l'organisation",
+        "RequireAReasonWhenEditingAReservation": "Exiger un motif lors de la modification d'une réservation",
+        "ReservationEmails": "E-mails de réservation",
+        "ReservationOptions": "Options de réservation",
+        "ShowResourceImagesInReservation": "Afficher les images de ressources dans la réservation",
+        "Update": "Modifier",
+        "Utilisateur HideCalenderForMemberOnly": "Masquer le calendrier pour les membres uniquement"
       }
     },
     "SUCCESS": {

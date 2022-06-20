@@ -1,0 +1,83 @@
+<div class="w-full max-w-3xl">
+  <!-- Form -->
+  <form [formGroup]="form">
+    <!-- Section -->
+    <div class="w-full">
+      <div class="text-xl my-3">{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.ReservationOptions' | transloco }}</div>
+
+      <div class="text-lg my-5">{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.GeneralReservationOptions' | transloco }}</div>
+
+      <div class="flex sm:col-span-4 justify-between my-1">
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.ApproversCanEditReservations' | transloco }}</mat-label>
+        <mat-slide-toggle [formControlName]="'approversCanEditReservations'" [color]="'primary'"> </mat-slide-toggle>
+      </div>
+
+      <div class="flex sm:col-span-4 justify-between my-1">
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.RequireAReasonWhenEditingAReservation' | transloco }}</mat-label>
+        <mat-slide-toggle [formControlName]="'requireReasonWhenEditingReservation'" [color]="'primary'"> </mat-slide-toggle>
+      </div>
+
+      <div class="flex sm:col-span-4 justify-between my-1">
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.HideOrganisationCalendar' | transloco }}</mat-label>
+        <mat-slide-toggle [formControlName]="'hideOrganizationCalendar'" [color]="'primary'"> </mat-slide-toggle>
+      </div>
+
+      <!-- <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-select
+            [formControlName]="'hideAccountNumberWhenMakingReservation'"
+            placeholder="{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.HideCalanderForEveryone' | transloco }}"
+            required>
+            <mat-option value="EVERYONE">{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.HideCalanderForEveryone' | transloco }}</mat-option>
+            <mat-option value="MEMBER">{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.UserHideCalenderForMemberOnly' | transloco }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div> -->
+
+      <div class="flex sm:col-span-4 justify-between my-1">
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.HideAccountNumberWhenMakingReservation' | transloco }}</mat-label>
+        <mat-slide-toggle [formControlName]="'hideAccountNumberWhenMakingReservation'" [color]="'primary'"> </mat-slide-toggle>
+      </div>
+
+      <div class="flex sm:col-span-4 justify-between my-1">
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.ShowResourceImagesInReservation' | transloco }}</mat-label>
+        <mat-slide-toggle [formControlName]="'showResourceImagesInReservation'" [color]="'primary'"> </mat-slide-toggle>
+      </div>
+
+      <div class="text-lg my-5">{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.ReservationEmails' | transloco }}</div>
+
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.ConfirmationEmailWhenMakingReservation' | transloco }}</mat-label>
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:view-list'"></mat-icon>
+          <input matInput formControlName="confirmationEmailWhenMakingReservation" />
+        </mat-form-field>
+      </div>
+
+      <div class="flex sm:col-span-4 justify-between my-1">
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.AttachedICSCalendarFeeds' | transloco }}</mat-label>
+        <mat-slide-toggle [formControlName]="'attachedIcsCalendarFeeds'" [color]="'primary'"> </mat-slide-toggle>
+      </div>
+
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.EmailAddressToReciveReservationReplayMessages' | transloco }}</mat-label>
+          <input matInput formControlName="emailAddressToReceiveReservationReplyMessages" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-4 gap-6 w-full mt-8"></div>
+
+    <!-- Divider -->
+    <div class="mt-11 mb-10 border-t"></div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-end">
+      <button mat-stroked-button type="button">{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.Cancel' | transloco }}</button>
+      <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
+        {{ 'ORGANIZATION.SETTINGS.RESERVATIONS.Update' | transloco }}
+      </button>
+    </div>
+  </form>
+</div>
