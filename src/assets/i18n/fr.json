@@ -91,6 +91,9 @@
         "RESOURCE_TAGS": {
           "TITLE": "Tags des ressources"
         },
+        "PROJECT": {
+          "TITLE": "Project"
+        },
         "TITLE": "Tableau de bord",
         "USER_PROFILE": {
           "TITLE": "Profil utilisateur"
@@ -329,6 +332,30 @@
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
+    },
+    "PROJECTS": {
+      "CREATE_PROJECTS": "Créer un projet",
+      "EXPORT_PROJECTS": "Exporter",
+      "FILTER_PROJECTS": "Filtre",
+      "FORM": {
+        "CANCEL": "Annuler",
+        "DESCRIPTION": "À propos (description)",
+        "PROJECT_MEMBERS": "Membres du projet",
+        "PROJECT_NAME": "Nom du Projet",
+        "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
+        "SAVE": "Sauvegarder",
+        "TITLE": "Créer un nouveau projet"
+      },
+      "IMPORT_PROJECTS": "Importer",
+      "LIST": {
+        "PROJECT_DATE": "Date",
+        "PROJECT_MEMBERS": "Membres",
+        "PROJECT_NAME": "Projet",
+        "PROJECT_STATUS": "Status",
+        "MESSAGE": "Il n'y a pas de Projets !"
+      },
+      "SEARCH_GROUPS": "Chercher un projet",
+      "TITLE": "Projets"
     }
   },
   "PROFILE": "Profil",

@@ -331,6 +331,30 @@
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"
+    },
+    "PROJECTS": {
+      "CREATE_PROJECTS": "Export",
+      "EXPORT_PROJECTS": "Exporter",
+      "FILTER_PROJECTS": "Filter",
+      "FORM": {
+        "CANCEL": "Cancel",
+        "DESCRIPTION": "About (description)",
+        "PROJECT_MEMBERS": "Project's Members",
+        "PROJECT_NAME": "Project's Name",
+        "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
+        "SAVE": "Sauvegarder",
+        "TITLE": "Create Project"
+      },
+      "IMPORT_PROJECTS": "Importer",
+      "LIST": {
+        "PROJECT_DATE": "Date",
+        "PROJECT_MEMBERS": "Membres",
+        "PROJECT_NAME": "Project",
+        "PROJECT_STATUS": "Status",
+        "MESSAGE": "Il n'y a pas de projects !"
+      },
+      "SEARCH_PROJECTS": "Chercher un projet",
+      "TITLE": "Projects"
     }
   },
   "PROFILE": "Profile",

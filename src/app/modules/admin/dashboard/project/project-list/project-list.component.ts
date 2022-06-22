@@ -19,17 +19,17 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
   @ViewChild(MatSort) private _sort: MatSort;
 
-  groups$: any;
+  project$: any;
   isLoading: boolean = false;
   selectedGroup = null;
-  groupsCount: number = 0;
+  projectsCount: number = 0;
   pagination: InventoryPagination;
   searchInputControl: FormControl = new FormControl();
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
-    private _groupService: ProjectService,
+    private _projectService: ProjectService,
     private _changeDetectorRef: ChangeDetectorRef,
     private _matDialog: MatDialog,
     private data: DataService,
@@ -38,13 +38,13 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     const { groups } = this._route.snapshot.data;
-    this._groupService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
+    this._projectService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
       this.pagination = pagination;
       this._changeDetectorRef.markForCheck();
     });
 
-    this.groups$ = this._groupService.groups$;
-    this.groupsCount = groups.length;
+    this.project$ = this._projectService.groups$;
+    this.projectsCount = groups.length;
 
     this.searchInputControl.valueChanges
       .pipe(
@@ -53,7 +53,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
         switchMap((query) => {
           this.closeDetails();
           this.isLoading = true;
-          return this._groupService.getGroups(0, 10, 'name', 'asc', query);
+          return this._projectService.getGroups(0, 10, 'name', 'asc', query);
         }),
         map(() => {
           this.isLoading = false;
@@ -66,7 +66,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.pagination.length = event.length;
     this.pagination.size = event.pageSize;
     this.pagination.page = event.pageIndex;
-    lastValueFrom(this._groupService.getGroups(event.pageIndex, event.pageSize));
+    lastValueFrom(this._projectService.getGroups(event.pageIndex, event.pageSize));
   }
 
   ngAfterViewInit(): void {
