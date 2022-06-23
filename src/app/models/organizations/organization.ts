@@ -45,7 +45,7 @@ export class Organization implements CreateOrganizationRo {
       socialYoutube,
       name = '',
       addresses = new Array<Address>(),
-      type = OrganizationType.PUBLIC,
+      type = OrganizationType.public,
       email = '',
       parentId,
       phones,

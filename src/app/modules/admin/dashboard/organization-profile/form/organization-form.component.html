@@ -32,7 +32,7 @@
             <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}">
               <mat-option 
                 *ngFor="let organizationTypesKey of organizationTypesKeys; trackBy: trackByFn" 
-                value="OrganizationType[organizationTypesKey]">{{ OrganizationTypeTrasnlation[organizationTypesKey] | transloco }}
+                value="organizationType[organizationTypesKey]">{{ organizationTypeTrasnlation[organizationTypesKey] | transloco }}
               </mat-option>
             </mat-select>
             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>

@@ -19,8 +19,8 @@ export class OrganizationFormComponent implements OnInit {
   countries = countryCanada;
   formGroup: FormGroup;
   organizationTypesKeys = Object.keys(OrganizationType).map((key) => key);
-  OrganizationType = OrganizationType;
-  OrganizationTypeTrasnlation = OrganizationTypeTrasnlation;
+  organizationType = OrganizationType;
+  organizationTypeTrasnlation = OrganizationTypeTrasnlation;
   userOrganizations: UserOrganizations[] = [];
 
   constructor(
@@ -33,7 +33,7 @@ export class OrganizationFormComponent implements OnInit {
   ngOnInit() {
     this.getUserOrganizations();
     this.formGroup = this._formBuilder.group({
-      type: [this.OrganizationType.PUBLIC],
+      type: [this.organizationType.public],
       parentId: [],
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
