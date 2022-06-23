@@ -11,6 +11,7 @@ import { ShortcutsMockApi } from 'app/mock-api/common/shortcuts/api';
 import { MyOrganizationsMockApi } from './apps/my-organizations/api';
 import { OrganizationUsersMockApi } from './apps/organization-users/api';
 import { ECommerceInventoryMockApi } from './apps/ecommerce/inventory/api';
+import { OrganizationDashboardMockApi } from './apps/organization-dashboard/api';
 
 export const mockApiServices = [
   ChatMockApi,
@@ -20,6 +21,7 @@ export const mockApiServices = [
   MailboxMockApi,
   MessagesMockApi,
   NotesMockApi,
+  OrganizationDashboardMockApi,
   NotificationsMockApi,
   SearchMockApi,
   ShortcutsMockApi,

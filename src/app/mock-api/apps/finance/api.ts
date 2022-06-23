@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
 import { FuseMockApiService } from '@fuse/lib/mock-api';
-import { orgs as orgsData } from 'app/mock-api/apps/organization-users/data';
+import { finance as financeData } from 'app/mock-api/apps/finance/data';
+
 @Injectable({
   providedIn: 'root',
 })
-export class OrganizationUsersMockApi {
-  private _orgs: any = orgsData;
+export class FinanceMockApi {
+  private _finance: any = financeData;
 
   /**
    * Constructor
@@ -27,6 +28,6 @@ export class OrganizationUsersMockApi {
     // -----------------------------------------------------------------------------------------------------
     // @ Sales - GET
     // -----------------------------------------------------------------------------------------------------
-    this._fuseMockApiService.onGet('api/apps/organization-users/users').reply(() => [200, cloneDeep(this._orgs)]);
+    this._fuseMockApiService.onGet('api/apps/finance').reply(() => [200, cloneDeep(this._finance)]);
   }
 }

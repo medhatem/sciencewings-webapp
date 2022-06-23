@@ -60,6 +60,9 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "ORGANIZATION_DASHBOARD": {
+          "TITLE": "Dashboard"
+        },
         "LANDING_PAGE": {
           "TITLE": "Landing page"
         },
@@ -240,11 +243,21 @@
       "SEARCH_GROUPS": "Search Groups",
       "TITLE": "Groups"
     },
+    "ORGANIZATION_DASHBOARD": {
+      "RECENT_PROJECTS": "Recent Projects",
+      "RECENT_RESOURCES": "Recent Resources",
+      "MEMBERSHIPS_REVIEW": "Memberships to Review",
+      "RESERVATIONS_REVIEW": "Reservations to Review",
+      "SEE_MORE": "See More",
+      "MESSAGE1": "Recent Invitations",
+      "MESSAGE2": "Recent Reservation"
+    },
     "LANDING_PAGE": {
       "CREATE_ORGANIZATION": "Create Organization",
       "TITLE": "My Organizations",
       "MESSAGE": "Organizations"
     },
+
     "MEMBERS": {
       "EXPORT_MEMBERS": "Export",
       "FILTER_MEMBERS": "Filter",

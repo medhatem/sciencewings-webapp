@@ -31,6 +31,20 @@ export const appRoutes: Route[] = [
         },
         children: [
           {
+            path: 'organization-dashboard',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.ORGANIZATION_DASHBOARD.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:users',
+            },
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-dashboard/organization-dashboard.module').then(
+                (m) => m.OrganizationDashboardModule,
+              ),
+          },
+
+          {
             path: 'landing-page',
             canActivate: [AuthGuard],
             data: {
@@ -40,6 +54,7 @@ export const appRoutes: Route[] = [
             },
             loadChildren: () => import('app/modules/admin/dashboard/landing-page/landing-page.module').then((m) => m.LandingPageModule),
           },
+
           {
             path: 'organization-profile',
             canActivate: [AuthGuard],
@@ -75,6 +90,17 @@ export const appRoutes: Route[] = [
             resolve: {},
             loadChildren: () =>
               import('app/modules/admin/dashboard/organization-members/organization-members.module').then((m) => m.OrganizationMembersModule),
+          },
+          {
+            path: 'scrumboard',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.SCRUMBOARD.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:user',
+            },
+            resolve: {},
+            loadChildren: () => import('app/modules/admin/dashboard/scrumboard/scrumboard.module').then((m) => m.ScrumboardModule),
           },
           {
             path: 'organization-groups',

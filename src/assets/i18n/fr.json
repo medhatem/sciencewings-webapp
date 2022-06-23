@@ -241,8 +241,18 @@
       "SEARCH_GROUPS": "Chercher un groupe",
       "TITLE": "Groupes"
     },
+    "ORGANIZATION_DASHBOARD": {
+      "RECENT_PROJECTS": "Les projets récents",
+      "RECENT_RESOURCES": "Les ressources récentes",
+      "MEMBERSHIPS_REVIEW": "Les adhésions à revoir",
+      "RESERVATIONS_REVIEW": "Les réservations à revoir",
+      "SEE_MORE": "Voir Plus",
+
+      "MESSAGE1": "Invitations récentes ",
+      "MESSAGE2": "Réservations récentes"
+    },
     "LANDING_PAGE": {
-      "CREATE_ORGANIZATION": "Créer une rganisation",
+      "CREATE_ORGANIZATION": "Créer une organisation",
       "TITLE": "Mes Organisations",
       "MESSAGE": "organisations"
     },
