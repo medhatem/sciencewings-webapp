@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
 import { CookieService } from 'ngx-cookie-service';
-import { debounceTime, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 
@@ -74,7 +74,7 @@ export class GeneralComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     const data = { ...this.form.value };
     data.direction = this.form.value.direction.id;
     delete data.phoneCode;
@@ -88,18 +88,17 @@ export class GeneralComponent implements OnInit {
         phoneLabel: this.form.value.phoneLabel,
       },
     ];
-    this.organizationService.updateOrganization(1, data).subscribe((response) => {
-      if (response.body.statusCode === 204) {
-        this.updateLocalOrganization.emit(this.form.value);
-        this._toastrService.showSuccess('Updated Successfully');
-      } else {
-        this._toastrService.showError('Something went wrong!');
-      }
-    });
+    const response = await this.organizationService.updateOrganization(1, data);
+    if (response.body.statusCode === 204) {
+      this.updateLocalOrganization.emit(this.form.value);
+      this._toastrService.showSuccess('Updated Successfully');
+    } else {
+      this._toastrService.showError('Something went wrong!');
+    }
   }
 
   getCountryByIso(): any {
-    return this.countries.find((country) => country.iso === this.form.value.phoneCode);
+    return this.countries.find(({ iso }) => iso === this.form.value.phoneCode);
   }
 
   trackByFn(index: number, item: any): any {
