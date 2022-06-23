@@ -42,6 +42,16 @@ export const appRoutes: Route[] = [
         },
         children: [
           {
+            path: 'landing-page',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.LANDING_PAGE.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:users',
+            },
+            loadChildren: () => import('app/modules/admin/dashboard/landing-page/landing-page.module').then((m) => m.LandingPageModule),
+          },
+          {
             path: 'organization-profile',
             canActivate: [AuthGuard],
             data: {

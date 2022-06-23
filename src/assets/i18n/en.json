@@ -243,7 +243,7 @@
     "LANDING_PAGE": {
       "CREATE_ORGANIZATION": "Create Organization",
       "TITLE": "My Organizations",
-      "TOTAL": "You have 3 Organizations"
+      "MESSAGE": "Organizations"
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Export",

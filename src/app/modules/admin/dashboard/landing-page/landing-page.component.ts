@@ -10,8 +10,8 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 })
 export class LandingPageComponent implements OnInit {
   readonly componentName = 'LandingPageComponent';
-  teamMembers: any;
-  selectedOrganization: string = 'ACME Corp. Backend App';
+  orgs: any;
+  isLoading: boolean = false;
   constructor(private route: ActivatedRoute, private _toastrService: ToastrService) {}
 
   async ngOnInit() {
@@ -19,6 +19,6 @@ export class LandingPageComponent implements OnInit {
     if (!data) {
       this._toastrService.showError(this.componentName);
     }
-    this.teamMembers = data;
+    this.orgs = data;
   }
 }
