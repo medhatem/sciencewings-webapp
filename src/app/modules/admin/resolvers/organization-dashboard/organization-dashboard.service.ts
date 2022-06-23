@@ -11,6 +11,7 @@ export class OrganizationDashboardService {
   getProjectData(): Promise<any> {
     return lastValueFrom(this._httpClient.get('api/apps/organization-dashboard/projects'));
   }
+
   getResourceData(): Promise<any> {
     return lastValueFrom(this._httpClient.get('api/apps/organization-dashboard/resources'));
   }

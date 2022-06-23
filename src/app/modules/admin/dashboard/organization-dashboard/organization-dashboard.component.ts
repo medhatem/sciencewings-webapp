@@ -4,7 +4,7 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ApexOptions } from 'apexcharts';
 
 import { MatTableDataSource } from '@angular/material/table';
-import { Subject, takeUntil } from 'rxjs';
+import { IOrganizationDashboard } from '../../resolvers/organization-dashboard/organization-dashboard.resolver';
 
 @Component({
   selector: 'organization-dashboard',
@@ -25,14 +25,16 @@ export class OrganizationDashboardComponent implements OnInit {
 
   async ngOnInit() {
     // Get the data
-    const { data } = this.route.snapshot.data;
-    console.log('data', data);
-    if (!data) {
+    const { resources, projects } = this.route.snapshot.data.dashboardData as IOrganizationDashboard;
+
+    if (!resources || !projects) {
       this._toastrService.showError(this.componentName);
     }
-    this.recentProjects = data;
-    this.recentResources = data;
+
+    this.recentProjects = projects;
+    this.recentResources = resources;
   }
+
   trackByFn(index: number, item: any): any {
     return item.id || index;
   }
