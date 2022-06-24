@@ -120,7 +120,7 @@ export class ProjectMockApi {
       return [
         200,
         {
-          groups: products,
+          projects: products,
           pagination,
         },
       ];

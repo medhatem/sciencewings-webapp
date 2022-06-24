@@ -28,7 +28,7 @@ export const appRoutes: Route[] = [
         path: adminPath,
         canActivate: [AuthGuard],
         data: {
-          title: 'APP.ROUTES.MENU.TITLE',
+          title: 'APP.ROUTES.ADMIN.TITLE',
           type: FuseNavigationItemTypeEnum.group,
         },
         children: [
@@ -82,10 +82,10 @@ export const appRoutes: Route[] = [
             data: {
               title: 'APP.ROUTES.ADMIN.PROJECT.TITLE',
               type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:users',
+              icon: 'heroicons_outline:table',
             },
             resolve: {
-              groups: ProjectResolver,
+              projects: ProjectResolver,
             },
             loadChildren: () => import('app/modules/admin/dashboard/project/project.module').then((m) => m.ProjectModule),
           },

@@ -10,6 +10,6 @@ export class ProjectResolver implements Resolve<any> {
   constructor(private _groupService: ProjectService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this._groupService.getGroups();
+    return this._groupService.getProjects();
   }
 }

@@ -21,7 +21,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   project$: any;
   isLoading: boolean = false;
-  selectedGroup = null;
+  selectedProjects = null;
   projectsCount: number = 0;
   pagination: InventoryPagination;
   searchInputControl: FormControl = new FormControl();
@@ -37,14 +37,14 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    const { groups } = this._route.snapshot.data;
+    const { projects } = this._route.snapshot.data;
     this._projectService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
       this.pagination = pagination;
       this._changeDetectorRef.markForCheck();
     });
 
-    this.project$ = this._projectService.groups$;
-    this.projectsCount = groups.length;
+    this.project$ = this._projectService.projects$;
+    this.projectsCount = projects.length;
 
     this.searchInputControl.valueChanges
       .pipe(
@@ -53,7 +53,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
         switchMap((query) => {
           this.closeDetails();
           this.isLoading = true;
-          return this._projectService.getGroups(0, 10, 'name', 'asc', query);
+          return this._projectService.getProjects(0, 10, 'name', 'asc', query);
         }),
         map(() => {
           this.isLoading = false;
@@ -66,13 +66,13 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.pagination.length = event.length;
     this.pagination.size = event.pageSize;
     this.pagination.page = event.pageIndex;
-    lastValueFrom(this._projectService.getGroups(event.pageIndex, event.pageSize));
+    lastValueFrom(this._projectService.getProjects(event.pageIndex, event.pageSize));
   }
 
   ngAfterViewInit(): void {
     if (this._sort && this._paginator) {
       this._sort.sort({
-        id: 'groupProfil',
+        id: 'projectProfil',
         start: 'asc',
         disableClear: true,
       });
@@ -83,7 +83,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
-  openGroupForm(): void {
+  openProjectForm(): void {
     const dialogRef = this._matDialog.open(ProjectFormComponent);
     dialogRef.afterClosed().subscribe((result) => {});
   }
@@ -91,10 +91,10 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     return item.id || index;
   }
   closeDetails(): void {
-    this.selectedGroup = null;
+    this.selectedProjects = null;
   }
 
-  showGroupProfile(groupID) {
-    this.data.changeMessage({ groupID });
+  showProjectProfile(projectID) {
+    this.data.changeMessage({ projectID });
   }
 }

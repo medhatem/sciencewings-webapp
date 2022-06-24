@@ -10,7 +10,7 @@ import {} from 'generated/models';
 export class ProjectService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
-  private _groups: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _projects: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
 
@@ -22,19 +22,19 @@ export class ProjectService {
     return this._pagination.asObservable();
   }
 
-  get groups$(): Observable<any> {
-    return this._groups.asObservable();
+  get projects$(): Observable<any> {
+    return this._projects.asObservable();
   }
 
-  getGroups(
+  getProjects(
     page: number = 0,
     size: number = 10,
     sort: string = 'name',
     order: 'asc' | 'desc' | '' = 'asc',
     search: string = '',
-  ): Observable<{ pagination: any; groups: any[] }> {
+  ): Observable<{ pagination: any; projects: any[] }> {
     return this._httpClient
-      .get<{ pagination: any; groups: any[] }>('api/apps/dashboard/projects', {
+      .get<{ pagination: any; projects: any[] }>('api/apps/dashboard/projects', {
         params: {
           page: '' + page,
           size: '' + size,
@@ -46,7 +46,7 @@ export class ProjectService {
       .pipe(
         tap((response) => {
           this._pagination.next(response.pagination);
-          this._groups.next(response.groups);
+          this._projects.next(response.projects);
         }),
       );
   }

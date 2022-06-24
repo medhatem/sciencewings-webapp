@@ -8,13 +8,13 @@ import { MatDialogRef } from '@angular/material/dialog';
   encapsulation: ViewEncapsulation.None,
 })
 export class ProjectFormComponent implements OnInit {
-  groupForm: FormGroup;
+  projectForm: FormGroup;
   isInvitationPersonalize: boolean = false;
 
   constructor(public matDialogRef: MatDialogRef<ProjectFormComponent>, private _formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    this.groupForm = this._formBuilder.group({
+    this.projectForm = this._formBuilder.group({
       name: ['', [Validators.required, Validators.name]],
       member: [''],
       description: [''],
