@@ -1,6 +1,16 @@
 /* eslint-disable */
 export const resources = [];
 
+export const countryCanada = [
+  {
+    id: '36a159b0-f33e-4481-85b0-751bdd9ea79d',
+    iso: 'ca',
+    name: 'Canada',
+    code: '+1',
+    flagImagePos: '-1px -1803px',
+  },
+];
+
 export const contacts = [
   {
     id: 'cd5fa417-b667-482d-b208-798d9da3213c',
