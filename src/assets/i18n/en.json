@@ -250,7 +250,13 @@
       "RESERVATIONS_REVIEW": "Reservations to Review",
       "SEE_MORE": "See More",
       "MESSAGE1": "Recent Invitations",
-      "MESSAGE2": "Recent Reservation"
+      "MESSAGE2": "Recent Reservation",
+      "TABLE": {
+        "RESOURCE": "Resource",
+        "ACCEPTE": "Accepte",
+        "REJECTE": "Rejecte",
+        "APPEOVE": "Approve"
+      }
     },
     "LANDING_PAGE": {
       "CREATE_ORGANIZATION": "Create Organization",

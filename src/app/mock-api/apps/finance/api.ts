@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
 import { FuseMockApiService } from '@fuse/lib/mock-api';
 import { finance as financeData } from 'app/mock-api/apps/finance/data';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -28,6 +27,6 @@ export class FinanceMockApi {
     // -----------------------------------------------------------------------------------------------------
     // @ Sales - GET
     // -----------------------------------------------------------------------------------------------------
-    this._fuseMockApiService.onGet('api/apps/finance').reply(() => [200, cloneDeep(this._finance)]);
+    this._fuseMockApiService.onGet('api/apps/finance/finance').reply(() => [200, cloneDeep(this._finance)]);
   }
 }

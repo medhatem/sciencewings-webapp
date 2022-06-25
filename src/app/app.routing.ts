@@ -36,7 +36,7 @@ export const appRoutes: Route[] = [
             data: {
               title: 'APP.ROUTES.ADMIN.ORGANIZATION_DASHBOARD.TITLE',
               type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:users',
+              icon: 'heroicons_outline:home',
             },
             loadChildren: () =>
               import('app/modules/admin/dashboard/organization-dashboard/organization-dashboard.module').then(
@@ -90,17 +90,6 @@ export const appRoutes: Route[] = [
             resolve: {},
             loadChildren: () =>
               import('app/modules/admin/dashboard/organization-members/organization-members.module').then((m) => m.OrganizationMembersModule),
-          },
-          {
-            path: 'scrumboard',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.SCRUMBOARD.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:user',
-            },
-            resolve: {},
-            loadChildren: () => import('app/modules/admin/dashboard/scrumboard/scrumboard.module').then((m) => m.ScrumboardModule),
           },
           {
             path: 'organization-groups',
