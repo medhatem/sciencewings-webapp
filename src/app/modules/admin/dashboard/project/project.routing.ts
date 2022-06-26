@@ -7,9 +7,6 @@ export const projectRoutes: Route[] = [
   {
     path: '',
     component: ProjectComponent,
-    resolve: {
-      data: AdminOrganizationResolver,
-    },
     children: [
       {
         path: '',

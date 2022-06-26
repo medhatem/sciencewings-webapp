@@ -7,9 +7,9 @@ import { ProjectService } from './project.service';
   providedIn: 'root',
 })
 export class ProjectResolver implements Resolve<any> {
-  constructor(private _groupService: ProjectService) {}
+  constructor(private _projectService: ProjectService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this._groupService.getProjects();
+    return this._projectService.getProjects();
   }
 }
