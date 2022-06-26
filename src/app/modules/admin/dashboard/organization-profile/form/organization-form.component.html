@@ -26,37 +26,82 @@
           </mat-form-field>
         </div>
 
-        <div class="grid grid-cols-1 xl:grid-cols-3 flex flex-col gt-xs:flex-row mt-3">
-          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 w-100">
-            <mat-label>{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}</mat-label>
-            <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}">
-              <mat-option 
-                *ngFor="let organizationTypesKey of organizationTypesKeys; trackBy: trackByFn" 
-                value="organizationType[organizationTypesKey]">{{ organizationTypeTrasnlation[organizationTypesKey] | transloco }}
-              </mat-option>
-            </mat-select>
-            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+        <div class="grid grid-cols-1 md:grid-cols-2 flex flex-col gt-xs:flex-row">
+        <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 lg:w-120 w-100">
+          <mat-label>{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}</mat-label>
+          <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}">
+            <mat-option 
+              *ngFor="let organizationTypesKey of organizationTypesKeys; trackBy: trackByFn" 
+              value="organizationType[organizationTypesKey]">{{ organizationTypeTrasnlation[organizationTypesKey] | transloco }}
+            </mat-option>
+          </mat-select>
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 flex flex-col gt-xs:flex-row ">
+        <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 lg:w-120 w-100">
+          <mat-label class="w-100">{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}</mat-label>
+          <mat-select [formControlName]="'parent'"
+                      placeholder="{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}">
+            <mat-option *ngFor="let userOrganization of userOrganizations; trackBy: trackByFn"
+                        value="userOrganization.id">
+              userOrganization.name
+            </mat-option>
+          </mat-select>
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+        </mat-form-field>
+      </div>
+
+        <!-- <div>{{ 'ORGANIZATION.FORM.STEP2.TITLE' | transloco }}</div> -->
+        <div class="grid grid-cols-1 sm:grid-cols-4 flex flex-col gt-xs:flex-row mt-3">
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.APARTMENT' | transloco }}</mat-label>
+            <input matInput [formControlName]="'apartment'" placeholder="#{{ 'ORGANIZATION.FORM.STEP2.APARTMENT' | transloco }}" />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:chip'"></mat-icon>
           </mat-form-field>
-          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 w-100">
-            <mat-label class="w-100">{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}</mat-label>
-            <mat-select [formControlName]="'parentId'"
-                        placeholder="{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}">
-              <mat-option *ngFor="let userOrganization of userOrganizations; trackBy: trackByFn"
-                          value="userOrganization.id">
-                userOrganization.name
-              </mat-option>
-            </mat-select>
-            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-2">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.STREET' | transloco }}</mat-label>
+            <input matInput [formControlName]="'street'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.STREET' | transloco }}" required />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+          </mat-form-field>
+          <mat-form-field class="flex-auto gt-xs:pr-3 mx-8">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.CITY' | transloco }}</mat-label>
+            <input matInput [formControlName]="'city'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.CITY' | transloco }}" />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:chip'"></mat-icon>
           </mat-form-field>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-4 flex flex-col gt-xs:flex-row">
-          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
+        <div class="grid grid-cols-1 sm:grid-cols-4 flex flex-col gt-xs:flex-row mt-3">
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.COUNTRY' | transloco }}</mat-label>
+            <mat-select [formControlName]="'country'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.COUNTRY' | transloco }}" required>
+              <mat-option value="" disabled selected>{{ 'ORGANIZATION.FORM.STEP2.SELECT_COUNTRY' | transloco }}</mat-option>
+              <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
+            </mat-select>
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+          </mat-form-field>
+          <mat-form-field class="flex-auto gt-xs:pr-3 mx-8">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.PROVINCE' | transloco }}</mat-label>
+            <input matInput [formControlName]="'province'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.PROVINCE' | transloco }}" required />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+          </mat-form-field>
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-2">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.POSTAL_CODE' | transloco }}</mat-label>
+            <input matInput [formControlName]="'code'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.POSTAL_CODE' | transloco }}" />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 flex flex-col gt-xs:flex-row">
+          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4 col-span-2 ">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP1.EMAIL' | transloco }}</mat-label>
             <input matInput [formControlName]="'email'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.EMAIL' | transloco }}" required />
             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
           </mat-form-field>
-          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
+          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4 col-span-2 ">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP1.PHONE_NUMBER' | transloco }}</mat-label>
             <input matInput formControlName="phoneNumber" [placeholder]="'APP.GENERAL.PHONE.PHONE_NUMBER' | transloco" />
             <mat-select *ngIf="countries?.length" class="mr-1.5" formControlName="phoneCode" matPrefix>
@@ -86,79 +131,21 @@
               </ng-container>
             </mat-select>
           </mat-form-field>
-          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
-            <mat-label>{{ 'ORGANIZATION.FORM.STEP1.PHONE_NUMBER' | transloco }}</mat-label>
-            <input matInput formControlName="secondPhoneNumber" [placeholder]="'APP.GENERAL.PHONE.PHONE_NUMBER' | transloco" />
-            <mat-select *ngIf="countries?.length" class="mr-1.5" formControlName="secondPhoneCode" matPrefix>
-              <mat-select-trigger>
-                <span class="flex items-center">
-                  <span
-                    class="hidden sm:flex w-6 h-4 mr-1 overflow-hidden"
-                    [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
-                    [style.backgroundSize]="'24px 3876px'"
-                    [style.backgroundPosition]="getCountryByIso('secondPhoneCode').flagImagePos">
-                  </span>
-                  <span class="sm:mx-0.5 font-medium text-default">{{ getCountryByIso('secondPhoneCode').code }}</span>
-                </span>
-              </mat-select-trigger>
-              <ng-container *ngFor="let country of countries; trackBy: trackByFn">
-                <mat-option [value]="country.iso">
-                  <span class="flex items-center">
-                    <span
-                      class="w-6 h-4 overflow-hidden"
-                      [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
-                      [style.backgroundSize]="'24px 3876px'"
-                      [style.backgroundPosition]="country.flagImagePos"></span>
-                    <span class="ml-2">{{ country.name }}</span>
-                    <span class="ml-2 font-medium">{{ country.code }}</span>
-                  </span>
-                </mat-option>
-              </ng-container>
-            </mat-select>
-          </mat-form-field>
-        </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-4 flex flex-col gt-xs:flex-row mt-3">
-          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.APARTMENT' | transloco }}</mat-label>
-            <input matInput [formControlName]="'apartment'" placeholder="#{{ 'ORGANIZATION.FORM.STEP2.APARTMENT' | transloco }}" />
-            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:chip'"></mat-icon>
-          </mat-form-field>
-          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.STREET' | transloco }}</mat-label>
-            <input matInput [formControlName]="'street'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.STREET' | transloco }}" required />
-            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
-          </mat-form-field>
-          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
-            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.CITY' | transloco }}</mat-label>
-            <input matInput [formControlName]="'city'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.CITY' | transloco }}" />
-            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:chip'"></mat-icon>
-          </mat-form-field>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-4 flex flex-col gt-xs:flex-row">
-          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
-            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.COUNTRY' | transloco }}</mat-label>
-            <mat-select [formControlName]="'country'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.COUNTRY' | transloco }}" required>
-              <mat-option value="" disabled selected>{{ 'ORGANIZATION.FORM.STEP2.SELECT_COUNTRY' | transloco }}</mat-option>
-              <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 lg:w-120 w-100">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}</mat-label>
+            <mat-select [formControlName]="'labels'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}">
+              <mat-option 
+                *ngFor="let label of labelsKeys; trackBy: trackByFn" 
+                value="labelsKeys[label]">{{ labelsTranslation[label] | transloco }}
+              </mat-option>
             </mat-select>
-            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
-          </mat-form-field>
-          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.PROVINCE' | transloco }}</mat-label>
-            <input matInput [formControlName]="'province'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.PROVINCE' | transloco }}" required />
-            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
-          </mat-form-field>
-          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
-            <mat-label>{{ 'ORGANIZATION.FORM.STEP2.POSTAL_CODE' | transloco }}</mat-label>
-            <input matInput [formControlName]="'code'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.POSTAL_CODE' | transloco }}" />
-            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
           </mat-form-field>
         </div>
 
         <div class="flex justify-end mt-8">
-          <button class="px-8" mat-flat-button [color]="'primary'">
+          <button class="px-8" mat-flat-button [color]="'primary'" (click)="onSubmit()">
             {{ 'APP.ROUTES.USER.ABOUT.SAVE' | transloco }}
           </button>
         </div>
