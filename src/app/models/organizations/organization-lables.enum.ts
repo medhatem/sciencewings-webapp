@@ -1,8 +1,8 @@
 export enum OrganizationLabelsTranslation {
   personal = 'ORGANIZATION.FORM.STEP1.PERSONAL',
-  private = 'ORGANIZATION.FORM.STEP1.PRIVATE',
+  professional = 'ORGANIZATION.FORM.STEP1.PROFESSIONAL',
 }
 export enum OrganizationLabels {
   personal = 'Personal',
-  private = 'Private',
+  professional = 'Professional',
 }

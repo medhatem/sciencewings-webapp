@@ -187,7 +187,7 @@
         "TITLE": "General Information",
         "TYPE": "Choose organization type",
         "PERSONAL":"Personal",
-        "PRIVATE":"Private"
+        "PROFESSIONAL":"Professional"
       },
       "STEP2": {
         "APARTMENT": "Apartment",

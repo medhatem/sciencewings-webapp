@@ -22,7 +22,7 @@ export class OrganizationFormComponent implements OnInit {
   organizationTypesKeys = Object.keys(OrganizationType).map((key) => key);
   organizationType = OrganizationType;
   labels = OrganizationLabels;
-  labelsKeys = Object.keys(OrganizationLabels).map((key) => key);
+  labelsKeys = Object.keys(OrganizationLabels);
   organizationTypeTrasnlation = OrganizationTypeTrasnlation;
   labelsTranslation = OrganizationLabelsTranslation;
   userOrganizations: UserOrganizations[] = [];
@@ -37,7 +37,6 @@ export class OrganizationFormComponent implements OnInit {
   ngOnInit() {
     this.getUserOrganizations();
     this.formGroup = this._formBuilder.group({
-      type: [this.organizationType.public],
       parent: [],
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -47,10 +46,11 @@ export class OrganizationFormComponent implements OnInit {
       apartment: [''],
       city: ['', [Validators.required]],
       code: ['', [Validators.required]],
-      country: ['', [Validators.required]],
+      country: [this.countries, length > 0 ? this.countries[0] : '', [Validators.required]],
       province: ['', [Validators.required]],
       street: ['', [Validators.required]],
-      labels: [this.labels.personal],
+      labels: [],
+      type: ['', [Validators.required]],
     });
   }
 
@@ -76,9 +76,16 @@ export class OrganizationFormComponent implements OnInit {
 
   getCountryByIso(value: string): any {
     // keep only canada for the moment
-    return this.countries[0];
+    return this.countries.length > 0 ? this.countries[0] : { code: '', name: '', flagImagePos: '' };
   }
 
+  /**
+   *
+   * Used to track for loops elements by either their id or index
+   *
+   * @param index index of the element to track
+   * @param item to track
+   */
   trackByFn(index: number, item: any): any {
     return item.id || index;
   }
@@ -103,10 +110,10 @@ export class OrganizationFormComponent implements OnInit {
   }
 
   private getOrganizationFromFormBuilder(): Organization {
-    const { phoneNumber, phoneCode } = this.formGroup.value;
+    const { phoneNumber, phoneCode, labels, type } = this.formGroup.value;
     const phone = new Phone({ phoneNumber, phoneCode });
     const address = new Address({ ...this.formGroup.value });
-    return new Organization({ ...this.formGroup.value, addresses: [address], phones: [phone], labels: ['Personal'] });
+    return new Organization({ ...this.formGroup.value, addresses: [address], phones: [phone], labels: [labels], type });
   }
 
   // ****************************** code for labels that we will need later on ****************************** //
