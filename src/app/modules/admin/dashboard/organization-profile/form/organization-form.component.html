@@ -65,7 +65,7 @@
         <mat-form-field class="flex-auto gt-xs:pr-3 mx-4 col-span-2 ">
           <mat-label>{{ 'ORGANIZATION.FORM.STEP1.PHONE_NUMBER' | transloco }}</mat-label>
           <input matInput formControlName="phoneNumber" [placeholder]="'APP.GENERAL.PHONE.PHONE_NUMBER' | transloco" />
-          <mat-select *ngIf="countries?.length" class="mr-1.5" formControlName="phoneCode" matPrefix >
+          <mat-select *ngIf="countries?.length" class="mr-1.5" formControlName="phoneCode" matPrefix  [value]="getCountryByIso().code">
             <mat-select-trigger>
               <span class="flex items-center">
                 <span
@@ -82,10 +82,11 @@
               <mat-option [value]="country.iso">
                 <span class="flex items-center">
                   <span
-                    class="w-6 h-4 overflow-hidden"
-                    [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
-                    [style.backgroundSize]="'24px 3876px'"
-                    [style.backgroundPosition]="country.flagImagePos"></span>
+                  class="w-6 h-4 overflow-hidden"
+                  [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
+                  [style.backgroundSize]="'24px 3876px'"
+                  [style.backgroundPosition]="getCountryByIso().flagImagePos">
+                  </span>
                   <span class="ml-2">{{ country.name }}</span>
                   <span class="ml-2 font-medium">{{ country.code }}</span>
                 </span>
@@ -106,7 +107,7 @@
         </mat-form-field>
       </div>
 
-        <!-- <div>{{ 'ORGANIZATION.FORM.STEP2.TITLE' | transloco }}</div> -->
+        <div class="mx-4 font-medium">{{'ORGANIZATION.FORM.STEP2.TITLE' | transloco}}</div>
         <div class="grid grid-cols-1 sm:grid-cols-4 flex flex-col gt-xs:flex-row mt-3">
           <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP2.APARTMENT' | transloco }}</mat-label>

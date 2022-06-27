@@ -46,7 +46,7 @@ export class OrganizationFormComponent implements OnInit {
       apartment: [''],
       city: ['', [Validators.required]],
       code: ['', [Validators.required]],
-      country: [this.countries, length > 0 ? this.countries[0] : '', [Validators.required]],
+      country: ['', [Validators.required]],
       province: ['', [Validators.required]],
       street: ['', [Validators.required]],
       labels: [],
