@@ -7,7 +7,7 @@ export const environment = {
   apiUrl: 'http://localhost:3000',
   swaggerUrl: 'http://localhost:3000/swagger/swagger.json',
   sciencewingsWebRealm: 'sciencewings-web',
-  clientId: 'sciencewings-web-client',
+  clientId: 'web',
   enableDebug: true,
   production: false,
   staging: false,
