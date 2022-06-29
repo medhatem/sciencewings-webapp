@@ -60,6 +60,9 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "LANDING_PAGE": {
+          "TITLE": "Page d'accueil"
+        },
         "ORGANIZATION_GROUPS": {
           "TITLE": "Groupes de l'organisation "
         },
@@ -239,6 +242,11 @@
       "MESSAGE": "Gérer les accès pour tous les groupes de votre organisation dans ",
       "SEARCH_GROUPS": "Chercher un groupe",
       "TITLE": "Groupes"
+    },
+    "LANDING_PAGE": {
+      "CREATE_ORGANIZATION": "Créer une organisation",
+      "TITLE": "Mes Organisations",
+      "MESSAGE": "organisations"
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Exporter",
