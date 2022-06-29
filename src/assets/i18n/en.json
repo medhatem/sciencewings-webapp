@@ -173,17 +173,17 @@
         "TITLE": "Done"
       },
       "STEP1": {
-        "CHOOSE_SUB_ORGANIZATION": "Choose Sub Organization if applicable",
+        "CHOOSE_SUB_ORGANIZATION": "Parent Organization",
         "DEALING_TYPE": {
           "INSTITUT": "Institut",
           "PUBLIC": "Public",
           "SERVICE": "Service",
-          "TITLE": "Internal/External Organization"
+          "TITLE": "Type"
         },
         "DESCRIPTION": "About (description)",
-        "EMAIL": "Email address",
+        "EMAIL": "Email",
         "LABELS": "Labels",
-        "NAME": "Organization name",
+        "NAME": "Name",
         "PHONE_CODE": "Phone Code",
         "PHONE_LABEL": "Phone number: ex (1112223333)",
         "PHONE_NUMBER": "Phone Number",
@@ -191,7 +191,9 @@
         "SUB_TITLE": "Fill in your basic information for your organization",
         "TIMEZONE": "Time zone",
         "TITLE": "General Information",
-        "TYPE": "Choose organization type"
+        "TYPE": "Choose organization type",
+        "PERSONAL": "Personal",
+        "PROFESSIONAL": "Professional"
       },
       "STEP2": {
         "APARTMENT": "Apartment",
@@ -205,7 +207,7 @@
         "SOCIAL_MEDIA": "Social Networks",
         "STREET": "Street",
         "SUB_TITLE": "Organization Address",
-        "TITLE": "Address and social networks"
+        "TITLE": "Address"
       },
       "STEP3": {
         "ENTER_EMAIL": "Enter email",
@@ -355,6 +357,9 @@
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"
+    },
+    "ERROR": {
+      "CREATE_FAILED": "The creation of the organization has failed"
     }
   },
   "PROFILE": "Profile",
