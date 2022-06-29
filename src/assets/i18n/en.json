@@ -186,8 +186,8 @@
         "TIMEZONE": "Time zone",
         "TITLE": "General Information",
         "TYPE": "Choose organization type",
-        "PERSONAL":"Personal",
-        "PROFESSIONAL":"Professional"
+        "PERSONAL": "Personal",
+        "PROFESSIONAL": "Professional"
       },
       "STEP2": {
         "APARTMENT": "Apartment",
@@ -330,6 +330,9 @@
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"
+    },
+    "ERROR": {
+      "CREATE_FAILED": "The creation of the organization has failed"
     }
   },
   "PROFILE": "Profile",

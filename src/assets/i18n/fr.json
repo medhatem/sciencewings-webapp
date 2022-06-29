@@ -187,8 +187,8 @@
         "TIMEZONE": "Fuseau horaire",
         "TITLE": "Informations générales",
         "TYPE": "Choisissez le type d'organisation",
-        "PERSONAL":"Personnel",
-        "PROFESSIONAL":"Professionnel"
+        "PERSONAL": "Personnel",
+        "PROFESSIONAL": "Professionnel"
       },
       "STEP2": {
         "APARTMENT": "Appartement",
@@ -331,6 +331,9 @@
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
+    },
+    "ERROR": {
+      "CREATE_FAILED": "La création de l'organisation a échoué"
     }
   },
   "PROFILE": "Profil",
