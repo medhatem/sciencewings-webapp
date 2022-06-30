@@ -60,6 +60,9 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "LANDING_PAGE": {
+          "TITLE": "Landing page"
+        },
         "ORGANIZATION_GROUPS": {
           "TITLE": "Organization groups"
         },
@@ -186,8 +189,8 @@
         "TIMEZONE": "Time zone",
         "TITLE": "General Information",
         "TYPE": "Choose organization type",
-        "PERSONAL":"Personal",
-        "PROFESSIONAL":"Professional"
+        "PERSONAL": "Personal",
+        "PROFESSIONAL": "Professional"
       },
       "STEP2": {
         "APARTMENT": "Apartment",
@@ -238,6 +241,11 @@
       "MESSAGE": "Manage Access for all groups in your organization in ",
       "SEARCH_GROUPS": "Search Groups",
       "TITLE": "Groups"
+    },
+    "LANDING_PAGE": {
+      "CREATE_ORGANIZATION": "Create Organization",
+      "TITLE": "My Organizations",
+      "MESSAGE": "Organizations"
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Export",
@@ -330,6 +338,9 @@
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"
+    },
+    "ERROR": {
+      "CREATE_FAILED": "The creation of the organization has failed"
     }
   },
   "PROFILE": "Profile",

@@ -60,6 +60,9 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "LANDING_PAGE": {
+          "TITLE": "Page d'accueil"
+        },
         "ORGANIZATION_GROUPS": {
           "TITLE": "Groupes de l'organisation "
         },
@@ -187,8 +190,8 @@
         "TIMEZONE": "Fuseau horaire",
         "TITLE": "Informations générales",
         "TYPE": "Choisissez le type d'organisation",
-        "PERSONAL":"Personnel",
-        "PROFESSIONAL":"Professionnel"
+        "PERSONAL": "Personnel",
+        "PROFESSIONAL": "Professionnel"
       },
       "STEP2": {
         "APARTMENT": "Appartement",
@@ -239,6 +242,11 @@
       "MESSAGE": "Gérer les accès pour tous les groupes de votre organisation dans ",
       "SEARCH_GROUPS": "Chercher un groupe",
       "TITLE": "Groupes"
+    },
+    "LANDING_PAGE": {
+      "CREATE_ORGANIZATION": "Créer une organisation",
+      "TITLE": "Mes Organisations",
+      "MESSAGE": "organisations"
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Exporter",
@@ -331,6 +339,9 @@
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
+    },
+    "ERROR": {
+      "CREATE_FAILED": "La création de l'organisation a échoué"
     }
   },
   "PROFILE": "Profil",
