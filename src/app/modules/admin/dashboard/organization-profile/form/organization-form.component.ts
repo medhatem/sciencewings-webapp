@@ -26,7 +26,6 @@ export class OrganizationFormComponent implements OnInit {
   organizationTypeTrasnlation = OrganizationTypeTrasnlation;
   labelsTranslation = OrganizationLabelsTranslation;
   userOrganizations: UserOrganizations[] = [];
-
   constructor(
     private _formBuilder: FormBuilder,
     private _adminOrganizationsService: AdminOrganizationsService,
