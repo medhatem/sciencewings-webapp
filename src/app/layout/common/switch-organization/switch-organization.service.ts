@@ -12,13 +12,12 @@ export class SwitchOrganizationsService {
 
   getAllUserOrganizations(userId: number): Promise<UserOrganizations[]> {
     return lastValueFrom(
-      forkJoin([this._swaggerService.organizationRoutesGetUserOrganizations({ id: userId })]).pipe(
-        map((userOrganizations) =>
-          userOrganizations.reduce((acc, { body, error }) => {
-            acc.push(new UserOrganizations(body));
-            return acc;
-          }, [] as UserOrganizations[]),
-        ),
+      this._swaggerService.memberRoutesGetUserMemberships({ userId }).pipe(
+        map((memberships) => {
+          return memberships.body.data.map((membership) => {
+            return new UserOrganizations(membership);
+          });
+        }),
       ),
     );
   }
