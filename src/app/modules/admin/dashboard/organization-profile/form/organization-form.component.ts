@@ -34,8 +34,7 @@ export class OrganizationFormComponent implements OnInit {
     private _cookieService: CookieService,
   ) {}
 
-  ngOnInit() {
-    this.getUserOrganizations();
+  async ngOnInit() {
     this.formGroup = this._formBuilder.group({
       parent: [],
       name: ['', [Validators.required]],
@@ -52,6 +51,7 @@ export class OrganizationFormComponent implements OnInit {
       labels: [],
       type: ['', [Validators.required]],
     });
+    this.userOrganizations = await this.getUserOrganizations();
   }
 
   /**
@@ -96,17 +96,14 @@ export class OrganizationFormComponent implements OnInit {
   /**
    * retrieves all organizations owned by the current user
    */
-  private getUserOrganizations() {
-    const userId = this._cookieService.get(constants.CURRENT_USER_ID);
-    this._adminOrganizationsService
-      .getUserOrganizations(Number(userId))
-      .then((organizations = []) => {
-        this.userOrganizations = organizations;
-      })
-      .catch((err) => {
-        this.userOrganizations = [];
-        this._toastrService.showInfo('SWITCH_ORGANIZATIONS_LOAD_FAILED');
-      });
+  private async getUserOrganizations() {
+    const userId = localStorage.getItem(constants.CURRENT_USER_ID);
+    try {
+      return await this._adminOrganizationsService.getUserOrganizations(Number(userId));
+    } catch (error) {
+      this.userOrganizations = [];
+      this._toastrService.showInfo('SWITCH_ORGANIZATIONS_LOAD_FAILED');
+    }
   }
 
   private getOrganizationFromFormBuilder(): Organization {

@@ -17,7 +17,6 @@
   <div class="flex flex-auto mt-2">
     <div class="flex flex-col flex-auto w-full max-w-lg sm:max-w-7xl mx-auto">
       <form [formGroup]="formGroup" class="p-4 mt-2 bg-card shadow rounded overflow-hidden p-5">
-
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex flex-col gt-xs:flex-row">
           <mat-form-field class="mx-4 col-span-1">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP1.NAME' | transloco }}</mat-label>
@@ -26,88 +25,85 @@
           </mat-form-field>
         </div>
 
-        <div class="grid grid-cols-1  md:grid-cols-2  lg:grid-cols-2 flex flex-col gt-xs:flex-row">
-        <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
-          <mat-label>{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}</mat-label>
-          <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}">
-            <mat-option 
-              *ngFor="let organizationTypesKey of organizationTypesKeys; trackBy: trackByFn" 
-              [value]="organizationType[organizationTypesKey]">{{ organizationTypeTrasnlation[organizationTypesKey] | transloco }}
-            </mat-option>
-          </mat-select>
-          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
-        </mat-form-field>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-2 flex flex-col gt-xs:flex-row ">
-        <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
-          <mat-label class="w-100">{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}</mat-label>
-          <mat-select [formControlName]="'parent'"
-                      placeholder="{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}">
-            <mat-option *ngFor="let userOrganization of userOrganizations; trackBy: trackByFn"
-                        value="userOrganization.id">
-              userOrganization.name
-            </mat-option>
-          </mat-select>
-          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
-        </mat-form-field>
-      </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex flex-col gt-xs:flex-row">
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}</mat-label>
+            <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}">
+              <mat-option
+                *ngFor="let organizationTypesKey of organizationTypesKeys; trackBy: trackByFn"
+                [value]="organizationType[organizationTypesKey]"
+                >{{ organizationTypeTrasnlation[organizationTypesKey] | transloco }}
+              </mat-option>
+            </mat-select>
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex flex-col gt-xs:flex-row">
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+            <mat-label class="w-100">{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}</mat-label>
+            <mat-select [formControlName]="'parent'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}">
+              <mat-option *ngFor="let userOrganization of userOrganizations; trackBy: trackByFn" value="userOrganization.orgId">
+                {{ userOrganization.orgName }}
+              </mat-option>
+            </mat-select>
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+          </mat-form-field>
+        </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex flex-col gt-xs:flex-row">
+          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4 col-span-1">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP1.EMAIL' | transloco }}</mat-label>
+            <input matInput [formControlName]="'email'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.EMAIL' | transloco }}" required />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+          </mat-form-field>
+        </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex flex-col gt-xs:flex-row">
-        <mat-form-field class="flex-auto gt-xs:pr-3 mx-4 col-span-1 ">
-          <mat-label>{{ 'ORGANIZATION.FORM.STEP1.EMAIL' | transloco }}</mat-label>
-          <input matInput [formControlName]="'email'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.EMAIL' | transloco }}" required />
-          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
-        </mat-form-field>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
-        <mat-form-field class="flex-auto gt-xs:pr-3 mx-4 col-span-2 ">
-          <mat-label>{{ 'ORGANIZATION.FORM.STEP1.PHONE_NUMBER' | transloco }}</mat-label>
-          <input matInput formControlName="phoneNumber" [placeholder]="'APP.GENERAL.PHONE.PHONE_NUMBER' | transloco" />
-          <mat-select *ngIf="countries?.length" class="mr-1.5" formControlName="phoneCode" matPrefix  [value]="getCountryByIso().code">
-            <mat-select-trigger>
-              <span class="flex items-center">
-                <span
-                  class="w-6 h-4 overflow-hidden"
-                  [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
-                  [style.backgroundSize]="'24px 3876px'"
-                  [style.backgroundPosition]="getCountryByIso().flagImagePos">
-                </span>
-                <span class="ml-2">{{ getCountryByIso().name }}</span>
-                <span class="sm:mx-0.5 font-medium">{{ getCountryByIso().code }}</span>
-              </span>
-            </mat-select-trigger>
-            <ng-container *ngFor="let country of countries; trackBy: trackByFn">
-              <mat-option [value]="country.iso">
+        <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
+          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4 col-span-2">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP1.PHONE_NUMBER' | transloco }}</mat-label>
+            <input matInput formControlName="phoneNumber" [placeholder]="'APP.GENERAL.PHONE.PHONE_NUMBER' | transloco" />
+            <mat-select *ngIf="countries?.length" class="mr-1.5" formControlName="phoneCode" matPrefix [value]="getCountryByIso().code">
+              <mat-select-trigger>
                 <span class="flex items-center">
                   <span
-                  class="w-6 h-4 overflow-hidden"
-                  [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
-                  [style.backgroundSize]="'24px 3876px'"
-                  [style.backgroundPosition]="getCountryByIso().flagImagePos">
+                    class="w-6 h-4 overflow-hidden"
+                    [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
+                    [style.backgroundSize]="'24px 3876px'"
+                    [style.backgroundPosition]="getCountryByIso().flagImagePos">
                   </span>
-                  <span class="ml-2">{{ country.name }}</span>
-                  <span class="ml-2 font-medium">{{ country.code }}</span>
+                  <span class="ml-2">{{ getCountryByIso().name }}</span>
+                  <span class="sm:mx-0.5 font-medium">{{ getCountryByIso().code }}</span>
                 </span>
+              </mat-select-trigger>
+              <ng-container *ngFor="let country of countries; trackBy: trackByFn">
+                <mat-option [value]="country.iso">
+                  <span class="flex items-center">
+                    <span
+                      class="w-6 h-4 overflow-hidden"
+                      [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
+                      [style.backgroundSize]="'24px 3876px'"
+                      [style.backgroundPosition]="getCountryByIso().flagImagePos">
+                    </span>
+                    <span class="ml-2">{{ country.name }}</span>
+                    <span class="ml-2 font-medium">{{ country.code }}</span>
+                  </span>
+                </mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}</mat-label>
+            <mat-select [formControlName]="'labels'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}">
+              <mat-option *ngFor="let label of labelsKeys; trackBy: trackByFn" [value]="labels[label]"
+                >{{ labelsTranslation[label] | transloco }}
               </mat-option>
-            </ng-container>
-          </mat-select>
-        </mat-form-field>
+            </mat-select>
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+          </mat-form-field>
+        </div>
 
-        <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
-          <mat-label>{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}</mat-label>
-          <mat-select [formControlName]="'labels'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}">
-            <mat-option 
-              *ngFor="let label of labelsKeys; trackBy: trackByFn" 
-              [value]="labels[label]">{{ labelsTranslation[label] | transloco }}
-            </mat-option>
-          </mat-select>
-          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
-        </mat-form-field>
-      </div>
-
-        <div class="mx-4 font-medium">{{'ORGANIZATION.FORM.STEP2.TITLE' | transloco}}</div>
+        <div class="mx-4 font-medium">{{ 'ORGANIZATION.FORM.STEP2.TITLE' | transloco }}</div>
         <div class="grid grid-cols-1 sm:grid-cols-4 flex flex-col gt-xs:flex-row mt-3">
           <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP2.APARTMENT' | transloco }}</mat-label>
@@ -147,7 +143,6 @@
           </mat-form-field>
         </div>
 
-       
         <div class="flex justify-end mt-8">
           <button class="px-8" mat-flat-button [color]="'primary'" (click)="onSubmit()">
             {{ 'APP.ROUTES.USER.ABOUT.SAVE' | transloco }}
