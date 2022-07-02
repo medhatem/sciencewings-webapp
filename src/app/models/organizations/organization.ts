@@ -84,11 +84,11 @@ export class Organization implements CreateOrganizationRo {
 }
 
 export class UserOrganizations {
-  id: number;
-  name: string;
+  orgId: number;
+  orgName: string;
 
   constructor(organizationDto: any) {
-    const { id, name } = organizationDto;
-    Object.assign(id, name);
+    const { orgId, orgName } = organizationDto;
+    Object.assign(this, { orgId, orgName });
   }
 }
