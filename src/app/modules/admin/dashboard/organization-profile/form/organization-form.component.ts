@@ -19,54 +19,69 @@ export class OrganizationFormComponent implements OnInit {
   formGroup: FormGroup;
   organizationTypesKeys = Object.keys(OrganizationType).map((key) => key);
   organizationType = OrganizationType;
+  labels = OrganizationLabels;
+  labelsKeys = Object.keys(OrganizationLabels);
   organizationTypeTrasnlation = OrganizationTypeTrasnlation;
+  labelsTranslation = OrganizationLabelsTranslation;
   userOrganizations: UserOrganizations[] = [];
-
   constructor(
     private _formBuilder: FormBuilder,
     private _adminOrganizationsService: AdminOrganizationsService,
     private _toastrService: ToastrService,
   ) {}
 
-  ngOnInit() {
-    this.getUserOrganizations();
+  async ngOnInit() {
     this.formGroup = this._formBuilder.group({
-      type: [this.organizationType.public],
-      parentId: [],
+      parent: [],
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
       phoneCode: ['+1'],
-      secondPhoneNumber: ['', [Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
       secondPhoneCode: ['+1'],
       apartment: [''],
-      city: [''],
-      code: [''],
-      country: [''],
-      province: [''],
-      street: [''],
+      city: ['', [Validators.required]],
+      code: ['', [Validators.required]],
+      country: ['', [Validators.required]],
+      province: ['', [Validators.required]],
+      street: ['', [Validators.required]],
+      labels: [],
+      type: ['', [Validators.required]],
     });
+    this.userOrganizations = await this.getUserOrganizations();
   }
 
+  /**
+   * create a new organization
+   * Validate if the form data is valid first
+   *
+   */
   async onSubmit() {
-    if (this.formGroup.valid) {
-      const organization = this.getOrganizationFromFormBuilder();
-      try {
-        await this._adminOrganizationsService.createOrganization(organization);
-        this._toastrService.showSuccess(constants.CREATE_ORGANIZATION_COMPLETED);
-      } catch (error) {
-        this._toastrService.showError(constants.CREATE_ORGANIZATION_FAILED);
-      }
-    } else {
+    if (!this.formGroup.valid) {
       this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
+      return;
+    }
+
+    const organization = this.getOrganizationFromFormBuilder();
+    try {
+      await this._adminOrganizationsService.createOrganization(organization);
+      this._toastrService.showSuccess(constants.CREATE_ORGANIZATION_COMPLETED);
+    } catch (error) {
+      this._toastrService.showError(constants.CREATE_ORGANIZATION_FAILED);
     }
   }
 
   getCountryByIso(value: string): any {
     // keep only canada for the moment
-    return this.countries[0];
+    return this.countries.length > 0 ? this.countries[0] : { code: '', name: '', flagImagePos: '' };
   }
 
+  /**
+   *
+   * Used to track for loops elements by either their id or index
+   *
+   * @param index index of the element to track
+   * @param item to track
+   */
   trackByFn(index: number, item: any): any {
     return item.id || index;
   }
