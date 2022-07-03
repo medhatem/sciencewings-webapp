@@ -1,14 +1,13 @@
+import { Address, Phone } from 'app/models';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Organization, UserOrganizations } from 'app/models/organizations/organization';
+import { OrganizationType, OrganizationTypeTrasnlation } from 'app/models/organizations/organization-type.enum';
+
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
-import { CookieService } from 'ngx-cookie-service';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
-import { OrganizationType, OrganizationTypeTrasnlation } from 'app/models/organizations/organization-type.enum';
-import { Address, Phone } from 'app/models';
 
 @Component({
   selector: 'organization-form',
@@ -27,7 +26,6 @@ export class OrganizationFormComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _adminOrganizationsService: AdminOrganizationsService,
     private _toastrService: ToastrService,
-    private _cookieService: CookieService,
   ) {}
 
   ngOnInit() {
@@ -78,7 +76,7 @@ export class OrganizationFormComponent implements OnInit {
   // -----------------------------------------------------------------------------------------------------
 
   private getUserOrganizations() {
-    const userId = this._cookieService.get(constants.CURRENT_USER_ID);
+    const userId = localStorage.getItem(constants.CURRENT_USER_ID);
     this._adminOrganizationsService
       .getUserOrganizations(Number(userId))
       .then((organizations = []) => {
@@ -91,11 +89,10 @@ export class OrganizationFormComponent implements OnInit {
   }
 
   private getOrganizationFromFormBuilder(): Organization {
-    const { phoneNumber, phoneCode, secondPhoneNumber, secondPhoneCode } = this.formGroup.value;
+    const { phoneNumber, phoneCode, labels, type, parent } = this.formGroup.value;
     const phone = new Phone({ phoneNumber, phoneCode });
-    const secondPhone = new Phone({ phoneNumber: secondPhoneNumber, phoneCode: secondPhoneCode });
     const address = new Address({ ...this.formGroup.value });
-    return new Organization({ ...this.formGroup.value, addresses: [address], phones: [phone, secondPhone] });
+    return new Organization({ ...this.formGroup.value, addresses: [address], phones: [phone], labels: [labels], type, parent });
   }
 
   // ****************************** code for labels that we will need later on ****************************** //

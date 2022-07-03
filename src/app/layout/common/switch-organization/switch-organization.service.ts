@@ -12,9 +12,9 @@ export class SwitchOrganizationsService {
 
   getAllUserOrganizations(userId: number): Promise<UserOrganizations[]> {
     return lastValueFrom(
-      forkJoin([this._swaggerService.organizationRoutesGetUserOrganizations({ id: userId })]).pipe(
+      forkJoin([this._swaggerService.memberRoutesGetUserMemberships$Response({ userId })]).pipe(
         map((userOrganizations) =>
-          userOrganizations.reduce((acc, { body, error }) => {
+          userOrganizations.reduce((acc, { body }) => {
             acc.push(new UserOrganizations(body));
             return acc;
           }, [] as UserOrganizations[]),
