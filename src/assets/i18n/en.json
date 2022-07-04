@@ -60,6 +60,9 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "LANDING_PAGE": {
+          "TITLE": "Landing page"
+        },
         "ORGANIZATION_GROUPS": {
           "TITLE": "Organization groups"
         },
@@ -170,17 +173,17 @@
         "TITLE": "Done"
       },
       "STEP1": {
-        "CHOOSE_SUB_ORGANIZATION": "Choose Sub Organization if applicable",
+        "CHOOSE_SUB_ORGANIZATION": "Parent Organization",
         "DEALING_TYPE": {
           "INSTITUT": "Institut",
           "PUBLIC": "Public",
           "SERVICE": "Service",
-          "TITLE": "Internal/External Organization"
+          "TITLE": "Type"
         },
         "DESCRIPTION": "About (description)",
-        "EMAIL": "Email address",
+        "EMAIL": "Email",
         "LABELS": "Labels",
-        "NAME": "Organization name",
+        "NAME": "Name",
         "PHONE_CODE": "Phone Code",
         "PHONE_LABEL": "Phone number: ex (1112223333)",
         "PHONE_NUMBER": "Phone Number",
@@ -188,7 +191,9 @@
         "SUB_TITLE": "Fill in your basic information for your organization",
         "TIMEZONE": "Time zone",
         "TITLE": "General Information",
-        "TYPE": "Choose organization type"
+        "TYPE": "Choose organization type",
+        "PERSONAL": "Personal",
+        "PROFESSIONAL": "Professional"
       },
       "STEP2": {
         "APARTMENT": "Apartment",
@@ -202,7 +207,7 @@
         "SOCIAL_MEDIA": "Social Networks",
         "STREET": "Street",
         "SUB_TITLE": "Organization Address",
-        "TITLE": "Address and social networks"
+        "TITLE": "Address"
       },
       "STEP3": {
         "ENTER_EMAIL": "Enter email",
@@ -239,6 +244,11 @@
       "MESSAGE": "Manage Access for all groups in your organization in ",
       "SEARCH_GROUPS": "Search Groups",
       "TITLE": "Groups"
+    },
+    "LANDING_PAGE": {
+      "CREATE_ORGANIZATION": "Create Organization",
+      "TITLE": "My Organizations",
+      "MESSAGE": "Organizations"
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Export",
@@ -354,10 +364,13 @@
         "MESSAGE": "Il n'y a pas de projects !"
       },
       "SEARCH_PROJECTS": "Chercher un projet",
-      "TITLE": "Projects"
-    }
-  },
-  "PROFILE": "Profile",
-  "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
-  "WELCOME_BACK": "Hello"
+      "TITLE": "Projects",
+      "ERROR": {
+        "CREATE_FAILED": "The creation of the organization has failed"
+      }
+    },
+    "PROFILE": "Profile",
+    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
+    "WELCOME_BACK": "Hello"
+  }
 }
