@@ -85,7 +85,10 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   openProjectForm(): void {
     const dialogRef = this._matDialog.open(ProjectFormComponent);
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((result) => {});
   }
   trackByFn(index: number, item: any): any {
     return item.id || index;
