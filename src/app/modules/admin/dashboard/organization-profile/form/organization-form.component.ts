@@ -8,6 +8,7 @@ import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-org
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
+import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
 
 @Component({
   selector: 'organization-form',
@@ -47,7 +48,7 @@ export class OrganizationFormComponent implements OnInit {
       labels: [],
       type: ['', [Validators.required]],
     });
-    this.userOrganizations = await this.getUserOrganizations();
+    this.getUserOrganizations();
   }
 
   /**
