@@ -1,11 +1,10 @@
-import { lastValueFrom, map, Observable } from 'rxjs';
+import { Observable, lastValueFrom, map } from 'rxjs';
+import { Organization, UserOrganizations } from 'app/models/organizations/organization';
 
 import { ApiService } from 'generated/services';
 import { Injectable } from '@angular/core';
-import { Organization, UserOrganizations } from 'app/models/organizations/organization';
 import { OrganizationDto } from 'generated/models';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { constants } from 'app/shared/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -23,13 +22,9 @@ export class AdminOrganizationsService {
 
   async getUserOrganizations(userId: number): Promise<UserOrganizations[]> {
     return lastValueFrom(
-      this._swaggerService.memberRoutesGetUserMemberships({ userId }).pipe(
-        map((memberships) => {
-          return memberships.body.data.map((membership) => {
-            return new UserOrganizations(membership);
-          });
-        }),
-      ),
+      this._swaggerService
+        .memberRoutesGetUserMemberships({ userId })
+        .pipe(map(({ body }) => body.data.map((organization) => new UserOrganizations(organization)))),
     );
   }
 
