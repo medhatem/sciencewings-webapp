@@ -25,40 +25,30 @@
           </mat-form-field>
         </div>
 
-        <div class="grid grid-cols-1  md:grid-cols-2  lg:grid-cols-2 flex flex-col gt-xs:flex-row">
-        <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
-          <mat-label>{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}</mat-label>
-          <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}">
-            <mat-option 
-              *ngFor="let organizationTypesKey of organizationTypesKeys; trackBy: trackByFn" 
-              [value]="organizationType[organizationTypesKey]">{{ organizationTypeTrasnlation[organizationTypesKey] | transloco }}
-            </mat-option>
-          </mat-select>
-          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
-        </mat-form-field>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-2 flex flex-col gt-xs:flex-row ">
-        <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
-          <mat-label class="w-100">{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}</mat-label>
-          <mat-select [formControlName]="'parent'"
-                      placeholder="{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}">
-            <mat-option *ngFor="let userOrganization of userOrganizations; trackBy: trackByFn"
-                        [value]="userOrganization.id">
-              {{userOrganization.name}}
-            </mat-option>
-          </mat-select>
-          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
-        </mat-form-field>
-      </div>
-
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex flex-col gt-xs:flex-row">
-        <mat-form-field class="flex-auto gt-xs:pr-3 mx-4 col-span-1 ">
-          <mat-label>{{ 'ORGANIZATION.FORM.STEP1.EMAIL' | transloco }}</mat-label>
-          <input matInput [formControlName]="'email'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.EMAIL' | transloco }}" required />
-          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
-        </mat-form-field>
-      </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex flex-col gt-xs:flex-row">
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+            <mat-label>{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}</mat-label>
+            <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}">
+              <mat-option
+                *ngFor="let organizationTypesKey of organizationTypesKeys; trackBy: trackByFn"
+                [value]="organizationType[organizationTypesKey]"
+                >{{ organizationTypeTrasnlation[organizationTypesKey] | transloco }}
+              </mat-option>
+            </mat-select>
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex flex-col gt-xs:flex-row">
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+            <mat-label class="w-100">{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}</mat-label>
+            <mat-select [formControlName]="'parent'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}">
+              <mat-option *ngFor="let userOrganization of userOrganizations; trackBy: trackByFn" [value]="userOrganization.id">
+                {{ userOrganization.name }}
+              </mat-option>
+            </mat-select>
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+          </mat-form-field>
+        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex flex-col gt-xs:flex-row">
           <mat-form-field class="flex-auto gt-xs:pr-3 mx-4 col-span-1">
