@@ -246,7 +246,8 @@
     "LANDING_PAGE": {
       "CREATE_ORGANIZATION": "Créer une organisation",
       "TITLE": "Mes Organisations",
-      "MESSAGE": "organisations"
+      "MESSAGE": "organisations",
+      "NO_ORGANIZATIONS":"Vous avez aucune organisation"
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Exporter",
