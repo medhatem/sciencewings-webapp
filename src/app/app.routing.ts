@@ -25,6 +25,16 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
+        path: '',
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.LANDING_PAGE.TITLE',
+          type: FuseNavigationItemTypeEnum.basic,
+          icon: 'heroicons_outline:home',
+        },
+        loadChildren: () => import('app/modules/admin/dashboard/landing-page/landing-page.module').then((m) => m.LandingPageModule),
+      },
+      {
         path: adminPath,
         canActivate: [AuthGuard],
         data: {
@@ -77,29 +87,6 @@ export const appRoutes: Route[] = [
             loadChildren: () => import('app/modules/admin/dashboard/user-profile/user-profile.module').then((m) => m.UserProfileModule),
           },
           {
-            path: 'users',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.ORGANIZATION_MEMBERS.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:users',
-            },
-            loadChildren: () => import('app/modules/admin/dashboard/users/organization-users.module').then((m) => m.OrganizationUsersModule),
-          },
-          {
-            path: 'project',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.PROJECT.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:table',
-            },
-            resolve: {
-              projects: ProjectResolver,
-            },
-            loadChildren: () => import('app/modules/admin/dashboard/project/project.module').then((m) => m.ProjectModule),
-          },
-          {
             path: 'organization-members',
             canActivate: [AuthGuard],
             data: {
@@ -124,26 +111,6 @@ export const appRoutes: Route[] = [
             },
             loadChildren: () =>
               import('app/modules/admin/dashboard/organization-groups/organization-groups.module').then((m) => m.OrganizationGroupsModule),
-          },
-        ],
-      },
-      {
-        path: 'menu',
-        canActivate: [AuthGuard],
-        data: {
-          title: 'APP.ROUTES.MENU.TITLE',
-          type: FuseNavigationItemTypeEnum.group,
-        },
-        children: [
-          {
-            path: 'calendar',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.MENU.CALENDAR.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:calendar',
-            },
-            loadChildren: () => import('app/modules/menu/dashboard/calendar/calendar.module').then((m) => m.MenuCalendarModule),
           },
         ],
       },

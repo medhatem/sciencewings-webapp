@@ -1,20 +1,23 @@
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router, Route } from '@angular/router';
-import { Subject, Subscription, takeUntil } from 'rxjs';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import {
   FuseNavigationItem,
   FuseNavigationItemTypeEnum,
   FuseNavigationService,
   FuseVerticalNavigationComponent,
 } from '@fuse/components/navigation';
-import { User } from 'app/core/user/user.types';
-import { appRoutes, errorPath, appResourceRoutes, appResourceSettingsRoutes } from 'app/app.routing';
+import { Subject, Subscription, takeUntil } from 'rxjs';
+import { appResourceRoutes, appResourceSettingsRoutes, appRoutes, errorPath } from 'app/app.routing';
+
 import { CookieService } from 'ngx-cookie-service';
 import { DataService } from 'app/data.service';
+import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen/splash-screen.service';
 import { KeycloakService } from 'keycloak-angular';
+import { SwitchOrganizationsService } from 'app/layout/common/switch-organization/switch-organization.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { User } from 'app/core/user/user.types';
+import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { constants } from 'app/shared/constants';
 
 @Component({
@@ -29,7 +32,6 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   navigation: FuseNavigationItem[];
   user: User;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
-  private message: string;
   private subscription: Subscription;
 
   constructor(
@@ -42,6 +44,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     private _fuseSplashScreenService: FuseSplashScreenService,
     private _keycloackService: KeycloakService,
     private _toastrService: ToastrService,
+    private _switchOrganizationsService: SwitchOrganizationsService,
   ) {}
 
   /**
@@ -171,8 +174,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     this.resetNavigation(false);
   }
 
-  onActiveOrganizationChange(organization: any) {
-    // TO DO : do logic to manage organization change
+  onActiveOrganizationChange(organization: Partial<UserOrganizations>) {
+    this._switchOrganizationsService.switchOrganization(organization.id as number);
   }
 
   // -----------------------------------------------------------------------------------------------------
