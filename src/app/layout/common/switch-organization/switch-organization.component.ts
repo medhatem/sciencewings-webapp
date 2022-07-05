@@ -25,10 +25,10 @@ import { constants } from 'app/shared/constants';
 })
 export class SwitchOrganizationComponent implements OnInit, OnDestroy {
   @Input() user: User;
-  @Output() onActiveOrganizationChange = new EventEmitter<UserOrganizations>();
+  @Output() onActiveOrganizationChange = new EventEmitter<Partial<UserOrganizations>>();
   isNoOrganization: boolean = false;
   availableOrganizations: Array<UserOrganizations>;
-  activeOrganization: any;
+  activeOrganization: Partial<UserOrganizations>;
 
   constructor(
     private _switchOrganizationsService: SwitchOrganizationsService,
