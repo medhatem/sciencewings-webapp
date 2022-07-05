@@ -11,7 +11,10 @@ import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers
 export const errorPath = '**';
 export const adminPath = 'admin';
 export const userProfilePath = 'user-profile';
+export const organizationProfilePath = 'organization-profile';
+export const landingPagePath = 'landing-page';
 export const voidRoutes: Route[] = [];
+
 export const appRoutes: Route[] = [
   // dashboard routes
   {
@@ -42,7 +45,7 @@ export const appRoutes: Route[] = [
         },
         children: [
           {
-            path: 'landing-page',
+            path: landingPagePath,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.LANDING_PAGE.TITLE',
@@ -52,7 +55,7 @@ export const appRoutes: Route[] = [
             loadChildren: () => import('app/modules/admin/dashboard/landing-page/landing-page.module').then((m) => m.LandingPageModule),
           },
           {
-            path: 'organization-profile',
+            path: organizationProfilePath,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.TITLE',
@@ -61,29 +64,6 @@ export const appRoutes: Route[] = [
             },
             loadChildren: () =>
               import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
-          },
-          {
-            path: 'organization-settings',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.SETTINGS',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:adjustments',
-            },
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/organization-settings/organization-settings.module').then(
-                (m) => m.OrganizationSettingsModule,
-              ),
-          },
-          {
-            path: userProfilePath,
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.USER_PROFILE.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:user',
-            },
-            loadChildren: () => import('app/modules/admin/dashboard/user-profile/user-profile.module').then((m) => m.UserProfileModule),
           },
           {
             path: 'organization-members',
@@ -110,6 +90,19 @@ export const appRoutes: Route[] = [
             },
             loadChildren: () =>
               import('app/modules/admin/dashboard/organization-groups/organization-groups.module').then((m) => m.OrganizationGroupsModule),
+          },
+          {
+            path: 'organization-settings',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.SETTINGS',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:adjustments',
+            },
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-settings/organization-settings.module').then(
+                (m) => m.OrganizationSettingsModule,
+              ),
           },
         ],
       },
