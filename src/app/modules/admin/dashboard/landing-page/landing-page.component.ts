@@ -3,15 +3,15 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 
 @Component({
-  selector: 'organization-users',
-  templateUrl: './organization-users.component.html',
+  selector: 'landing-page',
+  templateUrl: './landing-page.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrganizationUsersComponent implements OnInit {
-  readonly componentName = 'OrganizationUsersComponent';
-  teamMembers: any;
-  selectedProject: string = 'ACME Corp. Backend App';
+export class LandingPageComponent implements OnInit {
+  readonly componentName = 'LandingPageComponent';
+  orgs: any;
+  isLoading: boolean = false;
   constructor(private route: ActivatedRoute, private _toastrService: ToastrService) {}
 
   async ngOnInit() {
@@ -19,6 +19,6 @@ export class OrganizationUsersComponent implements OnInit {
     if (!data) {
       this._toastrService.showError(this.componentName);
     }
-    this.teamMembers = data;
+    this.orgs = data;
   }
 }

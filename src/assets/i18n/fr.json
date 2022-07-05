@@ -60,6 +60,9 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "LANDING_PAGE": {
+          "TITLE": "Page d'accueil"
+        },
         "ORGANIZATION_GROUPS": {
           "TITLE": "Groupes de l'organisation "
         },
@@ -167,17 +170,17 @@
         "TITLE": "Terminé"
       },
       "STEP1": {
-        "CHOOSE_SUB_ORGANIZATION": "Choisissez l'organisation mère si c'est applicable",
+        "CHOOSE_SUB_ORGANIZATION": "Organisation Parent",
         "DEALING_TYPE": {
           "INSTITUT": "Institut",
           "PUBLIC": "Public",
           "SERVICE": "Service",
-          "TITLE": "Internal/External Organization"
+          "TITLE": "Type"
         },
         "DESCRIPTION": "À propos (description)",
-        "EMAIL": "Adresse e-mail",
+        "EMAIL": "e-mail",
         "LABELS": "Étiquettes",
-        "NAME": "Nom de l'organisation",
+        "NAME": "Nom",
         "PHONE": "Numéro de téléphone",
         "PHONE_CODE": "Code de téléphone",
         "PHONE_LABEL": "Numéro de téléphone: ex (1112223333)",
@@ -186,7 +189,9 @@
         "SUB_TITLE": "Remplissez vos informations de base pour votre organization",
         "TIMEZONE": "Fuseau horaire",
         "TITLE": "Informations générales",
-        "TYPE": "Choisissez le type d'organisation"
+        "TYPE": "Choisissez le type d'organisation",
+        "PERSONAL": "Personnel",
+        "PROFESSIONAL": "Professionnel"
       },
       "STEP2": {
         "APARTMENT": "Appartement",
@@ -200,7 +205,7 @@
         "SOCIAL_MEDIA": "Réseaux sociaux",
         "STREET": "Rue",
         "SUB_TITLE": "Adresse de l'organisation",
-        "TITLE": "Adresse et réseaux sociaux"
+        "TITLE": "Adresse"
       },
       "STEP3": {
         "ENTER_EMAIL": "Entrez e-mail",
@@ -237,6 +242,12 @@
       "MESSAGE": "Gérer les accès pour tous les groupes de votre organisation dans ",
       "SEARCH_GROUPS": "Chercher un groupe",
       "TITLE": "Groupes"
+    },
+    "LANDING_PAGE": {
+      "CREATE_ORGANIZATION": "Créer une organisation",
+      "TITLE": "Mes Organisations",
+      "MESSAGE": "organisations",
+      "NO_ORGANIZATIONS":"Vous avez aucune organisation"
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Exporter",
@@ -329,6 +340,9 @@
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
+    },
+    "ERROR": {
+      "CREATE_FAILED": "La création de l'organisation a échoué"
     }
   },
   "PROFILE": "Profil",
