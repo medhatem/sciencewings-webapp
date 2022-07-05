@@ -1,8 +1,8 @@
-import { Route } from '@angular/router';
-import { AdminOrganizationResolver } from '../../resolvers/admin-organization/admin-organization.resolvers';
 import { AdminOrganizationComponent } from './admin-organization.component';
+import { AdminOrganizationResolver } from '../../resolvers/admin-organization/admin-organization.resolvers';
 import { OrganizationFormComponent } from './form/organization-form.component';
 import { OrganizationProfileComponent } from './profile/organization-profile.component';
+import { Route } from '@angular/router';
 
 export const adminOrganizationRoutes: Route[] = [
   {
@@ -15,7 +15,7 @@ export const adminOrganizationRoutes: Route[] = [
       {
         // TO DO
         // change to path: ':id' , when the change organizations implemented
-        path: '',
+        path: ':id',
         component: OrganizationProfileComponent,
         resolve: {
           organization: AdminOrganizationResolver,

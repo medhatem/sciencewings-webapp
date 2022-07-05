@@ -1,24 +1,41 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+
+import { LandingPageService } from './landing-page-service';
+import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { UserOrganizations } from 'app/models/organizations/user-organizations';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'landing-page',
   templateUrl: './landing-page.component.html',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LandingPageComponent implements OnInit {
   readonly componentName = 'LandingPageComponent';
-  orgs: any;
+  organizations: UserOrganizations[] = [];
   isLoading: boolean = false;
-  constructor(private route: ActivatedRoute, private _toastrService: ToastrService) {}
+  readonly organizationProfilePage = '/admin/organization-profile';
+  constructor(private _toastrService: ToastrService, private _landingPageService: LandingPageService, private _router: Router) {}
 
   async ngOnInit() {
-    const { data } = this.route.snapshot.data;
-    if (!data) {
-      this._toastrService.showError(this.componentName);
+    this.fetchUserOrganization();
+  }
+
+  fetchUserOrganization = () => {
+    try {
+      const userId = localStorage.getItem(constants.CURRENT_USER_ID);
+      this._landingPageService.getAllUserOrganizations(Number(userId)).then((organizations = []) => {
+        this.organizations = organizations;
+        console.log('orgs are ', this.organizations);
+      });
+    } catch (error) {
+      this.organizations = [];
+      this._toastrService.showError(constants.ERROR_LOADING_ORGANIZATIONS);
     }
-    this.orgs = data;
+  };
+  navigateToOrganizationProfilePage(org: any) {
+    console.log('org is ', org);
+    this._router.navigate(['admin/organization-profile', org.id]);
   }
 }

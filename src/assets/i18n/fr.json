@@ -247,7 +247,8 @@
       "CREATE_ORGANIZATION": "Créer une organisation",
       "TITLE": "Mes Organisations",
       "MESSAGE": "organisations",
-      "NO_ORGANIZATIONS":"Vous avez aucune organisation"
+      "NO_ORGANIZATIONS":"Vous avez aucune organisation",
+      "ERROR_LOADING_ORGANIZATIONS":"Une erreur s'est produite lors du chargement des organisations"
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Exporter",
@@ -342,7 +343,9 @@
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
     },
     "ERROR": {
-      "CREATE_FAILED": "La création de l'organisation a échoué"
+      "CREATE_FAILED": "La création de l'organisation a échoué",
+      "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
+      "WRONG_ORG_ID":"L'organization demandé est introuvable"
     }
   },
   "PROFILE": "Profil",
