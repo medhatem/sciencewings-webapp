@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -7,13 +8,13 @@ import {
   OnInit,
   Output,
   ViewEncapsulation,
-  ChangeDetectorRef,
 } from '@angular/core';
+
 import { SwitchOrganizationsService } from './switch-organization.service';
-import { User } from 'app/core/user/user.types';
-import { constants } from 'app/shared/constants';
-import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { User } from 'app/core/user/user.types';
+import { UserOrganizations } from 'app/models/organizations/user-organizations';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'switch-organization',
@@ -45,6 +46,7 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
         id: constants.EMPTY_ORGANIZATIONS,
         name: constants.EMPTY_ORGANIZATIONS,
       };
+      this.isNoOrganization = this.availableOrganizations.length > 0 ? false : true;
     } catch (error) {
       this._toastrService.showInfo('APP.SWITCH_ORGANIZATIONS_LOAD_FAILED');
       this.isNoOrganization = true;
