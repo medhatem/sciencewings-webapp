@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 
+import { MatDialog } from '@angular/material/dialog';
+import { MemberFormComponent } from './member-form/member-form.component';
 import { Option } from '../reusable-components/list/list-component.component';
 import { OrganizationMemberService } from './organization-members.service';
+import { ToastrService } from 'app/core/toastr/toastr.service';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'organizationmembers',
@@ -12,7 +16,8 @@ import { OrganizationMemberService } from './organization-members.service';
 export class OrganizationMemebrsComponent implements OnInit {
   members: any[] = [];
   options: Option = { columns: [] };
-  constructor(private _groupsService: OrganizationMemberService) {}
+  openedDialogRef: any;
+  constructor(private _groupsService: OrganizationMemberService, private _matDialog: MatDialog, private _toastrService: ToastrService) {}
 
   ngOnInit(): void {
     this.options = {
@@ -42,5 +47,14 @@ export class OrganizationMemebrsComponent implements OnInit {
     this.members = this._groupsService.getAllMembersForOrganization();
   }
 
-  inviteMember() {}
+  openInviteMemberDialog(): void {
+    const orgID = localStorage.getItem(constants.USER_ORGANIZATION_ID);
+    if (!orgID) {
+      this._toastrService.showError('Something went wrong!');
+    }
+    this.openedDialogRef = this._matDialog.open(MemberFormComponent, {
+      data: { orgID },
+    });
+    this.openedDialogRef.afterClosed().subscribe((result) => {});
+  }
 }

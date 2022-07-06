@@ -28,6 +28,7 @@ export interface Option {
 @Component({
   selector: 'list-component',
   templateUrl: './list-component.component.html',
+  styleUrls: ['./group-list.component.scss'],
 })
 export class ListComponent implements OnInit, OnDestroy {
   @Input() dataList: any[] = [];

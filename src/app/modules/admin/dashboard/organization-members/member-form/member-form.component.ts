@@ -1,8 +1,13 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { ToastrService } from 'app/core/toastr/toastr.service';
+
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
+import { ToastrService } from 'app/core/toastr/toastr.service';
+
+export interface DialogData {
+  orgID: number;
+}
 
 @Component({
   selector: 'member-form',
@@ -14,6 +19,7 @@ export class MemberFormComponent implements OnInit {
   isInvitationPersonalize: boolean = false;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public matDialogRef: MatDialogRef<MemberFormComponent>,
     private _toastrService: ToastrService,
     private _formBuilder: FormBuilder,
@@ -27,10 +33,16 @@ export class MemberFormComponent implements OnInit {
   }
 
   public invite(): void {
-    this._memberService.inviteUserToOrganization(1, this.memberForm.value.email).subscribe(({ body }) => {
-      if (body.statusCode === 500) {
-        this._toastrService.showError('Something went wrong!');
-      }
-    });
+    try {
+      this._memberService.inviteUserToOrganization(this.data.orgID, this.memberForm.value.email).subscribe(({ body }) => {
+        if (body.statusCode === 500) {
+          throw new Error('');
+        }
+        this.matDialogRef.close(body);
+      });
+    } catch (error) {
+      this._toastrService.showError('Something went wrong!');
+      this.matDialogRef.close({});
+    }
   }
 }
