@@ -1,12 +1,12 @@
 import { AuthGuard } from './core/auth/keycloak/app.guard';
 import { FuseNavigationItemTypeEnum } from '@fuse/components/navigation/navigation.types';
+import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
 import { InitialDataResolver } from 'app/app.resolvers';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
-import { Route } from '@angular/router';
-import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
 import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource/profile-form/profile-form.component';
-import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
+import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
+import { Route } from '@angular/router';
 
 export const errorPath = '**';
 export const adminPath = 'admin';
@@ -42,16 +42,6 @@ export const appRoutes: Route[] = [
         },
         children: [
           {
-            path: 'landing-page',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.LANDING_PAGE.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:users',
-            },
-            loadChildren: () => import('app/modules/admin/dashboard/landing-page/landing-page.module').then((m) => m.LandingPageModule),
-          },
-          {
             path: 'organization-profile',
             canActivate: [AuthGuard],
             data: {
@@ -74,16 +64,6 @@ export const appRoutes: Route[] = [
               import('app/modules/admin/dashboard/organization-settings/organization-settings.module').then(
                 (m) => m.OrganizationSettingsModule,
               ),
-          },
-          {
-            path: userProfilePath,
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.USER_PROFILE.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:user',
-            },
-            loadChildren: () => import('app/modules/admin/dashboard/user-profile/user-profile.module').then((m) => m.UserProfileModule),
           },
           {
             path: 'organization-members',

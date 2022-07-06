@@ -64,10 +64,10 @@
           "TITLE": "Landing page"
         },
         "ORGANIZATION_GROUPS": {
-          "TITLE": "Organization groups"
+          "TITLE": "groups"
         },
         "ORGANIZATION_MEMBERS": {
-          "TITLE": "Organization members"
+          "TITLE": "members"
         },
         "ORGANIZATION_PROFILE": {
           "SETTINGS": "Organization Settings",
