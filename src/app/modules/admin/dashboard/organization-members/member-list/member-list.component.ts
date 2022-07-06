@@ -1,11 +1,10 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
 import { MemberFormComponent } from '../member-form/member-form.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { DataService } from 'app/data.service';
 import { InventoryPagination } from '../../organization-profile/profile/organization-profile.component';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -35,7 +34,6 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _toastrService: ToastrService,
     private _matDialog: MatDialog,
-    private data: DataService,
   ) {}
   ngOnInit(): void {
     this._memberService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
@@ -122,6 +120,6 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showMemberProfile(memberID) {
-    this.data.changeMessage({ memberID });
+    // TO DO
   }
 }

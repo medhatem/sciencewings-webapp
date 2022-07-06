@@ -34,7 +34,7 @@ export const constants = {
   MINIMUM_AGE: 14,
   ROUTING_URL: 'url',
   ROUTINGS_URLS: {
-    DASHBOARD: 'dashboard',
+    ADMIN: 'admin',
     RESOURCES: 'resources',
     RESOURCES_SETTINGS: 'resource-settings',
   },
