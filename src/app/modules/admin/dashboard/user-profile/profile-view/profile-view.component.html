@@ -1,0 +1,86 @@
+<div class="flex flex-col mt-4 pt-6 space-y-8">
+  <div class="relative flex items-center justify-center w-32 h-32 rounded-full overflow-hidden ring-4 ring-bg-card">
+    <app-avatar [avatar]="user.avatar" [name]="user.name"></app-avatar>
+  </div>
+
+  <div class="mt-3 text-4xl font-bold truncate border-b">{{ user.name }}</div>
+
+  <ng-container *ngIf="user.title">
+    <div class="flex sm:items-center">
+      <mat-icon [svgIcon]="'heroicons_outline:briefcase'"></mat-icon>
+      <div class="ml-6 leading-6">{{ user.title }}</div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="user.company">
+    <div class="flex sm:items-center">
+      <mat-icon [svgIcon]="'heroicons_outline:office-building'"></mat-icon>
+      <div class="ml-6 leading-6">{{ user.company }}</div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="user.emails.length">
+    <div class="flex">
+      <mat-icon [svgIcon]="'heroicons_outline:mail'"></mat-icon>
+      <div class="min-w-0 ml-6 space-y-1">
+        <ng-container *ngFor="let email of user.emails">
+          <div class="flex items-center leading-6">
+            <a class="hover:underline text-primary-500" [href]="'mailto:' + email.email" target="_blank">
+              {{ email.email }}
+            </a>
+            <div class="text-md truncate text-secondary" *ngIf="email.label">
+              <span class="mx-2">&bull;</span>
+              <span class="font-medium">{{ email.label }}</span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="user.phoneNumbers.length">
+    <div class="flex">
+      <mat-icon [svgIcon]="'heroicons_outline:phone'"></mat-icon>
+      <div class="min-w-0 ml-6 space-y-1">
+        <ng-container *ngFor="let phoneNumber of user.phoneNumbers">
+          <div class="flex items-center leading-6">
+            <div
+              class="hidden sm:flex w-6 h-4 overflow-hidden"
+              [matTooltip]="getCountryByIso(phoneNumber.country).name"
+              [style.background]="'url(\'/assets/images/flags.png\') no-repeat 0 0'"
+              [style.backgroundSize]="'24px 3876px'"
+              [style.backgroundPosition]="getCountryByIso(phoneNumber.country).flagImagePos"
+            ></div>
+            <div class="sm:ml-3 font-mono">{{ getCountryByIso(phoneNumber.country).code }}</div>
+            <div class="ml-2.5 font-mono">{{ phoneNumber.phoneNumber }}</div>
+            <div class="text-md truncate text-secondary" *ngIf="phoneNumber.label">
+              <span class="mx-2">&bull;</span>
+              <span class="font-medium">{{ phoneNumber.label }}</span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="user.address">
+    <div class="flex sm:items-center">
+      <mat-icon [svgIcon]="'heroicons_outline:location-marker'"></mat-icon>
+      <div class="ml-6 leading-6">{{ user.address }}</div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="user.birthday">
+    <div class="flex sm:items-center">
+      <mat-icon [svgIcon]="'heroicons_outline:cake'"></mat-icon>
+      <div class="ml-6 leading-6">{{ user.birthday | date: 'longDate' }}</div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="user.notes">
+    <div class="flex">
+      <mat-icon [svgIcon]="'heroicons_outline:menu-alt-2'"></mat-icon>
+      <div class="max-w-none ml-6 prose prose-sm" [innerHTML]="user.notes"></div>
+    </div>
+  </ng-container>
+</div>
