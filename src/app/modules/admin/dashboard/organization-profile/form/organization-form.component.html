@@ -38,7 +38,7 @@
             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
           </mat-form-field>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex flex-col gt-xs:flex-row">
+        <div *ngIf="hasOrganizations" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex flex-col gt-xs:flex-row">
           <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
             <mat-label class="w-100">{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}</mat-label>
             <mat-select [formControlName]="'parent'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}">
