@@ -8,9 +8,6 @@ export const resourceRoutes: Route[] = [
   {
     path: '',
     component: ResourceComponent,
-    resolve: {
-      data: ResourceResolver,
-    },
     children: [
       {
         path: '',
@@ -22,9 +19,6 @@ export const resourceRoutes: Route[] = [
       {
         path: 'create',
         component: ResourceProfileFormComponent,
-        resolve: {
-          data: ResourceResolver,
-        },
       },
     ],
   },

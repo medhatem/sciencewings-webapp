@@ -115,7 +115,6 @@ export class ResourceScheduleComponent implements OnInit {
       });
 
       this.calendarComponent.getApi().addEvent(events);
-      //this.calendarOptions.events = events;
       this.calendarOptions.events = this.allEvents;
     });
   }
