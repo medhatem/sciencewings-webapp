@@ -10,7 +10,7 @@
   [navigation]="navigation"
   [opened]="!isScreenSmall">
   <!-- Navigation header hook -->
-  <ng-container fuseVerticalNavigationContentHeader>
+  <ng-container *ngIf="user" fuseVerticalNavigationContentHeader>
     <div class="flex items-center w-full p-4 pl-6">
       <!-- Logo -->
       <div class="flex items-center justify-center">
@@ -54,12 +54,16 @@
     <search *ngIf="!hideMenusAndButtons" [appearance]="'bar'"></search>
     <!-- Components -->
     <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
-      <switch-organization [user]="user" (onActiveOrganizationChange)="onActiveOrganizationChange($event)"></switch-organization>
+      <switch-organization 
+        *ngIf="!hideMenusAndButtons"
+        [user]="user"
+        (onActiveOrganizationChange)="onActiveOrganizationChange($event)">
+      </switch-organization>
       <languages></languages>
       <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
       <messages *ngIf="!hideMenusAndButtons"></messages>
       <notifications *ngIf="!hideMenusAndButtons"></notifications>
-      <app-modules *ngIf="!hideMenusAndButtons" (changeModuleEvent)="receiveMessage($event)"></app-modules>
+      <app-modules *ngIf="!hideMenusAndButtons" (changeModuleEvent)="onSwitchModule($event)"></app-modules>
       <user [showAvatar]="false"></user>
       <button *ngIf="!hideMenusAndButtons" class="lg:hidden" mat-icon-button (click)="quickChat.toggle()">
         <mat-icon [svgIcon]="'heroicons_outline:chat-alt-2'"></mat-icon>
@@ -68,21 +72,22 @@
   </div>
 
   <!-- Content -->
-  <!-- Content -->
   <div class="flex flex-col flex-auto">
     <new-user-infos
       *ngIf="hideMenusAndButtons"
       [hideMenusAndButtons]="hideMenusAndButtons"
       (onFormNotComplete)="resetNavigation($event)">
     </new-user-infos>
-    <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
-             Otherwise, layout changes won't be registered and the view won't be updated! -->
-    <router-outlet (messageEvent)="receiveMessage($event)" *ngIf="true && !hideMenusAndButtons"></router-outlet>
+    <!-- 
+      *ngIf="true" hack is required here for router-outlet to work correctly.
+      Otherwise, layout changes won't be registered and the view won't be updated!
+    -->
+    <router-outlet *ngIf="true && !hideMenusAndButtons"></router-outlet>
   </div>
 
   <!-- Footer -->
   <div class="relative flex flex-0 items-center justify-start w-full h-14 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden">
-    <span class="font-medium text-secondary">Fuse &copy; {{ currentYear }}</span>
+    <span class="font-medium text-secondary">Science-Wings &copy; {{ currentYear }}</span>
   </div>
 </div>
 
