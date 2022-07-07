@@ -1,20 +1,22 @@
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router, Route } from '@angular/router';
-import { Subject, Subscription, takeUntil } from 'rxjs';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import {
   FuseNavigationItem,
   FuseNavigationItemTypeEnum,
   FuseNavigationService,
   FuseVerticalNavigationComponent,
 } from '@fuse/components/navigation';
-import { User } from 'app/core/user/user.types';
-import { appRoutes, errorPath, appResourceRoutes, appResourceSettingsRoutes } from 'app/app.routing';
+import { Subject, takeUntil } from 'rxjs';
+import { appRoutes, errorPath } from 'app/app.routing';
+
 import { CookieService } from 'ngx-cookie-service';
-import { DataService } from 'app/data.service';
+import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen/splash-screen.service';
 import { KeycloakService } from 'keycloak-angular';
+import { SwitchOrganizationsService } from 'app/layout/common/switch-organization/switch-organization.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { User } from 'app/core/user/user.types';
+import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { constants } from 'app/shared/constants';
 
 @Component({
@@ -29,8 +31,6 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   navigation: FuseNavigationItem[];
   user: User;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
-  private message: string;
-  private subscription: Subscription;
 
   constructor(
     private _route: ActivatedRoute,
@@ -38,10 +38,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _fuseNavigationService: FuseNavigationService,
     private _coookies: CookieService,
-    private data: DataService,
     private _fuseSplashScreenService: FuseSplashScreenService,
     private _keycloackService: KeycloakService,
     private _toastrService: ToastrService,
+    private _switchOrganizationsService: SwitchOrganizationsService,
   ) {}
 
   /**
@@ -57,7 +57,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit(): void {
     const { userData } = this._route.snapshot.data;
-    this.resetNavigation(this.hideMenusAndButtons);
+    //this.resetNavigation(this.hideMenusAndButtons);
+
     this.user = {
       ...userData,
       avatar: 'assets/images/avatars/brian-hughes.jpg',
@@ -70,13 +71,6 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       this.isScreenSmall = !matchingAliases.includes('md');
     });
 
-    // resource profile
-    this.subscription = this.data.currentMessage.subscribe((message) => {
-      if (message.resourceID) {
-        this._coookies.set('resourceID', message.resourceID);
-        this.receiveMessage(constants.ROUTINGS_URLS.RESOURCES_SETTINGS);
-      }
-    });
     this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
       this.isScreenSmall = !matchingAliases.includes('md');
     });
@@ -86,10 +80,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    * On destroy
    */
   ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
-    this.subscription.unsubscribe();
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -119,24 +111,16 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   resetNavigation(hideNavigation: boolean) {
     try {
       this._fuseSplashScreenService.show();
-      this.hideMenusAndButtons = hideNavigation;
-      this.onHideMenusAndButtonsChange.emit(this.hideMenusAndButtons);
+      if (this.hideMenusAndButtons !== hideNavigation) {
+        this.hideMenusAndButtons = hideNavigation;
+        this.onHideMenusAndButtonsChange.emit(this.hideMenusAndButtons);
+      }
       if (hideNavigation) {
         this.navigation = [];
       } else {
-        const url = this._coookies.get(constants.ROUTING_URL);
-
-        switch (url) {
-          case constants.ROUTINGS_URLS.DASHBOARD:
-            this.navigation = this.getNavigationItemsFromRoutes(appRoutes[0].children, '/');
-            break;
-          case constants.ROUTINGS_URLS.RESOURCES:
-            this.navigation = this.getNavigationItemsFromRoutes(appResourceRoutes[0].children, '/');
-            break;
-          case constants.ROUTINGS_URLS.RESOURCES_SETTINGS:
-            this.navigation = this.getNavigationItemsFromRoutes(appResourceSettingsRoutes[0].children, '/');
-            break;
-        }
+        const url = this._coookies.get(constants.ROUTING_URL) || constants.ROUTINGS_URLS.ADMIN;
+        const routesToDisplay = appRoutes[0].children.find(({ path }) => path === url);
+        this.navigation = this.getNavigationItemsFromRoutes(routesToDisplay.children, `/${routesToDisplay.path}`);
       }
     } catch (error) {
       this._toastrService.showError(constants.FATAL_ERROR_OCCURED);
@@ -148,31 +132,28 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  receiveMessage($event) {
-    // To remove the switch case and replace with one case after making sure we use constants everywhere !!!
-    switch ($event) {
-      case constants.ROUTINGS_URLS.RESOURCES:
-        this._coookies.set(constants.ROUTING_URL, constants.ROUTINGS_URLS.RESOURCES);
-        this._router.resetConfig(appResourceRoutes);
-        break;
-      case constants.ROUTINGS_URLS.DASHBOARD:
-        this._coookies.set(constants.ROUTING_URL, constants.ROUTINGS_URLS.DASHBOARD);
-        this._router.resetConfig(appRoutes);
-        break;
-      case constants.ROUTINGS_URLS.RESOURCES_SETTINGS:
-        this._coookies.set(constants.ROUTING_URL, constants.ROUTINGS_URLS.RESOURCES_SETTINGS);
-        this._router.resetConfig(appResourceSettingsRoutes);
-        break;
-      default:
-        this._coookies.set(constants.ROUTING_URL, '');
-        this._router.resetConfig(appRoutes);
-        break;
-    }
+  /**
+   * Stores the url of the module chosen in cookies
+   * resets the navigation config to regenerate the links and routes
+   * calls resetNavigation to change navigation items, and animate the transition between modules
+   *
+   * @params url: string
+   */
+  onSwitchModule(url: string) {
+    this._coookies.set(constants.ROUTING_URL, url);
+    this._router.resetConfig(appRoutes[0].children.find(({ path }) => path === url).children);
     this.resetNavigation(false);
   }
 
-  onActiveOrganizationChange(organization: any) {
-    // TO DO : do logic to manage organization change
+  /**
+   * reset the user organization
+   * calls resetNavigation to change refresh token, and animate the transition between modules
+   *
+   * @params organization: Partial<UserOrganizations>
+   */
+  onActiveOrganizationChange(organization: Partial<UserOrganizations>) {
+    this._switchOrganizationsService.switchOrganization(organization.id as number);
+    this.resetNavigation(false);
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -209,9 +190,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
 
   private terminateAllTasksAndLogout() {
     this._coookies.deleteAll();
-    this._unsubscribeAll.closed = true;
+    this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
-    this._unsubscribeAll.unsubscribe();
-    this._keycloackService.logout();
+    // setTimeout(() => {
+    //   this._keycloackService.logout();
+    // }, 5000);
   }
 }

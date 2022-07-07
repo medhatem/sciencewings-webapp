@@ -68,7 +68,7 @@ export class NewUserInfosComponent implements OnInit {
       const createdUser = await this._newUserInfosResolver.createUser(userPayload);
       if (createdUser) {
         this.user = createdUser;
-        this._coookies.set(constants.ROUTING_URL, 'dashboard');
+        this._coookies.set(constants.ROUTING_URL, constants.ROUTINGS_URLS.ADMIN);
         this.onFormNotComplete.emit(false);
       }
     } catch (error) {

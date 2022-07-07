@@ -98,6 +98,6 @@ export class ProfileFormComponent implements OnInit {
       return;
     }
 
-    // TODO: Use backend service to upload the profile picture
+    //TODO: Use backend service to upload the profile picture
   }
 }
