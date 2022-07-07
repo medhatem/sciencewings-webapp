@@ -11,8 +11,7 @@
         'bg-amber-500': user.status === 'away',
         'bg-red-500': user.status === 'busy',
         'bg-gray-400': user.status === 'not-visible'
-      }"
-    ></span>
+      }"></span>
   </span>
 </button>
 
@@ -24,7 +23,7 @@
     </span>
   </button>
   <mat-divider class="my-2"></mat-divider>
-  <button mat-menu-item [routerLink]="PROFILE_PATH">
+  <button mat-menu-item [routerLink]="profilePath">
     <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
     <span>Profile</span>
   </button>

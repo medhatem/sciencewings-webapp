@@ -18,8 +18,8 @@ import { userProfilePath } from 'app/app.routing';
 })
 export class UserComponent implements OnInit, OnDestroy {
   static ngAcceptInputTypeshowAvatar: BooleanInput;
-  readonly PROFILE_PATH = ['/', constants.ROUTINGS_URLS.ADMIN, userProfilePath];
   @Input() showAvatar: boolean = true;
+  readonly profilePath = ['/', constants.ROUTINGS_URLS.ADMIN, userProfilePath];
   user: User;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
