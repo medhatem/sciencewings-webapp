@@ -42,10 +42,8 @@ export class ResourceProfileFormComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _toastrService: ToastrService,
   ) {
-    this.route.params.subscribe((params) => {
-      this.params = params;
-      this.btnTitle = params.id === 'create' ? 'Add' : 'Update';
-    });
+    this.params = this.route.snapshot.queryParams.id;
+    this.btnTitle = this.route.snapshot.queryParams.id ? 'Update' : 'Add';
   }
 
   ngOnInit(): void {
@@ -61,21 +59,28 @@ export class ResourceProfileFormComponent implements OnInit {
       if (error?.statusCode === 500) {
         this._toastrService.showError(error.errorMessage, 'Something went wrong!');
       }
-      this.allManagers = body.members;
+      console.log({ allManagers: body });
+
+      this.allManagers = body.data;
       this.filteredManagers = this.managerCtrl.valueChanges.pipe(
         startWith(null),
         map((manager: any) => (manager ? this._filter(manager.name) : this.allManagers.slice())),
       );
     });
 
-    this._resourceService.getResource(this.params.id).subscribe(({ statusCode, body, errorMessage }) => {
+    this._resourceService.getResource(this.params).subscribe(({ statusCode, body, errorMessage }) => {
       if (statusCode === 500) {
         this._toastrService.showError(errorMessage, 'Something went wrong!');
       }
+
+      body = body.data[0];
+
       this.form.setValue({
         name: body.name,
         description: body.description,
         timezone: body.timezone,
+        resourceType: body.resourceType,
+        resourceClass: body.resourceClass,
       });
       this.resource = body.resources;
       this.tags = body.tags.map((tag) => tag.title);
@@ -92,30 +97,37 @@ export class ResourceProfileFormComponent implements OnInit {
       active: true,
       organization: 1,
       user: 1,
-      resourceType: 'USER',
-      resourceClass: 'USER',
+      resourceType: this.form.value.resourceType,
+      resourceClass: this.form.value.resourceClass,
       tags: this.tags.map((tag) => ({ title: tag })),
       managers: this.managers.map((manager) => ({
-        organization: manager.organization,
-        user: manager.user,
+        organization: manager.organization.id,
+        user: manager.user.id,
       })),
     };
     try {
       let response = null;
-      if (this.params.id === 'create') {
-        response = await lastValueFrom(this._resourceService.createResource(_resource));
-      } else {
+      if (this.params) {
         response = await lastValueFrom(
-          this._resourceService.updateResource(this.params.id, {
+          this._resourceService.updateResource(this.params, {
             ...this.resource,
             ..._resource,
           }),
         );
-        if (response.body.statusCode === 201) {
+        if (response.body.statusCode === 204) {
           this._toastrService.showSuccess('Updated Successfully');
         } else {
           this._toastrService.showError('Something went wrong!');
         }
+      } else {
+        response = await lastValueFrom(this._resourceService.createResource(_resource));
+        this.form = this._formBuilder.group({
+          name: '',
+          description: '',
+          resourceType: 'equipement',
+          resourceClass: 'reservable',
+          timezone: '',
+        });
       }
     } catch (error) {
       this._toastrService.showError('Something went wrong!');
