@@ -99,6 +99,19 @@ export const appRoutes: Route[] = [
               import('app/modules/admin/dashboard/organization-members/organization-members.module').then((m) => m.OrganizationMembersModule),
           },
           {
+            path: 'project',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.PROJECT.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:table',
+            },
+            resolve: {
+              projects: ProjectResolver,
+            },
+            loadChildren: () => import('app/modules/admin/dashboard/project/project.module').then((m) => m.ProjectModule),
+          },
+          {
             path: 'organization-groups',
             canActivate: [AuthGuard],
             data: {
