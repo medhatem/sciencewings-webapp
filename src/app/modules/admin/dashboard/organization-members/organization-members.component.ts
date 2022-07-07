@@ -61,7 +61,7 @@ export class OrganizationMemebrsComponent implements OnInit {
             profile: `${m.name}<br> 
                       ${m.workEmail}`,
             status: m.status,
-            date: '2020/07/01',
+            date: m.joinDate,
           }));
           this.cdRef.detectChanges();
         },
