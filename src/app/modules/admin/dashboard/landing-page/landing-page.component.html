@@ -5,17 +5,16 @@
       <div class="text-4xl font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.LANDING_PAGE.TITLE' | transloco }}</div>
     </div>
     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-      <button class="ml-4" mat-flat-button [color]="'primary'" [routerLink]="CREATE_ORGANIZATION_ROUTE">
+      <button class="ml-4" mat-flat-button [color]="'primary'" [routerLink]="createOrganizationRoute">
         <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
         <span class="ml-2 mr-1">{{ 'ORGANIZATION.LANDING_PAGE.CREATE_ORGANIZATION' | transloco }}</span>
       </button>
     </div>
   </div>
   <div *ngIf="orgs.length === 0" class="flex justify-center items-center flex-1">
-      <div class="" >
-        <span class="ml-2 mr-1">{{ 'ORGANIZATION.LANDING_PAGE.NO_ORGANIZATIONS' | transloco }}</span>
-      </div>
-
+    <div class="">
+      <span class="ml-2 mr-1">{{ 'ORGANIZATION.LANDING_PAGE.NO_ORGANIZATIONS' | transloco }}</span>
+    </div>
   </div>
   <div *ngelse class="flex-auto border-t -mt-px pt-4 sm:pt-6 p-16">
     <div class="ml-1.5 leading-6 truncate text-secondary">3 {{ 'ORGANIZATION.LANDING_PAGE.MESSAGE' | transloco }}</div>
