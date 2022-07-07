@@ -11,7 +11,7 @@ import { organizationProfilePath } from 'app/app.routing';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LandingPageComponent implements OnInit {
-  readonly CREATE_ORGANIZATION_ROUTE = ['/', constants.ROUTINGS_URLS.ADMIN, organizationProfilePath, 'create'];
+  readonly CREATE_ORGANIZATION_ROUTE = ['/', constants.MODULES_ROUTINGS_URLS.ADMIN, organizationProfilePath, 'create'];
   readonly componentName = 'LandingPageComponent';
   orgs: any;
   isLoading: boolean = false;

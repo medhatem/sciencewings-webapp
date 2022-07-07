@@ -12,7 +12,6 @@ import { constants } from './shared/constants';
 export const errorPath = '**';
 export const userProfilePath = 'user-profile';
 export const organizationProfilePath = 'organization-profile';
-export const landingPagePath = 'landing-page';
 export const voidRoutes: Route[] = [];
 
 export const appRoutes: Route[] = [
@@ -26,7 +25,7 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
-        path: constants.ROUTINGS_URLS.ADMIN,
+        path: constants.MODULES_ROUTINGS_URLS.ADMIN,
         canActivate: [AuthGuard],
         data: {
           title: 'APP.ROUTES.ADMIN.TITLE',
@@ -34,7 +33,7 @@ export const appRoutes: Route[] = [
         },
         children: [
           {
-            path: landingPagePath,
+            path: constants.MODULES_ROUTINGS_URLS.LANDING_PAGE,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.LANDING_PAGE.TITLE',
@@ -96,7 +95,7 @@ export const appRoutes: Route[] = [
         ],
       },
       {
-        path: constants.ROUTINGS_URLS.RESOURCES,
+        path: constants.MODULES_ROUTINGS_URLS.RESOURCES,
         canActivate: [AuthGuard],
         data: {
           title: 'APP.ROUTES.ADMIN.RESOURCE.TITLE',

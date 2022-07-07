@@ -10,7 +10,6 @@ import { constants } from 'app/shared/constants';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
 import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
 import { ActivatedRoute, Router } from '@angular/router';
-import { landingPagePath } from 'app/app.routing';
 
 @Component({
   selector: 'organization-form',
@@ -80,7 +79,7 @@ export class OrganizationFormComponent implements OnInit {
     try {
       await this._adminOrganizationsService.createOrganization(organization);
       this._toastrService.showSuccess(constants.CREATE_ORGANIZATION_COMPLETED);
-      this._router.navigate([constants.ROUTINGS_URLS.ADMIN, landingPagePath]);
+      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.LANDING_PAGE]);
     } catch (error) {
       this._toastrService.showError(constants.CREATE_ORGANIZATION_FAILED);
     }
