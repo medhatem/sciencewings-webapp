@@ -94,6 +94,6 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showGroupProfile(groupID) {
-    // TO DO
+    //TODO
   }
 }

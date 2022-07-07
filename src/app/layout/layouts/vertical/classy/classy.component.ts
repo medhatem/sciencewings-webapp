@@ -137,7 +137,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   /**
-   * Stores the url of the module chosed in cookies
+   * Stores the url of the module chosen in cookies
    * resets the navigation config to regenerate the links and routes
    * calls resetNavigation to change navigation items, and animate the transition between modules
    *

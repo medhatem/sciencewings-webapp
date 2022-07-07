@@ -120,6 +120,6 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showMemberProfile(memberID) {
-    // TO DO
+    //TODO
   }
 }

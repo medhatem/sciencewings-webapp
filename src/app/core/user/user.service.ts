@@ -28,7 +28,7 @@ export class UserService {
    * Get the current logged in user data
    */
   get(): Observable<User> {
-    // To Do
+    //TODO
     // implement keycloak and api
     return new Observable<User>();
   }

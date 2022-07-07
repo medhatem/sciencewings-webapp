@@ -108,6 +108,7 @@ export class OrganizationFormComponent implements OnInit {
   /**
    *
    * fetchs the values in the formBuilder and returns a clean Organization object
+   *
    * @returns Organization
    */
   private getOrganizationFromFormBuilder(): Organization {
