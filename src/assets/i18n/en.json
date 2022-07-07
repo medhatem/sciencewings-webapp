@@ -362,6 +362,10 @@
         "TYPE_1": "Internal",
         "TYPE_2": "External",
         "LABELS": "Labels",
+        "LABELS_CONFIRMED": "Confirmed",
+        "LABELS_CRITICAL": "Critique",
+        "LABELS_SUGGESTION": "Suggestion",
+
         "SUPERVISOR": "Supervisor(s)",
         "Teammates": "Teammates"
       },

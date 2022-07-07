@@ -44,7 +44,15 @@
         [rows]="3"></textarea>
       <!-- Body -->
     </mat-form-field>
-
+    <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+      <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.LABELS' | transloco }}</mat-label>
+      <mat-select [formControlName]="'labels'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.NUMBER' | transloco }}">
+        <mat-option *ngFor="let label of labelsKeys; trackBy: trackByFn" [value]="labels[label]"
+          >{{ labelsTranslation[label] | transloco }}
+        </mat-option>
+      </mat-select>
+      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+    </mat-form-field>
     <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
       <button mat-button mat-dialog-close>Save</button>
       <button class="px-6 ml-3" mat-flat-button [color]="'primary'" [mat-dialog-close]="true">Cancel</button>

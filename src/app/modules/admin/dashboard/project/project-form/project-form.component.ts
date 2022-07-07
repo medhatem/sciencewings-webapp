@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ProjectLabels, ProjectLabelsTranslation } from 'app/models/projects/project-lables.enum';
 import { ProjectType, ProjectTypeTrasnlation } from 'app/models/projects/project-type';
 
 @Component({
@@ -14,6 +15,9 @@ export class ProjectFormComponent implements OnInit {
   projectTypesKeys = Object.keys(ProjectType).map((key) => key);
   projectType = ProjectType;
   projectTypeTrasnlation = ProjectTypeTrasnlation;
+  labelsKeys = Object.keys(ProjectLabels);
+  labels = ProjectLabels;
+  labelsTranslation = ProjectLabelsTranslation;
 
   constructor(public matDialogRef: MatDialogRef<ProjectFormComponent>, private _formBuilder: FormBuilder) {}
 
@@ -25,6 +29,7 @@ export class ProjectFormComponent implements OnInit {
       location: [''],
       description: [''],
       type: [''],
+      labels: [''],
     });
   }
   /**

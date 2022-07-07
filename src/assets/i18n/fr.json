@@ -363,6 +363,10 @@
         "TYPE_1": "Intern",
         "TYPE_2": "Extern",
         "LABELS": "Étiquettes",
+        "LABELS_CONFIRMED": "Confirmé",
+        "LABELS_CRITICAL": "Critical",
+        "LABELS_SUGGESTION": "Suggestion",
+
         "SUPERVISOR": "Superviseur(s)",
         "Teammates": "Coéquipiers"
       },
