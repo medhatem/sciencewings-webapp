@@ -9,11 +9,11 @@ import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource
 import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
 import { constants } from './shared/constants';
 
-export const errorPath = '**';
-export const userProfilePath = 'user-profile';
-export const organizationProfilePath = 'organization-profile';
-export const voidRoutes: Route[] = [];
-
+/**
+ * App Routing
+ * contains all the routes that are passed to the app router
+ * using lazy loading on main routes
+ */
 export const appRoutes: Route[] = [
   {
     path: '',
@@ -33,7 +33,7 @@ export const appRoutes: Route[] = [
         },
         children: [
           {
-            path: constants.MODULES_ROUTINGS_URLS.LANDING_PAGE,
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.LANDING_PAGE,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.LANDING_PAGE.TITLE',
@@ -43,7 +43,7 @@ export const appRoutes: Route[] = [
             loadChildren: () => import('app/modules/admin/dashboard/landing-page/landing-page.module').then((m) => m.LandingPageModule),
           },
           {
-            path: organizationProfilePath,
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_PROFILE,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.TITLE',
@@ -54,7 +54,7 @@ export const appRoutes: Route[] = [
               import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
           },
           {
-            path: 'organization-members',
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.ORGANIZATION_MEMBERS.TITLE',
@@ -66,7 +66,7 @@ export const appRoutes: Route[] = [
               import('app/modules/admin/dashboard/organization-members/organization-members.module').then((m) => m.OrganizationMembersModule),
           },
           {
-            path: 'organization-groups',
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_GROUPS,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.ORGANIZATION_GROUPS.TITLE',
@@ -80,7 +80,7 @@ export const appRoutes: Route[] = [
               import('app/modules/admin/dashboard/organization-groups/organization-groups.module').then((m) => m.OrganizationGroupsModule),
           },
           {
-            path: 'organization-settings',
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_SETTINGS,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.SETTINGS',
@@ -103,7 +103,7 @@ export const appRoutes: Route[] = [
         },
         children: [
           {
-            path: 'resource',
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.RESOURCE,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.RESOURCE.TITLE',
@@ -113,7 +113,7 @@ export const appRoutes: Route[] = [
             loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
           },
           {
-            path: 'resource/update',
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.RESOURCE_UPDATE,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.RESOURCE_PROFILE.TITLE',
@@ -123,7 +123,7 @@ export const appRoutes: Route[] = [
             component: ResourceProfileFormComponent,
           },
           {
-            path: 'schedule',
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.SCHEDULE,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
@@ -133,7 +133,7 @@ export const appRoutes: Route[] = [
             component: ResourceScheduleComponent,
           },
           {
-            path: 'settings-general',
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.GENERAL_SETTINGS,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.GENERAL',
@@ -144,7 +144,7 @@ export const appRoutes: Route[] = [
               import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
           },
           {
-            path: 'settings-reservation',
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.RESERVATION_SETTINGS,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.RESERVATION',
@@ -159,7 +159,7 @@ export const appRoutes: Route[] = [
         ],
       },
       {
-        path: errorPath,
+        path: constants.MODULES_ROUTINGS_URLS.ERROR_PAGE,
         pathMatch: 'full',
         loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.module').then((m) => m.Error404Module),
       },

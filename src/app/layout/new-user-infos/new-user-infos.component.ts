@@ -45,7 +45,7 @@ export class NewUserInfosComponent implements OnInit {
       province: ['', Validators.required],
       city: ['', Validators.required],
       code: ['', Validators.required],
-      country: [constants.NEW_USER.DEFAULT_COUNTRY, Validators.required],
+      country: ['Canada', Validators.required],
     });
   }
 

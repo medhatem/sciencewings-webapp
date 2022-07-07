@@ -7,7 +7,7 @@ import {
   FuseVerticalNavigationComponent,
 } from '@fuse/components/navigation';
 import { Subject, takeUntil } from 'rxjs';
-import { appRoutes, errorPath } from 'app/app.routing';
+import { appRoutes } from 'app/app.routing';
 
 import { CookieService } from 'ngx-cookie-service';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
@@ -109,6 +109,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    * Hide/Show the fullscreen Loading page
    * this can be called whenever you need to show loading page and rechecking routes
    * hideNavigation: Hide/Show navigation menu
+   *
    * @param hideNavigation
    */
   resetNavigation(hideNavigation: boolean) {
@@ -175,7 +176,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   private getNavigationItemsFromRoutes(routes: Route[], parentPath: string = ''): FuseNavigationItem[] {
     return routes.reduce((acc, { path = '', data, children = [] }) => {
       const { title = path, type = FuseNavigationItemTypeEnum.basic, icon, action } = data || {};
-      if (path === errorPath) {
+      if (path === constants.MODULES_ROUTINGS_URLS.ERROR_PAGE) {
         return acc;
       }
       const id = `${parentPath}.${path}`.replace('/', '');
