@@ -5,6 +5,7 @@ import { ApiService } from 'generated/services';
 import { Injectable } from '@angular/core';
 import { OrganizationDto } from 'generated/models';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { constants } from 'app/shared/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -20,10 +21,11 @@ export class AdminOrganizationsService {
     return lastValueFrom(this._swaggerService.organizationRoutesCreateOrganization({ body: organization as any }));
   }
 
-  async getUserOrganizations(userId: number): Promise<UserOrganizations[]> {
+  async getUserOrganizations(userId?: number): Promise<UserOrganizations[]> {
+    const id = userId || Number(localStorage.getItem(constants.CURRENT_USER_ID));
     return lastValueFrom(
       this._swaggerService
-        .memberRoutesGetUserMemberships({ userId })
+        .memberRoutesGetUserMemberships({ userId: id })
         .pipe(map(({ body }) => body.data.map((organization) => new UserOrganizations(organization)))),
     );
   }
@@ -33,12 +35,10 @@ export class AdminOrganizationsService {
   }
 
   getOrganizationSettingsById(id: number): Observable<any> {
-    return;
-    // return this._swaggerService.organizationRoutesGetOgranizationSettings({ id });
+    return this._swaggerService.organizationRoutesGetOgranizationSettings({ organizationId: id });
   }
 
   updateOrganizationsSettingsProperties(id: number, body: any): Observable<any> {
-    return;
-    // return this._swaggerService.organizationRoutesUpdateOrganizationsSettingsnAccessProperties({ id, body });
+    return this._swaggerService.organizationRoutesUpdateOrganizationsSettingsnAccessProperties({ organizationId: id, body });
   }
 }

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'landing-page',
@@ -9,6 +10,12 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LandingPageComponent implements OnInit {
+  readonly fullCreateOrganizationPath = [
+    '/',
+    constants.MODULES_ROUTINGS_URLS.ADMIN,
+    constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_PROFILE,
+    'create',
+  ];
   readonly componentName = 'LandingPageComponent';
   orgs: any;
   isLoading: boolean = false;

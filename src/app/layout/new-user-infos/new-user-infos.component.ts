@@ -45,7 +45,7 @@ export class NewUserInfosComponent implements OnInit {
       province: ['', Validators.required],
       city: ['', Validators.required],
       code: ['', Validators.required],
-      country: [constants.NEW_USER.DEFAULT_COUNTRY, Validators.required],
+      country: ['Canada', Validators.required],
     });
   }
 
@@ -68,7 +68,7 @@ export class NewUserInfosComponent implements OnInit {
       const createdUser = await this._newUserInfosResolver.createUser(userPayload);
       if (createdUser) {
         this.user = createdUser;
-        this._coookies.set(constants.ROUTING_URL, 'dashboard');
+        localStorage.setItem(constants.MODULE_ROUTING_URL, constants.MODULES_ROUTINGS_URLS.ADMIN);
         this.onFormNotComplete.emit(false);
       }
     } catch (error) {

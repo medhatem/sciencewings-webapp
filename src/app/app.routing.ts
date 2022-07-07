@@ -8,13 +8,14 @@ import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/sc
 import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource/profile-form/profile-form.component';
 import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
 import { ProjectResolver } from './modules/admin/resolvers/project/project.resolvers';
+import { constants } from './shared/constants';
 
-export const errorPath = '**';
-export const adminPath = 'admin';
-export const userProfilePath = 'user-profile';
-export const voidRoutes: Route[] = [];
+/**
+ * App Routing
+ * contains all the routes that are passed to the app router
+ * using lazy loading on main routes
+ */
 export const appRoutes: Route[] = [
-  // dashboard routes
   {
     path: '',
     canActivate: [AuthGuard],
@@ -25,17 +26,7 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
-        path: '',
-        canActivate: [AuthGuard],
-        data: {
-          title: 'APP.ROUTES.ADMIN.LANDING_PAGE.TITLE',
-          type: FuseNavigationItemTypeEnum.basic,
-          icon: 'heroicons_outline:home',
-        },
-        loadChildren: () => import('app/modules/admin/dashboard/landing-page/landing-page.module').then((m) => m.LandingPageModule),
-      },
-      {
-        path: adminPath,
+        path: constants.MODULES_ROUTINGS_URLS.ADMIN,
         canActivate: [AuthGuard],
         data: {
           title: 'APP.ROUTES.ADMIN.TITLE',
@@ -43,7 +34,7 @@ export const appRoutes: Route[] = [
         },
         children: [
           {
-            path: 'landing-page',
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.LANDING_PAGE,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.LANDING_PAGE.TITLE',
@@ -53,7 +44,7 @@ export const appRoutes: Route[] = [
             loadChildren: () => import('app/modules/admin/dashboard/landing-page/landing-page.module').then((m) => m.LandingPageModule),
           },
           {
-            path: 'organization-profile',
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_PROFILE,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.TITLE',
@@ -64,7 +55,33 @@ export const appRoutes: Route[] = [
               import('app/modules/admin/dashboard/organization-profile/admin-organization.module').then((m) => m.AdminOrganizationModule),
           },
           {
-            path: 'organization-settings',
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS,
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.ORGANIZATION_MEMBERS.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:user',
+            },
+            resolve: {},
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-members/organization-members.module').then((m) => m.OrganizationMembersModule),
+          },
+          {
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_GROUPS,
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.ORGANIZATION_GROUPS.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:users',
+            },
+            resolve: {
+              groups: GroupResolver,
+            },
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-groups/organization-groups.module').then((m) => m.OrganizationGroupsModule),
+          },
+          {
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_SETTINGS,
             canActivate: [AuthGuard],
             data: {
               title: 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.SETTINGS',
@@ -76,27 +93,35 @@ export const appRoutes: Route[] = [
                 (m) => m.OrganizationSettingsModule,
               ),
           },
+        ],
+      },
+      {
+        path: constants.MODULES_ROUTINGS_URLS.RESOURCES,
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.RESOURCE.TITLE',
+          type: FuseNavigationItemTypeEnum.group,
+        },
+        children: [
           {
-            path: userProfilePath,
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.RESOURCE,
             canActivate: [AuthGuard],
             data: {
-              title: 'APP.ROUTES.ADMIN.USER_PROFILE.TITLE',
+              title: 'APP.ROUTES.ADMIN.RESOURCE.TITLE',
               type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:user',
+              icon: 'heroicons_outline:cube',
             },
-            loadChildren: () => import('app/modules/admin/dashboard/user-profile/user-profile.module').then((m) => m.UserProfileModule),
+            loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
           },
           {
-            path: 'organization-members',
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.RESOURCE_UPDATE,
             canActivate: [AuthGuard],
             data: {
-              title: 'APP.ROUTES.ADMIN.ORGANIZATION_MEMBERS.TITLE',
+              title: 'APP.ROUTES.ADMIN.RESOURCE_PROFILE.TITLE',
               type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:user',
+              icon: 'heroicons_outline:information-circle',
             },
-            resolve: {},
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/organization-members/organization-members.module').then((m) => m.OrganizationMembersModule),
+            component: ResourceProfileFormComponent,
           },
           {
             path: 'project',
@@ -112,138 +137,45 @@ export const appRoutes: Route[] = [
             loadChildren: () => import('app/modules/admin/dashboard/project/project.module').then((m) => m.ProjectModule),
           },
           {
-            path: 'organization-groups',
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.SCHEDULE,
             canActivate: [AuthGuard],
             data: {
-              title: 'APP.ROUTES.ADMIN.ORGANIZATION_GROUPS.TITLE',
+              title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:calendar',
+            },
+            component: ResourceScheduleComponent,
+          },
+          {
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.GENERAL_SETTINGS,
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.GENERAL',
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:users',
             },
-            resolve: {
-              groups: GroupResolver,
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
+          },
+          {
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.RESERVATION_SETTINGS,
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.RESERVATION',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:users',
             },
             loadChildren: () =>
-              import('app/modules/admin/dashboard/organization-groups/organization-groups.module').then((m) => m.OrganizationGroupsModule),
+              import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then(
+                (m) => m.SettingsReservationModule,
+              ),
           },
         ],
       },
       {
-        path: errorPath,
+        path: constants.MODULES_ROUTINGS_URLS.ERROR_PAGE,
         pathMatch: 'full',
         loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.module').then((m) => m.Error404Module),
-      },
-    ],
-  },
-];
-
-export const appResourceRoutes: Route[] = [
-  {
-    path: '',
-    canActivate: [AuthGuard],
-    component: LayoutComponent,
-    resolve: {
-      initialData: InitialDataResolver,
-      userData: NewUserInfosResolver,
-    },
-    children: [
-      {
-        path: 'resource',
-        canActivate: [AuthGuard],
-        data: {
-          title: 'APP.ROUTES.ADMIN.RESOURCE.TITLE',
-          type: FuseNavigationItemTypeEnum.basic,
-          icon: 'heroicons_outline:cube',
-        },
-        loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
-      },
-      {
-        path: 'resource/update',
-        canActivate: [AuthGuard],
-        data: {
-          title: 'APP.ROUTES.ADMIN.RESOURCE_PROFILE.TITLE',
-          type: FuseNavigationItemTypeEnum.basic,
-          icon: 'heroicons_outline:information-circle',
-        },
-        component: ResourceProfileFormComponent,
-      },
-      {
-        path: 'schedule',
-        canActivate: [AuthGuard],
-        data: {
-          title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
-          type: FuseNavigationItemTypeEnum.basic,
-          icon: 'heroicons_outline:calendar',
-        },
-        component: ResourceScheduleComponent,
-      },
-      {
-        path: 'settings-general',
-        canActivate: [AuthGuard],
-        data: {
-          title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.GENERAL',
-          type: FuseNavigationItemTypeEnum.basic,
-          icon: 'heroicons_outline:users',
-        },
-        loadChildren: () =>
-          import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
-      },
-      {
-        path: 'settings-reservation',
-        canActivate: [AuthGuard],
-        data: {
-          title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.RESERVATION',
-          type: FuseNavigationItemTypeEnum.basic,
-          icon: 'heroicons_outline:users',
-        },
-        loadChildren: () =>
-          import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then((m) => m.SettingsReservationModule),
-      },
-    ],
-  },
-];
-
-export const appResourceSettingsRoutes: Route[] = [
-  {
-    path: '',
-    canActivate: [AuthGuard],
-    component: LayoutComponent,
-    resolve: {
-      initialData: InitialDataResolver,
-      userData: NewUserInfosResolver,
-    },
-    children: [
-      {
-        path: '',
-        redirectTo: 'resource',
-        pathMatch: 'full',
-        data: {
-          title: 'Back',
-          type: FuseNavigationItemTypeEnum.basic,
-          icon: 'heroicons_outline:arrow-circle-left',
-          action: 'resources',
-        },
-      },
-      {
-        path: 'settings-general',
-        canActivate: [AuthGuard],
-        data: {
-          title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.GENERAL',
-          type: FuseNavigationItemTypeEnum.basic,
-          icon: 'heroicons_outline:users',
-        },
-        loadChildren: () =>
-          import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
-      },
-      {
-        path: 'settings-reservation',
-        canActivate: [AuthGuard],
-        data: {
-          title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.RESERVATION',
-          type: FuseNavigationItemTypeEnum.basic,
-          icon: 'heroicons_outline:users',
-        },
-        loadChildren: () =>
-          import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then((m) => m.SettingsReservationModule),
       },
     ],
   },
