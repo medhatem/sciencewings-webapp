@@ -250,7 +250,7 @@
       "CREATE_ORGANIZATION": "Créer une organisation",
       "TITLE": "Mes Organisations",
       "MESSAGE": "organisations",
-      "NO_ORGANIZATIONS":"Vous avez aucune organisation"
+      "NO_ORGANIZATIONS": "Vous avez aucune organisation"
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Exporter",
@@ -349,13 +349,22 @@
       "EXPORT_PROJECTS": "Exporter",
       "FILTER_PROJECTS": "Filtre",
       "FORM": {
+        "LABEL_NAME": "Le nom de projet",
         "CANCEL": "Annuler",
         "DESCRIPTION": "À propos (description)",
         "PROJECT_MEMBERS": "Membres du projet",
         "PROJECT_NAME": "Nom du Projet",
         "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
         "SAVE": "Sauvegarder",
-        "TITLE": "Créer un nouveau projet"
+        "TITLE": "Créer un nouveau projet",
+        "NUMBER": "Numero",
+        "LOCATION": "Localisation",
+        "TYPE": "Type",
+        "TYPE_1": "Intern",
+        "TYPE_2": "Extern",
+        "LABELS": "Étiquettes",
+        "SUPERVISOR": "Superviseur(s)",
+        "Teammates": "Coéquipiers"
       },
       "IMPORT_PROJECTS": "Importer",
       "LIST": {

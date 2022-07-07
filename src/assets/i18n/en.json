@@ -249,7 +249,7 @@
       "CREATE_ORGANIZATION": "Create Organization",
       "TITLE": "My Organizations",
       "MESSAGE": "Organizations",
-      "NO_ORGANIZATIONS":"You don't have any organization"
+      "NO_ORGANIZATIONS": "You don't have any organization"
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Export",
@@ -344,27 +344,36 @@
       "CREATE_COMPLETED": "The creation of the organization was successful"
     },
     "PROJECTS": {
-      "CREATE_PROJECTS": "Export",
-      "EXPORT_PROJECTS": "Exporter",
+      "CREATE_PROJECTS": "Create a new project",
+      "EXPORT_PROJECTS": "Export",
       "FILTER_PROJECTS": "Filter",
       "FORM": {
+        "LABEL_NAME": "Project Name",
         "CANCEL": "Cancel",
         "DESCRIPTION": "About (description)",
         "PROJECT_MEMBERS": "Project's Members",
         "PROJECT_NAME": "Project's Name",
         "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
-        "SAVE": "Sauvegarder",
-        "TITLE": "Create Project"
+        "SAVE": "Save",
+        "TITLE": "Create Project",
+        "NUMBER": "Number",
+        "LOCATION": "Location",
+        "TYPE": "Type",
+        "TYPE_1": "Internal",
+        "TYPE_2": "External",
+        "LABELS": "Labels",
+        "SUPERVISOR": "Supervisor(s)",
+        "Teammates": "Teammates"
       },
-      "IMPORT_PROJECTS": "Importer",
+      "IMPORT_PROJECTS": "Import",
       "LIST": {
         "PROJECT_DATE": "Date",
         "PROJECT_MEMBERS": "Membres",
         "PROJECT_NAME": "Project",
         "PROJECT_STATUS": "Status",
-        "MESSAGE": "Il n'y a pas de projects !"
+        "MESSAGE": "There is no projects"
       },
-      "SEARCH_PROJECTS": "Chercher un projet",
+      "SEARCH_PROJECTS": "Find a project",
       "TITLE": "Projects",
       "ERROR": {
         "CREATE_FAILED": "The creation of the organization has failed"
