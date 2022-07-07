@@ -119,6 +119,6 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showResourceProfile(resourceID) {
-    // TO DO
+    //TODO
   }
 }

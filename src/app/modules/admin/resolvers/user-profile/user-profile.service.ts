@@ -10,7 +10,7 @@ export class UserProfileService {
 
   async getData(id?: string): Promise<any> {
     // Using fuse's mock api to retrieve an assumed current user
-    // TODO: Use back-end services when ready
+    //TODO: Use back-end services when ready
 
     return lastValueFrom(
       this._httpClient.get('api/apps/contacts/all').pipe(
