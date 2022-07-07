@@ -273,7 +273,8 @@
       },
       "MESSAGE": "Gérer les accès pour tous les membres de votre organisation dans ",
       "SEARCH_MEMBERS": " Rechercher un membre",
-      "TITLE": "Members"
+      "TITLE": "Members",
+      "ERROR_LOADING_MEMBERS": "impossible de charger les membres."
     },
     "PROFILE": {
       "DETAILS": {

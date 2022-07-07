@@ -2,13 +2,13 @@ import { Address, Phone } from 'app/models';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Organization, UserOrganizations } from 'app/models/organizations/organization';
+import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
 import { OrganizationType, OrganizationTypeTrasnlation } from 'app/models/organizations/organization-type.enum';
 
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
-import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
 
 @Component({
   selector: 'organization-form',
@@ -46,7 +46,7 @@ export class OrganizationFormComponent implements OnInit {
       province: ['', [Validators.required]],
       street: ['', [Validators.required]],
       labels: [],
-      type: ['', [Validators.required]],
+      organizationType: ['', [Validators.required]],
     });
     this.getUserOrganizations();
   }
@@ -93,6 +93,9 @@ export class OrganizationFormComponent implements OnInit {
 
   private getUserOrganizations() {
     const userId = localStorage.getItem(constants.CURRENT_USER_ID);
+    if (!userId) {
+      return;
+    }
     this._adminOrganizationsService
       .getUserOrganizations(Number(userId))
       .then((organizations = []) => {
@@ -105,10 +108,17 @@ export class OrganizationFormComponent implements OnInit {
   }
 
   private getOrganizationFromFormBuilder(): Organization {
-    const { phoneNumber, phoneCode, labels, type, parent } = this.formGroup.value;
+    const { phoneNumber, phoneCode, labels, parent, organizationType } = this.formGroup.value;
     const phone = new Phone({ phoneNumber, phoneCode });
     const address = new Address({ ...this.formGroup.value });
-    return new Organization({ ...this.formGroup.value, addresses: [address], phones: [phone], labels: [labels], type, parent });
+    return new Organization({
+      ...this.formGroup.value,
+      addresses: [address],
+      phones: [phone],
+      labels: [labels],
+      type: organizationType,
+      parent,
+    });
   }
 
   // ****************************** code for labels that we will need later on ****************************** //

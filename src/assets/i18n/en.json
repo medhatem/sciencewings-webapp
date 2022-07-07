@@ -272,7 +272,8 @@
       },
       "MESSAGE": "Manage Access for all members in your organization in ",
       "SEARCH_MEMBERS": "Search Members",
-      "TITLE": "Members"
+      "TITLE": "Members",
+      "ERROR_LOADING_MEMBERS": "Could not load members."
     },
     "PROFILE": {
       "DETAILS": {

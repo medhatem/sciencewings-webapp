@@ -27,7 +27,6 @@ export class LandingPageComponent implements OnInit {
       const userId = localStorage.getItem(constants.CURRENT_USER_ID);
       this._landingPageService.getAllUserOrganizations(Number(userId)).then((organizations = []) => {
         this.organizations = organizations;
-        console.log('orgs are ', this.organizations);
       });
     } catch (error) {
       this.organizations = [];
@@ -35,7 +34,6 @@ export class LandingPageComponent implements OnInit {
     }
   };
   navigateToOrganizationProfilePage(org: any) {
-    console.log('org is ', org);
-    this._router.navigate(['admin/organization-profile', org.id]);
+    this._router.navigate([this.organizationProfilePage, org.id]);
   }
 }

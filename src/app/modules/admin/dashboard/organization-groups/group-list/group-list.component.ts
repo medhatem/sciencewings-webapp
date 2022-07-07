@@ -1,15 +1,16 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Subject, debounceTime, lastValueFrom, map, switchMap, takeUntil } from 'rxjs';
+
+import { ActivatedRoute } from '@angular/router';
+import { DataService } from 'app/data.service';
 import { FormControl } from '@angular/forms';
-import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
 import { GroupFormComponent } from '../group-form/group-form.component';
+import { GroupService } from 'app/modules/admin/resolvers/groups/groups.service';
+import { InventoryPagination } from '../../organization-profile/profile/organization-profile.component';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { DataService } from 'app/data.service';
-import { MatDialog } from '@angular/material/dialog';
-import { InventoryPagination } from '../../organization-profile/profile/organization-profile.component';
-import { GroupService } from 'app/modules/admin/resolvers/groups/groups.service';
 import { PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-group-list',

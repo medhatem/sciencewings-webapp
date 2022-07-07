@@ -16,26 +16,10 @@ export class OrganizationGroupsComponent implements OnInit {
   ngOnInit(): void {
     this.options = {
       columns: [
-        {
-          name: {
-            name: 'name',
-          },
-        },
-        {
-          status: {
-            name: 'Status',
-          },
-        },
-        {
-          members: {
-            name: 'Members',
-          },
-        },
-        {
-          date: {
-            name: 'date',
-          },
-        },
+        { columnName: 'name', columnPropertyToUse: 'name' },
+        { columnName: 'Status', columnPropertyToUse: 'status' },
+        { columnName: 'Members', columnPropertyToUse: 'members' },
+        { columnName: 'Date', columnPropertyToUse: 'date' },
       ],
     };
     this.groups = this._groupsService.getAllGroupsForOrganization();

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { Subject, lastValueFrom, takeUntil } from 'rxjs';
+import { Subject, lastValueFrom } from 'rxjs';
 
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
@@ -18,11 +18,13 @@ export interface InventoryPagination {
 }
 
 export interface Column {
-  [key: string]: { name: string };
+  columnName: string;
+  columnPropertyToUse: string;
 }
 
 export interface Option {
   columns: Column[];
+  numnberOfColumns?: number;
 }
 
 @Component({
@@ -32,7 +34,7 @@ export interface Option {
 })
 export class ListComponent implements OnInit, OnDestroy {
   @Input() dataList: any[] = [];
-  @Input() options: Option = { columns: [] };
+  @Input() options: Option = { columns: [], numnberOfColumns: 0 };
   @Output() output = new EventEmitter();
 
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
@@ -46,6 +48,7 @@ export class ListComponent implements OnInit, OnDestroy {
   searchInputControl: FormControl = new FormControl();
   keys: any[];
   headers: string[];
+  cols = 4;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -74,17 +77,21 @@ export class ListComponent implements OnInit, OnDestroy {
   openGroupForm() {}
 
   /**
+   * extract the keys and the headers from options.columns
    *
    */
   parseColumns() {
-    this.keys = Array.prototype.concat.apply(
-      [],
-      this.options.columns.map((col) => Object.keys(col).map((key) => key)),
-    );
-    this.headers = Array.prototype.concat.apply(
-      [],
-      this.options.columns.map((col) => Object.keys(col).map((key) => col[key].name)),
-    );
-    console.log('keys are ', this.keys, this.headers);
+    this.keys = this.options.columns.map((col): string => col.columnPropertyToUse);
+    this.headers = this.options.columns.map((col) => col.columnName);
+    if (!this.options.numnberOfColumns) {
+      this.options.numnberOfColumns = this.keys.length;
+    }
+  }
+
+  /**
+   * dynamically create a grid with variable amount of columns
+   */
+  getColumsStyles() {
+    return { 'grid-template-columns': `repeat(${this.options.numnberOfColumns}, 1fr)` };
   }
 }

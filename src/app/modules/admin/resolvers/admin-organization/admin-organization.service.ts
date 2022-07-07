@@ -2,8 +2,8 @@ import { Observable, lastValueFrom, map } from 'rxjs';
 import { Organization, UserOrganizations } from 'app/models/organizations/organization';
 
 import { ApiService } from 'generated/services';
+import { CreateOrganizationDto } from 'generated/models/create-organization-dto';
 import { Injectable } from '@angular/core';
-import { OrganizationDto } from 'generated/models';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class AdminOrganizationsService {
     return lastValueFrom(this._swaggerService.organizationRoutesGetById({ id: Number(id) }).pipe(map((data) => new Organization(data))));
   }
 
-  async createOrganization(organization: Organization): Promise<OrganizationDto> {
+  async createOrganization(organization: Organization): Promise<CreateOrganizationDto> {
     return lastValueFrom(this._swaggerService.organizationRoutesCreateOrganization({ body: organization as any }));
   }
 

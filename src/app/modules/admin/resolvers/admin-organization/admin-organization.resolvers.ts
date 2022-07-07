@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { Organization } from 'app/models/organizations/organization';
+
 import { AdminOrganizationsService } from './admin-organization.service';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -9,10 +9,5 @@ import { AdminOrganizationsService } from './admin-organization.service';
 export class AdminOrganizationResolver implements Resolve<any> {
   constructor(private _myOrganizationsService: AdminOrganizationsService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Organization> {
-    const { id } = route.params || route.data || route.queryParams;
-    if (id) {
-      return this._myOrganizationsService.getOrganization(id);
-    }
-  }
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): void {}
 }

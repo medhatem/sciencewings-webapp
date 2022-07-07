@@ -8,22 +8,20 @@ export const adminOrganizationRoutes: Route[] = [
   {
     path: '',
     component: AdminOrganizationComponent,
-    resolve: {
-      data: AdminOrganizationResolver,
-    },
+    resolve: {},
     children: [
+      {
+        path: 'create',
+        component: OrganizationFormComponent,
+      },
       {
         // TO DO
         // change to path: ':id' , when the change organizations implemented
-        path: ':id',
+        path: ':idOrg',
         component: OrganizationProfileComponent,
         resolve: {
           organization: AdminOrganizationResolver,
         },
-      },
-      {
-        path: 'create',
-        component: OrganizationFormComponent,
       },
     ],
   },

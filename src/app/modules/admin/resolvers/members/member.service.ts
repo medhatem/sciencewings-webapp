@@ -1,8 +1,10 @@
 import { BehaviorSubject, Observable, map, take, tap } from 'rxjs';
+
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserInviteToOrgRo } from 'generated/models';
+import { constants } from 'app/shared/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -57,7 +59,8 @@ export class MemberService {
       );
   }
 
-  getOrgMembers(id: number): Observable<any> {
+  getOrgMembers(orgID?: number): Observable<any> {
+    const id = orgID || Number(localStorage.getItem(constants.USER_ORGANIZATION_ID));
     return this.swaggerAPI.organizationRoutesGetUsers({ id });
   }
 

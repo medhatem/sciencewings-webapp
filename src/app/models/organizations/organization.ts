@@ -8,7 +8,7 @@ export class Organization implements CreateOrganizationRo {
   description: string;
   department?: string;
   sector?: string;
-  address: Address[];
+  addresses: Address[];
   adminContact: number;
   direction: number;
   email: string;
@@ -43,7 +43,7 @@ export class Organization implements CreateOrganizationRo {
       socialTwitter,
       socialYoutube,
       name = '',
-      address = new Array<Address>(),
+      addresses = new Array<Address>(),
       type = OrganizationType.public,
       email = '',
       phones,
@@ -56,7 +56,7 @@ export class Organization implements CreateOrganizationRo {
       description,
       department,
       sector,
-      address,
+      addresses,
       adminContact,
       direction,
       email,

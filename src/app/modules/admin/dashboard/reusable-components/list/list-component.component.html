@@ -27,6 +27,7 @@
           <div class="grid">
             <!-- Header -->
             <div
+              [ngStyle] ="getColumsStyles()" 
               class="inventory-grid text-center z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5 flex align-center"
               matSort
               matSortDisableClear>
@@ -37,9 +38,9 @@
 
             <ng-container *ngIf="dataList">
               <ng-container *ngFor="let item of dataList; index as indexOfelement; trackBy: trackByFn">
-                <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b">
+                <div [ngStyle] ="getColumsStyles()"  class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b cursor-pointer">
                   <ng-container *ngFor="let key of keys">
-                    <div class="flex align-center justify-center">{{ item[key] }}</div>
+                    <div class="flex align-center justify-center" [innerHTML]="item[key]"></div>
                   </ng-container>
                 </div>
               </ng-container>
@@ -57,7 +58,7 @@
           </mat-paginator>
         </ng-container>
         <ng-template #noGroups>
-          <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">{{ 'ORGANIZATION.GROUPS.LIST.MESSAGE' | transloco }}</div>
+          <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">{{ 'ORGANIZATION.MEMBERS.LIST.MESSAGE' | transloco }}</div>
         </ng-template>
       </ng-container>
     </div>
