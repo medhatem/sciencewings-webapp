@@ -55,7 +55,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   }
 
   getFormattedAddress(address: any) {
-    // To do : create a pipe out of this function
+    //TODO : create a pipe out of this function
     const { apart = '', streetNumber = '', street = '', country = '', province = '', postalCode = '' } = address || {};
     return `${apart}-${streetNumber}, ${street}, ${province}, ${country}, ${postalCode}`;
   }

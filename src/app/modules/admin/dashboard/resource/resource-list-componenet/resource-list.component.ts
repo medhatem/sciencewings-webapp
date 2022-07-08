@@ -5,7 +5,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ResourceService } from '../../../resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { DataService } from 'app/data.service';
 
 export interface ResourceType {
   name: string;
@@ -35,7 +34,6 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
     private _resourceService: ResourceService,
     private _toastrService: ToastrService,
     private _changeDetectorRef: ChangeDetectorRef,
-    private data: DataService,
   ) {}
 
   ngOnInit(): void {
@@ -121,6 +119,6 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showResourceProfile(resourceID) {
-    this.data.changeMessage({ resourceID });
+    //TODO
   }
 }

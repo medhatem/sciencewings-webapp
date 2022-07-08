@@ -1,8 +1,7 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject, debounceTime, lastValueFrom, map, switchMap, takeUntil } from 'rxjs';
 
 import { ActivatedRoute } from '@angular/router';
-import { DataService } from 'app/data.service';
 import { FormControl } from '@angular/forms';
 import { GroupFormComponent } from '../group-form/group-form.component';
 import { GroupService } from 'app/modules/admin/resolvers/groups/groups.service';
@@ -34,7 +33,6 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
     private _groupService: GroupService,
     private _changeDetectorRef: ChangeDetectorRef,
     private _matDialog: MatDialog,
-    private data: DataService,
     private _route: ActivatedRoute,
   ) {}
 
@@ -97,6 +95,6 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showGroupProfile(groupID) {
-    this.data.changeMessage({ groupID });
+    //TODO
   }
 }

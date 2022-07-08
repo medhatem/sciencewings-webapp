@@ -12,6 +12,12 @@ import { constants } from 'app/shared/constants';
   encapsulation: ViewEncapsulation.None,
 })
 export class LandingPageComponent implements OnInit {
+  readonly fullCreateOrganizationPath = [
+    '/',
+    constants.MODULES_ROUTINGS_URLS.ADMIN,
+    constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_PROFILE,
+    'create',
+  ];
   readonly componentName = 'LandingPageComponent';
   organizations: UserOrganizations[] = [];
   isLoading: boolean = false;

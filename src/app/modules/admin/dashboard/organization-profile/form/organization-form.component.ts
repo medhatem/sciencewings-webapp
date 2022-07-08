@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Address, Phone } from 'app/models';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -25,14 +26,20 @@ export class OrganizationFormComponent implements OnInit {
   organizationTypeTrasnlation = OrganizationTypeTrasnlation;
   labelsTranslation = OrganizationLabelsTranslation;
   userOrganizations: UserOrganizations[] = [];
+  hasOrganizations: boolean = true;
+
   constructor(
     private _formBuilder: FormBuilder,
     private _adminOrganizationsService: AdminOrganizationsService,
     private _toastrService: ToastrService,
+    private _route: ActivatedRoute,
+    private _router: Router,
   ) {}
 
-  async ngOnInit() {
-    this.formGroup = this._formBuilder.group({
+  ngOnInit() {
+    const { userOrganizations = [] } = this._route.snapshot.data;
+    this.userOrganizations = userOrganizations;
+    const formGroupObj = {
       parent: [],
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -47,13 +54,19 @@ export class OrganizationFormComponent implements OnInit {
       street: ['', [Validators.required]],
       labels: [],
       organizationType: ['', [Validators.required]],
-    });
-    this.getUserOrganizations();
+    };
+
+    if (!this.userOrganizations?.length) {
+      this.hasOrganizations = false;
+      delete formGroupObj.parent;
+    }
+    this.formGroup = this._formBuilder.group(formGroupObj);
   }
 
   /**
-   * create a new organization
-   * Validate if the form data is valid first
+   * 1 - Validate if the form data is valid first
+   * 2 - create a new organization
+   * 3 - redirect to dashboard page if success
    *
    */
   async onSubmit() {
@@ -66,6 +79,7 @@ export class OrganizationFormComponent implements OnInit {
     try {
       await this._adminOrganizationsService.createOrganization(organization);
       this._toastrService.showSuccess(constants.CREATE_ORGANIZATION_COMPLETED);
+      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.LANDING_PAGE]);
     } catch (error) {
       this._toastrService.showError(constants.CREATE_ORGANIZATION_FAILED);
     }
@@ -91,22 +105,12 @@ export class OrganizationFormComponent implements OnInit {
   // @ Private methods
   // -----------------------------------------------------------------------------------------------------
 
-  private getUserOrganizations() {
-    const userId = localStorage.getItem(constants.CURRENT_USER_ID);
-    if (!userId) {
-      return;
-    }
-    this._adminOrganizationsService
-      .getUserOrganizations(Number(userId))
-      .then((organizations = []) => {
-        this.userOrganizations = organizations;
-      })
-      .catch((err) => {
-        this.userOrganizations = [];
-        this._toastrService.showInfo('SWITCH_ORGANIZATIONS_LOAD_FAILED');
-      });
-  }
-
+  /**
+   *
+   * fetchs the values in the formBuilder and returns a clean Organization object
+   *
+   * @returns Organization
+   */
   private getOrganizationFromFormBuilder(): Organization {
     const { phoneNumber, phoneCode, labels, parent, organizationType } = this.formGroup.value;
     const phone = new Phone({ phoneNumber, phoneCode });
