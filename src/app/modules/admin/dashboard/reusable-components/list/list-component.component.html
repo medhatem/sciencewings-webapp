@@ -1,9 +1,9 @@
   <div>
-    <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded min-w-64">
+    <!-- <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded min-w-64">
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
       <input matInput [formControl]="searchInputControl" [autocomplete]="'off'" [placeholder]="'Search Groups'" />
-    </mat-form-field>
-    <button class="ml-4" mat-flat-button [color]="'primary'" routerLinkActive="active" [routerLink]="['/groups/group/create']">
+    </mat-form-field> -->
+    <!-- <button class="ml-4" mat-flat-button [color]="'primary'" routerLinkActive="active" [routerLink]="['/groups/group/create']">
       <mat-icon [svgIcon]="'heroicons_outline:adjustments'"></mat-icon>
       <span class="ml-2 mr-1">{{ 'ORGANIZATION.GROUPS.FILTER_GROUPS' | transloco }}</span>
     </button>
@@ -14,7 +14,7 @@
     <button class="ml-4" mat-flat-button [color]="'primary'" routerLinkActive="active" [routerLink]="['/groups/group/create']">
       <mat-icon [svgIcon]="'heroicons_outline:download'"></mat-icon>
       <span class="ml-2 mr-1">{{ 'ORGANIZATION.GROUPS.EXPORT_GROUPS' | transloco }}</span>
-    </button>
+    </button> -->
   </div>
   <br />
   <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4"></div>
@@ -24,7 +24,7 @@
     <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
       <ng-container *ngIf="dataList">
         <ng-container *ngIf="dataList.length > 0; else noGroups">
-          <div class="grid">
+          <div class="grid" [ngStyle]="{'max-height': '60vh'}" >
             <!-- Header -->
             <div
               [ngStyle] ="getColumsStyles()" 
