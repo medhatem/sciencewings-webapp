@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { lastValueFrom } from 'rxjs';
 
 export interface DialogData {
   orgID: number;
@@ -32,14 +33,13 @@ export class MemberFormComponent implements OnInit {
     });
   }
 
-  public invite(): void {
+  async invite(): Promise<void> {
     try {
-      this._memberService.inviteUserToOrganization(this.data.orgID, this.memberForm.value.email).subscribe(({ body }) => {
-        if (body.statusCode === 500) {
-          throw new Error('');
-        }
-        this.matDialogRef.close(body);
-      });
+      const response = await lastValueFrom(this._memberService.inviteUserToOrganization(this.data.orgID, this.memberForm.value.email));
+      if (response.statusCode === 500) {
+        throw new Error('');
+      }
+      this.matDialogRef.close(response);
     } catch (error) {
       this._toastrService.showError('Something went wrong!');
       this.matDialogRef.close({});

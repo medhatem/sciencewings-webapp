@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, map, take, tap } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Member } from 'app/models/Member';
 import { UserInviteToOrgRo } from 'generated/models';
 import { constants } from 'app/shared/constants';
 
@@ -62,6 +63,24 @@ export class MemberService {
   getOrgMembers(orgID?: number): Observable<any> {
     const id = orgID || Number(localStorage.getItem(constants.USER_ORGANIZATION_ID));
     return this.swaggerAPI.organizationRoutesGetUsers({ id });
+  }
+
+  getAndParseOrganizationMember(id?: number): Observable<any[]> {
+    return this.getOrgMembers(id).pipe(
+      map((members) => members.body.data.map((member) => new Member(member))),
+      map((result: any[]) =>
+        result.map((m: Member): any => ({
+          role: 'Member',
+          profile: `${m.name}<br>
+                              ${m.workEmail}`,
+          status: m.status,
+          date: m.joinDate,
+        })),
+      ),
+      tap((response) => {
+        this._members.next(response);
+      }),
+    );
   }
 
   inviteUserToOrganization(organizationId: number, email: string): Observable<any> {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { lastValueFrom, map } from 'rxjs';
 
+import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Member } from 'app/models/Member';
 import { MemberFormComponent } from './member-form/member-form.component';
@@ -8,6 +8,7 @@ import { MemberService } from '../../resolvers/members/member.service';
 import { Option } from '../reusable-components/list/list-component.component';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'organizationmembers',
@@ -23,10 +24,10 @@ export class OrganizationMemebrsComponent implements OnInit {
     private _memberService: MemberService,
     private _matDialog: MatDialog,
     private _toastrService: ToastrService,
-    private cdRef: ChangeDetectorRef,
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.options = {
       columns: [
         { columnName: 'Profile', columnPropertyToUse: 'profile' },
@@ -36,7 +37,11 @@ export class OrganizationMemebrsComponent implements OnInit {
       ],
       numnberOfColumns: 4,
     };
-    this.getMembers();
+
+    this._memberService.members$.subscribe((members: Member[]) => {
+      this.members = members;
+      this._changeDetectorRef.markForCheck();
+    });
   }
 
   openInviteMemberDialog(): void {
@@ -48,27 +53,7 @@ export class OrganizationMemebrsComponent implements OnInit {
       data: { orgID },
     });
     this.openedDialogRef.afterClosed().subscribe((result) => {
-      this.getMembers();
+      lastValueFrom(this._memberService.getAndParseOrganizationMember());
     });
-  }
-
-  getMembers(id?: number) {
-    try {
-      lastValueFrom(this._memberService.getOrgMembers(id).pipe(map((members) => members.body.data.map((member) => new Member(member))))).then(
-        (members: Member[]) => {
-          this.members = members.map((m: Member): any => ({
-            role: 'Member',
-            profile: `${m.name}<br> 
-                      ${m.workEmail}`,
-            status: m.status,
-            date: m.joinDate,
-          }));
-          this.cdRef.detectChanges();
-        },
-      );
-    } catch (error) {
-      this.members = [];
-      this._toastrService.showError(constants.ERROR_LOADING_MEMBERS);
-    }
   }
 }
