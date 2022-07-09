@@ -5,7 +5,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { InventoryPagination } from '../../organization-profile/profile/organization-profile.component';
 import { MatDialog } from '@angular/material/dialog';
-import { DataService } from 'app/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
 import { ProjectFormComponent } from '../project-form/project-form.component';
@@ -32,7 +31,6 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     private _projectService: ProjectService,
     private _changeDetectorRef: ChangeDetectorRef,
     private _matDialog: MatDialog,
-    private data: DataService,
     private _route: ActivatedRoute,
   ) {}
 
@@ -95,9 +93,5 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   closeDetails(): void {
     this.selectedProjects = null;
-  }
-
-  showProjectProfile(projectID) {
-    this.data.changeMessage({ projectID });
   }
 }

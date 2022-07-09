@@ -348,7 +348,7 @@
       "EXPORT_PROJECTS": "Export",
       "FILTER_PROJECTS": "Filter",
       "FORM": {
-        "LABEL_NAME": "Project Name",
+        "LABEL_NAME": "Title",
         "CANCEL": "Cancel",
         "DESCRIPTION": "About (description)",
         "PROJECT_MEMBERS": "Project's Members",
@@ -365,9 +365,10 @@
         "LABELS_CONFIRMED": "Confirmed",
         "LABELS_CRITICAL": "Critique",
         "LABELS_SUGGESTION": "Suggestion",
-
-        "SUPERVISOR": "Supervisor(s)",
-        "Teammates": "Teammates"
+        "MANAGERS": "Manager(s)",
+        "PARTICIPANTS": "Participant(s)",
+        "STARTDATE": "Starting date",
+        "FINISHDATE": "Finishing date"
       },
       "IMPORT_PROJECTS": "Import",
       "LIST": {

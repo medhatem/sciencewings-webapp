@@ -1,8 +1,15 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'app/core/toastr/toastr.service';
+import { OrganizationMembers } from 'app/models/members/member';
 import { ProjectLabels, ProjectLabelsTranslation } from 'app/models/projects/project-lables.enum';
 import { ProjectType, ProjectTypeTrasnlation } from 'app/models/projects/project-type';
+import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
+import { constants } from 'app/shared/constants';
+import { MatNativeDateModule } from '@angular/material/core';
+import { Project } from 'app/models/project';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-form',
@@ -10,6 +17,8 @@ import { ProjectType, ProjectTypeTrasnlation } from 'app/models/projects/project
   encapsulation: ViewEncapsulation.None,
 })
 export class ProjectFormComponent implements OnInit {
+  @Input() project: any;
+
   projectForm: FormGroup;
   isInvitationPersonalize: boolean = false;
   projectTypesKeys = Object.keys(ProjectType).map((key) => key);
@@ -18,19 +27,46 @@ export class ProjectFormComponent implements OnInit {
   labelsKeys = Object.keys(ProjectLabels);
   labels = ProjectLabels;
   labelsTranslation = ProjectLabelsTranslation;
+  organizationMembers: OrganizationMembers[] = [];
+  managers: [] = [];
+  participants: [] = [];
 
-  constructor(public matDialogRef: MatDialogRef<ProjectFormComponent>, private _formBuilder: FormBuilder) {}
+  constructor(
+    public matDialogRef: MatDialogRef<ProjectFormComponent>,
+    private _formBuilder: FormBuilder,
+    private _ProjectService: ProjectService,
+    private _toastrService: ToastrService,
+    private _router: Router,
+  ) {}
 
-  ngOnInit(): void {
-    this.projectForm = this._formBuilder.group({
-      name: ['', [Validators.required, Validators.name]],
-      member: [''],
-      number: [''],
-      location: [''],
+  async ngOnInit() {
+    this.organizationMembers = await this.getMembers();
+    const projectFormObj = {
+      title: ['', [Validators.required, Validators.name]],
       description: [''],
-      type: [''],
-      labels: [''],
-    });
+      managers: [],
+      participants: [],
+      dateStart: [''],
+      dateEnd: [''],
+      active: false,
+    };
+
+    this.projectForm = this._formBuilder.group(projectFormObj);
+  }
+  async onSubmit() {
+    if (!this.projectForm.valid) {
+      this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
+      return;
+    }
+
+    const project = this.getProjectFromFormBuilder();
+    try {
+      await this._ProjectService.createProject(project);
+      this._toastrService.showSuccess(constants.CREATE_PROJECT_COMPLETED);
+      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.LANDING_PAGE]);
+    } catch (error) {
+      this._toastrService.showError(constants.CREATE_PROJECT_FAILED);
+    }
   }
   /**
    *
@@ -41,5 +77,27 @@ export class ProjectFormComponent implements OnInit {
    */
   trackByFn(index: number, item: any): any {
     return item.id || index;
+  }
+  checkDates(group: FormGroup) {
+    if (group.controls.endDate.value < group.controls.startDate.value) {
+      return { notValid: true };
+    }
+    return null;
+  }
+  private async getMembers() {
+    const idOrg = this.getOrganization();
+    try {
+      return await this._ProjectService.getMembers(idOrg);
+    } catch (error) {
+      this.organizationMembers = [];
+
+      this._toastrService.showInfo('SWITCH_ORGANIZATIONS_LOAD_FAILED');
+    }
+  }
+  private getProjectFromFormBuilder(): Project {
+    return new Project({ ...this.projectForm.value, organization: this.getOrganization() });
+  }
+  private getOrganization(): number {
+    return Number(localStorage.getItem(constants.USER_ORGANIZATION_ID));
   }
 }

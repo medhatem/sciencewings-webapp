@@ -1,17 +1,18 @@
-import { ProjectRo } from 'generated/models';
+import { CreateOrganizationRo, ProjectRo } from 'generated/models';
 
 export class Project implements ProjectRo {
+  id?: string;
   active: boolean;
   dateEnd?: string;
   dateStart: string;
   description: string;
-  managers: Array<number>;
+  managers: number[];
   organization: number;
-  participants: Array<number>;
+  participants: number[];
   title: string;
 
-  constructor(project?: any) {
-    const { active, dateEnd, dateStart, description, managers, organization, participants, tags, tasks, title } = project || {};
+  constructor(project: any) {
+    const { id, active, dateEnd, dateStart, description, managers, organization, participants, title } = project || {};
     Object.assign(this, {
       active,
       dateEnd,
@@ -22,5 +23,9 @@ export class Project implements ProjectRo {
       participants,
       title,
     });
+
+    if (id) {
+      this.id = id;
+    }
   }
 }

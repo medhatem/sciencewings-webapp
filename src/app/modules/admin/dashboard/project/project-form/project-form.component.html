@@ -7,33 +7,43 @@
   <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="projectForm">
     <mat-form-field class="flex-auto mx-4">
       <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.LABEL_NAME' | transloco }}</mat-label>
-      <input matInput [formControlName]="'name'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PROJECT_NAME' | transloco }}" required />
+      <input matInput [formControlName]="'title'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PROJECT_NAME' | transloco }}" required />
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
     </mat-form-field>
-    <mat-form-field class="flex-auto mx-4">
-      <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.NUMBER' | transloco }}</mat-label>
-      <input matInput [formControlName]="'number'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.NUMBER' | transloco }}" required />
-      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
-    </mat-form-field>
-    <mat-form-field class="flex-auto mx-4">
-      <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.LOCATION' | transloco }}</mat-label>
-      <input matInput [formControlName]="'location'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.LOCATION' | transloco }}" required />
-      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
-    </mat-form-field>
-    <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
-      <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.TYPE' | transloco }}</mat-label>
-      <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.TYPE' | transloco }}">
-        <mat-option *ngFor="let projectTypesKey of projectTypesKeys; trackBy: trackByFn" [value]="projectType[projectTypesKey]"
-          >{{ projectTypeTrasnlation[projectTypesKey] | transloco }}
-        </mat-option>
-      </mat-select>
-      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
-    </mat-form-field>
-    <mat-form-field class="flex-auto mx-4">
-      <input matInput [formControlName]="'member'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PROJECT_MEMBERS' | transloco }}" />
-      <mat-label>Key</mat-label>
-      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
-      <input matInput [formControlName]="'Add Members to Group'" />
+    <div class="flex-auto mx-4">
+      <div class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+        <mat-label class="w-100">{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}</mat-label>
+        <ng-select placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}" [multiple]="true" [(ngModel)]="managers">
+          <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.memberId">
+            {{ organizationMember.name }}
+          </ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <div class="flex-auto mx-4">
+      <div class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+        <mat-label class="w-100">{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}</mat-label>
+        <ng-select placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}" [multiple]="true" [(ngModel)]="participants">
+          <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.memberId">
+            {{ organizationMember.name }}
+          </ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <mat-form-field appearance="fill" class="example-form-field flex-auto mx-4">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="rangePicker">
+        <input [formControlName]="'dateStart'" matStartDate placeholder="Start date" />
+        <input [formControlName]="'dateEnd'" matEndDate placeholder="End date" />
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matPrefix [for]="rangePicker"></mat-datepicker-toggle>
+      <mat-date-range-picker #rangePicker>
+        <mat-date-range-picker-actions>
+          <button mat-button matDateRangePickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
     </mat-form-field>
     <mat-form-field class="flex-auto mx-4">
       <mat-label>Description</mat-label>
@@ -42,19 +52,13 @@
         [formControlName]="'description'"
         placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.DESCRIPTION' | transloco }}"
         [rows]="3"></textarea>
-      <!-- Body -->
     </mat-form-field>
-    <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
-      <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.LABELS' | transloco }}</mat-label>
-      <mat-select [formControlName]="'labels'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.NUMBER' | transloco }}">
-        <mat-option *ngFor="let label of labelsKeys; trackBy: trackByFn" [value]="labels[label]"
-          >{{ labelsTranslation[label] | transloco }}
-        </mat-option>
-      </mat-select>
-      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
-    </mat-form-field>
+    <section class="example-section flex-auto mx-4">
+      <p><mat-checkbox formControlName="active">active</mat-checkbox></p>
+    </section>
+    <!-- Body -->
     <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
-      <button mat-button mat-dialog-close>Save</button>
+      <button mat-button mat-dialog-close (click)="onSubmit()">Save</button>
       <button class="px-6 ml-3" mat-flat-button [color]="'primary'" [mat-dialog-close]="true">Cancel</button>
     </div>
     <!-- Actions -->

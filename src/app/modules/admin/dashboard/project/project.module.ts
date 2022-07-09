@@ -9,9 +9,20 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ProjectFormComponent } from './project-form/project-form.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [ProjectComponent, ProjectListComponent, ProjectFormComponent],
-  imports: [RouterModule.forChild(projectRoutes), SharedModule, NgSelectModule, TranslocoModule, MatFormFieldModule, FuseFindByKeyPipeModule],
+  imports: [
+    RouterModule.forChild(projectRoutes),
+    MatDatepickerModule,
+    SharedModule,
+    NgSelectModule,
+    TranslocoModule,
+    MatFormFieldModule,
+    FuseFindByKeyPipeModule,
+    MatNativeDateModule,
+  ],
 })
 export class ProjectModule {}
