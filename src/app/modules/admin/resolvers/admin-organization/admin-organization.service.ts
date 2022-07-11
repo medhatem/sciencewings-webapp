@@ -3,7 +3,7 @@ import { Organization, UserOrganizations } from 'app/models/organizations/organi
 
 import { ApiService } from 'generated/services';
 import { Injectable } from '@angular/core';
-import { OrganizationDto } from 'generated/models';
+import { CreateOrganizationDto, OrganizationDto } from 'generated/models';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 
@@ -17,7 +17,7 @@ export class AdminOrganizationsService {
     return lastValueFrom(this._swaggerService.organizationRoutesGetById({ id: Number(id) }).pipe(map((data) => new Organization(data))));
   }
 
-  async createOrganization(organization: Organization): Promise<OrganizationDto> {
+  async createOrganization(organization: Organization): Promise<CreateOrganizationDto> {
     return lastValueFrom(this._swaggerService.organizationRoutesCreateOrganization({ body: organization as any }));
   }
 
