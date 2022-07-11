@@ -36,7 +36,11 @@ export class NewUserInfosResolver implements Resolve<any> {
           if (error) {
             throw Error(`${error}`);
           }
-          localStorage.setItem(constants.CURRENT_USER_ID, `${body.id}`);
+          localStorage.setItem(
+            constants.CURRENT_USER_ID,
+            `${body.data[0].id}
+          `,
+          );
           return new User(body);
         }),
       ),
