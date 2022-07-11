@@ -1,4 +1,4 @@
-import { CreateOrganizationRo, MemberBodyDto, MemberRo, OrganizationDto, UserDto } from 'generated/models';
+import { CreateOrganizationRo, MemberBodyDto, MemberDto, MemberRo, OrganizationDto, UserDto } from 'generated/models';
 
 export class Member implements MemberRo {
   id?: number;
@@ -109,15 +109,15 @@ export class Member implements MemberRo {
     }
   }
 }
-export class OrganizationMembers implements MemberBodyDto {
+export class OrganizationMembers implements MemberDto {
   id: number;
   name: string;
   active: boolean;
   joinDate: string;
-  organization: OrganizationDto;
+  organization: number;
   status: string;
   statusCode: number;
-  user: UserDto;
+  user: number;
   workEmail: string;
 
   constructor(memberDto: any) {
