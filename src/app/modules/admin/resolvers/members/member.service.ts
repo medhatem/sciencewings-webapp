@@ -75,6 +75,7 @@ export class MemberService {
                               ${m.workEmail}`,
           status: m.status,
           date: m.joinDate,
+          ...m,
         })),
       ),
       tap((response) => {
@@ -93,8 +94,8 @@ export class MemberService {
   updateMember(id: number, body): Observable<any> {
     return this.swaggerAPI.memberRoutesUpdate({ id, body });
   }
-  getMember(id: number): Observable<any> {
-    return this.swaggerAPI.memberRoutesGetById({ id });
+  getMember(orgId: number, userId: number): Observable<any> {
+    return this.swaggerAPI.memberRoutesGetMemberProfile({ orgId, userId });
   }
   deleteMember(id: number): Observable<any> {
     return this.swaggerAPI.memberRoutesRemove({ id });

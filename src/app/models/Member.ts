@@ -42,6 +42,7 @@ export class Member implements MemberRo {
   workPermitScheduledActivity?: boolean;
   workPhone?: Phone;
   joinDate?: string;
+  user?: number;
 
   constructor(member: any) {
     const {
@@ -84,6 +85,7 @@ export class Member implements MemberRo {
       workPermitScheduledActivity,
       workPhone,
       joinDate,
+      user,
     } = member || {};
     Object.assign(this, {
       active,
@@ -125,6 +127,7 @@ export class Member implements MemberRo {
       workPermitScheduledActivity,
       workPhone,
       joinDate,
+      user,
     });
 
     if (id) {

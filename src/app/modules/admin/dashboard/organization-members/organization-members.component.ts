@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Member } from 'app/models/Member';
 import { MemberFormComponent } from './member-form/member-form.component';
 import { MemberService } from '../../resolvers/members/member.service';
 import { Option } from '../reusable-components/list/list-component.component';
+import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { lastValueFrom } from 'rxjs';
@@ -18,13 +18,14 @@ import { lastValueFrom } from 'rxjs';
 })
 export class OrganizationMemebrsComponent implements OnInit {
   members: any[] = [];
-  options: Option = { columns: [] };
+  options: Option = { columns: [], numnberOfColumns: 4 };
   openedDialogRef: any;
   constructor(
     private _memberService: MemberService,
     private _matDialog: MatDialog,
     private _toastrService: ToastrService,
     private _changeDetectorRef: ChangeDetectorRef,
+    private _router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +37,7 @@ export class OrganizationMemebrsComponent implements OnInit {
         { columnName: 'Joined', columnPropertyToUse: 'date' },
       ],
       numnberOfColumns: 4,
+      onElementClick: this.onElementSelected.bind(this),
     };
 
     this._memberService.members$.subscribe((members: Member[]) => {
@@ -55,5 +57,9 @@ export class OrganizationMemebrsComponent implements OnInit {
     this.openedDialogRef.afterClosed().subscribe((result) => {
       lastValueFrom(this._memberService.getAndParseOrganizationMember());
     });
+  }
+
+  async onElementSelected(item: Member) {
+    this._router.navigate(['/admin/organization-members/memberProfile', item.organization, item.user]);
   }
 }

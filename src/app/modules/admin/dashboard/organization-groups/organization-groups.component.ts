@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 
+import { GroupFormComponent } from './group-form/group-form.component';
+import { MatDialog } from '@angular/material/dialog';
 import { Option } from '../reusable-components/list/list-component.component';
 import { OrganizationGroupService } from './organization-groups.service';
 
@@ -12,7 +14,7 @@ import { OrganizationGroupService } from './organization-groups.service';
 export class OrganizationGroupsComponent implements OnInit {
   groups: any[] = [];
   options: Option = { columns: [] };
-  constructor(private _groupsService: OrganizationGroupService) {}
+  constructor(private _groupsService: OrganizationGroupService, private _matDialog: MatDialog) {}
   ngOnInit(): void {
     this.options = {
       columns: [
@@ -25,5 +27,8 @@ export class OrganizationGroupsComponent implements OnInit {
     this.groups = this._groupsService.getAllGroupsForOrganization();
   }
 
-  createGroup() {}
+  createGroup(): void {
+    const dialogRef = this._matDialog.open(GroupFormComponent);
+    dialogRef.afterClosed().subscribe((result) => {});
+  }
 }
