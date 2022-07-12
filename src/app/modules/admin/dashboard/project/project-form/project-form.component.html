@@ -10,41 +10,55 @@
       <input matInput [formControlName]="'title'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PROJECT_NAME' | transloco }}" required />
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
     </mat-form-field>
-    <div class="flex-auto mx-4">
+    <div class="flex-auto mx-4" *ngIf="organizationMembers?.length">
       <div class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
         <mat-label class="w-100">{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}</mat-label>
-        <ng-select placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}" [multiple]="true" [(ngModel)]="managers">
+        <ng-select placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}" [multiple]="true" [formControlName]="'managers'">
           <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.memberId">
             {{ organizationMember.name }}
           </ng-option>
         </ng-select>
       </div>
     </div>
-    <div class="flex-auto mx-4">
+    <div class="flex-auto mx-4" *ngIf="organizationMembers?.length">
       <div class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
         <mat-label class="w-100">{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}</mat-label>
-        <ng-select placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}" [multiple]="true" [(ngModel)]="participants">
+        <ng-select
+          placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}"
+          [multiple]="true"
+          [formControlName]="'participants'">
           <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.memberId">
             {{ organizationMember.name }}
           </ng-option>
         </ng-select>
       </div>
     </div>
-    <mat-form-field appearance="fill" class="example-form-field flex-auto mx-4">
-      <mat-label>Enter a date range</mat-label>
-      <mat-date-range-input [rangePicker]="rangePicker">
-        <input [formControlName]="'dateStart'" matStartDate placeholder="Start date" />
-        <input [formControlName]="'dateEnd'" matEndDate placeholder="End date" />
-      </mat-date-range-input>
-      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matPrefix [for]="rangePicker"></mat-datepicker-toggle>
-      <mat-date-range-picker #rangePicker>
-        <mat-date-range-picker-actions>
-          <button mat-button matDateRangePickerCancel>Cancel</button>
-          <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
-        </mat-date-range-picker-actions>
-      </mat-date-range-picker>
-    </mat-form-field>
+    <div class="mt-8">
+      <mat-form-field class="fuse-mat-no-subscript w-full">
+        <mat-label>{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}</mat-label>
+        <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:cake'"></mat-icon>
+        <input
+          matInput
+          [matDatepicker]="birthdayDatepicker"
+          [formControl]="projectForm.controls['dateStart']"
+          placeholder="{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}" />
+        <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker"> </mat-datepicker-toggle>
+        <mat-datepicker #birthdayDatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="mt-8">
+      <mat-form-field class="fuse-mat-no-subscript w-full">
+        <mat-label>{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}</mat-label>
+        <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:cake'"></mat-icon>
+        <input
+          matInput
+          [matDatepicker]="birthdayDatepicker"
+          [formControl]="projectForm.controls['dateEnd']"
+          placeholder="{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}" />
+        <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker"> </mat-datepicker-toggle>
+        <mat-datepicker #birthdayDatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
     <mat-form-field class="flex-auto mx-4">
       <mat-label>Description</mat-label>
       <textarea

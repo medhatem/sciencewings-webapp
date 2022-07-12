@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { OrganizationMembers } from 'app/models/members/member';
@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 })
 export class ProjectFormComponent implements OnInit {
   @Input() project: any;
+  @Input() deadline: any;
 
   projectForm: FormGroup;
   isInvitationPersonalize: boolean = false;
@@ -27,7 +28,7 @@ export class ProjectFormComponent implements OnInit {
   labelsKeys = Object.keys(ProjectLabels);
   labels = ProjectLabels;
   labelsTranslation = ProjectLabelsTranslation;
-  organizationMembers: OrganizationMembers[] = [];
+  organizationMembers: OrganizationMembers[];
   managers: [] = [];
   participants: [] = [];
 
@@ -39,15 +40,16 @@ export class ProjectFormComponent implements OnInit {
     private _router: Router,
   ) {}
 
-  async ngOnInit() {
-    this.organizationMembers = await this.getMembers();
+  ngOnInit() {
+    this.getMembers();
     const projectFormObj = {
-      title: ['', [Validators.required, Validators.name]],
+      title: ['', [Validators.required]],
       description: [''],
       managers: [],
       participants: [],
-      dateStart: [''],
-      dateEnd: [''],
+      dateStart: this.deadline.dateStart,
+      dateEnd: this.deadline.dateEnd,
+
       active: false,
     };
 
@@ -84,15 +86,14 @@ export class ProjectFormComponent implements OnInit {
     }
     return null;
   }
-  private async getMembers() {
+  private getMembers() {
     const idOrg = this.getOrganization();
-    try {
-      return await this._ProjectService.getMembers(idOrg);
-    } catch (error) {
-      this.organizationMembers = [];
-
-      this._toastrService.showInfo('SWITCH_ORGANIZATIONS_LOAD_FAILED');
-    }
+    return this._ProjectService
+      .getMembers(idOrg)
+      .then((resolve) => (this.organizationMembers = resolve))
+      .catch(() => {
+        this._toastrService.showInfo('SWITCH_ORGANIZATIONS_LOAD_FAILED');
+      });
   }
   private getProjectFromFormBuilder(): Project {
     return new Project({ ...this.projectForm.value, organization: this.getOrganization() });
