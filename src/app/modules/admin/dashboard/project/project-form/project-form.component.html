@@ -14,7 +14,7 @@
       <div class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
         <mat-label class="w-100">{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}</mat-label>
         <ng-select placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}" [multiple]="true" [formControlName]="'managers'">
-          <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.memberId">
+          <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.user">
             {{ organizationMember.name }}
           </ng-option>
         </ng-select>
@@ -22,45 +22,34 @@
     </div>
     <div class="flex-auto mx-4" *ngIf="organizationMembers?.length">
       <div class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
-        <mat-label class="w-100">{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}</mat-label>
+        <mat-label class="w-100" required>{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}</mat-label>
         <ng-select
           placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}"
           [multiple]="true"
           [formControlName]="'participants'">
-          <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.memberId">
+          <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.user">
             {{ organizationMember.name }}
           </ng-option>
         </ng-select>
       </div>
     </div>
-    <div class="mt-8">
-      <mat-form-field class="fuse-mat-no-subscript w-full">
-        <mat-label>{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}</mat-label>
-        <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:cake'"></mat-icon>
-        <input
-          matInput
-          [matDatepicker]="birthdayDatepicker"
-          [formControl]="projectForm.controls['dateStart']"
-          placeholder="{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}" />
-        <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker"> </mat-datepicker-toggle>
-        <mat-datepicker #birthdayDatepicker></mat-datepicker>
-      </mat-form-field>
-    </div>
-    <div class="mt-8">
-      <mat-form-field class="fuse-mat-no-subscript w-full">
-        <mat-label>{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}</mat-label>
-        <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:cake'"></mat-icon>
-        <input
-          matInput
-          [matDatepicker]="birthdayDatepicker"
-          [formControl]="projectForm.controls['dateEnd']"
-          placeholder="{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}" />
-        <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker"> </mat-datepicker-toggle>
-        <mat-datepicker #birthdayDatepicker></mat-datepicker>
-      </mat-form-field>
-    </div>
+    <mat-form-field appearance="fill" class="example-form-field flex-auto mx-4">
+      <mat-label required>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="rangePicker">
+        <input [formControlName]="'dateStart'" matStartDate placeholder="Start date" required />
+        <input [formControlName]="'dateEnd'" matEndDate placeholder="End date" required />
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matPrefix [for]="rangePicker"></mat-datepicker-toggle>
+      <mat-date-range-picker #rangePicker>
+        <mat-date-range-picker-actions>
+          <button mat-button matDateRangePickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
+    </mat-form-field>
     <mat-form-field class="flex-auto mx-4">
-      <mat-label>Description</mat-label>
+      <mat-label required>Description</mat-label>
       <textarea
         matInput
         [formControlName]="'description'"
@@ -72,8 +61,8 @@
     </section>
     <!-- Body -->
     <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
-      <button mat-button mat-dialog-close (click)="onSubmit()">Save</button>
-      <button class="px-6 ml-3" mat-flat-button [color]="'primary'" [mat-dialog-close]="true">Cancel</button>
+      <button mat-button mat-dialog-close mat-flat-button [color]="'primary'" (click)="onSubmit()">Save</button>
+      <button class="px-6 ml-3" [mat-dialog-close]="true">Cancel</button>
     </div>
     <!-- Actions -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
