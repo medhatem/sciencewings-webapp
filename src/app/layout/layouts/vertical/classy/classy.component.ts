@@ -7,7 +7,7 @@ import {
   FuseVerticalNavigationComponent,
 } from '@fuse/components/navigation';
 import { Subject, takeUntil } from 'rxjs';
-import { appRoutes, errorPath } from 'app/app.routing';
+import { appRoutes } from 'app/app.routing';
 
 import { CookieService } from 'ngx-cookie-service';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
@@ -45,43 +45,45 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   ) {}
 
   /**
-   * Getter for current year
+   * Getter of the current year
    */
   get currentYear(): number {
     return new Date().getFullYear();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.resetNavigation(changes.hideMenusAndButtons.currentValue);
-  }
-
   ngOnInit(): void {
     const { userData } = this._route.snapshot.data;
-    //this.resetNavigation(this.hideMenusAndButtons);
-
+    this._router.onSameUrlNavigation = 'ignore';
+    /**
+     * Set ADMINISTRATION module by default
+     */
+    if (!localStorage.getItem(constants.MODULE_ROUTING_URL)) {
+      localStorage.setItem(constants.MODULE_ROUTING_URL, constants.MODULES_ROUTINGS_URLS.ADMIN);
+    }
+    /**
+     * Temporary modification until implementation of images handling and User status
+     */
     this.user = {
       ...userData,
       avatar: 'assets/images/avatars/brian-hughes.jpg',
       status: 'online',
     };
-
-    // Subscribe to media changes
-    this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
-      // Check if the screen is small
-      this.isScreenSmall = !matchingAliases.includes('md');
-    });
-
+    /**
+     * Subscribe to media changes
+     * Check if the screen is small
+     */
     this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
       this.isScreenSmall = !matchingAliases.includes('md');
     });
   }
 
-  /**
-   * On destroy
-   */
   ngOnDestroy(): void {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.resetNavigation(changes.hideMenusAndButtons.currentValue);
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -104,7 +106,9 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   /**
-   * Hide/Show navigation
+   * Hide/Show the fullscreen Loading page
+   * this can be called whenever you need to show loading page and rechecking routes
+   * hideNavigation: Hide/Show navigation menu
    *
    * @param hideNavigation
    */
@@ -118,9 +122,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       if (hideNavigation) {
         this.navigation = [];
       } else {
-        const url = this._coookies.get(constants.ROUTING_URL) || constants.ROUTINGS_URLS.ADMIN;
-        const routesToDisplay = appRoutes[0].children.find(({ path }) => path === url);
+        const moduleUrl = localStorage.getItem(constants.MODULE_ROUTING_URL) || constants.MODULES_ROUTINGS_URLS.ADMIN;
+        const routesToDisplay = appRoutes[0].children.find(({ path }) => path === moduleUrl);
         this.navigation = this.getNavigationItemsFromRoutes(routesToDisplay.children, `/${routesToDisplay.path}`);
+        this.redirectToParentOrFirstChild(routesToDisplay);
       }
     } catch (error) {
       this._toastrService.showError(constants.FATAL_ERROR_OCCURED);
@@ -140,8 +145,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    * @params url: string
    */
   onSwitchModule(url: string) {
-    this._coookies.set(constants.ROUTING_URL, url);
-    this._router.resetConfig(appRoutes[0].children.find(({ path }) => path === url).children);
+    localStorage.setItem(constants.MODULE_ROUTING_URL, url);
     this.resetNavigation(false);
   }
 
@@ -161,8 +165,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   // -----------------------------------------------------------------------------------------------------
 
   /**
-   * Build navigation array of FuseNavigationItem
-   * from routes of type { Route } from '@angular/router';
+   * Build navigation array of FuseNavigationItem items.
+   * Takes a list of routes and the parent path,
+   * then builds the navigation menu based on the data of the routes.
+   * Note: from routes of type { Route } from '@angular/router';
    *
    * @param routes
    * @param parentPath (optional)
@@ -170,7 +176,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   private getNavigationItemsFromRoutes(routes: Route[], parentPath: string = ''): FuseNavigationItem[] {
     return routes.reduce((acc, { path = '', data, children = [] }) => {
       const { title = path, type = FuseNavigationItemTypeEnum.basic, icon, action } = data || {};
-      if (path === errorPath) {
+      if (path === constants.MODULES_ROUTINGS_URLS.ERROR_PAGE) {
         return acc;
       }
       const id = `${parentPath}.${path}`.replace('/', '');
@@ -188,12 +194,32 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     }, []);
   }
 
+  /**
+   * check if the route passed has a component or a loaded lazy module with component
+   * redirects to this component if true
+   * redirects to first child if false
+   *
+   * @param route: Route
+   */
+  private redirectToParentOrFirstChild(route: Route) {
+    const { path, component, loadChildren, children } = route;
+    const redirectToPath = path ? ['/', path] : [''];
+    if (!component && !loadChildren && children[0]?.path) {
+      redirectToPath.push(children[0].path);
+    }
+    this._router.navigate(redirectToPath);
+  }
+
+  /**
+   * Unsubscribe from All and clears all the data in the browser and logs out the user.
+   */
   private terminateAllTasksAndLogout() {
     this._coookies.deleteAll();
+    localStorage.clear();
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
-    // setTimeout(() => {
-    //   this._keycloackService.logout();
-    // }, 5000);
+    setTimeout(() => {
+      this._keycloackService.logout();
+    }, 5000);
   }
 }

@@ -5,7 +5,7 @@ export const shortcuts = [
     label: 'APP.COMMON.APP_MODULES.ADMINISTRATION.TITLE',
     description: 'APP.COMMON.APP_MODULES.ADMINISTRATION.DESCRIPTION',
     icon: 'heroicons_outline:chart-pie',
-    link: 'dashboard',
+    link: 'admin',
     useRouter: true,
   },
   {
