@@ -6,7 +6,8 @@
       "NEXT": "Next",
       "PREVIOUS": "Previous",
       "RELOAD": "Reload",
-      "SUBMIT": "Submit"
+      "SUBMIT": "Submit",
+      "APPLY": "Apply"
     },
     "COMMON": {
       "APP_MODULES": {
@@ -350,25 +351,22 @@
       "FORM": {
         "LABEL_NAME": "Title",
         "CANCEL": "Cancel",
+        "DESCRIPTION_LABEL": "Description",
         "DESCRIPTION": "About (description)",
         "PROJECT_MEMBERS": "Project's Members",
         "PROJECT_NAME": "Project's Name",
         "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
         "SAVE": "Save",
         "TITLE": "Create Project",
-        "NUMBER": "Number",
         "LOCATION": "Location",
-        "TYPE": "Type",
-        "TYPE_1": "Internal",
-        "TYPE_2": "External",
-        "LABELS": "Labels",
-        "LABELS_CONFIRMED": "Confirmed",
-        "LABELS_CRITICAL": "Critique",
-        "LABELS_SUGGESTION": "Suggestion",
         "MANAGERS": "Manager(s)",
         "PARTICIPANTS": "Participant(s)",
-        "STARTDATE": "Starting date",
-        "FINISHDATE": "Finishing date"
+        "ENTER_DATE": "Enter a date range",
+        "DATE_HINT": "MM/DD/YYYY – MM/DD/YYYY",
+        "STARTDATE": "Start date",
+        "ENDDATE": "End date",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "Create project succeeded"
       },
       "IMPORT_PROJECTS": "Import",
       "LIST": {

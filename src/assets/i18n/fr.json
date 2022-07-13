@@ -6,7 +6,8 @@
       "NEXT": "Suivant",
       "PREVIOUS": "Précédent",
       "RELOAD": "Recharger",
-      "SUBMIT": "Soumettre"
+      "SUBMIT": "Soumettre",
+      "APPLY": "Appliquer"
     },
     "COMMON": {
       "APP_MODULES": {
@@ -250,7 +251,7 @@
       "CREATE_ORGANIZATION": "Créer une organisation",
       "TITLE": "Mes Organisations",
       "MESSAGE": "organisations",
-      "NO_ORGANIZATIONS": "Vous avez aucune organisation"
+      "NO_ORGANIZATIONS": "Vous n'avez pas d'organisation"
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Exporter",
@@ -351,25 +352,22 @@
       "FORM": {
         "LABEL_NAME": "Titre",
         "CANCEL": "Annuler",
+        "DESCRIPTION_LABEL": "Description",
         "DESCRIPTION": "À propos (description)",
         "PROJECT_MEMBERS": "Membres du projet",
         "PROJECT_NAME": "Nom du Projet",
         "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
         "SAVE": "Sauvegarder",
         "TITLE": "Créer un nouveau projet",
-        "NUMBER": "Numero",
         "LOCATION": "Localisation",
-        "TYPE": "Type",
-        "TYPE_1": "Intern",
-        "TYPE_2": "Extern",
-        "LABELS": "Étiquettes",
-        "LABELS_CONFIRMED": "Confirmé",
-        "LABELS_CRITICAL": "Critical",
-        "LABELS_SUGGESTION": "Suggestion",
-        "MANAGERS": "Manager(s)",
+        "MANAGERS": "Gérant(s)",
         "PARTICIPANTS": "Participent(s)",
+        "ENTER_DATE": "Saisissez une plage de dates",
+        "DATE_HINT": "MM/JJ/AAAA – MM/JJ/AAAA",
         "STARTDATE": "La date de debut",
-        "FINISHDATE": "La date de fin"
+        "ENDDATE": "La date de fin",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "La création du projet a réussi"
       },
       "IMPORT_PROJECTS": "Importer",
       "LIST": {

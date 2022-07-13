@@ -7,7 +7,6 @@ import { ProjectLabels, ProjectLabelsTranslation } from 'app/models/projects/pro
 import { ProjectType, ProjectTypeTrasnlation } from 'app/models/projects/project-type';
 import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 import { constants } from 'app/shared/constants';
-import { MatNativeDateModule } from '@angular/material/core';
 import { Project } from 'app/models/project';
 import { Router } from '@angular/router';
 
@@ -64,7 +63,7 @@ export class ProjectFormComponent implements OnInit {
     try {
       await this._projectService.createProject(project);
       this._toastrService.showSuccess(constants.CREATE_PROJECT_COMPLETED);
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.LANDING_PAGE]);
+      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.PROJECT]);
     } catch (error) {
       this._toastrService.showError(constants.CREATE_PROJECT_FAILED);
     }
@@ -79,12 +78,7 @@ export class ProjectFormComponent implements OnInit {
   trackByFn(index: number, item: any): any {
     return item.id || index;
   }
-  checkDates(group: FormGroup) {
-    if (group.controls.endDate.value < group.controls.startDate.value) {
-      return { notValid: true };
-    }
-    return null;
-  }
+
   private getMembers() {
     const idOrg = this.getOrganization();
     return this._projectService
