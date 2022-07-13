@@ -42,7 +42,6 @@ export class ProjectFormComponent implements OnInit {
 
   ngOnInit() {
     this.getMembers();
-    console.log('this.getMembers();=', this.getMembers());
     const projectFormObj = {
       title: ['', [Validators.required]],
       description: [''],
@@ -63,7 +62,6 @@ export class ProjectFormComponent implements OnInit {
 
     const project = this.getProjectFromFormBuilder();
     try {
-      console.log('project = ', project);
       await this._ProjectService.createProject(project);
       this._toastrService.showSuccess(constants.CREATE_PROJECT_COMPLETED);
       this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.LANDING_PAGE]);
