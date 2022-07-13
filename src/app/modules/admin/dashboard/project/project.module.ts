@@ -11,7 +11,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ProjectFormComponent } from './project-form/project-form.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
-import { constants } from 'app/shared/constants';
 
 @NgModule({
   declarations: [ProjectComponent, ProjectListComponent, ProjectFormComponent],
@@ -25,6 +24,5 @@ import { constants } from 'app/shared/constants';
     FuseFindByKeyPipeModule,
     MatNativeDateModule,
   ],
-  providers: [{ provide: MAT_DATE_FORMATS, useValue: constants.DATE_OF_BIRTH_FORMATS }],
 })
 export class ProjectModule {}
