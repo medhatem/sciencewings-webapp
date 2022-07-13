@@ -35,7 +35,7 @@ export class ProjectFormComponent implements OnInit {
   constructor(
     public matDialogRef: MatDialogRef<ProjectFormComponent>,
     private _formBuilder: FormBuilder,
-    private _ProjectService: ProjectService,
+    private _projectService: ProjectService,
     private _toastrService: ToastrService,
     private _router: Router,
   ) {}
@@ -62,7 +62,7 @@ export class ProjectFormComponent implements OnInit {
 
     const project = this.getProjectFromFormBuilder();
     try {
-      await this._ProjectService.createProject(project);
+      await this._projectService.createProject(project);
       this._toastrService.showSuccess(constants.CREATE_PROJECT_COMPLETED);
       this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.LANDING_PAGE]);
     } catch (error) {
@@ -87,7 +87,7 @@ export class ProjectFormComponent implements OnInit {
   }
   private getMembers() {
     const idOrg = this.getOrganization();
-    return this._ProjectService
+    return this._projectService
       .getMembers(idOrg)
       .then((resolve) => (this.organizationMembers = resolve))
       .catch(() => {
