@@ -48,7 +48,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (val) => val,
-        error: (err) => err,
       });
   }
 
@@ -78,8 +77,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
    */
   private fetchUserOrganizations() {
     const userId = localStorage.getItem(constants.CURRENT_USER_ID);
-    console.log('userId', userId);
-
     this._adminOrganizationsService
       .getAllUserOrganizations(Number(userId))
       .pipe(takeUntil(this._unsubscribeAll))
