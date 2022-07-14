@@ -1,7 +1,7 @@
-import { Route } from '@angular/router';
 import { AdminOrganizationResolver } from '../../resolvers/admin-organization/admin-organization.resolvers';
 import { MemberListComponent } from './member-list/member-list.component';
 import { OrganizationMemebrsComponent } from './organization-members.component';
+import { Route } from '@angular/router';
 export const organizationMemebrsRoutes: Route[] = [
   {
     path: '',

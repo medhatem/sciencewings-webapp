@@ -28,7 +28,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex flex-col gt-xs:flex-row">
           <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}</mat-label>
-            <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}">
+            <mat-select [formControlName]="'organizationType'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.TITLE' | transloco }}">
               <mat-option
                 *ngFor="let organizationTypesKey of organizationTypesKeys; trackBy: trackByFn"
                 [value]="organizationType[organizationTypesKey]"

@@ -52,6 +52,7 @@ export class Organization implements CreateOrganizationRo {
       parent,
       timezone,
     } = organization || {};
+
     Object.assign(this, {
       description,
       department,
@@ -79,15 +80,5 @@ export class Organization implements CreateOrganizationRo {
     if (id) {
       this.id = id;
     }
-  }
-}
-
-export class UserOrganizations {
-  orgId: number;
-  orgName: string;
-
-  constructor(organizationDto: any) {
-    const { id, name } = organizationDto;
-    Object.assign(this, { id, name });
   }
 }

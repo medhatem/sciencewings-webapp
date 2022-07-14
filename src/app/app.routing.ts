@@ -1,12 +1,12 @@
 import { AuthGuard } from './core/auth/keycloak/app.guard';
 import { FuseNavigationItemTypeEnum } from '@fuse/components/navigation/navigation.types';
+import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
 import { InitialDataResolver } from 'app/app.resolvers';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
-import { Route } from '@angular/router';
-import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
 import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource/profile-form/profile-form.component';
-import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
+import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
+import { Route } from '@angular/router';
 import { constants } from './shared/constants';
 
 /**

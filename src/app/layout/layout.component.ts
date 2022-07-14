@@ -9,6 +9,7 @@ import { Layout } from 'app/layout/layout.types';
 import { AppConfig } from 'app/core/config/app.config';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { NewUserInfosResolver } from './new-user-infos/new-user-infos.resolver';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'layout',
@@ -38,10 +39,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     const { userData } = this._route.snapshot.data;
+
     try {
       const user = await this._newUserInfosResolver.getUser(userData.id);
-
       if (user) {
+        localStorage.setItem(constants.CURRENT_USER_ID, `${user.id}`);
         this.hideMenusAndButtons = false;
       } else {
         this.hideMenusAndButtons = true;
