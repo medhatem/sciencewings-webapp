@@ -292,7 +292,30 @@
       "MESSAGE": "Manage Access for all members in your organization in ",
       "SEARCH_MEMBERS": "Search Members",
       "TITLE": "Members",
-      "ERROR_LOADING_MEMBERS": "Could not load members."
+      "ERROR_LOADING_MEMBERS": "Could not load members.",
+      "MISSING_INFO":"____Missing_Information____",
+      "MISSING_NAME":"____Missing_Name____",
+      "PROFILE_LOADING_ERROR":"Could not load member profile",
+      "EDIT_MEMBER_TITILE":"Member Details",
+      "PROFILE":{
+        "NAME":"Full Name",
+        "JOB":"Job Title",
+        "GENDER":"Gender",
+        "EMAIL":"Email",
+        "PHONE":"Phone",
+        "LABEL":"Label",
+        "ADDRESS":{
+          "TITLE":"Address",
+          "APARTMENT":"apartment",
+          "STREET":"Street",
+          "CITY":"City",
+          "COUNTRY":"Country",
+          "PROVINCE":"Province/Region",
+          "ZIP":"Zip Code"
+        },
+        "SAVE":"Save",
+        "CANCEL":"Cancel"
+      }
     },
     "PROFILE": {
       "DETAILS": {

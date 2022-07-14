@@ -292,7 +292,31 @@
       "MESSAGE": "Gérer les accès pour tous les membres de votre organisation dans ",
       "SEARCH_MEMBERS": " Rechercher un membre",
       "TITLE": "Members",
-      "ERROR_LOADING_MEMBERS": "impossible de charger les membres."
+      "ERROR_LOADING_MEMBERS": "impossible de charger les membres.",
+      "MISSING_INFO":"____Information_Manquante____",
+      "MISSING_NAME":"____Nom_Manquant____",
+      "PROFILE_LOADING_ERROR": "Impossible de charger le profil du membre",
+      "EDIT_MEMBER_TITILE":"détails du membre",
+      "PROFILE":{
+        "NAME":"Nom Complet",
+        "JOB":"Profession",
+        "GENDER":"sexe",
+        "EMAIL":"Email",
+        "PHONE":"numéro de téléphone",
+        "LABEL":"étiquette",
+        "ADDRESS":{
+          "TITLE":"Adresse",
+          "APARTMENT":"Appartement",
+          "STREET":"Rue",
+          "CITY":"ville",
+          "COUNTRY":"Pays",
+          "PROVINCE":"Province/Region",
+          "ZIP":"Code postal"
+        },
+        "SAVE":"modifier",
+        "CANCEL":"annuler"
+      }
+      
     },
     "PROFILE": {
       "DETAILS": {
