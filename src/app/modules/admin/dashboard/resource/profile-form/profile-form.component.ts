@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
 import { lastValueFrom, map, Observable, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { TIMEZONES } from 'app/modules/admin/dashboard/resource/resurce-setting-rule/timezones';
 
 @Component({
   selector: 'app-profile-form',
@@ -20,6 +21,8 @@ export class ResourceProfileFormComponent implements OnInit {
   form!: FormGroup;
   btnTitle: string = 'Add';
   params: any;
+
+  timezones = TIMEZONES;
 
   // TAGS
   tags = [];
@@ -59,7 +62,6 @@ export class ResourceProfileFormComponent implements OnInit {
       if (error?.statusCode === 500) {
         this._toastrService.showError(error.errorMessage, 'Something went wrong!');
       }
-      console.log({ allManagers: body });
 
       this.allManagers = body.data;
       this.filteredManagers = this.managerCtrl.valueChanges.pipe(
@@ -101,8 +103,8 @@ export class ResourceProfileFormComponent implements OnInit {
       resourceClass: this.form.value.resourceClass,
       tags: this.tags.map((tag) => ({ title: tag })),
       managers: this.managers.map((manager) => ({
-        organization: manager.organization.id,
-        user: manager.user.id,
+        organization: manager.organization,
+        user: manager.user,
       })),
     };
     try {
@@ -150,9 +152,10 @@ export class ResourceProfileFormComponent implements OnInit {
   filterTags(event): void {
     // Get the value
     const value = event.target.value.toLowerCase();
+    console.log({ tags: this.tags });
 
     // Filter the tags
-    this.filteredTags = this.tags.filter((tag) => tag.title.toLowerCase().includes(value));
+    this.filteredTags = this.tags.filter((tag) => tag.toLowerCase().includes(value));
   }
 
   /**

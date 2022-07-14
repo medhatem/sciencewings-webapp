@@ -4,36 +4,44 @@
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
-    <div class="sm:col-span-4">
-        <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'Class' | transloco }}</mat-label>
-          <mat-select [formControlName]="'resourceClass'">
-            <mat-option [value]="'equipement'">Equipement</mat-option>
-            <mat-option [value]="'service'">Service</mat-option>
-            <mat-option [value]="'person'">Person</mat-option>
-            <mat-option [value]="'software'">Software</mat-option>
-            <mat-option [value]="'event'">Event</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="sm:col-span-4">
-        <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'Type' | transloco }}</mat-label>
-          <mat-select [formControlName]="'resourceType'">
-            <mat-option [value]="'reservable'">Reservable</mat-option>
-            <mat-option [value]="'requestable'">Requestable</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="mt-1 text-md text-hint">The type of resource, which defines what actions can take place on the resource.</div>
-      </div>
+    <!-- <div class="sm:col-span-4"> -->
+    <mat-form-field class="w-full">
+      <mat-label>{{ 'Class' | transloco }}</mat-label>
+      <mat-select [formControlName]="'resourceClass'">
+        <mat-option [value]="'equipement'">Equipement</mat-option>
+        <mat-option [value]="'service'">Service</mat-option>
+        <mat-option [value]="'person'">Person</mat-option>
+        <mat-option [value]="'software'">Software</mat-option>
+        <mat-option [value]="'event'">Event</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- </div> -->
+    <!-- <div class="sm:col-span-4"> -->
+    <mat-form-field class="w-full">
+      <mat-label>{{ 'Type' | transloco }}</mat-label>
+      <mat-select [formControlName]="'resourceType'">
+        <mat-option [value]="'reservable'">Reservable</mat-option>
+        <mat-option [value]="'requestable'">Requestable</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <div class="mt-1 text-md text-hint">The type of resource, which defines what actions can take place on the resource.</div> -->
+    <!-- </div> -->
     <mat-form-field appearance="fill">
       <mat-label>Description</mat-label>
       <input matInput formControlName="description" />
     </mat-form-field>
-    <mat-form-field appearance="fill">
+
+    <mat-form-field class="w-full">
+      <mat-label>Timezone</mat-label>
+      <mat-select [formControlName]="'timezone'">
+        <mat-option *ngFor="let tz of timezones" [value]="tz.offset">{{ tz.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="fill">
       <mat-label>Timezone</mat-label>
       <input matInput formControlName="timezone" />
-    </mat-form-field>
+    </mat-form-field> -->
 
     <!-- Tags -->
     <span class="mb-px font-medium leading-tight">Tags</span>
@@ -74,7 +82,7 @@
         <ng-container *ngIf="tagsEditMode">
           <div class="p-4 space-y-2">
             <ng-container *ngFor="let tag of filteredTags; trackBy: trackByFn">
-              <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript w-full">
+              <mat-form-field class="fuse-mat-dense w-full">
                 <input matInput [value]="tag" (input)="updateTagTitle(tag, $event)" />
                 <button mat-icon-button (click)="deleteTag(tag)" matSuffix>
                   <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
@@ -100,7 +108,7 @@
     <mat-form-field class="example-chip-list" appearance="fill">
       <mat-label>{{ 'APP.RESOURCES.MANAGERS' | transloco }}</mat-label>
       <mat-chip-list #chipList>
-        <mat-chip *ngFor="let manager of managers" (removed)="remove(manager)">
+        <mat-chip *ngFor="let manager of managers" (removed)="removeManager(manager)">
           {{ manager.name }}
           <button matChipRemove>
             <mat-icon>cancel</mat-icon>
