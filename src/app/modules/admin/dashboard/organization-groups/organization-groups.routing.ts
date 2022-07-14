@@ -1,6 +1,8 @@
 import { AdminOrganizationResolver } from '../../resolvers/admin-organization/admin-organization.resolvers';
 import { OrganizationGroupsComponent } from './organization-groups.component';
 import { Route } from '@angular/router';
+import { GroupListComponent } from './group-list/group-list.component';
+
 export const organizationGroupsRoutes: Route[] = [
   {
     path: '',
@@ -8,6 +10,14 @@ export const organizationGroupsRoutes: Route[] = [
     resolve: {
       data: AdminOrganizationResolver,
     },
-    children: [],
+    children: [
+      {
+        path: '',
+        component: GroupListComponent,
+        resolve: {
+          organization: AdminOrganizationResolver,
+        },
+      },
+    ],
   },
 ];

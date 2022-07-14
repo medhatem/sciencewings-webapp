@@ -31,23 +31,12 @@ export class NewUserInfosResolver implements Resolve<any> {
   }
 
   async getUser(id: string): Promise<User> {
-    try {
-      return lastValueFrom(
-        this._apiService.userRoutesGetUserByKeycloakId({ kcid: id }).pipe(
-          map(({ body }) => {
-            localStorage.setItem(constants.CURRENT_USER_ID, `${body.data[0].id}`);
-            return new User(body);
-          }),
-        ),
-      );
-    } catch (error) {
-      throw Error(`${error}`);
-    }
+    return lastValueFrom(this._apiService.userRoutesGetUserByKeycloakId({ kcid: id }).pipe(map(({ body }) => new User(body.data[0]))));
   }
 
-  async createUser(user: User): Promise<CreatedUserDto> {
+  async createUser(user: User): Promise<User> {
     try {
-      return lastValueFrom(this._apiService.userRoutesCreateUser({ body: user }));
+      return lastValueFrom(this._apiService.userRoutesCreateUser({ body: user }).pipe(map(({ body }) => new User(body))));
     } catch (error) {
       this._toastr.showError('APP.SAVE_NEW_USER_FAILED');
       this._keycloackService.logout();

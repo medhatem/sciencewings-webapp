@@ -22,7 +22,7 @@ export interface Column {
   columnPropertyToUse: string;
 }
 
-export interface Option {
+export interface ListOption {
   columns: Column[];
   numnberOfColumns?: number;
 }
@@ -34,7 +34,7 @@ export interface Option {
 })
 export class ListComponent implements OnInit, OnDestroy {
   @Input() dataList: any[] = [];
-  @Input() options: Option = { columns: [], numnberOfColumns: 0 };
+  @Input() options: ListOption = { columns: [], numnberOfColumns: 0 };
   @Output() output = new EventEmitter();
 
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
