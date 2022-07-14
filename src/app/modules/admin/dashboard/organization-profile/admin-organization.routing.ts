@@ -21,9 +21,6 @@ export const adminOrganizationRoutes: Route[] = [
       {
         path: ':idOrg',
         component: OrganizationProfileComponent,
-        resolve: {
-          organization: AdminOrganizationResolver,
-        },
       },
     ],
   },

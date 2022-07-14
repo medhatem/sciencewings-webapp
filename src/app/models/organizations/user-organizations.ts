@@ -1,5 +1,5 @@
 export class UserOrganizations {
-  id: number | string;
+  id: number;
   name: string;
   parent: UserOrganizations;
   statusCode: number;

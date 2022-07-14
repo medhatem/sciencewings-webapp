@@ -60,6 +60,9 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "ORGANIZATION_DASHBOARD": {
+          "TITLE": "Dashboard"
+        },
         "LANDING_PAGE": {
           "TITLE": "Landing page"
         },
@@ -242,6 +245,21 @@
       "SEARCH_GROUPS": "Search Groups",
       "TITLE": "Groups"
     },
+    "ORGANIZATION_DASHBOARD": {
+      "RECENT_PROJECTS": "Recent Projects",
+      "RECENT_RESOURCES": "Recent Resources",
+      "MEMBERSHIPS_REVIEW": "Memberships to Review",
+      "RESERVATIONS_REVIEW": "Reservations to Review",
+      "SEE_MORE": "See More",
+      "MESSAGE1": "Recent Invitations",
+      "MESSAGE2": "Recent Reservation",
+      "TABLE": {
+        "RESOURCE": "Resource",
+        "ACCEPTE": "Accepte",
+        "REJECTE": "Rejecte",
+        "APPEOVE": "Approve"
+      }
+    },
     "LANDING_PAGE": {
       "CREATE_ORGANIZATION": "Create Organization",
       "TITLE": "My Organizations",
@@ -249,6 +267,7 @@
       "NO_ORGANIZATIONS":"You don't have any organization",
       "ERROR_LOADING_ORGANIZATIONS":"Something went wrong loading organizations"
     },
+
     "MEMBERS": {
       "EXPORT_MEMBERS": "Export",
       "FILTER_MEMBERS": "Filter",

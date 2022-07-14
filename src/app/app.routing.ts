@@ -13,6 +13,9 @@ import { constants } from './shared/constants';
  * App Routing
  * contains all the routes that are passed to the app router
  * using lazy loading on main routes
+ *
+ * All the routes for this Application should be added as children of
+ * the first and main route with the component: LayoutComponent.
  */
 export const appRoutes: Route[] = [
   {
@@ -25,6 +28,16 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
+        path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.LANDING_PAGE,
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.LANDING_PAGE.TITLE',
+          type: FuseNavigationItemTypeEnum.basic,
+          icon: 'heroicons_outline:users',
+        },
+        loadChildren: () => import('app/modules/admin/dashboard/landing-page/landing-page.module').then((m) => m.LandingPageModule),
+      },
+      {
         path: constants.MODULES_ROUTINGS_URLS.ADMIN,
         canActivate: [AuthGuard],
         data: {
@@ -33,14 +46,17 @@ export const appRoutes: Route[] = [
         },
         children: [
           {
-            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.LANDING_PAGE,
+            path: 'organization-dashboard',
             canActivate: [AuthGuard],
             data: {
-              title: 'APP.ROUTES.ADMIN.LANDING_PAGE.TITLE',
+              title: 'APP.ROUTES.ADMIN.ORGANIZATION_DASHBOARD.TITLE',
               type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:users',
+              icon: 'heroicons_outline:home',
             },
-            loadChildren: () => import('app/modules/admin/dashboard/landing-page/landing-page.module').then((m) => m.LandingPageModule),
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/organization-dashboard/organization-dashboard.module').then(
+                (m) => m.OrganizationDashboardModule,
+              ),
           },
           {
             path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_PROFILE,
@@ -142,19 +158,6 @@ export const appRoutes: Route[] = [
             },
             loadChildren: () =>
               import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
-          },
-          {
-            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.RESERVATION_SETTINGS,
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.RESERVATION',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:users',
-            },
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then(
-                (m) => m.SettingsReservationModule,
-              ),
           },
         ],
       },

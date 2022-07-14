@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } fro
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
-import { CookieService } from 'ngx-cookie-service';
 import { Subject, takeUntil } from 'rxjs';
 import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
@@ -22,7 +21,6 @@ export class GeneralComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _toastrService: ToastrService,
-    private _coookies: CookieService,
     private _contactsService: ContactsService,
     private _changeDetectorRef: ChangeDetectorRef,
     private organizationService: AdminOrganizationsService,

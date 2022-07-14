@@ -25,10 +25,10 @@ import { interval, map, tap, retryWhen, Subject, takeUntil, lastValueFrom } from
 })
 export class SwitchOrganizationComponent implements OnInit, OnDestroy {
   @Input() user: User;
-  @Output() onActiveOrganizationChange = new EventEmitter<Partial<UserOrganizations>>();
-  isNoOrganization: boolean = false;
+  @Output() onActiveOrganizationChange = new EventEmitter<number>();
+  isNoOrganization: boolean = true;
   availableOrganizations: Array<UserOrganizations>;
-  activeOrganization: Partial<UserOrganizations>;
+  activeOrganization: UserOrganizations;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
   private _userSelected: Subject<boolean> = new Subject<boolean>();
 
@@ -60,7 +60,6 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (val) => val,
-        error: (err) => err,
       });
   }
 
@@ -75,8 +74,8 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
 
   setActiveOrganization(organization: UserOrganizations): void {
     this.activeOrganization = organization;
-    localStorage.setItem(constants.USER_ORGANIZATION_ID, `${organization.id}`);
-    this.onActiveOrganizationChange.emit(this.activeOrganization);
+    localStorage.setItem(constants.CURRENT_ORGANIZATION_ID, `${organization.id}`);
+    this.onActiveOrganizationChange.emit(this.activeOrganization.id);
   }
 
   /**
@@ -93,9 +92,15 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
     }
 
     this.availableOrganizations = await lastValueFrom(this._adminOrganizationsService.getAllUserOrganizations(Number(userId)));
+    if (this.availableOrganizations?.length) {
+      this.isNoOrganization = false;
+      this._changeDetectorRef.markForCheck();
+    }
 
     this._adminOrganizationsService.userOrganiztions.pipe(takeUntil(this._unsubscribeAll)).subscribe({
-      next: (organizations) => (this.availableOrganizations = organizations),
+      next: (organizations) => {
+        this.availableOrganizations = organizations;
+      },
       error: (error) => {
         this._toastrService.showInfo('APP.SWITCH_ORGANIZATIONS_LOAD_FAILED');
         this.isNoOrganization = true;

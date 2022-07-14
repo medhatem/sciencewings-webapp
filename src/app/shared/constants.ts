@@ -2,7 +2,6 @@
  *  Global constants
  */
 export const constants = {
-  DEFAULT_CLIENT_ROLES: 'default-roles',
   /**
    * Translation constants
    */
@@ -17,15 +16,15 @@ export const constants = {
   KEYCLOAK_LOGOUT_ERROR: 'APP.KEYCLOAK_LOGOUT_ERROR',
   FAILED_LOAD_COUNTRIES: 'FAILED_LOAD_COUNTRIES',
   COMPLETING_FORM_REQUIRED: 'COMPLETING_FORM_REQUIRED',
+  FATAL_ERROR_OCCURED: 'FATAL_ERROR_OCCURED',
 
   /**
    * LocalStorage & Cookies items keys
    */
-  KEYCLOAK_USER_ID: 'kcid',
+  CURRENT_USER_KEYCLOAK_ID: 'kcid',
   CURRENT_USER_ID: 'pgid',
-  USER_ORGANIZATION_ID: 'orgId',
-  FATAL_ERROR_OCCURED: 'FATAL_ERROR_OCCURED',
-  MODULE_ROUTING_URL: 'module',
+  CURRENT_ORGANIZATION_ID: 'orgid',
+  CURRENT_MODULE: 'module',
 
   /**
    * ****************** ROUTING *******************

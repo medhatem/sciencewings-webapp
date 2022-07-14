@@ -19,7 +19,7 @@ export class Member implements MemberRo {
   identificationId?: string;
   jobTitle?: string;
   marital?: string;
-  memberType?: string;
+  memberType?: 'admin' | 'regular';
   membership?: 'accepted' | 'rejected' | 'pending';
   mobilePhone?: Phone;
   name?: string;
