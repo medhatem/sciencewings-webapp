@@ -91,8 +91,8 @@ export class MemberService {
   createMember(body: UserInviteToOrgRo): Observable<any> {
     return this.swaggerAPI.memberRoutesInviteUserToOrganization({ body });
   }
-  updateMember(id: number, body): Observable<any> {
-    return this.swaggerAPI.memberRoutesUpdate({ id, body });
+  updateMember(orgId: number, userId: number, body): Observable<any> {
+    return this.swaggerAPI.memberRoutesUpdateMember({ orgId, userId, body });
   }
   getMember(orgId: number, userId: number): Observable<any> {
     return this.swaggerAPI.memberRoutesGetMemberProfile({ orgId, userId });

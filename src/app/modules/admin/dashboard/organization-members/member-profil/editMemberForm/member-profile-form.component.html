@@ -40,8 +40,8 @@
       <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
           <mat-form-field class="flex-auto gt-xs:pr-3 m-0 p-0.5 col-span-2">
             <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.PHONE' | transloco }}</mat-label>
-            <input matInput formControlName="workPhone" [placeholder]="'ORGANIZATION.MEMBERS.PROFILE.PHONE' | transloco" />
-            <mat-select *ngIf="countries?.length" class="mr-1.5" formControlName="phoneCode" matPrefix [value]="getCountryByIso().code">
+            <input matInput [formControlName]="'phoneNumber'" [placeholder]="'ORGANIZATION.MEMBERS.PROFILE.PHONE' | transloco" />
+            <mat-select *ngIf="countries?.length" class="mr-1.5" [formControlName]="'phoneCode'" matPrefix [value]="getCountryByIso().code">
               <mat-select-trigger>
                 <span class="flex items-center">
                   <span
@@ -73,7 +73,7 @@
 
           <mat-form-field class="flex-auto gt-xs:pr-3 m-0 p-0.5 col-span-2">
             <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.LABEL' | transloco }}</mat-label>
-            <input matInput [formControlName]="'label'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.LABEL' | transloco }}" required />
+            <input matInput [formControlName]="'phoneLabel'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.LABEL' | transloco }}" required />
             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:tag'"></mat-icon>
           </mat-form-field>
        </div>
@@ -121,7 +121,7 @@
 
       </form>
     <div class="flex justify-end mt-8 mr-4">
-      <button class="px-8" mat-flat-button [color]="'primary'" (click)="saveProfileDetails()">
+      <button class="px-8" mat-flat-button [color]="'primary'" (click)="(closeModal)">
         {{ 'ORGANIZATION.MEMBERS.PROFILE.CANCEL' | transloco }}
       </button>
       <button class="px-8" mat-flat-button [color]="'primary'" (click)="saveProfileDetails()">

@@ -15,13 +15,12 @@
     </div>
     <div class="w-full lg:pl-16 sm:pl-8 pt-4 flex" [style.color]="!profile.workPhone ? '#FFBFBF' : 'black' ">
         <mat-icon aria-hidden="false" aria-label="member's job">phone</mat-icon>
-        <div class="ml-4"> {{profile.workPhone ? profile.workPhone : 'ORGANIZATION.MEMBERS.MISSING_INFO' |  transloco}} </div>
-        
+        <div class="ml-4"> {{profile.workPhone && profile.workPhone.phoneNumber ? profile.workPhone.phoneNumber : 'ORGANIZATION.MEMBERS.MISSING_INFO' |  transloco}} </div>
     </div>
-    <div class="w-full lg:pl-16 sm:pl-8 pt-4 flex" [style.color]="!profile.address? '#FFBFBF' : 'black' ">
+    <!-- <div class="w-full lg:pl-16 sm:pl-8 pt-4 flex" [style.color]="!profile.address? '#FFBFBF' : 'black' ">
         <mat-icon aria-hidden="false" aria-label="member's job">location_on</mat-icon>
         <div class="ml-4"> {{profile.address ? profile.address : 'ORGANIZATION.MEMBERS.MISSING_INFO' |  transloco}} </div>
-    </div>
+    </div> -->
     <div class="w-full lg:pl-16 sm:pl-8 pt-4 flex" [style.color]="!profile.gender? '#FFBFBF' : 'black' ">
         <mat-icon aria-hidden="false" aria-label="member's job">perm_identity</mat-icon>
         <div class="ml-4"> {{profile.gender ? profile.gender : 'ORGANIZATION.MEMBERS.MISSING_INFO' |  transloco}} </div>

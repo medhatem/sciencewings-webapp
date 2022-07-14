@@ -43,8 +43,13 @@ export class MemberProfileComponent implements OnInit {
    * open the dialog to edit the member profile
    */
   async editMemberInformation() {
+    const { idOrg, userId } = this._route.snapshot.params;
     this.openedDialogRef = this._matDialog.open(MemberProfileFormComponent, {
-      data: { ...this.profile },
+      data: { profile: this.profile, idOrg, userId },
+    });
+
+    this.openedDialogRef.afterClosed().subscribe(async (result) => {
+      await this.getMemberProfile();
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -8,6 +8,14 @@ import { lastValueFrom } from 'rxjs';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
 import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
 import { Member } from 'app/models/Member';
+import { Phone } from 'app/models/phone';
+import { Address } from 'app/models/address';
+
+export interface DialogData {
+  idOrg: number;
+  userId: number;
+  profile: Member;
+}
 
 @Component({
   selector: 'member-profile-form',
@@ -22,32 +30,51 @@ export class MemberProfileFormComponent implements OnInit {
   labelsTranslation = OrganizationLabelsTranslation;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: Member,
-    public matDialogRef: MatDialogRef<MemberProfileFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    public _matDialogRef: MatDialogRef<MemberProfileFormComponent>,
     private _toastrService: ToastrService,
     private _formBuilder: FormBuilder,
     private _memberService: MemberService,
+    private _cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
+    const {
+      workEmail,
+      name = '',
+      jobTitle = '',
+      gender = '',
+      workPhone = { phoneCode: '', phoneLabel: '', phoneNumber: '' },
+      address = { apartment: '', code: '', city: '', country: '', province: '', street: '' },
+    } = this.data.profile;
     this.profile = this._formBuilder.group({
-      workEmail: [this.data.workEmail, [Validators.required, Validators.email]],
-      name: [this.data.name, [Validators.required]],
-      jobTitle: [this.data.jobTitle, []],
-      gender: [this.data.gender, [Validators.required]],
-      workPhone: [this.data.workPhone, []],
-      label: ['', []],
-      apartment: [this.data.address?.apartment, []],
-      street: [this.data.address?.street, []],
-      city: [this.data.address?.city, []],
-      country: [this.data.address?.country, []],
-      province: [this.data.address?.province, []],
-      zipCode: [this.data.address?.code, []],
-      ...this.data,
+      workEmail: [workEmail, [Validators.required, Validators.email]],
+      name: [name, [Validators.required]],
+      jobTitle: [jobTitle, []],
+      gender: [gender, [Validators.required]],
+      phoneNumber: [workPhone?.phoneNumber, [Validators.required]],
+      phoneCode: [workPhone?.phoneCode, [Validators.required]],
+      phoneLabel: [workPhone?.phoneLabel, [Validators.required]],
+      apartment: [address?.apartment, []],
+      street: [address?.street, []],
+      city: [address?.city, []],
+      country: [address?.country, []],
+      province: [address?.province, []],
+      code: [address?.code, []],
     });
   }
 
-  saveProfileDetails() {}
+  async saveProfileDetails() {
+    try {
+      await lastValueFrom(
+        this._memberService.updateMember(this.data.idOrg, this.data.userId, this.getMemberFormBuilder(this.data.idOrg, this.data.userId)),
+      );
+      this._cdr.markForCheck();
+      this.closeModal();
+    } catch (error) {
+      this._toastrService.showWarning('ORGANIZATION.MEMBERS.PROFILE_LOADING_ERROR');
+    }
+  }
 
   getCountryByIso(value: string): any {
     // keep only canada for the moment
@@ -63,5 +90,24 @@ export class MemberProfileFormComponent implements OnInit {
    */
   trackByFn(index: number, item: any): any {
     return item.id || index;
+  }
+
+  closeModal() {
+    this._matDialogRef.close();
+  }
+
+  private getMemberFormBuilder(orgId: number, userId: number): Member {
+    const { phoneNumber, phoneCode, phoneLabel } = this.profile.value;
+    const phone = new Phone({ phoneNumber, phoneCode, phoneLabel });
+    const address = new Address({ ...this.profile.value });
+    return new Member({
+      ...this.profile.value,
+      organization: orgId,
+      user: userId,
+      membership: this.data.profile.membership,
+      memberType: this.data.profile.memberType,
+      workPhone: phone,
+      address,
+    });
   }
 }
