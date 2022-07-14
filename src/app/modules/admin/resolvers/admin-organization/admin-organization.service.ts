@@ -12,9 +12,9 @@ import { constants } from 'app/shared/constants';
   providedIn: 'root',
 })
 export class AdminOrganizationsService {
-  constructor(private _swaggerService: ApiService, private _toastrService: ToastrService) {}
-
   private _userOrganiztions: BehaviorSubject<any | null> = new BehaviorSubject(null);
+
+  constructor(private _swaggerService: ApiService, private _toastrService: ToastrService) {}
 
   get userOrganiztions(): Observable<any> {
     return this._userOrganiztions.asObservable();

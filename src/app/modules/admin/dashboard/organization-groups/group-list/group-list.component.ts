@@ -29,8 +29,6 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   searchInputControl: FormControl = new FormControl();
   options: ListOption = { columns: [] };
 
-  createGroup() {}
-
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -96,13 +94,16 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
+
   openGroupForm(): void {
     const dialogRef = this._matDialog.open(GroupFormComponent);
     dialogRef.afterClosed().subscribe((result) => {});
   }
+
   trackByFn(index: number, item: any): any {
     return item.id || index;
   }
+
   closeDetails(): void {
     this.selectedGroup = null;
   }
@@ -110,4 +111,6 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   showGroupProfile(groupID) {
     //TODO
   }
+
+  createGroup() {}
 }

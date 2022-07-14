@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
@@ -11,12 +11,12 @@ import { AdminOrganizationsService } from '../../resolvers/admin-organization/ad
   templateUrl: './landing-page.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class LandingPageComponent implements OnInit {
-  private _unsubscribeAll: Subject<any> = new Subject<any>();
+export class LandingPageComponent implements OnInit, OnDestroy {
   readonly organizationProfilePath = `/${constants.MODULES_ROUTINGS_URLS.ADMIN}/${constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_PROFILE}`;
   readonly fullCreateOrganizationPath = [this.organizationProfilePath, 'create'];
   organizations: UserOrganizations[] = [];
   isLoading: boolean = false;
+  private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(private _toastrService: ToastrService, private _adminOrganizationsService: AdminOrganizationsService, private _router: Router) {}
 

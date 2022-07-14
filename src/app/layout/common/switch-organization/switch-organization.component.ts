@@ -26,12 +26,11 @@ import { interval, map, tap, retryWhen, Subject, takeUntil, lastValueFrom } from
 export class SwitchOrganizationComponent implements OnInit, OnDestroy {
   @Input() user: User;
   @Output() onActiveOrganizationChange = new EventEmitter<Partial<UserOrganizations>>();
-  private _unsubscribeAll: Subject<any> = new Subject<any>();
-  private _userSelected: Subject<boolean> = new Subject<boolean>();
-
   isNoOrganization: boolean = false;
   availableOrganizations: Array<UserOrganizations>;
   activeOrganization: Partial<UserOrganizations>;
+  private _unsubscribeAll: Subject<any> = new Subject<any>();
+  private _userSelected: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private _adminOrganizationsService: AdminOrganizationsService,
@@ -40,6 +39,10 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
   ) {}
 
   async ngOnInit() {
+    /**
+     * loops on the get current user id, until it is available. then subscibes
+     * to userOrganizations one the user is selected and available is localStorage
+     */
     interval(3000)
       .pipe(
         map(async () => {
