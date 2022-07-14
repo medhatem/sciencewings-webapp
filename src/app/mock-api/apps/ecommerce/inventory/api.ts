@@ -137,6 +137,18 @@ export class ECommerceInventoryMockApi {
       ];
     });
 
+    this._fuseMockApiService.onGet('api/apps/ecommerce/inventory/recentProjects', 300).reply(({ request }) => {
+      // Clone the products
+      const products: any[] | null = [{ name: 'Design' }, { name: 'Backend' }, { name: 'Frontend' }];
+      // Return the response
+      return [
+        200,
+        {
+          recentProjects: products,
+        },
+      ];
+    });
+
     this._fuseMockApiService.onGet('api/apps/ecommerce/inventory/members', 300).reply(({ request }) => {
       // Get available queries
       const search = request.params.get('search');

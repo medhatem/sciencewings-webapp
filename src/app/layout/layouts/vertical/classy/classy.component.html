@@ -3,12 +3,12 @@
 <fuse-loading-bar></fuse-loading-bar>
 
 <!-- Navigation -->
-<fuse-vertical-navigation
-  class="dark bg-gray-900 print:hidden"
-  [mode]="isScreenSmall ? 'over' : 'side'"
-  [name]="'mainNavigation'"
-  [navigation]="navigation"
-  [opened]="!isScreenSmall">
+<fuse-vertical-navigation *ngIf="!hideMenusAndButtons"
+                          class="dark bg-gray-900 print:hidden"
+                          [mode]="isScreenSmall ? 'over' : 'side'"
+                          [name]="'mainNavigation'"
+                          [navigation]="navigation"
+                          [opened]="!isScreenSmall">
   <!-- Navigation header hook -->
   <ng-container *ngIf="user" fuseVerticalNavigationContentHeader>
     <div class="flex items-center w-full p-4 pl-6">
@@ -54,7 +54,8 @@
     <search *ngIf="!hideMenusAndButtons" [appearance]="'bar'"></search>
     <!-- Components -->
     <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
-      <switch-organization 
+      <switch-organization
+        #switchOrganization
         *ngIf="!hideMenusAndButtons"
         [user]="user"
         (onActiveOrganizationChange)="onActiveOrganizationChange($event)">
@@ -63,7 +64,7 @@
       <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
       <messages *ngIf="!hideMenusAndButtons"></messages>
       <notifications *ngIf="!hideMenusAndButtons"></notifications>
-      <app-modules *ngIf="!hideMenusAndButtons" (changeModuleEvent)="onSwitchModule($event)"></app-modules>
+      <app-modules #appModules *ngIf="!hideMenusAndButtons" (changeModuleEvent)="onSwitchModule($event)"></app-modules>
       <user [showAvatar]="false"></user>
       <button *ngIf="!hideMenusAndButtons" class="lg:hidden" mat-icon-button (click)="quickChat.toggle()">
         <mat-icon [svgIcon]="'heroicons_outline:chat-alt-2'"></mat-icon>
@@ -73,16 +74,15 @@
 
   <!-- Content -->
   <div class="flex flex-col flex-auto">
-    <new-user-infos
-      *ngIf="hideMenusAndButtons"
-      [hideMenusAndButtons]="hideMenusAndButtons"
-      (onFormNotComplete)="resetNavigation($event)">
+    <new-user-infos *ngIf="hideMenusAndButtons"
+                    [hideMenusAndButtons]="hideMenusAndButtons"
+                    (onFormNotComplete)="resetNavigation($event)">
     </new-user-infos>
     <!-- 
       *ngIf="true" hack is required here for router-outlet to work correctly.
       Otherwise, layout changes won't be registered and the view won't be updated!
     -->
-    <router-outlet *ngIf="true && !hideMenusAndButtons"></router-outlet>
+    <router-outlet *ngIf="true && !hideMenusAndButtons" (activate)="onActivate($event)"></router-outlet>
   </div>
 
   <!-- Footer -->

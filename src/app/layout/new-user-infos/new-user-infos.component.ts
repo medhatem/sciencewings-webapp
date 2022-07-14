@@ -7,7 +7,6 @@ import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 import { User } from 'app/models/user';
 import { Address, Phone } from 'app/models';
-import { CookieService } from 'ngx-cookie-service';
 
 const moment = _rollupMoment || _moment;
 
@@ -20,12 +19,7 @@ export class NewUserInfosComponent implements OnInit {
   user: any;
   form: FormGroup;
 
-  constructor(
-    private _newUserInfosResolver: NewUserInfosResolver,
-    private _formBuilder: FormBuilder,
-    private _toastrService: ToastrService,
-    private _coookies: CookieService,
-  ) {}
+  constructor(private _newUserInfosResolver: NewUserInfosResolver, private _formBuilder: FormBuilder, private _toastrService: ToastrService) {}
 
   get formControls() {
     return this.form?.controls;
@@ -38,7 +32,7 @@ export class NewUserInfosComponent implements OnInit {
       lastname: [this.user.lastName, [Validators.required]],
       email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
       dateofbirth: new FormControl(moment()),
-      keycloakId: localStorage.getItem(constants.KEYCLOAK_USER_ID),
+      keycloakId: localStorage.getItem(constants.CURRENT_USER_KEYCLOAK_ID),
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
       street: ['', Validators.required],
       apartment: [''],
@@ -68,7 +62,8 @@ export class NewUserInfosComponent implements OnInit {
       const createdUser = await this._newUserInfosResolver.createUser(userPayload);
       if (createdUser) {
         this.user = createdUser;
-        localStorage.setItem(constants.MODULE_ROUTING_URL, constants.MODULES_ROUTINGS_URLS.ADMIN);
+        localStorage.setItem(constants.CURRENT_USER_ID, `${createdUser.id}`);
+        localStorage.setItem(constants.CURRENT_MODULE, constants.MODULES_ROUTINGS_URLS.ADMIN);
         this.onFormNotComplete.emit(false);
       }
     } catch (error) {

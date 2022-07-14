@@ -1,8 +1,12 @@
 import { BehaviorSubject, Observable, map, take, tap } from 'rxjs';
+
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Member } from 'app/models/Member';
 import { UserInviteToOrgRo } from 'generated/models';
+import { constants } from 'app/shared/constants';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
@@ -57,8 +61,28 @@ export class MemberService {
       );
   }
 
-  getOrgMembers(id: number): Observable<any> {
+  getOrgMembers(orgID?: number): Observable<any> {
+    const id = orgID || Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     return this.swaggerAPI.organizationRoutesGetUsers({ id });
+  }
+
+  getAndParseOrganizationMember(id?: number): Observable<any[]> {
+    return this.getOrgMembers(id).pipe(
+      map((members) => members.body.data.map((member) => new Member(member))),
+      map((result: any[]) =>
+        result.map((m: Member): any => ({
+          role: 'Member',
+          profile: `${m.name}<br>
+                              ${m.workEmail}`,
+          status: m.status,
+          date: moment(m.joinDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
+          ...m,
+        })),
+      ),
+      tap((response) => {
+        this._members.next(response);
+      }),
+    );
   }
 
   inviteUserToOrganization(organizationId: number, email: string): Observable<any> {
@@ -68,11 +92,11 @@ export class MemberService {
   createMember(body: UserInviteToOrgRo): Observable<any> {
     return this.swaggerAPI.memberRoutesInviteUserToOrganization({ body });
   }
-  updateMember(id: number, body): Observable<any> {
-    return this.swaggerAPI.memberRoutesUpdate({ id, body });
+  updateMember(orgId: number, userId: number, body): Observable<any> {
+    return this.swaggerAPI.memberRoutesUpdateMember({ orgId, userId, body });
   }
-  getMember(id: number): Observable<any> {
-    return this.swaggerAPI.memberRoutesGetById({ id });
+  getMember(orgId: number, userId: number): Observable<any> {
+    return this.swaggerAPI.memberRoutesGetMemberProfile({ orgId, userId });
   }
   deleteMember(id: number): Observable<any> {
     return this.swaggerAPI.memberRoutesRemove({ id });
