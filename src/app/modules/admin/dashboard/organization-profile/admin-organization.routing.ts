@@ -19,8 +19,6 @@ export const adminOrganizationRoutes: Route[] = [
         component: OrganizationFormComponent,
       },
       {
-        // TO DO
-        // change to path: ':id' , when the change organizations implemented
         path: ':idOrg',
         component: OrganizationProfileComponent,
         resolve: {

@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { Member } from 'app/models/Member';
 import { UserInviteToOrgRo } from 'generated/models';
 import { constants } from 'app/shared/constants';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
@@ -74,7 +75,7 @@ export class MemberService {
           profile: `${m.name}<br>
                               ${m.workEmail}`,
           status: m.status,
-          date: m.joinDate,
+          date: moment(m.joinDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
           ...m,
         })),
       ),

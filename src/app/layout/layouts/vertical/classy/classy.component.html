@@ -54,7 +54,8 @@
     <search *ngIf="!hideMenusAndButtons" [appearance]="'bar'"></search>
     <!-- Components -->
     <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
-      <switch-organization 
+      <switch-organization
+        #switchOrganization
         *ngIf="!hideMenusAndButtons"
         [user]="user"
         (onActiveOrganizationChange)="onActiveOrganizationChange($event)">
