@@ -67,10 +67,10 @@
           "TITLE": "Landing page"
         },
         "ORGANIZATION_GROUPS": {
-          "TITLE": "Organization groups"
+          "TITLE": "groups"
         },
         "ORGANIZATION_MEMBERS": {
-          "TITLE": "Organization members"
+          "TITLE": "members"
         },
         "ORGANIZATION_PROFILE": {
           "SETTINGS": "Organization Settings",
@@ -264,7 +264,8 @@
       "CREATE_ORGANIZATION": "Create Organization",
       "TITLE": "My Organizations",
       "MESSAGE": "Organizations",
-      "NO_ORGANIZATIONS":"You don't have any organization"
+      "NO_ORGANIZATIONS":"You don't have any organization",
+      "ERROR_LOADING_ORGANIZATIONS":"Something went wrong loading organizations"
     },
 
     "MEMBERS": {
@@ -290,7 +291,8 @@
       },
       "MESSAGE": "Manage Access for all members in your organization in ",
       "SEARCH_MEMBERS": "Search Members",
-      "TITLE": "Members"
+      "TITLE": "Members",
+      "ERROR_LOADING_MEMBERS": "Could not load members."
     },
     "PROFILE": {
       "DETAILS": {
@@ -360,7 +362,9 @@
       "CREATE_COMPLETED": "The creation of the organization was successful"
     },
     "ERROR": {
-      "CREATE_FAILED": "The creation of the organization has failed"
+      "CREATE_FAILED": "The creation of the organization has failed",
+      "FETCH_FAILED": "Could not get the information of the organization",
+      "WRONG_ORG_ID":"Organization not found"
     }
   },
   "PROFILE": "Profile",

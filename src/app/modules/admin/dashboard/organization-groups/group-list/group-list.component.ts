@@ -1,14 +1,16 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subject, debounceTime, lastValueFrom, map, switchMap, takeUntil } from 'rxjs';
+
+import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
 import { GroupFormComponent } from '../group-form/group-form.component';
+import { GroupService } from 'app/modules/admin/resolvers/groups/groups.service';
+import { InventoryPagination } from '../../organization-profile/profile/organization-profile.component';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog';
-import { InventoryPagination } from '../../organization-profile/profile/organization-profile.component';
-import { GroupService } from 'app/modules/admin/resolvers/groups/groups.service';
 import { PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute } from '@angular/router';
+import { ListOption } from '../../reusable-components/list/list-component.component';
 
 @Component({
   selector: 'app-group-list',
@@ -19,12 +21,13 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
   @ViewChild(MatSort) private _sort: MatSort;
 
-  groups$: any;
+  groups$: any = [];
   isLoading: boolean = false;
   selectedGroup = null;
   groupsCount: number = 0;
   pagination: InventoryPagination;
   searchInputControl: FormControl = new FormControl();
+  options: ListOption = { columns: [] };
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -36,6 +39,15 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.options = {
+      columns: [
+        { columnName: 'name', columnPropertyToUse: 'name' },
+        { columnName: 'Status', columnPropertyToUse: 'status' },
+        { columnName: 'Members', columnPropertyToUse: 'members' },
+        { columnName: 'Date', columnPropertyToUse: 'date' },
+      ],
+    };
+
     const { groups } = this._route.snapshot.data;
     this._groupService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
       this.pagination = pagination;
@@ -82,13 +94,16 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
+
   openGroupForm(): void {
     const dialogRef = this._matDialog.open(GroupFormComponent);
     dialogRef.afterClosed().subscribe((result) => {});
   }
+
   trackByFn(index: number, item: any): any {
     return item.id || index;
   }
+
   closeDetails(): void {
     this.selectedGroup = null;
   }
@@ -96,4 +111,6 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   showGroupProfile(groupID) {
     //TODO
   }
+
+  createGroup() {}
 }
