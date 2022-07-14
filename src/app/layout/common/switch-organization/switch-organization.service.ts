@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 
 export enum FunctionReturnTypeEnum {
   promise = 'Promise',
-  Observable = 'Observable',
+  observable = 'Observable',
 }
 
 @Injectable({
