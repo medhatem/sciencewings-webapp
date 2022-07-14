@@ -2,7 +2,10 @@
 <div class="w-full mt-4 mb-4 ml-auto mr-auto bg-card shadow rounded-2xl">
     <div class="flex items-center w-full p-4">
         <div class="flex-1 text-2xl font-semibold p-1 leading-tight">{{profile.name ? profile.name : 'ORGANIZATION.MEMBERS.MISSING_NAME' | transloco }}</div>
-        <button class="text-2xl rounded" (click)="editMemberInformation()">edit</button>
+        <button class="text-tiny border rounded-2xl flex align-center justify-evenly p-0.5 w-20 " (click)="editMemberInformation()">
+            <mat-icon aria-hidden="false" aria-label="edit">edit</mat-icon>
+            Edit
+        </button>
     </div>
     <hr class="w-full border-t my-6" />
     <div class="w-full flex lg:pl-16 sm:pl-8 pt-4" [style.color]="!profile.jobTitle ?  '#FFBFBF' : 'black'">
@@ -10,11 +13,11 @@
         <div class="ml-4"> {{profile.jobTitle? profile.jobTitle : 'ORGANIZATION.MEMBERS.MISSING_INFO' |  transloco }} </div>
     </div>
     <div class="w-full flex lg:pl-16 sm:pl-8 pt-4" [style.color]="!profile.workEmail? '#FFBFBF' : 'black' ">
-        <mat-icon aria-hidden="false" aria-label="member's job">email</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="member email">email</mat-icon>
         <div class="ml-4"> {{profile.workEmail ? profile.workEmail : 'ORGANIZATION.MEMBERS.MISSING_INFO' |  transloco}} </div>
     </div>
     <div class="w-full lg:pl-16 sm:pl-8 pt-4 flex" [style.color]="!profile.workPhone ? '#FFBFBF' : 'black' ">
-        <mat-icon aria-hidden="false" aria-label="member's job">phone</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="member's phone">phone</mat-icon>
         <div class="ml-4"> {{profile.workPhone && profile.workPhone.phoneNumber ? profile.workPhone.phoneNumber : 'ORGANIZATION.MEMBERS.MISSING_INFO' |  transloco}} </div>
     </div>
     <!-- <div class="w-full lg:pl-16 sm:pl-8 pt-4 flex" [style.color]="!profile.address? '#FFBFBF' : 'black' ">
@@ -22,11 +25,11 @@
         <div class="ml-4"> {{profile.address ? profile.address : 'ORGANIZATION.MEMBERS.MISSING_INFO' |  transloco}} </div>
     </div> -->
     <div class="w-full lg:pl-16 sm:pl-8 pt-4 flex" [style.color]="!profile.gender? '#FFBFBF' : 'black' ">
-        <mat-icon aria-hidden="false" aria-label="member's job">perm_identity</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="member's gender">perm_identity</mat-icon>
         <div class="ml-4"> {{profile.gender ? profile.gender : 'ORGANIZATION.MEMBERS.MISSING_INFO' |  transloco}} </div>
     </div>
     <div class="w-full lg:pl-16 sm:pl-8 pt-4 flex mb-4" [style.color]="!profile.status? '#FFBFBF' : 'black' ">
-        <mat-icon aria-hidden="false" aria-label="member's job">pending</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="member's status">pending</mat-icon>
         <div class="ml-4"> {{profile.status ? profile.status : 'ORGANIZATION.MEMBERS.MISSING_INFO' |  transloco}} </div>
     </div>
    </div>
