@@ -1,0 +1,2 @@
+- first connect doesn't load user id
+- switch orgs doesn't show names

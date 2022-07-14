@@ -1,10 +1,9 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { ClassyLayoutComponent } from 'app/layout/layouts/vertical/classy/classy.component';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { constants } from 'app/shared/constants';
-import { Subject, takeUntil } from 'rxjs';
+import { interval, map, retryWhen, Subject, takeUntil, tap } from 'rxjs';
 import { AdminOrganizationsService } from '../../resolvers/admin-organization/admin-organization.service';
 
 @Component({
@@ -20,11 +19,34 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   selectOrganizationEvent = new EventEmitter();
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
+  private _userSelected: Subject<boolean> = new Subject<boolean>();
 
   constructor(private _toastrService: ToastrService, private _adminOrganizationsService: AdminOrganizationsService, private _router: Router) {}
 
   ngOnInit() {
-    this.fetchUserOrganizations();
+    /**
+     * loops on the get current user id, until it is available. then subscibes
+     * to userOrganizations one the user is selected and available is localStorage
+     */
+    interval(300)
+      .pipe(
+        map(() => {
+          const userId = localStorage.getItem(constants.CURRENT_USER_ID);
+          if (!Number(userId)) {
+            throw new Error('No user selected');
+          }
+          this._userSelected.next(true);
+          this._userSelected.complete();
+          this.fetchUserOrganizations();
+          return userId;
+        }),
+        retryWhen((error) => error.pipe(tap())),
+        takeUntil(this._userSelected),
+      )
+      .subscribe({
+        next: (val) => val,
+        error: (err) => err,
+      });
   }
 
   /**
@@ -53,6 +75,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
    */
   private fetchUserOrganizations() {
     const userId = localStorage.getItem(constants.CURRENT_USER_ID);
+    console.log('userId', userId);
+
     this._adminOrganizationsService
       .getAllUserOrganizations(Number(userId))
       .pipe(takeUntil(this._unsubscribeAll))
