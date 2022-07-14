@@ -25,10 +25,10 @@ import { interval, map, tap, retryWhen, Subject, takeUntil, lastValueFrom } from
 })
 export class SwitchOrganizationComponent implements OnInit, OnDestroy {
   @Input() user: User;
-  @Output() onActiveOrganizationChange = new EventEmitter<Partial<UserOrganizations>>();
+  @Output() onActiveOrganizationChange = new EventEmitter<number>();
   isNoOrganization: boolean = false;
   availableOrganizations: Array<UserOrganizations>;
-  activeOrganization: Partial<UserOrganizations>;
+  activeOrganization: UserOrganizations;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
   private _userSelected: Subject<boolean> = new Subject<boolean>();
 
@@ -75,8 +75,8 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
 
   setActiveOrganization(organization: UserOrganizations): void {
     this.activeOrganization = organization;
-    localStorage.setItem(constants.USER_ORGANIZATION_ID, `${organization.id}`);
-    this.onActiveOrganizationChange.emit(this.activeOrganization);
+    localStorage.setItem(constants.CURRENT_ORGANIZATION_ID, `${organization.id}`);
+    this.onActiveOrganizationChange.emit(this.activeOrganization.id);
   }
 
   /**

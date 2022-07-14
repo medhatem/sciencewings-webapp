@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { ClassyLayoutComponent } from 'app/layout/layouts/vertical/classy/classy.component';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { constants } from 'app/shared/constants';
 import { Subject, takeUntil } from 'rxjs';
@@ -16,6 +17,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   readonly fullCreateOrganizationPath = [this.organizationProfilePath, 'create'];
   organizations: UserOrganizations[] = [];
   isLoading: boolean = false;
+  selectOrganizationEvent = new EventEmitter();
+
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(private _toastrService: ToastrService, private _adminOrganizationsService: AdminOrganizationsService, private _router: Router) {}
@@ -39,7 +42,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
    * @param org
    */
   navigateToOrganizationProfilePage(org: UserOrganizations) {
-    this._router.navigate([this.organizationProfilePath, org.id]);
+    localStorage.setItem(constants.CURRENT_ORGANIZATION_ID, `${org.id}`);
+    this.selectOrganizationEvent.emit(org.id);
   }
 
   /**

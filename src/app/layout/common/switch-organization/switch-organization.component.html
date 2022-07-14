@@ -1,6 +1,6 @@
 <!-- Button -->
 <ng-container *ngIf="!isNoOrganization">
-  <button class="border-2 rounded-xl shadow p-1" [matMenuTriggerFor]="organizationsMatMenu">
+  <button class="border-2 rounded-xl shadow p-1 min-w-24" [matMenuTriggerFor]="organizationsMatMenu">
     <ng-container *ngTemplateOutlet="organizationNameTemplate; context: { $implicit: activeOrganization }"></ng-container>
   </button>
   

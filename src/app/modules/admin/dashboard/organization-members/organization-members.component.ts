@@ -44,7 +44,7 @@ export class OrganizationMemebrsComponent implements OnInit {
   }
 
   openInviteMemberDialog(): void {
-    const orgID = localStorage.getItem(constants.USER_ORGANIZATION_ID);
+    const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     if (!orgID) {
       this._toastrService.showError('Something went wrong!');
     }

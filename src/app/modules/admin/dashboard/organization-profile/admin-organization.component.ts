@@ -14,9 +14,7 @@ export class AdminOrganizationComponent implements OnInit {
   constructor(private _router: Router) {}
 
   ngOnInit() {
-    const currentOrgId = Number(localStorage.getItem(constants.USER_ORGANIZATION_ID)) || '';
-    console.log('currentOrgId', currentOrgId);
-
+    const currentOrgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID)) || '';
     this._router.navigate([this.organizationProfilePath, currentOrgId]);
   }
 }

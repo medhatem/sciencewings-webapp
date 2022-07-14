@@ -23,7 +23,7 @@ export class NewUserInfosResolver implements Resolve<any> {
   async loadUserProfileKeycloak() {
     try {
       const user = await this._keycloackService.loadUserProfile();
-      localStorage.setItem(constants.KEYCLOAK_USER_ID, user.id);
+      localStorage.setItem(constants.CURRENT_USER_KEYCLOAK_ID, user.id);
       return user;
     } catch (error) {
       this._toastr.showError('APP.LOGIN_ERROR_TITLE', 'KEYCLOAK_LOGIN_ERROR');

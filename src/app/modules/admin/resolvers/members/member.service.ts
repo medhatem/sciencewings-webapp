@@ -61,7 +61,7 @@ export class MemberService {
   }
 
   getOrgMembers(orgID?: number): Observable<any> {
-    const id = orgID || Number(localStorage.getItem(constants.USER_ORGANIZATION_ID));
+    const id = orgID || Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     return this.swaggerAPI.organizationRoutesGetUsers({ id });
   }
 

@@ -1,8 +1,11 @@
-import { lastValueFrom, map } from 'rxjs';
-
+import { lastValueFrom } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { Injectable } from '@angular/core';
-import { UserOrganizations } from 'app/models/organizations/user-organizations';
+
+export enum FunctionReturnTypeEnum {
+  promise = 'Promise',
+  Observable = 'Observable',
+}
 
 @Injectable({
   providedIn: 'root',
