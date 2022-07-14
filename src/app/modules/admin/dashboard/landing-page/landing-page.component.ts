@@ -24,6 +24,9 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   constructor(private _toastrService: ToastrService, private _adminOrganizationsService: AdminOrganizationsService, private _router: Router) {}
 
   ngOnInit() {
+    //TODO : the same behavior is in SwitchOrganizationComponent
+    // probably is/will be needed is other places
+    // so we have to move it to helper file do be reusublae
     /**
      * loops on the get current user id, until it is available. then subscibes
      * to userOrganizations one the user is selected and available is localStorage
