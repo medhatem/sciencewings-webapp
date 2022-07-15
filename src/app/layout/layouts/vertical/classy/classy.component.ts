@@ -102,8 +102,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
 
   onActivate(event) {
     if (event instanceof LandingPageComponent) {
-      event.selectOrganizationEvent.subscribe((id) => {
-        this.onActiveOrganizationChange(id);
+      event.selectOrganizationEvent.subscribe(async (id) => {
+        await this.onActiveOrganizationChange(id);
         this._router.navigate([event.organizationProfilePath, id]);
       });
     }
@@ -175,9 +175,14 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    *
    * @params organization: Partial<UserOrganizations>
    */
-  onActiveOrganizationChange(organizationId: number) {
-    this._switchOrganizationsService.switchOrganization(organizationId);
-    this.resetNavigation(false);
+  async onActiveOrganizationChange(organizationId: number) {
+    try {
+      await this._switchOrganizationsService.switchOrganization(organizationId);
+    } catch (error) {
+      console.log(error?.message);
+    } finally {
+      this.resetNavigation(false);
+    }
   }
 
   // -----------------------------------------------------------------------------------------------------

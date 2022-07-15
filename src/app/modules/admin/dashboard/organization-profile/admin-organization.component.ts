@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { constants } from 'app/shared/constants';
 
@@ -8,6 +9,15 @@ import { constants } from 'app/shared/constants';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdminOrganizationComponent {
+export class AdminOrganizationComponent implements OnInit {
   readonly organizationProfilePath = `/${constants.MODULES_ROUTINGS_URLS.ADMIN}/${constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_PROFILE}`;
+  constructor(private _router: Router) {}
+
+  ngOnInit() {
+    const params = this._router.url;
+    if (params === this.organizationProfilePath) {
+      const currentOrgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID)) || 'create';
+      this._router.navigate([this.organizationProfilePath, currentOrgId]);
+    }
+  }
 }
