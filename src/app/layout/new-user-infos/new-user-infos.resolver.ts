@@ -32,10 +32,7 @@ export class NewUserInfosResolver implements Resolve<any> {
   async getUser(id: string): Promise<User> {
     return lastValueFrom(
       this._apiService.userRoutesGetUserByKeycloakId({ kcid: id }).pipe(
-        map(({ body, error }) => {
-          if (error) {
-            throw Error(`${error}`);
-          }
+        map(({ body }) => {
           localStorage.setItem(
             constants.CURRENT_USER_ID,
             `${body.data[0].id}
