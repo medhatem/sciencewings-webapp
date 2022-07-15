@@ -9,7 +9,7 @@ import { lastValueFrom, map, Observable, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { TIMEZONES } from 'app/modules/admin/dashboard/resource/resurce-setting-rule/timezones';
-
+import { ResourceRo } from 'generated/models';
 @Component({
   selector: 'app-profile-form',
   templateUrl: './profile-form.component.html',
@@ -74,25 +74,27 @@ export class ResourceProfileFormComponent implements OnInit {
       if (statusCode === 500) {
         this._toastrService.showError(errorMessage, 'Something went wrong!');
       }
-
-      body = body.data[0];
-
+      const data = body.data[0];
       this.form.setValue({
-        name: body.name,
-        description: body.description,
-        timezone: body.timezone,
-        resourceType: body.resourceType,
-        resourceClass: body.resourceClass,
+        name: data.name,
+        description: data.description,
+        timezone: data.timezone,
+        resourceType: data.resourceType,
+        resourceClass: data.resourceClass,
       });
-      this.resource = body.resources;
-      this.tags = body.tags.map((tag) => tag.title);
+      this.resource = data.resources;
+      this.tags = data.tags.map((tag) => tag.title);
       this.filteredTags = this.tags;
-      this.managers = body.managers;
+      this.managers = data.managers;
     });
   }
 
   async onSubmit() {
-    const _resource = {
+    if (this.form.invalid) {
+      return;
+    }
+
+    const _resource: ResourceRo = {
       name: this.form.value.name,
       timezone: this.form.value.timezone,
       description: this.form.value.description,
@@ -123,7 +125,7 @@ export class ResourceProfileFormComponent implements OnInit {
         }
       } else {
         response = await lastValueFrom(this._resourceService.createResource(_resource));
-        this.form = this._formBuilder.group({
+        this.form.reset({
           name: '',
           description: '',
           resourceType: 'equipement',
@@ -152,7 +154,6 @@ export class ResourceProfileFormComponent implements OnInit {
   filterTags(event): void {
     // Get the value
     const value = event.target.value.toLowerCase();
-    console.log({ tags: this.tags });
 
     // Filter the tags
     this.filteredTags = this.tags.filter((tag) => tag.toLowerCase().includes(value));
