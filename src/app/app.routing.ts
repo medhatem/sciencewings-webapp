@@ -4,7 +4,7 @@ import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers
 import { InitialDataResolver } from 'app/app.resolvers';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
-import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource/profile-form/profile-form.component';
+import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource/resource-form/profile-form.component';
 import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
 import { Route } from '@angular/router';
 import { constants } from './shared/constants';
