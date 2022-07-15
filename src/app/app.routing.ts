@@ -4,7 +4,7 @@ import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers
 import { InitialDataResolver } from 'app/app.resolvers';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
-import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource/profile-form/profile-form.component';
+import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource/resource-form/profile-form.component';
 import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
 import { Route } from '@angular/router';
 import { constants } from './shared/constants';
@@ -128,16 +128,16 @@ export const appRoutes: Route[] = [
             },
             loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
           },
-          {
-            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.RESOURCE_UPDATE,
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.RESOURCE_PROFILE.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:information-circle',
-            },
-            component: ResourceProfileFormComponent,
-          },
+          // {
+          //   path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.RESOURCE_UPDATE,
+          //   canActivate: [AuthGuard],
+          //   data: {
+          //     title: 'APP.ROUTES.ADMIN.RESOURCE_PROFILE.TITLE',
+          //     type: FuseNavigationItemTypeEnum.basic,
+          //     icon: 'heroicons_outline:information-circle',
+          //   },
+          //   component: ResourceProfileFormComponent,
+          // },
           {
             path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.SCHEDULE,
             canActivate: [AuthGuard],
@@ -148,17 +148,17 @@ export const appRoutes: Route[] = [
             },
             component: ResourceScheduleComponent,
           },
-          {
-            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.GENERAL_SETTINGS,
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.GENERAL',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:users',
-            },
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
-          },
+          // {
+          //   path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.GENERAL_SETTINGS,
+          //   canActivate: [AuthGuard],
+          //   data: {
+          //     title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.GENERAL',
+          //     type: FuseNavigationItemTypeEnum.basic,
+          //     icon: 'heroicons_outline:users',
+          //   },
+          //   loadChildren: () =>
+          //     import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
+          // },
         ],
       },
       {
