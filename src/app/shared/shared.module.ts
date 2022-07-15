@@ -29,7 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -50,6 +50,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { AvatarComponent } from 'app/components/avatar/avatar.component';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { TranslocoModule } from '@ngneat/transloco';
+import { constants } from './constants';
 
 @NgModule({
   declarations: [AvatarComponent],
@@ -161,5 +162,6 @@ import { TranslocoModule } from '@ngneat/transloco';
     MomentDateModule,
     TranslocoModule,
   ],
+  providers: [{ provide: MAT_DATE_FORMATS, useValue: constants.DATE_OF_BIRTH_FORMATS }],
 })
 export class SharedModule {}

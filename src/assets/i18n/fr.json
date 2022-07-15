@@ -6,7 +6,8 @@
       "NEXT": "Suivant",
       "PREVIOUS": "Précédent",
       "RELOAD": "Recharger",
-      "SUBMIT": "Soumettre"
+      "SUBMIT": "Soumettre",
+      "APPLY": "Appliquer"
     },
     "COMMON": {
       "APP_MODULES": {
@@ -392,13 +393,24 @@
       "EXPORT_PROJECTS": "Exporter",
       "FILTER_PROJECTS": "Filtre",
       "FORM": {
+        "LABEL_NAME": "Titre",
         "CANCEL": "Annuler",
+        "DESCRIPTION_LABEL": "Description",
         "DESCRIPTION": "À propos (description)",
         "PROJECT_MEMBERS": "Membres du projet",
         "PROJECT_NAME": "Nom du Projet",
         "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
         "SAVE": "Sauvegarder",
-        "TITLE": "Créer un nouveau projet"
+        "TITLE": "Créer un nouveau projet",
+        "LOCATION": "Localisation",
+        "MANAGERS": "Gérant(s)",
+        "PARTICIPANTS": "Participent(s)",
+        "ENTER_DATE": "Saisissez une plage de dates",
+        "DATE_HINT": "MM/JJ/AAAA – MM/JJ/AAAA",
+        "STARTDATE": "La date de debut",
+        "ENDDATE": "La date de fin",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "La création du projet a réussi"
       },
       "IMPORT_PROJECTS": "Importer",
       "LIST": {

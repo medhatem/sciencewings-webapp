@@ -1,8 +1,10 @@
-import { BehaviorSubject, Observable, map, take, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, take, tap, lastValueFrom } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {} from 'generated/models';
+import { ProjectDto } from 'generated/models';
+import { Member, OrganizationMembers } from 'app/models/members/member';
+import { Project } from 'app/models/project';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +14,7 @@ export class ProjectService {
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _projects: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
-  constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
+  constructor(private _httpClient: HttpClient, private _swaggerService: ApiService) {}
 
   get data$(): Observable<any> {
     return this._data.asObservable();
@@ -26,6 +28,16 @@ export class ProjectService {
     return this._projects.asObservable();
   }
 
+  async getMembers(id?: number): Promise<OrganizationMembers[]> {
+    return lastValueFrom(
+      this._swaggerService
+        .organizationRoutesGetUsers({ id })
+        .pipe(map(({ body }) => body.data.map((member) => new OrganizationMembers(member)))),
+    );
+  }
+  async createProject(project: Project): Promise<ProjectDto> {
+    return lastValueFrom(this._swaggerService.projectRoutesCreateProject({ body: project as any }));
+  }
   getProjects(
     page: number = 0,
     size: number = 10,

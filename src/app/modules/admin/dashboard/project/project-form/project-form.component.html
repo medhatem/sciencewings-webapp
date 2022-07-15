@@ -6,30 +6,67 @@
   <hr class="w-full border-t my-2" />
   <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="projectForm">
     <mat-form-field class="flex-auto mx-4">
-      <mat-label>Project Name</mat-label>
-      <input matInput [formControlName]="'name'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PROJECT_NAME' | transloco }}" required />
-
+      <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.LABEL_NAME' | transloco }}</mat-label>
+      <input matInput [formControlName]="'title'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PROJECT_NAME' | transloco }}" required />
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
     </mat-form-field>
-    <mat-form-field class="flex-auto mx-4">
-      <input matInput [formControlName]="'member'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PROJECT_MEMBERS' | transloco }}" />
-      <mat-label>Key</mat-label>
-      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
-      <input matInput [formControlName]="'Add Members to Group'" />
+    <div class="flex-auto mx-4" *ngIf="organizationMembers?.length">
+      <div class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+        <mat-label class="w-100">{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}</mat-label>
+        <ng-select placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}" [multiple]="true" [formControlName]="'managers'">
+          <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.user">
+            {{ organizationMember.name }}
+          </ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <div class="flex-auto mx-4" *ngIf="organizationMembers?.length">
+      <div class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+        <mat-label class="w-100" required>{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}</mat-label>
+        <ng-select
+          placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}"
+          [multiple]="true"
+          [formControlName]="'participants'">
+          <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.user">
+            {{ organizationMember.name }}
+          </ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <mat-form-field appearance="fill" class="example-form-field flex-auto mx-4">
+      <mat-label required>{{ 'ORGANIZATION.PROJECTS.FORM.ENTER_DATE' | transloco }}</mat-label>
+      <mat-date-range-input [rangePicker]="rangePicker">
+        <input [formControlName]="'dateStart'" matStartDate placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.STARTDATE' | transloco }}" />
+        <input [formControlName]="'dateEnd'" matEndDate placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.ENDDATE' | transloco }}" />
+      </mat-date-range-input>
+      <mat-hint>{{ 'ORGANIZATION.PROJECTS.FORM.DATE_HINT' | transloco }}</mat-hint>
+      <mat-datepicker-toggle matPrefix [for]="rangePicker"></mat-datepicker-toggle>
+      <mat-date-range-picker #rangePicker>
+        <mat-date-range-picker-actions>
+          <button mat-button matDateRangePickerCancel>{{ 'APP.BTN.CANCEL' | transloco }}</button>
+          <button mat-raised-button color="primary" matDateRangePickerApply>{{ 'APP.BTN.APPLY' | transloco }}</button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
     </mat-form-field>
     <mat-form-field class="flex-auto mx-4">
-      <mat-label>Description</mat-label>
+      <mat-label required>{{ 'ORGANIZATION.PROJECTS.FORM.DESCRIPTION_LABEL' | transloco }}</mat-label>
       <textarea
         matInput
         [formControlName]="'description'"
         placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.DESCRIPTION' | transloco }}"
         [rows]="3"></textarea>
-      <!-- Body -->
     </mat-form-field>
-
+    <section class="example-section flex-auto mx-4">
+      <p>
+        <mat-checkbox formControlName="active">{{ 'ORGANIZATION.PROJECTS.FORM.ACTIVE' | transloco }}</mat-checkbox>
+      </p>
+    </section>
+    <!-- Body -->
     <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
-      <button mat-button mat-dialog-close>Save</button>
-      <button class="px-6 ml-3" mat-flat-button [color]="'primary'" [mat-dialog-close]="true">Cancel</button>
+      <button mat-button mat-dialog-close mat-flat-button [color]="'primary'" (click)="onSubmit()">
+        {{ 'ORGANIZATION.PROJECTS.FORM.SAVE' | transloco }}
+      </button>
+      <button class="px-6 ml-3" [mat-dialog-close]="true">{{ 'ORGANIZATION.PROJECTS.FORM.CANCEL' | transloco }}</button>
     </div>
     <!-- Actions -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
