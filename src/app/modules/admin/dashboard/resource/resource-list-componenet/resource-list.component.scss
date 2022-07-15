@@ -1,19 +1,19 @@
 .inventory-grid {
-    grid-template-columns: auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr;
 
-    @screen sm {
-      grid-template-columns: auto auto auto auto;
-    }
-
-    @screen md {
-      grid-template-columns: auto auto auto auto auto;
-    }
-
-    @screen lg {
-      grid-template-columns: auto auto auto auto auto;
-    }
+  @screen sm {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
-  .resource-card-detail {
-    width: 100%;
-    padding-left: 64px;
+
+  @screen md {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
+
+  @screen lg {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+.resource-card-detail {
+  width: 100%;
+  padding-left: 64px;
+}
