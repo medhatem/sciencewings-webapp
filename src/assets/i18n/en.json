@@ -6,7 +6,8 @@
       "NEXT": "Next",
       "PREVIOUS": "Previous",
       "RELOAD": "Reload",
-      "SUBMIT": "Submit"
+      "SUBMIT": "Submit",
+      "APPLY": "Apply"
     },
     "COMMON": {
       "APP_MODULES": {
@@ -388,27 +389,38 @@
       "CREATE_COMPLETED": "The creation of the organization was successful"
     },
     "PROJECTS": {
-      "CREATE_PROJECTS": "Export",
-      "EXPORT_PROJECTS": "Exporter",
+      "CREATE_PROJECTS": "Create a new project",
+      "EXPORT_PROJECTS": "Export",
       "FILTER_PROJECTS": "Filter",
       "FORM": {
+        "LABEL_NAME": "Title",
         "CANCEL": "Cancel",
+        "DESCRIPTION_LABEL": "Description",
         "DESCRIPTION": "About (description)",
         "PROJECT_MEMBERS": "Project's Members",
         "PROJECT_NAME": "Project's Name",
         "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
-        "SAVE": "Sauvegarder",
-        "TITLE": "Create Project"
+        "SAVE": "Save",
+        "TITLE": "Create Project",
+        "LOCATION": "Location",
+        "MANAGERS": "Manager(s)",
+        "PARTICIPANTS": "Participant(s)",
+        "ENTER_DATE": "Enter a date range",
+        "DATE_HINT": "MM/DD/YYYY – MM/DD/YYYY",
+        "STARTDATE": "Start date",
+        "ENDDATE": "End date",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "Create project succeeded"
       },
-      "IMPORT_PROJECTS": "Importer",
+      "IMPORT_PROJECTS": "Import",
       "LIST": {
         "PROJECT_DATE": "Date",
         "PROJECT_MEMBERS": "Membres",
         "PROJECT_NAME": "Project",
         "PROJECT_STATUS": "Status",
-        "MESSAGE": "Il n'y a pas de projects !"
+        "MESSAGE": "There is no projects"
       },
-      "SEARCH_PROJECTS": "Chercher un projet",
+      "SEARCH_PROJECTS": "Find a project",
       "TITLE": "Projects",
       "ERROR": {
         "CREATE_FAILED": "The creation of the organization has failed"
