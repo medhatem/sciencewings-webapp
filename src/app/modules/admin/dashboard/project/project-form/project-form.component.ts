@@ -92,6 +92,6 @@ export class ProjectFormComponent implements OnInit {
     return new Project({ ...this.projectForm.value, organization: this.getOrganization() });
   }
   private getOrganization(): number {
-    return Number(localStorage.getItem(constants.USER_ORGANIZATION_ID));
+    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
 }
