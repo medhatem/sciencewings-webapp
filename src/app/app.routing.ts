@@ -1,13 +1,13 @@
 import { AuthGuard } from './core/auth/keycloak/app.guard';
 import { FuseNavigationItemTypeEnum } from '@fuse/components/navigation/navigation.types';
-import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
 import { InitialDataResolver } from 'app/app.resolvers';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
 import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource/profile-form/profile-form.component';
-import { ProjectResolver } from './modules/admin/resolvers/project/project.resolvers';
 import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
 import { Route } from '@angular/router';
+import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
+import { ProjectResolver } from './modules/admin/resolvers/project/project.resolvers';
 import { constants } from './shared/constants';
 
 /**
@@ -97,6 +97,19 @@ export const appRoutes: Route[] = [
               import('app/modules/admin/dashboard/organization-groups/organization-groups.module').then((m) => m.OrganizationGroupsModule),
           },
           {
+            path: 'project',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.PROJECT.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:table',
+            },
+            resolve: {
+              projects: ProjectResolver,
+            },
+            loadChildren: () => import('app/modules/admin/dashboard/project/project.module').then((m) => m.ProjectModule),
+          },
+          {
             path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_SETTINGS,
             canActivate: [AuthGuard],
             data: {
@@ -148,19 +161,6 @@ export const appRoutes: Route[] = [
               icon: 'heroicons_outline:calendar',
             },
             component: ResourceScheduleComponent,
-          },
-          {
-            path: 'project',
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.PROJECT.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:table',
-            },
-            resolve: {
-              projects: ProjectResolver,
-            },
-            loadChildren: () => import('app/modules/admin/dashboard/project/project.module').then((m) => m.ProjectModule),
           },
           {
             path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.GENERAL_SETTINGS,
