@@ -1,15 +1,17 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Address, Phone } from 'app/models';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Organization, UserOrganizations } from 'app/models/organizations/organization';
+import { Organization } from 'app/models/organizations/organization';
+import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
 import { OrganizationType, OrganizationTypeTrasnlation } from 'app/models/organizations/organization-type.enum';
 
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
-import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
-import { ActivatedRoute, Router } from '@angular/router';
+import { UserOrganizations } from 'app/models/organizations/user-organizations';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'organization-form',
@@ -36,7 +38,7 @@ export class OrganizationFormComponent implements OnInit {
     private _router: Router,
   ) {}
 
-  async ngOnInit() {
+  ngOnInit() {
     const { userOrganizations = [] } = this._route.snapshot.data;
     this.userOrganizations = userOrganizations;
     const formGroupObj = {
@@ -53,7 +55,7 @@ export class OrganizationFormComponent implements OnInit {
       province: ['', [Validators.required]],
       street: ['', [Validators.required]],
       labels: [],
-      type: ['', [Validators.required]],
+      organizationType: ['', [Validators.required]],
     };
 
     if (!this.userOrganizations?.length) {
@@ -64,12 +66,14 @@ export class OrganizationFormComponent implements OnInit {
   }
 
   /**
-   * 1 - Validate if the form data is valid first
-   * 2 - create a new organization
-   * 3 - redirect to dashboard page if success
+   * 1 - Triggers getAllUserOrganizations, to update subscribers
+   * 2 - Validate if the form data is valid first
+   * 3 - create a new organization
+   * 4 - redirect to dashboard page if success
    *
    */
   async onSubmit() {
+    await lastValueFrom(this._adminOrganizationsService.getAllUserOrganizations());
     if (!this.formGroup.valid) {
       this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
       return;
@@ -112,10 +116,17 @@ export class OrganizationFormComponent implements OnInit {
    * @returns Organization
    */
   private getOrganizationFromFormBuilder(): Organization {
-    const { phoneNumber, phoneCode, labels, type, parent } = this.formGroup.value;
+    const { phoneNumber, phoneCode, labels, parent, organizationType } = this.formGroup.value;
     const phone = new Phone({ phoneNumber, phoneCode });
     const address = new Address({ ...this.formGroup.value });
-    return new Organization({ ...this.formGroup.value, addresses: [address], phones: [phone], labels: [labels], type, parent });
+    return new Organization({
+      ...this.formGroup.value,
+      addresses: [address],
+      phones: [phone],
+      labels: [labels],
+      type: organizationType,
+      parent,
+    });
   }
 
   // ****************************** code for labels that we will need later on ****************************** //

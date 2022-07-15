@@ -8,7 +8,8 @@ import { FormControl } from '@angular/forms';
 import { lastValueFrom, map, Observable, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-
+import { TIMEZONES } from 'app/modules/admin/dashboard/resource/resurce-setting-rule/timezones';
+import { ResourceRo } from 'generated/models';
 @Component({
   selector: 'app-profile-form',
   templateUrl: './profile-form.component.html',
@@ -20,6 +21,8 @@ export class ResourceProfileFormComponent implements OnInit {
   form!: FormGroup;
   btnTitle: string = 'Add';
   params: any;
+
+  timezones = TIMEZONES;
 
   // TAGS
   tags = [];
@@ -42,10 +45,8 @@ export class ResourceProfileFormComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _toastrService: ToastrService,
   ) {
-    this.route.params.subscribe((params) => {
-      this.params = params;
-      this.btnTitle = params.id === 'create' ? 'Add' : 'Update';
-    });
+    this.params = this.route.snapshot.queryParams.id;
+    this.btnTitle = this.route.snapshot.queryParams.id ? 'Update' : 'Add';
   }
 
   ngOnInit(): void {
@@ -61,39 +62,47 @@ export class ResourceProfileFormComponent implements OnInit {
       if (error?.statusCode === 500) {
         this._toastrService.showError(error.errorMessage, 'Something went wrong!');
       }
-      this.allManagers = body.members;
+
+      this.allManagers = body.data;
       this.filteredManagers = this.managerCtrl.valueChanges.pipe(
         startWith(null),
         map((manager: any) => (manager ? this._filter(manager.name) : this.allManagers.slice())),
       );
     });
 
-    this._resourceService.getResource(this.params.id).subscribe(({ statusCode, body, errorMessage }) => {
+    this._resourceService.getResource(this.params).subscribe(({ statusCode, body, errorMessage }) => {
       if (statusCode === 500) {
         this._toastrService.showError(errorMessage, 'Something went wrong!');
       }
+      const data = body.data[0];
       this.form.setValue({
-        name: body.name,
-        description: body.description,
-        timezone: body.timezone,
+        name: data.name,
+        description: data.description,
+        timezone: data.timezone,
+        resourceType: data.resourceType,
+        resourceClass: data.resourceClass,
       });
-      this.resource = body.resources;
-      this.tags = body.tags.map((tag) => tag.title);
+      this.resource = data.resources;
+      this.tags = data.tags.map((tag) => tag.title);
       this.filteredTags = this.tags;
-      this.managers = body.managers;
+      this.managers = data.managers;
     });
   }
 
   async onSubmit() {
-    const _resource = {
+    if (this.form.invalid) {
+      return;
+    }
+
+    const _resource: ResourceRo = {
       name: this.form.value.name,
       timezone: this.form.value.timezone,
       description: this.form.value.description,
       active: true,
       organization: 1,
       user: 1,
-      resourceType: 'USER',
-      resourceClass: 'USER',
+      resourceType: this.form.value.resourceType,
+      resourceClass: this.form.value.resourceClass,
       tags: this.tags.map((tag) => ({ title: tag })),
       managers: this.managers.map((manager) => ({
         organization: manager.organization,
@@ -102,20 +111,27 @@ export class ResourceProfileFormComponent implements OnInit {
     };
     try {
       let response = null;
-      if (this.params.id === 'create') {
-        response = await lastValueFrom(this._resourceService.createResource(_resource));
-      } else {
+      if (this.params) {
         response = await lastValueFrom(
-          this._resourceService.updateResource(this.params.id, {
+          this._resourceService.updateResource(this.params, {
             ...this.resource,
             ..._resource,
           }),
         );
-        if (response.body.statusCode === 201) {
+        if (response.body.statusCode === 204) {
           this._toastrService.showSuccess('Updated Successfully');
         } else {
           this._toastrService.showError('Something went wrong!');
         }
+      } else {
+        response = await lastValueFrom(this._resourceService.createResource(_resource));
+        this.form.reset({
+          name: '',
+          description: '',
+          resourceType: 'equipement',
+          resourceClass: 'reservable',
+          timezone: '',
+        });
       }
     } catch (error) {
       this._toastrService.showError('Something went wrong!');
@@ -140,7 +156,7 @@ export class ResourceProfileFormComponent implements OnInit {
     const value = event.target.value.toLowerCase();
 
     // Filter the tags
-    this.filteredTags = this.tags.filter((tag) => tag.title.toLowerCase().includes(value));
+    this.filteredTags = this.tags.filter((tag) => tag.toLowerCase().includes(value));
   }
 
   /**

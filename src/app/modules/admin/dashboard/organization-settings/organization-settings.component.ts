@@ -2,9 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { CookieService } from 'ngx-cookie-service';
 import { AdminOrganizationsService } from '../../resolvers/admin-organization/admin-organization.service';
 
 @Component({
@@ -31,7 +29,6 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _organizationService: AdminOrganizationsService,
     private _toastrService: ToastrService,
-    private _coookies: CookieService,
   ) {}
 
   // -----------------------------------------------------------------------------------------------------

@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ResourceService } from '../../../resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { Router } from '@angular/router';
 
 export interface ResourceType {
   name: string;
@@ -34,6 +35,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
     private _resourceService: ResourceService,
     private _toastrService: ToastrService,
     private _changeDetectorRef: ChangeDetectorRef,
+    private _router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -91,7 +93,8 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
    *
    * @param productId
    */
-  toggleDetails(resourceId: number): void {
+  toggleDetails(event, resourceId: number): void {
+    event.stopPropagation();
     // If the product is already selected...
     if (this.selectedResource && this.selectedResource.id === resourceId) {
       // Close the details
@@ -118,7 +121,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  showResourceProfile(resourceID) {
-    //TODO
+  showResourceProfile(resourceID: number) {
+    this._router.navigateByUrl('resources/resource/create?id=' + resourceID);
   }
 }

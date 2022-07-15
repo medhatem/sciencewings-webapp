@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'admin-organization',
@@ -6,6 +9,15 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdminOrganizationComponent {
-  constructor() {}
+export class AdminOrganizationComponent implements OnInit {
+  readonly organizationProfilePath = `/${constants.MODULES_ROUTINGS_URLS.ADMIN}/${constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_PROFILE}`;
+  constructor(private _router: Router) {}
+
+  ngOnInit() {
+    const params = this._router.url;
+    if (params === this.organizationProfilePath) {
+      const currentOrgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID)) || 'create';
+      this._router.navigate([this.organizationProfilePath, currentOrgId]);
+    }
+  }
 }

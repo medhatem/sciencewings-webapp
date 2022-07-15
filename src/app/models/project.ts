@@ -11,7 +11,7 @@ export class Project implements ProjectRo {
   title: string;
 
   constructor(project?: any) {
-    const { active, dateEnd, dateStart, description, managers, organization, participants, tags, tasks, title } = project || {};
+    const { active, dateEnd, dateStart, description, managers, organization, participants, title } = project || {};
     Object.assign(this, {
       active,
       dateEnd,

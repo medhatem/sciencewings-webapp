@@ -35,6 +35,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    console.log('========1');
     const { projects } = this._route.snapshot.data;
     this._projectService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
       this.pagination = pagination;

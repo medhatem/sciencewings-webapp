@@ -1,18 +1,17 @@
-import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { Organization } from 'app/models/organizations/organization';
+
 import { AdminOrganizationsService } from './admin-organization.service';
+import { Injectable } from '@angular/core';
+import { MemberService } from '../members/member.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminOrganizationResolver implements Resolve<any> {
-  constructor(private _myOrganizationsService: AdminOrganizationsService) {}
+  constructor(private _myOrganizationsService: AdminOrganizationsService, private _memberService: MemberService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Organization> {
-    const { id } = route.params || route.data || route.queryParams;
-    if (id) {
-      return this._myOrganizationsService.getOrganization(id);
-    }
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any[]> {
+    return this._memberService.getAndParseOrganizationMember();
   }
 }

@@ -61,14 +61,17 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "ORGANIZATION_DASHBOARD": {
+          "TITLE": "Dashboard"
+        },
         "LANDING_PAGE": {
           "TITLE": "Landing page"
         },
         "ORGANIZATION_GROUPS": {
-          "TITLE": "Organization groups"
+          "TITLE": "groups"
         },
         "ORGANIZATION_MEMBERS": {
-          "TITLE": "Organization members"
+          "TITLE": "members"
         },
         "ORGANIZATION_PROFILE": {
           "SETTINGS": "Organization Settings",
@@ -246,12 +249,29 @@
       "SEARCH_GROUPS": "Search Groups",
       "TITLE": "Groups"
     },
+    "ORGANIZATION_DASHBOARD": {
+      "RECENT_PROJECTS": "Recent Projects",
+      "RECENT_RESOURCES": "Recent Resources",
+      "MEMBERSHIPS_REVIEW": "Memberships to Review",
+      "RESERVATIONS_REVIEW": "Reservations to Review",
+      "SEE_MORE": "See More",
+      "MESSAGE1": "Recent Invitations",
+      "MESSAGE2": "Recent Reservation",
+      "TABLE": {
+        "RESOURCE": "Resource",
+        "ACCEPTE": "Accepte",
+        "REJECTE": "Rejecte",
+        "APPEOVE": "Approve"
+      }
+    },
     "LANDING_PAGE": {
       "CREATE_ORGANIZATION": "Create Organization",
       "TITLE": "My Organizations",
       "MESSAGE": "Organizations",
-      "NO_ORGANIZATIONS": "You don't have any organization"
+      "NO_ORGANIZATIONS": "You don't have any organization",
+      "ERROR_LOADING_ORGANIZATIONS": "Something went wrong loading organizations"
     },
+
     "MEMBERS": {
       "EXPORT_MEMBERS": "Export",
       "FILTER_MEMBERS": "Filter",
@@ -275,7 +295,31 @@
       },
       "MESSAGE": "Manage Access for all members in your organization in ",
       "SEARCH_MEMBERS": "Search Members",
-      "TITLE": "Members"
+      "TITLE": "Members",
+      "ERROR_LOADING_MEMBERS": "Could not load members.",
+      "MISSING_INFO": "____Missing_Information____",
+      "MISSING_NAME": "____Missing_Name____",
+      "PROFILE_LOADING_ERROR": "Could not load member profile",
+      "EDIT_MEMBER_TITILE": "Member Details",
+      "PROFILE": {
+        "NAME": "Full Name",
+        "JOB": "Job Title",
+        "GENDER": "Gender",
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "LABEL": "Label",
+        "ADDRESS": {
+          "TITLE": "Address",
+          "APARTMENT": "apartment",
+          "STREET": "Street",
+          "CITY": "City",
+          "COUNTRY": "Country",
+          "PROVINCE": "Province/Region",
+          "ZIP": "Zip Code"
+        },
+        "SAVE": "Save",
+        "CANCEL": "Cancel"
+      }
     },
     "PROFILE_RESOURCE": {
       "DETAILS": {
@@ -385,5 +429,13 @@
     "PROFILE": "Profile",
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
     "WELCOME_BACK": "Hello"
-  }
+  },
+  "ERROR": {
+    "CREATE_FAILED": "The creation of the organization has failed",
+    "FETCH_FAILED": "Could not get the information of the organization",
+    "WRONG_ORG_ID": "Organization not found"
+  },
+  "PROFILE": "Profile",
+  "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
+  "WELCOME_BACK": "Hello"
 }

@@ -61,14 +61,17 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "ORGANIZATION_DASHBOARD": {
+          "TITLE": "Dashboard"
+        },
         "LANDING_PAGE": {
           "TITLE": "Page d'accueil"
         },
         "ORGANIZATION_GROUPS": {
-          "TITLE": "Groupes de l'organisation "
+          "TITLE": "Groupes"
         },
         "ORGANIZATION_MEMBERS": {
-          "TITLE": "Members de l'organisation"
+          "TITLE": "Members"
         },
         "ORGANIZATION_PROFILE": {
           "SETTINGS": "Réglages Organization",
@@ -247,11 +250,27 @@
       "SEARCH_GROUPS": "Chercher un groupe",
       "TITLE": "Groupes"
     },
+    "ORGANIZATION_DASHBOARD": {
+      "RECENT_PROJECTS": "Les projets récents",
+      "RECENT_RESOURCES": "Les ressources récentes",
+      "MEMBERSHIPS_REVIEW": "Les invitations à revoir",
+      "RESERVATIONS_REVIEW": "Les réservations à revoir",
+      "SEE_MORE": "Voir Plus",
+      "MESSAGE1": "Invitations récentes ",
+      "MESSAGE2": "Réservations récentes",
+      "TABLE": {
+        "RESOURCE": "Ressource",
+        "ACCEPTE": "Accepter",
+        "REJECTE": "Rejeter",
+        "APPEOVE": "Approver"
+      }
+    },
     "LANDING_PAGE": {
       "CREATE_ORGANIZATION": "Créer une organisation",
       "TITLE": "Mes Organisations",
       "MESSAGE": "organisations",
-      "NO_ORGANIZATIONS": "Vous n'avez pas d'organisation"
+      "NO_ORGANIZATIONS": "Vous avez aucune organisation",
+      "ERROR_LOADING_ORGANIZATIONS": "Une erreur s'est produite lors du chargement des organisations"
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Exporter",
@@ -276,7 +295,31 @@
       },
       "MESSAGE": "Gérer les accès pour tous les membres de votre organisation dans ",
       "SEARCH_MEMBERS": " Rechercher un membre",
-      "TITLE": "Members"
+      "TITLE": "Members",
+      "ERROR_LOADING_MEMBERS": "impossible de charger les membres.",
+      "MISSING_INFO": "____Information_Manquante____",
+      "MISSING_NAME": "____Nom_Manquant____",
+      "PROFILE_LOADING_ERROR": "Impossible de charger le profil du membre",
+      "EDIT_MEMBER_TITILE": "détails du membre",
+      "PROFILE": {
+        "NAME": "Nom Complet",
+        "JOB": "Profession",
+        "GENDER": "sexe",
+        "EMAIL": "Email",
+        "PHONE": "numéro de téléphone",
+        "LABEL": "étiquette",
+        "ADDRESS": {
+          "TITLE": "Adresse",
+          "APARTMENT": "Appartement",
+          "STREET": "Rue",
+          "CITY": "ville",
+          "COUNTRY": "Pays",
+          "PROVINCE": "Province/Region",
+          "ZIP": "Code postal"
+        },
+        "SAVE": "modifier",
+        "CANCEL": "annuler"
+      }
     },
     "PROFILE_RESOURCE": {
       "DETAILS": {
@@ -386,5 +429,13 @@
     "PROFILE": "Profil",
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
     "WELCOME_BACK": "Bonjour"
-  }
+  },
+  "ERROR": {
+    "CREATE_FAILED": "La création de l'organisation a échoué",
+    "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
+    "WRONG_ORG_ID": "L'organization demandé est introuvable"
+  },
+  "PROFILE": "Profil",
+  "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
+  "WELCOME_BACK": "Bonjour"
 }

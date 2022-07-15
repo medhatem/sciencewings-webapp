@@ -1,9 +1,9 @@
-import { Route } from '@angular/router';
-import { AdminOrganizationResolver } from '../../resolvers/admin-organization/admin-organization.resolvers';
-import { OrganizationFormResolver } from '../../resolvers/admin-organization/organization-form.resolvers';
 import { AdminOrganizationComponent } from './admin-organization.component';
+import { AdminOrganizationResolver } from '../../resolvers/admin-organization/admin-organization.resolvers';
 import { OrganizationFormComponent } from './form/organization-form.component';
+import { OrganizationFormResolver } from '../../resolvers/admin-organization/organization-form.resolvers';
 import { OrganizationProfileComponent } from './profile/organization-profile.component';
+import { Route } from '@angular/router';
 
 export const adminOrganizationRoutes: Route[] = [
   {
@@ -11,18 +11,15 @@ export const adminOrganizationRoutes: Route[] = [
     component: AdminOrganizationComponent,
     children: [
       {
-        path: '',
-        component: OrganizationProfileComponent,
-        resolve: {
-          organization: AdminOrganizationResolver,
-        },
-      },
-      {
         path: 'create',
-        component: OrganizationFormComponent,
         resolve: {
           userOrganizations: OrganizationFormResolver,
         },
+        component: OrganizationFormComponent,
+      },
+      {
+        path: ':idOrg',
+        component: OrganizationProfileComponent,
       },
     ],
   },

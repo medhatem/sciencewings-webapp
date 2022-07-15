@@ -2,7 +2,6 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'organization-settings-access',
@@ -14,7 +13,11 @@ export class AccessComponent implements OnInit {
   @Output() updateLocalSettings = new EventEmitter<string>();
   form: FormGroup;
   isMemberShouldAccessByJoinCode = false;
-  constructor(private _formBuilder: FormBuilder, private _toastrService: ToastrService, private organizationService: AdminOrganizationsService) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _toastrService: ToastrService,
+    private organizationService: AdminOrganizationsService,
+  ) {}
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({

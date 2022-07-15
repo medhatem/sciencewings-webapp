@@ -11,9 +11,6 @@ export const projectRoutes: Route[] = [
       {
         path: '',
         component: ProjectListComponent,
-        resolve: {
-          organization: AdminOrganizationResolver,
-        },
       },
     ],
   },

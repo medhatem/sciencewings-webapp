@@ -1,5 +1,16 @@
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import {
   FuseNavigationItem,
   FuseNavigationItemTypeEnum,
@@ -12,12 +23,14 @@ import { appRoutes } from 'app/app.routing';
 import { CookieService } from 'ngx-cookie-service';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen/splash-screen.service';
-import { KeycloakService } from 'keycloak-angular';
 import { SwitchOrganizationsService } from 'app/layout/common/switch-organization/switch-organization.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { User } from 'app/core/user/user.types';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { constants } from 'app/shared/constants';
+import { SharedHelpers } from 'app/shared/helpers';
+import { SwitchOrganizationComponent } from 'app/layout/common/switch-organization/switch-organization.component';
+import { LandingPageComponent } from 'app/modules/admin/dashboard/landing-page/landing-page.component';
 
 @Component({
   selector: 'classy-layout',
@@ -27,6 +40,8 @@ import { constants } from 'app/shared/constants';
 export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   @Input() hideMenusAndButtons: boolean;
   @Output() onHideMenusAndButtonsChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @ViewChild(SwitchOrganizationComponent) switchOrganization: SwitchOrganizationComponent;
+
   isScreenSmall: boolean;
   navigation: FuseNavigationItem[];
   user: User;
@@ -37,9 +52,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     private _router: Router,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _fuseNavigationService: FuseNavigationService,
-    private _coookies: CookieService,
+    private _cookies: CookieService,
     private _fuseSplashScreenService: FuseSplashScreenService,
-    private _keycloackService: KeycloakService,
     private _toastrService: ToastrService,
     private _switchOrganizationsService: SwitchOrganizationsService,
   ) {}
@@ -57,8 +71,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     /**
      * Set ADMINISTRATION module by default
      */
-    if (!localStorage.getItem(constants.MODULE_ROUTING_URL)) {
-      localStorage.setItem(constants.MODULE_ROUTING_URL, constants.MODULES_ROUTINGS_URLS.ADMIN);
+    if (!localStorage.getItem(constants.CURRENT_MODULE)) {
+      localStorage.setItem(constants.CURRENT_MODULE, constants.MODULES_ROUTINGS_URLS.ADMIN);
     }
     /**
      * Temporary modification until implementation of images handling and User status
@@ -84,6 +98,15 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.resetNavigation(changes.hideMenusAndButtons.currentValue);
+  }
+
+  onActivate(event) {
+    if (event instanceof LandingPageComponent) {
+      event.selectOrganizationEvent.subscribe(async (id) => {
+        await this.onActiveOrganizationChange(id);
+        this._router.navigate([event.organizationProfilePath, id]);
+      });
+    }
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -112,7 +135,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    *
    * @param hideNavigation
    */
-  resetNavigation(hideNavigation: boolean) {
+  resetNavigation(hideNavigation: boolean): void {
     try {
       this._fuseSplashScreenService.show();
       if (this.hideMenusAndButtons !== hideNavigation) {
@@ -122,14 +145,11 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       if (hideNavigation) {
         this.navigation = [];
       } else {
-        const moduleUrl = localStorage.getItem(constants.MODULE_ROUTING_URL) || constants.MODULES_ROUTINGS_URLS.ADMIN;
-        const routesToDisplay = appRoutes[0].children.find(({ path }) => path === moduleUrl);
-        this.navigation = this.getNavigationItemsFromRoutes(routesToDisplay.children, `/${routesToDisplay.path}`);
-        this.redirectToParentOrFirstChild(routesToDisplay);
+        this.loadNavigationItemsFromRoutes();
       }
     } catch (error) {
       this._toastrService.showError(constants.FATAL_ERROR_OCCURED);
-      this.terminateAllTasksAndLogout();
+      SharedHelpers.terminateAllTasksAndLogout(this._cookies, [this._unsubscribeAll]);
     } finally {
       setTimeout(() => {
         this._fuseSplashScreenService.hide();
@@ -145,7 +165,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    * @params url: string
    */
   onSwitchModule(url: string) {
-    localStorage.setItem(constants.MODULE_ROUTING_URL, url);
+    localStorage.setItem(constants.CURRENT_MODULE, url);
     this.resetNavigation(false);
   }
 
@@ -155,14 +175,40 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    *
    * @params organization: Partial<UserOrganizations>
    */
-  onActiveOrganizationChange(organization: Partial<UserOrganizations>) {
-    this._switchOrganizationsService.switchOrganization(organization.id as number);
-    this.resetNavigation(false);
+  async onActiveOrganizationChange(organizationId: number) {
+    try {
+      await this._switchOrganizationsService.switchOrganization(organizationId);
+    } catch (error) {
+      console.log(error?.message);
+    } finally {
+      this.resetNavigation(false);
+    }
   }
 
   // -----------------------------------------------------------------------------------------------------
   // @ Private methods
   // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * Builds navigation items from application routes
+   * based on Selected Organization & Selected Module
+   *
+   * Returns only Landing Page if no organization selected
+   */
+  private loadNavigationItemsFromRoutes(): void {
+    const applicationRoutes = appRoutes[0].children;
+    const navigationItems = [applicationRoutes.find(({ path }) => path === constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.LANDING_PAGE)];
+
+    const currentOrganization = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    if (!!currentOrganization) {
+      // this.switchOrganization?.setActiveOrganization();
+      const modulePath = localStorage.getItem(constants.CURRENT_MODULE) || constants.MODULES_ROUTINGS_URLS.ADMIN;
+      navigationItems.push(applicationRoutes.find(({ path }) => path === modulePath));
+    }
+
+    this.navigation = this.buildNavigationItemsFromRoutes(navigationItems);
+    this.redirectToParentOrFirstChild(navigationItems[0]);
+  }
 
   /**
    * Build navigation array of FuseNavigationItem items.
@@ -173,7 +219,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    * @param routes
    * @param parentPath (optional)
    */
-  private getNavigationItemsFromRoutes(routes: Route[], parentPath: string = ''): FuseNavigationItem[] {
+  private buildNavigationItemsFromRoutes(routes: Route[], parentPath: string = ''): FuseNavigationItem[] {
     return routes.reduce((acc, { path = '', data, children = [] }) => {
       const { title = path, type = FuseNavigationItemTypeEnum.basic, icon, action } = data || {};
       if (path === constants.MODULES_ROUTINGS_URLS.ERROR_PAGE) {
@@ -183,7 +229,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       const link = `${parentPath ? `${parentPath}` : ''}/${path}`;
       const navigationItem = { id, title, type, link } as FuseNavigationItem;
       if (children?.length) {
-        navigationItem.children = this.getNavigationItemsFromRoutes(children, link);
+        navigationItem.children = this.buildNavigationItemsFromRoutes(children, link);
       }
       if (icon) {
         navigationItem.icon = icon;
@@ -208,18 +254,5 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       redirectToPath.push(children[0].path);
     }
     this._router.navigate(redirectToPath);
-  }
-
-  /**
-   * Unsubscribe from All and clears all the data in the browser and logs out the user.
-   */
-  private terminateAllTasksAndLogout() {
-    this._coookies.deleteAll();
-    localStorage.clear();
-    this._unsubscribeAll.next(null);
-    this._unsubscribeAll.complete();
-    setTimeout(() => {
-      this._keycloackService.logout();
-    }, 5000);
   }
 }

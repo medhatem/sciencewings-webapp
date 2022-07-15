@@ -13,7 +13,7 @@
       </div>
       <!-- create new -->
       <div class="flex items-center mt-6 sm:mt-0 sm:ml-2 space-x-3">
-        <button class="fuse-mat-button-rounded" mat-flat-button [color]="'primary'" [routerLink]="['create']">
+        <button class="fuse-mat-button-rounded" mat-flat-button [color]="'primary'" [routerLink]="['/admin/organization-profile/create']">
           <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
           <span class="ml-2">Ajouter une organisation</span>
         </button>
@@ -24,13 +24,10 @@
   <!-- Main grid gap-4 grid-cols-3 -->
   <div class="flex flex-auto py-1">
     <div class="flex flex-col flex-auto w-full max-w-lg sm:max-w-full mx-auto">
-      <div class="grid grid-cols-3 gap-3 w-full max-w-screen-xl mx-auto">
+      <div class="grid grid-cols-3 gap-3 w-full max-w-screen-xl mx-auto ml-3 mr-3">
         <!-- About me -->
         <fuse-card class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl">
           <div class="flex flex-col items-center w-full p-4">
-            <div class="relative w-48">
-              <img class="w-full h-full rounded-full" src="assets/images/logo/logo-2.svg" alt="User avatar" />
-            </div>
             <div class="text-2xl font-semibold p-1 leading-tight">Science Wings</div>
             <div class="text-2xl font-semibold p-1 leading-tight">administration@sciencewings.com</div>
           </div>
@@ -119,7 +116,7 @@
       </ng-container>
 
       <!-- Phone -->
-      <ng-container *ngIf="organization.phoneNumbers.length">
+      <ng-container *ngIf="organization.phones.length">
         <div class="flex">
           <mat-icon [svgIcon]="'heroicons_outline:phone'"></mat-icon>
           <div class="min-w-0 ml-6 space-y-1">
