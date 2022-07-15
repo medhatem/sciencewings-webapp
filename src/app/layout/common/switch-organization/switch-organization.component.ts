@@ -43,7 +43,7 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
      * loops on the get current user id, until it is available. then subscibes
      * to userOrganizations one the user is selected and available is localStorage
      */
-    interval(3000)
+    interval(1000)
       .pipe(
         map(async () => {
           const userId = localStorage.getItem(constants.CURRENT_USER_ID);
@@ -100,6 +100,7 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
     this._adminOrganizationsService.userOrganiztions.pipe(takeUntil(this._unsubscribeAll)).subscribe({
       next: (organizations) => {
         this.availableOrganizations = organizations;
+        this._changeDetectorRef.markForCheck();
       },
       error: (error) => {
         this._toastrService.showInfo('APP.SWITCH_ORGANIZATIONS_LOAD_FAILED');

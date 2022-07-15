@@ -9,7 +9,6 @@ export const adminOrganizationRoutes: Route[] = [
   {
     path: '',
     component: AdminOrganizationComponent,
-    resolve: {},
     children: [
       {
         path: 'create',

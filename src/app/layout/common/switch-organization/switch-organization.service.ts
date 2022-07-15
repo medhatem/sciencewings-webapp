@@ -18,7 +18,7 @@ export class SwitchOrganizationsService {
    *
    * @param organizationId
    */
-  switchOrganization(organizationId: number): void {
+  async switchOrganization(organizationId: number): Promise<void> {
     lastValueFrom(this._swaggerService.memberRoutesSwitchOrganization({ orgId: organizationId }));
   }
 }
