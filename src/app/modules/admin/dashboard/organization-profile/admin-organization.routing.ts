@@ -1,29 +1,25 @@
-import { Route } from '@angular/router';
-import { AdminOrganizationResolver } from '../../resolvers/admin-organization/admin-organization.resolvers';
 import { AdminOrganizationComponent } from './admin-organization.component';
+import { AdminOrganizationResolver } from '../../resolvers/admin-organization/admin-organization.resolvers';
 import { OrganizationFormComponent } from './form/organization-form.component';
+import { OrganizationFormResolver } from '../../resolvers/admin-organization/organization-form.resolvers';
 import { OrganizationProfileComponent } from './profile/organization-profile.component';
+import { Route } from '@angular/router';
 
 export const adminOrganizationRoutes: Route[] = [
   {
     path: '',
     component: AdminOrganizationComponent,
-    resolve: {
-      data: AdminOrganizationResolver,
-    },
     children: [
       {
-        // TO DO
-        // change to path: ':id' , when the change organizations implemented
-        path: '',
-        component: OrganizationProfileComponent,
+        path: 'create',
         resolve: {
-          organization: AdminOrganizationResolver,
+          userOrganizations: OrganizationFormResolver,
         },
+        component: OrganizationFormComponent,
       },
       {
-        path: 'create',
-        component: OrganizationFormComponent,
+        path: ':idOrg',
+        component: OrganizationProfileComponent,
       },
     ],
   },
