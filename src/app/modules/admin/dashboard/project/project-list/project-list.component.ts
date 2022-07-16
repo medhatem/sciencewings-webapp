@@ -5,9 +5,13 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { InventoryPagination } from '../../organization-profile/profile/organization-profile.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
 import { ProjectFormComponent } from '../project-form/project-form.component';
+import { ListOption } from '../../reusable-components/list/list-component.component';
+import { Project } from 'app/models/project';
+import { constants } from 'app/shared/constants';
+import { ToastrService } from 'app/core/toastr/toastr.service';
 
 @Component({
   selector: 'app-project-list',
@@ -17,32 +21,48 @@ import { ProjectFormComponent } from '../project-form/project-form.component';
 export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
   @ViewChild(MatSort) private _sort: MatSort;
+  projects: any[] = [];
 
-  project$: any;
+  projects$: any;
   isLoading: boolean = false;
   selectedProjects = null;
   projectsCount: number = 0;
   pagination: InventoryPagination;
   searchInputControl: FormControl = new FormControl();
+  options: ListOption = { columns: [], numnberOfColumns: 4 };
+  openedDialogRef: any;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
     private _projectService: ProjectService,
     private _changeDetectorRef: ChangeDetectorRef,
+    private _toastrService: ToastrService,
+
     private _matDialog: MatDialog,
     private _route: ActivatedRoute,
+    private _router: Router,
   ) {}
 
   ngOnInit(): void {
     console.log('========1');
+    this.options = {
+      columns: [
+        { columnName: 'Title', columnPropertyToUse: 'title' },
+        { columnName: 'Managers', columnPropertyToUse: 'managers' },
+        { columnName: 'Participants', columnPropertyToUse: 'participants' },
+        { columnName: 'Date start', columnPropertyToUse: 'dateStart' },
+      ],
+      numnberOfColumns: 4,
+      onElementClick: this.onElementSelected.bind(this),
+    };
     const { projects } = this._route.snapshot.data;
     this._projectService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
       this.pagination = pagination;
       this._changeDetectorRef.markForCheck();
     });
 
-    this.project$ = this._projectService.projects$;
+    this.projects$ = this._projectService.projects$;
     this.projectsCount = projects.length;
 
     this.searchInputControl.valueChanges
@@ -59,6 +79,10 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
         }),
       )
       .subscribe();
+    this._projectService.projects$.subscribe((projects: Project[]) => {
+      this.projects = projects;
+      this._changeDetectorRef.markForCheck();
+    });
   }
 
   handlePageEvent(event: PageEvent) {
@@ -94,5 +118,20 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   closeDetails(): void {
     this.selectedProjects = null;
+  }
+  openInviteProjectDialog(): void {
+    const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    if (!orgID) {
+      this._toastrService.showError('Something went wrong!');
+    }
+    this.openedDialogRef = this._matDialog.open(ProjectFormComponent, {
+      data: { orgID },
+    });
+    this.openedDialogRef.afterClosed().subscribe((result) => {
+      lastValueFrom(this._projectService.getAndParseOrganizationProject());
+    });
+  }
+  async onElementSelected() {
+    this._router.navigate(['/admin/project']);
   }
 }

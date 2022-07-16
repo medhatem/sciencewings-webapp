@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { ProjectDto } from 'generated/models';
 import { Member, OrganizationMembers } from 'app/models/members/member';
 import { Project } from 'app/models/project';
+import { constants } from 'app/shared/constants';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
@@ -61,5 +63,27 @@ export class ProjectService {
           this._projects.next(response.projects);
         }),
       );
+  }
+  getOrgProjects(idOrg: number): Observable<any> {
+    const id = idOrg || Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    return this._swaggerService.projectRoutesGetAllProjects({ id });
+  }
+
+  getAndParseOrganizationProject(id?: number): Observable<any[]> {
+    return this.getOrgProjects(id).pipe(
+      map((projects) => projects.body.data.map((project) => new Project(project))),
+      map((result: Project[]) =>
+        result.map((m: Project): any => ({
+          title: m.title,
+          managers: m.managers,
+          participants: m.participants,
+          dateStart: moment(m.dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+          ...m,
+        })),
+      ),
+      tap((response) => {
+        this._projects.next(response);
+      }),
+    );
   }
 }
