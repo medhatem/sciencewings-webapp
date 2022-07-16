@@ -3,11 +3,10 @@ import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProjectDto } from 'generated/models';
-import { Member, OrganizationMembers } from 'app/models/members/member';
+import { OrganizationMembers } from 'app/models/members/member';
 import { Project } from 'app/models/project';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
-import { members } from 'app/mock-api/apps/tasks/data';
 
 @Injectable({
   providedIn: 'root',
@@ -71,7 +70,6 @@ export class ProjectService {
 
   getOrgProjects(): Observable<any> {
     const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    console.log('this._swaggerService.projectRoutesGetAllProjects({ id })== ', this._swaggerService.projectRoutesGetAllProjects({ id }));
     return this._swaggerService.projectRoutesGetAllProjects({ id });
   }
 
