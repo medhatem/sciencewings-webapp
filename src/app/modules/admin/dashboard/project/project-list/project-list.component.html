@@ -8,6 +8,22 @@
     <!-- Title -->
     <div>
       <div class="text-4xl font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.PROJECTS.TITLE' | transloco }}</div>
+      <div>
+        <div class="ml-0.5 font-medium text-secondary">
+          <ng-container *ngIf="projects.length > 0">
+            {{ projects.length }}
+          </ng-container>
+          {{
+            projects.length
+              | i18nPlural
+                : {
+                    '=0': 'No Projects',
+                    '=1': 'Project',
+                    other: 'Project'
+                  }
+          }}
+        </div>
+      </div>
     </div>
     <!-- Actions -->
     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
@@ -18,7 +34,7 @@
     </div>
   </div>
 
-  <list-component [dataList]="projects" [options]="options"></list-component>
+  <list-component [dataList]="projects" [options]="options" [message]="'ORGANIZATION.PROJECTS.LIST.MESSAGE' | transloco"></list-component>
 </div>
 
 <router-outlet></router-outlet>

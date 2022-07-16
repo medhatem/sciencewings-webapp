@@ -7,6 +7,7 @@ import { Member, OrganizationMembers } from 'app/models/members/member';
 import { Project } from 'app/models/project';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
+import { members } from 'app/mock-api/apps/tasks/data';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +41,7 @@ export class ProjectService {
   async createProject(project: Project): Promise<ProjectDto> {
     return lastValueFrom(this._swaggerService.projectRoutesCreateProject({ body: project as any }));
   }
-  getProjects(
+  getProjectsAll(
     page: number = 0,
     size: number = 10,
     sort: string = 'name',
@@ -64,21 +65,25 @@ export class ProjectService {
         }),
       );
   }
-  getOrgProjects(idOrg: number): Observable<any> {
-    const id = idOrg || Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+  getMember(id: number): Observable<any> {
+    return this._swaggerService.memberRoutesGetById({ id });
+  }
+
+  getOrgProjects(): Observable<any> {
+    const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    console.log('this._swaggerService.projectRoutesGetAllProjects({ id })== ', this._swaggerService.projectRoutesGetAllProjects({ id }));
     return this._swaggerService.projectRoutesGetAllProjects({ id });
   }
 
-  getAndParseOrganizationProject(id?: number): Observable<any[]> {
-    return this.getOrgProjects(id).pipe(
+  getAndParseOrganizationProject(): Observable<any[]> {
+    return this.getOrgProjects().pipe(
       map((projects) => projects.body.data.map((project) => new Project(project))),
       map((result: Project[]) =>
         result.map((m: Project): any => ({
-          title: m.title,
-          managers: m.managers,
-          participants: m.participants,
+          title: `${m.title}`,
+          managers: `${this.getMember(1).subscribe((member) => member.name)}`,
           dateStart: moment(m.dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-          ...m,
+          active: `${m.active}`,
         })),
       ),
       tap((response) => {
