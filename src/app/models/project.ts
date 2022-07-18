@@ -1,4 +1,5 @@
 import { ProjectRo } from 'generated/models';
+import { Member } from './members/member';
 
 export class Project implements ProjectRo {
   active: boolean;
@@ -20,6 +21,22 @@ export class Project implements ProjectRo {
       managers,
       organization,
       participants,
+      title,
+    });
+  }
+}
+export class ProjectListItem {
+  active: boolean;
+  dateStart: string;
+  managers: Array<Member>;
+  title: string;
+
+  constructor(project?: any) {
+    const { active, dateStart, managers, title } = project || {};
+    Object.assign(this, {
+      active,
+      dateStart,
+      managers,
       title,
     });
   }

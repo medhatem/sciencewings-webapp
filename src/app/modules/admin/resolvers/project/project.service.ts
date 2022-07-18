@@ -3,8 +3,8 @@ import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProjectDto } from 'generated/models';
-import { OrganizationMembers } from 'app/models/members/member';
-import { Project } from 'app/models/project';
+import { Member, OrganizationMembers } from 'app/models/members/member';
+import { Project, ProjectListItem } from 'app/models/project';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
 
@@ -75,18 +75,21 @@ export class ProjectService {
 
   getAndParseOrganizationProject(): Observable<any[]> {
     return this.getOrgProjects().pipe(
-      map((projects) => projects.body.data.map((project) => new Project(project))),
-      map((result: Project[]) =>
-        result.map((m: Project): any => ({
+      map((projects) => projects.body.data.map((project) => new ProjectListItem(project))),
+      map((result: ProjectListItem[]) => {
+        return result.map((m: ProjectListItem): any => ({
           title: `${m.title}`,
-          managers: `${this.getMember(1).subscribe((member) => member.name)}`,
+          managers: m.managers.map((manager) => this.parseManagerToHtml(manager)),
           dateStart: moment(m.dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
           active: `${m.active}`,
-        })),
-      ),
+        }));
+      }),
       tap((response) => {
         this._projects.next(response);
       }),
     );
+  }
+  parseManagerToHtml(member: Member) {
+    return `<span>${member.name}</span></br><span>${member.workEmail}</span>`;
   }
 }
