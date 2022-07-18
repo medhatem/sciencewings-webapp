@@ -80,8 +80,8 @@ export class ProjectService {
         return result.map((m: ProjectListItem): any => ({
           title: `${m.title}`,
           managers: m.managers.map((manager) => this.parseManagerToHtml(manager)),
+          participents: m.participants.length,
           dateStart: moment(m.dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-          active: `${m.active}`,
         }));
       }),
       tap((response) => {

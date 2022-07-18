@@ -11,27 +11,28 @@
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
     </mat-form-field>
     <div class="flex-auto mx-4" *ngIf="organizationMembers?.length">
-      <div class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
-        <mat-label class="w-100">{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}</mat-label>
-        <ng-select placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}" [multiple]="true" [formControlName]="'managers'">
-          <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.user">
-            {{ organizationMember.name }}
-          </ng-option>
-        </ng-select>
-      </div>
+      <mat-label class="w-100">{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}</mat-label>
+      <ng-select
+        placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}"
+        [searchable]="true"
+        [multiple]="true"
+        [formControlName]="'managers'">
+        <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.user">
+          {{ organizationMember.name }}
+        </ng-option>
+      </ng-select>
     </div>
     <div class="flex-auto mx-4" *ngIf="organizationMembers?.length">
-      <div class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
-        <mat-label class="w-100" required>{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}</mat-label>
-        <ng-select
-          placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}"
-          [multiple]="true"
-          [formControlName]="'participants'">
-          <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.user">
-            {{ organizationMember.name }}
-          </ng-option>
-        </ng-select>
-      </div>
+      <mat-label class="w-100" required>{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}</mat-label>
+      <ng-select
+        placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}"
+        [searchable]="true"
+        [multiple]="true"
+        [formControlName]="'participants'">
+        <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.user">
+          {{ organizationMember.name }}
+        </ng-option>
+      </ng-select>
     </div>
     <mat-form-field appearance="fill" class="example-form-field flex-auto mx-4">
       <mat-label required>{{ 'ORGANIZATION.PROJECTS.FORM.ENTER_DATE' | transloco }}</mat-label>
@@ -56,11 +57,10 @@
         placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.DESCRIPTION' | transloco }}"
         [rows]="3"></textarea>
     </mat-form-field>
-    <section class="example-section flex-auto mx-4">
-      <p>
-        <mat-checkbox formControlName="active">{{ 'ORGANIZATION.PROJECTS.FORM.ACTIVE' | transloco }}</mat-checkbox>
-      </p>
-    </section>
+    <div class="flex items-center justify-between flex-auto mx-4">
+      <div class="flex-auto leading-6 cursor-pointer">{{ 'ORGANIZATION.PROJECTS.FORM.ACTIVE' | transloco }}</div>
+      <mat-slide-toggle class="ml-2" [formControlName]="'active'" [color]="'primary'"> </mat-slide-toggle>
+    </div>
     <!-- Body -->
     <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
       <button mat-button mat-dialog-close mat-flat-button [color]="'primary'" (click)="onSubmit()">

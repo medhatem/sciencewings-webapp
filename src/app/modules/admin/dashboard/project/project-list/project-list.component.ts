@@ -31,8 +31,8 @@ export class ProjectListComponent implements OnInit {
       columns: [
         { columnName: 'Title', columnPropertyToUse: 'title' },
         { columnName: 'Managers', columnPropertyToUse: 'managers', columnType: 'Array' },
+        { columnName: '# Members', columnPropertyToUse: 'participents' },
         { columnName: 'Date start', columnPropertyToUse: 'dateStart' },
-        { columnName: 'ACTIVE', columnPropertyToUse: 'active' },
       ],
       numnberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),

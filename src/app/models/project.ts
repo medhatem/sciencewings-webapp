@@ -26,15 +26,15 @@ export class Project implements ProjectRo {
   }
 }
 export class ProjectListItem {
-  active: boolean;
   dateStart: string;
   managers: Array<Member>;
+  participants: Array<Member>;
   title: string;
 
   constructor(project?: any) {
-    const { active, dateStart, managers, title } = project || {};
+    const { participants, dateStart, managers, title } = project || {};
     Object.assign(this, {
-      active,
+      participants,
       dateStart,
       managers,
       title,

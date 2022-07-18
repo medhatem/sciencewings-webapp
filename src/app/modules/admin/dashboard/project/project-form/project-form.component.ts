@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
   selector: 'app-project-form',
   templateUrl: './project-form.component.html',
   encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./project-form.component.scss'],
 })
 export class ProjectFormComponent implements OnInit {
   @Input() project: any;

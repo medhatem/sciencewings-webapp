@@ -53,7 +53,6 @@ export class ListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.parseColumns();
-    console.log('data list======', this.dataList);
   }
 
   ngOnDestroy(): void {
@@ -79,7 +78,6 @@ export class ListComponent implements OnInit, OnDestroy {
   }
   getType(key: string) {
     const result = this.options.columns.find((k) => k.columnPropertyToUse === key)?.columnType || 'string';
-    console.log('result === ', result);
     return result;
   }
   /**
