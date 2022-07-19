@@ -7,6 +7,7 @@ import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 import { User } from 'app/models/user';
 import { Address, Phone } from 'app/models';
+import { ActivatedRoute } from '@angular/router';
 
 const moment = _rollupMoment || _moment;
 
@@ -19,30 +20,29 @@ export class NewUserInfosComponent implements OnInit {
   user: any;
   form: FormGroup;
 
-  constructor(private _newUserInfosResolver: NewUserInfosResolver, private _formBuilder: FormBuilder, private _toastrService: ToastrService) {}
+  constructor(
+    private _route: ActivatedRoute,
+    private _newUserInfosResolver: NewUserInfosResolver,
+    private _formBuilder: FormBuilder,
+    private _toastrService: ToastrService,
+  ) {}
 
   get formControls() {
     return this.form?.controls;
   }
 
-  async ngOnInit() {
-    this.user = await this._newUserInfosResolver.loadUserProfileKeycloak();
-    this.form = this._formBuilder.group({
-      firstname: [this.user.firstName, [Validators.required]],
-      lastname: [this.user.lastName, [Validators.required]],
-      email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
-      dateofbirth: new FormControl(moment()),
-      keycloakId: localStorage.getItem(constants.CURRENT_USER_KEYCLOAK_ID),
-      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
-      street: ['', Validators.required],
-      apartment: [''],
-      province: ['', Validators.required],
-      city: ['', Validators.required],
-      code: ['', Validators.required],
-      country: ['Canada', Validators.required],
-    });
+  ngOnInit() {
+    const { userKeycloackData } = this._route.snapshot.data;
+    this.user = userKeycloackData;
+    this.createFormBuilderForUser();
   }
 
+  /**
+   * Validates the form informations and fields,
+   * then calls create user endpoint.
+   *
+   * @returns void to out from function if form not valid.
+   */
   async emitOnFormComplete() {
     if (!this.form.valid) {
       return this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
@@ -58,22 +58,19 @@ export class NewUserInfosComponent implements OnInit {
       dateofbirth: moment(formUser['dateofbirth']).format(constants.DATE_FORMAT_YYYY_MM_DD),
     });
 
-    try {
-      const createdUser = await this._newUserInfosResolver.createUser(userPayload);
-      if (createdUser) {
-        this.user = createdUser;
-        localStorage.setItem(constants.CURRENT_USER_ID, `${createdUser.id}`);
-        localStorage.setItem(constants.CURRENT_MODULE, constants.MODULES_ROUTINGS_URLS.ADMIN);
-        this.onFormNotComplete.emit(false);
-      }
-    } catch (error) {
-      return this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
-    }
+    const createdUser = await this._newUserInfosResolver.createUser(userPayload);
+    this.user = createdUser;
+    localStorage.setItem(constants.CURRENT_USER_ID, `${createdUser.id}`);
+    localStorage.setItem(constants.CURRENT_MODULE, constants.MODULES_ROUTINGS_URLS.ADMIN);
+    this.onFormNotComplete.emit(false);
   }
 
   /**
    * Use this for [matDatepickerFilter] property to give
-   * the user selection from previous dates only
+   * the user selection from previous dates only.
+   *
+   * @param d
+   * @returns
    */
   dateFilter(d: Date | null): boolean {
     const today = new Date();
@@ -91,12 +88,37 @@ export class NewUserInfosComponent implements OnInit {
     return item.id || index;
   }
 
-  //only number will be add
+  /**
+   * Only numbers are accepted in the input.
+   *
+   * @param event
+   */
   keyPress(event: any) {
     const pattern = /[0-9\+\-\ ]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode !== 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
+  }
+
+  /**
+   * Creates the from builder for user registration, with its
+   * validations, and initialize information based on keycloack infos
+   */
+  private createFormBuilderForUser() {
+    this.form = this._formBuilder.group({
+      firstname: [this.user.firstName, [Validators.required]],
+      lastname: [this.user.lastName, [Validators.required]],
+      email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
+      dateofbirth: new FormControl(moment()),
+      keycloakId: localStorage.getItem(constants.CURRENT_USER_KEYCLOAK_ID),
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
+      street: ['', Validators.required],
+      apartment: [''],
+      province: ['', Validators.required],
+      city: ['', Validators.required],
+      code: ['', Validators.required],
+      country: ['Canada', Validators.required],
+    });
   }
 }

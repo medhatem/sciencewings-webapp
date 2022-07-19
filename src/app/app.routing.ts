@@ -4,7 +4,6 @@ import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers
 import { InitialDataResolver } from 'app/app.resolvers';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
-import { ResourceProfileFormComponent } from './modules/admin/dashboard/resource/resource-form/profile-form.component';
 import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
 import { Route } from '@angular/router';
 import { constants } from './shared/constants';
@@ -14,8 +13,10 @@ import { constants } from './shared/constants';
  * contains all the routes that are passed to the app router
  * using lazy loading on main routes
  *
- * All the routes for this Application should be added as children of
- * the first and main route with the component: LayoutComponent.
+ * All the routes for this Application should be added as children of LayoutComponent.
+ *
+ * !!! Important !!!
+ * Landing Page should be always the first child @MostaphaAbbad
  */
 export const appRoutes: Route[] = [
   {
@@ -24,7 +25,7 @@ export const appRoutes: Route[] = [
     component: LayoutComponent,
     resolve: {
       initialData: InitialDataResolver,
-      userData: NewUserInfosResolver,
+      userKeycloackData: NewUserInfosResolver,
     },
     children: [
       {
@@ -35,7 +36,7 @@ export const appRoutes: Route[] = [
           type: FuseNavigationItemTypeEnum.basic,
           icon: 'heroicons_outline:users',
         },
-        loadChildren: () => import('app/modules/admin/dashboard/landing-page/landing-page.module').then((m) => m.LandingPageModule),
+        loadChildren: () => import('app/modules/admin/dashboard/landing/landing.module').then((m) => m.LandingModule),
       },
       {
         path: constants.MODULES_ROUTINGS_URLS.ADMIN,

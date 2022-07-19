@@ -17,14 +17,14 @@ export class NewUserInfosResolver implements Resolve<any> {
   constructor(private _keycloackService: KeycloakService, private _apiService: ApiService, private _toastr: ToastrService) {}
 
   resolve(): Promise<KeycloakProfile> {
-    return this.loadUserProfileKeycloak();
+    return this.getCurrentUserFromKeycloak();
   }
 
-  async loadUserProfileKeycloak() {
+  async getCurrentUserFromKeycloak() {
     try {
-      const user = await this._keycloackService.loadUserProfile();
-      localStorage.setItem(constants.CURRENT_USER_KEYCLOAK_ID, user.id);
-      return user;
+      const userKeycloack = await this._keycloackService.loadUserProfile();
+      localStorage.setItem(constants.CURRENT_USER_KEYCLOAK_ID, userKeycloack.id);
+      return userKeycloack;
     } catch (error) {
       this._toastr.showError('APP.LOGIN_ERROR_TITLE', 'KEYCLOAK_LOGIN_ERROR');
     }

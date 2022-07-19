@@ -41,14 +41,14 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     /**
      * loops on the get current user id, until it is available. then subscibes
-     * to userOrganizations one the user is selected and available is localStorage
+     * to userOrganizations one the user is selected and available is localStorage.
      */
     interval(1000)
       .pipe(
         map(async () => {
           const userId = localStorage.getItem(constants.CURRENT_USER_ID);
           if (!Number(userId)) {
-            throw new Error('No user selected');
+            return;
           }
           this._userSelected.next(true);
           this._userSelected.complete();
