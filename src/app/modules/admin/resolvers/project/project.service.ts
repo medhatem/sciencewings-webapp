@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable, map, take, tap, lastValueFrom } from 'rxjs
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ProjectDto } from 'generated/models';
+import { CreateProjectDto, ProjectDto } from 'generated/models';
 import { Member, OrganizationMembers } from 'app/models/members/member';
 import { Project, ProjectListItem } from 'app/models/project';
 import { constants } from 'app/shared/constants';
@@ -37,7 +37,7 @@ export class ProjectService {
         .pipe(map(({ body }) => body.data.map((member) => new OrganizationMembers(member)))),
     );
   }
-  async createProject(project: Project): Promise<ProjectDto> {
+  async createProject(project: Project): Promise<CreateProjectDto> {
     return lastValueFrom(this._swaggerService.projectRoutesCreateProject({ body: project as any }));
   }
   getProjectsAll(
@@ -70,7 +70,7 @@ export class ProjectService {
 
   getOrgProjects(): Observable<any> {
     const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this._swaggerService.projectRoutesGetAllProjects({ id });
+    return this._swaggerService.projectRoutesGetOrganizationProjects({ id });
   }
 
   getAndParseOrganizationProject(): Observable<any[]> {

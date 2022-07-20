@@ -44,12 +44,12 @@ export class ProjectFormComponent implements OnInit {
     this.getMembers();
     const projectFormObj = {
       title: ['', [Validators.required]],
-      description: [''],
+      description: ['', [Validators.required]],
       managers: [],
       participants: [],
-      dateStart: this.deadline.dateStart,
-      dateEnd: this.deadline.dateEnd,
-      active: false,
+      dateStart: [this.deadline.dateStart, [Validators.required]],
+      dateEnd: [this.deadline.dateEnd, [Validators.required]],
+      active: [false, [Validators.required]],
     };
 
     this.projectForm = this._formBuilder.group(projectFormObj);
@@ -66,6 +66,7 @@ export class ProjectFormComponent implements OnInit {
       this._toastrService.showSuccess(constants.CREATE_PROJECT_COMPLETED);
       this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.PROJECT]);
     } catch (error) {
+      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.PROJECT]);
       this._toastrService.showError(constants.CREATE_PROJECT_FAILED);
     }
   }
