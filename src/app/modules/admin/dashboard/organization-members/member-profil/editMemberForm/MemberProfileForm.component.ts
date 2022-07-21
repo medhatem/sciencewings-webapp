@@ -29,7 +29,7 @@ export class MemberProfileFormComponent implements OnInit {
   genders = MemberGender;
   gendersKeys = Object.keys(MemberGender);
   gendersTranslation = MemberGenderTranslation;
-  labls = OrganizationLabels;
+  labels = OrganizationLabels;
   labelsKeys = Object.keys(OrganizationLabels);
   labelsTranslation = OrganizationLabelsTranslation;
 

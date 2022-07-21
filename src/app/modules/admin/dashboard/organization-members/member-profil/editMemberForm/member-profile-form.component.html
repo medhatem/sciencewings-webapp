@@ -1,8 +1,5 @@
 <div class="max-w-240 md:min-w-160 max-h-screen -m-6">
   <div class="flex justify-center flex-col p-4">
-    <!-- <div class="text-lg font-extrabold tracking-tight leading-none">
-      {{ 'ORGANIZATION.MEMBERS.EDIT_MEMBER_TITILE' | transloco }}
-    </div> -->
     <div class="text-lg font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.MEMBERS.EDIT_MEMBER_TITILE' | transloco }}</div>
     <hr class="w-full border-t my-2" />
     <form [formGroup]="profile" class="flex flex-col">
@@ -78,7 +75,7 @@
               >{{ labelsTranslation[label] | transloco }}
             </mat-option>
           </mat-select> -->
-          <input matInput [formControlName]="'labls'" placeholder="#{{ 'ORGANIZATION.MEMBERS.PROFILE.LABEL' | transloco }}" />
+          <input matInput [formControlName]="'labels'" placeholder="#{{ 'ORGANIZATION.MEMBERS.PROFILE.LABEL' | transloco }}" />
           <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:tag'"></mat-icon>
         </mat-form-field>
       </div>
