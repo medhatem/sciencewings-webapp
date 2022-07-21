@@ -4,9 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreateProjectDto, ProjectDto } from 'generated/models';
 import { Member, OrganizationMembers } from 'app/models/members/member';
-import { Project, ProjectListItem } from 'app/models/project';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
+import { Project, ProjectListItem } from 'app/models/projects/project';
 
 @Injectable({
   providedIn: 'root',

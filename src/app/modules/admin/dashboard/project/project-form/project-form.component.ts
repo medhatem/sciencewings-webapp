@@ -7,8 +7,8 @@ import { ProjectLabels, ProjectLabelsTranslation } from 'app/models/projects/pro
 import { ProjectType, ProjectTypeTrasnlation } from 'app/models/projects/project-type';
 import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 import { constants } from 'app/shared/constants';
-import { Project } from 'app/models/project';
 import { Router } from '@angular/router';
+import { Project } from 'app/models/projects/project';
 
 @Component({
   selector: 'app-project-form',
@@ -64,7 +64,7 @@ export class ProjectFormComponent implements OnInit {
     try {
       await this._projectService.createProject(project);
       this._toastrService.showSuccess(constants.CREATE_PROJECT_COMPLETED);
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.PROJECT]);
+      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.PROJECT]);
     } catch (error) {
       this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.PROJECT]);
       this._toastrService.showError(constants.CREATE_PROJECT_FAILED);
