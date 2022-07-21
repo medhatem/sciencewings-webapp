@@ -264,8 +264,8 @@
       "CREATE_ORGANIZATION": "Create Organization",
       "TITLE": "My Organizations",
       "MESSAGE": "Organizations",
-      "NO_ORGANIZATIONS":"You don't have any organization",
-      "ERROR_LOADING_ORGANIZATIONS":"Something went wrong loading organizations"
+      "NO_ORGANIZATIONS": "You don't have any organization",
+      "ERROR_LOADING_ORGANIZATIONS": "Something went wrong loading organizations"
     },
 
     "MEMBERS": {
@@ -293,28 +293,32 @@
       "SEARCH_MEMBERS": "Search Members",
       "TITLE": "Members",
       "ERROR_LOADING_MEMBERS": "Could not load members.",
-      "MISSING_INFO":"____Missing_Information____",
-      "MISSING_NAME":"____Missing_Name____",
-      "PROFILE_LOADING_ERROR":"Could not load member profile",
-      "EDIT_MEMBER_TITILE":"Member Details",
-      "PROFILE":{
-        "NAME":"Full Name",
-        "JOB":"Job Title",
-        "GENDER":"Gender",
-        "EMAIL":"Email",
-        "PHONE":"Phone",
-        "LABEL":"Label",
-        "ADDRESS":{
-          "TITLE":"Address",
-          "APARTMENT":"apartment",
-          "STREET":"Street",
-          "CITY":"City",
-          "COUNTRY":"Country",
-          "PROVINCE":"Province/Region",
-          "ZIP":"Zip Code"
+      "MISSING_INFO": "____Missing_Information____",
+      "MISSING_NAME": "____Missing_Name____",
+      "PROFILE_LOADING_ERROR": "Could not load member profile",
+      "EDIT_MEMBER_TITILE": "Member Details",
+      "PROFILE": {
+        "NAME": "Full Name",
+        "JOB": "Job Title",
+        "GENDER": "Gender",
+        "GENDER_LIST": {
+          "MALE": "Male",
+          "FEMALE": "Female"
         },
-        "SAVE":"Save",
-        "CANCEL":"Cancel"
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "LABEL": "Label",
+        "ADDRESS": {
+          "TITLE": "Address",
+          "APARTMENT": "apartment",
+          "STREET": "Street",
+          "CITY": "City",
+          "COUNTRY": "Country",
+          "PROVINCE": "Province/Region",
+          "ZIP": "Zip Code"
+        },
+        "SAVE": "Save",
+        "CANCEL": "Cancel"
       }
     },
     "PROFILE": {
@@ -387,7 +391,7 @@
     "ERROR": {
       "CREATE_FAILED": "The creation of the organization has failed",
       "FETCH_FAILED": "Could not get the information of the organization",
-      "WRONG_ORG_ID":"Organization not found"
+      "WRONG_ORG_ID": "Organization not found"
     }
   },
   "PROFILE": "Profile",
