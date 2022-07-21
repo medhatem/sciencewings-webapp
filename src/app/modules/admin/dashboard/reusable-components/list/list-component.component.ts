@@ -17,7 +17,6 @@ export interface InventoryPagination {
 export interface Column {
   columnName: string;
   columnPropertyToUse: string;
-  columnType?: 'string' | 'Array' | 'object';
 }
 
 export interface ListOption {
@@ -75,10 +74,6 @@ export class ListComponent implements OnInit, OnDestroy {
     if (!this.options.numnberOfColumns) {
       this.options.numnberOfColumns = this.keys.length;
     }
-  }
-  getType(key: string) {
-    const result = this.options.columns.find((k) => k.columnPropertyToUse === key)?.columnType || 'string';
-    return result;
   }
   /**
    * dynamically create a grid with variable amount of columns

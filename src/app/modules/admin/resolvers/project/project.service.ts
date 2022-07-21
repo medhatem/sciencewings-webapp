@@ -77,11 +77,11 @@ export class ProjectService {
     return this.getOrgProjects().pipe(
       map((projects) => projects.body.data.map((project) => new ProjectListItem(project))),
       map((result: ProjectListItem[]) => {
-        return result.map((m: ProjectListItem): any => ({
-          title: `${m.title}`,
-          managers: m.managers.map((manager) => this.parseManagerToHtml(manager)),
-          participents: m.participants.length,
-          dateStart: moment(m.dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+        return result.map(({ title, managers, participants, dateStart }) => ({
+          title: `${title}`,
+          managers: this.parseManagerToHtml(managers),
+          participents: participants.length,
+          dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
         }));
       }),
       tap((response) => {
@@ -89,7 +89,8 @@ export class ProjectService {
       }),
     );
   }
-  parseManagerToHtml(member: Member) {
-    return `<span>${member.name}</span></br><span>${member.workEmail}</span>`;
+  parseManagerToHtml(members: Member[]) {
+    let managers: any;
+    return (managers = members.map((member) => `<span>${member.name}</span></br></br><span>${member.workEmail}</span>`));
   }
 }

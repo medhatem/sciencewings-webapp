@@ -423,7 +423,7 @@
       "SEARCH_PROJECTS": "Find a project",
       "TITLE": "Projects",
       "ERROR": {
-        "CREATE_FAILED": "The creation of the organization has failed"
+        "CREATE_FAILED": "The creation of the project has failed"
       }
     },
     "PROFILE": "Profile",
@@ -437,5 +437,6 @@
   },
   "PROFILE": "Profile",
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
+  "GET_MEMBERS_LOAD_FAILED": "You have no organization",
   "WELCOME_BACK": "Hello"
 }

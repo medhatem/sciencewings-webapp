@@ -30,7 +30,7 @@ export class ProjectListComponent implements OnInit {
     this.options = {
       columns: [
         { columnName: 'Title', columnPropertyToUse: 'title' },
-        { columnName: 'Managers', columnPropertyToUse: 'managers', columnType: 'Array' },
+        { columnName: 'Managers', columnPropertyToUse: 'managers' },
         { columnName: '# Members', columnPropertyToUse: 'participents' },
         { columnName: 'Date start', columnPropertyToUse: 'dateStart' },
       ],

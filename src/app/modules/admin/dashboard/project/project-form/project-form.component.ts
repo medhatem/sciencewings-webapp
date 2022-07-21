@@ -87,7 +87,7 @@ export class ProjectFormComponent implements OnInit {
       .getMembers(idOrg)
       .then((resolve) => (this.organizationMembers = resolve))
       .catch(() => {
-        this._toastrService.showInfo('SWITCH_ORGANIZATIONS_LOAD_FAILED');
+        this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');
       });
   }
   private getProjectFromFormBuilder(): Project {

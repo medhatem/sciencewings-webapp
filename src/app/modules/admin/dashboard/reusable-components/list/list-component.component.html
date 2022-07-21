@@ -43,10 +43,7 @@
                 class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b cursor-pointer"
                 (click)="options.onElementClick(item)">
                 <ng-container *ngFor="let key of keys">
-                  <div class="flex align-center" *ngIf="'string' === getType(key)" [innerHTML]="item[key]"></div>
-                  <div *ngIf="'Array' === getType(key)">
-                    <span *ngFor="let k of item[key]" [innerHTML]="k"></span>
-                  </div>
+                  <div class="flex align-center" [innerHTML]="item[key]"></div>
                 </ng-container>
               </div>
             </ng-container>
