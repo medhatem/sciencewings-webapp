@@ -27,6 +27,10 @@
           "DESCRIPTION": "Getting started...",
           "TITLE": "Documentation"
         },
+        "PROJECT": {
+          "DESCRIPTION": "Project Management",
+          "TITLE": "Projects"
+        },
         "TITLE": "Modules"
       },
       "NO_APP_MODULES": " No app modules",

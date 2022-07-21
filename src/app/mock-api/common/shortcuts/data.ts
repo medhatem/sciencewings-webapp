@@ -32,4 +32,12 @@ export const shortcuts = [
     link: '/apps/help-center',
     useRouter: true,
   },
+  {
+    id: 'a1ae91d3-e2cb-489b-9be9-a184695g659k',
+    label: 'APP.COMMON.APP_MODULES.PROJECT.TITLE',
+    description: 'APP.COMMON.APP_MODULES.PROJECT.DESCRIPTION',
+    icon: 'heroicons_outline:clipboard-list',
+    link: 'project',
+    useRouter: true,
+  },
 ];
