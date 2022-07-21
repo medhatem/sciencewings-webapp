@@ -10,6 +10,7 @@ import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/or
 import { Member } from 'app/models/Member';
 import { Phone } from 'app/models/phone';
 import { Address } from 'app/models/address';
+import { MemberGender, MemberGenderTranslation } from 'app/models/members/member-gender.enum';
 
 export interface DialogData {
   idOrg: number;
@@ -25,6 +26,9 @@ export interface DialogData {
 export class MemberProfileFormComponent implements OnInit {
   profile: FormGroup;
   countries = countryCanada;
+  genders = MemberGender;
+  gendersKeys = Object.keys(MemberGender);
+  gendersTranslation = MemberGenderTranslation;
   labels = OrganizationLabels;
   labelsKeys = Object.keys(OrganizationLabels);
   labelsTranslation = OrganizationLabelsTranslation;

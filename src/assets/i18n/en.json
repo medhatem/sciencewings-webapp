@@ -317,6 +317,10 @@
           "PROVINCE": "Province/Region",
           "ZIP": "Zip Code"
         },
+        "GENDER_LIST": {
+          "MALE": "Male",
+          "FEMALE": "Female"
+        },
         "SAVE": "Save",
         "CANCEL": "Cancel"
       }
@@ -433,7 +437,12 @@
   "ERROR": {
     "CREATE_FAILED": "The creation of the organization has failed",
     "FETCH_FAILED": "Could not get the information of the organization",
-    "WRONG_ORG_ID": "Organization not found"
+    "WRONG_ORG_ID": "Organization not found",
+    "ERROR": {
+      "CREATE_FAILED": "The creation of the organization has failed",
+      "FETCH_FAILED": "Could not get the information of the organization",
+      "WRONG_ORG_ID": "Organization not found"
+    }
   },
   "PROFILE": "Profile",
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",

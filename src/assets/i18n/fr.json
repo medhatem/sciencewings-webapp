@@ -300,19 +300,23 @@
       "MISSING_INFO": "____Information_Manquante____",
       "MISSING_NAME": "____Nom_Manquant____",
       "PROFILE_LOADING_ERROR": "Impossible de charger le profil du membre",
-      "EDIT_MEMBER_TITILE": "détails du membre",
+      "EDIT_MEMBER_TITILE": "Détails du membre",
       "PROFILE": {
         "NAME": "Nom Complet",
         "JOB": "Profession",
-        "GENDER": "sexe",
+        "GENDER": "Sexe",
+        "GENDER_LIST": {
+          "MALE": "Mâle",
+          "FEMALE": "Femelle"
+        },
         "EMAIL": "Email",
-        "PHONE": "numéro de téléphone",
-        "LABEL": "étiquette",
+        "PHONE": "Numéro de Téléphone",
+        "LABEL": "Etiquette",
         "ADDRESS": {
           "TITLE": "Adresse",
           "APARTMENT": "Appartement",
           "STREET": "Rue",
-          "CITY": "ville",
+          "CITY": "Ville",
           "COUNTRY": "Pays",
           "PROVINCE": "Province/Region",
           "ZIP": "Code postal"
@@ -433,7 +437,12 @@
   "ERROR": {
     "CREATE_FAILED": "La création de l'organisation a échoué",
     "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
-    "WRONG_ORG_ID": "L'organization demandé est introuvable"
+    "WRONG_ORG_ID": "L'organization demandé est introuvable",
+    "ERROR": {
+      "CREATE_FAILED": "La création de l'organisation a échoué",
+      "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
+      "WRONG_ORG_ID": "L'organization demandé est introuvable"
+    }
   },
   "PROFILE": "Profil",
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
