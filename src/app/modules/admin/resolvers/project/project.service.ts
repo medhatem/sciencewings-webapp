@@ -2,8 +2,8 @@ import { BehaviorSubject, Observable, map, take, tap, lastValueFrom } from 'rxjs
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateProjectDto, ProjectDto } from 'generated/models';
-import { Member, OrganizationMembers } from 'app/models/members/member';
+import { CreateProjectDto } from 'generated/models';
+import { Member } from 'app/models/members/member';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
 import { Project, ProjectListItem } from 'app/models/projects/project';
@@ -82,6 +82,6 @@ export class ProjectService {
   }
 
   private parseMembersToHtml(members: Member[]) {
-    return members.map(({ name, workEmail }) => `<span>${name}</span></br><span>${workEmail}</span>`);
+    return members.map(({ name, workEmail }) => `<div>${name}</div><div>${workEmail}</div>`);
   }
 }
