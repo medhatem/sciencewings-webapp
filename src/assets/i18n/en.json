@@ -321,6 +321,10 @@
           "PROVINCE": "Province/Region",
           "ZIP": "Zip Code"
         },
+        "GENDER_LIST": {
+          "MALE": "Male",
+          "FEMALE": "Female"
+        },
         "SAVE": "Save",
         "CANCEL": "Cancel"
       }
@@ -427,7 +431,7 @@
       "SEARCH_PROJECTS": "Find a project",
       "TITLE": "Projects",
       "ERROR": {
-        "CREATE_FAILED": "The creation of the organization has failed"
+        "CREATE_FAILED": "The creation of the project has failed"
       }
     },
     "PROFILE": "Profile",
@@ -437,9 +441,15 @@
   "ERROR": {
     "CREATE_FAILED": "The creation of the organization has failed",
     "FETCH_FAILED": "Could not get the information of the organization",
-    "WRONG_ORG_ID": "Organization not found"
+    "WRONG_ORG_ID": "Organization not found",
+    "ERROR": {
+      "CREATE_FAILED": "The creation of the organization has failed",
+      "FETCH_FAILED": "Could not get the information of the organization",
+      "WRONG_ORG_ID": "Organization not found"
+    }
   },
   "PROFILE": "Profile",
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
+  "GET_MEMBERS_LOAD_FAILED": "You have no organization",
   "WELCOME_BACK": "Hello"
 }

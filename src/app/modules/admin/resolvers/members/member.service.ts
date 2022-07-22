@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, map, take, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, take, tap, lastValueFrom } from 'rxjs';
 
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
@@ -7,6 +7,7 @@ import { Member } from 'app/models/Member';
 import { UserInviteToOrgRo } from 'generated/models';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
+import { OrganizationMembers } from 'app/models/members/member';
 
 @Injectable({
   providedIn: 'root',
@@ -65,6 +66,11 @@ export class MemberService {
     const id = orgID || Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     return this.swaggerAPI.organizationRoutesGetUsers({ id });
   }
+  async getMembersByOrgId(id?: number): Promise<OrganizationMembers[]> {
+    return lastValueFrom(
+      this.swaggerAPI.organizationRoutesGetUsers({ id }).pipe(map(({ body }) => body.data.map((member) => new OrganizationMembers(member)))),
+    );
+  }
 
   getAndParseOrganizationMember(id?: number): Observable<any[]> {
     return this.getOrgMembers(id).pipe(
@@ -92,12 +98,15 @@ export class MemberService {
   createMember(body: UserInviteToOrgRo): Observable<any> {
     return this.swaggerAPI.memberRoutesInviteUserToOrganization({ body });
   }
+
   updateMember(orgId: number, userId: number, body): Observable<any> {
     return this.swaggerAPI.memberRoutesUpdateMember({ orgId, userId, body });
   }
+
   getMember(orgId: number, userId: number): Observable<any> {
     return this.swaggerAPI.memberRoutesGetMemberProfile({ orgId, userId });
   }
+
   deleteMember(id: number): Observable<any> {
     return this.swaggerAPI.memberRoutesRemove({ id });
   }

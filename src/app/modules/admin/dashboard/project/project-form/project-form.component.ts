@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { OrganizationMembers } from 'app/models/members/member';
@@ -7,8 +7,9 @@ import { ProjectLabels, ProjectLabelsTranslation } from 'app/models/projects/pro
 import { ProjectType, ProjectTypeTrasnlation } from 'app/models/projects/project-type';
 import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 import { constants } from 'app/shared/constants';
-import { Project } from 'app/models/project';
 import { Router } from '@angular/router';
+import { Project } from 'app/models/projects/project';
+import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 
 @Component({
   selector: 'app-project-form',
@@ -36,6 +37,8 @@ export class ProjectFormComponent implements OnInit {
     public matDialogRef: MatDialogRef<ProjectFormComponent>,
     private _formBuilder: FormBuilder,
     private _projectService: ProjectService,
+    private _memberService: MemberService,
+
     private _toastrService: ToastrService,
     private _router: Router,
   ) {}
@@ -54,6 +57,7 @@ export class ProjectFormComponent implements OnInit {
 
     this.projectForm = this._formBuilder.group(projectFormObj);
   }
+
   async onSubmit() {
     if (!this.projectForm.valid) {
       this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
@@ -70,6 +74,7 @@ export class ProjectFormComponent implements OnInit {
       this._toastrService.showError(constants.CREATE_PROJECT_FAILED);
     }
   }
+
   /**
    *
    * Used to track for loops elements by either their id or index
@@ -83,16 +88,18 @@ export class ProjectFormComponent implements OnInit {
 
   private getMembers() {
     const idOrg = this.getOrganization();
-    return this._projectService
-      .getMembers(idOrg)
+    return this._memberService
+      .getMembersByOrgId(idOrg)
       .then((resolve) => (this.organizationMembers = resolve))
       .catch(() => {
-        this._toastrService.showInfo('SWITCH_ORGANIZATIONS_LOAD_FAILED');
+        this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');
       });
   }
+
   private getProjectFromFormBuilder(): Project {
     return new Project({ ...this.projectForm.value, organization: this.getOrganization() });
   }
+
   private getOrganization(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }

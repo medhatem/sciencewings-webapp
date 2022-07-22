@@ -4,9 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreateProjectDto, ProjectDto } from 'generated/models';
 import { Member, OrganizationMembers } from 'app/models/members/member';
-import { Project, ProjectListItem } from 'app/models/project';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
+import { Project, ProjectListItem } from 'app/models/projects/project';
 
 @Injectable({
   providedIn: 'root',
@@ -30,16 +30,10 @@ export class ProjectService {
     return this._projects.asObservable();
   }
 
-  async getMembers(id?: number): Promise<OrganizationMembers[]> {
-    return lastValueFrom(
-      this._swaggerService
-        .organizationRoutesGetUsers({ id })
-        .pipe(map(({ body }) => body.data.map((member) => new OrganizationMembers(member)))),
-    );
-  }
   async createProject(project: Project): Promise<CreateProjectDto> {
     return lastValueFrom(this._swaggerService.projectRoutesCreateProject({ body: project as any }));
   }
+
   getProjectsAll(
     page: number = 0,
     size: number = 10,
@@ -64,9 +58,6 @@ export class ProjectService {
         }),
       );
   }
-  getMember(id: number): Observable<any> {
-    return this._swaggerService.memberRoutesGetById({ id });
-  }
 
   getOrgProjects(): Observable<any> {
     const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
@@ -77,11 +68,11 @@ export class ProjectService {
     return this.getOrgProjects().pipe(
       map((projects) => projects.body.data.map((project) => new ProjectListItem(project))),
       map((result: ProjectListItem[]) => {
-        return result.map((m: ProjectListItem): any => ({
-          title: `${m.title}`,
-          managers: m.managers.map((manager) => this.parseManagerToHtml(manager)),
-          participents: m.participants.length,
-          dateStart: moment(m.dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+        return result.map(({ title, managers, participants, dateStart }) => ({
+          title: `${title}`,
+          managers: this.parseMembersToHtml(managers),
+          participents: participants.length,
+          dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
         }));
       }),
       tap((response) => {
@@ -89,7 +80,8 @@ export class ProjectService {
       }),
     );
   }
-  parseManagerToHtml(member: Member) {
-    return `<span>${member.name}</span></br><span>${member.workEmail}</span>`;
+
+  private parseMembersToHtml(members: Member[]) {
+    return members.map(({ name, workEmail }) => `<span>${name}</span></br><span>${workEmail}</span>`);
   }
 }

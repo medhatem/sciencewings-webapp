@@ -1,4 +1,5 @@
 import { CreateOrganizationRo, ProjectRo } from 'generated/models';
+import { Member } from '../members/member';
 
 export class Project implements ProjectRo {
   id?: string;
@@ -27,5 +28,21 @@ export class Project implements ProjectRo {
     if (id) {
       this.id = id;
     }
+  }
+}
+export class ProjectListItem {
+  dateStart: string;
+  managers: Array<Member>;
+  participants: Array<Member>;
+  title: string;
+
+  constructor(project?: any) {
+    const { participants, dateStart, managers, title } = project || {};
+    Object.assign(this, {
+      participants,
+      dateStart,
+      managers,
+      title,
+    });
   }
 }
