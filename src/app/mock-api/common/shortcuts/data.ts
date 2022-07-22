@@ -17,6 +17,14 @@ export const shortcuts = [
     useRouter: true,
   },
   {
+    id: 'a1ae91d3-e2cb-489b-9be9-a184695g659k',
+    label: 'APP.COMMON.APP_MODULES.PROJECT.TITLE',
+    description: 'APP.COMMON.APP_MODULES.PROJECT.DESCRIPTION',
+    icon: 'heroicons_outline:clipboard-list',
+    link: 'project',
+    useRouter: true,
+  },
+  {
     id: '989ce876-c177-4d71-a749-1953c477f825',
     label: 'APP.COMMON.APP_MODULES.RESOUCES.TITLE',
     description: 'APP.COMMON.APP_MODULES.RESOUCES.DESCRIPTION',
@@ -30,14 +38,6 @@ export const shortcuts = [
     description: 'APP.COMMON.APP_MODULES.HELP_CENTER.DESCRIPTION',
     icon: 'heroicons_outline:support',
     link: '/apps/help-center',
-    useRouter: true,
-  },
-  {
-    id: 'a1ae91d3-e2cb-489b-9be9-a184695g659k',
-    label: 'APP.COMMON.APP_MODULES.PROJECT.TITLE',
-    description: 'APP.COMMON.APP_MODULES.PROJECT.DESCRIPTION',
-    icon: 'heroicons_outline:clipboard-list',
-    link: 'project',
     useRouter: true,
   },
 ];
