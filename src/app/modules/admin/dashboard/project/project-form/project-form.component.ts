@@ -9,6 +9,7 @@ import { ProjectService } from 'app/modules/admin/resolvers/project/project.serv
 import { constants } from 'app/shared/constants';
 import { Router } from '@angular/router';
 import { Project } from 'app/models/projects/project';
+import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 
 @Component({
   selector: 'app-project-form',
@@ -36,6 +37,8 @@ export class ProjectFormComponent implements OnInit {
     public matDialogRef: MatDialogRef<ProjectFormComponent>,
     private _formBuilder: FormBuilder,
     private _projectService: ProjectService,
+    private _memberService: MemberService,
+
     private _toastrService: ToastrService,
     private _router: Router,
   ) {}
@@ -64,7 +67,7 @@ export class ProjectFormComponent implements OnInit {
     try {
       await this._projectService.createProject(project);
       this._toastrService.showSuccess(constants.CREATE_PROJECT_COMPLETED);
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.PROJECT]);
+      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.PROJECT]);
     } catch (error) {
       this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.PROJECT]);
       this._toastrService.showError(constants.CREATE_PROJECT_FAILED);
@@ -83,8 +86,8 @@ export class ProjectFormComponent implements OnInit {
 
   private getMembers() {
     const idOrg = this.getOrganization();
-    return this._projectService
-      .getMembers(idOrg)
+    return this._memberService
+      .getMembersByOrgId(idOrg)
       .then((resolve) => (this.organizationMembers = resolve))
       .catch(() => {
         this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');

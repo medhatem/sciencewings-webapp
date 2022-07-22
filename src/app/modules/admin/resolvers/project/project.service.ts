@@ -30,13 +30,6 @@ export class ProjectService {
     return this._projects.asObservable();
   }
 
-  async getMembers(id?: number): Promise<OrganizationMembers[]> {
-    return lastValueFrom(
-      this._swaggerService
-        .organizationRoutesGetUsers({ id })
-        .pipe(map(({ body }) => body.data.map((member) => new OrganizationMembers(member)))),
-    );
-  }
   async createProject(project: Project): Promise<CreateProjectDto> {
     return lastValueFrom(this._swaggerService.projectRoutesCreateProject({ body: project as any }));
   }
@@ -63,9 +56,6 @@ export class ProjectService {
           this._projects.next(response.projects);
         }),
       );
-  }
-  getMember(id: number): Observable<any> {
-    return this._swaggerService.memberRoutesGetById({ id });
   }
 
   getOrgProjects(): Observable<any> {
