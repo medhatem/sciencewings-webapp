@@ -82,6 +82,6 @@ export class ProjectService {
   }
 
   private parseMembersToHtml(members: Member[]) {
-    return members.map(({ name, workEmail }) => `<span>${name}</span></br><span>${workEmail}</span>`);
+    return members.map(({ name, workEmail }) => `<div>${name}</div><div>${workEmail}</div>`);
   }
 }
