@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { OrganizationMembers } from 'app/models/members/member';
@@ -57,6 +57,7 @@ export class ProjectFormComponent implements OnInit {
 
     this.projectForm = this._formBuilder.group(projectFormObj);
   }
+
   async onSubmit() {
     if (!this.projectForm.valid) {
       this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
@@ -73,6 +74,7 @@ export class ProjectFormComponent implements OnInit {
       this._toastrService.showError(constants.CREATE_PROJECT_FAILED);
     }
   }
+
   /**
    *
    * Used to track for loops elements by either their id or index
@@ -93,9 +95,11 @@ export class ProjectFormComponent implements OnInit {
         this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');
       });
   }
+
   private getProjectFromFormBuilder(): Project {
     return new Project({ ...this.projectForm.value, organization: this.getOrganization() });
   }
+
   private getOrganization(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
