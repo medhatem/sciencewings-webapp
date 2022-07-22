@@ -68,9 +68,9 @@ export class ProjectFormComponent implements OnInit {
     try {
       await this._projectService.createProject(project);
       this._toastrService.showSuccess(constants.CREATE_PROJECT_COMPLETED);
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.PROJECT]);
+      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.PROJECT]);
     } catch (error) {
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.PROJECT]);
+      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.PROJECT]);
       this._toastrService.showError(constants.CREATE_PROJECT_FAILED);
     }
   }

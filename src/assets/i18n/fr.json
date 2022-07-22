@@ -27,6 +27,10 @@
           "DESCRIPTION": "Demarrage...",
           "TITLE": "Documentation"
         },
+        "PROJECT": {
+          "DESCRIPTION": "gestion des projets",
+          "TITLE": "Projets"
+        },
         "TITLE": "Modules"
       },
       "NO_APP_MODULES": "Aucun module d'application",

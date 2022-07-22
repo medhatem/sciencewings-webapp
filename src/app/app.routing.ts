@@ -97,19 +97,6 @@ export const appRoutes: Route[] = [
               import('app/modules/admin/dashboard/organization-groups/organization-groups.module').then((m) => m.OrganizationGroupsModule),
           },
           {
-            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_PROJECT,
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.PROJECT.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:table',
-            },
-            resolve: {
-              projects: ProjectResolver,
-            },
-            loadChildren: () => import('app/modules/admin/dashboard/project/project.module').then((m) => m.ProjectModule),
-          },
-          {
             path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_SETTINGS,
             canActivate: [AuthGuard],
             data: {
@@ -173,6 +160,29 @@ export const appRoutes: Route[] = [
           //   loadChildren: () =>
           //     import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
           // },
+        ],
+      },
+      {
+        path: constants.MODULES_ROUTINGS_URLS.PROJECT,
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.PROJECT.TITLE',
+          type: FuseNavigationItemTypeEnum.group,
+        },
+        children: [
+          {
+            path: '',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.PROJECT.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:table',
+            },
+            resolve: {
+              projects: ProjectResolver,
+            },
+            loadChildren: () => import('app/modules/admin/dashboard/project/project.module').then((m) => m.ProjectModule),
+          },
         ],
       },
       {

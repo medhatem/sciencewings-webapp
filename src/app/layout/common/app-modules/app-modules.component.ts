@@ -132,6 +132,12 @@ export class AppModulesComponent implements OnInit, OnDestroy {
             overlayX: 'end',
             overlayY: 'bottom',
           },
+          {
+            originX: 'start',
+            originY: 'bottom',
+            overlayX: 'start',
+            overlayY: 'top',
+          },
         ]),
     });
 
