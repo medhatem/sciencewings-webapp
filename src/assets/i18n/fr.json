@@ -6,7 +6,8 @@
       "NEXT": "Suivant",
       "PREVIOUS": "Précédent",
       "RELOAD": "Recharger",
-      "SUBMIT": "Soumettre"
+      "SUBMIT": "Soumettre",
+      "APPLY": "Appliquer"
     },
     "COMMON": {
       "APP_MODULES": {
@@ -96,6 +97,9 @@
         },
         "RESOURCE_TAGS": {
           "TITLE": "Tags des ressources"
+        },
+        "PROJECT": {
+          "TITLE": "Project"
         },
         "TITLE": "Tableau de bord",
         "USER_PROFILE": {
@@ -321,7 +325,7 @@
         "CANCEL": "annuler"
       }
     },
-    "PROFILE": {
+    "PROFILE_RESOURCE": {
       "DETAILS": {
         "ROLE": "Rôle"
       },
@@ -388,6 +392,52 @@
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
     },
+    "PROJECTS": {
+      "CREATE_PROJECTS": "Créer un projet",
+      "EXPORT_PROJECTS": "Exporter",
+      "FILTER_PROJECTS": "Filtre",
+      "FORM": {
+        "LABEL_NAME": "Titre",
+        "CANCEL": "Annuler",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION": "À propos (description)",
+        "PROJECT_MEMBERS": "Membres du projet",
+        "PROJECT_NAME": "Nom du Projet",
+        "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
+        "SAVE": "Sauvegarder",
+        "TITLE": "Créer un nouveau projet",
+        "LOCATION": "Localisation",
+        "MANAGERS": "Gérant(s)",
+        "PARTICIPANTS": "Participent(s)",
+        "ENTER_DATE": "Saisissez une plage de dates",
+        "DATE_HINT": "MM/JJ/AAAA – MM/JJ/AAAA",
+        "STARTDATE": "La date de debut",
+        "ENDDATE": "La date de fin",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "La création du projet a réussi"
+      },
+      "IMPORT_PROJECTS": "Importer",
+      "LIST": {
+        "PROJECT_DATE": "Date",
+        "PROJECT_MEMBERS": "Membres",
+        "PROJECT_NAME": "Projet",
+        "PROJECT_STATUS": "Status",
+        "MESSAGE": "Il n'y a pas de Projets !"
+      },
+      "SEARCH_GROUPS": "Chercher un projet",
+      "TITLE": "Projets",
+      "ERROR": {
+        "CREATE_FAILED": "La création de l'organisation a échoué"
+      }
+    },
+    "PROFILE": "Profil",
+    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
+    "WELCOME_BACK": "Bonjour"
+  },
+  "ERROR": {
+    "CREATE_FAILED": "La création de l'organisation a échoué",
+    "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
+    "WRONG_ORG_ID": "L'organization demandé est introuvable",
     "ERROR": {
       "CREATE_FAILED": "La création de l'organisation a échoué",
       "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
@@ -396,5 +446,6 @@
   },
   "PROFILE": "Profil",
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
+  "GET_MEMBERS_LOAD_FAILED": "Vous n'avez pas d'organisation",
   "WELCOME_BACK": "Bonjour"
 }

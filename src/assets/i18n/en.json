@@ -6,7 +6,8 @@
       "NEXT": "Next",
       "PREVIOUS": "Previous",
       "RELOAD": "Reload",
-      "SUBMIT": "Submit"
+      "SUBMIT": "Submit",
+      "APPLY": "Apply"
     },
     "COMMON": {
       "APP_MODULES": {
@@ -96,6 +97,9 @@
         },
         "RESOURCE_TAGS": {
           "TITLE": "Resource tags"
+        },
+        "PROJECT": {
+          "TITLE": "Project"
         },
         "TITLE": "Dashboard",
         "USER_PROFILE": {
@@ -301,10 +305,6 @@
         "NAME": "Full Name",
         "JOB": "Job Title",
         "GENDER": "Gender",
-        "GENDER_LIST": {
-          "MALE": "Male",
-          "FEMALE": "Female"
-        },
         "EMAIL": "Email",
         "PHONE": "Phone",
         "LABEL": "Label",
@@ -317,11 +317,15 @@
           "PROVINCE": "Province/Region",
           "ZIP": "Zip Code"
         },
+        "GENDER_LIST": {
+          "MALE": "Male",
+          "FEMALE": "Female"
+        },
         "SAVE": "Save",
         "CANCEL": "Cancel"
       }
     },
-    "PROFILE": {
+    "PROFILE_RESOURCE": {
       "DETAILS": {
         "ROLE": "Role"
       },
@@ -388,6 +392,52 @@
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"
     },
+    "PROJECTS": {
+      "CREATE_PROJECTS": "Create a new project",
+      "EXPORT_PROJECTS": "Export",
+      "FILTER_PROJECTS": "Filter",
+      "FORM": {
+        "LABEL_NAME": "Title",
+        "CANCEL": "Cancel",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION": "About (description)",
+        "PROJECT_MEMBERS": "Project's Members",
+        "PROJECT_NAME": "Project's Name",
+        "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
+        "SAVE": "Save",
+        "TITLE": "Create Project",
+        "LOCATION": "Location",
+        "MANAGERS": "Manager(s)",
+        "PARTICIPANTS": "Participant(s)",
+        "ENTER_DATE": "Enter a date range",
+        "DATE_HINT": "MM/DD/YYYY – MM/DD/YYYY",
+        "STARTDATE": "Start date",
+        "ENDDATE": "End date",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "Create project succeeded"
+      },
+      "IMPORT_PROJECTS": "Import",
+      "LIST": {
+        "PROJECT_DATE": "Date",
+        "PROJECT_MEMBERS": "Membres",
+        "PROJECT_NAME": "Project",
+        "PROJECT_STATUS": "Status",
+        "MESSAGE": "There is no projects"
+      },
+      "SEARCH_PROJECTS": "Find a project",
+      "TITLE": "Projects",
+      "ERROR": {
+        "CREATE_FAILED": "The creation of the project has failed"
+      }
+    },
+    "PROFILE": "Profile",
+    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
+    "WELCOME_BACK": "Hello"
+  },
+  "ERROR": {
+    "CREATE_FAILED": "The creation of the organization has failed",
+    "FETCH_FAILED": "Could not get the information of the organization",
+    "WRONG_ORG_ID": "Organization not found",
     "ERROR": {
       "CREATE_FAILED": "The creation of the organization has failed",
       "FETCH_FAILED": "Could not get the information of the organization",
@@ -396,5 +446,6 @@
   },
   "PROFILE": "Profile",
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
+  "GET_MEMBERS_LOAD_FAILED": "You have no organization",
   "WELCOME_BACK": "Hello"
 }

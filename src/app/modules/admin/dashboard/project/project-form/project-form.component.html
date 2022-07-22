@@ -1,0 +1,77 @@
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+  <!-- Header -->
+  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8">
+    <div class="text-lg font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.PROJECTS.FORM.TITLE' | transloco }}</div>
+  </div>
+  <hr class="w-full border-t my-2" />
+  <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="projectForm">
+    <mat-form-field class="flex-auto mx-4">
+      <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.LABEL_NAME' | transloco }}</mat-label>
+      <input matInput [formControlName]="'title'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PROJECT_NAME' | transloco }}" required />
+      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
+    </mat-form-field>
+    <div class="flex-auto mx-4" *ngIf="organizationMembers?.length">
+      <mat-label class="w-100">{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}</mat-label>
+      <ng-select
+        placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}"
+        [searchable]="true"
+        [multiple]="true"
+        [formControlName]="'managers'">
+        <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.user">
+          {{ organizationMember.name }}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div class="flex-auto mx-4" *ngIf="organizationMembers?.length">
+      <mat-label class="w-100" required>{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}</mat-label>
+      <ng-select
+        placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PARTICIPANTS' | transloco }}"
+        [searchable]="true"
+        [multiple]="true"
+        [formControlName]="'participants'">
+        <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.user">
+          {{ organizationMember.name }}
+        </ng-option>
+      </ng-select>
+    </div>
+    <mat-form-field appearance="fill" class="example-form-field flex-auto mx-4">
+      <mat-label required>{{ 'ORGANIZATION.PROJECTS.FORM.ENTER_DATE' | transloco }}</mat-label>
+      <mat-date-range-input [rangePicker]="rangePicker">
+        <input [formControlName]="'dateStart'" matStartDate placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.STARTDATE' | transloco }}" />
+        <input [formControlName]="'dateEnd'" matEndDate placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.ENDDATE' | transloco }}" />
+      </mat-date-range-input>
+      <mat-hint>{{ 'ORGANIZATION.PROJECTS.FORM.DATE_HINT' | transloco }}</mat-hint>
+      <mat-datepicker-toggle matPrefix [for]="rangePicker"></mat-datepicker-toggle>
+      <mat-date-range-picker #rangePicker>
+        <mat-date-range-picker-actions>
+          <button mat-button matDateRangePickerCancel>{{ 'APP.BTN.CANCEL' | transloco }}</button>
+          <button mat-raised-button color="primary" matDateRangePickerApply>{{ 'APP.BTN.APPLY' | transloco }}</button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
+    </mat-form-field>
+    <mat-form-field class="flex-auto mx-4">
+      <mat-label required>{{ 'ORGANIZATION.PROJECTS.FORM.DESCRIPTION_LABEL' | transloco }}</mat-label>
+      <textarea
+        matInput
+        [formControlName]="'description'"
+        placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.DESCRIPTION' | transloco }}"
+        [rows]="3"></textarea>
+    </mat-form-field>
+    <div class="flex items-center justify-between flex-auto mx-4">
+      <div class="flex-auto leading-6 cursor-pointer">{{ 'ORGANIZATION.PROJECTS.FORM.ACTIVE' | transloco }}</div>
+      <mat-slide-toggle class="ml-2" [formControlName]="'active'" [color]="'primary'"> </mat-slide-toggle>
+    </div>
+    <!-- Body -->
+    <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
+      <button mat-button mat-dialog-close mat-flat-button [color]="'primary'" (click)="onSubmit()">
+        {{ 'ORGANIZATION.PROJECTS.FORM.SAVE' | transloco }}
+      </button>
+      <button class="px-6 ml-3" [mat-dialog-close]="true">{{ 'ORGANIZATION.PROJECTS.FORM.CANCEL' | transloco }}</button>
+    </div>
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+      <div class="-ml-2"></div>
+      <div class="flex items-center mt-4 sm:mt-0"></div>
+    </div>
+  </form>
+</div>
