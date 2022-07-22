@@ -37,9 +37,11 @@ export class ProjectService {
         .pipe(map(({ body }) => body.data.map((member) => new OrganizationMembers(member)))),
     );
   }
+
   async createProject(project: Project): Promise<CreateProjectDto> {
     return lastValueFrom(this._swaggerService.projectRoutesCreateProject({ body: project as any }));
   }
+
   getProjectsAll(
     page: number = 0,
     size: number = 10,
@@ -64,9 +66,6 @@ export class ProjectService {
         }),
       );
   }
-  getMember(id: number): Observable<any> {
-    return this._swaggerService.memberRoutesGetById({ id });
-  }
 
   getOrgProjects(): Observable<any> {
     const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
@@ -79,7 +78,7 @@ export class ProjectService {
       map((result: ProjectListItem[]) => {
         return result.map(({ title, managers, participants, dateStart }) => ({
           title: `${title}`,
-          managers: this.parseManagerToHtml(managers),
+          managers: this.parseMembersToHtml(managers),
           participents: participants.length,
           dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
         }));
@@ -89,8 +88,8 @@ export class ProjectService {
       }),
     );
   }
-  parseManagerToHtml(members: Member[]) {
-    let managers: any;
-    return (managers = members.map((member) => `<span>${member.name}</span></br></br><span>${member.workEmail}</span>`));
+
+  private parseMembersToHtml(members: Member[]) {
+    return members.map(({ name, workEmail }) => `<span>${name}</span></br><span>${workEmail}</span>`);
   }
 }

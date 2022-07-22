@@ -92,12 +92,15 @@ export class MemberService {
   createMember(body: UserInviteToOrgRo): Observable<any> {
     return this.swaggerAPI.memberRoutesInviteUserToOrganization({ body });
   }
+
   updateMember(orgId: number, userId: number, body): Observable<any> {
     return this.swaggerAPI.memberRoutesUpdateMember({ orgId, userId, body });
   }
+
   getMember(orgId: number, userId: number): Observable<any> {
     return this.swaggerAPI.memberRoutesGetMemberProfile({ orgId, userId });
   }
+
   deleteMember(id: number): Observable<any> {
     return this.swaggerAPI.memberRoutesRemove({ id });
   }
