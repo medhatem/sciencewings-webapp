@@ -18,6 +18,7 @@ import { User } from 'app/core/user/user.types';
 import { constants } from 'app/shared/constants';
 import { SharedHelpers } from 'app/shared/helpers';
 import { LandingPageComponent } from 'app/modules/admin/dashboard/landing/landing-page/landing-page.component';
+import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 
 @Component({
   selector: 'classy-layout',
@@ -42,6 +43,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     private _fuseSplashScreenService: FuseSplashScreenService,
     private _toastrService: ToastrService,
     private _switchOrganizationsService: SwitchOrganizationsService,
+    private _adminOrganizationsService: AdminOrganizationsService,
   ) {}
 
   /**
@@ -181,18 +183,23 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    *
    * Returns only Landing Page if no organization selected
    */
-  private loadNavigationItemsFromRoutes(): void {
+  private async loadNavigationItemsFromRoutes() {
     const applicationRoutes = appRoutes[0].children;
     const navigationItems = [applicationRoutes.find(({ path }) => path === constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.LANDING_PAGE)];
 
-    const currentOrganization = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
-    if (!!currentOrganization) {
-      const modulePath = localStorage.getItem(constants.CURRENT_MODULE) || constants.MODULES_ROUTINGS_URLS.ADMIN;
-      navigationItems.push(applicationRoutes.find(({ path }) => path === modulePath));
+    const currentOrganizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    try {
+      const { id } = await this._adminOrganizationsService.getOrganization(currentOrganizationId);
+      if (!!id) {
+        const modulePath = localStorage.getItem(constants.CURRENT_MODULE) || constants.MODULES_ROUTINGS_URLS.ADMIN;
+        navigationItems.push(applicationRoutes.find(({ path }) => path === modulePath));
+      }
+    } catch (error) {
+      console.log('error occured on classy component load nav', error.message);
+    } finally {
+      this.navigation = this.buildNavigationItemsFromRoutes(navigationItems);
+      this.redirectToParentOrFirstChild(navigationItems[0]);
     }
-
-    this.navigation = this.buildNavigationItemsFromRoutes(navigationItems);
-    this.redirectToParentOrFirstChild(navigationItems[0]);
   }
 
   /**
