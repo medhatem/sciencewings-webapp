@@ -74,8 +74,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     this._unsubscribeAll.complete();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.resetNavigation(changes.hideMenusAndButtons.currentValue);
+  async ngOnChanges(changes: SimpleChanges) {
+    await this.resetNavigation(changes.hideMenusAndButtons.currentValue);
   }
 
   onActivate(event) {
@@ -109,7 +109,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    *
    * @param hideNavigation
    */
-  resetNavigation(hideNavigation: boolean): void {
+  async resetNavigation(hideNavigation: boolean) {
     try {
       this._fuseSplashScreenService.show();
       if (this.hideMenusAndButtons !== hideNavigation) {
@@ -119,7 +119,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       if (hideNavigation) {
         this.navigation = [];
       } else {
-        this.loadNavigationItemsFromRoutes();
+        await this.loadNavigationItemsFromRoutes();
       }
     } catch (error) {
       this._toastrService.showError(constants.FATAL_ERROR_OCCURED);
@@ -138,9 +138,9 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    *
    * @params url: string
    */
-  onSwitchModule(url: string) {
+  async onSwitchModule(url: string) {
     localStorage.setItem(constants.CURRENT_MODULE, url);
-    this.resetNavigation(false);
+    await this.resetNavigation(false);
   }
 
   /**
@@ -155,7 +155,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     } catch (error) {
       console.log(error?.message);
     } finally {
-      this.resetNavigation(false);
+      await this.resetNavigation(false);
     }
   }
 
