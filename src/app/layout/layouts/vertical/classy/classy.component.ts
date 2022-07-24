@@ -54,7 +54,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     const { userKeycloackData } = this._route.snapshot.data;
     this._router.onSameUrlNavigation = 'ignore';
-    this.SetAdministrationModuleAsDefault();
+    this.setAdministrationModuleAsDefault();
     this.subscribeToMediaChangesAndScreenSizeCheck();
 
     /**
@@ -169,7 +169,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   /**
    * Set ADMINISTRATION module by default
    */
-  private SetAdministrationModuleAsDefault() {
+  private setAdministrationModuleAsDefault() {
     if (!localStorage.getItem(constants.CURRENT_MODULE)) {
       localStorage.setItem(constants.CURRENT_MODULE, constants.MODULES_ROUTINGS_URLS.ADMIN);
     }

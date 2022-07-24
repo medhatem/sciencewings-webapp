@@ -26,9 +26,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
+    @Inject(DOCUMENT) private _document: any,
     private _route: ActivatedRoute,
     private _activatedRoute: ActivatedRoute,
-    @Inject(DOCUMENT) private _document: any,
     private _renderer2: Renderer2,
     private _router: Router,
     private _fuseConfigService: FuseConfigService,
@@ -70,13 +70,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
             scheme: config.scheme,
             theme: config.theme,
           };
-
           // If the scheme is set to 'auto'...
           if (config.scheme === 'auto') {
             // Decide the scheme using the media query
             options.scheme = mql.breakpoints['(prefers-color-scheme: dark)'] ? 'dark' : 'light';
           }
-
           return options;
         }),
       )
@@ -112,26 +110,26 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   /**
    * Update the selected layout.
-   * 
+   *
    * Get the current activated route.
-   * 
+   *
    * 1. Set the layout from the config.
-   * 
+   *
    * 2. Get the query parameter from the current route,
    *    and set the layout and save the layout to the config
-   * 
+   *
    * 3. Iterate through the paths and change the layout as we find a config for it.
    *    The reason we do this is that there might be empty grouping
    *    paths or componentless routes along the path. Because of that,
    *    we cannot just assume that the layout configuration will be
    *    in the last path's config or in the first path's config.
-    
+   *
    *    So, we get all the paths that matched starting from root all
    *    the way to the current activated route, walk through them one
    *    by one and change the layout as we find the layout config. This
    *    way, layout configuration can live anywhere within the path and
    *    we won't miss it.
-    
+   *
    *    Also, this will allow overriding the layout in any time so we
    *    can have different layouts for different routes.
    */
