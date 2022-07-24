@@ -30,8 +30,8 @@ export class ResourceSettingGeneralStatusComponent implements OnInit {
     });
 
     this.form.setValue({
-      statusType: this.settings.statusType,
-      statusDescription: this.settings.statusDescription,
+      statusType: this.settings?.statusType || '',
+      statusDescription: this.settings?.statusDescription || '',
     });
   }
 

@@ -6,7 +6,7 @@
     </mat-form-field>
 
     <mat-form-field class="w-full">
-      <mat-label>{{ 'Class' | transloco }}</mat-label>
+      <mat-label>{{ 'ORGANIZATION.PROFILE_RESOURCE.DETAILS.CLASS' | transloco }}</mat-label>
       <mat-select [formControlName]="'resourceClass'">
         <mat-option [value]="'equipement'">Equipement</mat-option>
         <mat-option [value]="'service'">Service</mat-option>
@@ -17,7 +17,7 @@
     </mat-form-field>
 
     <mat-form-field class="w-full">
-      <mat-label>{{ 'Type' | transloco }}</mat-label>
+      <mat-label>{{ 'ORGANIZATION.PROFILE_RESOURCE.DETAILS.TYPE' | transloco }}</mat-label>
       <mat-select [formControlName]="'resourceType'">
         <mat-option [value]="'reservable'">Reservable</mat-option>
         <mat-option [value]="'requestable'">Requestable</mat-option>
@@ -124,7 +124,9 @@
 
     <div style="display: flex; justify-content: end">
       <button mat-button color="warn">{{ 'APP.ROUTES.USER.ABOUT.CANCEL' | transloco }}</button>
-      <button mat-raised-button color="primary" (click)="onSubmit()">{{ btnTitle | transloco }}</button>
+      <button mat-raised-button color="primary" (click)="onSubmit()">
+        {{ (btnTitle === 'Add' ? 'APP.BTN.ADD' : 'APP.BTN.UPDATE') | transloco }}
+      </button>
     </div>
   </form>
 </mat-card>

@@ -7,7 +7,10 @@
       "PREVIOUS": "Précédent",
       "RELOAD": "Recharger",
       "SUBMIT": "Soumettre",
-      "APPLY": "Appliquer"
+      "APPLY": "Appliquer",
+      "UPDATE": "Modifier",
+      "ADD": "Ajouter",
+      "DELETE": "Supprimer"
     },
     "COMMON": {
       "APP_MODULES": {
@@ -331,7 +334,9 @@
     },
     "PROFILE_RESOURCE": {
       "DETAILS": {
-        "ROLE": "Rôle"
+        "ROLE": "Rôle",
+        "CLASS": "Class",
+        "TYPE": "Type"
       },
       "TABS": {
         "GENERAL_INFOS": "Informations générales",
@@ -391,6 +396,56 @@
         "ShowResourceImagesInReservation": "Afficher les images de ressources dans la réservation",
         "Update": "Modifier",
         "Utilisateur HideCalenderForMemberOnly": "Masquer le calendrier pour les membres uniquement"
+      },
+      "RESOUCES": {
+        "GENERAL": "Général",
+        "NAME": "Nom",
+        "CLASS": "Class",
+        "TYPE": "Type",
+        "TIMEZONE": "Fuseau horaire",
+        "DESCRIPTION": "Description",
+        "TAGS": "Mots clés",
+        "MANAGERS": "Managers",
+        "STATUS": "Status",
+        "VisibilitySettings": "Paramètres de visibilité",
+        "Visibility": "Visibilité",
+        "ResourceUnlistedOnSitePage": "Ressource non répertoriée sur la page du site",
+        "ResourceUnlistedToUsersWhoCannotReserve": "Ressource non répertoriée pour les utilisateurs qui ne peuvent pas réserver",
+        "ResourceFullyHiddenToUsersWhoCannotReserve": "Ressource entièrement masquée pour les utilisateurs qui ne peuvent pas réserver",
+        "PromoteOnSitePageAsALargeButtonAboveOtherResources": "Promouvoir la page du site comme un gros bouton au-dessus des autres ressources",
+        "HideAvailabilityOnSitePage": "Masquer la disponibilité sur la page du site",
+        "GeneralReservationOptions": "Options générales de réservation",
+        "ReservationsEnabled": "Réservations activées",
+        "Loanable": "Prêtable",
+        "LoanableResource": "Ressource prêtable",
+        "UsersCanReturnTheirOwnLoans": "Les utilisateurs peuvent retourner leurs propres prêts",
+        "AllowReservingLoansAtFutureDates": "Autoriser la réservation de prêts à des dates futures",
+        "FixedLoanDuration": "Durée de prêt fixe",
+        "OverdueNoticeDelay": "Délai de notification de retard",
+        "RecurringReservations": "Réservations récurrentes",
+        "ResourceUnitsOptions": "Options des unités de ressources",
+        "Unites": "Unit",
+        "UnitName": "Nom de l'unité",
+        "UnitLimit": "Limite d'unité",
+        "RATE": "Rate",
+        "DURATION": "Durée",
+        "ACCOUNT": "Compte",
+        "AppliesTo": "S'applique à",
+        "AppliesToPublic": "S'applique au public",
+        "CATEGORY": "Catégorie",
+        "TimeRestrictionOptions": "Options de restriction de temps",
+        "ReservationEditingWindowForUsers": "Fenêtre d'édition de réservation pour les utilisateurs",
+        "RestrictCreatingNewReservationBeforeATime": "Restreindre la création d'une nouvelle réservation avant une heure",
+        "RestrictCreatingNewReservationAfterATime": "Restreindre la création d'une nouvelle réservation après un certain temps",
+        "ReservationTimeGranularity": "Granularité du temps de réservation",
+        "AllowUsersToEndAReservationEarly": "Autoriser les utilisateurs à mettre fin à une réservation plus tôt",
+        "DefaultReservationDuration": "Durée de réservation par défaut",
+        "ReservationDurationMinimum": "Durée de réservation minimale",
+        "ReservationDurationMaximum": "Durée de réservation maximale",
+        "BufferTimeBeforeReservation": "Temps tampon avant réservation",
+        "VisibilityOptions": "Options de visibilité",
+        "ReservationDetailsVisibilityToNonModerators": "Visibilité des détails de la réservation pour les non-modérateurs",
+        "AllReservationDetails": "Tous les détails de la réservation"
       }
     },
     "SUCCESS": {
@@ -451,5 +506,7 @@
   "PROFILE": "Profil",
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
   "GET_MEMBERS_LOAD_FAILED": "Vous n'avez pas d'organisation",
-  "WELCOME_BACK": "Bonjour"
+  "WELCOME_BACK": "Bonjour",
+  "Status": "Status",
+  "Description": "Description"
 }

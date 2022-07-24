@@ -15,7 +15,12 @@ export class ResourceSettingReservationGeneralComponent implements OnInit {
   form: FormGroup;
   isFixedLoanDurationOptionhidden = true;
   isOverdueNoticeDelayOptionhidden = true;
-  constructor(private _formBuilder: FormBuilder, private _resourceService: ResourceService, private _toastrService: ToastrService, private _coookies: CookieService) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _resourceService: ResourceService,
+    private _toastrService: ToastrService,
+    private _coookies: CookieService,
+  ) {}
   ngOnInit(): void {
     this.form = this._formBuilder.group({
       isEnabled: false,
@@ -28,27 +33,25 @@ export class ResourceSettingReservationGeneralComponent implements OnInit {
     });
 
     this.form.setValue({
-      isEnabled: this.settings.isEnabled,
-      isLoanable: this.settings.isLoanable,
-      isReturnTheirOwnLoans: this.settings.isReturnTheirOwnLoans,
-      isReservingLoansAtFutureDates: this.settings.isReservingLoansAtFutureDates,
-      fixedLoanDuration: this.settings.fixedLoanDuration,
-      overdueNoticeDelay: this.settings.overdueNoticeDelay,
-      recurringReservations: this.settings.recurringReservations,
+      isEnabled: this.settings?.isEnabled || false,
+      isLoanable: this.settings?.isLoanable || false,
+      isReturnTheirOwnLoans: this.settings?.isReturnTheirOwnLoans || false,
+      isReservingLoansAtFutureDates: this.settings?.isReservingLoansAtFutureDates || false,
+      fixedLoanDuration: this.settings?.fixedLoanDuration || 'week',
+      overdueNoticeDelay: this.settings?.overdueNoticeDelay || 'week',
+      recurringReservations: this.settings?.recurringReservations || 'user',
     });
   }
 
   onSubmit() {
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
-    this._resourceService
-      .updateResourcesSettingsReservationGeneral(selectedResourceId, this.form.value)
-      .subscribe((response) => {
-        if (response.body.statusCode === 204) {
-             this.updateLocalSettings.emit(this.form.value);
-          this._toastrService.showSuccess('Updated Successfully');
-        } else {
-          this._toastrService.showError('Something went wrong!');
-        }
-      });
+    this._resourceService.updateResourcesSettingsReservationGeneral(selectedResourceId, this.form.value).subscribe((response) => {
+      if (response.body.statusCode === 204) {
+        this.updateLocalSettings.emit(this.form.value);
+        this._toastrService.showSuccess('Updated Successfully');
+      } else {
+        this._toastrService.showError('Something went wrong!');
+      }
+    });
   }
 }

@@ -1,7 +1,7 @@
 <div class="w-full max-w-3xl">
   <div class="w-full mb-5">
-    <div class="text-xl">{{ 'Visibility Options' | transloco }}</div>
-    <div class="text-secondary">Following information is publicly displayed, be careful!</div>
+    <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.VisibilityOptions' | transloco }}</div>
+    <!-- <div class="text-secondary">Following information is publicly displayed, be careful!</div> -->
   </div>
 
   <!-- Form -->
@@ -9,11 +9,11 @@
     <div class="my-2">
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'Reservation Details Visibility to Non-moderators' | transloco }}</mat-label>
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ReservationDetailsVisibilityToNonModerators' | transloco }}</mat-label>
           <mat-select [formControlName]="'reservationDetailsVisibilityToNonModerators'">
             <mat-option [value]="'timeslotNDuser'">Reservation Timeslot and User Only</mat-option>
             <mat-option [value]="'timeslot'">Reservation Timeslot Only</mat-option>
-            <mat-option [value]="'all'">{{'All Reservation Details'| transloco}}</mat-option>
+            <mat-option [value]="'all'">{{ 'ORGANIZATION.SETTINGS.RESOUCES.AllReservationDetails' | transloco }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -23,7 +23,7 @@
 
     <!-- Actions -->
     <div class="flex items-center justify-end">
-      <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">{{ 'Save' | transloco }}</button>
+      <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">{{ 'APP.BTN.SUBMIT' | transloco }}</button>
     </div>
   </form>
 </div>

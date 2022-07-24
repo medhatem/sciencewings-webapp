@@ -1,12 +1,12 @@
 <div class="w-full max-w-3xl">
   <div class="flex items-center justify-end mb-5">
     <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="toggleRateCard()">
-      {{ 'Add' | transloco }}
+      {{ 'APP.BTN.ADD' | transloco }}
     </button>
   </div>
   <fuse-card class="flex flex-col p-8 pt-6 filter-list mb-5" [ngClass]="{ hidden: isCardHidden }">
     <div class="flex items-center justify-between">
-      <div class="text-2xl font-semibold leading-tight">{{ 'Rate' | transloco }}</div>
+      <div class="text-2xl font-semibold leading-tight">{{ 'ORGANIZATION.SETTINGS.RESOUCES.RATE' | transloco }}</div>
       <div class="-mr-3">
         <button mat-icon-button [matMenuTriggerFor]="listCard07Menu">
           <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
@@ -20,7 +20,7 @@
     <div class="flex flex-col my-2">
       <form [formGroup]="form">
         <div class="my-2">
-          <div>{{ 'Description' | transloco }}</div>
+          <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.DESCRIPTION' | transloco }}</div>
           <div class="sm:col-span-4">
             <mat-form-field class="fuse-mat-no-subscript w-full">
               <input [formControlName]="'description'" matInput />
@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="my-2">
-          <div>{{ 'Rate' | transloco }}</div>
+          <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RATE' | transloco }}</div>
           <div class="sm:col-span-4">
             <mat-form-field class="fuse-mat-no-subscript w-full">
               <input [formControlName]="'rate'" matInput />
@@ -38,7 +38,7 @@
         <div class="my-2">
           <div class="sm:col-span-4">
             <mat-form-field class="fuse-mat-no-subscript w-full">
-              <mat-label>{{ 'Category' | transloco }}</mat-label>
+              <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.CATEGORY' | transloco }}</mat-label>
               <mat-select [formControlName]="'category'">
                 <mat-option [value]="'english'">X</mat-option>
                 <mat-option [value]="'french'">Y</mat-option>
@@ -49,18 +49,18 @@
         </div>
         <div class="my-2">
           <div class="flex sm:col-span-4 justify-between my-1">
-            <mat-label>{{ 'Applies to public' | transloco }}</mat-label>
+            <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.AppliesToPublic' | transloco }}</mat-label>
             <mat-slide-toggle [formControlName]="'isPublic'" [color]="'primary'"> </mat-slide-toggle>
           </div>
         </div>
         <div class="my-2">
           <div class="flex sm:col-span-4 justify-between my-1">
-            <mat-label>{{ 'Account' | transloco }}</mat-label>
+            <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ACCOUNT' | transloco }}</mat-label>
             <mat-slide-toggle [formControlName]="'isRequiredAccountNumber'" [color]="'primary'"> </mat-slide-toggle>
           </div>
         </div>
         <div class="my-2">
-          <div>{{ 'Durations' | transloco }}</div>
+          <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.DURATION' | transloco }}</div>
           <div class="sm:col-span-4">
             <mat-form-field class="fuse-mat-no-subscript w-full">
               <input [formControlName]="'duration'" matInput />
@@ -73,7 +73,7 @@
 
         <!-- Actions -->
         <div class="flex items-center justify-end">
-          <button mat-stroked-button type="button" (click)="onCancel()">{{ 'Cancel' | transloco }}</button>
+          <button mat-stroked-button type="button" (click)="onCancel()">{{ 'APP.BTN.CANCEL' | transloco }}</button>
           <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
             {{ (selectedRateId ? 'Update' : 'Add') | transloco }}
           </button>
@@ -97,23 +97,23 @@
             <td>{{ rate.description }}</td>
           </tr>
           <tr>
-            <td>{{ 'Rate' | transloco }}</td>
+            <td>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RATE' | transloco }}</td>
             <td>{{ rate.rate }}</td>
           </tr>
           <tr>
-            <td>{{ 'Category' | transloco }}</td>
+            <td>{{ 'ORGANIZATION.SETTINGS.RESOUCES.CATEGORY' | transloco }}</td>
             <td>{{ rate.category }}</td>
           </tr>
           <tr>
-            <td>{{ 'Applies to' | transloco }}</td>
+            <td>{{ 'ORGANIZATION.SETTINGS.RESOUCES.AppliesTo' | transloco }}</td>
             <td>{{ rate.isPublic }}</td>
           </tr>
           <tr>
-            <td>{{ 'Account' | transloco }}</td>
+            <td>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ACCOUNT' | transloco }}</td>
             <td>{{ rate.isRequiredAccountNumber }}</td>
           </tr>
           <tr>
-            <td>{{ 'Duration' | transloco }}</td>
+            <td>{{ 'ORGANIZATION.SETTINGS.RESOUCES.DURATION' | transloco }}</td>
             <td>{{ rate.duration }}</td>
           </tr>
         </tbody>
@@ -123,9 +123,9 @@
 
       <!-- Actions -->
       <div class="flex items-center justify-between">
-        <button mat-stroked-button type="button" [color]="'warn'">{{ 'Remove' | transloco }}</button>
+        <button mat-stroked-button type="button" [color]="'warn'">{{ 'APP.BTN.DELETE' | transloco }}</button>
         <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onRateSelect(rate)">
-          {{ 'Update' | transloco }}
+          {{ 'APP.BTN.UPDATE' | transloco }}
         </button>
       </div>
     </fuse-card>

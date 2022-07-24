@@ -14,7 +14,12 @@ export class ResourceSettingReservationUnitsComponent implements OnInit {
   @Output() updateLocalSettings = new EventEmitter<string>();
   form: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder, private _resourceService: ResourceService, private _toastrService: ToastrService, private _coookies: CookieService) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _resourceService: ResourceService,
+    private _toastrService: ToastrService,
+    private _coookies: CookieService,
+  ) {}
   ngOnInit(): void {
     this.form = this._formBuilder.group({
       unitName: '',
@@ -23,9 +28,9 @@ export class ResourceSettingReservationUnitsComponent implements OnInit {
     });
 
     this.form.setValue({
-      unitName: this.settings.unitName,
-      unites: this.settings.unites,
-      unitLimit: this.settings.unitLimit,
+      unitName: this.settings?.unitName || '',
+      unites: this.settings?.unites || 0,
+      unitLimit: this.settings?.unitLimit || 0,
     });
   }
 
@@ -33,7 +38,7 @@ export class ResourceSettingReservationUnitsComponent implements OnInit {
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
     this._resourceService.updateResourceSettingsReservationUnit(selectedResourceId, this.form.value).subscribe((response) => {
       if (response.body.statusCode === 204) {
-         this.updateLocalSettings.emit(this.form.value);
+        this.updateLocalSettings.emit(this.form.value);
         this._toastrService.showSuccess('Updated Successfully');
       } else {
         this._toastrService.showError('Something went wrong!');

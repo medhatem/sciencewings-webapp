@@ -17,7 +17,7 @@ export const resourceRoutes: Route[] = [
         },
       },
       {
-        path: 'create',
+        path: 'create/:id',
         component: ResourceProfileFormComponent,
       },
     ],

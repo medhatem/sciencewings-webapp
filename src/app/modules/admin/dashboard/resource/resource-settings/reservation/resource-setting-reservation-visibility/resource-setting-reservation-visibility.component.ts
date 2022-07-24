@@ -25,7 +25,7 @@ export class ResourceSettingReservationVisibilityComponent implements OnInit {
     });
 
     this.form.setValue({
-      reservationDetailsVisibilityToNonModerators: this.settings.reservationDetailsVisibilityToNonModerators,
+      reservationDetailsVisibilityToNonModerators: this.settings?.reservationDetailsVisibilityToNonModerators || '',
     });
   }
 

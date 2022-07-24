@@ -10,6 +10,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { TIMEZONES } from 'app/modules/admin/dashboard/resource/resurce-setting-rule/timezones';
 import { ResourceRo } from 'generated/models';
+
 @Component({
   selector: 'app-profile-form',
   templateUrl: './profile-form.component.html',
@@ -45,8 +46,9 @@ export class ResourceProfileFormComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _toastrService: ToastrService,
   ) {
-    this.params = this.route.snapshot.queryParams.id;
-    this.btnTitle = this.route.snapshot.queryParams.id ? 'Update' : 'Add';
+    // this.params = this.route.snapshot.queryParams.id;
+    this.params = this.route.snapshot.paramMap.get('id');
+    this.btnTitle = this.params ? 'Update' : 'Add';
   }
 
   ngOnInit(): void {

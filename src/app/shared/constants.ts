@@ -36,6 +36,7 @@ export const constants = {
   MODULES_ROUTINGS_URLS: {
     ADMIN: 'admin',
     RESOURCES: 'resources',
+    RESOURCE: 'resources/resource/create/*',
     RESOURCES_SETTINGS: 'resource-settings',
     LANDING_PAGE: 'landing-page',
     PROJECT: 'project',

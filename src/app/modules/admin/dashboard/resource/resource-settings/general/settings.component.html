@@ -60,10 +60,10 @@
               <app-resource-setting-general-status [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
               </app-resource-setting-general-status>
             </ng-container>
-            <ng-container *ngSwitchCase="'barcodes'">
+            <!-- <ng-container *ngSwitchCase="'barcodes'">
               <app-resource-setting-general-barcode [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
               </app-resource-setting-general-barcode>
-            </ng-container>
+            </ng-container> -->
             <ng-container *ngSwitchCase="'visibility'">
               <app-resource-setting-general-visibility [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
               </app-resource-setting-general-visibility>

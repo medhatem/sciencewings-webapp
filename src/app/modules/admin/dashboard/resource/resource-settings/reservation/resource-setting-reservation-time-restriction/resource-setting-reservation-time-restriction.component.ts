@@ -13,7 +13,12 @@ export class ResourceSettingReservationTimeRestrictionComponent implements OnIni
   @Input() settings: any;
   @Output() updateLocalSettings = new EventEmitter<string>();
   form: FormGroup;
-  constructor(private _formBuilder: FormBuilder, private _resourceService: ResourceService, private _toastrService: ToastrService, private _coookies: CookieService) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _resourceService: ResourceService,
+    private _toastrService: ToastrService,
+    private _coookies: CookieService,
+  ) {}
   ngOnInit(): void {
     this.form = this._formBuilder.group({
       isEditingWindowForUsers: false,
@@ -28,15 +33,15 @@ export class ResourceSettingReservationTimeRestrictionComponent implements OnIni
     });
 
     this.form.setValue({
-      isEditingWindowForUsers: this.settings.isEditingWindowForUsers,
-      isRestrictCreatingNewReservationBeforeTime: this.settings.isRestrictCreatingNewReservationBeforeTime,
-      isRestrictCreatingNewReservationAfterTime: this.settings.isRestrictCreatingNewReservationAfterTime,
-      reservationTimeGranularity: this.settings.reservationTimeGranularity,
-      isAllowUsersToEndReservationEarly: this.settings.isAllowUsersToEndReservationEarly,
-      defaultReservationDuration: this.settings.defaultReservationDuration,
-      reservationDurationMinimum: this.settings.reservationDurationMinimum,
-      reservationDurationMaximum: this.settings.reservationDurationMaximum,
-      bufferTimeBeforeReservation: this.settings.bufferTimeBeforeReservation,
+      isEditingWindowForUsers: this.settings?.isEditingWindowForUsers || false,
+      isRestrictCreatingNewReservationBeforeTime: this.settings?.isRestrictCreatingNewReservationBeforeTime || false,
+      isRestrictCreatingNewReservationAfterTime: this.settings?.isRestrictCreatingNewReservationAfterTime || false,
+      reservationTimeGranularity: this.settings?.reservationTimeGranularity || '',
+      isAllowUsersToEndReservationEarly: this.settings?.isAllowUsersToEndReservationEarly || false,
+      defaultReservationDuration: this.settings?.defaultReservationDuration || '',
+      reservationDurationMinimum: this.settings?.reservationDurationMinimum || '',
+      reservationDurationMaximum: this.settings?.reservationDurationMaximum || '',
+      bufferTimeBeforeReservation: this.settings?.bufferTimeBeforeReservation || '',
     });
   }
 
@@ -44,7 +49,7 @@ export class ResourceSettingReservationTimeRestrictionComponent implements OnIni
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
     this._resourceService.updateResourceSettingsReservationTimeRestriction(selectedResourceId, this.form.value).subscribe((result) => {
       if (result.body.statusCode === 204) {
-         this.updateLocalSettings.emit(this.form.value);
+        this.updateLocalSettings.emit(this.form.value);
         this._toastrService.showSuccess('Updated Successfully');
       } else {
         this._toastrService.showError('Something went wrong!');

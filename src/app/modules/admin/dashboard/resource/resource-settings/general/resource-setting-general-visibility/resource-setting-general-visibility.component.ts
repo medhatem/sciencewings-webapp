@@ -33,12 +33,12 @@ export class ResourceSettingGeneralVisibilityComponent implements OnInit {
     });
 
     this.form.setValue({
-      visibility: this.settings.visibility,
-      isUnlistedOnOrganizationPage: this.settings.isUnlistedOnOrganizationPage,
-      isUnlistedToUsersWhoCannotReserve: this.settings.isUnlistedToUsersWhoCannotReserve,
-      isFullyHiddentoUsersWhoCannotReserve: this.settings.isFullyHiddentoUsersWhoCannotReserve,
-      isPromotedOnSitePageAsALargeButtonAboveOtherResources: this.settings.isPromotedOnSitePageAsALargeButtonAboveOtherResources,
-      isHideAvailabilityonSitePage: this.settings.isHideAvailabilityonSitePage,
+      visibility: this.settings?.visibility || false,
+      isUnlistedOnOrganizationPage: this.settings?.isUnlistedOnOrganizationPage || false,
+      isUnlistedToUsersWhoCannotReserve: this.settings?.isUnlistedToUsersWhoCannotReserve || false,
+      isFullyHiddentoUsersWhoCannotReserve: this.settings?.isFullyHiddentoUsersWhoCannotReserve || false,
+      isPromotedOnSitePageAsALargeButtonAboveOtherResources: this.settings?.isPromotedOnSitePageAsALargeButtonAboveOtherResources || false,
+      isHideAvailabilityonSitePage: this.settings?.isHideAvailabilityonSitePage || false,
     });
   }
 

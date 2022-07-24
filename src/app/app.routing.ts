@@ -112,6 +112,27 @@ export const appRoutes: Route[] = [
         ],
       },
       {
+        path: constants.MODULES_ROUTINGS_URLS.RESOURCE,
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.RESOURCE.TITLE',
+          type: FuseNavigationItemTypeEnum.group,
+        },
+        children: [
+          {
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.GENERAL_SETTINGS,
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.GENERAL',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:users',
+            },
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
+          },
+        ],
+      },
+      {
         path: constants.MODULES_ROUTINGS_URLS.RESOURCES,
         canActivate: [AuthGuard],
         data: {
@@ -149,17 +170,19 @@ export const appRoutes: Route[] = [
             },
             component: ResourceScheduleComponent,
           },
-          // {
-          //   path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.GENERAL_SETTINGS,
-          //   canActivate: [AuthGuard],
-          //   data: {
-          //     title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.GENERAL',
-          //     type: FuseNavigationItemTypeEnum.basic,
-          //     icon: 'heroicons_outline:users',
-          //   },
-          //   loadChildren: () =>
-          //     import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
-          // },
+          {
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.GENERAL_SETTINGS,
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.GENERAL',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:users',
+            },
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then(
+                (m) => m.SettingsReservationModule,
+              ),
+          },
         ],
       },
       {

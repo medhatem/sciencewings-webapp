@@ -7,7 +7,10 @@
       "PREVIOUS": "Previous",
       "RELOAD": "Reload",
       "SUBMIT": "Submit",
-      "APPLY": "Apply"
+      "APPLY": "Apply",
+      "UPDATE": "Update",
+      "ADD": "Add",
+      "DELETE": "Delete"
     },
     "COMMON": {
       "APP_MODULES": {
@@ -275,7 +278,6 @@
       "NO_ORGANIZATIONS": "You don't have any organization",
       "ERROR_LOADING_ORGANIZATIONS": "Something went wrong loading organizations"
     },
-
     "MEMBERS": {
       "EXPORT_MEMBERS": "Export",
       "FILTER_MEMBERS": "Filter",
@@ -331,7 +333,9 @@
     },
     "PROFILE_RESOURCE": {
       "DETAILS": {
-        "ROLE": "Role"
+        "ROLE": "Role",
+        "CLASS": "Class",
+        "TYPE": "Type"
       },
       "TABS": {
         "GENERAL_INFOS": "General informations",
@@ -391,6 +395,56 @@
         "ShowResourceImagesInReservation": "Show Resource Images in Reservation ",
         "Update": "Update",
         "UserHideCalenderForMemberOnly": "User Hide Calender For Member Only"
+      },
+      "RESOUCES": {
+        "GENERAL": "General",
+        "NAME": "Name",
+        "CLASS": "Class",
+        "TYPE": "Type",
+        "TIMEZONE": "Time zone",
+        "DESCRIPTION": "Description",
+        "TAGS": "Tags",
+        "MANAGERS": "Managers",
+        "STATUS": "Status",
+        "VisibilitySettings": "Visibility Settings",
+        "Visibility": "Visibility",
+        "ResourceUnlistedOnSitePage": "Resource Unlisted on Site Page",
+        "ResourceUnlistedToUsersWhoCannotReserve": "Resource Unlisted to Users Who Cannot Reserve",
+        "ResourceFullyHiddenToUsersWhoCannotReserve": "Resource Fully Hidden to Users Who Cannot Reserve",
+        "PromoteOnSitePageAsALargeButtonAboveOtherResources": "Promote on site page as a large button above other resources",
+        "HideAvailabilityOnSitePage": "Hide Availability on Site Page",
+        "GeneralReservationOptions": "General Reservation Options",
+        "ReservationsEnabled": "Reservations Enabled",
+        "Loanable": "Loanable",
+        "LoanableResource": "Loanable Resource",
+        "UsersCanReturnTheirOwnLoans": "Users Can Return Their Own Loans",
+        "AllowReservingLoansAtFutureDates": "Allow Reserving Loans at Future Dates",
+        "FixedLoanDuration": "Fixed Loan Duration",
+        "OverdueNoticeDelay": "Overdue Notice Delay",
+        "RecurringReservations": "Recurring Reservations",
+        "ResourceUnitsOptions": "Resource Units Options",
+        "Unites": "Unites",
+        "UnitName": "Unit Name",
+        "UnitLimit": "Unit Limit",
+        "RATE": "Rate",
+        "DURATION": "Duration",
+        "ACCOUNT": "Account",
+        "AppliesTo": "Applies to",
+        "AppliesToPublic": "Applies to public",
+        "CATEGORY": "Category",
+        "TimeRestrictionOptions": "Time Restriction Options",
+        "ReservationEditingWindowForUsers": "Reservation Editing Window for Users",
+        "RestrictCreatingNewReservationBeforeATime": "Restrict Creating New Reservation Before a Time",
+        "RestrictCreatingNewReservationAfterATime": "Restrict Creating New Reservation After a Time",
+        "ReservationTimeGranularity": "Reservation Time Granularity",
+        "AllowUsersToEndAReservationEarly": "Allow Users to End a Reservation Early",
+        "DefaultReservationDuration": "Default Reservation Duration",
+        "ReservationDurationMinimum": "Reservation Duration Minimum",
+        "ReservationDurationMaximum": "Reservation Duration Maximum",
+        "BufferTimeBeforeReservation": "Buffer Time Before Reservation",
+        "VisibilityOptions": "Visibility Options",
+        "ReservationDetailsVisibilityToNonModerators": "Reservation Details Visibility to Non-moderators",
+        "AllReservationDetails": "All Reservation Details"
       }
     },
     "SUCCESS": {
@@ -451,5 +505,6 @@
   "PROFILE": "Profile",
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
   "GET_MEMBERS_LOAD_FAILED": "You have no organization",
-  "WELCOME_BACK": "Hello"
+  "WELCOME_BACK": "Hello",
+  "Status": "Status"
 }

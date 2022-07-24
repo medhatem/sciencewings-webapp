@@ -122,6 +122,6 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showResourceProfile(resourceID: number) {
-    this._router.navigateByUrl('resources/resource/create?id=' + resourceID);
+    this._router.navigateByUrl('resources/resource/create/' + resourceID);
   }
 }

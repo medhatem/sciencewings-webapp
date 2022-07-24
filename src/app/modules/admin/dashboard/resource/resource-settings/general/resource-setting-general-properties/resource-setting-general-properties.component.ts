@@ -27,7 +27,7 @@ export class ResourceSettingGeneralPropertiesComponent implements OnInit {
       accessToResource: '',
     });
 
-    this.form.setValue({ accessToResource: this.settings.accessToResource });
+    this.form.setValue({ accessToResource: this.settings?.accessToResource || '' });
   }
 
   async onSubmit() {

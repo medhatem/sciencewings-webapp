@@ -2,44 +2,46 @@
   <!-- Form -->
   <form [formGroup]="form">
     <div class="w-full mb-5">
-      <div class="text-xl">{{ 'Visibility Settings' | transloco }}</div>
+      <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.VisibilitySettings' | transloco }}</div>
       <div class="text-secondary">Following information is publicly displayed, be careful!</div>
     </div>
 
     <!-- Section -->
     <div class="w-full">
       <div class="flex sm:col-span-4 justify-between">
-        <mat-label>{{ 'Visibility' | transloco }}: {{ form.get('visibility').value ? 'Public' : 'Private' }} </mat-label>
+        <mat-label
+          >{{ 'ORGANIZATION.SETTINGS.RESOUCES.Visibility' | transloco }}: {{ form.get('visibility').value ? 'Public' : 'Private' }}
+        </mat-label>
         <mat-slide-toggle [formControlName]="'visibility'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'Resource Unlisted on Site Page' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ResourceUnlistedOnSitePage' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isUnlistedOnOrganizationPage'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'Resource Unlisted to Users Who Cannot Reserve' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ResourceUnlistedToUsersWhoCannotReserve' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isUnlistedToUsersWhoCannotReserve'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'Resource Fully Hidden to Users Who Cannot Reserve' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ResourceFullyHiddenToUsersWhoCannotReserve' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isFullyHiddentoUsersWhoCannotReserve'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'Promote on site page as a large button above other resources' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.PromoteOnSitePageAsALargeButtonAboveOtherResources' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isPromotedOnSitePageAsALargeButtonAboveOtherResources'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'Hide Availability on Site Page' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.HideAvailabilityOnSitePage' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isHideAvailabilityonSitePage'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
@@ -50,7 +52,7 @@
 
     <!-- Actions -->
     <div class="flex items-center justify-end">
-      <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">{{ 'Save' | transloco }}</button>
+      <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">{{ 'APP.BTN.SUBMIT' | transloco }}</button>
     </div>
   </form>
 </div>
