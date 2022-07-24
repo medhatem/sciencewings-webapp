@@ -1,11 +1,12 @@
 import { AuthGuard } from './core/auth/keycloak/app.guard';
 import { FuseNavigationItemTypeEnum } from '@fuse/components/navigation/navigation.types';
-import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
 import { InitialDataResolver } from 'app/app.resolvers';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.resolver';
 import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
 import { Route } from '@angular/router';
+import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
+import { ProjectResolver } from './modules/admin/resolvers/project/project.resolvers';
 import { constants } from './shared/constants';
 
 /**
@@ -160,6 +161,29 @@ export const appRoutes: Route[] = [
           //   loadChildren: () =>
           //     import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
           // },
+        ],
+      },
+      {
+        path: constants.MODULES_ROUTINGS_URLS.PROJECT,
+        canActivate: [AuthGuard],
+        data: {
+          title: 'APP.ROUTES.ADMIN.PROJECT.TITLE',
+          type: FuseNavigationItemTypeEnum.group,
+        },
+        children: [
+          {
+            path: '',
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.PROJECT.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:table',
+            },
+            resolve: {
+              projects: ProjectResolver,
+            },
+            loadChildren: () => import('app/modules/admin/dashboard/project/project.module').then((m) => m.ProjectModule),
+          },
         ],
       },
       {

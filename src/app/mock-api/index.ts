@@ -13,6 +13,7 @@ import { OrganizationUsersMockApi } from './apps/organization-users/api';
 import { ECommerceInventoryMockApi } from './apps/ecommerce/inventory/api';
 import { OrganizationDashboardMockApi } from './apps/organization-dashboard/api';
 import { FinanceMockApi } from './apps/finance/api';
+import { ProjectMockApi } from './apps/projects/api';
 
 export const mockApiServices = [
   ChatMockApi,
@@ -30,4 +31,5 @@ export const mockApiServices = [
   MyOrganizationsMockApi,
   OrganizationUsersMockApi,
   ECommerceInventoryMockApi,
+  ProjectMockApi,
 ];

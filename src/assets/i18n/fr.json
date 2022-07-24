@@ -6,7 +6,8 @@
       "NEXT": "Suivant",
       "PREVIOUS": "Précédent",
       "RELOAD": "Recharger",
-      "SUBMIT": "Soumettre"
+      "SUBMIT": "Soumettre",
+      "APPLY": "Appliquer"
     },
     "COMMON": {
       "APP_MODULES": {
@@ -25,6 +26,10 @@
         "RESOUCES": {
           "DESCRIPTION": "Demarrage...",
           "TITLE": "Documentation"
+        },
+        "PROJECT": {
+          "DESCRIPTION": "gestion des projets",
+          "TITLE": "Projets"
         },
         "TITLE": "Modules"
       },
@@ -96,6 +101,9 @@
         },
         "RESOURCE_TAGS": {
           "TITLE": "Tags des ressources"
+        },
+        "PROJECT": {
+          "TITLE": "Project"
         },
         "TITLE": "Tableau de bord",
         "USER_PROFILE": {
@@ -265,8 +273,8 @@
       "CREATE_ORGANIZATION": "Créer une organisation",
       "TITLE": "Mes Organisations",
       "MESSAGE": "organisations",
-      "NO_ORGANIZATIONS":"Vous avez aucune organisation",
-      "ERROR_LOADING_ORGANIZATIONS":"Une erreur s'est produite lors du chargement des organisations"
+      "NO_ORGANIZATIONS": "Vous avez aucune organisation",
+      "ERROR_LOADING_ORGANIZATIONS": "Une erreur s'est produite lors du chargement des organisations"
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Exporter",
@@ -293,32 +301,35 @@
       "SEARCH_MEMBERS": " Rechercher un membre",
       "TITLE": "Members",
       "ERROR_LOADING_MEMBERS": "impossible de charger les membres.",
-      "MISSING_INFO":"____Information_Manquante____",
-      "MISSING_NAME":"____Nom_Manquant____",
+      "MISSING_INFO": "____Information_Manquante____",
+      "MISSING_NAME": "____Nom_Manquant____",
       "PROFILE_LOADING_ERROR": "Impossible de charger le profil du membre",
-      "EDIT_MEMBER_TITILE":"détails du membre",
-      "PROFILE":{
-        "NAME":"Nom Complet",
-        "JOB":"Profession",
-        "GENDER":"sexe",
-        "EMAIL":"Email",
-        "PHONE":"numéro de téléphone",
-        "LABEL":"étiquette",
-        "ADDRESS":{
-          "TITLE":"Adresse",
-          "APARTMENT":"Appartement",
-          "STREET":"Rue",
-          "CITY":"ville",
-          "COUNTRY":"Pays",
-          "PROVINCE":"Province/Region",
-          "ZIP":"Code postal"
+      "EDIT_MEMBER_TITILE": "Détails du membre",
+      "PROFILE": {
+        "NAME": "Nom Complet",
+        "JOB": "Profession",
+        "GENDER": "Sexe",
+        "GENDER_LIST": {
+          "MALE": "Mâle",
+          "FEMALE": "Femelle"
         },
-        "SAVE":"modifier",
-        "CANCEL":"annuler"
+        "EMAIL": "Email",
+        "PHONE": "Numéro de Téléphone",
+        "LABEL": "Etiquette",
+        "ADDRESS": {
+          "TITLE": "Adresse",
+          "APARTMENT": "Appartement",
+          "STREET": "Rue",
+          "CITY": "Ville",
+          "COUNTRY": "Pays",
+          "PROVINCE": "Province/Region",
+          "ZIP": "Code postal"
+        },
+        "SAVE": "modifier",
+        "CANCEL": "annuler"
       }
-      
     },
-    "PROFILE": {
+    "PROFILE_RESOURCE": {
       "DETAILS": {
         "ROLE": "Rôle"
       },
@@ -385,13 +396,60 @@
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
     },
+    "PROJECTS": {
+      "CREATE_PROJECTS": "Créer un projet",
+      "EXPORT_PROJECTS": "Exporter",
+      "FILTER_PROJECTS": "Filtre",
+      "FORM": {
+        "LABEL_NAME": "Titre",
+        "CANCEL": "Annuler",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION": "À propos (description)",
+        "PROJECT_MEMBERS": "Membres du projet",
+        "PROJECT_NAME": "Nom du Projet",
+        "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
+        "SAVE": "Sauvegarder",
+        "TITLE": "Créer un nouveau projet",
+        "LOCATION": "Localisation",
+        "MANAGERS": "Gérant(s)",
+        "PARTICIPANTS": "Participent(s)",
+        "ENTER_DATE": "Saisissez une plage de dates",
+        "DATE_HINT": "MM/JJ/AAAA – MM/JJ/AAAA",
+        "STARTDATE": "La date de debut",
+        "ENDDATE": "La date de fin",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "La création du projet a réussi"
+      },
+      "IMPORT_PROJECTS": "Importer",
+      "LIST": {
+        "PROJECT_DATE": "Date",
+        "PROJECT_MEMBERS": "Membres",
+        "PROJECT_NAME": "Projet",
+        "PROJECT_STATUS": "Status",
+        "MESSAGE": "Il n'y a pas de Projets !"
+      },
+      "SEARCH_GROUPS": "Chercher un projet",
+      "TITLE": "Projets",
+      "ERROR": {
+        "CREATE_FAILED": "La création de l'organisation a échoué"
+      }
+    },
+    "PROFILE": "Profil",
+    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
+    "WELCOME_BACK": "Bonjour"
+  },
+  "ERROR": {
+    "CREATE_FAILED": "La création de l'organisation a échoué",
+    "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
+    "WRONG_ORG_ID": "L'organization demandé est introuvable",
     "ERROR": {
       "CREATE_FAILED": "La création de l'organisation a échoué",
       "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
-      "WRONG_ORG_ID":"L'organization demandé est introuvable"
+      "WRONG_ORG_ID": "L'organization demandé est introuvable"
     }
   },
   "PROFILE": "Profil",
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
+  "GET_MEMBERS_LOAD_FAILED": "Vous n'avez pas d'organisation",
   "WELCOME_BACK": "Bonjour"
 }

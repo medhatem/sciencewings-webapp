@@ -6,7 +6,8 @@
       "NEXT": "Next",
       "PREVIOUS": "Previous",
       "RELOAD": "Reload",
-      "SUBMIT": "Submit"
+      "SUBMIT": "Submit",
+      "APPLY": "Apply"
     },
     "COMMON": {
       "APP_MODULES": {
@@ -25,6 +26,10 @@
         "RESOUCES": {
           "DESCRIPTION": "Getting started...",
           "TITLE": "Documentation"
+        },
+        "PROJECT": {
+          "DESCRIPTION": "Project Management",
+          "TITLE": "Projects"
         },
         "TITLE": "Modules"
       },
@@ -96,6 +101,9 @@
         },
         "RESOURCE_TAGS": {
           "TITLE": "Resource tags"
+        },
+        "PROJECT": {
+          "TITLE": "Project"
         },
         "TITLE": "Dashboard",
         "USER_PROFILE": {
@@ -264,8 +272,8 @@
       "CREATE_ORGANIZATION": "Create Organization",
       "TITLE": "My Organizations",
       "MESSAGE": "Organizations",
-      "NO_ORGANIZATIONS":"You don't have any organization",
-      "ERROR_LOADING_ORGANIZATIONS":"Something went wrong loading organizations"
+      "NO_ORGANIZATIONS": "You don't have any organization",
+      "ERROR_LOADING_ORGANIZATIONS": "Something went wrong loading organizations"
     },
 
     "MEMBERS": {
@@ -293,31 +301,35 @@
       "SEARCH_MEMBERS": "Search Members",
       "TITLE": "Members",
       "ERROR_LOADING_MEMBERS": "Could not load members.",
-      "MISSING_INFO":"____Missing_Information____",
-      "MISSING_NAME":"____Missing_Name____",
-      "PROFILE_LOADING_ERROR":"Could not load member profile",
-      "EDIT_MEMBER_TITILE":"Member Details",
-      "PROFILE":{
-        "NAME":"Full Name",
-        "JOB":"Job Title",
-        "GENDER":"Gender",
-        "EMAIL":"Email",
-        "PHONE":"Phone",
-        "LABEL":"Label",
-        "ADDRESS":{
-          "TITLE":"Address",
-          "APARTMENT":"apartment",
-          "STREET":"Street",
-          "CITY":"City",
-          "COUNTRY":"Country",
-          "PROVINCE":"Province/Region",
-          "ZIP":"Zip Code"
+      "MISSING_INFO": "____Missing_Information____",
+      "MISSING_NAME": "____Missing_Name____",
+      "PROFILE_LOADING_ERROR": "Could not load member profile",
+      "EDIT_MEMBER_TITILE": "Member Details",
+      "PROFILE": {
+        "NAME": "Full Name",
+        "JOB": "Job Title",
+        "GENDER": "Gender",
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "LABEL": "Label",
+        "ADDRESS": {
+          "TITLE": "Address",
+          "APARTMENT": "apartment",
+          "STREET": "Street",
+          "CITY": "City",
+          "COUNTRY": "Country",
+          "PROVINCE": "Province/Region",
+          "ZIP": "Zip Code"
         },
-        "SAVE":"Save",
-        "CANCEL":"Cancel"
+        "GENDER_LIST": {
+          "MALE": "Male",
+          "FEMALE": "Female"
+        },
+        "SAVE": "Save",
+        "CANCEL": "Cancel"
       }
     },
-    "PROFILE": {
+    "PROFILE_RESOURCE": {
       "DETAILS": {
         "ROLE": "Role"
       },
@@ -384,13 +396,60 @@
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"
     },
+    "PROJECTS": {
+      "CREATE_PROJECTS": "Create a new project",
+      "EXPORT_PROJECTS": "Export",
+      "FILTER_PROJECTS": "Filter",
+      "FORM": {
+        "LABEL_NAME": "Title",
+        "CANCEL": "Cancel",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION": "About (description)",
+        "PROJECT_MEMBERS": "Project's Members",
+        "PROJECT_NAME": "Project's Name",
+        "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
+        "SAVE": "Save",
+        "TITLE": "Create Project",
+        "LOCATION": "Location",
+        "MANAGERS": "Manager(s)",
+        "PARTICIPANTS": "Participant(s)",
+        "ENTER_DATE": "Enter a date range",
+        "DATE_HINT": "MM/DD/YYYY – MM/DD/YYYY",
+        "STARTDATE": "Start date",
+        "ENDDATE": "End date",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "Create project succeeded"
+      },
+      "IMPORT_PROJECTS": "Import",
+      "LIST": {
+        "PROJECT_DATE": "Date",
+        "PROJECT_MEMBERS": "Membres",
+        "PROJECT_NAME": "Project",
+        "PROJECT_STATUS": "Status",
+        "MESSAGE": "There is no projects"
+      },
+      "SEARCH_PROJECTS": "Find a project",
+      "TITLE": "Projects",
+      "ERROR": {
+        "CREATE_FAILED": "The creation of the project has failed"
+      }
+    },
+    "PROFILE": "Profile",
+    "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
+    "WELCOME_BACK": "Hello"
+  },
+  "ERROR": {
+    "CREATE_FAILED": "The creation of the organization has failed",
+    "FETCH_FAILED": "Could not get the information of the organization",
+    "WRONG_ORG_ID": "Organization not found",
     "ERROR": {
       "CREATE_FAILED": "The creation of the organization has failed",
       "FETCH_FAILED": "Could not get the information of the organization",
-      "WRONG_ORG_ID":"Organization not found"
+      "WRONG_ORG_ID": "Organization not found"
     }
   },
   "PROFILE": "Profile",
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
+  "GET_MEMBERS_LOAD_FAILED": "You have no organization",
   "WELCOME_BACK": "Hello"
 }

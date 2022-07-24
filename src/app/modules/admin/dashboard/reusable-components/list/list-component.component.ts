@@ -33,6 +33,8 @@ export interface ListOption {
 export class ListComponent implements OnInit, OnDestroy {
   @Input() dataList: any[] = [];
   @Input() options: ListOption = { columns: [], numnberOfColumns: 0 };
+  @Input() message: any;
+
   @Output() output = new EventEmitter();
 
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
@@ -72,9 +74,7 @@ export class ListComponent implements OnInit, OnDestroy {
     if (!this.options.numnberOfColumns) {
       this.options.numnberOfColumns = this.keys.length;
     }
-    console.log('options click ', this.options.onElementClick);
   }
-
   /**
    * dynamically create a grid with variable amount of columns
    */
