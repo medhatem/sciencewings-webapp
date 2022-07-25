@@ -73,17 +73,16 @@ export class OrganizationFormComponent implements OnInit {
    *
    */
   async onSubmit() {
-    await lastValueFrom(this._adminOrganizationsService.getAllUserOrganizations());
     if (!this.formGroup.valid) {
       this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
       return;
     }
-
     const organization = this.getOrganizationFromFormBuilder();
     try {
       await this._adminOrganizationsService.createOrganization(organization);
+      await lastValueFrom(this._adminOrganizationsService.getAllUserOrganizations());
       this._toastrService.showSuccess(constants.CREATE_ORGANIZATION_COMPLETED);
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_URLS.LANDING_PAGE]);
+      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.LANDING_PAGE]);
     } catch (error) {
       this._toastrService.showError(constants.CREATE_ORGANIZATION_FAILED);
     }
