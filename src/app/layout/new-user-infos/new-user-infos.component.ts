@@ -69,16 +69,16 @@ export class NewUserInfosComponent implements OnInit {
    * Use this for [matDatepickerFilter] property to give
    * the user selection from previous dates only.
    *
-   * @param d
+   * @param date
    * @returns
    */
-  dateFilter(d: Date | null): boolean {
+  dateFilter(date: Date | null): boolean {
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth();
     const day = today.getDate();
 
-    const maxDateToPick = d || today;
+    const maxDateToPick = date || today;
     const mustBeAtLeast14YearsOld = new Date(year - constants.MINIMUM_AGE, month, day);
 
     return maxDateToPick < mustBeAtLeast14YearsOld;

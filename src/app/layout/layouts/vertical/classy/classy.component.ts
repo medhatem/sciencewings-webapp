@@ -160,7 +160,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   /**
-   * Subscribe to media changes, asn Check if the screen is small
+   * Subscribe to media changes, and Check if the screen is small
    */
   private subscribeToMediaChangesAndScreenSizeCheck() {
     this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
@@ -195,7 +195,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
         navigationItems.push(applicationRoutes.find(({ path }) => path === modulePath));
       }
     } catch (error) {
-      console.log('error occured on classy component load nav', error.message);
+      error.message;
     } finally {
       this.navigation = this.buildNavigationItemsFromRoutes(navigationItems);
       this.redirectToParentOrFirstChild(navigationItems[0]);
