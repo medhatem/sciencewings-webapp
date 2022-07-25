@@ -21,6 +21,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   constructor(private _route: ActivatedRoute, private _http: HttpClient, private _toastrService: ToastrService) {}
 
   async ngOnInit() {
+    console.log('this._route.snapshot.data', this._route.snapshot.data);
+    console.log('this._route.snapshot.data', this._route.snapshot.data);
     this._prepareUserData();
     await this._prepareCountries();
   }
@@ -36,6 +38,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   private _prepareUserData() {
     this.data = this._route.snapshot.data;
+    console.log('this._route.snapshot.data', this._route.snapshot.data);
   }
 
   private async _prepareCountries() {

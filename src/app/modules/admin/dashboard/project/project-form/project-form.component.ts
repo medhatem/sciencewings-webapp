@@ -87,7 +87,7 @@ export class ProjectFormComponent implements OnInit {
   }
 
   private getMembers() {
-    const idOrg = this.getOrganization();
+    const idOrg = this.getOrganizationIdFromLocalStorage();
     return this._memberService
       .getMembersByOrgId(idOrg)
       .then((resolve) => (this.organizationMembers = resolve))
@@ -97,10 +97,10 @@ export class ProjectFormComponent implements OnInit {
   }
 
   private getProjectFromFormBuilder(): Project {
-    return new Project({ ...this.projectForm.value, organization: this.getOrganization() });
+    return new Project({ ...this.projectForm.value, organization: this.getOrganizationIdFromLocalStorage() });
   }
 
-  private getOrganization(): number {
+  private getOrganizationIdFromLocalStorage(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
 }
