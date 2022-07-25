@@ -1,5 +1,16 @@
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import {
   FuseNavigationItem,
   FuseNavigationItemTypeEnum,
@@ -19,6 +30,7 @@ import { constants } from 'app/shared/constants';
 import { SharedHelpers } from 'app/shared/helpers';
 import { LandingPageComponent } from 'app/modules/admin/dashboard/landing/landing-page/landing-page.component';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
+import { SwitchOrganizationComponent } from 'app/layout/common/switch-organization/switch-organization.component';
 
 @Component({
   selector: 'classy-layout',
@@ -28,6 +40,7 @@ import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-org
 export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   @Input() hideMenusAndButtons: boolean;
   @Output() onHideMenusAndButtonsChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @ViewChild(SwitchOrganizationComponent) switchOrganizationComponent: SwitchOrganizationComponent;
 
   isScreenSmall: boolean;
   navigation: FuseNavigationItem[];
@@ -80,8 +93,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
 
   onActivate(event) {
     if (event instanceof LandingPageComponent) {
-      event.selectOrganizationEvent.subscribe(async (id) => {
-        await this.onActiveOrganizationChange(id);
+      event.selectOrganizationEvent.subscribe((id) => {
+        if (this.switchOrganizationComponent) {
+          this.switchOrganizationComponent.setActiveOrganization(undefined, id);
+        }
         this._router.navigate([event.organizationProfilePath, id]);
       });
     }
@@ -153,7 +168,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     try {
       await this._switchOrganizationsService.switchOrganization(organizationId);
     } catch (error) {
-      console.log(error?.message);
+      // Ignore error
     } finally {
       await this.resetNavigation(false);
     }
@@ -189,13 +204,13 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
 
     const currentOrganizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     try {
-      const { id } = await this._adminOrganizationsService.getOrganization(currentOrganizationId);
-      if (!!id) {
+      const organizationExist = await this._adminOrganizationsService.getOrganization(currentOrganizationId);
+      if (organizationExist) {
         const modulePath = localStorage.getItem(constants.CURRENT_MODULE) || constants.MODULES_ROUTINGS_URLS.ADMIN;
         navigationItems.push(applicationRoutes.find(({ path }) => path === modulePath));
       }
     } catch (error) {
-      //this._toastrService.showWarning(error.message);
+      // Ignore error
     } finally {
       this.navigation = this.buildNavigationItemsFromRoutes(navigationItems);
       this.redirectToParentOrFirstChild(navigationItems[0]);
