@@ -51,9 +51,14 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  setActiveOrganization(organization: UserOrganizations): void {
-    this.activeOrganization = organization;
-    localStorage.setItem(constants.CURRENT_ORGANIZATION_ID, `${organization.id}`);
+  setActiveOrganization(organization: UserOrganizations, orgId?: number): void {
+    if (orgId) {
+      this.activeOrganization = this.availableOrganizations.find(({ id }) => id === orgId);
+    } else {
+      this.activeOrganization = organization;
+    }
+    this._changeDetectorRef.markForCheck();
+    localStorage.setItem(constants.CURRENT_ORGANIZATION_ID, `${this.activeOrganization.id}`);
     this.onActiveOrganizationChange.emit(this.activeOrganization.id);
   }
 
@@ -95,6 +100,11 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
 
     this.availableOrganizations = await lastValueFrom(this._adminOrganizationsService.getAllUserOrganizations(Number(userId)));
     if (this.availableOrganizations?.length) {
+      const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+      const organizationExist = this.availableOrganizations.find(({ id }) => id === orgId);
+      if (organizationExist) {
+        this.setActiveOrganization(organizationExist);
+      }
       this.isNoOrganization = false;
       this._changeDetectorRef.markForCheck();
     }
