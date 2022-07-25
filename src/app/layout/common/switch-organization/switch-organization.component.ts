@@ -94,16 +94,20 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
     }
 
     this.availableOrganizations = await lastValueFrom(this._adminOrganizationsService.getAllUserOrganizations(Number(userId)));
-    if (!this.availableOrganizations?.length) {
-      return false;
+    if (this.availableOrganizations?.length) {
+      this.isNoOrganization = false;
+      this._changeDetectorRef.markForCheck();
     }
-
-    this.isNoOrganization = false;
-    this._changeDetectorRef.markForCheck();
 
     this._adminOrganizationsService.userOrganiztions.pipe(takeUntil(this._unsubscribeAll)).subscribe({
       next: (organizations) => {
         this.availableOrganizations = organizations;
+        if (this.availableOrganizations?.length) {
+          this.isNoOrganization = false;
+        } else {
+          this.isNoOrganization = true;
+        }
+
         this._changeDetectorRef.markForCheck();
       },
       error: (error) => {
