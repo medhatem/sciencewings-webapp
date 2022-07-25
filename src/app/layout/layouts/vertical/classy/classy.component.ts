@@ -195,7 +195,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
         navigationItems.push(applicationRoutes.find(({ path }) => path === modulePath));
       }
     } catch (error) {
-      error.message;
+      this._toastrService.showWarning(error.message);
     } finally {
       this.navigation = this.buildNavigationItemsFromRoutes(navigationItems);
       this.redirectToParentOrFirstChild(navigationItems[0]);
