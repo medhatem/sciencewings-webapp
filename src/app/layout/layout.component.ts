@@ -40,7 +40,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     const { userKeycloackData } = this._route.snapshot.data;
     await this.checkIfUserExistsAndShowOrHideRegistrationForm(userKeycloackData.id);
-    this.initializeAppConfigsShcemasLayouts();
+    this.initializeAppConfigsSchemasLayouts();
     this.subscribeToConfigChanges();
     this.subscribeToNavigationEndEvent();
     this.setTheAppVersion();
@@ -58,7 +58,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   /**
    * Initialize schemas and configs, and subscribe to their changes.
    */
-  private initializeAppConfigsShcemasLayouts() {
+  private initializeAppConfigsSchemasLayouts() {
     combineLatest([
       this._fuseConfigService.config$,
       this._fuseMediaWatcherService.onMediaQueryChange$(['(prefers-color-scheme: dark)', '(prefers-color-scheme: light)']),
