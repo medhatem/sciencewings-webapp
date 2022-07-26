@@ -2,26 +2,26 @@
   <!-- Form -->
   <form [formGroup]="form">
     <div class="w-full mb-5">
-      <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.TimeRestrictionOptions' | transloco }}</div>
+      <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.TIME_RESTRICTION_OPTIONS' | transloco }}</div>
       <!-- <div class="text-secondary">Following information is publicly displayed, be careful!</div> -->
     </div>
 
     <!-- Section -->
     <div class="w-full">
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ReservationEditingWindowForUsers' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION_EDITING_WINDOW_FOR_USERS' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isEditingWindowForUsers'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <!-- <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div> -->
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RestrictCreatingNewReservationBeforeATime' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESTRICT_CREATING_NEW_RESERVATION_BEFORE_A_TIME' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isRestrictCreatingNewReservationBeforeTime'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <!-- <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div> -->
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RestrictCreatingNewReservationAfterATime' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESTRICT_CREATING_NEW_RESERVATION_AFTER_A_TIME' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isRestrictCreatingNewReservationAfterTime'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <!-- <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div> -->
@@ -46,7 +46,7 @@
       <!-- <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div> -->
 
       <div class="my-2">
-        <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.DefaultReservationDuration' | transloco }}</div>
+        <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.DEFAULT_RESERVATION_DURATION' | transloco }}</div>
         <div class="sm:col-span-4">
           <mat-form-field class="fuse-mat-no-subscript w-full">
             <input [formControlName]="'defaultReservationDuration'" matInput />
@@ -55,7 +55,7 @@
       </div>
 
       <div class="my-2">
-        <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ReservationDurationMinimum' | transloco }}</div>
+        <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION_DURATION_MINIMUM' | transloco }}</div>
         <div class="sm:col-span-4">
           <mat-form-field class="fuse-mat-no-subscript w-full">
             <input [formControlName]="'reservationDurationMinimum'" matInput />
@@ -64,7 +64,7 @@
       </div>
 
       <div class="my-2">
-        <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ReservationDurationMaximum' | transloco }}</div>
+        <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION_DURATION_MAXIMUM' | transloco }}</div>
         <div class="sm:col-span-4">
           <mat-form-field class="fuse-mat-no-subscript w-full">
             <input [formControlName]="'reservationDurationMaximum'" matInput />
@@ -73,7 +73,7 @@
       </div>
 
       <div class="my-2">
-        <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.BufferTimeBeforeReservation' | transloco }}</div>
+        <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.BUFFER_TIME_BEFORE_RESERVATION' | transloco }}</div>
         <div class="sm:col-span-4">
           <mat-form-field class="fuse-mat-no-subscript w-full">
             <input [formControlName]="'bufferTimeBeforeReservation'" matInput />

@@ -2,14 +2,14 @@
   <!-- Form -->
   <form [formGroup]="form">
     <div class="w-full mb-5">
-      <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.GeneralReservationOptions' | transloco }}</div>
+      <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.GENERAL_RESERVATION_OPTIONS' | transloco }}</div>
       <!-- <div class="text-secondary">Following information is publicly displayed, be careful!</div> -->
     </div>
 
     <!-- Section -->
     <div class="w-full">
       <div class="w-full mb-5">
-        <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.ReservationsEnabled' | transloco }}</div>
+        <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATIONS_ENABLED' | transloco }}</div>
         <!-- <div class="text-secondary">All site users will be unable to make new reservations if this value is set to 'No'.</div> -->
         <div class="flex sm:col-span-4 justify-between my-1">
           <mat-slide-toggle [formControlName]="'isEnabled'" [color]="'primary'"> </mat-slide-toggle>
@@ -17,18 +17,18 @@
       </div>
 
       <div class="w-full mb-5">
-        <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.Loanable' | transloco }}</div>
+        <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.LOANABLE' | transloco }}</div>
         <!-- <div class="text-secondary">Following information is publicly displayed, be careful!</div> -->
       </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.LoanableResource' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.LOANABLE_RESOURCE' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isLoanable'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <!-- <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div> -->
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.UsersCanReturnTheirOwnLoans' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.USERS_CAN_RETURN_THEIR_OWN_LOANS' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isReturnTheirOwnLoans'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <!-- <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div> -->

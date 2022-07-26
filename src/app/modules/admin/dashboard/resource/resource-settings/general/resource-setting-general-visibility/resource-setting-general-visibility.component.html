@@ -2,7 +2,7 @@
   <!-- Form -->
   <form [formGroup]="form">
     <div class="w-full mb-5">
-      <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.VisibilitySettings' | transloco }}</div>
+      <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.VISIBILITY_SETTINGS' | transloco }}</div>
       <div class="text-secondary">Following information is publicly displayed, be careful!</div>
     </div>
 
@@ -10,38 +10,38 @@
     <div class="w-full">
       <div class="flex sm:col-span-4 justify-between">
         <mat-label
-          >{{ 'ORGANIZATION.SETTINGS.RESOUCES.Visibility' | transloco }}: {{ form.get('visibility').value ? 'Public' : 'Private' }}
+          >{{ 'ORGANIZATION.SETTINGS.RESOUCES.VISIBILITY' | transloco }}: {{ form.get('visibility').value ? 'Public' : 'Private' }}
         </mat-label>
         <mat-slide-toggle [formControlName]="'visibility'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ResourceUnlistedOnSitePage' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESOURCE_UNLISTED_ON_SITE_PAGE' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isUnlistedOnOrganizationPage'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ResourceUnlistedToUsersWhoCannotReserve' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESOURCE_UNLISTED_TO_USERS_WHO_CANNOT_RESERVE' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isUnlistedToUsersWhoCannotReserve'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ResourceFullyHiddenToUsersWhoCannotReserve' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESOURCE_FULLY_HIDDEN_TO_USERS_WHO_CANNOT_RESERVE' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isFullyHiddentoUsersWhoCannotReserve'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.PromoteOnSitePageAsALargeButtonAboveOtherResources' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.PROMOTE_ON_SITE_PAGE_AS_A_LARGE_BUTTON_ABOVE_OTHER_RESOURCES' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isPromotedOnSitePageAsALargeButtonAboveOtherResources'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.HideAvailabilityOnSitePage' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.HIDE_AVAILABILITY_ON_SITE_PAGE' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isHideAvailabilityonSitePage'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
