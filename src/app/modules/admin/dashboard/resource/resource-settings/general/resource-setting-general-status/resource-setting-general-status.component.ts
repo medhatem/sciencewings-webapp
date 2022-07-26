@@ -25,11 +25,6 @@ export class ResourceSettingGeneralStatusComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
-      statusType: '',
-      statusDescription: '',
-    });
-
-    this.form.setValue({
       statusType: this.settings?.statusType || '',
       statusDescription: this.settings?.statusDescription || '',
     });

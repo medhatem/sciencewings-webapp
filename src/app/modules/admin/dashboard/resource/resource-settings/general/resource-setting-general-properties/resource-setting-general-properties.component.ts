@@ -24,10 +24,8 @@ export class ResourceSettingGeneralPropertiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
-      accessToResource: '',
+      accessToResource: this.settings?.accessToResource || '',
     });
-
-    this.form.setValue({ accessToResource: this.settings?.accessToResource || '' });
   }
 
   async onSubmit() {

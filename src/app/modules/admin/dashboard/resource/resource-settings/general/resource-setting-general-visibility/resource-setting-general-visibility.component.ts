@@ -23,22 +23,22 @@ export class ResourceSettingGeneralVisibilityComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.form = this._formBuilder.group({
-      visibility: false,
-      isUnlistedOnOrganizationPage: false,
-      isUnlistedToUsersWhoCannotReserve: false,
-      isFullyHiddentoUsersWhoCannotReserve: false,
-      isPromotedOnSitePageAsALargeButtonAboveOtherResources: false,
-      isHideAvailabilityonSitePage: false,
-    });
+    const {
+      visibility,
+      isUnlistedOnOrganizationPage,
+      isUnlistedToUsersWhoCannotReserve,
+      isFullyHiddentoUsersWhoCannotReserve,
+      isPromotedOnSitePageAsALargeButtonAboveOtherResources,
+      isHideAvailabilityonSitePage,
+    } = this.settings;
 
-    this.form.setValue({
-      visibility: this.settings?.visibility || false,
-      isUnlistedOnOrganizationPage: this.settings?.isUnlistedOnOrganizationPage || false,
-      isUnlistedToUsersWhoCannotReserve: this.settings?.isUnlistedToUsersWhoCannotReserve || false,
-      isFullyHiddentoUsersWhoCannotReserve: this.settings?.isFullyHiddentoUsersWhoCannotReserve || false,
-      isPromotedOnSitePageAsALargeButtonAboveOtherResources: this.settings?.isPromotedOnSitePageAsALargeButtonAboveOtherResources || false,
-      isHideAvailabilityonSitePage: this.settings?.isHideAvailabilityonSitePage || false,
+    this.form = this._formBuilder.group({
+      visibility: visibility || false,
+      isUnlistedOnOrganizationPage: isUnlistedOnOrganizationPage || false,
+      isUnlistedToUsersWhoCannotReserve: isUnlistedToUsersWhoCannotReserve || false,
+      isFullyHiddentoUsersWhoCannotReserve: isFullyHiddentoUsersWhoCannotReserve || false,
+      isPromotedOnSitePageAsALargeButtonAboveOtherResources: isPromotedOnSitePageAsALargeButtonAboveOtherResources || false,
+      isHideAvailabilityonSitePage: isHideAvailabilityonSitePage || false,
     });
   }
 

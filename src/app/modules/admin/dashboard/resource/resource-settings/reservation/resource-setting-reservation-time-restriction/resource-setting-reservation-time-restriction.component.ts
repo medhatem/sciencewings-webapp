@@ -20,28 +20,28 @@ export class ResourceSettingReservationTimeRestrictionComponent implements OnIni
     private _coookies: CookieService,
   ) {}
   ngOnInit(): void {
-    this.form = this._formBuilder.group({
-      isEditingWindowForUsers: false,
-      isRestrictCreatingNewReservationBeforeTime: false,
-      isRestrictCreatingNewReservationAfterTime: false,
-      reservationTimeGranularity: '',
-      isAllowUsersToEndReservationEarly: false,
-      defaultReservationDuration: '',
-      reservationDurationMinimum: '',
-      reservationDurationMaximum: '',
-      bufferTimeBeforeReservation: '',
-    });
+    const {
+      isEditingWindowForUsers,
+      isRestrictCreatingNewReservationBeforeTime,
+      isRestrictCreatingNewReservationAfterTime,
+      reservationTimeGranularity,
+      isAllowUsersToEndReservationEarly,
+      defaultReservationDuration,
+      reservationDurationMinimum,
+      reservationDurationMaximum,
+      bufferTimeBeforeReservation,
+    } = this.settings;
 
-    this.form.setValue({
-      isEditingWindowForUsers: this.settings?.isEditingWindowForUsers || false,
-      isRestrictCreatingNewReservationBeforeTime: this.settings?.isRestrictCreatingNewReservationBeforeTime || false,
-      isRestrictCreatingNewReservationAfterTime: this.settings?.isRestrictCreatingNewReservationAfterTime || false,
-      reservationTimeGranularity: this.settings?.reservationTimeGranularity || '',
-      isAllowUsersToEndReservationEarly: this.settings?.isAllowUsersToEndReservationEarly || false,
-      defaultReservationDuration: this.settings?.defaultReservationDuration || '',
-      reservationDurationMinimum: this.settings?.reservationDurationMinimum || '',
-      reservationDurationMaximum: this.settings?.reservationDurationMaximum || '',
-      bufferTimeBeforeReservation: this.settings?.bufferTimeBeforeReservation || '',
+    this.form = this._formBuilder.group({
+      isEditingWindowForUsers: isEditingWindowForUsers || false,
+      isRestrictCreatingNewReservationBeforeTime: isRestrictCreatingNewReservationBeforeTime || false,
+      isRestrictCreatingNewReservationAfterTime: isRestrictCreatingNewReservationAfterTime || false,
+      reservationTimeGranularity: reservationTimeGranularity || '',
+      isAllowUsersToEndReservationEarly: isAllowUsersToEndReservationEarly || false,
+      defaultReservationDuration: defaultReservationDuration || '',
+      reservationDurationMinimum: reservationDurationMinimum || '',
+      reservationDurationMaximum: reservationDurationMaximum || '',
+      bufferTimeBeforeReservation: bufferTimeBeforeReservation || '',
     });
   }
 

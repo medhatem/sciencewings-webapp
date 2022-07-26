@@ -507,5 +507,6 @@
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
   "GET_MEMBERS_LOAD_FAILED": "You have no organization",
   "WELCOME_BACK": "Hello",
-  "Status": "Status"
+  "STATUS": "Status",
+  "DESCRIPTION": "Description"
 }

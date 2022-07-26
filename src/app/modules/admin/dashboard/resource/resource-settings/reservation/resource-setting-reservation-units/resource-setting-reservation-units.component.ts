@@ -21,16 +21,11 @@ export class ResourceSettingReservationUnitsComponent implements OnInit {
     private _coookies: CookieService,
   ) {}
   ngOnInit(): void {
+    const { unitName, unites, unitLimit } = this.settings;
     this.form = this._formBuilder.group({
-      unitName: '',
-      unites: 0,
-      unitLimit: 0,
-    });
-
-    this.form.setValue({
-      unitName: this.settings?.unitName || '',
-      unites: this.settings?.unites || 0,
-      unitLimit: this.settings?.unitLimit || 0,
+      unitName: unitName || '',
+      unites: unites || 0,
+      unitLimit: unitLimit || 0,
     });
   }
 

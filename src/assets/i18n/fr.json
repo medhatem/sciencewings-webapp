@@ -508,6 +508,6 @@
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
   "GET_MEMBERS_LOAD_FAILED": "Vous n'avez pas d'organisation",
   "WELCOME_BACK": "Bonjour",
-  "Status": "Status",
-  "Description": "Description"
+  "STATUS": "Status",
+  "DESCRIPTION": "Description"
 }

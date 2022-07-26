@@ -21,11 +21,7 @@ export class ResourceSettingReservationVisibilityComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.form = this._formBuilder.group({
-      reservationDetailsVisibilityToNonModerators: 'all',
-    });
-
-    this.form.setValue({
-      reservationDetailsVisibilityToNonModerators: this.settings?.reservationDetailsVisibilityToNonModerators || '',
+      reservationDetailsVisibilityToNonModerators: this.settings?.reservationDetailsVisibilityToNonModerators || 'all',
     });
   }
 

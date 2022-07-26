@@ -22,24 +22,24 @@ export class ResourceSettingReservationGeneralComponent implements OnInit {
     private _coookies: CookieService,
   ) {}
   ngOnInit(): void {
-    this.form = this._formBuilder.group({
-      isEnabled: false,
-      isLoanable: false,
-      isReturnTheirOwnLoans: false,
-      isReservingLoansAtFutureDates: false,
-      fixedLoanDuration: 'week',
-      overdueNoticeDelay: 'week',
-      recurringReservations: 'user',
-    });
+    const {
+      isEnabled,
+      isLoanable,
+      isReturnTheirOwnLoans,
+      isReservingLoansAtFutureDates,
+      fixedLoanDuration,
+      overdueNoticeDelay,
+      recurringReservations,
+    } = this.settings;
 
-    this.form.setValue({
-      isEnabled: this.settings?.isEnabled || false,
-      isLoanable: this.settings?.isLoanable || false,
-      isReturnTheirOwnLoans: this.settings?.isReturnTheirOwnLoans || false,
-      isReservingLoansAtFutureDates: this.settings?.isReservingLoansAtFutureDates || false,
-      fixedLoanDuration: this.settings?.fixedLoanDuration || 'week',
-      overdueNoticeDelay: this.settings?.overdueNoticeDelay || 'week',
-      recurringReservations: this.settings?.recurringReservations || 'user',
+    this.form = this._formBuilder.group({
+      isEnabled: isEnabled || false,
+      isLoanable: isLoanable || false,
+      isReturnTheirOwnLoans: isReturnTheirOwnLoans || false,
+      isReservingLoansAtFutureDates: isReservingLoansAtFutureDates || false,
+      fixedLoanDuration: fixedLoanDuration || 'week',
+      overdueNoticeDelay: overdueNoticeDelay || 'week',
+      recurringReservations: recurringReservations || 'user',
     });
   }
 
