@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { User } from 'app/core/user/user.types';
 import { constants } from 'app/shared/constants';
+import { SharedHelpers } from 'app/shared/helpers';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'user',
@@ -18,7 +20,11 @@ import { constants } from 'app/shared/constants';
 export class UserComponent implements OnInit, OnDestroy {
   static ngAcceptInputTypeshowAvatar: BooleanInput;
   @Input() showAvatar: boolean = true;
-  readonly fullUserProfilePath = ['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_CHILDREN_URLS.USER.USER_PROFILE];
+  readonly fullUserProfilePath = [
+    '/',
+    constants.MODULES_ROUTINGS_URLS.LANDING_PAGE,
+    constants.MODULES_ROUTINGS_CHILDREN_URLS.USER.USER_PROFILE,
+  ];
   user: User;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -28,12 +34,13 @@ export class UserComponent implements OnInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _keycloackService: KeycloakService,
     private _toastrService: ToastrService,
+    private _cookiesService: CookieService,
   ) {}
 
   ngOnInit(): void {
-    const { userData } = this._route.snapshot.data;
+    const { userKeycloackData } = this._route.snapshot.data;
     this.user = {
-      ...userData,
+      ...userKeycloackData,
       avatar: 'assets/images/avatars/brian-hughes.jpg',
       status: 'online',
     };
@@ -62,6 +69,7 @@ export class UserComponent implements OnInit, OnDestroy {
    * Sign out using keycloack
    */
   async signOut() {
+    SharedHelpers.terminateAllTasksAndLogout(this._cookiesService);
     try {
       await this._keycloackService.logout();
     } catch (error) {

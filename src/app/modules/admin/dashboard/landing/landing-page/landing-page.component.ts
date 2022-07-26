@@ -1,10 +1,8 @@
 import { Component, EventEmitter, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
-import { ToastrService } from 'app/core/toastr/toastr.service';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { constants } from 'app/shared/constants';
 import { interval, map, retryWhen, Subject, takeUntil, tap } from 'rxjs';
-import { AdminOrganizationsService } from '../../resolvers/admin-organization/admin-organization.service';
+import { AdminOrganizationsService } from '../../../resolvers/admin-organization/admin-organization.service';
 
 @Component({
   selector: 'landing-page',
@@ -21,7 +19,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any> = new Subject<any>();
   private _userSelected: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private _toastrService: ToastrService, private _adminOrganizationsService: AdminOrganizationsService, private _router: Router) {}
+  constructor(private _adminOrganizationsService: AdminOrganizationsService) {}
 
   ngOnInit() {
     //TODO : the same behavior is in SwitchOrganizationComponent
@@ -31,12 +29,12 @@ export class LandingPageComponent implements OnInit, OnDestroy {
      * loops on the get current user id, until it is available. then subscibes
      * to userOrganizations one the user is selected and available is localStorage
      */
-    interval(300)
+    interval(1000)
       .pipe(
         map(() => {
           const userId = localStorage.getItem(constants.CURRENT_USER_ID);
           if (!Number(userId)) {
-            throw new Error('No user selected');
+            return;
           }
           this._userSelected.next(true);
           this._userSelected.complete();
@@ -84,7 +82,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
         next: (organizations) => (this.organizations = organizations),
         error: (error) => {
           this.organizations = [];
-          this._toastrService.showError(constants.ERROR_LOADING_ORGANIZATIONS);
         },
       });
   }
