@@ -6,6 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { ResourceService } from '../../../resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { Router } from '@angular/router';
+import { FuseNavigationItem, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
+import { CookieService } from 'ngx-cookie-service';
 
 export interface ResourceType {
   name: string;
@@ -36,6 +38,8 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
     private _toastrService: ToastrService,
     private _changeDetectorRef: ChangeDetectorRef,
     private _router: Router,
+    private _fuseNavigationService: FuseNavigationService,
+    private _coookies: CookieService,
   ) {}
 
   ngOnInit(): void {
@@ -121,7 +125,49 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  showResourceProfile(resourceID: number) {
-    this._router.navigateByUrl('resources/resource/create/' + resourceID);
+  showResourceProfile(resourceName: string, resourceID: number) {
+    const navComponent = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>('mainNavigation');
+
+    // Return if the navigation component does not exist
+    if (!navComponent) {
+      return null;
+    }
+
+    const newNavigation: FuseNavigationItem[] = [
+      {
+        id: 'supported-components',
+        title: 'Resource settings',
+        subtitle: resourceName,
+        type: 'group',
+        children: [
+          {
+            id: 'supported-components.apex-charts',
+            title: 'Resource',
+            type: 'basic',
+            icon: 'heroicons_outline:cube',
+            link: 'resources/resource/create/' + resourceID,
+          },
+          {
+            id: 'supported-components.full-calendar',
+            title: 'General',
+            type: 'basic',
+            icon: 'heroicons_outline:adjustments',
+            link: '/resources/resource/settings/general',
+          },
+          {
+            id: 'supported-components.google-maps',
+            title: 'Reservation',
+            type: 'basic',
+            icon: 'heroicons_outline:adjustments',
+            link: '/resources/resource/settings/reservation',
+          },
+        ],
+      },
+    ];
+    // Replace the navigation data
+    navComponent.navigation = newNavigation;
+    navComponent.refresh();
+    this._coookies.set('resourceID', resourceID.toString());
+    this._router.navigateByUrl('resources/resource/profile/' + resourceID);
   }
 }

@@ -41,7 +41,9 @@
         </div>
 
         <ng-container *ngFor="let resource of resources">
-          <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b" (click)="showResourceProfile(resource.id)">
+          <div
+            class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b"
+            (click)="showResourceProfile(resource.name, resource.id)">
             <div class="hidden lg:block">
               {{ resource.name }}
             </div>

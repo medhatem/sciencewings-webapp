@@ -12,6 +12,9 @@ import { ResourceSettingTagComponent } from './resource-setting-tag/resource-set
 import { ResurceSettingRuleComponent } from './resurce-setting-rule/resurce-setting-rule.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslocoModule } from '@ngneat/transloco';
+import { SettingsGeneralModule } from './resource-settings/general/settings.module';
+import { SettingsReservationModule } from './resource-settings/reservation/settings.module';
+import { ResourceProfileComponent } from './resource-profile/resource-profile.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,17 @@ import { TranslocoModule } from '@ngneat/transloco';
     ResourceListComponent,
     ResourceSettingTagComponent,
     ResurceSettingRuleComponent,
+    ResourceProfileComponent,
   ],
-  imports: [RouterModule.forChild(resourceRoutes), FuseFindByKeyPipeModule, SharedModule, NgSelectModule, TranslocoModule, MatFormFieldModule],
+  imports: [
+    RouterModule.forChild(resourceRoutes),
+    FuseFindByKeyPipeModule,
+    SharedModule,
+    NgSelectModule,
+    TranslocoModule,
+    MatFormFieldModule,
+    // SettingsGeneralModule,
+    // SettingsReservationModule,
+  ],
 })
 export class ResourceModule {}

@@ -1,7 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { FormControl } from '@angular/forms';
@@ -20,8 +19,6 @@ export class ResourceProfileFormComponent implements OnInit {
   @ViewChild('managerInput') managerInput: ElementRef<HTMLInputElement>;
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   form!: FormGroup;
-  btnTitle: string = 'Add';
-  params: any;
 
   timezones = TIMEZONES;
 
@@ -37,19 +34,12 @@ export class ResourceProfileFormComponent implements OnInit {
   managers = [];
   allManagers = [];
 
-  private resource;
-
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    private route: ActivatedRoute,
     private _resourceService: ResourceService,
     private _formBuilder: FormBuilder,
     private _toastrService: ToastrService,
-  ) {
-    // this.params = this.route.snapshot.queryParams.id;
-    this.params = this.route.snapshot.paramMap.get('id');
-    this.btnTitle = this.params ? 'Update' : 'Add';
-  }
+  ) {}
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
@@ -70,24 +60,6 @@ export class ResourceProfileFormComponent implements OnInit {
         startWith(null),
         map((manager: any) => (manager ? this._filter(manager.name) : this.allManagers.slice())),
       );
-    });
-
-    this._resourceService.getResource(this.params).subscribe(({ statusCode, body, errorMessage }) => {
-      if (statusCode === 500) {
-        this._toastrService.showError(errorMessage, 'Something went wrong!');
-      }
-      const data = body.data[0];
-      this.form.setValue({
-        name: data.name,
-        description: data.description,
-        timezone: data.timezone,
-        resourceType: data.resourceType,
-        resourceClass: data.resourceClass,
-      });
-      this.resource = data.resources;
-      this.tags = data.tags.map((tag) => tag.title);
-      this.filteredTags = this.tags;
-      this.managers = data.managers;
     });
   }
 
@@ -113,28 +85,28 @@ export class ResourceProfileFormComponent implements OnInit {
     };
     try {
       let response = null;
-      if (this.params) {
-        response = await lastValueFrom(
-          this._resourceService.updateResource(this.params, {
-            ...this.resource,
-            ..._resource,
-          }),
-        );
-        if (response.body.statusCode === 204) {
-          this._toastrService.showSuccess('Updated Successfully');
-        } else {
-          this._toastrService.showError('Something went wrong!');
-        }
-      } else {
-        response = await lastValueFrom(this._resourceService.createResource(_resource));
-        this.form.reset({
-          name: '',
-          description: '',
-          resourceType: 'equipement',
-          resourceClass: 'reservable',
-          timezone: '',
-        });
-      }
+      //   if (this.params) {
+      //     response = await lastValueFrom(
+      //       this._resourceService.updateResource(this.params, {
+      //         ...this.resource,
+      //         ..._resource,
+      //       }),
+      //     );
+      //     if (response.body.statusCode === 204) {
+      //       this._toastrService.showSuccess('Updated Successfully');
+      //     } else {
+      //       this._toastrService.showError('Something went wrong!');
+      //     }
+      //   } else {
+      response = await lastValueFrom(this._resourceService.createResource(_resource));
+      this.form.reset({
+        name: '',
+        description: '',
+        resourceType: 'equipement',
+        resourceClass: 'reservable',
+        timezone: '',
+      });
+      //   }
     } catch (error) {
       this._toastrService.showError('Something went wrong!');
     }

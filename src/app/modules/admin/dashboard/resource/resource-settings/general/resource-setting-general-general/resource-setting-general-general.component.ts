@@ -6,6 +6,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
+import { ResourceRo } from 'generated/models';
 import { CookieService } from 'ngx-cookie-service';
 import { lastValueFrom, map, Observable, startWith } from 'rxjs';
 
@@ -77,21 +78,28 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
 
   async onSubmit() {
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
-    const generalData = {
-      ...this.form.value,
+    const _resource: ResourceRo = {
+      name: this.form.value.name,
+      timezone: this.form.value.timezone,
+      description: this.form.value.description,
+      active: true,
+      organization: 1,
+      user: 1,
+      resourceType: this.form.value.resourceType,
+      resourceClass: this.form.value.resourceClass,
     };
     if (this.isManagersDirty) {
-      generalData['managers'] = this.managers.map((manager) => ({
+      _resource['managers'] = this.managers.map((manager) => ({
         organization: manager.organization.id,
         user: manager.user.id,
       }));
     }
     if (this.isTagsDirty) {
-      generalData['tags'] = this.tags.map((tag) => ({ title: tag }));
+      _resource['tags'] = this.tags.map((tag) => ({ title: tag }));
     }
 
     try {
-      const response: any = await lastValueFrom(this._resourceService.updateResource(selectedResourceId, generalData));
+      const response: any = await lastValueFrom(this._resourceService.updateResource(selectedResourceId, _resource));
       if (response.body.statusCode === 204) {
         this._toastrService.showSuccess('Updated Successfully');
       } else {

@@ -1,0 +1,71 @@
+<div class="flex flex-col flex-auto min-w-0">
+  <!-- Header -->
+  <div class="relative flex-0 px-4 pt-2 overflow-hidden">
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-2">
+      <!-- Back -->
+      <div class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none">
+        <button class="fuse-mat-button-rounded sm:ml-16" mat-flat-button [color]="'primary'" routerLink="{{ ['../'] }}">
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:arrow-circle-left'"></mat-icon>
+          <span class="ml-2">Back</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-span-12 flex flex-col flex-auto py-6 bg-card shadow rounded-2xl overflow-hidden">
+    <div class="p-8">
+      <div class="flex flex-col mt-4 pt-6 border-t space-y-8">
+        <div class="grid grid-cols-3 gap-2grid-flow-col auto-cols-max">
+          <ng-container *ngIf="resource.name">
+            <div><mat-icon [svgIcon]="'heroicons_outline:cube'"></mat-icon></div>
+            <div><mat-label> Name:</mat-label></div>
+            <div>{{ resource.name }}</div>
+          </ng-container>
+
+          <ng-container *ngIf="resource.resourceType">
+            <mat-icon [svgIcon]="'heroicons_outline:cube-transparent'"></mat-icon>
+            <mat-label> Type:</mat-label>
+            <p>{{ resource.resourceType }}</p>
+          </ng-container>
+
+          <ng-container *ngIf="resource.resourceClass">
+            <mat-icon [svgIcon]="'heroicons_outline:cube-transparent'"></mat-icon>
+            <mat-label> Class:</mat-label>
+            <p>{{ resource.resourceClass }}</p>
+          </ng-container>
+
+          <ng-container *ngIf="resource.tags.length">
+            <mat-icon [svgIcon]="'heroicons_outline:hashtag'"></mat-icon>
+            <mat-label> Tags:</mat-label>
+            <div class="min-w-0 space-y-1">
+              <mat-chip-list>
+                <ng-container *ngFor="let tag of resource.tags">
+                  <mat-chip>{{ tag.title }}</mat-chip>
+                </ng-container>
+              </mat-chip-list>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="resource.managers.length">
+            <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
+            <mat-label> Managers:</mat-label>
+
+            <div class="min-w-0 space-y-1">
+              <mat-chip-list>
+                <ng-container *ngFor="let manager of resource.managers">
+                  <mat-chip>{{ manager.name }}</mat-chip>
+                </ng-container>
+              </mat-chip-list>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="resource.description">
+            <mat-icon [svgIcon]="'heroicons_outline:menu-alt-2'"></mat-icon>
+            <mat-label> Description:</mat-label>
+            <div class="max-w-none prose prose-sm">{{ resource.description }}</div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
