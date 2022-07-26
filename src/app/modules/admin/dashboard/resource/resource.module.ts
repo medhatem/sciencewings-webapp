@@ -26,15 +26,6 @@ import { ResourceProfileComponent } from './resource-profile/resource-profile.co
     ResurceSettingRuleComponent,
     ResourceProfileComponent,
   ],
-  imports: [
-    RouterModule.forChild(resourceRoutes),
-    FuseFindByKeyPipeModule,
-    SharedModule,
-    NgSelectModule,
-    TranslocoModule,
-    MatFormFieldModule,
-    // SettingsGeneralModule,
-    // SettingsReservationModule,
-  ],
+  imports: [RouterModule.forChild(resourceRoutes), FuseFindByKeyPipeModule, SharedModule, NgSelectModule, TranslocoModule, MatFormFieldModule],
 })
 export class ResourceModule {}

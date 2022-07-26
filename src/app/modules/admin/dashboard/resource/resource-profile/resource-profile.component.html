@@ -18,25 +18,27 @@
         <div class="grid grid-cols-3 gap-2grid-flow-col auto-cols-max">
           <ng-container *ngIf="resource.name">
             <div><mat-icon [svgIcon]="'heroicons_outline:cube'"></mat-icon></div>
-            <div><mat-label> Name:</mat-label></div>
+            <div>
+              <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.NAME' | transloco }}:</mat-label>
+            </div>
             <div>{{ resource.name }}</div>
           </ng-container>
 
           <ng-container *ngIf="resource.resourceType">
             <mat-icon [svgIcon]="'heroicons_outline:cube-transparent'"></mat-icon>
-            <mat-label> Type:</mat-label>
+            <mat-label>{{ 'ORGANIZATION.PROFILE_RESOURCE.DETAILS.TYPE' | transloco }}:</mat-label>
             <p>{{ resource.resourceType }}</p>
           </ng-container>
 
           <ng-container *ngIf="resource.resourceClass">
             <mat-icon [svgIcon]="'heroicons_outline:cube-transparent'"></mat-icon>
-            <mat-label> Class:</mat-label>
+            <mat-label> {{ 'ORGANIZATION.PROFILE_RESOURCE.DETAILS.CLASS' | transloco }}:</mat-label>
             <p>{{ resource.resourceClass }}</p>
           </ng-container>
 
           <ng-container *ngIf="resource.tags.length">
             <mat-icon [svgIcon]="'heroicons_outline:hashtag'"></mat-icon>
-            <mat-label> Tags:</mat-label>
+            <mat-label> {{ 'ORGANIZATION.SETTINGS.RESOUCES.TAGS' | transloco }}:</mat-label>
             <div class="min-w-0 space-y-1">
               <mat-chip-list>
                 <ng-container *ngFor="let tag of resource.tags">
@@ -48,7 +50,7 @@
 
           <ng-container *ngIf="resource.managers.length">
             <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
-            <mat-label> Managers:</mat-label>
+            <mat-label> {{ 'APP.RESOURCES.MANAGERS' | transloco }}:</mat-label>
 
             <div class="min-w-0 space-y-1">
               <mat-chip-list>
@@ -61,7 +63,7 @@
 
           <ng-container *ngIf="resource.description">
             <mat-icon [svgIcon]="'heroicons_outline:menu-alt-2'"></mat-icon>
-            <mat-label> Description:</mat-label>
+            <mat-label> {{ 'ORGANIZATION.SETTINGS.RESOUCES.DESCRIPTION' | transloco }}:</mat-label>
             <div class="max-w-none prose prose-sm">{{ resource.description }}</div>
           </ng-container>
         </div>

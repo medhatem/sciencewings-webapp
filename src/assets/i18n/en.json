@@ -426,6 +426,7 @@
         "Unites": "Unites",
         "UnitName": "Unit Name",
         "UnitLimit": "Unit Limit",
+        "UnitLimitHint": "The maximum number of units that can be reserved in a single reservation. Leave blank for no limit.",
         "RATE": "Rate",
         "DURATION": "Duration",
         "ACCOUNT": "Account",

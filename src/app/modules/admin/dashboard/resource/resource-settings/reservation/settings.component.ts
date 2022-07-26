@@ -66,12 +66,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
         title: 'Time Restriction',
         description: 'Manage when you willll be notified on which channels',
       },
-      //   {
-      //     id: 'groups',
-      //     icon: 'heroicons_outline:user-group',
-      //     title: 'Groups',
-      //     description: 'Manage your existing team and change roles/permissions',
-      //   },
       {
         id: 'visibility',
         icon: 'heroicons_outline:eye',

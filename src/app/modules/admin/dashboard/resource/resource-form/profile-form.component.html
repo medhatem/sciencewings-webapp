@@ -1,12 +1,12 @@
 <mat-card class="columns-1 card">
   <form [formGroup]="form">
     <mat-form-field appearance="fill">
-      <mat-label>Name</mat-label>
+      <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.NAME' | transloco }}</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
 
     <mat-form-field class="w-full">
-      <mat-label>{{ 'ORGANIZATION.PROFILE_RESOURCE.DETAILS.CLASS' | transloco }}</mat-label>
+      <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.CLASS' | transloco }}</mat-label>
       <mat-select [formControlName]="'resourceClass'">
         <mat-option [value]="'equipement'">Equipement</mat-option>
         <mat-option [value]="'service'">Service</mat-option>
@@ -17,7 +17,7 @@
     </mat-form-field>
 
     <mat-form-field class="w-full">
-      <mat-label>{{ 'ORGANIZATION.PROFILE_RESOURCE.DETAILS.TYPE' | transloco }}</mat-label>
+      <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.TYPE' | transloco }}</mat-label>
       <mat-select [formControlName]="'resourceType'">
         <mat-option [value]="'reservable'">Reservable</mat-option>
         <mat-option [value]="'requestable'">Requestable</mat-option>
@@ -25,7 +25,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Description</mat-label>
+      <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.DESCRIPTION' | transloco }}</mat-label>
       <input matInput formControlName="description" />
     </mat-form-field>
 
@@ -37,7 +37,7 @@
     </mat-form-field>
 
     <!-- Tags -->
-    <span class="mb-px font-medium leading-tight">Tags</span>
+    <span class="mb-px font-medium leading-tight">{{ 'ORGANIZATION.SETTINGS.RESOUCES.TAGS' | transloco }}</span>
     <div class="mt-1.5 rounded-md border border-gray-300 dark:border-gray-500 shadow-sm overflow-hidden" style="margin-bottom: 16px">
       <!-- Header -->
       <div class="flex items-center -my-px py-2 px-3">
