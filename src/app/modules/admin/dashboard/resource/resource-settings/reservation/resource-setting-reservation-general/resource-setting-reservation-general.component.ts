@@ -46,12 +46,14 @@ export class ResourceSettingReservationGeneralComponent implements OnInit {
   }
 
   async onSubmit() {
-    try {
-      const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
-      await lastValueFrom(this._resourceService.updateResourcesSettingsReservationGeneral(selectedResourceId, this.form.value));
-      this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
-    } catch (error) {
-      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
+    if (this.form.valid) {
+      try {
+        const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
+        await lastValueFrom(this._resourceService.updateResourcesSettingsReservationGeneral(selectedResourceId, this.form.value));
+        this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
+      } catch (error) {
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
+      }
     }
   }
 }

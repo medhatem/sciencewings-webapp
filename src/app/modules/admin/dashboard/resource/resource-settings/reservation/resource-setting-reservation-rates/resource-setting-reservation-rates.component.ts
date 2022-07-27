@@ -44,27 +44,29 @@ export class ResourceSettingReservationRatesComponent implements OnInit {
   }
 
   async onSubmit() {
-    try {
-      const { description, rate, category, isPublic, isRequiredAccountNumber, duration } = this.form.value;
-      const rateData = { description, rate, category, isPublic, isRequiredAccountNumber, duration };
-      if (this.selectedRateId) {
-        this._resourceService.updateResourceSettingsReservationRate(this.selectedRateId, rateData).subscribe((response) => {
-          if (response.body.statusCode === 204) {
-            for (const elRate of this.rates) {
-              if (elRate.id === this.selectedRateId) {
-                Object.assign(elRate, { id: elRate.id, ...rateData });
-                break;
+    if (this.form.valid) {
+      try {
+        const { description, rate, category, isPublic, isRequiredAccountNumber, duration } = this.form.value;
+        const rateData = { description, rate, category, isPublic, isRequiredAccountNumber, duration };
+        if (this.selectedRateId) {
+          this._resourceService.updateResourceSettingsReservationRate(this.selectedRateId, rateData).subscribe((response) => {
+            if (response.body.statusCode === 204) {
+              for (const elRate of this.rates) {
+                if (elRate.id === this.selectedRateId) {
+                  Object.assign(elRate, { id: elRate.id, ...rateData });
+                  break;
+                }
               }
+              this.rates = [...this.rates];
             }
-            this.rates = [...this.rates];
-          }
-        });
-      } else {
-        await lastValueFrom(this._resourceService.createResourceSettingsReservationRate(this.selectedResourceId, rateData));
+          });
+        } else {
+          await lastValueFrom(this._resourceService.createResourceSettingsReservationRate(this.selectedResourceId, rateData));
+        }
+        this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
+      } catch (error) {
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
       }
-      this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
-    } catch (error) {
-      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }
   }
 
