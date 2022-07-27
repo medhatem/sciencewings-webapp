@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { CookieService } from 'ngx-cookie-service';
+import { lastValueFrom } from 'rxjs';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'app-resource-setting-reservation-rates',
@@ -35,41 +37,34 @@ export class ResourceSettingReservationRatesComponent implements OnInit {
     });
     this._resourceService.getResourceSettingsReservationRate(this.selectedResourceId).subscribe(({ statusCode, body, errorMessage }) => {
       if (statusCode === 500) {
-        this._toastrService.showError(errorMessage, 'Something went wrong!');
+        this._toastrService.showError(errorMessage, constants.SOMETHING_WENT_WRONG);
       }
       this.rates = body.data;
     });
   }
 
-  onSubmit() {
-    const { description, rate, category, isPublic, isRequiredAccountNumber, duration } = this.form.value;
-    const rateData = { description, rate, category, isPublic, isRequiredAccountNumber, duration };
-    if (this.selectedRateId) {
-      this._resourceService.updateResourceSettingsReservationRate(this.selectedRateId, rateData).subscribe((response) => {
-        if (response.body.statusCode === 204) {
-          for (const elRate of this.rates) {
-            if (elRate.id === this.selectedRateId) {
-              Object.assign(elRate, { id: elRate.id, ...rateData });
-              break;
+  async onSubmit() {
+    try {
+      const { description, rate, category, isPublic, isRequiredAccountNumber, duration } = this.form.value;
+      const rateData = { description, rate, category, isPublic, isRequiredAccountNumber, duration };
+      if (this.selectedRateId) {
+        this._resourceService.updateResourceSettingsReservationRate(this.selectedRateId, rateData).subscribe((response) => {
+          if (response.body.statusCode === 204) {
+            for (const elRate of this.rates) {
+              if (elRate.id === this.selectedRateId) {
+                Object.assign(elRate, { id: elRate.id, ...rateData });
+                break;
+              }
             }
+            this.rates = [...this.rates];
           }
-          this.rates = [...this.rates];
-          this._toastrService.showSuccess('Updated Successfully');
-        } else {
-          this._toastrService.showError('Something went wrong!');
-        }
-      });
-    } else {
-      this._resourceService.createResourceSettingsReservationRate(this.selectedResourceId, rateData).subscribe((response) => {
-        rateData['id'] = response.body.id;
-        this.rates.push(rateData);
-        if (response.body.statusCode === 201) {
-          this.updateLocalSettings.emit(this.form.value);
-          this._toastrService.showSuccess('Updated Successfully');
-        } else {
-          this._toastrService.showError('Something went wrong!');
-        }
-      });
+        });
+      } else {
+        await lastValueFrom(this._resourceService.createResourceSettingsReservationRate(this.selectedResourceId, rateData));
+      }
+      this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
+    } catch (error) {
+      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }
   }
 

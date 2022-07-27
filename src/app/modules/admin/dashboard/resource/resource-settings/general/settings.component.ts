@@ -5,6 +5,7 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'settings',
@@ -70,7 +71,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         id: 'properties',
         icon: 'heroicons_outline:view-list',
         title: 'Properties',
-        description: 'Manage when you\'ll be notified on which channels',
+        description: 'Manage when you willl be notified on which channels',
       },
     ];
 
@@ -92,7 +93,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
     this._resourceService.getResourceSettings(selectedResourceId).subscribe(({ body }) => {
       if (body.statusCode === 500) {
-        this._toastrService.showError('Something went wrong!');
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
         return;
       }
       this.settings = body;

@@ -9,6 +9,7 @@ import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.s
 import { ResourceRo } from 'generated/models';
 import { CookieService } from 'ngx-cookie-service';
 import { lastValueFrom, map, Observable, startWith } from 'rxjs';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'app-resource-setting-general-general',
@@ -61,7 +62,7 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
     this._resourceService.getOrgMembers(1).subscribe(({ body }) => {
       const { members, statusCode } = body;
       if (statusCode !== 200) {
-        this._toastrService.showError('Something went wrong!');
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
         return;
       }
 
@@ -99,14 +100,10 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
     }
 
     try {
-      const response: any = await lastValueFrom(this._resourceService.updateResource(selectedResourceId, _resource));
-      if (response.body.statusCode === 204) {
-        this._toastrService.showSuccess('Updated Successfully');
-      } else {
-        this._toastrService.showError('Something went wrong!');
-      }
+      await lastValueFrom(this._resourceService.updateResource(selectedResourceId, _resource));
+      this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
     } catch (error) {
-      this._toastrService.showError('Something went wrong!');
+      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }
   }
 
@@ -288,7 +285,7 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
     this._resourceService.getResource(selectedResourceId).subscribe(({ body }) => {
       if (body.statusCode !== 200) {
-        this._toastrService.showError('Something went wrong!');
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
         return;
       }
       const data = body.data[0];

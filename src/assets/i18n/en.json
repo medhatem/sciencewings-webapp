@@ -503,6 +503,10 @@
       "WRONG_ORG_ID": "Organization not found"
     }
   },
+  "STATES": {
+    "UPDATE_SUCCESSFULLY": "Updated Successfully",
+    "SOMETHING_WENT_WRONG": "Something went wrong!"
+  },
   "PROFILE": "Profile",
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
   "GET_MEMBERS_LOAD_FAILED": "You have no organization",

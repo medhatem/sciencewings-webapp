@@ -4,6 +4,7 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { CookieService } from 'ngx-cookie-service';
 import { lastValueFrom } from 'rxjs';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'app-resource-setting-general-properties',
@@ -31,17 +32,12 @@ export class ResourceSettingGeneralPropertiesComponent implements OnInit {
   async onSubmit() {
     try {
       const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
-      const response: any = await lastValueFrom(
-        this._resourceService.updateResourceSettingsGeneralProperties(selectedResourceId, this.form.value),
-      );
-      if (response.body.statusCode === 204) {
-        this.updateLocalSettings.emit(this.form.value);
-        this._toastrService.showSuccess('Updated Successfully');
-      } else {
-        this._toastrService.showError('Something went wrong!');
-      }
+      await lastValueFrom(this._resourceService.updateResourceSettingsGeneralProperties(selectedResourceId, this.form.value));
+
+      this.updateLocalSettings.emit(this.form.value);
+      this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
     } catch (error) {
-      this._toastrService.showError('Something went wrong!');
+      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }
   }
 }

@@ -504,6 +504,10 @@
       "WRONG_ORG_ID": "L'organization demandé est introuvable"
     }
   },
+  "STATES": {
+    "UPDATE_SUCCESSFULLY": "Mise à jour réussie",
+    "SOMETHING_WENT_WRONG": "Quelque chose s'est mal passé !"
+  },
   "PROFILE": "Profil",
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
   "GET_MEMBERS_LOAD_FAILED": "Vous n'avez pas d'organisation",

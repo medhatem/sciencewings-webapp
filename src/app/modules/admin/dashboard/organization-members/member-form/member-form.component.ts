@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { lastValueFrom } from 'rxjs';
+import { constants } from 'app/shared/constants';
 
 export interface DialogData {
   orgID: number;
@@ -41,7 +42,7 @@ export class MemberFormComponent implements OnInit {
       }
       this.matDialogRef.close(response);
     } catch (error) {
-      this._toastrService.showError('Something went wrong!');
+      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
       this.matDialogRef.close({});
     }
   }

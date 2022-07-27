@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'app-resource-profile',
@@ -22,7 +23,7 @@ export class ResourceProfileComponent implements OnInit {
     this.params = this.route.snapshot.paramMap.get('id');
     this._resourceService.getResource(this.params).subscribe(({ statusCode, body, errorMessage }) => {
       if (statusCode === 500) {
-        this._toastrService.showError(errorMessage, 'Something went wrong!');
+        this._toastrService.showError(errorMessage, constants.SOMETHING_WENT_WRONG);
       }
       this.resource = body.data[0];
       //   this.form.setValue({

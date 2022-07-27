@@ -4,6 +4,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { AdminOrganizationsService } from '../../resolvers/admin-organization/admin-organization.service';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'organization-settings',
@@ -63,7 +64,7 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
         id: 'reservations',
         icon: 'heroicons_outline:bell',
         title: 'Reservations',
-        description: 'Manage when you\'ll be notified on which channels',
+        description: 'Manage when you will be notified on which channels',
       },
       {
         id: 'invocie',
@@ -102,7 +103,7 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
 
     this._organizationService.getOrganizationSettingsById(1).subscribe(({ body }) => {
       if (body.statusCode === 500) {
-        this._toastrService.showError('Something went wrong!');
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
         return;
       }
       const organization = body.data.organization;

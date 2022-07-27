@@ -8,6 +8,7 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { Router } from '@angular/router';
 import { FuseNavigationItem, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { CookieService } from 'ngx-cookie-service';
+import { constants } from 'app/shared/constants';
 
 export interface ResourceType {
   name: string;
@@ -45,7 +46,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this._resourceService.getOrgResource(1).subscribe(({ body }) => {
       if (body.statusCode === 500) {
-        this._toastrService.showError('Something went wrong!');
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
       }
 
       this.resources = body.data;
@@ -108,7 +109,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this._resourceService.getResource(resourceId).subscribe(({ body }) => {
       if (body.statusCode === 500) {
-        this._toastrService.showError('Something went wrong!');
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
       }
 
       this.selectedResource = body.data[0];
@@ -118,7 +119,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   onDelete(id: number) {
     this._resourceService.deleteResource(id).subscribe(({ statusCode, body, errorMessage }) => {
       if (statusCode === 500) {
-        this._toastrService.showError(errorMessage, 'Something went wrong!');
+        this._toastrService.showError(errorMessage, constants.SOMETHING_WENT_WRONG);
       } else {
         this.resources = this.resources.filter((resource) => resource.id !== id);
       }

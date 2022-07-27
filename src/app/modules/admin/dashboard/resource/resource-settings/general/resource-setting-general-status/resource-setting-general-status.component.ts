@@ -5,6 +5,7 @@ import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.s
 import { CookieService } from 'ngx-cookie-service';
 import { Output, EventEmitter } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'app-resource-setting-general-status',
@@ -33,15 +34,11 @@ export class ResourceSettingGeneralStatusComponent implements OnInit {
   async onSubmit() {
     try {
       const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
-      const response = await lastValueFrom(this._resourceService.updateResourceSettingsGeneralStatus(selectedResourceId, this.form.value));
-      if (response.body.statusCode === 204) {
-        this.updateLocalSettings.emit(this.form.value);
-        this._toastrService.showSuccess('Updated Successfully');
-      } else {
-        this._toastrService.showError('Something went wrong!');
-      }
+      await lastValueFrom(this._resourceService.updateResourceSettingsGeneralStatus(selectedResourceId, this.form.value));
+      this.updateLocalSettings.emit(this.form.value);
+      this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
     } catch (error) {
-      this._toastrService.showError('Something went wrong!');
+      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }
   }
 }

@@ -10,6 +10,7 @@ import { MemberService } from 'app/modules/admin/resolvers/members/member.servic
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { members } from 'app/mock-api/apps/tasks/data';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'app-member-list',
@@ -102,7 +103,7 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this._memberService.getOrgMembers(memberId).subscribe(({ body }) => {
       if (body.statusCode === 500) {
-        this._toastrService.showError('Something went wrong!');
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
       }
 
       this.selectedMember = body.data[0];
@@ -112,7 +113,7 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
   onDelete(id: number) {
     this._memberService.deleteMember(id).subscribe(({ statusCode, body, errorMessage }) => {
       if (statusCode === 500) {
-        this._toastrService.showError(errorMessage, 'Something went wrong!');
+        this._toastrService.showError(errorMessage, constants.SOMETHING_WENT_WRONG);
       } else {
         this.members$ = this.members$.filter((member) => member.id !== id);
       }

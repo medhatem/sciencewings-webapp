@@ -21,6 +21,12 @@ export const constants = {
   FATAL_ERROR_OCCURED: 'FATAL_ERROR_OCCURED',
 
   /**
+   * STATES
+   */
+  UPDATE_SUCCESSFULLY: 'STATES.UPDATE_SUCCESSFULLY',
+  SOMETHING_WENT_WRONG: 'STATES.SOMETHING_WENT_WRONG',
+
+  /**
    * LocalStorage & Cookies items keys
    */
   CURRENT_USER_KEYCLOAK_ID: 'kcid',

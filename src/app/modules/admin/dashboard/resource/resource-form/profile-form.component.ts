@@ -9,6 +9,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { TIMEZONES } from 'app/modules/admin/dashboard/resource/resurce-setting-rule/timezones';
 import { ResourceRo } from 'generated/models';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'app-profile-form',
@@ -52,7 +53,7 @@ export class ResourceProfileFormComponent implements OnInit {
 
     this._resourceService.getOrgMembers(1).subscribe(({ body, error }) => {
       if (error?.statusCode === 500) {
-        this._toastrService.showError(error.errorMessage, 'Something went wrong!');
+        this._toastrService.showError(error.errorMessage, constants.SOMETHING_WENT_WRONG);
       }
 
       this.allManagers = body.data;
@@ -93,9 +94,9 @@ export class ResourceProfileFormComponent implements OnInit {
       //       }),
       //     );
       //     if (response.body.statusCode === 204) {
-      //       this._toastrService.showSuccess('Updated Successfully');
+      //       this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
       //     } else {
-      //       this._toastrService.showError('Something went wrong!');
+      //       this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
       //     }
       //   } else {
       response = await lastValueFrom(this._resourceService.createResource(_resource));
@@ -108,7 +109,7 @@ export class ResourceProfileFormComponent implements OnInit {
       });
       //   }
     } catch (error) {
-      this._toastrService.showError('Something went wrong!');
+      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }
   }
 
