@@ -41,10 +41,10 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.options = {
       columns: [
-        { columnName: 'name', columnPropertyToUse: 'name' },
-        { columnName: 'Status', columnPropertyToUse: 'status' },
-        { columnName: 'Members', columnPropertyToUse: 'members' },
-        { columnName: 'Date', columnPropertyToUse: 'date' },
+        { columnName: 'name', columnPropertyToUse: 'name', customClass: '' },
+        { columnName: 'Status', columnPropertyToUse: 'status', customClass: 'hidden' },
+        { columnName: 'Members', columnPropertyToUse: 'members', customClass: 'hidden' },
+        { columnName: 'Date', columnPropertyToUse: 'date', customClass: 'hidden' },
       ],
     };
 

@@ -17,33 +17,30 @@
     </button> -->
 </div>
 <br />
-<div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4"></div>
+<!-- <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4"></div> -->
 
 <!-- Main -->
 <div class="flex flex-auto overflow-hidden">
   <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
     <ng-container *ngIf="dataList">
       <ng-container *ngIf="dataList.length > 0; else noData">
-        <div class="grid" [ngStyle]="{ 'max-height': '60vh' }">
+        <div class="grid">
           <!-- Header -->
           <div
-            [ngStyle]="getColumsStyles()"
-            class="inventory-grid z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5 flex align-center"
-            matSort
+            class="inventory-grid z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
             matSortDisableClear>
             <ng-container *ngFor="let header of headers">
-              <div class="hidden lg:block">{{ header }}</div>
+              <div class="{{ header.customClass }} lg:block">{{ header.columnName }}</div>
             </ng-container>
           </div>
 
           <ng-container *ngIf="dataList">
             <ng-container *ngFor="let item of dataList; index as indexOfelement; trackBy: trackByFn">
               <div
-                [ngStyle]="getColumsStyles()"
                 class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b cursor-pointer"
                 (click)="options.onElementClick(item)">
                 <ng-container *ngFor="let key of keys">
-                  <div class="align-center" [innerHTML]="item[key]"></div>
+                  <div class="hidden md:block truncate" [innerHTML]="item[key]"></div>
                 </ng-container>
               </div>
             </ng-container>

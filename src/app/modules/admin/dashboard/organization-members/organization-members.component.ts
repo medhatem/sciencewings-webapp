@@ -8,7 +8,8 @@ import { MemberService } from '../../resolvers/members/member.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
-import { lastValueFrom } from 'rxjs';
+import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'organizationmembers',
@@ -18,8 +19,14 @@ import { lastValueFrom } from 'rxjs';
 })
 export class OrganizationMemebrsComponent implements OnInit {
   members: any[] = [];
+  isLoading: boolean = false;
+  membersCount: number = 0;
   options: ListOption = { columns: [], numnberOfColumns: 4 };
   openedDialogRef: any;
+  searchInputControl: FormControl = new FormControl();
+
+  private _unsubscribeAll: Subject<any> = new Subject<any>();
+
   constructor(
     private _memberService: MemberService,
     private _matDialog: MatDialog,
@@ -31,10 +38,10 @@ export class OrganizationMemebrsComponent implements OnInit {
   ngOnInit(): void {
     this.options = {
       columns: [
-        { columnName: 'Profile', columnPropertyToUse: 'profile' },
-        { columnName: 'Role', columnPropertyToUse: 'role' },
-        { columnName: 'Status', columnPropertyToUse: 'status' },
-        { columnName: 'Joined', columnPropertyToUse: 'date' },
+        { columnName: 'Profile', columnPropertyToUse: 'profile', customClass: '' },
+        { columnName: 'Role', columnPropertyToUse: 'role', customClass: 'hidden' },
+        { columnName: 'Status', columnPropertyToUse: 'status', customClass: 'hidden' },
+        { columnName: 'Joined', columnPropertyToUse: 'date', customClass: 'hidden' },
       ],
       numnberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
@@ -42,7 +49,22 @@ export class OrganizationMemebrsComponent implements OnInit {
 
     this._memberService.members$.subscribe((members: Member[]) => {
       this.members = members;
+      this.membersCount = members.length;
       this._changeDetectorRef.markForCheck();
+      // Subscribe to search input field value changes
+      this.searchInputControl.valueChanges
+        .pipe(
+          takeUntil(this._unsubscribeAll),
+          debounceTime(300),
+          switchMap((query) => {
+            this.isLoading = true;
+            return this._memberService.getMembers(0, 10, 'name', 'asc', query);
+          }),
+          map(() => {
+            this.isLoading = false;
+          }),
+        )
+        .subscribe();
     });
   }
 
