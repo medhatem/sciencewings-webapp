@@ -427,7 +427,11 @@
         "PROJECT_MEMBERS": "Membres",
         "PROJECT_NAME": "Projet",
         "PROJECT_STATUS": "Status",
-        "MESSAGE": "Il n'y a pas de Projets !"
+        "MESSAGE": "Il n'y a pas de Projets !",
+        "TITLE": "Titre",
+        "MANAGER": "Manager",
+        "MEMBERS": "Membres",
+        "DATESTART": "Date de debut"
       },
       "SEARCH_GROUPS": "Chercher un projet",
       "TITLE": "Projets",

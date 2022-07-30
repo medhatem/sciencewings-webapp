@@ -427,7 +427,11 @@
         "PROJECT_MEMBERS": "Membres",
         "PROJECT_NAME": "Project",
         "PROJECT_STATUS": "Status",
-        "MESSAGE": "There is no projects"
+        "MESSAGE": "There is no projects",
+        "TITLE": "Title",
+        "MANAGER": "Manager",
+        "MEMBERS": "Members",
+        "DATESTART": "Date start"
       },
       "SEARCH_PROJECTS": "Find a project",
       "TITLE": "Projects",
