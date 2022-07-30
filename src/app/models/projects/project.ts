@@ -1,4 +1,12 @@
-import { CreateOrganizationRo, ProjectDto, ProjectListDto, ProjectMemberRo, ProjectRo } from 'generated/models';
+import {
+  CreateOrganizationRo,
+  MemberDto,
+  ProjectDto,
+  ProjectListDto,
+  ProjectMemberRo,
+  ProjectRo,
+  ResponsableObjectDto,
+} from 'generated/models';
 import { Member, OrganizationMembers } from '../members/member';
 
 export class Project implements ProjectRo {
@@ -30,9 +38,25 @@ export class Project implements ProjectRo {
     }
   }
 }
+export class ResponsableDto implements ResponsableObjectDto {
+  email: string;
+  member: MemberDto;
+  name: string;
+  statusCode: number;
+
+  constructor(responsable?: any) {
+    const { email, member, name } = responsable || {};
+    Object.assign(this, {
+      email,
+      member,
+      name,
+    });
+  }
+}
+
 export class ProjectListItem implements ProjectListDto {
   members: number;
-  responsable: string;
+  responsable: ResponsableDto;
   startDate: string;
   statusCode: number;
   title: string;
@@ -47,6 +71,7 @@ export class ProjectListItem implements ProjectListDto {
     });
   }
 }
+
 export class ProjectMember implements ProjectMemberRo {
   userId: number;
   orgId: number;

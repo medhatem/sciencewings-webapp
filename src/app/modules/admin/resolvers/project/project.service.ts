@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable, map, take, tap, lastValueFrom } from 'rxjs
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateProjectDto } from 'generated/models';
+import { CreateProjectDto, ResponsableObjectDto } from 'generated/models';
 import { Member } from 'app/models/members/member';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
@@ -66,7 +66,7 @@ export class ProjectService {
 
   getOrgProjectsList(): Observable<any> {
     const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this._swaggerService.projectRoutesGetAllProjectList({ id });
+    return this._swaggerService.projectRoutesGetAllOrganizationProjectsList({ id });
   }
 
   getAndParseOrganizationProject(): Observable<any[]> {
@@ -75,7 +75,7 @@ export class ProjectService {
       map((projects: ProjectListItem[]) =>
         projects.map(({ startDate, members, responsable, title }) => ({
           title: `${title}`,
-          managers: responsable,
+          managers: this.parseProjectResponsible(responsable),
           participents: `${members}`,
           dateStart: moment(startDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
         })),
@@ -84,5 +84,8 @@ export class ProjectService {
         this._projects.next(response);
       }),
     );
+  }
+  parseProjectResponsible(responsable: ResponsableObjectDto): string {
+    return `<div>${responsable.name}</div><div>${responsable.email}</div>`;
   }
 }
