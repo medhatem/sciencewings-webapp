@@ -1,5 +1,5 @@
-import { CreateOrganizationRo, ProjectRo } from 'generated/models';
-import { Member } from '../members/member';
+import { CreateOrganizationRo, ProjectDto, ProjectListDto, ProjectMemberRo, ProjectRo } from 'generated/models';
+import { Member, OrganizationMembers } from '../members/member';
 
 export class Project implements ProjectRo {
   id?: string;
@@ -7,21 +7,21 @@ export class Project implements ProjectRo {
   dateEnd?: string;
   dateStart: string;
   description: string;
-  managers: number[];
+  key: string;
+  members: number[];
   organization: number;
-  participants: number[];
   title: string;
 
   constructor(project: any) {
-    const { id, active, dateEnd, dateStart, description, managers, organization, participants, title } = project || {};
+    const { id, active, dateEnd, dateStart, description, key, members, organization, title } = project || {};
     Object.assign(this, {
       active,
       dateEnd,
       dateStart,
       description,
-      managers,
+      key,
+      members,
       organization,
-      participants,
       title,
     });
 
@@ -30,19 +30,51 @@ export class Project implements ProjectRo {
     }
   }
 }
-export class ProjectListItem {
-  dateStart: string;
-  managers: Array<Member>;
-  participants: Array<Member>;
+export class ProjectListItem implements ProjectListDto {
+  members: number;
+  responsable: string;
+  startDate: string;
+  statusCode: number;
   title: string;
 
   constructor(project?: any) {
-    const { participants, dateStart, managers, title } = project || {};
+    const { startDate, members, responsable, title } = project || {};
     Object.assign(this, {
-      participants,
-      dateStart,
-      managers,
+      responsable,
+      startDate,
+      members,
       title,
+    });
+  }
+}
+export class ProjectMember implements ProjectMemberRo {
+  userId: number;
+  orgId: number;
+  role: string;
+  status: string;
+
+  constructor(participant?: any) {
+    const { userId, orgId, role, status } = participant || {};
+    Object.assign(this, {
+      userId,
+      orgId,
+      role,
+      status,
+    });
+  }
+}
+
+export class participantListItem {
+  member: Member;
+  role: string;
+  status: string;
+
+  constructor(participant?: any) {
+    const { member, role, status } = participant || {};
+    Object.assign(this, {
+      member,
+      role,
+      status,
     });
   }
 }

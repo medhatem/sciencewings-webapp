@@ -64,24 +64,25 @@ export class ProjectService {
     return this._swaggerService.projectRoutesGetOrganizationProjects({ id });
   }
 
+  getOrgProjectsList(): Observable<any> {
+    const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    return this._swaggerService.projectRoutesGetAllProjectList({ id });
+  }
+
   getAndParseOrganizationProject(): Observable<any[]> {
-    return this.getOrgProjects().pipe(
+    return this.getOrgProjectsList().pipe(
       map((projects) => projects.body.data.map((project) => new ProjectListItem(project))),
       map((projects: ProjectListItem[]) =>
-        projects.map(({ title, managers, participants, dateStart }) => ({
+        projects.map(({ startDate, members, responsable, title }) => ({
           title: `${title}`,
-          managers: this.parseMembersToHtml(managers),
-          participents: participants.length,
-          dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+          managers: responsable,
+          participents: `${members}`,
+          dateStart: moment(startDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
         })),
       ),
       tap((response) => {
         this._projects.next(response);
       }),
     );
-  }
-
-  private parseMembersToHtml(members: Member[]) {
-    return members.map(({ name, workEmail }) => `<div>${name}</div><div>${workEmail}</div>`);
   }
 }
