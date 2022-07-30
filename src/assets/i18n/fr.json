@@ -430,8 +430,8 @@
         "MESSAGE": "Il n'y a pas de Projets !",
         "TITLE": "Titre",
         "MANAGER": "Manager",
-        "MEMBERS": "Membres",
-        "DATESTART": "Date de debut"
+        "MEMBERS": "# Membres",
+        "CREATIONDATE": "Date de création"
       },
       "SEARCH_GROUPS": "Chercher un projet",
       "TITLE": "Projets",

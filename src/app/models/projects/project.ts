@@ -11,12 +11,12 @@ import { Member, OrganizationMembers } from '../members/member';
 
 export class Project implements ProjectRo {
   id?: string;
-  active: boolean;
+  active?: boolean;
   dateEnd?: string;
-  dateStart: string;
+  dateStart?: string;
   description: string;
   key: string;
-  members: number[];
+  members?: number[];
   organization: number;
   title: string;
 
@@ -57,15 +57,15 @@ export class ResponsableDto implements ResponsableObjectDto {
 export class ProjectListItem implements ProjectListDto {
   members: number;
   responsable: ResponsableDto;
-  startDate: string;
+  creatingDate: string;
   statusCode: number;
   title: string;
 
   constructor(project?: any) {
-    const { startDate, members, responsable, title } = project || {};
+    const { creatingDate, members, responsable, title } = project || {};
     Object.assign(this, {
       responsable,
-      startDate,
+      creatingDate,
       members,
       title,
     });

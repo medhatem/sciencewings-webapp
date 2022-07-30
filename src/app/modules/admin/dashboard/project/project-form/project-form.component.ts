@@ -48,9 +48,6 @@ export class ProjectFormComponent implements OnInit {
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
       key: ['', [Validators.required]],
-      dateStart: [this.deadline.dateStart, [Validators.required]],
-      dateEnd: [this.deadline.dateEnd, [Validators.required]],
-      active: [false, [Validators.required]],
     };
 
     this.projectForm = this._formBuilder.group(projectFormObj);

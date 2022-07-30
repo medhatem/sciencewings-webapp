@@ -73,11 +73,11 @@ export class ProjectService {
     return this.getOrgProjectsList().pipe(
       map((projects) => projects.body.data.map((project) => new ProjectListItem(project))),
       map((projects: ProjectListItem[]) =>
-        projects.map(({ startDate, members, responsable, title }) => ({
+        projects.map(({ creatingDate, members, responsable, title }) => ({
           title: `${title}`,
           managers: this.parseProjectResponsible(responsable),
           participents: `${members}`,
-          dateStart: moment(startDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
+          creatingDate: moment(creatingDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
         })),
       ),
       tap((response) => {

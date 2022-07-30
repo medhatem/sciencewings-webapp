@@ -35,7 +35,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         { columnName: 'ORGANIZATION.PROJECTS.LIST.TITLE', columnPropertyToUse: 'title' },
         { columnName: 'ORGANIZATION.PROJECTS.LIST.MANAGER', columnPropertyToUse: 'managers' },
         { columnName: 'ORGANIZATION.PROJECTS.LIST.MEMBERS', columnPropertyToUse: 'participents' },
-        { columnName: 'ORGANIZATION.PROJECTS.LIST.DATESTART', columnPropertyToUse: 'dateStart' },
+        { columnName: 'ORGANIZATION.PROJECTS.LIST.CREATIONDATE', columnPropertyToUse: 'creatingDate' },
       ],
       numnberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
