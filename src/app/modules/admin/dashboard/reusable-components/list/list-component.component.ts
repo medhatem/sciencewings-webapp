@@ -71,12 +71,13 @@ export class ListComponent implements OnInit, OnDestroy {
    *
    */
   parseColumns() {
-    this.keys = this.options.columns.map((col): string => col.columnPropertyToUse);
+    this.keys = this.options.columns.map((col) => col);
     this.headers = this.options.columns.map((col) => col);
     if (!this.options.numnberOfColumns) {
       this.options.numnberOfColumns = this.keys.length;
     }
   }
+
   /**
    * dynamically create a grid with variable amount of columns
    */

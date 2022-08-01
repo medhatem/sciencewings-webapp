@@ -21,7 +21,7 @@ export class OrganizationMemebrsComponent implements OnInit {
   members: any[] = [];
   isLoading: boolean = false;
   membersCount: number = 0;
-  options: ListOption = { columns: [], numnberOfColumns: 4 };
+  options: ListOption = { columns: [], numnberOfColumns: 5 };
   openedDialogRef: any;
   searchInputControl: FormControl = new FormControl();
 
@@ -42,8 +42,9 @@ export class OrganizationMemebrsComponent implements OnInit {
         { columnName: 'Role', columnPropertyToUse: 'role', customClass: 'hidden' },
         { columnName: 'Status', columnPropertyToUse: 'status', customClass: 'hidden' },
         { columnName: 'Joined', columnPropertyToUse: 'date', customClass: 'hidden' },
+        { columnName: 'Actions', columnPropertyToUse: '', customClass: 'hidden' },
       ],
-      numnberOfColumns: 4,
+      numnberOfColumns: 5,
       onElementClick: this.onElementSelected.bind(this),
     };
 
