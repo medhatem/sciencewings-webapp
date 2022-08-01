@@ -335,7 +335,7 @@
     "PROFILE_RESOURCE": {
       "DETAILS": {
         "ROLE": "Rôle",
-        "CLASS": "Class",
+        "CLASS": "Classe",
         "TYPE": "Type"
       },
       "TABS": {
@@ -400,13 +400,14 @@
       "RESOUCES": {
         "GENERAL": "Général",
         "NAME": "Nom",
-        "CLASS": "Class",
+        "CLASS": "Classe",
         "TYPE": "Type",
         "TIMEZONE": "Fuseau horaire",
         "DESCRIPTION": "Description",
         "TAGS": "Mots clés",
         "MANAGERS": "Managers",
         "STATUS": "Status",
+        "ACCESS_TO_RESOURCE": "Accès à la ressource",
         "VISIBILITY_SETTINGS": "Paramètres de visibilité",
         "VISIBILITY": "Visibilité",
         "RESOURCE_UNLISTED_ON_SITE_PAGE": "Ressource non répertoriée sur la page du site",
@@ -435,6 +436,7 @@
         "APPLIES_TO_PUBLIC": "S'applique au public",
         "CATEGORY": "Catégorie",
         "TIME_RESTRICTION_OPTIONS": "Options de restriction de temps",
+        "TIME_RESTRICTION": "Restriction de temps",
         "RESERVATION_EDITING_WINDOW_FOR_USERS": "Fenêtre d'édition de réservation pour les utilisateurs",
         "RESTRICT_CREATING_NEW_RESERVATION_BEFORE_A_TIME": "Restreindre la création d'une nouvelle réservation avant une heure",
         "RESTRICT_CREATING_NEW_RESERVATION_AFTER_A_TIME": "Restreindre la création d'une nouvelle réservation après un certain temps",
@@ -446,7 +448,8 @@
         "BUFFER_TIME_BEFORE_RESERVATION": "Temps tampon avant réservation",
         "VISIBILITY_OPTIONS": "Options de visibilité",
         "RESERVATION_DETAILS_VISIBILITY_TO_NON_MODERATORS": "Visibilité des détails de la réservation pour les non-modérateurs",
-        "ALL_RESERVATION_DETAILS": "Tous les détails de la réservation"
+        "ALL_RESERVATION_DETAILS": "Tous les détails de la réservation",
+        "PROPERTIES": "Propriétés"
       }
     },
     "SUCCESS": {

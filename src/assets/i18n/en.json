@@ -406,6 +406,7 @@
         "TAGS": "Tags",
         "MANAGERS": "Managers",
         "STATUS": "Status",
+        "ACCESS_TO_RESOURCE": "Access To Resource",
         "VISIBILITY_SETTINGS": "Visibility Settings",
         "VISIBILITY": "Visibility",
         "RESOURCE_UNLISTED_ON_SITE_PAGE": "Resource Unlisted on Site Page",
@@ -434,6 +435,7 @@
         "APPLIES_TO_PUBLIC": "Applies to public",
         "CATEGORY": "Category",
         "TIME_RESTRICTION_OPTIONS": "Time Restriction Options",
+        "TIME_RESTRICTION": "Time Restriction",
         "RESERVATION_EDITING_WINDOW_FOR_USERS": "Reservation Editing Window for Users",
         "RESTRICT_CREATING_NEW_RESERVATION_BEFORE_A_TIME": "Restrict Creating New Reservation Before a Time",
         "RESTRICT_CREATING_NEW_RESERVATION_AFTER_A_TIME": "Restrict Creating New Reservation After a Time",
@@ -445,7 +447,8 @@
         "BUFFER_TIME_BEFORE_RESERVATION": "Buffer Time Before Reservation",
         "VISIBILITY_OPTIONS": "Visibility Options",
         "RESERVATION_DETAILS_VISIBILITY_TO_NON_MODERATORS": "Reservation Details Visibility to Non-moderators",
-        "ALL_RESERVATION_DETAILS": "All Reservation Details"
+        "ALL_RESERVATION_DETAILS": "All Reservation Details",
+        "PROPERTIES": "Properties"
       }
     },
     "SUCCESS": {

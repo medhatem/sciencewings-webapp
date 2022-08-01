@@ -151,39 +151,6 @@ export const appRoutes: Route[] = [
             },
             loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
           },
-          // {
-          //   path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.RESOURCE_UPDATE,
-          //   canActivate: [AuthGuard],
-          //   data: {
-          //     title: 'APP.ROUTES.ADMIN.RESOURCE_PROFILE.TITLE',
-          //     type: FuseNavigationItemTypeEnum.basic,
-          //     icon: 'heroicons_outline:information-circle',
-          //   },
-          //   component: ResourceProfileFormComponent,
-          // },
-          {
-            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.SCHEDULE,
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.RESOURCE_SCHEDULE.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:calendar',
-            },
-            component: ResourceScheduleComponent,
-          },
-          //   {
-          //     path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.GENERAL_SETTINGS,
-          //     canActivate: [AuthGuard],
-          //     data: {
-          //       title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.GENERAL',
-          //       type: FuseNavigationItemTypeEnum.basic,
-          //       icon: 'heroicons_outline:users',
-          //     },
-          //     loadChildren: () =>
-          //       import('app/modules/admin/dashboard/resource/resource-settings/reservation/settings.module').then(
-          //         (m) => m.SettingsReservationModule,
-          //       ),
-          //   },
         ],
       },
       {

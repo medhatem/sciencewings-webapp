@@ -75,7 +75,7 @@
         <div class="flex items-center justify-end">
           <button mat-stroked-button type="button" (click)="onCancel()">{{ 'APP.BTN.CANCEL' | transloco }}</button>
           <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
-            {{ (selectedRateId ? 'Update' : 'Add') | transloco }}
+            {{ ((selectedRateId ? 'Update' : 'Add') === 'Update' ? 'APP.BTN.UPDATE' : 'APP.BTN.ADD') | transloco }}
           </button>
         </div>
       </form>

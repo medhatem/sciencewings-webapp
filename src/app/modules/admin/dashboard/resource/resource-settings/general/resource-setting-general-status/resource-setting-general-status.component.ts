@@ -26,22 +26,22 @@ export class ResourceSettingGeneralStatusComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
-      statusType: this.settings?.statusType || '',
+      resourceType: this.settings?.resourceType || '',
       statusDescription: this.settings?.statusDescription || '',
     });
   }
 
   async onSubmit() {
     if (this.form.valid) {
-      if (this.form.valid) {
-        try {
-          const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
-          await lastValueFrom(this._resourceService.updateResourceSettingsGeneralStatus(selectedResourceId, this.form.value));
-          this.updateLocalSettings.emit(this.form.value);
-          this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
-        } catch (error) {
-          this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
-        }
+      try {
+        const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
+        await lastValueFrom(
+          this._resourceService.updateResourceSettingsGeneralStatus(selectedResourceId, { ...this.form.value, organization: 1, user: 1 }),
+        );
+        this.updateLocalSettings.emit(this.form.value);
+        this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
+      } catch (error) {
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
       }
     }
   }

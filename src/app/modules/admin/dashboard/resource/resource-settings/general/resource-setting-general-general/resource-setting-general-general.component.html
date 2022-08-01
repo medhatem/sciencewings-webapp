@@ -36,14 +36,14 @@
         </mat-form-field>
         <!-- <div class="mt-1 text-md text-hint">The type of resource, which defines what actions can take place on the resource.</div> -->
       </div>
-
       <div class="sm:col-span-4">
-        <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.TIMEZONE' | transloco }}</mat-label>
-          <input matInput formControlName="timezone" />
+        <mat-form-field class="w-full">
+          <mat-label>Timezone</mat-label>
+          <mat-select [formControlName]="'timezone'">
+            <mat-option *ngFor="let tz of timezones" [value]="tz.offset">{{ tz.name }}</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
-
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.DESCRIPTION' | transloco }}</mat-label>

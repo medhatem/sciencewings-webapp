@@ -9,18 +9,7 @@
     <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'Properties' | transloco }}</mat-label>
-          <mat-select [formControlName]="'language'">
-            <mat-option [value]="'prop1'">Prop1</mat-option>
-            <mat-option [value]="'prop2'">Prop2</mat-option>
-            <mat-option [value]="'prop3'">Prop3</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="sm:col-span-4">
-        <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'Access To Resource' | transloco }}</mat-label>
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ACCESS_TO_RESOURCE' | transloco }}</mat-label>
           <mat-select [formControlName]="'accessToResource'">
             <mat-option [value]="'users'">Users</mat-option>
             <mat-option [value]="'staff'">Staff</mat-option>
@@ -36,7 +25,7 @@
     <!-- Actions -->
     <div class="flex items-center justify-end">
       <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
-        {{ 'Save' | transloco }}
+        {{ 'APP.BTN.SUBMIT' | transloco }}
       </button>
     </div>
   </form>

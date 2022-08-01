@@ -34,19 +34,19 @@
       <!-- <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div> -->
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.AllowReservingLoansAtFutureDates' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ALLOW_RESERVING_LOANS_AT_FUTURE_DATES' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isReservingLoansAtFutureDates'" [color]="'primary'"> </mat-slide-toggle>
       </div>
       <!-- <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div> -->
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label
-          >{{ 'ORGANIZATION.SETTINGS.RESOUCES.FixedLoanDuration' | transloco }} {{ isFixedLoanDurationOptionhidden | transloco }}</mat-label
+          >{{ 'ORGANIZATION.SETTINGS.RESOUCES.FIXED_LOAN_DURATION' | transloco }} {{ isFixedLoanDurationOptionhidden | transloco }}</mat-label
         >
         <mat-slide-toggle [(ngModel)]="isFixedLoanDurationOptionhidden" [color]="'primary'" [ngModelOptions]="{ standalone: true }">
         </mat-slide-toggle>
       </div>
-      <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
+      <!-- <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div> -->
       <div class="sm:col-span-4" [ngClass]="{ hidden: !isFixedLoanDurationOptionhidden }">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-select [formControlName]="'fixedLoanDuration'">
@@ -58,7 +58,7 @@
       </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.OverdueNoticeDelay' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.OVERDUE_NOTICE_DELAY' | transloco }}</mat-label>
         <mat-slide-toggle [(ngModel)]="isOverdueNoticeDelayOptionhidden" [color]="'primary'" [ngModelOptions]="{ standalone: true }">
         </mat-slide-toggle>
       </div>
@@ -74,7 +74,7 @@
       </div>
 
       <div class="w-full mb-5">
-        <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.RecurringReservations' | transloco }}</div>
+        <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.RECURRING_RESERVATIONS' | transloco }}</div>
         <!-- <div class="text-secondary">Following information is publicly displayed, be careful!</div> -->
       </div>
 

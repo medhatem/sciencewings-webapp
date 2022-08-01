@@ -1,73 +1,75 @@
-<div class="flex flex-col flex-auto min-w-0">
-  <!-- Header -->
-  <div class="relative flex-0 px-4 pt-2 overflow-hidden">
-    <!-- Actions -->
-    <div class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-2">
-      <!-- Back -->
-      <div class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none">
-        <button class="fuse-mat-button-rounded sm:ml-16" mat-flat-button [color]="'primary'" routerLink="{{ ['../'] }}">
-          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:arrow-circle-left'"></mat-icon>
-          <span class="ml-2">Back</span>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="col-span-12 flex flex-col flex-auto py-6 bg-card shadow rounded-2xl overflow-hidden">
-    <div class="p-8">
-      <div class="flex flex-col mt-4 pt-6 border-t space-y-8">
-        <div class="grid grid-cols-3 gap-2grid-flow-col auto-cols-max">
-          <ng-container *ngIf="resource.name">
-            <div><mat-icon [svgIcon]="'heroicons_outline:cube'"></mat-icon></div>
-            <div>
-              <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.NAME' | transloco }}:</mat-label>
-            </div>
-            <div>{{ resource.name }}</div>
-          </ng-container>
-
-          <ng-container *ngIf="resource.resourceType">
-            <mat-icon [svgIcon]="'heroicons_outline:cube-transparent'"></mat-icon>
-            <mat-label>{{ 'ORGANIZATION.PROFILE_RESOURCE.DETAILS.TYPE' | transloco }}:</mat-label>
-            <p>{{ resource.resourceType }}</p>
-          </ng-container>
-
-          <ng-container *ngIf="resource.resourceClass">
-            <mat-icon [svgIcon]="'heroicons_outline:cube-transparent'"></mat-icon>
-            <mat-label> {{ 'ORGANIZATION.PROFILE_RESOURCE.DETAILS.CLASS' | transloco }}:</mat-label>
-            <p>{{ resource.resourceClass }}</p>
-          </ng-container>
-
-          <ng-container *ngIf="resource.tags.length">
-            <mat-icon [svgIcon]="'heroicons_outline:hashtag'"></mat-icon>
-            <mat-label> {{ 'ORGANIZATION.SETTINGS.RESOUCES.TAGS' | transloco }}:</mat-label>
-            <div class="min-w-0 space-y-1">
-              <mat-chip-list>
-                <ng-container *ngFor="let tag of resource.tags">
-                  <mat-chip>{{ tag.title }}</mat-chip>
-                </ng-container>
-              </mat-chip-list>
-            </div>
-          </ng-container>
-
-          <ng-container *ngIf="resource.managers.length">
-            <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
-            <mat-label> {{ 'APP.RESOURCES.MANAGERS' | transloco }}:</mat-label>
-
-            <div class="min-w-0 space-y-1">
-              <mat-chip-list>
-                <ng-container *ngFor="let manager of resource.managers">
-                  <mat-chip>{{ manager.name }}</mat-chip>
-                </ng-container>
-              </mat-chip-list>
-            </div>
-          </ng-container>
-
-          <ng-container *ngIf="resource.description">
-            <mat-icon [svgIcon]="'heroicons_outline:menu-alt-2'"></mat-icon>
-            <mat-label> {{ 'ORGANIZATION.SETTINGS.RESOUCES.DESCRIPTION' | transloco }}:</mat-label>
-            <div class="max-w-none prose prose-sm">{{ resource.description }}</div>
-          </ng-container>
+<div class="flex flex-auto my-4 sm:mx-36">
+  <div class="flex flex-col flex-auto w-full max-w-lg sm:max-w-full mx-auto">
+    <div class="w-full max-w-screen-xl mx-auto">
+      <div class="relative flex-0 px-4 pt-2 overflow-hidden">
+        <div class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-2">
+          <div class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none">
+            <button class="fuse-mat-button-rounded sm:ml-16" mat-flat-button [color]="'primary'" routerLink="{{ ['../../'] }}">
+              <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:arrow-circle-left'"></mat-icon>
+              <span class="ml-2">Back</span>
+            </button>
+          </div>
         </div>
       </div>
+      <fuse-card class="flex flex-auto p-6 bg-card shadow rounded-2xl">
+        <div class="relative flex flex-col flex-auto pt-0 sm:p-12 sm:pt-0">
+          <div class="w-full max-w-3xl"></div>
+          <div class="flex flex-col mt-4 pt-6 border-t space-y-8">
+            <div class="grid grid-cols-3 gap-2">
+              <ng-container *ngIf="resource.name">
+                <div><mat-icon [svgIcon]="'heroicons_outline:cube'"></mat-icon></div>
+                <div>
+                  <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.NAME' | transloco }}:</mat-label>
+                </div>
+                <div>{{ resource.name }}</div>
+              </ng-container>
+
+              <ng-container *ngIf="resource.resourceType">
+                <mat-icon [svgIcon]="'heroicons_outline:cube-transparent'"></mat-icon>
+                <mat-label>{{ 'ORGANIZATION.PROFILE_RESOURCE.DETAILS.TYPE' | transloco }}:</mat-label>
+                <p>{{ resource.resourceType }}</p>
+              </ng-container>
+
+              <ng-container *ngIf="resource.resourceClass">
+                <mat-icon [svgIcon]="'heroicons_outline:cube-transparent'"></mat-icon>
+                <mat-label> {{ 'ORGANIZATION.PROFILE_RESOURCE.DETAILS.CLASS' | transloco }}:</mat-label>
+                <p>{{ resource.resourceClass }}</p>
+              </ng-container>
+
+              <ng-container *ngIf="resource.tags.length">
+                <mat-icon [svgIcon]="'heroicons_outline:hashtag'"></mat-icon>
+                <mat-label> {{ 'ORGANIZATION.SETTINGS.RESOUCES.TAGS' | transloco }}:</mat-label>
+                <div class="min-w-0 space-y-1">
+                  <mat-chip-list>
+                    <ng-container *ngFor="let tag of resource.tags">
+                      <mat-chip>{{ tag.title }}</mat-chip>
+                    </ng-container>
+                  </mat-chip-list>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="resource.managers.length">
+                <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
+                <mat-label> {{ 'APP.RESOURCES.MANAGERS' | transloco }}:</mat-label>
+
+                <div class="min-w-0 space-y-1">
+                  <mat-chip-list>
+                    <ng-container *ngFor="let manager of resource.managers">
+                      <mat-chip>{{ manager.name }}</mat-chip>
+                    </ng-container>
+                  </mat-chip-list>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="resource.description">
+                <mat-icon [svgIcon]="'heroicons_outline:menu-alt-2'"></mat-icon>
+                <mat-label> {{ 'ORGANIZATION.SETTINGS.RESOUCES.DESCRIPTION' | transloco }}:</mat-label>
+                <div class="max-w-none prose prose-sm">{{ resource.description }}</div>
+              </ng-container>
+            </div>
+          </div>
+        </div></fuse-card
+      >
     </div>
   </div>
 </div>

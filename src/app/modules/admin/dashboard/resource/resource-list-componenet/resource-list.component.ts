@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, lastValueFrom } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ResourceService } from '../../../resolvers/resource/resource.service';
@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { FuseNavigationItem, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { CookieService } from 'ngx-cookie-service';
 import { constants } from 'app/shared/constants';
+import { MatDialog } from '@angular/material/dialog';
+import { ResourceProfileFormComponent } from '../resource-form/profile-form.component';
 
 export interface ResourceType {
   name: string;
@@ -30,14 +32,15 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   resources = [];
   isLoading: boolean = false;
   selectedResource = null;
+  openedDialogRef: any;
 
   searchInputControl: FormControl = new FormControl();
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
     private _resourceService: ResourceService,
+    private _matDialog: MatDialog,
     private _toastrService: ToastrService,
-    private _changeDetectorRef: ChangeDetectorRef,
     private _router: Router,
     private _fuseNavigationService: FuseNavigationService,
     private _coookies: CookieService,
@@ -136,18 +139,32 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const newNavigation: FuseNavigationItem[] = [
       {
-        id: 'supported-components',
-        title: 'Resource settings',
+        id: 'general-components',
+        title: 'Resource',
         subtitle: resourceName,
         type: 'group',
         children: [
           {
-            id: 'supported-components.apex-charts',
+            id: 'supported-components.general',
             title: 'Resource',
             type: 'basic',
             icon: 'heroicons_outline:cube',
-            link: 'resources/resource/create/' + resourceID,
+            link: 'resources/resource/profile/' + resourceID,
           },
+          {
+            id: 'supported-components.schedule',
+            title: 'Schedule',
+            type: 'basic',
+            icon: 'heroicons_outline:calendar',
+            link: 'resources/resource/schedule',
+          },
+        ],
+      },
+      {
+        id: 'supported-components',
+        title: 'Settings',
+        type: 'group',
+        children: [
           {
             id: 'supported-components.full-calendar',
             title: 'General',
@@ -170,5 +187,17 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
     navComponent.refresh();
     this._coookies.set('resourceID', resourceID.toString());
     this._router.navigateByUrl('resources/resource/profile/' + resourceID);
+  }
+
+  openCreateDialog(): void {
+    this.openedDialogRef = this._matDialog.open(ResourceProfileFormComponent, {});
+    this.openedDialogRef.afterClosed().subscribe(async (result) => {
+      const { body } = await lastValueFrom(this._resourceService.getOrgResource(1));
+      if (body.statusCode === 500) {
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
+      }
+
+      this.resources = body.data;
+    });
   }
 }

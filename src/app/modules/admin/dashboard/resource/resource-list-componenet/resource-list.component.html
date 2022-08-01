@@ -15,10 +15,9 @@
         <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
         <input matInput [formControl]="searchInputControl" [autocomplete]="'off'" [placeholder]="'Search resources$'" />
       </mat-form-field>
-      <!-- Add resource button -->
-      <button class="ml-4" mat-flat-button [color]="'primary'" routerLinkActive="active" [routerLink]="['create']">
+      <button class="ml-4" mat-flat-button [color]="'primary'" (click)="openCreateDialog()">
         <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
-        <span class="ml-2 mr-1">Add</span>
+        <span class="ml-2 mr-1">{{ 'APP.BTN.ADD' | transloco }}</span>
       </button>
     </div>
   </div>

@@ -10,6 +10,7 @@ import { ResourceRo } from 'generated/models';
 import { CookieService } from 'ngx-cookie-service';
 import { lastValueFrom, map, Observable, startWith } from 'rxjs';
 import { constants } from 'app/shared/constants';
+import { TIMEZONES } from '../../../resurce-setting-rule/timezones';
 
 @Component({
   selector: 'app-resource-setting-general-general',
@@ -42,6 +43,8 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
   isTagsDirty = false;
   isManagersDirty = false;
 
+  timezones = TIMEZONES;
+
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _formBuilder: FormBuilder,
@@ -60,13 +63,13 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
     });
 
     this._resourceService.getOrgMembers(1).subscribe(({ body }) => {
-      const { members, statusCode } = body;
+      const { data, statusCode } = body;
       if (statusCode !== 200) {
         this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
         return;
       }
 
-      this.allManagers = members;
+      this.allManagers = data;
 
       this.getCurrentResourceData();
     });
@@ -79,12 +82,11 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
 
   async onSubmit() {
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
-    const _resource: ResourceRo = {
+    const _resource = {
       name: this.form.value.name,
       timezone: this.form.value.timezone,
       description: this.form.value.description,
       active: true,
-      organization: 1,
       user: 1,
       resourceType: this.form.value.resourceType,
       resourceClass: this.form.value.resourceClass,
@@ -290,11 +292,11 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
       }
       const data = body.data[0];
       this.form.setValue({
-        name: data.name,
-        resourceClass: data.resourceClass,
-        resourceType: data.resourceType,
-        timezone: data.timezone,
-        description: data.description,
+        name: data.name || '',
+        resourceClass: data.resourceClass || 'equipement',
+        resourceType: data.resourceType || 'reservable',
+        timezone: data.timezone || TIMEZONES[0].name,
+        description: data.description || '',
       });
       this.tags = data.tags.map((tag) => tag.title);
       this.filteredTags = data.tags.map((tag) => tag.title);
