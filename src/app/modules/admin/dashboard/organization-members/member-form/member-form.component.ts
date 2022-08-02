@@ -30,7 +30,11 @@ export class MemberFormComponent implements OnInit {
   ngOnInit(): void {
     this.memberForm = this._formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
+      description: [''],
     });
+  }
+  InvitationPersonalizeListener(event) {
+    this.isInvitationPersonalize = event.checked;
   }
 
   async invite(): Promise<void> {
