@@ -38,29 +38,8 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
   ) {}
 
-  async ngOnInit() {
-    /**
-     * loops on the get current user id, until it is available. then subscibes
-     * to userOrganizations one the user is selected and available is localStorage
-     */
-    interval(1000)
-      .pipe(
-        map(async () => {
-          const userId = localStorage.getItem(constants.CURRENT_USER_ID);
-          if (!Number(userId)) {
-            throw new Error('No user selected');
-          }
-          this._userSelected.next(true);
-          this._userSelected.complete();
-          await this.subscribeToUserOrganizations();
-          return userId;
-        }),
-        retryWhen((error) => error.pipe(tap())),
-        takeUntil(this._userSelected),
-      )
-      .subscribe({
-        next: (val) => val,
-      });
+  ngOnInit() {
+    this.triggerLoopCheckForUserAndAvailableOrganizations();
   }
 
   /**
@@ -72,10 +51,38 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  setActiveOrganization(organization: UserOrganizations): void {
-    this.activeOrganization = organization;
-    localStorage.setItem(constants.CURRENT_ORGANIZATION_ID, `${organization.id}`);
+  setActiveOrganization(organization: UserOrganizations, orgId?: number): void {
+    if (orgId) {
+      this.activeOrganization = this.availableOrganizations.find(({ id }) => id === orgId);
+    } else {
+      this.activeOrganization = organization;
+    }
+    this._changeDetectorRef.markForCheck();
+    localStorage.setItem(constants.CURRENT_ORGANIZATION_ID, `${this.activeOrganization.id}`);
     this.onActiveOrganizationChange.emit(this.activeOrganization.id);
+  }
+
+  /**
+   * loops on the get current user id, until it is available. then subscibes
+   * to userOrganizations once the user is selected and available is localStorage.
+   * and the user has organizations.
+   */
+  private triggerLoopCheckForUserAndAvailableOrganizations() {
+    interval(1000)
+      .pipe(
+        map(async () => {
+          const userHasOrganizations = await this.subscribeToUserOrganizations();
+          if (userHasOrganizations) {
+            this._userSelected.next(true);
+            this._userSelected.complete();
+          }
+        }),
+        retryWhen((error) => error.pipe(tap())),
+        takeUntil(this._userSelected),
+      )
+      .subscribe({
+        next: (val) => val,
+      });
   }
 
   /**
@@ -84,15 +91,20 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
    *
    * @returns
    */
-  private async subscribeToUserOrganizations() {
+  private async subscribeToUserOrganizations(): Promise<boolean> {
     const userId = localStorage.getItem(constants.CURRENT_USER_ID);
     if (!Number(userId)) {
       this.isNoOrganization = true;
-      return;
+      return false;
     }
 
     this.availableOrganizations = await lastValueFrom(this._adminOrganizationsService.getAllUserOrganizations(Number(userId)));
     if (this.availableOrganizations?.length) {
+      const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+      const organizationExist = this.availableOrganizations.find(({ id }) => id === orgId);
+      if (organizationExist) {
+        this.setActiveOrganization(organizationExist);
+      }
       this.isNoOrganization = false;
       this._changeDetectorRef.markForCheck();
     }
@@ -100,6 +112,12 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
     this._adminOrganizationsService.userOrganiztions.pipe(takeUntil(this._unsubscribeAll)).subscribe({
       next: (organizations) => {
         this.availableOrganizations = organizations;
+        if (this.availableOrganizations?.length) {
+          this.isNoOrganization = false;
+        } else {
+          this.isNoOrganization = true;
+        }
+
         this._changeDetectorRef.markForCheck();
       },
       error: (error) => {
@@ -108,5 +126,6 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
         this._changeDetectorRef.markForCheck();
       },
     });
+    return true;
   }
 }

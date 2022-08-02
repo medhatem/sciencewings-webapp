@@ -67,14 +67,14 @@ export class ProjectService {
   getAndParseOrganizationProject(): Observable<any[]> {
     return this.getOrgProjects().pipe(
       map((projects) => projects.body.data.map((project) => new ProjectListItem(project))),
-      map((result: ProjectListItem[]) => {
-        return result.map(({ title, managers, participants, dateStart }) => ({
+      map((projects: ProjectListItem[]) =>
+        projects.map(({ title, managers, participants, dateStart }) => ({
           title: `${title}`,
           managers: this.parseMembersToHtml(managers),
           participents: participants.length,
           dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-        }));
-      }),
+        })),
+      ),
       tap((response) => {
         this._projects.next(response);
       }),
