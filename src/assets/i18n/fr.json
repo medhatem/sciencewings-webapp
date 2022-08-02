@@ -398,6 +398,7 @@
         "Utilisateur HideCalenderForMemberOnly": "Masquer le calendrier pour les membres uniquement"
       },
       "RESOUCES": {
+        "CREATE_RESOURCE": "Créer une ressource",
         "GENERAL": "Général",
         "NAME": "Nom",
         "CLASS": "Classe",

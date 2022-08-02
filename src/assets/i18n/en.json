@@ -397,6 +397,7 @@
         "UserHideCalenderForMemberOnly": "User Hide Calender For Member Only"
       },
       "RESOUCES": {
+        "CREATE_RESOURCE": "Create Resource",
         "GENERAL": "General",
         "NAME": "Name",
         "CLASS": "Class",
