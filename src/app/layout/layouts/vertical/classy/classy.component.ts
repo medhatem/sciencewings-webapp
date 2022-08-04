@@ -26,11 +26,11 @@ import { FuseSplashScreenService } from '@fuse/services/splash-screen/splash-scr
 import { SwitchOrganizationsService } from 'app/layout/common/switch-organization/switch-organization.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { User } from 'app/core/user/user.types';
-import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { constants } from 'app/shared/constants';
 import { SharedHelpers } from 'app/shared/helpers';
+import { LandingPageComponent } from 'app/modules/admin/dashboard/landing/landing-page/landing-page.component';
+import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { SwitchOrganizationComponent } from 'app/layout/common/switch-organization/switch-organization.component';
-import { LandingPageComponent } from 'app/modules/admin/dashboard/landing-page/landing-page.component';
 
 @Component({
   selector: 'classy-layout',
@@ -40,7 +40,7 @@ import { LandingPageComponent } from 'app/modules/admin/dashboard/landing-page/l
 export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   @Input() hideMenusAndButtons: boolean;
   @Output() onHideMenusAndButtonsChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @ViewChild(SwitchOrganizationComponent) switchOrganization: SwitchOrganizationComponent;
+  @ViewChild(SwitchOrganizationComponent) switchOrganizationComponent: SwitchOrganizationComponent;
 
   isScreenSmall: boolean;
   navigation: FuseNavigationItem[];
@@ -56,6 +56,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     private _fuseSplashScreenService: FuseSplashScreenService,
     private _toastrService: ToastrService,
     private _switchOrganizationsService: SwitchOrganizationsService,
+    private _adminOrganizationsService: AdminOrganizationsService,
   ) {}
 
   /**
@@ -66,29 +67,19 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(): void {
-    const { userData } = this._route.snapshot.data;
+    const { userKeycloackData } = this._route.snapshot.data;
     this._router.onSameUrlNavigation = 'ignore';
-    /**
-     * Set ADMINISTRATION module by default
-     */
-    if (!localStorage.getItem(constants.CURRENT_MODULE)) {
-      localStorage.setItem(constants.CURRENT_MODULE, constants.MODULES_ROUTINGS_URLS.ADMIN);
-    }
+    this.setAdministrationModuleAsDefault();
+    this.subscribeToMediaChangesAndScreenSizeCheck();
+
     /**
      * Temporary modification until implementation of images handling and User status
      */
     this.user = {
-      ...userData,
+      ...userKeycloackData,
       avatar: 'assets/images/avatars/brian-hughes.jpg',
       status: 'online',
     };
-    /**
-     * Subscribe to media changes
-     * Check if the screen is small
-     */
-    this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
-      this.isScreenSmall = !matchingAliases.includes('md');
-    });
   }
 
   ngOnDestroy(): void {
@@ -96,22 +87,20 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     this._unsubscribeAll.complete();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.resetNavigation(changes.hideMenusAndButtons.currentValue);
+  async ngOnChanges(changes: SimpleChanges) {
+    await this.resetNavigation(changes.hideMenusAndButtons.currentValue);
   }
 
   onActivate(event) {
     if (event instanceof LandingPageComponent) {
-      event.selectOrganizationEvent.subscribe(async (id) => {
-        await this.onActiveOrganizationChange(id);
+      event.selectOrganizationEvent.subscribe((id) => {
+        if (this.switchOrganizationComponent) {
+          this.switchOrganizationComponent.setActiveOrganization(undefined, id);
+        }
         this._router.navigate([event.organizationProfilePath, id]);
       });
     }
   }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
 
   /**
    * Toggle navigation
@@ -135,7 +124,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    *
    * @param hideNavigation
    */
-  resetNavigation(hideNavigation: boolean): void {
+  async resetNavigation(hideNavigation: boolean) {
     try {
       this._fuseSplashScreenService.show();
       if (this.hideMenusAndButtons !== hideNavigation) {
@@ -145,7 +134,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       if (hideNavigation) {
         this.navigation = [];
       } else {
-        this.loadNavigationItemsFromRoutes();
+        await this.loadNavigationItemsFromRoutes();
       }
     } catch (error) {
       this._toastrService.showError(constants.FATAL_ERROR_OCCURED);
@@ -164,9 +153,9 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    *
    * @params url: string
    */
-  onSwitchModule(url: string) {
+  async onSwitchModule(url: string) {
     localStorage.setItem(constants.CURRENT_MODULE, url);
-    this.resetNavigation(false);
+    await this.resetNavigation(false);
   }
 
   /**
@@ -179,15 +168,29 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     try {
       await this._switchOrganizationsService.switchOrganization(organizationId);
     } catch (error) {
-      console.log(error?.message);
+      // Ignore error
     } finally {
-      this.resetNavigation(false);
+      await this.resetNavigation(false);
     }
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Private methods
-  // -----------------------------------------------------------------------------------------------------
+  /**
+   * Subscribe to media changes, and Check if the screen is small
+   */
+  private subscribeToMediaChangesAndScreenSizeCheck() {
+    this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
+      this.isScreenSmall = !matchingAliases.includes('md');
+    });
+  }
+
+  /**
+   * Set ADMINISTRATION module by default
+   */
+  private setAdministrationModuleAsDefault() {
+    if (!localStorage.getItem(constants.CURRENT_MODULE)) {
+      localStorage.setItem(constants.CURRENT_MODULE, constants.MODULES_ROUTINGS_URLS.ADMIN);
+    }
+  }
 
   /**
    * Builds navigation items from application routes
@@ -195,19 +198,23 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    *
    * Returns only Landing Page if no organization selected
    */
-  private loadNavigationItemsFromRoutes(): void {
+  private async loadNavigationItemsFromRoutes() {
     const applicationRoutes = appRoutes[0].children;
     const navigationItems = [applicationRoutes.find(({ path }) => path === constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.LANDING_PAGE)];
 
-    const currentOrganization = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
-    if (!!currentOrganization) {
-      // this.switchOrganization?.setActiveOrganization();
-      const modulePath = localStorage.getItem(constants.CURRENT_MODULE) || constants.MODULES_ROUTINGS_URLS.ADMIN;
-      navigationItems.push(applicationRoutes.find(({ path }) => path === modulePath));
+    const currentOrganizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    try {
+      const organizationExist = await this._adminOrganizationsService.getOrganization(currentOrganizationId);
+      if (organizationExist) {
+        const modulePath = localStorage.getItem(constants.CURRENT_MODULE) || constants.MODULES_ROUTINGS_URLS.ADMIN;
+        navigationItems.push(applicationRoutes.find(({ path }) => path === modulePath));
+      }
+    } catch (error) {
+      // Ignore error
+    } finally {
+      this.navigation = this.buildNavigationItemsFromRoutes(navigationItems);
+      this.redirectToParentOrFirstChild(navigationItems[0]);
     }
-
-    this.navigation = this.buildNavigationItemsFromRoutes(navigationItems);
-    this.redirectToParentOrFirstChild(navigationItems[0]);
   }
 
   /**
