@@ -45,7 +45,6 @@ export class ListComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   searchInputControl: FormControl = new FormControl();
   keys: any[];
-  headers: any[];
   cols = 4;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -72,7 +71,6 @@ export class ListComponent implements OnInit, OnDestroy {
    */
   parseColumns() {
     this.keys = this.options.columns.map((col) => col);
-    this.headers = this.options.columns.map((col) => col);
     if (!this.options.numnberOfColumns) {
       this.options.numnberOfColumns = this.keys.length;
     }
