@@ -92,13 +92,13 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
    * @returns
    */
   private async subscribeToUserOrganizations(): Promise<boolean> {
-    const userId = localStorage.getItem(constants.CURRENT_USER_ID);
-    if (!Number(userId)) {
+    const userId = Number(localStorage.getItem(constants.CURRENT_USER_ID));
+    if (!userId) {
       this.isNoOrganization = true;
       return false;
     }
 
-    this.availableOrganizations = await lastValueFrom(this._adminOrganizationsService.getAllUserOrganizations(Number(userId)));
+    this.availableOrganizations = await lastValueFrom(this._adminOrganizationsService.getAllUserOrganizations(userId));
     if (this.availableOrganizations?.length) {
       const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
       const organizationExist = this.availableOrganizations.find(({ id }) => id === orgId);
