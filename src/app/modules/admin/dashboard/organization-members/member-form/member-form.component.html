@@ -15,12 +15,7 @@
     <hr class="w-full border-t my-4" />
     <div class="flex items-center justify-between">
       <div class="flex-auto leading-6 cursor-pointer">{{ 'ORGANIZATION.MEMBERS.FORM.PERSONALIZE_INVITATION' | transloco }}</div>
-      <mat-slide-toggle
-        [(ngModel)]="isInvitationPersonalize"
-        [ngModelOptions]="{ standalone: true }"
-        (change)="InvitationPersonalizeListener($event)"
-        [color]="'primary'">
-      </mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]="isInvitationPersonalize" [ngModelOptions]="{ standalone: true }" [color]="'primary'"> </mat-slide-toggle>
     </div>
     <mat-form-field *ngIf="isInvitationPersonalize" class="flex-auto mx-4">
       <textarea

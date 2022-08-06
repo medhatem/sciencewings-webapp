@@ -33,9 +33,6 @@ export class MemberFormComponent implements OnInit {
       description: [''],
     });
   }
-  InvitationPersonalizeListener(event) {
-    this.isInvitationPersonalize = event.checked;
-  }
 
   async invite(): Promise<void> {
     try {
