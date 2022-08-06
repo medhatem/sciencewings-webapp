@@ -278,7 +278,7 @@
     },
     "MEMBERS": {
       "EXPORT_MEMBERS": "Exporter",
-      "FILTER_MEMBERS": "Filte",
+      "FILTER_MEMBERS": "Filtre",
       "FORM": {
         "CANCEL": "Annuler",
         "DESCRIPTION": "À propos (description)",
@@ -290,6 +290,7 @@
       },
       "IMPORT_MEMBERS": "Importer",
       "INVITE_MEMBERS": "Inviter un membre",
+      "INVITE_MEMBERS_MOBILE": "Inviter",
       "LIST": {
         "DATE": "Joined Date",
         "MEMBER_NAME": "Profil",
@@ -299,7 +300,7 @@
       },
       "MESSAGE": "Gérer les accès pour tous les membres de votre organisation dans ",
       "SEARCH_MEMBERS": " Rechercher un membre",
-      "TITLE": "Members",
+      "TITLE": "Membres",
       "ERROR_LOADING_MEMBERS": "impossible de charger les membres.",
       "MISSING_INFO": "____Information_Manquante____",
       "MISSING_NAME": "____Nom_Manquant____",

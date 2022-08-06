@@ -277,6 +277,7 @@
     },
 
     "MEMBERS": {
+      "TITLE": "Members",
       "EXPORT_MEMBERS": "Export",
       "FILTER_MEMBERS": "Filter",
       "FORM": {
@@ -290,6 +291,7 @@
       },
       "IMPORT_MEMBERS": "Import",
       "INVITE_MEMBERS": "Invite Members",
+      "INVITE_MEMBERS_MOBILE": "Invite",
       "LIST": {
         "DATE": "Joined Date",
         "MEMBER_NAME": "Profil",
@@ -299,7 +301,6 @@
       },
       "MESSAGE": "Manage Access for all members in your organization in ",
       "SEARCH_MEMBERS": "Search Members",
-      "TITLE": "Members",
       "ERROR_LOADING_MEMBERS": "Could not load members.",
       "MISSING_INFO": "____Missing_Information____",
       "MISSING_NAME": "____Missing_Name____",
