@@ -31,10 +31,10 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.options = {
       columns: [
-        { columnName: 'Title', columnPropertyToUse: 'title' },
-        { columnName: 'Managers', columnPropertyToUse: 'managers' },
-        { columnName: '# Members', columnPropertyToUse: 'participents' },
-        { columnName: 'Date start', columnPropertyToUse: 'dateStart' },
+        { columnName: 'Title', columnPropertyToUse: 'title', customClass: '' },
+        { columnName: 'Managers', columnPropertyToUse: 'managers', customClass: 'hidden' },
+        { columnName: '# Members', columnPropertyToUse: 'participents', customClass: 'hidden' },
+        { columnName: 'Date start', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
       numnberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
