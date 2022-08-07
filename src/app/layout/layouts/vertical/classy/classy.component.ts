@@ -19,8 +19,6 @@ import {
 } from '@fuse/components/navigation';
 import { Subject, takeUntil } from 'rxjs';
 import { appRoutes } from 'app/app.routing';
-
-import { CookieService } from 'ngx-cookie-service';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen/splash-screen.service';
 import { SwitchOrganizationsService } from 'app/layout/common/switch-organization/switch-organization.service';
@@ -54,11 +52,11 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     private _router: Router,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _fuseNavigationService: FuseNavigationService,
-    private _cookies: CookieService,
     private _fuseSplashScreenService: FuseSplashScreenService,
     private _toastrService: ToastrService,
     private _switchOrganizationsService: SwitchOrganizationsService,
     private _adminOrganizationsService: AdminOrganizationsService,
+    private _sharedHelpers: SharedHelpers,
   ) {}
 
   /**
@@ -140,7 +138,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       }
     } catch (error) {
       this._toastrService.showError(constants.FATAL_ERROR_OCCURED);
-      SharedHelpers.terminateAllTasksAndLogout(this._cookies, [this._unsubscribeAll]);
+      this._sharedHelpers.terminateAllTasksAndLogout([this._unsubscribeAll]);
     } finally {
       setTimeout(() => {
         this._fuseSplashScreenService.hide();
@@ -227,6 +225,9 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
         }
       }
     } catch (error) {
+      if (error.status === 0) {
+        this._sharedHelpers.terminateAllTasksAndLogout([this._unsubscribeAll]);
+      }
     } finally {
       this.navigation = this.buildNavigationItemsFromRoutes(navigationItems);
       this.redirectToParentOrFirstChild(navigationItems[0]);
