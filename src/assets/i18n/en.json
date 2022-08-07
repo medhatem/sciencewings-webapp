@@ -105,6 +105,9 @@
         "PROJECT": {
           "TITLE": "Project"
         },
+        "PROJECT_SETTINGS": {
+          "TITLE": "Project Settings"
+        },
         "TITLE": "Dashboard",
         "USER_PROFILE": {
           "TITLE": "User profile"

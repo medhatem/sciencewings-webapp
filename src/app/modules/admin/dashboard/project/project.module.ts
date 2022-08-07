@@ -12,6 +12,7 @@ import { ProjectFormComponent } from './project-form/project-form.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { ListComponentModule } from '../reusable-components/list/list-component.module';
+import { ProjectSettingsComponent } from './project-settings/project-settings.component';
 
 @NgModule({
   declarations: [ProjectComponent, ProjectListComponent, ProjectFormComponent],
