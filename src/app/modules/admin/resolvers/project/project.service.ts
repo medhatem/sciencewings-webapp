@@ -6,7 +6,7 @@ import { CreateProjectDto, ResponsableObjectDto } from 'generated/models';
 import { Member } from 'app/models/members/member';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
-import { Project, ProjectListItem } from 'app/models/projects/project';
+import { Project, ProjectListItem, ProjectListMember } from 'app/models/projects/project';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,7 @@ export class ProjectService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _projects: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _projectParticipent: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private _swaggerService: ApiService) {}
 
@@ -28,6 +29,9 @@ export class ProjectService {
 
   get projects$(): Observable<any> {
     return this._projects.asObservable();
+  }
+  get projectParticipent$(): Observable<any> {
+    return this._projectParticipent.asObservable();
   }
 
   async createProject(project: Project): Promise<CreateProjectDto> {
@@ -87,5 +91,23 @@ export class ProjectService {
   }
   parseProjectResponsible(responsable: ResponsableObjectDto): string {
     return `<div>${responsable.name}</div><div>${responsable.email}</div>`;
+  }
+  getOrgProjectMembers(): Observable<any> {
+    return this._swaggerService.projectRoutesGetAllProjectParticipants({ id: 1 });
+  }
+  getAndParseProjectParticipants(): Observable<any[]> {
+    return this.getOrgProjectMembers().pipe(
+      map((projects) => projects.body.data.map((project) => new ProjectListMember(project))),
+      map((projects: ProjectListMember[]) =>
+        projects.map(({ member, role, status }) => ({
+          member: `${member}`,
+          role: `${role}`,
+          status: `${status}`,
+        })),
+      ),
+      tap((response) => {
+        this._projectParticipent.next(response);
+      }),
+    );
   }
 }

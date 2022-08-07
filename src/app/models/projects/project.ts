@@ -3,6 +3,7 @@ import {
   MemberDto,
   ProjectDto,
   ProjectListDto,
+  ProjectMemberDto,
   ProjectMemberRo,
   ProjectRo,
   ResponsableObjectDto,
@@ -68,6 +69,22 @@ export class ProjectListItem implements ProjectListDto {
       creatingDate,
       members,
       title,
+    });
+  }
+}
+export class ProjectListMember implements ProjectMemberDto {
+  member: MemberDto;
+  project: ProjectDto;
+  role: string;
+  status: string;
+  statusCode: number;
+
+  constructor(project?: any) {
+    const { member, role, status } = project || {};
+    Object.assign(this, {
+      role,
+      member,
+      status,
     });
   }
 }
