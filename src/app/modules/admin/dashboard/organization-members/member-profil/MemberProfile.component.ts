@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { lastValueFrom, map } from 'rxjs';
-
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Member } from 'app/models/Member';
 import { MemberProfileFormComponent } from './editMemberForm/MemberProfileForm.component';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'app-member-list',
@@ -51,5 +51,6 @@ export class MemberProfileComponent implements OnInit {
     this.openedDialogRef.afterClosed().subscribe(async (result) => {
       await this.getMemberProfile();
     });
+    this._toastrService.showInfo(constants.COMPLETING_MEMBER_PROFILE_INFO);
   }
 }

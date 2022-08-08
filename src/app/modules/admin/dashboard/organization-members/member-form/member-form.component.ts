@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { constants } from 'app/shared/constants';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
@@ -34,16 +34,17 @@ export class MemberFormComponent implements OnInit {
     });
   }
 
-  async invite(): Promise<void> {
+  async invite() {
+    if (!this.memberForm.valid) {
+      this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
+      return;
+    }
     try {
-      const response = await lastValueFrom(this._memberService.inviteUserToOrganization(this.data.orgID, this.memberForm.value.email));
-      if (response.statusCode === 500) {
-        throw new Error('');
-      }
-      this.matDialogRef.close(response);
+      await lastValueFrom(this._memberService.inviteUserToOrganization(this.data.orgID, this.memberForm.value.email));
+      this._toastrService.showSuccess(constants.INVITE_MEMBER_COMPLETED);
+      this.matDialogRef.close();
     } catch (error) {
-      this._toastrService.showError('Something went wrong!');
-      this.matDialogRef.close({});
+      this._toastrService.showError(constants.INVITE_MEMBER_FAILED);
     }
   }
 }

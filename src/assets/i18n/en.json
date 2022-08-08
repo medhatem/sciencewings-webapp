@@ -328,6 +328,15 @@
         },
         "SAVE": "Save",
         "CANCEL": "Cancel"
+      },
+      "ERROR": {
+        "CREATE_FAILED": "Invite member faild"
+      },
+      "SUCCESS": {
+        "CREATE_COMPLETED": "Member was invited successfuly "
+      },
+      "INFO": {
+        "EDIT_PROFILE": "Please complet profile informations"
       }
     },
     "PROFILE_RESOURCE": {
