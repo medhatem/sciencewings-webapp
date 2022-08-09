@@ -329,6 +329,10 @@
         "SAVE": "modifier",
         "CANCEL": "annuler"
       },
+      "VALIDATORS": {
+        "EMAIL_REQUIRED": "L'e-mail est requis",
+        "EMAIL_INVALID": "Veuillez saisir une adresse e-mail valide"
+      },
       "ERROR": {
         "CREATE_FAILED": "Echec de l'envoi de l'invitation"
       },

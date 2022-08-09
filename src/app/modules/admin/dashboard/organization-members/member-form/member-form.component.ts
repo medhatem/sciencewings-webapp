@@ -17,6 +17,7 @@ export interface DialogData {
 })
 export class MemberFormComponent implements OnInit {
   memberForm: FormGroup;
+  submitted = false;
   isInvitationPersonalize: boolean = false;
 
   constructor(
@@ -29,14 +30,17 @@ export class MemberFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.memberForm = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
       description: [''],
     });
   }
+  get validationControls() {
+    return this.memberForm.controls;
+  }
 
   async invite() {
+    this.submitted = true;
     if (!this.memberForm.valid) {
-      this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
       return;
     }
     try {

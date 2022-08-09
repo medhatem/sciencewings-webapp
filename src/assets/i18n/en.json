@@ -329,6 +329,10 @@
         "SAVE": "Save",
         "CANCEL": "Cancel"
       },
+      "VALIDATORS": {
+        "EMAIL_REQUIRED": "Email is require",
+        "EMAIL_INVALID": "Please, enter a valid email address"
+      },
       "ERROR": {
         "CREATE_FAILED": "Invite member faild"
       },
