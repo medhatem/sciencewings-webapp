@@ -193,7 +193,9 @@ export const appRoutes: Route[] = [
               icon: 'heroicons_outline:table',
             },
             loadChildren: () =>
-              import('app/modules/admin/dashboard/project/project-settings/project-settings.module').then((m) => m.ProjectSettingsModule),
+              import('app/modules/admin/dashboard/reusable-components/reusable-settings/reusable-settings.module').then(
+                (m) => m.ReusableSettingsModule,
+              ),
           },
         ],
       },

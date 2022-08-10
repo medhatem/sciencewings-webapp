@@ -27,9 +27,9 @@ export class ProjectMembershipSettingsComponent implements OnInit {
   ngOnInit(): void {
     this.options = {
       columns: [
-        { columnName: 'Profile', columnPropertyToUse: 'member' },
-        { columnName: 'Role', columnPropertyToUse: 'role' },
-        { columnName: 'Status', columnPropertyToUse: 'status' },
+        { columnName: 'Profile', columnPropertyToUse: 'member', customClass: '' },
+        { columnName: 'Role', columnPropertyToUse: 'role', customClass: '' },
+        { columnName: 'Status', columnPropertyToUse: 'status', customClass: '' },
       ],
       numnberOfColumns: 3,
       onElementClick: this.onElementSelected.bind(this),
