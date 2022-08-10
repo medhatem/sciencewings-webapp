@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } 
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Dictionary } from '@fullcalendar/core';
 import { Subject } from 'rxjs';
 
 export interface InventoryPagination {
@@ -17,6 +18,7 @@ export interface InventoryPagination {
 export interface Column {
   columnName: string;
   columnPropertyToUse: string;
+  customClass: string;
 }
 
 export interface ListOption {
@@ -43,7 +45,6 @@ export class ListComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   searchInputControl: FormControl = new FormControl();
   keys: any[];
-  headers: string[];
   cols = 4;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -69,12 +70,12 @@ export class ListComponent implements OnInit, OnDestroy {
    *
    */
   parseColumns() {
-    this.keys = this.options.columns.map((col): string => col.columnPropertyToUse);
-    this.headers = this.options.columns.map((col) => col.columnName);
+    this.keys = this.options.columns.map((col) => col);
     if (!this.options.numnberOfColumns) {
       this.options.numnberOfColumns = this.keys.length;
     }
   }
+
   /**
    * dynamically create a grid with variable amount of columns
    */

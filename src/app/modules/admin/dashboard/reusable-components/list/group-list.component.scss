@@ -2,7 +2,7 @@
   grid-template-columns: 48px auto 40px;
 
   @screen sm {
-    grid-template-columns: 48px auto 112px 72px;
+    grid-template-columns: 48px 112px 112px 72px;
   }
 
   @screen md {
