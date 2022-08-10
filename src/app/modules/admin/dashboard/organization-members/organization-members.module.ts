@@ -1,4 +1,3 @@
-import { ListComponentModule } from '../reusable-components/list/list-component.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MemberFormComponent } from './member-form/member-form.component';
 import { MemberListComponent } from './member-list/member-list.component';
@@ -14,13 +13,6 @@ import { organizationMemebrsRoutes } from './organization-members.routing';
 
 @NgModule({
   declarations: [OrganizationMemebrsComponent, MemberListComponent, MemberFormComponent, MemberProfileComponent, MemberProfileFormComponent],
-  imports: [
-    RouterModule.forChild(organizationMemebrsRoutes),
-    SharedModule,
-    NgSelectModule,
-    TranslocoModule,
-    MatFormFieldModule,
-    ListComponentModule,
-  ],
+  imports: [RouterModule.forChild(organizationMemebrsRoutes), SharedModule, NgSelectModule, TranslocoModule, MatFormFieldModule],
 })
 export class OrganizationMembersModule {}

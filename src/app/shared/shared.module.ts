@@ -51,9 +51,10 @@ import { AvatarComponent } from 'app/components/avatar/avatar.component';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { TranslocoModule } from '@ngneat/transloco';
 import { constants } from './constants';
+import { ListComponent } from 'app/modules/admin/dashboard/reusable-components/list/list-component.component';
 
 @NgModule({
-  declarations: [AvatarComponent],
+  declarations: [AvatarComponent, ListComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -161,6 +162,7 @@ import { constants } from './constants';
     FullCalendarModule,
     MomentDateModule,
     TranslocoModule,
+    ListComponent,
   ],
   providers: [{ provide: MAT_DATE_FORMATS, useValue: constants.DATE_OF_BIRTH_FORMATS }],
 })

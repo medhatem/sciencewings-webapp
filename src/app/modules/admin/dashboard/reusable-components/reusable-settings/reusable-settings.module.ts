@@ -7,7 +7,6 @@ import { ProjectGeneralSettingsComponent } from '../../project/project-general-s
 import { ProjectMembershipSettingsComponent } from '../../project/project-membership-settings/project-membership-settings.component';
 import { ProjectGroupsSettingsComponent } from '../../project/project-groups-settings/project-groups-settings.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ListComponentModule } from '../../reusable-components/list/list-component.module';
 import { ReusableSettingsRoutes } from './reusable-settings.component.routing';
 import { ReusableSettingsComponent } from './reusable-settings.component';
 
@@ -18,13 +17,6 @@ import { ReusableSettingsComponent } from './reusable-settings.component';
     ProjectMembershipSettingsComponent,
     ProjectGroupsSettingsComponent,
   ],
-  imports: [
-    RouterModule.forChild(ReusableSettingsRoutes),
-    CommonModule,
-    MatFormFieldModule,
-    SharedModule,
-    TranslocoModule,
-    ListComponentModule,
-  ],
+  imports: [RouterModule.forChild(ReusableSettingsRoutes), CommonModule, MatFormFieldModule, SharedModule, TranslocoModule],
 })
 export class ReusableSettingsModule {}
