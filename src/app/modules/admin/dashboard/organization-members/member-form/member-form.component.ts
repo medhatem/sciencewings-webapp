@@ -27,15 +27,14 @@ export class MemberFormComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _memberService: MemberService,
   ) {}
-
+  get validationControls() {
+    return this.memberForm.controls;
+  }
   ngOnInit(): void {
     this.memberForm = this._formBuilder.group({
       email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
       description: [''],
     });
-  }
-  get validationControls() {
-    return this.memberForm.controls;
   }
 
   async invite() {
