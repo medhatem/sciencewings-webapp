@@ -47,8 +47,8 @@ export class MemberFormComponent implements OnInit {
       await lastValueFrom(this._memberService.inviteUserToOrganization(this.data.orgID, this.memberForm.value.email));
       this._toastrService.showSuccess(constants.INVITE_MEMBER_COMPLETED);
       this.matDialogRef.close();
-    } catch (error) {
-      this._toastrService.showError(constants.INVITE_MEMBER_FAILED);
+    } catch (res) {
+      this._toastrService.showError(res.error.error);
     }
   }
 }
