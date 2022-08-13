@@ -287,7 +287,7 @@
         "MEMBER_ROLE": "Rôle",
         "PERSONALIZE_INVITATION": "Personnaliser l'invitation",
         "SAVE": "sauvegarder",
-        "TITLE": "Invitez de nouveaux membres dans votre organisation"
+        "TITLE": "Invitez un nouveau membre"
       },
       "IMPORT_MEMBERS": "Importer",
       "INVITE_MEMBERS": "Inviter un membre",
@@ -341,7 +341,22 @@
         "ACCEPTE": "Accepter",
         "APPEOVE": "Approver",
         "REJECTE": "Rejeter",
-        "RESOURCE": "Ressource"
+        "RESOURCE": "Ressource",
+        "SAVE": "modifier",
+        "CANCEL": "annuler"
+      },
+      "VALIDATORS": {
+        "EMAIL_REQUIRED": "L'e-mail est requis",
+        "EMAIL_INVALID": "Veuillez saisir une adresse e-mail valide"
+      },
+      "ERROR": {
+        "CREATE_FAILED": "Echec de l'envoi de l'invitation"
+      },
+      "SUCCESS": {
+        "CREATE_COMPLETED": "Le membre a été invité avec succès "
+      },
+      "INFO": {
+        "EDIT_PROFILE": "Veuillez compléter les informations du profil"
       }
     },
     "PROFILE": "Profil",
