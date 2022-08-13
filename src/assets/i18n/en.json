@@ -287,7 +287,7 @@
         "MEMBER_ROLE": "Role",
         "PERSONALIZE_INVITATION": "Personalize Invitation",
         "SAVE": "Save",
-        "TITLE": "Invite New Members To Your Organization"
+        "TITLE": "Invite new member"
       },
       "IMPORT_MEMBERS": "Import",
       "INVITE_MEMBERS": "Invite Members",
@@ -328,6 +328,19 @@
         },
         "SAVE": "Save",
         "CANCEL": "Cancel"
+      },
+      "VALIDATORS": {
+        "EMAIL_REQUIRED": "Email is require",
+        "EMAIL_INVALID": "Please, enter a valid email address"
+      },
+      "ERROR": {
+        "CREATE_FAILED": "Invite member faild"
+      },
+      "SUCCESS": {
+        "CREATE_COMPLETED": "Member was invited successfuly "
+      },
+      "INFO": {
+        "EDIT_PROFILE": "Please complet profile informations"
       }
     },
     "PROFILE_RESOURCE": {
