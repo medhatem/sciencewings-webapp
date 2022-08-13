@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulatio
 
 import { ActivatedRoute } from '@angular/router';
 import { Organization } from 'app/models/organizations/organization';
-import { OrganizationProfileService } from './organization-profile-service';
 import { Subject } from 'rxjs';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
+import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 
 export interface InventoryPagination {
   length: number;
@@ -32,7 +32,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   organization: Partial<Organization> = { phones: [], addresses: [] };
   private _unsubscribeAll: Subject<any> = new Subject<any>();
   constructor(
-    private _organizationProfileService: OrganizationProfileService,
+    private _adminOrganizationsService: AdminOrganizationsService,
     private _route: ActivatedRoute,
     private _toastrService: ToastrService,
   ) {}
@@ -78,7 +78,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
   private async fetchOrganization(id: number) {
     try {
-      this.organization = await this._organizationProfileService.getOrganization(id);
+      this.organization = await this._adminOrganizationsService.getOrganization(id);
     } catch (error) {
       this._toastrService.showError(constants.FETCH_ORGANIZATION_FAILED);
     }

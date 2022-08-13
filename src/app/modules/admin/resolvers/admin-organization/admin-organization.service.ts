@@ -43,8 +43,14 @@ export class AdminOrganizationsService {
    * @param id id of organization
    * @returns Promise of Organization
    */
-  async getOrganization(id: string | number): Promise<Organization> {
-    return lastValueFrom(this._swaggerService.organizationRoutesGetById({ id: Number(id) }).pipe(map((data) => new Organization(data))));
+  async getOrganization(id: number): Promise<Organization> {
+    return lastValueFrom(
+      this._swaggerService.organizationRoutesGetById({ id: Number(id) }).pipe(
+        map(({ body }) => {
+          return new Organization((body as any).data[0]);
+        }),
+      ),
+    );
   }
 
   /**

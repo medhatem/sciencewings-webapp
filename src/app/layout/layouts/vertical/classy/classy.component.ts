@@ -204,10 +204,12 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
 
     const currentOrganizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     try {
-      const organizationExist = await this._adminOrganizationsService.getOrganization(currentOrganizationId);
-      if (organizationExist) {
-        const modulePath = localStorage.getItem(constants.CURRENT_MODULE) || constants.MODULES_ROUTINGS_URLS.ADMIN;
-        navigationItems.push(applicationRoutes.find(({ path }) => path === modulePath));
+      if (currentOrganizationId) {
+        const organizationExist = await this._adminOrganizationsService.getOrganization(currentOrganizationId);
+        if (organizationExist) {
+          const modulePath = localStorage.getItem(constants.CURRENT_MODULE) || constants.MODULES_ROUTINGS_URLS.ADMIN;
+          navigationItems.push(applicationRoutes.find(({ path }) => path === modulePath));
+        }
       }
     } catch (error) {
       // Ignore error
