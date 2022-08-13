@@ -8,9 +8,19 @@
   <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="memberForm">
     <mat-form-field class="flex-auto mx-4">
       <mat-label>{{ 'ORGANIZATION.MEMBERS.FORM.MEMBER_EMAIL' | transloco }}</mat-label>
-      <input matInput [formControlName]="'email'" placeholder="{{ 'ORGANIZATION.MEMBERS.FORM.MEMBER_EMAIL' | transloco }}" required />
+      <input
+        matInput
+        [formControlName]="'email'"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && validationControls.email.errors }"
+        placeholder="{{ 'ORGANIZATION.MEMBERS.FORM.MEMBER_EMAIL' | transloco }}"
+        required />
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
     </mat-form-field>
+    <div *ngIf="submitted && validationControls.email.errors" class="flex-auto mx-4 invalid-feedback">
+      <mat-error *ngIf="validationControls.email.errors.required">{{ 'ORGANIZATION.MEMBERS.VALIDATORS.EMAIL_REQUIRED' | transloco }}</mat-error>
+      <mat-error *ngIf="validationControls.email.errors.email">{{ 'ORGANIZATION.MEMBERS.VALIDATORS.EMAIL_INVALID' | transloco }}</mat-error>
+    </div>
 
     <hr class="w-full border-t my-4" />
     <div class="flex items-center justify-between">
