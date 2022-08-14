@@ -1,7 +1,5 @@
 import { lastValueFrom, map } from 'rxjs';
-
 import { ApiService } from 'generated/services';
-import { CreatedUserDto } from 'generated/models';
 import { Injectable } from '@angular/core';
 import { KeycloakProfile } from 'keycloak-js';
 import { KeycloakService } from 'keycloak-angular';

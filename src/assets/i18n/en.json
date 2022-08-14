@@ -1,13 +1,13 @@
 {
   "APP": {
     "BTN": {
+      "APPLY": "Apply",
       "CANCEL": "Cancel",
       "DONE_AND_CREATE_NEW": "Submit and create new",
       "NEXT": "Next",
       "PREVIOUS": "Previous",
       "RELOAD": "Reload",
-      "SUBMIT": "Submit",
-      "APPLY": "Apply"
+      "SUBMIT": "Submit"
     },
     "COMMON": {
       "APP_MODULES": {
@@ -23,18 +23,21 @@
           "DESCRIPTION": "FAQs and guides",
           "TITLE": "Help center"
         },
-        "RESOUCES": {
-          "DESCRIPTION": "Getting started...",
-          "TITLE": "Documentation"
-        },
         "PROJECT": {
           "DESCRIPTION": "Project Management",
           "TITLE": "Projects"
+        },
+        "RESOUCES": {
+          "DESCRIPTION": "Getting started...",
+          "TITLE": "Documentation"
         },
         "TITLE": "Modules"
       },
       "NO_APP_MODULES": " No app modules",
       "NO_APP_MODULES_DESCRIPTION": "When you have app modules, they will appear here."
+    },
+    "FATAL": {
+      "CONNECTON_LOST": "The backend connection was lost! you will be logged out in 5 seconds."
     },
     "GENERAL": {
       "ADDRESS": {
@@ -65,11 +68,11 @@
     },
     "ROUTES": {
       "ADMIN": {
-        "ORGANIZATION_DASHBOARD": {
-          "TITLE": "Dashboard"
-        },
         "LANDING_PAGE": {
           "TITLE": "Landing page"
+        },
+        "ORGANIZATION_DASHBOARD": {
+          "TITLE": "Dashboard"
         },
         "ORGANIZATION_GROUPS": {
           "TITLE": "groups"
@@ -80,6 +83,9 @@
         "ORGANIZATION_PROFILE": {
           "SETTINGS": "Organization Settings",
           "TITLE": "Organization Profile"
+        },
+        "PROJECT": {
+          "TITLE": "Project"
         },
         "RESOURCE": {
           "TITLE": "Resource"
@@ -103,12 +109,11 @@
         "RESOURCE_TAGS": {
           "TITLE": "Resource tags"
         },
+
         "INFRASTRUCTURE": {
           "TITLE": "Infrastructure"
         },
-        "PROJECT": {
-          "TITLE": "Project"
-        },
+
         "TITLE": "Dashboard",
         "USER_PROFILE": {
           "TITLE": "User profile"
@@ -174,8 +179,19 @@
   },
   "COMPLETING_FORM_REQUIRED": "Please complete all required fields to continue.",
   "EMPTY_ORGANIZATIONS": "No Organization",
+  "ERROR": {
+    "CREATE_FAILED": "The creation of the organization has failed",
+    "ERROR": {
+      "CREATE_FAILED": "The creation of the organization has failed",
+      "FETCH_FAILED": "Could not get the information of the organization",
+      "WRONG_ORG_ID": "Organization not found"
+    },
+    "FETCH_FAILED": "Could not get the information of the organization",
+    "WRONG_ORG_ID": "Organization not found"
+  },
   "FAILED_LOAD_COUNTRIES": "Country list downloads failed",
   "FATAL_ERROR_OCCURED": "A fatal error has occurred",
+  "GET_MEMBERS_LOAD_FAILED": "You have no organization",
   "ORGANIZATION": {
     "FORM": {
       "DONE": {
@@ -196,16 +212,16 @@
         "EMAIL": "Email",
         "LABELS": "Labels",
         "NAME": "Name",
+        "PERSONAL": "Personal",
         "PHONE_CODE": "Phone Code",
         "PHONE_LABEL": "Phone number: ex (1112223333)",
         "PHONE_NUMBER": "Phone Number",
+        "PROFESSIONAL": "Professional",
         "SUB_ORGANIZATION": "Set as sub-organization",
         "SUB_TITLE": "Fill in your basic information for your organization",
         "TIMEZONE": "Time zone",
         "TITLE": "General Information",
-        "TYPE": "Choose organization type",
-        "PERSONAL": "Personal",
-        "PROFESSIONAL": "Professional"
+        "TYPE": "Choose organization type"
       },
       "STEP2": {
         "APARTMENT": "Apartment",
@@ -257,31 +273,16 @@
       "SEARCH_GROUPS": "Search Groups",
       "TITLE": "Groups"
     },
-    "ORGANIZATION_DASHBOARD": {
-      "RECENT_PROJECTS": "Recent Projects",
-      "RECENT_RESOURCES": "Recent Resources",
-      "MEMBERSHIPS_REVIEW": "Memberships to Review",
-      "RESERVATIONS_REVIEW": "Reservations to Review",
-      "SEE_MORE": "See More",
-      "MESSAGE1": "Recent Invitations",
-      "MESSAGE2": "Recent Reservation",
-      "TABLE": {
-        "RESOURCE": "Resource",
-        "ACCEPTE": "Accepte",
-        "REJECTE": "Rejecte",
-        "APPEOVE": "Approve"
-      }
-    },
     "LANDING_PAGE": {
       "CREATE_ORGANIZATION": "Create Organization",
-      "TITLE": "My Organizations",
+      "ERROR_LOADING_ORGANIZATIONS": "Something went wrong loading organizations",
       "MESSAGE": "Organizations",
       "NO_ORGANIZATIONS": "You don't have any organization",
-      "ERROR_LOADING_ORGANIZATIONS": "Something went wrong loading organizations"
+      "TITLE": "My Organizations"
     },
-
     "MEMBERS": {
-      "TITLE": "Members",
+      "EDIT_MEMBER_TITILE": "Member Details",
+      "ERROR_LOADING_MEMBERS": "Could not load members.",
       "EXPORT_MEMBERS": "Export",
       "FILTER_MEMBERS": "Filter",
       "FORM": {
@@ -304,32 +305,48 @@
         "MESSAGE": "There are no members!"
       },
       "MESSAGE": "Manage Access for all members in your organization in ",
-      "SEARCH_MEMBERS": "Search Members",
-      "ERROR_LOADING_MEMBERS": "Could not load members.",
       "MISSING_INFO": "____Missing_Information____",
       "MISSING_NAME": "____Missing_Name____",
-      "PROFILE_LOADING_ERROR": "Could not load member profile",
-      "EDIT_MEMBER_TITILE": "Member Details",
       "PROFILE": {
-        "NAME": "Full Name",
-        "JOB": "Job Title",
-        "GENDER": "Gender",
-        "EMAIL": "Email",
-        "PHONE": "Phone",
-        "LABEL": "Label",
         "ADDRESS": {
-          "TITLE": "Address",
           "APARTMENT": "apartment",
-          "STREET": "Street",
           "CITY": "City",
           "COUNTRY": "Country",
           "PROVINCE": "Province/Region",
+          "STREET": "Street",
+          "TITLE": "Address",
           "ZIP": "Zip Code"
         },
+        "CANCEL": "Cancel",
+        "EMAIL": "Email",
+        "GENDER": "Gender",
         "GENDER_LIST": {
-          "MALE": "Male",
-          "FEMALE": "Female"
+          "FEMALE": "Female",
+          "MALE": "Male"
         },
+        "JOB": "Job Title",
+        "LABEL": "Label",
+        "NAME": "Full Name",
+        "PHONE": "Phone",
+        "SAVE": "Save"
+      },
+      "PROFILE_LOADING_ERROR": "Could not load member profile",
+      "SEARCH_MEMBERS": "Search Members",
+      "TITLE": "Members"
+    },
+    "ORGANIZATION_DASHBOARD": {
+      "MEMBERSHIPS_REVIEW": "Memberships to Review",
+      "MESSAGE1": "Recent Invitations",
+      "MESSAGE2": "Recent Reservation",
+      "RECENT_PROJECTS": "Recent Projects",
+      "RECENT_RESOURCES": "Recent Resources",
+      "RESERVATIONS_REVIEW": "Reservations to Review",
+      "SEE_MORE": "See More",
+      "TABLE": {
+        "ACCEPTE": "Accepte",
+        "APPEOVE": "Approve",
+        "REJECTE": "Rejecte",
+        "RESOURCE": "Resource",
         "SAVE": "Save",
         "CANCEL": "Cancel"
       },
@@ -347,6 +364,7 @@
         "EDIT_PROFILE": "Please complet profile informations"
       }
     },
+    "PROFILE": "Profile",
     "PROFILE_RESOURCE": {
       "DETAILS": {
         "ROLE": "Role"
@@ -358,6 +376,7 @@
         "USERS": "Users"
       }
     },
+
     "SETTINGS": {
       "ACCESS": {
         "Cancel": "Cancel",
@@ -414,6 +433,7 @@
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"
     },
+
     "INFRASTRUCTURES": {
       "TITLE": "Infrastructure",
       "MESSAGE": "Manage Access for all your infrastructures in",
@@ -462,22 +482,11 @@
         "CREATE_FAILED": "The creation of the project has failed"
       }
     },
-    "PROFILE": "Profile",
+
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
     "WELCOME_BACK": "Hello"
   },
-  "ERROR": {
-    "CREATE_FAILED": "The creation of the organization has failed",
-    "FETCH_FAILED": "Could not get the information of the organization",
-    "WRONG_ORG_ID": "Organization not found",
-    "ERROR": {
-      "CREATE_FAILED": "The creation of the organization has failed",
-      "FETCH_FAILED": "Could not get the information of the organization",
-      "WRONG_ORG_ID": "Organization not found"
-    }
-  },
   "PROFILE": "Profile",
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
-  "GET_MEMBERS_LOAD_FAILED": "You have no organization",
   "WELCOME_BACK": "Hello"
 }

@@ -8,7 +8,6 @@ import { Subject } from 'rxjs';
 import { User } from 'app/core/user/user.types';
 import { constants } from 'app/shared/constants';
 import { SharedHelpers } from 'app/shared/helpers';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'user',
@@ -34,7 +33,7 @@ export class UserComponent implements OnInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _keycloackService: KeycloakService,
     private _toastrService: ToastrService,
-    private _cookiesService: CookieService,
+    private _sharedHelpers: SharedHelpers,
   ) {}
 
   ngOnInit(): void {
@@ -69,8 +68,8 @@ export class UserComponent implements OnInit, OnDestroy {
    * Sign out using keycloack
    */
   async signOut() {
-    SharedHelpers.terminateAllTasksAndLogout(this._cookiesService);
     try {
+      localStorage.clear();
       await this._keycloackService.logout();
     } catch (error) {
       this._toastrService.showError(constants.KEYCLOAK_LOGOUT_ERROR);
