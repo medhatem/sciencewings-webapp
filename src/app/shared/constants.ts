@@ -60,6 +60,9 @@ export const constants = {
       GENERAL_SETTINGS: 'settings-general',
       RESERVATION_SETTINGS: 'settings-reservation',
     },
+    INFRASTRUCTURES: {
+      INFRASTRUCTURE: 'Infrastructure',
+    },
     USER: {
       USER_PROFILE: 'user-profile',
     },

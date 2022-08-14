@@ -12,7 +12,8 @@ import { ResourceSettingTagComponent } from './resource-setting-tag/resource-set
 import { ResurceSettingRuleComponent } from './resurce-setting-rule/resurce-setting-rule.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslocoModule } from '@ngneat/transloco';
-
+import { InfrastructureListComponent } from './infrastructure-list/infrastructure-list.component';
+import { ListComponentModule } from '../reusable-components/list/list-component.module';
 @NgModule({
   declarations: [
     ResourceComponent,
@@ -21,7 +22,16 @@ import { TranslocoModule } from '@ngneat/transloco';
     ResourceListComponent,
     ResourceSettingTagComponent,
     ResurceSettingRuleComponent,
+    InfrastructureListComponent,
   ],
-  imports: [RouterModule.forChild(resourceRoutes), FuseFindByKeyPipeModule, SharedModule, NgSelectModule, TranslocoModule, MatFormFieldModule],
+  imports: [
+    RouterModule.forChild(resourceRoutes),
+    FuseFindByKeyPipeModule,
+    SharedModule,
+    NgSelectModule,
+    TranslocoModule,
+    MatFormFieldModule,
+    ListComponentModule,
+  ],
 })
 export class ResourceModule {}

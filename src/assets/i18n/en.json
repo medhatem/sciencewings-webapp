@@ -84,6 +84,7 @@
         "RESOURCE": {
           "TITLE": "Resource"
         },
+
         "RESOURCE_LIST": {
           "TITLE": "Resource List"
         },
@@ -101,6 +102,9 @@
         },
         "RESOURCE_TAGS": {
           "TITLE": "Resource tags"
+        },
+        "INFRASTRUCTURE": {
+          "TITLE": "Infrastructure"
         },
         "PROJECT": {
           "TITLE": "Project"
@@ -409,6 +413,16 @@
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"
+    },
+    "INFRASTRUCTURES": {
+      "TITLE": "Infrastructure",
+      "MESSAGE": "Manage Access for all your infrastructures in",
+      "CREATE_INFRASTRUCTURE": "Create Infrastructure",
+      "CREATE_INFRASTRUCTURE_MOBILE": "Create",
+      "SEARCH_INFRASTRUCTURE": "Search Infrastructure",
+      "FILTER_INFRASTRUCTURE": "Filter ",
+      "IMPORT_INFRASTRUCTURE": "Import ",
+      "EXPORT_INFRASTRUCTURE": "Export "
     },
     "PROJECTS": {
       "CREATE_PROJECTS": "Create a new project",
