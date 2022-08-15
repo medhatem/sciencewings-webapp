@@ -15,43 +15,15 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
   // @ViewChild('showComponent') showComponent: HTMLElement;
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
-  panels: any[] = [];
-  @Input() selectedPanel: string = 'project-general';
+  @Input() selectedPanel: string;
+  @Input() panels;
   settings = null;
   currentProjects = null;
-  htmlAsString = `<app-project-general-settings></app-project-general-settings>`;
-  myTrustedHtmlToString;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _fuseMediaWatcherService: FuseMediaWatcherService,
-    private sanitizer: DomSanitizer,
-  ) {
-    this.myTrustedHtmlToString = sanitizer.bypassSecurityTrustHtml(this.htmlAsString);
-  }
+  constructor(private _changeDetectorRef: ChangeDetectorRef, private _fuseMediaWatcherService: FuseMediaWatcherService) {}
 
   ngOnInit(): void {
-    this.panels = [
-      {
-        id: 'project-general',
-        icon: 'heroicons_outline:clipboard-check',
-        title: 'General',
-        description: 'Manage your public project and private information',
-      },
-      {
-        id: 'membership-settings',
-        icon: 'heroicons_outline:user-group',
-        title: 'Membership',
-        description: 'Manage the memberships',
-      },
-      {
-        id: 'groups-settings',
-        icon: 'heroicons_outline:user-group',
-        title: 'Groups',
-        description: 'Manage your groups',
-      },
-    ];
     // this.showComponent.appendChild()
     // Subscribe to media changes
     this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
@@ -67,8 +39,6 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
       // Mark for check
       this._changeDetectorRef.markForCheck();
     });
-    // console.log(this.htmlAsString);
-    // console.log(this.myTrustedHtmlToString);
   }
   /**
    * On destroy

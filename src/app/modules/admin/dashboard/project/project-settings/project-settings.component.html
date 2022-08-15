@@ -1,4 +1,4 @@
-<app-reusable-settings [(selectedPanel)]="selectedPanel">
+<app-reusable-settings [panels]="panels" [selectedPanel]="selectedPanel">
   <ng-container [ngSwitch]="selectedPanel">
     <!-- <ng-container *ngTemplateOutlet="{{htmlAsString}}"></ng-container> -->
     <ng-container *ngSwitchCase="'project-general'">

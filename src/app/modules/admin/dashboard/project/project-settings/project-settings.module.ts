@@ -19,6 +19,6 @@ import { ProjectGroupsSettingsComponent } from '../../project/project-groups-set
     ProjectMembershipSettingsComponent,
     ProjectGroupsSettingsComponent,
   ],
-  imports: [projectSettingsRoutes, CommonModule, MatFormFieldModule, SharedModule, TranslocoModule],
+  imports: [RouterModule.forChild(projectSettingsRoutes), CommonModule, MatFormFieldModule, SharedModule, TranslocoModule],
 })
 export class ProjectSettingsModule {}

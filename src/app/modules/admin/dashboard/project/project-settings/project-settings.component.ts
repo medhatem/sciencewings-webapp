@@ -15,12 +15,11 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') drawer: MatDrawer;
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
-  panels: any[] = [];
   selectedPanel: string = 'project-general';
   settings = null;
   currentProjects = null;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
-
+  panels: any[];
   /**
    * Constructor
    */
@@ -135,5 +134,8 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy {
       ...this.currentProjects,
       ...payload,
     };
+  }
+  logging() {
+    console.log('hy');
   }
 }
