@@ -97,10 +97,10 @@ export class ProjectService {
   }
   getAndParseProjectParticipants(): Observable<any[]> {
     return this.getOrgProjectMembers().pipe(
-      map((projects) => projects.body.data.map((project) => new ProjectListMember(project))),
-      map((projects: ProjectListMember[]) =>
-        projects.map(({ member, role, status }) => ({
-          member: `${member}`,
+      map((participants) => participants.body.data.map((participant) => new ProjectListMember(participant))),
+      map((participants: ProjectListMember[]) =>
+        participants.map(({ member, role, status }) => ({
+          member: `${member.name}`,
           role: `${role}`,
           status: `${status}`,
         })),

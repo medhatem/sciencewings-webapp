@@ -82,8 +82,8 @@ export class ProjectListMember implements ProjectMemberDto {
   constructor(project?: any) {
     const { member, role, status } = project || {};
     Object.assign(this, {
-      role,
       member,
+      role,
       status,
     });
   }

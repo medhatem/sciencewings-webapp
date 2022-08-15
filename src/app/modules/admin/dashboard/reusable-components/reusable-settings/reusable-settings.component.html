@@ -52,22 +52,8 @@
         </div>
 
         <div class="mt-8">
-          <ng-container [ngSwitch]="selectedPanel">
-            <ng-container *ngSwitchCase="'project-general'">
-              <app-project-general-settings
-                [currentOrganizations]="currentOrganizations"
-                (updateLocalOrganization)="updateLocalOrganization($event)">
-              </app-project-general-settings>
-            </ng-container>
-            <ng-container *ngSwitchCase="'membership-settings'">
-              <app-project-membership-settings [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
-              </app-project-membership-settings>
-            </ng-container>
-            <ng-container *ngSwitchCase="'groups-settings'">
-              <app-project-groups-settings [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
-              </app-project-groups-settings>
-            </ng-container>
-          </ng-container>
+          <!-- <div #showComponent></div> -->
+          <ng-content></ng-content>
         </div>
       </div>
     </mat-drawer-content>

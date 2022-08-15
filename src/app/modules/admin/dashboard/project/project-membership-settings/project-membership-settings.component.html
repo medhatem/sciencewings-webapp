@@ -7,7 +7,9 @@
       </div> -->
     <!-- Title -->
     <div>
-      <div class="text-4xl font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.MEMBERS.TITLE' | transloco }}</div>
+      <div class="text-4xl font-extrabold tracking-tight leading-none" (click)="printParticipants()">
+        {{ 'ORGANIZATION.MEMBERS.TITLE' | transloco }}
+      </div>
       <div class="mt-8 text-md font-medium text-secondary text-center">
         <span>{{ 'ORGANIZATION.MEMBERS.MESSAGE' | transloco }}</span>
         <a class="ml-1 text-primary-500 hover:underline" [routerLink]="['/sign-in']">Organization settings </a>
@@ -15,7 +17,7 @@
     </div>
   </div>
 
-  <list-component [dataList]="members" [options]="options" [message]="'ORGANIZATION.PROJECTS.LIST.MESSAGE' | transloco"></list-component>
+  <list-component [dataList]="participants" [options]="options" [message]="'ORGANIZATION.PROJECTS.LIST.MESSAGE' | transloco"></list-component>
 </div>
 
 <router-outlet></router-outlet>

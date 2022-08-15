@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subject, takeUntil } from 'rxjs';
 import { ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-reusable-settings',
@@ -11,15 +12,24 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 })
 export class ReusableSettingsComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') drawer: MatDrawer;
+  // @ViewChild('showComponent') showComponent: HTMLElement;
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
   panels: any[] = [];
-  selectedPanel: string = 'project-general';
+  @Input() selectedPanel: string = 'project-general';
   settings = null;
   currentProjects = null;
+  htmlAsString = `<app-project-general-settings></app-project-general-settings>`;
+  myTrustedHtmlToString;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef, private _fuseMediaWatcherService: FuseMediaWatcherService) {}
+  constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _fuseMediaWatcherService: FuseMediaWatcherService,
+    private sanitizer: DomSanitizer,
+  ) {
+    this.myTrustedHtmlToString = sanitizer.bypassSecurityTrustHtml(this.htmlAsString);
+  }
 
   ngOnInit(): void {
     this.panels = [
@@ -42,6 +52,7 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
         description: 'Manage your groups',
       },
     ];
+    // this.showComponent.appendChild()
     // Subscribe to media changes
     this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
       // Set the drawerMode and drawerOpened
@@ -56,6 +67,8 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
       // Mark for check
       this._changeDetectorRef.markForCheck();
     });
+    // console.log(this.htmlAsString);
+    // console.log(this.myTrustedHtmlToString);
   }
   /**
    * On destroy
@@ -115,3 +128,4 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
     };
   }
 }
+ReusableSettingsComponent.name;
