@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable, map, take, tap, lastValueFrom } from 'rxjs
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateProjectDto, ResponsableObjectDto } from 'generated/models';
+import { CreateProjectDto, MemberDto, ResponsableObjectDto } from 'generated/models';
 import { Member } from 'app/models/members/member';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
@@ -100,14 +100,18 @@ export class ProjectService {
       map((participants) => participants.body.data.map((participant) => new ProjectListMember(participant))),
       map((participants: ProjectListMember[]) =>
         participants.map(({ member, role, status }) => ({
-          member: `${member.name}`,
+          member: this.parseProjectMembers(member),
           role: `${role}`,
           status: `${status}`,
         })),
       ),
       tap((response) => {
+        console.log('response= ', response);
         this._projectParticipent.next(response);
       }),
     );
+  }
+  parseProjectMembers(member: MemberDto): string {
+    return `<div>${member.name}</div><div>${member.workEmail}</div>`;
   }
 }

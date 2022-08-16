@@ -1,8 +1,10 @@
-<div class="flex flex-col w-full min-w-0 sm:absolute sm:inset-0 sm:overflow-hidden" (click)="loggingRes()">
+<div class="flex flex-col w-full min-w-0 sm:absolute sm:inset-0 sm:overflow-hidden">
   <mat-drawer-container class="flex-auto sm:h-full">
     <mat-drawer class="sm:w-96 dark:bg-gray-900" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #drawer>
       <div class="flex items-center justify-between m-8 mr-6 sm:my-10">
-        <div class="text-4xl font-extrabold tracking-tight leading-none">test</div>
+        <div class="text-4xl font-extrabold tracking-tight leading-none">
+          {{ 'ORGANIZATION.PROJECTS.SETTINGS.PROJECT_SETTINGS' | transloco }}
+        </div>
         <div class="lg:hidden">
           <button mat-icon-button (click)="drawer.close()">
             <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>

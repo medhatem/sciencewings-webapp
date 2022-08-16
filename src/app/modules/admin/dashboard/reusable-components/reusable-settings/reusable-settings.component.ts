@@ -41,7 +41,6 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
       // Mark for check
       this._changeDetectorRef.markForCheck();
     });
-    this.loggingRes();
   }
   /**
    * On destroy

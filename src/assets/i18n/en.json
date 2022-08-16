@@ -435,7 +435,12 @@
         "TITLE": "Title",
         "MANAGER": "Manager",
         "MEMBERS": "# Members",
-        "CREATIONDATE": "Creation date"
+        "CREATIONDATE": "Creation date",
+        "ROLE": "Role"
+      },
+      "SETTINGS": {
+        "PROJECT_SETTINGS": "Project settings",
+        "PARTICIPANTS": "Participants"
       },
       "SEARCH_PROJECTS": "Find a project",
       "TITLE": "Projects",

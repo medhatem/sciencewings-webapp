@@ -29,9 +29,9 @@ export class ProjectMembershipSettingsComponent implements OnInit {
   ngOnInit(): void {
     this.options = {
       columns: [
-        { columnName: 'Profile', columnPropertyToUse: 'member', customClass: '' },
-        { columnName: 'Role', columnPropertyToUse: 'role', customClass: '' },
-        { columnName: 'Status', columnPropertyToUse: 'status', customClass: '' },
+        { columnName: 'ORGANIZATION.PROFILE', columnPropertyToUse: 'member', customClass: '' },
+        { columnName: 'ORGANIZATION.PROJECTS.LIST.ROLE', columnPropertyToUse: 'role', customClass: '' },
+        { columnName: 'ORGANIZATION.PROJECTS.LIST.PROJECT_STATUS', columnPropertyToUse: 'status', customClass: '' },
       ],
       numnberOfColumns: 3,
       onElementClick: this.onElementSelected.bind(this),
@@ -40,11 +40,6 @@ export class ProjectMembershipSettingsComponent implements OnInit {
       this.participants = participants;
       this._changeDetectorRef.markForCheck();
     });
-
-    console.log(
-      'service == ',
-      this._projectService.getOrgProjectMembers().subscribe((el) => console.log('el', el)),
-    );
   }
   async onElementSelected(item: ProjectMember) {
     this._router.navigate(['/admin/organization-members/memberProfile']);
