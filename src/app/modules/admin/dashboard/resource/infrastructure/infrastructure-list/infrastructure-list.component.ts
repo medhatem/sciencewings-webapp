@@ -43,7 +43,6 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
 
     this._infrastructureService.infrastructures$.pipe(takeUntil(this._unsubscribeAll)).subscribe((infrastructures: Infrastructure[]) => {
       this.infrastructures = infrastructures;
-      console.log(this.infrastructures);
       this._changeDetectorRef.markForCheck();
       // this.infrastructuresCount = infrastructures.length;
       // this._changeDetectorRef.markForCheck();
