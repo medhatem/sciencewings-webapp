@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import { InfrastructureService } from './infrastructure.service';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { InfrastructureService } from './infrastructure.service';
 })
 export class InfrastructureResolver implements Resolve<any> {
   constructor(private _infrasructureService: InfrastructureService) {}
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this._infrasructureService.getInfrastructures();
+  async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> {
+    return await lastValueFrom(this._infrasructureService.getAndParseOrganizationInfrastructures());
   }
 }

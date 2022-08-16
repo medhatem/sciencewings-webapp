@@ -30,17 +30,17 @@ export class Infrastructure implements InfrastructureRo {
   }
 }
 export class InfrastructureListItem {
-  dateStart: string;
-  responsibles: Array<Member>;
-  resources: Array<Member>;
+  id: number;
+  description: string;
+  key: string;
   name: string;
 
   constructor(infrastructure?: any) {
-    const { responsibles, dateStart, resources, name } = infrastructure || {};
+    const { id, description, key, name } = infrastructure || {};
     Object.assign(this, {
-      responsibles,
-      dateStart,
-      resources,
+      id,
+      description,
+      key,
       name,
     });
   }

@@ -6,9 +6,8 @@ import { Injectable } from '@angular/core';
 import { CreateInfrastructureDto, InfrastructureRo, UpdateinfrastructureRo } from 'generated/models';
 import moment from 'moment';
 import { constants } from 'app/shared/constants';
-import { Infrastructure, InfrastructureListItem } from 'app/models/infrastructures/infrastructure';
 import { Member } from 'app/models/members/member';
-
+import { Infrastructure, InfrastructureListItem } from 'app/models/infrastructures/infrastructure';
 @Injectable({
   providedIn: 'root',
 })
@@ -56,6 +55,7 @@ export class InfrastructureService {
   async createInfrastructure(infrastructure: Infrastructure): Promise<CreateInfrastructureDto> {
     return lastValueFrom(this.swaggerAPI.infrastructureRoutesCreateInfrastructure({ body: infrastructure as any }));
   }
+
   getOrgInfrastructures(): Observable<any> {
     const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     return this.swaggerAPI.infrastructureRoutesGetAllOrganizationInfrastructures({ orgId });
@@ -64,14 +64,13 @@ export class InfrastructureService {
   getAndParseOrganizationInfrastructures(): Observable<any[]> {
     return this.getOrgInfrastructures().pipe(
       map((infrastructures) => infrastructures.body.data.map((infrastructure) => new InfrastructureListItem(infrastructure))),
-      map((projects: InfrastructureListItem[]) =>
-        projects.map(({ name, responsibles, resources, dateStart }) => ({
+      map((infrastructures: InfrastructureListItem[]) => {
+        return infrastructures.map(({ name, description, key }) => ({
           name: `${name}`,
-          responsibles: this.parseMembersToHtml(responsibles),
-          resources: resources.length,
-          dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-        })),
-      ),
+          description,
+          key,
+        }));
+      }),
       tap((response) => {
         this._infrastructures.next(response);
       }),

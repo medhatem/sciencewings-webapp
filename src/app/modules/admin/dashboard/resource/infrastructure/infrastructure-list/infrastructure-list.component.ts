@@ -17,7 +17,7 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
   infrastructures: any[] = [];
   isLoading: boolean = false;
   infrastructuresCount: number = 0;
-  options: ListOption = { columns: [], numnberOfColumns: 5 };
+  options: ListOption = { columns: [], numnberOfColumns: 3 };
   openedDialogRef: any;
   searchInputControl: FormControl = new FormControl();
 
@@ -35,32 +35,32 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
     this.options = {
       columns: [
         { columnName: 'Infrastructure', columnPropertyToUse: 'name', customClass: '' },
-        { columnName: 'Responsable', columnPropertyToUse: 'responsibles', customClass: 'hidden' },
-        { columnName: '# Resources', columnPropertyToUse: 'resources', customClass: 'hidden' },
-        { columnName: 'Created Date', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
-        { columnName: 'Sub-Infrastructures', columnPropertyToUse: 'parent', customClass: 'hidden' },
+        { columnName: 'key', columnPropertyToUse: 'key', customClass: 'hidden' },
+        { columnName: 'Description', columnPropertyToUse: 'description', customClass: 'hidden' },
       ],
-      numnberOfColumns: 5,
+      numnberOfColumns: 3,
     };
-    this._infrastructureService.infrastructures$.subscribe((infrastructures: Infrastructure[]) => {
+
+    this._infrastructureService.infrastructures$.pipe(takeUntil(this._unsubscribeAll)).subscribe((infrastructures: Infrastructure[]) => {
       this.infrastructures = infrastructures;
       console.log(this.infrastructures);
-      this.infrastructuresCount = infrastructures.length;
       this._changeDetectorRef.markForCheck();
-      // Subscribe to search input field value changes
-      this.searchInputControl.valueChanges
-        .pipe(
-          takeUntil(this._unsubscribeAll),
-          debounceTime(300),
-          switchMap((query) => {
-            this.isLoading = true;
-            return this._infrastructureService.getInfrastructures(0, 10, 'name', 'asc', query);
-          }),
-          map(() => {
-            this.isLoading = false;
-          }),
-        )
-        .subscribe();
+      // this.infrastructuresCount = infrastructures.length;
+      // this._changeDetectorRef.markForCheck();
+      // // Subscribe to search input field value changes
+      // this.searchInputControl.valueChanges
+      //   .pipe(
+      //     takeUntil(this._unsubscribeAll),
+      //     debounceTime(300),
+      //     switchMap((query) => {
+      //       this.isLoading = true;
+      //       return this._infrastructureService.getInfrastructures(0, 10, 'name', 'asc', query);
+      //     }),
+      //     map(() => {
+      //       this.isLoading = false;
+      //     }),
+      //   )
+      //   .subscribe();
     });
   }
   ngOnDestroy(): void {
