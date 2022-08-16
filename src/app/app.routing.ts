@@ -8,8 +8,9 @@ import { Route } from '@angular/router';
 import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
 import { ProjectResolver } from './modules/admin/resolvers/project/project.resolvers';
 import { constants } from './shared/constants';
-import { InfrastructureListComponent } from './modules/admin/dashboard/resource/infrastructure-list/infrastructure-list.component';
+import { InfrastructureListComponent } from './modules/admin/dashboard/resource/infrastructure/infrastructure-list/infrastructure-list.component';
 /**
+ *
  * App Routing
  * contains all the routes that are passed to the app router
  * using lazy loading on main routes

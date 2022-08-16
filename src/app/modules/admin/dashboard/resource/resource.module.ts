@@ -12,8 +12,8 @@ import { ResourceSettingTagComponent } from './resource-setting-tag/resource-set
 import { ResurceSettingRuleComponent } from './resurce-setting-rule/resurce-setting-rule.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslocoModule } from '@ngneat/transloco';
-import { InfrastructureListComponent } from './infrastructure-list/infrastructure-list.component';
 import { ListComponentModule } from '../reusable-components/list/list-component.module';
+import { InfrastructureListComponent } from './infrastructure/infrastructure-list/infrastructure-list.component';
 @NgModule({
   declarations: [
     ResourceComponent,

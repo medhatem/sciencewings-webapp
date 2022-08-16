@@ -4,11 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
-import { ListOption } from '../../reusable-components/list/list-component.component';
-import { ResourceService } from '../../../resolvers/resource/resource.service';
+import { ListOption } from '../../../reusable-components/list/list-component.component';
 import { FormControl } from '@angular/forms';
 import { Infrastructure } from 'app/models/infrastructures/infrastructure';
-
+import { InfrastructureService } from 'app/modules/admin/resolvers/infrastructure/infrastructure.service';
+import { constants } from 'app/shared/constants';
 @Component({
   selector: 'app-infrastructure-list',
   templateUrl: './infrastructure-list.component.html',
@@ -24,7 +24,7 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
-    private _infrastructureService: ResourceService,
+    private _infrastructureService: InfrastructureService,
     private _matDialog: MatDialog,
     private _toastrService: ToastrService,
     private _changeDetectorRef: ChangeDetectorRef,
@@ -67,5 +67,17 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
+  }
+  openCreateInfrastructureDialog(): void {
+    const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    if (!orgID) {
+      this._toastrService.showError('Something went wrong!');
+    }
+    // this.openedDialogRef = this._matDialog.open(InfrastructureFormComponent, {
+    //   data: { orgID },
+    // });
+    this.openedDialogRef.afterClosed().subscribe((result) => {
+      lastValueFrom(this._infrastructureService.getAndParseOrganizationInfrastructures());
+    });
   }
 }
