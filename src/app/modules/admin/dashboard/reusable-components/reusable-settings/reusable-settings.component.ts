@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subject, takeUntil } from 'rxjs';
 import { ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
@@ -16,7 +16,9 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
   @Input() selectedPanel: string;
-  @Input() panels;
+  @Output() OnSelectedPanelChange = new EventEmitter<string>();
+  @Input() panels: any[] = [];
+
   settings = null;
   currentProjects = null;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -39,6 +41,7 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
       // Mark for check
       this._changeDetectorRef.markForCheck();
     });
+    this.loggingRes();
   }
   /**
    * On destroy
@@ -59,7 +62,7 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
    */
   goToPanel(panel: string): void {
     this.selectedPanel = panel;
-
+    this.OnSelectedPanelChange.emit(this.selectedPanel);
     // Close the drawer on 'over' mode
     if (this.drawerMode === 'over') {
       this.drawer.close();
@@ -97,5 +100,8 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
       ...payload,
     };
   }
+  loggingRes() {
+    console.log('reusable component selectedPanel= ', this.selectedPanel);
+    console.log('reusable component panels= ', this.panels);
+  }
 }
-ReusableSettingsComponent.name;

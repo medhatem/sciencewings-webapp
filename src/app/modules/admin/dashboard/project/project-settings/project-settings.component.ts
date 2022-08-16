@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, OnDestroy, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { ToastrService } from 'app/core/toastr/toastr.service';
-import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 
 @Component({
   selector: 'app-project-settings',
@@ -23,12 +21,7 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy {
   /**
    * Constructor
    */
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _fuseMediaWatcherService: FuseMediaWatcherService,
-    private _projectService: ProjectService,
-    private _toastrService: ToastrService,
-  ) {}
+  constructor(private _changeDetectorRef: ChangeDetectorRef, private _fuseMediaWatcherService: FuseMediaWatcherService) {}
 
   // -----------------------------------------------------------------------------------------------------
   // @ Lifecycle hooks
@@ -136,6 +129,9 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy {
     };
   }
   logging() {
-    console.log('hy');
+    console.log('selectedPanel= ', this.selectedPanel);
+  }
+  changeSelectedPanel(selectedPanel) {
+    this.selectedPanel = selectedPanel;
   }
 }

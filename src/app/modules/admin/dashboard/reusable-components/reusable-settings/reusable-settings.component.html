@@ -1,4 +1,4 @@
-<div class="flex flex-col w-full min-w-0 sm:absolute sm:inset-0 sm:overflow-hidden">
+<div class="flex flex-col w-full min-w-0 sm:absolute sm:inset-0 sm:overflow-hidden" (click)="loggingRes()">
   <mat-drawer-container class="flex-auto sm:h-full">
     <mat-drawer class="sm:w-96 dark:bg-gray-900" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #drawer>
       <div class="flex items-center justify-between m-8 mr-6 sm:my-10">
@@ -11,7 +11,8 @@
       </div>
       <!-- Panel links -->
       <div class="flex flex-col divide-y border-t border-b">
-        <ng-container *ngFor="let panel of panels; trackBy: trackByFn">
+        <!-- <ng-content select="[panels]"></ng-content> -->
+        <ng-container panels *ngFor="let panel of panels; trackBy: trackByFn">
           <div
             class="flex px-8 py-5 cursor-pointer"
             [ngClass]="{
@@ -53,7 +54,7 @@
 
         <div class="mt-8">
           <!-- <div #showComponent></div> -->
-          <ng-content></ng-content>
+          <ng-content select="[content]"></ng-content>
         </div>
       </div>
     </mat-drawer-content>
