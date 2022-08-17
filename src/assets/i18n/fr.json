@@ -438,11 +438,6 @@
         "CREATIONDATE": "Date de création",
         "ROLE": "Role"
       },
-      "SETTINGS": {
-        "PROJECT_SETTINGS": "Paramètres de projet",
-        "PARTICIPANTS": "Participants",
-        "JOINED_DATE": "Date d'adhésion"
-      },
       "SEARCH_GROUPS": "Chercher un projet",
       "TITLE": "Projets",
       "ERROR": {

@@ -3,7 +3,7 @@
     <mat-drawer class="sm:w-96 dark:bg-gray-900" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #drawer>
       <div class="flex items-center justify-between m-8 mr-6 sm:my-10">
         <div class="text-4xl font-extrabold tracking-tight leading-none">
-          {{ 'ORGANIZATION.PROJECTS.SETTINGS.PROJECT_SETTINGS' | transloco }}
+          {{ `${title}` | transloco }}
         </div>
         <div class="lg:hidden">
           <button mat-icon-button (click)="drawer.close()">
@@ -13,7 +13,6 @@
       </div>
       <!-- Panel links -->
       <div class="flex flex-col divide-y border-t border-b">
-        <!-- <ng-content select="[panels]"></ng-content> -->
         <ng-container panels *ngFor="let panel of panels; trackBy: trackByFn">
           <div
             class="flex px-8 py-5 cursor-pointer"
@@ -49,13 +48,9 @@
           <button class="lg:hidden -ml-2" mat-icon-button (click)="drawer.toggle()">
             <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
           </button>
-          <!-- <div class="ml-2 lg:ml-0 text-3xl font-bold tracking-tight leading-none">
-                                  {{getPanelInfo(selectedPanel).title}}
-                              </div> -->
         </div>
 
         <div class="mt-8">
-          <!-- <div #showComponent></div> -->
           <ng-content select="[content]"></ng-content>
         </div>
       </div>
