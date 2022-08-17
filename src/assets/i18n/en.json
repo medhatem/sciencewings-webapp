@@ -84,6 +84,7 @@
         "RESOURCE": {
           "TITLE": "Resource"
         },
+
         "RESOURCE_LIST": {
           "TITLE": "Resource List"
         },
@@ -102,12 +103,11 @@
         "RESOURCE_TAGS": {
           "TITLE": "Resource tags"
         },
-        "PROJECT": {
-          "TITLE": "Project"
+
+        "INFRASTRUCTURE": {
+          "TITLE": "Infrastructure"
         },
-        "PROJECT_SETTINGS": {
-          "TITLE": "Project Settings"
-        },
+
         "TITLE": "Dashboard",
         "USER_PROFILE": {
           "TITLE": "User profile"
@@ -344,6 +344,7 @@
         "USERS": "Users"
       }
     },
+
     "SETTINGS": {
       "ACCESS": {
         "Cancel": "Cancel",
@@ -400,6 +401,18 @@
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"
     },
+
+    "INFRASTRUCTURES": {
+      "TITLE": "Infrastructure",
+      "MESSAGE": "Manage Access for all your infrastructures in",
+      "CREATE_INFRASTRUCTURE": "Create Infrastructure",
+      "CREATE_INFRASTRUCTURE_MOBILE": "Create",
+      "SEARCH_INFRASTRUCTURE": "Search Infrastructure",
+      "FILTER_INFRASTRUCTURE": "Filter ",
+      "IMPORT_INFRASTRUCTURE": "Import ",
+      "EXPORT_INFRASTRUCTURE": "Export ",
+      "NO_INFRASTRUCTURE": "There are no infrastructure"
+    },
     "PROJECTS": {
       "CREATE_PROJECTS": "Create a new project",
       "EXPORT_PROJECTS": "Export",
@@ -413,7 +426,6 @@
         "PROJECT_NAME": "Project's Name",
         "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
         "SAVE": "Save",
-        "KEY": "Key",
         "TITLE": "Create Project",
         "LOCATION": "Location",
         "MANAGERS": "Manager(s)",
@@ -431,12 +443,7 @@
         "PROJECT_MEMBERS": "Membres",
         "PROJECT_NAME": "Project",
         "PROJECT_STATUS": "Status",
-        "MESSAGE": "There is no projects",
-        "TITLE": "Title",
-        "MANAGER": "Manager",
-        "MEMBERS": "# Members",
-        "CREATIONDATE": "Creation date",
-        "ROLE": "Role"
+        "MESSAGE": "There is no projects"
       },
       "SEARCH_PROJECTS": "Find a project",
       "TITLE": "Projects",
@@ -444,7 +451,7 @@
         "CREATE_FAILED": "The creation of the project has failed"
       }
     },
-    "PROFILE": "Profile",
+
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
     "WELCOME_BACK": "Hello"
   },

@@ -102,12 +102,11 @@
         "RESOURCE_TAGS": {
           "TITLE": "Tags des ressources"
         },
-        "PROJECT": {
-          "TITLE": "Project"
+
+        "INFRASTRUCTURE": {
+          "TITLE": "Infrastructure"
         },
-        "PROJECT_SETTINGS": {
-          "TITLE": "Paramètres de projets"
-        },
+
         "TITLE": "Tableau de bord",
         "USER_PROFILE": {
           "TITLE": "Profil utilisateur"
@@ -344,6 +343,7 @@
         "USERS": "Utilisateurs"
       }
     },
+
     "SETTINGS": {
       "ACCESS": {
         "Cancel": "Annuler",
@@ -400,6 +400,18 @@
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
     },
+
+    "INFRASTRUCTURES": {
+      "TITLE": "Infrastructures",
+      "MESSAGE": "Gérez les accès pour toutes vos infrastructures dans",
+      "CREATE_INFRASTRUCTURE": "Créer une infrastructure",
+      "CREATE_INFRASTRUCTURE_MOBILE": "Créer",
+      "SEARCH_INFRASTRUCTURE": "Rechercher une infrastructure",
+      "FILTER_INFRASTRUCTURE": "Filter ",
+      "IMPORT_INFRASTRUCTURE": "Importer ",
+      "EXPORT_INFRASTRUCTURE": "Exporter ",
+      "NO_INFRASTRUCTURE": "Aucune infrastructure"
+    },
     "PROJECTS": {
       "CREATE_PROJECTS": "Créer un projet",
       "EXPORT_PROJECTS": "Exporter",
@@ -413,7 +425,6 @@
         "PROJECT_NAME": "Nom du Projet",
         "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
         "SAVE": "Sauvegarder",
-        "KEY": "Clé",
         "TITLE": "Créer un nouveau projet",
         "LOCATION": "Localisation",
         "MANAGERS": "Gérant(s)",
@@ -431,12 +442,7 @@
         "PROJECT_MEMBERS": "Membres",
         "PROJECT_NAME": "Projet",
         "PROJECT_STATUS": "Status",
-        "MESSAGE": "Il n'y a pas de Projets !",
-        "TITLE": "Titre",
-        "MANAGER": "Manager",
-        "MEMBERS": "# Membres",
-        "CREATIONDATE": "Date de création",
-        "ROLE": "Role"
+        "MESSAGE": "Il n'y a pas de Projets !"
       },
       "SEARCH_GROUPS": "Chercher un projet",
       "TITLE": "Projets",
@@ -444,7 +450,7 @@
         "CREATE_FAILED": "La création de l'organisation a échoué"
       }
     },
-    "PROFILE": "Profil",
+
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
     "WELCOME_BACK": "Bonjour"
   },

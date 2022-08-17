@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, map, take } from 'rxjs';
+import { BehaviorSubject, Observable, map, tap, take } from 'rxjs';
 
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
@@ -14,12 +14,15 @@ import {
   ResourcesSettingsReservationUnitRo,
   ResourceTimerRestrictionRo,
 } from 'generated/models';
+import moment from 'moment';
+import { constants } from 'app/shared/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ResourceService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
+  private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
 
@@ -29,6 +32,9 @@ export class ResourceService {
    */
   get data$(): Observable<any> {
     return this._data.asObservable();
+  }
+  get pagination$(): Observable<any> {
+    return this._pagination.asObservable();
   }
 
   /**

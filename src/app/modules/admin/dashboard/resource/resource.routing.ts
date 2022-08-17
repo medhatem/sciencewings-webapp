@@ -3,7 +3,7 @@ import { ResourceProfileFormComponent } from './resource-form/profile-form.compo
 import { ResourceResolver } from '../../resolvers/resource/resource.resolvers';
 import { Route } from '@angular/router';
 import { ResourceListComponent } from './resource-list-componenet/resource-list.component';
-
+import { InfrastructureListComponent } from './infrastructure/infrastructure-list/infrastructure-list.component';
 export const resourceRoutes: Route[] = [
   {
     path: '',
@@ -16,6 +16,7 @@ export const resourceRoutes: Route[] = [
           data: ResourceResolver,
         },
       },
+
       {
         path: 'create',
         component: ResourceProfileFormComponent,
