@@ -185,7 +185,6 @@ export const appRoutes: Route[] = [
           title: 'APP.ROUTES.ADMIN.PROJECT.TITLE',
           type: FuseNavigationItemTypeEnum.group,
         },
-
         children: [
           {
             path: '',
