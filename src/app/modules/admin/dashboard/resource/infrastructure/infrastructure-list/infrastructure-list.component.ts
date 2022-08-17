@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
 import { Infrastructure } from 'app/models/infrastructures/infrastructure';
 import { InfrastructureService } from 'app/modules/admin/resolvers/infrastructure/infrastructure.service';
 import { constants } from 'app/shared/constants';
+import { InfrastructureFormComponent } from '../infrastructure-form/infrastructure-form.component';
 @Component({
   selector: 'app-infrastructure-list',
   templateUrl: './infrastructure-list.component.html',
@@ -73,9 +74,9 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
     if (!orgID) {
       this._toastrService.showError('Something went wrong!');
     }
-    // this.openedDialogRef = this._matDialog.open(InfrastructureFormComponent, {
-    //   data: { orgID },
-    // });
+    this.openedDialogRef = this._matDialog.open(InfrastructureFormComponent, {
+      data: { orgID },
+    });
     this.openedDialogRef.afterClosed().subscribe((result) => {
       lastValueFrom(this._infrastructureService.getAndParseOrganizationInfrastructures());
     });

@@ -11,9 +11,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { ListComponentModule } from '../../reusable-components/list/list-component.module';
-
+import { InfrastructureFormComponent } from './infrastructure-form/infrastructure-form.component';
 @NgModule({
-  declarations: [InfrastructureComponent, InfrastructureListComponent],
+  declarations: [InfrastructureComponent, InfrastructureListComponent, InfrastructureFormComponent],
   imports: [
     RouterModule.forChild(infrastructureRoutes),
     MatDatepickerModule,

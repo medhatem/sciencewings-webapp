@@ -10,7 +10,7 @@
       <div class="flex items-center justify-between w-full">
         <div class="text-4xl font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.INFRASTRUCTURES.TITLE' | transloco }}</div>
         <div class="sm:hidden mt-6 sm:mt-0 sm:ml-4">
-          <button class="ml-4" mat-flat-button [color]="'primary'">
+          <button class="ml-4" mat-flat-button [color]="'primary'" (click)="(openCreateInfrastructureDialog)">
             <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
             <span class="ml-0.5 mr-0.5">{{ 'ORGANIZATION.INFRASTRUCTURES.CREATE_INFRASTRUCTURE_MOBILE' | transloco }}</span>
           </button>

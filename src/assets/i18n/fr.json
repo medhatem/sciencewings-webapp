@@ -445,6 +445,9 @@
       "EXPORT_INFRASTRUCTURE": "Exporter ",
       "NO_INFRASTRUCTURE": "Aucune infrastructure"
     },
+    "INFRASTRUCTURES_FORM": {
+      "TITLE": "Créer une infrastructure "
+    },
     "PROJECTS": {
       "CREATE_PROJECTS": "Créer un projet",
       "EXPORT_PROJECTS": "Exporter",

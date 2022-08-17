@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslocoModule } from '@ngneat/transloco';
 import { ListComponentModule } from '../reusable-components/list/list-component.module';
 import { InfrastructureListComponent } from './infrastructure/infrastructure-list/infrastructure-list.component';
+import { InfrastructureFormComponent } from './infrastructure/infrastructure-form/infrastructure-form.component';
 @NgModule({
   declarations: [
     ResourceComponent,
@@ -23,6 +24,7 @@ import { InfrastructureListComponent } from './infrastructure/infrastructure-lis
     ResourceSettingTagComponent,
     ResurceSettingRuleComponent,
     InfrastructureListComponent,
+    InfrastructureFormComponent,
   ],
   imports: [
     RouterModule.forChild(resourceRoutes),
