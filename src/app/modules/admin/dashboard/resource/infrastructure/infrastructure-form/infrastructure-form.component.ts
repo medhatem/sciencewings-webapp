@@ -6,7 +6,7 @@ import { OrganizationMembers } from 'app/models/members/member';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { constants } from 'app/shared/constants';
 import { InfrastructureService } from 'app/modules/admin/resolvers/infrastructure/infrastructure.service';
-
+import { Infrastructure } from 'app/models/infrastructures/infrastructure';
 @Component({
   selector: 'app-infrastructure-form',
   templateUrl: './infrastructure-form.component.html',
@@ -34,23 +34,24 @@ export class InfrastructureFormComponent implements OnInit {
 
   ngOnInit() {
     this.getMembers();
-    this.infrastructureForm = this._formBuilder.group({
+    const infrastructureFormObj = {
       name: ['', [Validators.required]],
       description: [''],
-    });
+    };
+    this.infrastructureForm = this._formBuilder.group(infrastructureFormObj);
   }
-
-  async OnSubmit() {
+  async onSubmit() {
     this.submitted = true;
     if (!this.infrastructureForm.valid) {
       return;
     }
+    const infrastructure = this.getInfrastructureFromFormBuilder();
     try {
-      await this._infrastructureService.createInfrastructure(this.infrastructure);
-      this._toastrService.showSuccess(constants.INVITE_MEMBER_COMPLETED);
+      await this._infrastructureService.createInfrastructure(infrastructure);
+      this._toastrService.showSuccess(constants.CREATE_INFRASTRUCTURE_COMPLETED);
       this.matDialogRef.close();
     } catch (res) {
-      this._toastrService.showError(res.error.error);
+      // this._toastrService.showError(res.error.error);
     }
   }
 
@@ -66,6 +67,9 @@ export class InfrastructureFormComponent implements OnInit {
       .catch(() => {
         // this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');
       });
+  }
+  private getInfrastructureFromFormBuilder(): Infrastructure {
+    return new Infrastructure({ ...this.infrastructureForm.value, organization: this.getOrganizationIdFromLocalStorage() });
   }
   private getOrganizationIdFromLocalStorage(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));

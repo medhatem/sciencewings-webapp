@@ -443,11 +443,23 @@
       "FILTER_INFRASTRUCTURE": "Filter ",
       "IMPORT_INFRASTRUCTURE": "Importer ",
       "EXPORT_INFRASTRUCTURE": "Exporter ",
-      "NO_INFRASTRUCTURE": "Aucune infrastructure"
+      "NO_INFRASTRUCTURE": "Aucune infrastructure",
+      "INFRASTRUCTURE_FORM": {
+        "TITLE": "Créer une infrastructure ",
+        "NAME": "Nom",
+        "HOLDER_NAME": "Nom de l'infrastructure",
+        "DESCRIPTION": "Description",
+        "SAVE": "Sauvegarder",
+        "CANCEL": "Annuler"
+      },
+      "VALIDATORS": {
+        "NAME_REQUIRED": "Le nom de l'infrastructure est requis"
+      },
+      "SUCCESS": {
+        "CREATE_COMPLETED": "L'infrastructure a été créée avec succès "
+      }
     },
-    "INFRASTRUCTURES_FORM": {
-      "TITLE": "Créer une infrastructure "
-    },
+
     "PROJECTS": {
       "CREATE_PROJECTS": "Créer un projet",
       "EXPORT_PROJECTS": "Exporter",

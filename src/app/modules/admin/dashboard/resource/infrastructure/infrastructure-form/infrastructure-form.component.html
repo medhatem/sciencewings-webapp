@@ -1,5 +1,50 @@
 <div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+  <!-- Header -->
   <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8">
-    <div class="text-lg font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.INFRASTRUCTURE.FORM.TITLE' | transloco }}</div>
+    <div class="text-lg font-extrabold tracking-tight leading-none">
+      {{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.TITLE' | transloco }}
+    </div>
   </div>
+  <hr class="w-full border-t my-2" />
+  <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="infrastructureForm">
+    <mat-form-field class="flex-auto mx-4">
+      <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.NAME' | transloco }}</mat-label>
+      <input
+        matInput
+        [formControlName]="'name'"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && validationControls.name.errors }"
+        placeholder="{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.HOLDER_NAME' | transloco }}"
+        required />
+      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:collection'"></mat-icon>
+    </mat-form-field>
+    <div *ngIf="submitted && validationControls.name.errors" class="flex-auto mx-4 invalid-feedback">
+      <mat-error *ngIf="validationControls.name.errors.required">{{
+        'ORGANIZATION.INFRASTRUCTURES.VALIDATORS.NAME_REQUIRED' | transloco
+      }}</mat-error>
+    </div>
+
+    <mat-form-field class="flex-auto mx-4">
+      <mat-label required>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.DESCRIPTION' | transloco }}</mat-label>
+      <textarea
+        matInput
+        [formControlName]="'description'"
+        placeholder="{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.DESCRIPTION' | transloco }}"
+        [rows]="3"></textarea>
+    </mat-form-field>
+
+    <!-- Actions -->
+
+    <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
+      <button mat-button mat-dialog-close>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.CANCEL' | transloco }}</button>
+      <button class="px-6 ml-3" mat-flat-button [color]="'primary'" (click)="onSubmit()">
+        {{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.SAVE' | transloco }}
+      </button>
+    </div>
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+      <div class="-ml-2"></div>
+      <div class="flex items-center mt-4 sm:mt-0"></div>
+    </div>
+  </form>
 </div>
