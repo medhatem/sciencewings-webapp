@@ -90,6 +90,7 @@
         "RESOURCE": {
           "TITLE": "Resource"
         },
+
         "RESOURCE_LIST": {
           "TITLE": "Resource List"
         },
@@ -108,6 +109,11 @@
         "RESOURCE_TAGS": {
           "TITLE": "Resource tags"
         },
+
+        "INFRASTRUCTURE": {
+          "TITLE": "Infrastructure"
+        },
+
         "TITLE": "Dashboard",
         "USER_PROFILE": {
           "TITLE": "User profile"
@@ -370,44 +376,7 @@
         "USERS": "Users"
       }
     },
-    "PROJECTS": {
-      "CREATE_PROJECTS": "Create a new project",
-      "ERROR": {
-        "CREATE_FAILED": "The creation of the project has failed"
-      },
-      "EXPORT_PROJECTS": "Export",
-      "FILTER_PROJECTS": "Filter",
-      "FORM": {
-        "ACTIVE": "Active",
-        "CANCEL": "Cancel",
-        "CREATE_COMPLETED": "Create project succeeded",
-        "DATE_HINT": "MM/DD/YYYY – MM/DD/YYYY",
-        "DESCRIPTION": "About (description)",
-        "DESCRIPTION_LABEL": "Description",
-        "ENDDATE": "End date",
-        "ENTER_DATE": "Enter a date range",
-        "LABEL_NAME": "Title",
-        "LOCATION": "Location",
-        "MANAGERS": "Manager(s)",
-        "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
-        "PARTICIPANTS": "Participant(s)",
-        "PROJECT_MEMBERS": "Project's Members",
-        "PROJECT_NAME": "Project's Name",
-        "SAVE": "Save",
-        "STARTDATE": "Start date",
-        "TITLE": "Create Project"
-      },
-      "IMPORT_PROJECTS": "Import",
-      "LIST": {
-        "MESSAGE": "There is no projects",
-        "PROJECT_DATE": "Date",
-        "PROJECT_MEMBERS": "Membres",
-        "PROJECT_NAME": "Project",
-        "PROJECT_STATUS": "Status"
-      },
-      "SEARCH_PROJECTS": "Find a project",
-      "TITLE": "Projects"
-    },
+
     "SETTINGS": {
       "ACCESS": {
         "Cancel": "Cancel",
@@ -464,6 +433,57 @@
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"
     },
+
+    "INFRASTRUCTURES": {
+      "TITLE": "Infrastructure",
+      "MESSAGE": "Manage Access for all your infrastructures in",
+      "CREATE_INFRASTRUCTURE": "Create Infrastructure",
+      "CREATE_INFRASTRUCTURE_MOBILE": "Create",
+      "SEARCH_INFRASTRUCTURE": "Search Infrastructure",
+      "FILTER_INFRASTRUCTURE": "Filter ",
+      "IMPORT_INFRASTRUCTURE": "Import ",
+      "EXPORT_INFRASTRUCTURE": "Export ",
+      "NO_INFRASTRUCTURE": "There are no infrastructure"
+    },
+    "PROJECTS": {
+      "CREATE_PROJECTS": "Create a new project",
+      "EXPORT_PROJECTS": "Export",
+      "FILTER_PROJECTS": "Filter",
+      "FORM": {
+        "LABEL_NAME": "Title",
+        "CANCEL": "Cancel",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION": "About (description)",
+        "PROJECT_MEMBERS": "Project's Members",
+        "PROJECT_NAME": "Project's Name",
+        "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
+        "SAVE": "Save",
+        "TITLE": "Create Project",
+        "LOCATION": "Location",
+        "MANAGERS": "Manager(s)",
+        "PARTICIPANTS": "Participant(s)",
+        "ENTER_DATE": "Enter a date range",
+        "DATE_HINT": "MM/DD/YYYY – MM/DD/YYYY",
+        "STARTDATE": "Start date",
+        "ENDDATE": "End date",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "Create project succeeded"
+      },
+      "IMPORT_PROJECTS": "Import",
+      "LIST": {
+        "PROJECT_DATE": "Date",
+        "PROJECT_MEMBERS": "Membres",
+        "PROJECT_NAME": "Project",
+        "PROJECT_STATUS": "Status",
+        "MESSAGE": "There is no projects"
+      },
+      "SEARCH_PROJECTS": "Find a project",
+      "TITLE": "Projects",
+      "ERROR": {
+        "CREATE_FAILED": "The creation of the project has failed"
+      }
+    },
+
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
     "WELCOME_BACK": "Hello"
   },

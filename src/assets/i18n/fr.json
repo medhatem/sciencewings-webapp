@@ -108,6 +108,11 @@
         "RESOURCE_TAGS": {
           "TITLE": "Tags des ressources"
         },
+
+        "INFRASTRUCTURE": {
+          "TITLE": "Infrastructure"
+        },
+
         "TITLE": "Tableau de bord",
         "USER_PROFILE": {
           "TITLE": "Profil utilisateur"
@@ -371,44 +376,7 @@
         "USERS": "Utilisateurs"
       }
     },
-    "PROJECTS": {
-      "CREATE_PROJECTS": "Créer un projet",
-      "ERROR": {
-        "CREATE_FAILED": "La création de l'organisation a échoué"
-      },
-      "EXPORT_PROJECTS": "Exporter",
-      "FILTER_PROJECTS": "Filtre",
-      "FORM": {
-        "ACTIVE": "Active",
-        "CANCEL": "Annuler",
-        "CREATE_COMPLETED": "La création du projet a réussi",
-        "DATE_HINT": "MM/JJ/AAAA – MM/JJ/AAAA",
-        "DESCRIPTION": "À propos (description)",
-        "DESCRIPTION_LABEL": "Description",
-        "ENDDATE": "La date de fin",
-        "ENTER_DATE": "Saisissez une plage de dates",
-        "LABEL_NAME": "Titre",
-        "LOCATION": "Localisation",
-        "MANAGERS": "Gérant(s)",
-        "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
-        "PARTICIPANTS": "Participent(s)",
-        "PROJECT_MEMBERS": "Membres du projet",
-        "PROJECT_NAME": "Nom du Projet",
-        "SAVE": "Sauvegarder",
-        "STARTDATE": "La date de debut",
-        "TITLE": "Créer un nouveau projet"
-      },
-      "IMPORT_PROJECTS": "Importer",
-      "LIST": {
-        "MESSAGE": "Il n'y a pas de Projets !",
-        "PROJECT_DATE": "Date",
-        "PROJECT_MEMBERS": "Membres",
-        "PROJECT_NAME": "Projet",
-        "PROJECT_STATUS": "Status"
-      },
-      "SEARCH_GROUPS": "Chercher un projet",
-      "TITLE": "Projets"
-    },
+
     "SETTINGS": {
       "ACCESS": {
         "Cancel": "Annuler",
@@ -465,6 +433,57 @@
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
     },
+
+    "INFRASTRUCTURES": {
+      "TITLE": "Infrastructures",
+      "MESSAGE": "Gérez les accès pour toutes vos infrastructures dans",
+      "CREATE_INFRASTRUCTURE": "Créer une infrastructure",
+      "CREATE_INFRASTRUCTURE_MOBILE": "Créer",
+      "SEARCH_INFRASTRUCTURE": "Rechercher une infrastructure",
+      "FILTER_INFRASTRUCTURE": "Filter ",
+      "IMPORT_INFRASTRUCTURE": "Importer ",
+      "EXPORT_INFRASTRUCTURE": "Exporter ",
+      "NO_INFRASTRUCTURE": "Aucune infrastructure"
+    },
+    "PROJECTS": {
+      "CREATE_PROJECTS": "Créer un projet",
+      "EXPORT_PROJECTS": "Exporter",
+      "FILTER_PROJECTS": "Filtre",
+      "FORM": {
+        "LABEL_NAME": "Titre",
+        "CANCEL": "Annuler",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION": "À propos (description)",
+        "PROJECT_MEMBERS": "Membres du projet",
+        "PROJECT_NAME": "Nom du Projet",
+        "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
+        "SAVE": "Sauvegarder",
+        "TITLE": "Créer un nouveau projet",
+        "LOCATION": "Localisation",
+        "MANAGERS": "Gérant(s)",
+        "PARTICIPANTS": "Participent(s)",
+        "ENTER_DATE": "Saisissez une plage de dates",
+        "DATE_HINT": "MM/JJ/AAAA – MM/JJ/AAAA",
+        "STARTDATE": "La date de debut",
+        "ENDDATE": "La date de fin",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "La création du projet a réussi"
+      },
+      "IMPORT_PROJECTS": "Importer",
+      "LIST": {
+        "PROJECT_DATE": "Date",
+        "PROJECT_MEMBERS": "Membres",
+        "PROJECT_NAME": "Projet",
+        "PROJECT_STATUS": "Status",
+        "MESSAGE": "Il n'y a pas de Projets !"
+      },
+      "SEARCH_GROUPS": "Chercher un projet",
+      "TITLE": "Projets",
+      "ERROR": {
+        "CREATE_FAILED": "La création de l'organisation a échoué"
+      }
+    },
+
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
     "WELCOME_BACK": "Bonjour"
   },
