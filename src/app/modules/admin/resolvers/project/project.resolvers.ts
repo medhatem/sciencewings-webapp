@@ -9,7 +9,5 @@ import { ProjectService } from './project.service';
 export class ProjectResolver implements Resolve<any> {
   constructor(private _projectService: ProjectService) {}
 
-  async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> {
-    await lastValueFrom(this._projectService.getAndParseOrganizationProject());
-  }
+  async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> {}
 }

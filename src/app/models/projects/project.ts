@@ -3,7 +3,7 @@ import { Member } from '../members/member';
 
 export class Project implements ProjectRo {
   id?: string;
-  active?: boolean;
+  active: boolean;
   dateEnd?: string;
   managers: number[];
   participants: number[];
