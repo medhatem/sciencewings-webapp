@@ -92,6 +92,10 @@ export class ProjectService {
   parseProjectResponsible(responsable: ResponsableObjectDto): string {
     return `<div>${responsable.name}</div><div>${responsable.email}</div>`;
   }
+  getOrgProjectById(): Observable<any> {
+    return this._swaggerService.projectRoutesGetOrganizationProjectById({ id: 1 });
+  }
+
   getOrgProjectMembers(): Observable<any> {
     return this._swaggerService.projectRoutesGetAllProjectParticipants({ id: 1 });
   }
@@ -99,10 +103,11 @@ export class ProjectService {
     return this.getOrgProjectMembers().pipe(
       map((participants) => participants.body.data.map((participant) => new ProjectListMember(participant))),
       map((participants: ProjectListMember[]) =>
-        participants.map(({ member, role, status }) => ({
+        participants.map(({ member, role, status, createdAt }) => ({
           member: this.parseProjectMembers(member),
           role: `${role}`,
           status: `${status}`,
+          createdAt: `${createdAt}`,
         })),
       ),
       tap((response) => {

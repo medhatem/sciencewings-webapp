@@ -78,13 +78,15 @@ export class ProjectListMember implements ProjectMemberDto {
   role: string;
   status: string;
   statusCode: number;
+  createdAt: string;
 
   constructor(project?: any) {
-    const { member, role, status } = project || {};
+    const { member, role, status, createdAt } = project || {};
     Object.assign(this, {
       member,
       role,
       status,
+      createdAt,
     });
   }
 }

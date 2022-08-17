@@ -11,7 +11,7 @@
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>Name</mat-label>
           <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:user'" matPrefix></mat-icon>
-          <input [formControlName]="'name'" matInput />
+          <input [formControlName]="'name'" placeholder="{{ project.title }}" matInput value="{{ project.title }}" />
         </mat-form-field>
       </div>
       <!-- Key -->

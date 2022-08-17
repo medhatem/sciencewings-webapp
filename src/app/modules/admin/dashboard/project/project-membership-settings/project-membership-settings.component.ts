@@ -32,8 +32,9 @@ export class ProjectMembershipSettingsComponent implements OnInit {
         { columnName: 'ORGANIZATION.PROFILE', columnPropertyToUse: 'member', customClass: '' },
         { columnName: 'ORGANIZATION.PROJECTS.LIST.ROLE', columnPropertyToUse: 'role', customClass: '' },
         { columnName: 'ORGANIZATION.PROJECTS.LIST.PROJECT_STATUS', columnPropertyToUse: 'status', customClass: '' },
+        { columnName: 'ORGANIZATION.PROJECTS.SETTINGS.JOINED_DATE', columnPropertyToUse: 'createdAt', customClass: '' },
       ],
-      numnberOfColumns: 3,
+      numnberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
     };
     this._projectService.projectParticipent$.pipe(takeUntil(this._unsubscribeAll)).subscribe((participants: ProjectListMember[]) => {

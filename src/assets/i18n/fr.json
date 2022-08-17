@@ -440,7 +440,8 @@
       },
       "SETTINGS": {
         "PROJECT_SETTINGS": "Paramètres de projet",
-        "PARTICIPANTS": "Participants"
+        "PARTICIPANTS": "Participants",
+        "JOINED_DATE": "Date d'adhésion"
       },
       "SEARCH_GROUPS": "Chercher un projet",
       "TITLE": "Projets",

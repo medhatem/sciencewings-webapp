@@ -440,7 +440,8 @@
       },
       "SETTINGS": {
         "PROJECT_SETTINGS": "Project settings",
-        "PARTICIPANTS": "Participants"
+        "PARTICIPANTS": "Participants",
+        "JOINED_DATE": "Joined date"
       },
       "SEARCH_PROJECTS": "Find a project",
       "TITLE": "Projects",
