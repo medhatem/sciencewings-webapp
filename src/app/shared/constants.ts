@@ -52,7 +52,6 @@ export const constants = {
       ORGANIZATION_GROUPS: 'organization-groups',
       ORGANIZATION_SETTINGS: 'organization-settings',
       ORGANIZATION_PROJECT: 'project',
-      PROJECT_SETTINGS: 'project-settings',
     },
     RESOURCES: {
       RESOURCE: 'resource',
