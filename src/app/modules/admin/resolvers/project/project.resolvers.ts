@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ProjectService } from './project.service';
 
 @Injectable({
@@ -9,5 +9,7 @@ import { ProjectService } from './project.service';
 export class ProjectResolver implements Resolve<any> {
   constructor(private _projectService: ProjectService) {}
 
-  async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> {}
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    return this._projectService.getAndParseOrganizationProject();
+  }
 }

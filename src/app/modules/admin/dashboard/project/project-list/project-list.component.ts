@@ -55,6 +55,19 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
+  openInviteProjectDialog(): void {
+    const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    if (!orgID) {
+      this._toastrService.showError('Something went wrong!');
+    }
+    this.openedDialogRef = this._matDialog.open(ProjectFormComponent, {
+      data: { orgID },
+    });
+    this.openedDialogRef.afterClosed().subscribe((result) => {
+      lastValueFrom(this._projectService.getAndParseOrganizationProject());
+    });
+  }
+
   async onElementSelected() {
     this._router.navigate(['/admin/project']);
   }

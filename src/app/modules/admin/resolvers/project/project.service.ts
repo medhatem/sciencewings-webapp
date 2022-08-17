@@ -2,11 +2,11 @@ import { BehaviorSubject, Observable, map, take, tap, lastValueFrom } from 'rxjs
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateProjectDto, MemberDto } from 'generated/models';
+import { CreateProjectDto } from 'generated/models';
 import { Member } from 'app/models/members/member';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
-import { Project } from 'app/models/projects/project';
+import { Project, ProjectListItem } from 'app/models/projects/project';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,6 @@ export class ProjectService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _projects: BehaviorSubject<any | null> = new BehaviorSubject(null);
-  private _projectParticipent: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private _swaggerService: ApiService) {}
 
@@ -29,9 +28,6 @@ export class ProjectService {
 
   get projects$(): Observable<any> {
     return this._projects.asObservable();
-  }
-  get projectParticipent$(): Observable<any> {
-    return this._projectParticipent.asObservable();
   }
 
   async createProject(project: Project): Promise<CreateProjectDto> {
@@ -66,5 +62,26 @@ export class ProjectService {
   getOrgProjects(): Observable<any> {
     const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     return this._swaggerService.projectRoutesGetOrganizationProjects({ id });
+  }
+
+  getAndParseOrganizationProject(): Observable<any[]> {
+    return this.getOrgProjects().pipe(
+      map((projects) => projects.body.data.map((project) => new ProjectListItem(project))),
+      map((projects: ProjectListItem[]) =>
+        projects.map(({ title, managers, participants, dateStart }) => ({
+          title: `${title}`,
+          managers: this.parseMembersToHtml(managers),
+          participents: participants.length,
+          dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+        })),
+      ),
+      tap((response) => {
+        this._projects.next(response);
+      }),
+    );
+  }
+
+  private parseMembersToHtml(members: Member[]) {
+    return members.map(({ name, workEmail }) => `<div>${name}</div><div>${workEmail}</div>`);
   }
 }
