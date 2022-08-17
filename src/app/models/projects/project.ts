@@ -32,18 +32,3 @@ export class Project implements ProjectRo {
     }
   }
 }
-
-export class participantListItem {
-  member: Member;
-  role: string;
-  status: string;
-
-  constructor(participant?: any) {
-    const { member, role, status } = participant || {};
-    Object.assign(this, {
-      member,
-      role,
-      status,
-    });
-  }
-}

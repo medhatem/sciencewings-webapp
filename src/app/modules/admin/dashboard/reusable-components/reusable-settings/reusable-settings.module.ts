@@ -4,11 +4,11 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReusableSettingsRoutes } from './reusable-settings.component.routing';
+import { reusableSettingsRoutes } from './reusable-settings.component.routing';
 import { ReusableSettingsComponent } from './reusable-settings.component';
 
 @NgModule({
   declarations: [ReusableSettingsComponent],
-  imports: [RouterModule.forChild(ReusableSettingsRoutes), CommonModule, MatFormFieldModule, SharedModule, TranslocoModule],
+  imports: [RouterModule.forChild(reusableSettingsRoutes), CommonModule, MatFormFieldModule, SharedModule, TranslocoModule],
 })
 export class ReusableSettingsModule {}
