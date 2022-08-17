@@ -185,17 +185,6 @@ export const appRoutes: Route[] = [
             },
             loadChildren: () => import('app/modules/admin/dashboard/project/project.module').then((m) => m.ProjectModule),
           },
-          {
-            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.PROJECT_SETTINGS,
-            canActivate: [AuthGuard],
-            data: {
-              title: 'APP.ROUTES.ADMIN.PROJECT_SETTINGS.TITLE',
-              type: FuseNavigationItemTypeEnum.basic,
-              icon: 'heroicons_outline:table',
-            },
-            loadChildren: () =>
-              import('app/modules/admin/dashboard/project/project-settings/project-settings.module').then((m) => m.ProjectSettingsModule),
-          },
         ],
       },
       {
