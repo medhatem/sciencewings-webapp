@@ -185,9 +185,6 @@ export const appRoutes: Route[] = [
           title: 'APP.ROUTES.ADMIN.PROJECT.TITLE',
           type: FuseNavigationItemTypeEnum.group,
         },
-        resolve: {
-          projects: ProjectResolver,
-        },
 
         children: [
           {
@@ -197,6 +194,9 @@ export const appRoutes: Route[] = [
               title: 'APP.ROUTES.ADMIN.PROJECT.TITLE',
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:table',
+            },
+            resolve: {
+              projects: ProjectResolver,
             },
             loadChildren: () => import('app/modules/admin/dashboard/project/project.module').then((m) => m.ProjectModule),
           },
