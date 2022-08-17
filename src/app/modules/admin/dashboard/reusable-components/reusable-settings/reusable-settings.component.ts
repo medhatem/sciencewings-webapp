@@ -16,7 +16,7 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
   @Input() selectedPanel: string;
-  @Input() title;
+  @Input() title: string;
   @Output() OnSelectedPanelChange = new EventEmitter<string>();
   @Input() panels: any[] = [];
 
