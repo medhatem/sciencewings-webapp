@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable, map, take, tap, lastValueFrom } from 'rxjs
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateProjectDto, MemberDto, ResponsableObjectDto } from 'generated/models';
+import { CreateProjectDto, MemberDto } from 'generated/models';
 import { Member } from 'app/models/members/member';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
@@ -68,11 +68,6 @@ export class ProjectService {
     return this._swaggerService.projectRoutesGetOrganizationProjects({ id });
   }
 
-  getOrgProjectsList(): Observable<any> {
-    const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this._swaggerService.projectRoutesGetAllOrganizationProjectsList({ id });
-  }
-
   getAndParseOrganizationProject(): Observable<any[]> {
     return this.getOrgProjectsList().pipe(
       map((projects) => projects.body.data.map((project) => new ProjectListItem(project))),
@@ -91,32 +86,5 @@ export class ProjectService {
   }
   parseProjectResponsible(responsable: ResponsableObjectDto): string {
     return `<div>${responsable.name}</div><div>${responsable.email}</div>`;
-  }
-  getOrgProjectById(): Observable<any> {
-    return this._swaggerService.projectRoutesGetOrganizationProjectById({ id: 1 });
-  }
-
-  getOrgProjectMembers(): Observable<any> {
-    return this._swaggerService.projectRoutesGetAllProjectParticipants({ id: 1 });
-  }
-  getAndParseProjectParticipants(): Observable<any[]> {
-    return this.getOrgProjectMembers().pipe(
-      map((participants) => participants.body.data.map((participant) => new ProjectListMember(participant))),
-      map((participants: ProjectListMember[]) =>
-        participants.map(({ member, role, status, createdAt }) => ({
-          member: this.parseProjectMembers(member),
-          role: `${role}`,
-          status: `${status}`,
-          createdAt: `${createdAt}`,
-        })),
-      ),
-      tap((response) => {
-        console.log('response= ', response);
-        this._projectParticipent.next(response);
-      }),
-    );
-  }
-  parseProjectMembers(member: MemberDto): string {
-    return `<div>${member.name}</div><div>${member.workEmail}</div>`;
   }
 }
