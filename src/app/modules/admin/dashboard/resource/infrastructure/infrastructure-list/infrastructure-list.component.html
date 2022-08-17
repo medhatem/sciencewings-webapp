@@ -75,16 +75,19 @@
           <span class="ml-2 mr-1">{{ 'ORGANIZATION.INFRASTRUCTURES.FILTER_INFRASTRUCTURE' | transloco }}</span>
         </button>
         <button mat-menu-item>
-          <span class="ml-2 mr-1">{{ 'ORGANIZATION.MEMBERS.IMPORT_MEMBERS' | transloco }}</span>
+          <span class="ml-2 mr-1">{{ 'ORGANIZATION.INFRASTRUCTURES.IMPORT_INFRASTRUCTURE' | transloco }}</span>
         </button>
         <button mat-menu-item>
-          <span class="ml-2 mr-1">{{ 'ORGANIZATION.MEMBERS.EXPORT_MEMBERS' | transloco }}</span>
+          <span class="ml-2 mr-1">{{ 'ORGANIZATION.INFRASTRUCTURES.EXPORT_INFRASTRUCTURE' | transloco }}</span>
         </button>
       </mat-menu>
     </div>
   </div>
 
   <!-- Main -->
-  <list-component [dataList]="infrastructures" [options]="options" [message]="'ORGANIZATION.MEMBERS.LIST.MESSAGE' | transloco"></list-component>
+  <list-component
+    [dataList]="infrastructures"
+    [options]="options"
+    [message]="'ORGANIZATION.INFRASTRUCTURES.NO_INFRASTRUCTURE' | transloco"></list-component>
 </div>
 <router-outlet></router-outlet>

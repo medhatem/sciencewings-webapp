@@ -442,7 +442,8 @@
       "SEARCH_INFRASTRUCTURE": "Search Infrastructure",
       "FILTER_INFRASTRUCTURE": "Filter ",
       "IMPORT_INFRASTRUCTURE": "Import ",
-      "EXPORT_INFRASTRUCTURE": "Export "
+      "EXPORT_INFRASTRUCTURE": "Export ",
+      "NO_INFRASTRUCTURE": "There are no infrastructure"
     },
     "PROJECTS": {
       "CREATE_PROJECTS": "Create a new project",
