@@ -6,7 +6,7 @@ import { CreateProjectDto, MemberDto } from 'generated/models';
 import { Member } from 'app/models/members/member';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
-import { Project, ProjectListItem, ProjectListMember } from 'app/models/projects/project';
+import { Project } from 'app/models/projects/project';
 
 @Injectable({
   providedIn: 'root',
@@ -66,25 +66,5 @@ export class ProjectService {
   getOrgProjects(): Observable<any> {
     const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     return this._swaggerService.projectRoutesGetOrganizationProjects({ id });
-  }
-
-  getAndParseOrganizationProject(): Observable<any[]> {
-    return this.getOrgProjectsList().pipe(
-      map((projects) => projects.body.data.map((project) => new ProjectListItem(project))),
-      map((projects: ProjectListItem[]) =>
-        projects.map(({ creatingDate, members, responsable, title }) => ({
-          title: `${title}`,
-          managers: this.parseProjectResponsible(responsable),
-          participents: `${members}`,
-          creatingDate: moment(creatingDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
-        })),
-      ),
-      tap((response) => {
-        this._projects.next(response);
-      }),
-    );
-  }
-  parseProjectResponsible(responsable: ResponsableObjectDto): string {
-    return `<div>${responsable.name}</div><div>${responsable.email}</div>`;
   }
 }

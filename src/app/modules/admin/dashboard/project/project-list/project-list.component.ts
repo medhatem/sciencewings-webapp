@@ -8,7 +8,7 @@ import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { ListOption } from '../../reusable-components/list/list-component.component';
 import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 import { ProjectFormComponent } from '../project-form/project-form.component';
-import { Project, ProjectMember } from 'app/models/projects/project';
+import { Project } from 'app/models/projects/project';
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',

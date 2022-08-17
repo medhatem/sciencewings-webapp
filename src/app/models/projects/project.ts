@@ -5,8 +5,8 @@ export class Project implements ProjectRo {
   id?: string;
   active?: boolean;
   dateEnd?: string;
-  managers: number;
-  participants: number;
+  managers: number[];
+  participants: number[];
   dateStart?: string;
   description: string;
   key: string;
