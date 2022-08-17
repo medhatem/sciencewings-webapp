@@ -10,7 +10,8 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ProjectFormComponent } from './project-form/project-form.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
+import { ListComponentModule } from '../reusable-components/list/list-component.module';
 
 @NgModule({
   declarations: [ProjectComponent, ProjectListComponent, ProjectFormComponent],
@@ -23,6 +24,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatFormFieldModule,
     FuseFindByKeyPipeModule,
     MatNativeDateModule,
+    ListComponentModule,
   ],
 })
 export class ProjectModule {}

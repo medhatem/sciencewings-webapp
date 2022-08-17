@@ -19,8 +19,6 @@ import {
 } from '@fuse/components/navigation';
 import { Subject, takeUntil } from 'rxjs';
 import { appRoutes } from 'app/app.routing';
-
-import { CookieService } from 'ngx-cookie-service';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen/splash-screen.service';
 import { SwitchOrganizationsService } from 'app/layout/common/switch-organization/switch-organization.service';
@@ -45,6 +43,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   isScreenSmall: boolean;
   navigation: FuseNavigationItem[];
   user: User;
+
+  private isAppReachedByUrl: boolean;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -52,11 +52,11 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     private _router: Router,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _fuseNavigationService: FuseNavigationService,
-    private _cookies: CookieService,
     private _fuseSplashScreenService: FuseSplashScreenService,
     private _toastrService: ToastrService,
     private _switchOrganizationsService: SwitchOrganizationsService,
     private _adminOrganizationsService: AdminOrganizationsService,
+    private _sharedHelpers: SharedHelpers,
   ) {}
 
   /**
@@ -69,7 +69,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     const { userKeycloackData } = this._route.snapshot.data;
     this._router.onSameUrlNavigation = 'ignore';
-    this.setAdministrationModuleAsDefault();
+    this.setSelectedModule();
     this.subscribeToMediaChangesAndScreenSizeCheck();
 
     /**
@@ -138,11 +138,11 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       }
     } catch (error) {
       this._toastrService.showError(constants.FATAL_ERROR_OCCURED);
-      SharedHelpers.terminateAllTasksAndLogout(this._cookies, [this._unsubscribeAll]);
+      this._sharedHelpers.terminateAllTasksAndLogout([this._unsubscribeAll]);
     } finally {
       setTimeout(() => {
         this._fuseSplashScreenService.hide();
-      }, 1000);
+      }, 700);
     }
   }
 
@@ -184,12 +184,24 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   /**
-   * Set ADMINISTRATION module by default
+   * Set the selected module in localStorage, from the url
+   * or if already selected, lastely ADMIN as default
+   *
+   * @returns the selected module
    */
-  private setAdministrationModuleAsDefault() {
-    if (!localStorage.getItem(constants.CURRENT_MODULE)) {
+  private setSelectedModule() {
+    const urlSegments = this._router.url.split('/').map((segment) => segment.toLocaleUpperCase());
+    urlSegments.shift();
+    const modules = Object.keys(constants.MODULES_ROUTINGS_URLS);
+
+    if (modules.includes(urlSegments[0])) {
+      this.isAppReachedByUrl = true;
+      localStorage.setItem(constants.CURRENT_MODULE, urlSegments[0]);
+    } else if (!localStorage.getItem(constants.CURRENT_MODULE)) {
       localStorage.setItem(constants.CURRENT_MODULE, constants.MODULES_ROUTINGS_URLS.ADMIN);
+      return constants.MODULES_ROUTINGS_URLS.ADMIN;
     }
+    return localStorage.getItem(constants.CURRENT_MODULE);
   }
 
   /**
@@ -204,13 +216,18 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
 
     const currentOrganizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     try {
-      const organizationExist = await this._adminOrganizationsService.getOrganization(currentOrganizationId);
-      if (organizationExist) {
-        const modulePath = localStorage.getItem(constants.CURRENT_MODULE) || constants.MODULES_ROUTINGS_URLS.ADMIN;
-        navigationItems.push(applicationRoutes.find(({ path }) => path === modulePath));
+      if (currentOrganizationId) {
+        const organizationExist = await this._adminOrganizationsService.getOrganization(currentOrganizationId);
+        if (organizationExist) {
+          const modulePath = localStorage.getItem(constants.CURRENT_MODULE) || constants.MODULES_ROUTINGS_URLS.ADMIN;
+          const found = applicationRoutes.find(({ path }) => path.toLocaleLowerCase() === modulePath.toLocaleLowerCase());
+          navigationItems.push(found);
+        }
       }
     } catch (error) {
-      // Ignore error
+      if (error.status === 0) {
+        this._sharedHelpers.terminateAllTasksAndLogout([this._unsubscribeAll]);
+      }
     } finally {
       this.navigation = this.buildNavigationItemsFromRoutes(navigationItems);
       this.redirectToParentOrFirstChild(navigationItems[0]);
@@ -255,6 +272,12 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
    * @param route: Route
    */
   private redirectToParentOrFirstChild(route: Route) {
+    if (this.isAppReachedByUrl) {
+      setTimeout(() => {
+        this.isAppReachedByUrl = false;
+      }, 1500);
+      return;
+    }
     const { path, component, loadChildren, children } = route;
     const redirectToPath = path ? ['/', path] : [''];
     if (!component && !loadChildren && children[0]?.path) {
