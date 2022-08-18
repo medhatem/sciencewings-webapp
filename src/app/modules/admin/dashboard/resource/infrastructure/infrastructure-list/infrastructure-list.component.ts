@@ -37,7 +37,6 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
       columns: [
         { columnName: 'Infrastructure', columnPropertyToUse: 'name', customClass: '' },
         { columnName: 'Key', columnPropertyToUse: 'key', customClass: 'hidden' },
-        // { columnName: 'Responsible', columnPropertyToUse: 'responsibles', customClass: 'hidden' },
         { columnName: 'Created Date', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
       numnberOfColumns: 3,

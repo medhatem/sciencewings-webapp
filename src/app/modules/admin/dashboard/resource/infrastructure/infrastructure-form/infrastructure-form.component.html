@@ -40,15 +40,6 @@
       }}</mat-error>
     </div>
 
-    <!-- <div class="flex-auto mx-4" *ngIf="organizationMembers?.length">
-      <mat-label class="w-100">{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.RESPONSIBLES' | transloco }}</mat-label>
-      <ng-select [searchable]="true" [multiple]="true" [formControlName]="'responsibles'">
-        <ng-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember.user">
-          {{ organizationMember.name }}
-        </ng-option>
-      </ng-select>
-    </div> -->
-
     <mat-form-field class="flex-auto mx-4">
       <mat-label required>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.DESCRIPTION' | transloco }}</mat-label>
       <textarea

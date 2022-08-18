@@ -19,7 +19,6 @@ export class InfrastructureFormComponent implements OnInit {
   infrastructureForm: FormGroup;
   submitted = false;
   organizationMembers: OrganizationMembers[];
-  // responsibles: [] = [];
 
   constructor(
     public matDialogRef: MatDialogRef<InfrastructureFormComponent>,
@@ -37,7 +36,6 @@ export class InfrastructureFormComponent implements OnInit {
     this.infrastructureForm = this._formBuilder.group({
       name: ['', [Validators.required]],
       key: ['', [Validators.required]],
-      // responsibles: [],
       description: [''],
     });
   }

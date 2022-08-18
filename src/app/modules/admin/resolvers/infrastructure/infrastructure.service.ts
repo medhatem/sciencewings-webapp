@@ -68,7 +68,6 @@ export class InfrastructureService {
         return infrastructures.map(({ name, key, dateStart }) => ({
           name: `${name}`,
           key,
-          // responsibles: this.parseMembersToHtml(responsibles),
           dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
         }));
       }),

@@ -9,7 +9,7 @@ export class Infrastructure implements InfrastructureRo {
   parent?: number;
   resources?: Array<number>;
   dateStart?: Date;
-  // responsibles: number[];
+  responsibles: number[];
 
   constructor(infrastructure: any) {
     const { id, description, key, dateEnd, dateStart, responsibles, organization, parent, resources, name } = infrastructure || {};
@@ -34,17 +34,16 @@ export class InfrastructureListItem {
   id: number;
   description: string;
   key: string;
-  // responsibles: Array<Member>;
+  responsibles: Array<Member>;
   dateStart?: Date;
   name: string;
 
   constructor(infrastructure?: any) {
-    const { id, name, key, dateStart, responsibles, description } = infrastructure || {};
+    const { id, name, key, dateStart, description } = infrastructure || {};
     Object.assign(this, {
       id,
       name,
       key,
-      // responsibles,
       dateStart,
       description,
     });
