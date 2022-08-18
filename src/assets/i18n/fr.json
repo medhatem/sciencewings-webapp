@@ -449,11 +449,14 @@
         "NAME": "Nom",
         "HOLDER_NAME": "Nom de l'infrastructure",
         "DESCRIPTION": "Description",
+        "RESPONSIBLES": "Responsable",
+        "KEY": "Clé",
         "SAVE": "Sauvegarder",
         "CANCEL": "Annuler"
       },
       "VALIDATORS": {
-        "NAME_REQUIRED": "Le nom de l'infrastructure est requis"
+        "NAME_REQUIRED": "Le nom de l'infrastructure est requis",
+        "KEY_REQUIRED": "La clé de l'infrastructure est requise"
       },
       "SUCCESS": {
         "CREATE_COMPLETED": "L'infrastructure a été créée avec succès "

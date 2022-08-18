@@ -8,7 +8,8 @@ export class Infrastructure implements InfrastructureRo {
   organization: number;
   parent?: number;
   resources?: Array<number>;
-  responsibles?: Array<number>;
+  dateStart?: Date;
+  // responsibles: number[];
 
   constructor(infrastructure: any) {
     const { id, description, key, dateEnd, dateStart, responsibles, organization, parent, resources, name } = infrastructure || {};
@@ -33,15 +34,19 @@ export class InfrastructureListItem {
   id: number;
   description: string;
   key: string;
+  // responsibles: Array<Member>;
+  dateStart?: Date;
   name: string;
 
   constructor(infrastructure?: any) {
-    const { id, description, key, name } = infrastructure || {};
+    const { id, name, key, dateStart, responsibles, description } = infrastructure || {};
     Object.assign(this, {
       id,
-      description,
-      key,
       name,
+      key,
+      // responsibles,
+      dateStart,
+      description,
     });
   }
 }

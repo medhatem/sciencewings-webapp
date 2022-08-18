@@ -19,7 +19,7 @@ export class InfrastructureFormComponent implements OnInit {
   infrastructureForm: FormGroup;
   submitted = false;
   organizationMembers: OrganizationMembers[];
-  managers: [] = [];
+  // responsibles: [] = [];
 
   constructor(
     public matDialogRef: MatDialogRef<InfrastructureFormComponent>,
@@ -34,11 +34,12 @@ export class InfrastructureFormComponent implements OnInit {
 
   ngOnInit() {
     this.getMembers();
-    const infrastructureFormObj = {
+    this.infrastructureForm = this._formBuilder.group({
       name: ['', [Validators.required]],
+      key: ['', [Validators.required]],
+      // responsibles: [],
       description: [''],
-    };
-    this.infrastructureForm = this._formBuilder.group(infrastructureFormObj);
+    });
   }
   async onSubmit() {
     this.submitted = true;
@@ -51,7 +52,7 @@ export class InfrastructureFormComponent implements OnInit {
       this._toastrService.showSuccess(constants.CREATE_INFRASTRUCTURE_COMPLETED);
       this.matDialogRef.close();
     } catch (res) {
-      // this._toastrService.showError(res.error.error);
+      this._toastrService.showError(res.error.error);
     }
   }
 
@@ -65,7 +66,7 @@ export class InfrastructureFormComponent implements OnInit {
       .getMembersByOrgId(idOrg)
       .then((resolve) => (this.organizationMembers = resolve))
       .catch(() => {
-        // this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');
+        this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');
       });
   }
   private getInfrastructureFromFormBuilder(): Infrastructure {

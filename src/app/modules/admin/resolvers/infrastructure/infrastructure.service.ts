@@ -65,10 +65,11 @@ export class InfrastructureService {
     return this.getOrgInfrastructures().pipe(
       map((infrastructures) => infrastructures.body.data.map((infrastructure) => new InfrastructureListItem(infrastructure))),
       map((infrastructures: InfrastructureListItem[]) => {
-        return infrastructures.map(({ name, description, key }) => ({
+        return infrastructures.map(({ name, key, dateStart }) => ({
           name: `${name}`,
-          description,
           key,
+          // responsibles: this.parseMembersToHtml(responsibles),
+          dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
         }));
       }),
       tap((response) => {
@@ -86,7 +87,7 @@ export class InfrastructureService {
   deleteInfrastructure(id: number): Observable<any> {
     return this.swaggerAPI.infrastructureRoutesRemove({ id });
   }
-  private parseMembersToHtml(members: Member[]) {
+  parseMembersToHtml(members: Member[]) {
     return members.map(({ name, workEmail }) => `<div>${name}</div><div>${workEmail}</div>`);
   }
 }

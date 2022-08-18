@@ -448,12 +448,15 @@
         "TITLE": "Create infrastructure ",
         "NAME": "Name",
         "HOLDER_NAME": "Infrastructure Name",
+        "RESPONSIBLES": "Responsable",
         "DESCRIPTION": "Description",
+        "KEY": "Key",
         "SAVE": "Save",
         "CANCEL": "Cancel"
       },
       "VALIDATORS": {
-        "NAME_REQUIRED": "Infrastructue name is required"
+        "NAME_REQUIRED": "Infrastructue name is required",
+        "KEY_REQUIRED": "Key required"
       },
       "SUCCESS": {
         "CREATE_COMPLETED": "Infrastructure was created successfuly "
