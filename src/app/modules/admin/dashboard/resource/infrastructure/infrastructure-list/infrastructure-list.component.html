@@ -10,7 +10,7 @@
       <div class="flex items-center justify-between w-full">
         <div class="text-4xl font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.INFRASTRUCTURES.TITLE' | transloco }}</div>
         <div class="sm:hidden mt-6 sm:mt-0 sm:ml-4">
-          <button class="ml-4" mat-flat-button [color]="'primary'">
+          <button class="ml-4" mat-flat-button [color]="'primary'" (click)="openCreateInfrastructureDialog()">
             <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
             <span class="ml-0.5 mr-0.5">{{ 'ORGANIZATION.INFRASTRUCTURES.CREATE_INFRASTRUCTURE_MOBILE' | transloco }}</span>
           </button>
@@ -26,21 +26,21 @@
             infrastructuresCount
               | i18nPlural
                 : {
-                    '=0': 'No infrastructures',
+                    '=0': 'No infrastructure',
                     '=1': 'infrastructure',
-                    other: 'infrastructures'
+                    other: 'infrastructure'
                   }
           }}
         </div>
       </div>
       <div class="mt-8 text-md font-medium text-secondary text-center">
         <span>{{ 'ORGANIZATION.INFRASTRUCTURES.MESSAGE' | transloco }}</span>
-        <a class="ml-1 text-primary-500 hover:underline" [routerLink]="['/sign-in']">infrastructure settings </a>
+        <a class="ml-1 text-primary-500 hover:underline" [routerLink]="['/sign-in']">Infrastructure settings </a>
       </div>
     </div>
     <!-- Actions -->
     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-      <button class="hidden sm:inline-flex ml-4" mat-flat-button [color]="'primary'">
+      <button class="hidden sm:inline-flex ml-4" mat-flat-button [color]="'primary'" (click)="openCreateInfrastructureDialog()">
         <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
         <span class="ml-2 mr-1">{{ 'ORGANIZATION.INFRASTRUCTURES.CREATE_INFRASTRUCTURE' | transloco }}</span>
       </button>

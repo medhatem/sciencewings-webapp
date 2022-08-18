@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
 import { Infrastructure } from 'app/models/infrastructures/infrastructure';
 import { InfrastructureService } from 'app/modules/admin/resolvers/infrastructure/infrastructure.service';
 import { constants } from 'app/shared/constants';
+import { InfrastructureFormComponent } from '../infrastructure-form/infrastructure-form.component';
 @Component({
   selector: 'app-infrastructure-list',
   templateUrl: './infrastructure-list.component.html',
@@ -35,8 +36,8 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
     this.options = {
       columns: [
         { columnName: 'Infrastructure', columnPropertyToUse: 'name', customClass: '' },
-        { columnName: 'key', columnPropertyToUse: 'key', customClass: 'hidden' },
-        { columnName: 'Description', columnPropertyToUse: 'description', customClass: 'hidden' },
+        { columnName: 'Key', columnPropertyToUse: 'key', customClass: 'hidden' },
+        { columnName: 'Created Date', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
       numnberOfColumns: 3,
     };
@@ -45,22 +46,6 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
       this.infrastructures = infrastructures;
       this.infrastructuresCount = infrastructures.length;
       this._changeDetectorRef.markForCheck();
-      // this.infrastructuresCount = infrastructures.length;
-      // this._changeDetectorRef.markForCheck();
-      // // Subscribe to search input field value changes
-      // this.searchInputControl.valueChanges
-      //   .pipe(
-      //     takeUntil(this._unsubscribeAll),
-      //     debounceTime(300),
-      //     switchMap((query) => {
-      //       this.isLoading = true;
-      //       return this._infrastructureService.getInfrastructures(0, 10, 'name', 'asc', query);
-      //     }),
-      //     map(() => {
-      //       this.isLoading = false;
-      //     }),
-      //   )
-      //   .subscribe();
     });
   }
   ngOnDestroy(): void {
@@ -73,9 +58,9 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
     if (!orgID) {
       this._toastrService.showError('Something went wrong!');
     }
-    // this.openedDialogRef = this._matDialog.open(InfrastructureFormComponent, {
-    //   data: { orgID },
-    // });
+    this.openedDialogRef = this._matDialog.open(InfrastructureFormComponent, {
+      data: { orgID },
+    });
     this.openedDialogRef.afterClosed().subscribe((result) => {
       lastValueFrom(this._infrastructureService.getAndParseOrganizationInfrastructures());
     });
