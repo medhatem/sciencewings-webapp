@@ -450,7 +450,16 @@
         "VISIBILITY_OPTIONS": "Visibility Options",
         "RESERVATION_DETAILS_VISIBILITY_TO_NON_MODERATORS": "Reservation Details Visibility to Non-moderators",
         "ALL_RESERVATION_DETAILS": "All Reservation Details",
-        "PROPERTIES": "Properties"
+        "PROPERTIES": "Properties",
+        "EQUIPEMENT": "Equipement",
+        "SERVICE": "Service",
+        "PERSON": "Person",
+        "SOFTWARE": "Software",
+        "EVENT": "Event",
+        "RESERVABLE": "Reservable",
+        "REQUESTABLE": "Requestable",
+        "SAVE": "Save",
+        "CANCEL": "Cancel"
       }
     },
     "SUCCESS": {

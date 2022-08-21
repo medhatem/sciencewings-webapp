@@ -13,7 +13,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   encapsulation: ViewEncapsulation.None,
 })
 export class ResourceProfileFormComponent implements OnInit {
-  form!: FormGroup;
+  resourceForm: FormGroup;
 
   constructor(
     public matDialogRef: MatDialogRef<ResourceProfileFormComponent>,
@@ -23,36 +23,36 @@ export class ResourceProfileFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.form = this._formBuilder.group({
+    this.resourceForm = this._formBuilder.group({
       name: ['', Validators.required],
-      description: ['', Validators.required],
-      resourceType: ['equipement', Validators.required],
       resourceClass: ['reservable', Validators.required],
+      resourceType: ['equipement', Validators.required],
+      description: [''],
     });
   }
 
   async onSubmit() {
-    if (this.form.invalid) {
+    if (this.resourceForm.invalid) {
       return;
     }
 
     const _resource = {
-      name: this.form.value.name,
-      description: this.form.value.description,
+      name: this.resourceForm.value.name,
+      description: this.resourceForm.value.description,
       active: true,
       organization: 1,
       user: 1,
-      resourceType: this.form.value.resourceType,
-      resourceClass: this.form.value.resourceClass,
+      resourceType: this.resourceForm.value.resourceType,
+      resourceClass: this.resourceForm.value.resourceClass,
     };
     try {
       const response = await lastValueFrom(this._resourceService.createResource(_resource));
-      this.form.reset({
-        name: '',
-        description: '',
-        resourceType: 'equipement',
-        resourceClass: 'reservable',
-      });
+      // this.resourceForm.reset({
+      //   name: '',
+      //   description: '',
+      //   resourceType: 'equipement',
+      //   resourceClass: 'reservable',
+      // });
     } catch (error) {
       this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }

@@ -3,41 +3,50 @@
     <div class="text-lg font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.SETTINGS.RESOUCES.CREATE_RESOURCE' | transloco }}</div>
   </div>
   <hr class="w-full border-t my-2" />
-  <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="form">
-    <mat-form-field appearance="fill">
+  <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="resourceForm">
+    <mat-form-field class="flex-auto mx-4">
       <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.NAME' | transloco }}</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
 
-    <mat-form-field class="w-full">
+    <mat-form-field class="flex-auto mx-4">
       <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.CLASS' | transloco }}</mat-label>
       <mat-select [formControlName]="'resourceClass'">
-        <mat-option [value]="'equipement'">Equipement</mat-option>
-        <mat-option [value]="'service'">Service</mat-option>
-        <mat-option [value]="'person'">Person</mat-option>
-        <mat-option [value]="'software'">Software</mat-option>
-        <mat-option [value]="'event'">Event</mat-option>
+        <mat-option [value]="'equipement'">{{ 'ORGANIZATION.SETTINGS.RESOUCES.EQUIPEMENT' | transloco }}</mat-option>
+        <mat-option [value]="'service'">{{ 'ORGANIZATION.SETTINGS.RESOUCES.SERVICE' | transloco }}</mat-option>
+        <mat-option [value]="'person'">{{ 'ORGANIZATION.SETTINGS.RESOUCES.PERSON' | transloco }}</mat-option>
+        <mat-option [value]="'software'">{{ 'ORGANIZATION.SETTINGS.RESOUCES.SOFTWARE' | transloco }}</mat-option>
+        <mat-option [value]="'event'">{{ 'ORGANIZATION.SETTINGS.RESOUCES.EVENT' | transloco }}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="w-full">
+    <mat-form-field class="flex-auto mx-4">
       <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.TYPE' | transloco }}</mat-label>
       <mat-select [formControlName]="'resourceType'">
-        <mat-option [value]="'reservable'">Reservable</mat-option>
-        <mat-option [value]="'requestable'">Requestable</mat-option>
+        <mat-option [value]="'requestable'">{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVABLE' | transloco }}</mat-option>
+        <mat-option [value]="'reservable'">{{ 'ORGANIZATION.SETTINGS.RESOUCES.REQUESTABLE' | transloco }}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field class="flex-auto mx-4">
       <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.DESCRIPTION' | transloco }}</mat-label>
-      <input matInput formControlName="description" />
+      <textarea
+        matInput
+        [formControlName]="'description'"
+        placeholder="{{ 'ORGANIZATION.SETTINGS.RESOUCES.DESCRIPTION' | transloco }}"
+        [rows]="5"></textarea>
     </mat-form-field>
-
-    <div style="display: flex; justify-content: end">
-      <button mat-button color="warn">{{ 'APP.ROUTES.USER.ABOUT.CANCEL' | transloco }}</button>
-      <button mat-raised-button color="primary" (click)="onSubmit()">
-        {{ 'APP.BTN.ADD' | transloco }}
+    <!-- Actions -->
+    <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
+      <button mat-button mat-dialog-close>{{ 'ORGANIZATION.SETTINGS.RESOUCES.CANCEL' | transloco }}</button>
+      <button class="px-6 ml-3" mat-flat-button [color]="'primary'" (click)="onSubmit()">
+        {{ 'ORGANIZATION.SETTINGS.RESOUCES.SAVE' | transloco }}
       </button>
+    </div>
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+      <div class="-ml-2"></div>
+      <div class="flex items-center mt-4 sm:mt-0"></div>
     </div>
   </form>
 </div>
