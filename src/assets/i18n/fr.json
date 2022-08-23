@@ -460,7 +460,10 @@
         "RESERVABLE": "Réservable",
         "REQUESTABLE": "Demandable",
         "SAVE": "Sauvegarder",
-        "CANCEL": "Annuler"
+        "CANCEL": "Annuler",
+        "SUCCESS": {
+          "CREATE_COMPLETED": "La resource a été créer avec succées "
+        }
       }
     },
     "SUCCESS": {

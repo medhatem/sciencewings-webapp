@@ -88,6 +88,7 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
       description: this.form.value.description,
       active: true,
       user: 1,
+      organization: 1,
       resourceType: this.form.value.resourceType,
       resourceClass: this.form.value.resourceClass,
     };
