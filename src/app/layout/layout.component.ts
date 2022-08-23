@@ -10,6 +10,7 @@ import { AppConfig } from 'app/core/config/app.config';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { NewUserInfosResolver } from './new-user-infos/new-user-infos.resolver';
 import { constants } from 'app/shared/constants';
+import { SharedHelpers } from 'app/shared/helpers';
 
 @Component({
   selector: 'layout',
@@ -35,6 +36,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _newUserInfosResolver: NewUserInfosResolver,
     private _toastrService: ToastrService,
+    private _sharedHelpers: SharedHelpers,
   ) {}
 
   async ngOnInit() {
@@ -193,7 +195,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   private async checkIfUserExistsAndShowOrHideRegistrationForm(userKeycloackId: string) {
     try {
       const user = await this._newUserInfosResolver.getUser(userKeycloackId);
-      if (user) {
+      if (user?.id) {
         localStorage.setItem(constants.CURRENT_USER_ID, `${user.id}`);
         this.hideMenusAndButtons = false;
       } else {
@@ -201,7 +203,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
       }
     } catch (error) {
       this.hideMenusAndButtons = true;
-      this._toastrService.showInfo('APP.NEW_USER_INFOS_REQUIRED');
+      if (error.status === 0) {
+        this._sharedHelpers.terminateAllTasksAndLogout([this._unsubscribeAll]);
+      } else {
+        this._toastrService.showInfo('APP.NEW_USER_INFOS_REQUIRED');
+      }
     }
   }
 

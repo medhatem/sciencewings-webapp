@@ -24,6 +24,7 @@ import moment from 'moment';
 export class ResourceService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
   private _resources: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
 
@@ -33,6 +34,9 @@ export class ResourceService {
    */
   get data$(): Observable<any> {
     return this._data.asObservable();
+  }
+  get pagination$(): Observable<any> {
+    return this._pagination.asObservable();
   }
 
   get resources$(): Observable<any> {

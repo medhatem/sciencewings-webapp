@@ -7,7 +7,7 @@ import { SettingsComponent as GeneralSettingsComponent } from './resource-settin
 import { SettingsComponent as ReservationSettingsComponent } from './resource-settings/reservation/settings.component';
 import { ResourceProfileComponent } from './resource-profile/resource-profile.component';
 import { ResourceScheduleComponent } from './schedule/schedule.component';
-
+import { InfrastructureListComponent } from './infrastructure/infrastructure-list/infrastructure-list.component';
 export const resourceRoutes: Route[] = [
   {
     path: '',
@@ -20,6 +20,7 @@ export const resourceRoutes: Route[] = [
           data: ResourceResolver,
         },
       },
+
       {
         path: 'create',
         component: ResourceProfileFormComponent,

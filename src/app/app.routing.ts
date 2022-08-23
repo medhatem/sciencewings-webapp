@@ -8,8 +8,10 @@ import { Route } from '@angular/router';
 import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
 import { ProjectResolver } from './modules/admin/resolvers/project/project.resolvers';
 import { constants } from './shared/constants';
-
+import { InfrastructureListComponent } from './modules/admin/dashboard/resource/infrastructure/infrastructure-list/infrastructure-list.component';
+import { InfrastructureResolver } from './modules/admin/resolvers/infrastructure/infrastructure.resolvers';
 /**
+ *
  * App Routing
  * contains all the routes that are passed to the app router
  * using lazy loading on main routes
@@ -151,6 +153,30 @@ export const appRoutes: Route[] = [
             },
             loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
           },
+          {
+            path: constants.MODULES_ROUTINGS_CHILDREN_URLS.INFRASTRUCTURES.INFRASTRUCTURE,
+            canActivate: [AuthGuard],
+            data: {
+              title: 'APP.ROUTES.ADMIN.INFRASTRUCTURE.TITLE',
+              type: FuseNavigationItemTypeEnum.basic,
+              icon: 'heroicons_outline:collection',
+            },
+            component: InfrastructureListComponent,
+            resolve: {
+              data: InfrastructureResolver,
+            },
+          },
+          // {
+          //   path: constants.MODULES_ROUTINGS_CHILDREN_URLS.RESOURCES.GENERAL_SETTINGS,
+          //   canActivate: [AuthGuard],
+          //   data: {
+          //     title: 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.GENERAL',
+          //     type: FuseNavigationItemTypeEnum.basic,
+          //     icon: 'heroicons_outline:users',
+          //   },
+          //   loadChildren: () =>
+          //     import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
+          // },
         ],
       },
       {

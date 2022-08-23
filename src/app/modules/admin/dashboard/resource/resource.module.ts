@@ -15,7 +15,9 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { SettingsGeneralModule } from './resource-settings/general/settings.module';
 import { SettingsReservationModule } from './resource-settings/reservation/settings.module';
 import { ResourceProfileComponent } from './resource-profile/resource-profile.component';
-
+import { ListComponentModule } from '../reusable-components/list/list-component.module';
+import { InfrastructureListComponent } from './infrastructure/infrastructure-list/infrastructure-list.component';
+import { InfrastructureFormComponent } from './infrastructure/infrastructure-form/infrastructure-form.component';
 @NgModule({
   declarations: [
     ResourceComponent,
@@ -24,8 +26,18 @@ import { ResourceProfileComponent } from './resource-profile/resource-profile.co
     ResourceListComponent,
     ResourceSettingTagComponent,
     ResurceSettingRuleComponent,
+    InfrastructureListComponent,
+    InfrastructureFormComponent,
     ResourceProfileComponent,
   ],
-  imports: [RouterModule.forChild(resourceRoutes), FuseFindByKeyPipeModule, SharedModule, NgSelectModule, TranslocoModule, MatFormFieldModule],
+  imports: [
+    RouterModule.forChild(resourceRoutes),
+    FuseFindByKeyPipeModule,
+    SharedModule,
+    NgSelectModule,
+    TranslocoModule,
+    MatFormFieldModule,
+    ListComponentModule,
+  ],
 })
 export class ResourceModule {}

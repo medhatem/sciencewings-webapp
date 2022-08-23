@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'member-form',
+  selector: 'group-form',
   templateUrl: './group-form.component.html',
   encapsulation: ViewEncapsulation.None,
 })

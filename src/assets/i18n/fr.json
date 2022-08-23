@@ -26,18 +26,21 @@
           "DESCRIPTION": "FAQ et guides",
           "TITLE": "Centre d'aide"
         },
-        "RESOUCES": {
-          "DESCRIPTION": "Demarrage...",
-          "TITLE": "Documentation"
-        },
         "PROJECT": {
           "DESCRIPTION": "gestion des projets",
           "TITLE": "Projets"
+        },
+        "RESOUCES": {
+          "DESCRIPTION": "Demarrage...",
+          "TITLE": "Documentation"
         },
         "TITLE": "Modules"
       },
       "NO_APP_MODULES": "Aucun module d'application",
       "NO_APP_MODULES_DESCRIPTION": "Lorsque vous avez des modules d'application, ils apparaîtront ici."
+    },
+    "FATAL": {
+      "CONNECTON_LOST": "La connexion backend a été perdue! vous serez déconnecté dans 5 secondes."
     },
     "GENERAL": {
       "ADDRESS": {
@@ -68,11 +71,11 @@
     },
     "ROUTES": {
       "ADMIN": {
-        "ORGANIZATION_DASHBOARD": {
-          "TITLE": "Dashboard"
-        },
         "LANDING_PAGE": {
           "TITLE": "Page d'accueil"
+        },
+        "ORGANIZATION_DASHBOARD": {
+          "TITLE": "Dashboard"
         },
         "ORGANIZATION_GROUPS": {
           "TITLE": "Groupes"
@@ -83,6 +86,9 @@
         "ORGANIZATION_PROFILE": {
           "SETTINGS": "Réglages Organization",
           "TITLE": "Profil Organization"
+        },
+        "PROJECT": {
+          "TITLE": "Project"
         },
         "RESOURCE": {
           "TITLE": "Resource de l'organisation"
@@ -105,9 +111,11 @@
         "RESOURCE_TAGS": {
           "TITLE": "Tags des ressources"
         },
-        "PROJECT": {
-          "TITLE": "Project"
+
+        "INFRASTRUCTURE": {
+          "TITLE": "Infrastructure"
         },
+
         "TITLE": "Tableau de bord",
         "USER_PROFILE": {
           "TITLE": "Profil utilisateur"
@@ -173,8 +181,19 @@
   },
   "COMPLETING_FORM_REQUIRED": "Veuillez remplir tous les champs obligatoires pour continuer.",
   "EMPTY_ORGANIZATIONS": "Aucune Organisation",
+  "ERROR": {
+    "CREATE_FAILED": "La création de l'organisation a échoué",
+    "ERROR": {
+      "CREATE_FAILED": "La création de l'organisation a échoué",
+      "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
+      "WRONG_ORG_ID": "L'organization demandé est introuvable"
+    },
+    "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
+    "WRONG_ORG_ID": "L'organization demandé est introuvable"
+  },
   "FAILED_LOAD_COUNTRIES": "Les téléchargements de la liste des pays ont échoué",
   "FATAL_ERROR_OCCURED": "Une erreur fatale s'est produite",
+  "GET_MEMBERS_LOAD_FAILED": "Vous n'avez pas d'organisation",
   "ORGANIZATION": {
     "FORM": {
       "DONE": {
@@ -195,17 +214,17 @@
         "EMAIL": "e-mail",
         "LABELS": "Étiquettes",
         "NAME": "Nom",
+        "PERSONAL": "Personnel",
         "PHONE": "Numéro de téléphone",
         "PHONE_CODE": "Code de téléphone",
         "PHONE_LABEL": "Numéro de téléphone: ex (1112223333)",
         "PHONE_NUMBER": "Numéro de téléphone",
+        "PROFESSIONAL": "Professionnel",
         "SUB_ORGANIZATION": "Définir comme sous-organisation",
         "SUB_TITLE": "Remplissez vos informations de base pour votre organization",
         "TIMEZONE": "Fuseau horaire",
         "TITLE": "Informations générales",
-        "TYPE": "Choisissez le type d'organisation",
-        "PERSONAL": "Personnel",
-        "PROFESSIONAL": "Professionnel"
+        "TYPE": "Choisissez le type d'organisation"
       },
       "STEP2": {
         "APARTMENT": "Appartement",
@@ -257,29 +276,16 @@
       "SEARCH_GROUPS": "Chercher un groupe",
       "TITLE": "Groupes"
     },
-    "ORGANIZATION_DASHBOARD": {
-      "RECENT_PROJECTS": "Les projets récents",
-      "RECENT_RESOURCES": "Les ressources récentes",
-      "MEMBERSHIPS_REVIEW": "Les invitations à revoir",
-      "RESERVATIONS_REVIEW": "Les réservations à revoir",
-      "SEE_MORE": "Voir Plus",
-      "MESSAGE1": "Invitations récentes ",
-      "MESSAGE2": "Réservations récentes",
-      "TABLE": {
-        "RESOURCE": "Ressource",
-        "ACCEPTE": "Accepter",
-        "REJECTE": "Rejeter",
-        "APPEOVE": "Approver"
-      }
-    },
     "LANDING_PAGE": {
       "CREATE_ORGANIZATION": "Créer une organisation",
-      "TITLE": "Mes Organisations",
+      "ERROR_LOADING_ORGANIZATIONS": "Une erreur s'est produite lors du chargement des organisations",
       "MESSAGE": "organisations",
       "NO_ORGANIZATIONS": "Vous avez aucune organisation",
-      "ERROR_LOADING_ORGANIZATIONS": "Une erreur s'est produite lors du chargement des organisations"
+      "TITLE": "Mes Organisations"
     },
     "MEMBERS": {
+      "EDIT_MEMBER_TITILE": "Détails du membre",
+      "ERROR_LOADING_MEMBERS": "impossible de charger les membres.",
       "EXPORT_MEMBERS": "Exporter",
       "FILTER_MEMBERS": "Filtre",
       "FORM": {
@@ -289,7 +295,7 @@
         "MEMBER_ROLE": "Rôle",
         "PERSONALIZE_INVITATION": "Personnaliser l'invitation",
         "SAVE": "sauvegarder",
-        "TITLE": "Invitez de nouveaux membres dans votre organisation"
+        "TITLE": "Invitez un nouveau membre"
       },
       "IMPORT_MEMBERS": "Importer",
       "INVITE_MEMBERS": "Inviter un membre",
@@ -302,37 +308,66 @@
         "MESSAGE": "There are no members!"
       },
       "MESSAGE": "Gérer les accès pour tous les membres de votre organisation dans ",
-      "SEARCH_MEMBERS": " Rechercher un membre",
-      "TITLE": "Membres",
-      "ERROR_LOADING_MEMBERS": "impossible de charger les membres.",
       "MISSING_INFO": "____Information_Manquante____",
       "MISSING_NAME": "____Nom_Manquant____",
-      "PROFILE_LOADING_ERROR": "Impossible de charger le profil du membre",
-      "EDIT_MEMBER_TITILE": "Détails du membre",
       "PROFILE": {
-        "NAME": "Nom Complet",
-        "JOB": "Profession",
-        "GENDER": "Sexe",
-        "GENDER_LIST": {
-          "MALE": "Mâle",
-          "FEMALE": "Femelle"
-        },
-        "EMAIL": "Email",
-        "PHONE": "Numéro de Téléphone",
-        "LABEL": "Etiquette",
         "ADDRESS": {
-          "TITLE": "Adresse",
           "APARTMENT": "Appartement",
-          "STREET": "Rue",
           "CITY": "Ville",
           "COUNTRY": "Pays",
           "PROVINCE": "Province/Region",
+          "STREET": "Rue",
+          "TITLE": "Adresse",
           "ZIP": "Code postal"
         },
+        "CANCEL": "annuler",
+        "EMAIL": "Email",
+        "GENDER": "Sexe",
+        "GENDER_LIST": {
+          "FEMALE": "Femelle",
+          "MALE": "Mâle"
+        },
+        "JOB": "Profession",
+        "LABEL": "Etiquette",
+        "NAME": "Nom Complet",
+        "PHONE": "Numéro de Téléphone",
+        "SAVE": "modifier"
+      },
+      "PROFILE_LOADING_ERROR": "Impossible de charger le profil du membre",
+      "SEARCH_MEMBERS": " Rechercher un membre",
+      "TITLE": "Membres"
+    },
+    "ORGANIZATION_DASHBOARD": {
+      "MEMBERSHIPS_REVIEW": "Les invitations à revoir",
+      "MESSAGE1": "Invitations récentes ",
+      "MESSAGE2": "Réservations récentes",
+      "RECENT_PROJECTS": "Les projets récents",
+      "RECENT_RESOURCES": "Les ressources récentes",
+      "RESERVATIONS_REVIEW": "Les réservations à revoir",
+      "SEE_MORE": "Voir Plus",
+      "TABLE": {
+        "ACCEPTE": "Accepter",
+        "APPEOVE": "Approver",
+        "REJECTE": "Rejeter",
+        "RESOURCE": "Ressource",
         "SAVE": "modifier",
         "CANCEL": "annuler"
+      },
+      "VALIDATORS": {
+        "EMAIL_REQUIRED": "L'e-mail est requis",
+        "EMAIL_INVALID": "Veuillez saisir une adresse e-mail valide"
+      },
+      "ERROR": {
+        "CREATE_FAILED": "Echec de l'envoi de l'invitation"
+      },
+      "SUCCESS": {
+        "CREATE_COMPLETED": "Le membre a été invité avec succès "
+      },
+      "INFO": {
+        "EDIT_PROFILE": "Veuillez compléter les informations du profil"
       }
     },
+    "PROFILE": "Profil",
     "PROFILE_RESOURCE": {
       "DETAILS": {
         "ROLE": "Rôle",
@@ -346,6 +381,7 @@
         "USERS": "Utilisateurs"
       }
     },
+
     "SETTINGS": {
       "ACCESS": {
         "Cancel": "Annuler",
@@ -469,6 +505,36 @@
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
     },
+
+    "INFRASTRUCTURES": {
+      "TITLE": "Infrastructures",
+      "MESSAGE": "Gérez les accès pour toutes vos infrastructures dans",
+      "CREATE_INFRASTRUCTURE": "Créer une infrastructure",
+      "CREATE_INFRASTRUCTURE_MOBILE": "Créer",
+      "SEARCH_INFRASTRUCTURE": "Rechercher une infrastructure",
+      "FILTER_INFRASTRUCTURE": "Filter ",
+      "IMPORT_INFRASTRUCTURE": "Importer ",
+      "EXPORT_INFRASTRUCTURE": "Exporter ",
+      "NO_INFRASTRUCTURE": "Aucune infrastructure",
+      "INFRASTRUCTURE_FORM": {
+        "TITLE": "Créer une infrastructure ",
+        "NAME": "Nom",
+        "HOLDER_NAME": "Nom de l'infrastructure",
+        "DESCRIPTION": "Description",
+        "RESPONSIBLES": "Responsable",
+        "KEY": "Clé",
+        "SAVE": "Sauvegarder",
+        "CANCEL": "Annuler"
+      },
+      "VALIDATORS": {
+        "NAME_REQUIRED": "Le nom de l'infrastructure est requis",
+        "KEY_REQUIRED": "La clé de l'infrastructure est requise"
+      },
+      "SUCCESS": {
+        "CREATE_COMPLETED": "L'infrastructure a été créée avec succès "
+      }
+    },
+
     "PROJECTS": {
       "CREATE_PROJECTS": "Créer un projet",
       "EXPORT_PROJECTS": "Exporter",
@@ -507,7 +573,7 @@
         "CREATE_FAILED": "La création de l'organisation a échoué"
       }
     },
-    "PROFILE": "Profil",
+
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
     "WELCOME_BACK": "Bonjour"
   },
