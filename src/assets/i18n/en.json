@@ -372,6 +372,7 @@
       "DETAILS": {
         "ROLE": "Role",
         "CLASS": "Class",
+        "RESOURCE_STATUS": "Status",
         "TYPE": "Type"
       },
       "TABS": {
@@ -435,7 +436,10 @@
         "UserHideCalenderForMemberOnly": "User Hide Calender For Member Only"
       },
       "RESOUCES": {
+        "TITLE": "Resources",
         "CREATE_RESOURCE": "Create Resource",
+        "CREATE_RESOURCE_MOBILE": "Add",
+        "MESSAGE": "Manage Access for all your resources in",
         "GENERAL": "General",
         "NAME": "Name",
         "CLASS": "Class",
@@ -495,6 +499,7 @@
         "EVENT": "Event",
         "RESERVABLE": "Reservable",
         "REQUESTABLE": "Requestable",
+
         "SAVE": "Save",
         "CANCEL": "Cancel",
         "SUCCESS": {

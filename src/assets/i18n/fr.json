@@ -372,6 +372,7 @@
       "DETAILS": {
         "ROLE": "Rôle",
         "CLASS": "Classe",
+        "RESOURCE_STATUS": "Statut",
         "TYPE": "Type"
       },
       "TABS": {
@@ -435,7 +436,10 @@
         "Utilisateur HideCalenderForMemberOnly": "Masquer le calendrier pour les membres uniquement"
       },
       "RESOUCES": {
+        "TITLE": "Ressources",
         "CREATE_RESOURCE": "Créer une ressource",
+        "CREATE_RESOURCE_MOBILE": "Ajouter",
+        "MESSAGE": "Gérez les accès pour toutes vos ressources dans",
         "GENERAL": "Général",
         "NAME": "Nom",
         "CLASS": "Classe",

@@ -103,8 +103,8 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
     }
 
     try {
-      await lastValueFrom(this._resourceService.updateResource(selectedResourceId, _resource));
-      this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
+      // await lastValueFrom(this._resourceService.updateResource(selectedResourceId, _resource));
+      // this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
     } catch (error) {
       this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }

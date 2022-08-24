@@ -66,7 +66,7 @@ export class ResourceProfileFormComponent implements OnInit {
     }
   }
   private getResourceFromFormBuilder(): Resource {
-    return new Resource({ ...this.resourceForm.value, timezone: 1, organization: this.getOrganizationIdFromLocalStorage() });
+    return new Resource({ ...this.resourceForm.value, organization: this.getOrganizationIdFromLocalStorage() });
   }
 
   private getOrganizationIdFromLocalStorage(): number {

@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subject, lastValueFrom } from 'rxjs';
+import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ResourceService } from '../../../resolvers/resource/resource.service';
@@ -11,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { constants } from 'app/shared/constants';
 import { MatDialog } from '@angular/material/dialog';
 import { ResourceProfileFormComponent } from '../resource-form/profile-form.component';
-
+import { Resource } from 'app/models/resources/resource';
 export interface ResourceType {
   name: string;
   resourceType: number;
@@ -33,6 +33,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   isLoading: boolean = false;
   selectedResource = null;
   openedDialogRef: any;
+  resourcesCount: number = 0;
 
   searchInputControl: FormControl = new FormControl();
   private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -41,6 +42,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
     private _resourceService: ResourceService,
     private _matDialog: MatDialog,
     private _toastrService: ToastrService,
+    private _changeDetectorRef: ChangeDetectorRef,
     private _router: Router,
     private _fuseNavigationService: FuseNavigationService,
     private _coookies: CookieService,
@@ -53,6 +55,11 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
       this.resources = body.data;
+      this.resourcesCount = this.resources.length;
+      // this._resourceService.resources$.pipe(takeUntil(this._unsubscribeAll)).subscribe((resources: Resource[]) => {
+      //   this.resources = resources;
+      //   this.resourcesCount = resources.length;
+      //   this._changeDetectorRef.markForCheck();
     });
   }
 

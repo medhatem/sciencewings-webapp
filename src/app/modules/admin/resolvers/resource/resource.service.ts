@@ -83,9 +83,9 @@ export class ResourceService {
   createResource(resource: Resource): Promise<CreateResourceDto> {
     return lastValueFrom(this.swaggerAPI.resourceRoutesCreateResource({ body: resource as any }));
   }
-  updateResource(id: number, body: ResourceRo): Observable<any> {
-    return this.swaggerAPI.resourceRoutesUpdateResource({ id, body });
-  }
+  // updateResource(id: number, body: ResourceRo): Observable<any> {
+  //   return this.swaggerAPI.resourceRoutesUpdateResource({ id, body });
+  // }
   getResource(id: number): Observable<any> {
     return this.swaggerAPI.resourceRoutesGetById({ id });
   }
