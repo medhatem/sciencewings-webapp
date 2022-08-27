@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
@@ -23,44 +23,29 @@ export class ResourceProfileFormComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _toastrService: ToastrService,
   ) {}
-  get validationControls() {
-    return this.resourceForm.controls;
-  }
+
   ngOnInit(): void {
     this.resourceForm = this._formBuilder.group({
-      name: ['', Validators.required],
-      resourceClass: ['reservable', Validators.required],
-      resourceType: ['equipement', Validators.required],
-      description: [''],
+      name: this._formBuilder.control('', [Validators.required]),
+      resourceClass: this._formBuilder.control('', [Validators.required]),
+      resourceType: this._formBuilder.control('', [Validators.required]),
+      description: [],
     });
   }
-
+  getvalidationControls() {
+    return this.resourceForm.controls;
+  }
   async onSubmit() {
-    // this.submitted = true;
+    this.submitted = true;
     if (this.resourceForm.invalid) {
       return;
     }
     const resource = this.getResourceFromFormBuilder();
-    // const _resource = {
-    //   name: this.resourceForm.value.name,
-    //   description: this.resourceForm.value.description,
-    //   active: true,
-    //   organization: 1,
-    //   user: 1,
-    //   resourceType: this.resourceForm.value.resourceType,
-    //   resourceClass: this.resourceForm.value.resourceClass,
-    // };
+
     try {
       await this._resourceService.createResource(resource);
       this._toastrService.showSuccess(constants.CREATE_RESOURCE_COMPLETED);
       this.matDialogRef.close();
-      // const response = await lastValueFrom(this._resourceService.createResource(_resource));
-      // this.resourceForm.reset({
-      //   name: '',
-      //   description: '',
-      //   resourceType: 'equipement',
-      //   resourceClass: 'reservable',
-      // });
     } catch (res) {
       this._toastrService.showError(res.error.error);
     }

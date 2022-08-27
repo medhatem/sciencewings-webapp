@@ -58,11 +58,11 @@
           class="inventory-grid z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
           matSort
           matSortDisableClear>
-          <div class="hidden lg:block">Name</div>
-          <div class="hidden lg:block">Resource Class</div>
-          <div class="hidden lg:block">Resource Type</div>
-          <div class="hidden lg:block">Active</div>
-          <div class="hidden lg:block">Details</div>
+          <div class="hidden lg:block">{{ 'ORGANIZATION.SETTINGS.RESOUCES.NAME' | transloco }}</div>
+          <div class="hidden lg:block">{{ 'ORGANIZATION.SETTINGS.RESOUCES.CLASS' | transloco }}</div>
+          <div class="hidden lg:block">{{ 'ORGANIZATION.SETTINGS.RESOUCES.TYPE' | transloco }}</div>
+          <div class="hidden lg:block">{{ 'ORGANIZATION.SETTINGS.RESOUCES.STATUS' | transloco }}</div>
+          <div class="hidden lg:block">{{ 'ORGANIZATION.SETTINGS.RESOUCES.DETAILS' | transloco }}</div>
         </div>
 
         <ng-container *ngFor="let resource of resources">

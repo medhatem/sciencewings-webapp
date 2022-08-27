@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   CreateResourceDto,
+  GetAllInfrastructuresDto,
   ResourceRateRo,
   ResourceReservationVisibilityRo,
   ResourceRo,
@@ -18,6 +19,7 @@ import {
 import { Resource, ResourceListItem } from 'app/models/resources/resource';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
+import { Infrastructure } from 'app/models/infrastructures/infrastructure';
 @Injectable({
   providedIn: 'root',
 })
@@ -53,17 +55,14 @@ export class ResourceService {
     );
   }
 
-  // getOrgResource(): Observable<any> {
-  //   const organizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-  //   return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId });
-  // }
   getAndParseOrganizationResource(): Observable<any[]> {
-    return this.getOrgResource(1).pipe(
+    return this.getOrgResource().pipe(
       map((resources) => resources.body.data.map((resource) => new ResourceListItem(resource))),
       map((resources: ResourceListItem[]) =>
-        resources.map(({ name, resourceClass, resourceType, dateStart }) => ({
+        resources.map(({ name, resourceClass, resourceType, infrastructures, dateStart }) => ({
           name: `${name}`,
           resourceClass,
+          infrastructures: this.parseInfrastructuresToHtml(infrastructures),
           resourceType,
           dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
         })),
@@ -73,11 +72,18 @@ export class ResourceService {
       }),
     );
   }
+  private parseInfrastructuresToHtml(infrastructures: Infrastructure[]) {
+    return infrastructures.map(({ name }) => `<div>${name}</div>`);
+  }
 
   getOrgMembers(id: number): Observable<any> {
     return this.swaggerAPI.organizationRoutesGetUsers({ id });
   }
-  getOrgResource(organizationId: number): Observable<any> {
+  // getOrgResource(organizationId: number): Observable<any> {
+  //   return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId });
+  // }
+  getOrgResource(): Observable<any> {
+    const organizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId });
   }
   createResource(resource: Resource): Promise<CreateResourceDto> {
@@ -88,6 +94,9 @@ export class ResourceService {
   // }
   getResource(id: number): Observable<any> {
     return this.swaggerAPI.resourceRoutesGetById({ id });
+  }
+  getResourceInfrastructure(orgId: number): Observable<GetAllInfrastructuresDto> {
+    return this.swaggerAPI.infrastructureRoutesGetAllOrganizationInfrastructures({ orgId });
   }
   deleteResource(id: number): Observable<any> {
     return this.swaggerAPI.resourceRoutesRemove({ id });

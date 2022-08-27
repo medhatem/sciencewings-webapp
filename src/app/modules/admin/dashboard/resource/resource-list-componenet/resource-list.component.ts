@@ -12,6 +12,7 @@ import { constants } from 'app/shared/constants';
 import { MatDialog } from '@angular/material/dialog';
 import { ResourceProfileFormComponent } from '../resource-form/profile-form.component';
 import { Resource } from 'app/models/resources/resource';
+import { ListOption } from '../../reusable-components/list/list-component.component';
 export interface ResourceType {
   name: string;
   resourceType: number;
@@ -31,6 +32,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   resources = [];
   isLoading: boolean = false;
+  options: ListOption = { columns: [], numnberOfColumns: 3 };
   selectedResource = null;
   openedDialogRef: any;
   resourcesCount: number = 0;
@@ -49,7 +51,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this._resourceService.getOrgResource(1).subscribe(({ body }) => {
+    this._resourceService.getOrgResource().subscribe(({ body }) => {
       if (body.statusCode === 500) {
         this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
       }
@@ -199,7 +201,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   openCreateDialog(): void {
     this.openedDialogRef = this._matDialog.open(ResourceProfileFormComponent, {});
     this.openedDialogRef.afterClosed().subscribe(async (result) => {
-      const { body } = await lastValueFrom(this._resourceService.getOrgResource(1));
+      const { body } = await lastValueFrom(this._resourceService.getOrgResource());
       if (body.statusCode === 500) {
         this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
       }

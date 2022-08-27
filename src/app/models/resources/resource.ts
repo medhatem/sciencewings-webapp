@@ -1,4 +1,5 @@
 import { CreateOrganizationRo, ResourceRo } from 'generated/models';
+import { Infrastructure } from '../infrastructures/infrastructure';
 import { Member } from '../members/member';
 
 export class Resource implements ResourceRo {
@@ -8,14 +9,18 @@ export class Resource implements ResourceRo {
   resourceType: string;
   organization: number;
   user?: number;
+  dateStart?: Date;
   description: string;
+  infrastructures: number[];
   constructor(resource: any) {
-    const { id, name, resourceClass, resourceType, description, organization } = resource || {};
+    const { id, name, resourceClass, resourceType, dateStart, infrastructures, description, organization } = resource || {};
     Object.assign(this, {
       id,
       name,
       resourceClass,
       resourceType,
+      dateStart,
+      infrastructures,
       organization,
       description,
     });
@@ -31,12 +36,14 @@ export class ResourceListItem {
   resourceClass: string;
   resourceType: string;
   dateStart: string;
+  infrastructures: Array<Infrastructure>;
 
   constructor(resource?: any) {
-    const { name, resourceClass, resourceType, dateStart } = resource || {};
+    const { name, resourceClass, resourceType, infrastructures, dateStart } = resource || {};
     Object.assign(this, {
       name,
       resourceClass,
+      infrastructures,
       resourceType,
       dateStart,
     });

@@ -8,6 +8,9 @@
       <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.NAME' | transloco }}</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
+    <mat-error *ngIf="getvalidationControls().name.errors && resourceForm.controls['name'].touched" class="flex-auto mx-4">
+      {{ 'ORGANIZATION.SETTINGS.RESOUCES.NAME_REQUIRED' | transloco }}
+    </mat-error>
 
     <mat-form-field class="flex-auto mx-4">
       <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.CLASS' | transloco }}</mat-label>
@@ -19,6 +22,9 @@
         <mat-option [value]="'event'">{{ 'ORGANIZATION.SETTINGS.RESOUCES.EVENT' | transloco }}</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-error *ngIf="getvalidationControls().resourceClass.errors && resourceForm.controls['resourceClass'].touched" class="flex-auto mx-4">
+      {{ 'ORGANIZATION.SETTINGS.RESOUCES.CLASS_REQUIRED' | transloco }}
+    </mat-error>
 
     <mat-form-field class="flex-auto mx-4">
       <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.TYPE' | transloco }}</mat-label>
@@ -27,6 +33,9 @@
         <mat-option [value]="'requestable'">{{ 'ORGANIZATION.SETTINGS.RESOUCES.REQUESTABLE' | transloco }}</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-error *ngIf="getvalidationControls().resourceType.errors && resourceForm.controls['resourceType'].touched" class="flex-auto mx-4">
+      {{ 'ORGANIZATION.SETTINGS.RESOUCES.TYPE_REQUIRED' | transloco }}
+    </mat-error>
 
     <mat-form-field class="flex-auto mx-4">
       <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.DESCRIPTION' | transloco }}</mat-label>
@@ -39,7 +48,7 @@
     <!-- Actions -->
     <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
       <button mat-button mat-dialog-close>{{ 'ORGANIZATION.SETTINGS.RESOUCES.CANCEL' | transloco }}</button>
-      <button class="px-6 ml-3" mat-flat-button [color]="'primary'" (click)="onSubmit()">
+      <button [disabled]="resourceForm.invalid" class="px-6 ml-3" mat-flat-button [color]="'primary'" (click)="onSubmit()">
         {{ 'ORGANIZATION.SETTINGS.RESOUCES.SAVE' | transloco }}
       </button>
     </div>
