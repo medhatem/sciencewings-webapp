@@ -9,6 +9,7 @@ export class Resource implements ResourceRo {
   resourceType: string;
   organization: number;
   user?: number;
+  timezone: string;
   dateStart?: Date;
   description: string;
   infrastructures: number[];
@@ -35,6 +36,7 @@ export class ResourceListItem {
   name: string;
   resourceClass: string;
   resourceType: string;
+  timezone: string;
   dateStart: string;
   infrastructures: Array<Infrastructure>;
 
