@@ -72,9 +72,6 @@ export class ResourceService {
       }),
     );
   }
-  private parseInfrastructuresToHtml(infrastructures: Infrastructure[]) {
-    return infrastructures.map(({ name }) => `<div>${name}</div>`);
-  }
 
   getOrgMembers(id: number): Observable<any> {
     return this.swaggerAPI.organizationRoutesGetUsers({ id });
@@ -137,5 +134,8 @@ export class ResourceService {
   }
   updateResourceSettingsReservationVisibility(resourceId: number, body: ResourceReservationVisibilityRo): Observable<any> {
     return this.swaggerAPI.resourceRoutesUpdateResourceRestrictionVisibility({ resourceId, body });
+  }
+  private parseInfrastructuresToHtml(infrastructures: Infrastructure[]) {
+    return infrastructures.map(({ name }) => `<div>${name}</div>`);
   }
 }
