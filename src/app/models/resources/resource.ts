@@ -12,7 +12,7 @@ export class Resource implements ResourceRo {
   timezone: string;
   dateStart?: Date;
   description: string;
-  infrastructures: number[];
+  infrastructures: Array<Infrastructure>;
   constructor(resource: any) {
     const { id, name, resourceClass, resourceType, dateStart, infrastructures, description, organization } = resource || {};
     Object.assign(this, {

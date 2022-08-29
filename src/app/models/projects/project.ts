@@ -7,6 +7,7 @@ export class Project implements ProjectRo {
   dateEnd?: string;
   dateStart: string;
   description: string;
+  key: string;
   managers: number[];
   organization: number;
   participants: number[];
