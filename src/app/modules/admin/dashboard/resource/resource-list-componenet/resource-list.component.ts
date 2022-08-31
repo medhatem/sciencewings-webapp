@@ -58,10 +58,6 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.resources = body.data;
       this.resourcesCount = this.resources.length;
-      // this._resourceService.resources$.pipe(takeUntil(this._unsubscribeAll)).subscribe((resources: Resource[]) => {
-      //   this.resources = resources;
-      //   this.resourcesCount = resources.length;
-      //   this._changeDetectorRef.markForCheck();
     });
   }
 
