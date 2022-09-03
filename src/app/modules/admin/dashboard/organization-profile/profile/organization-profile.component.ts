@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
+import { Phone } from 'app/models';
 
 export interface InventoryPagination {
   length: number;
@@ -23,6 +24,12 @@ export interface InventoryPagination {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrganizationProfileComponent implements OnInit, OnDestroy {
+  phones: Phone = {
+    phoneCode: '',
+    phoneLabel: '',
+    value: 0,
+    phoneNumber: '',
+  };
   pagination: InventoryPagination = {
     length: 5,
     size: 5,
@@ -40,9 +47,13 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   /**
    * On init
    */
+
   async ngOnInit(): Promise<void> {
     await this.fetchOrganizationInformation();
-    this._prepareChartData();
+    // await this.getFormattedPhone();
+    // this._prepareChartData();
+    // console.log(this.organization);
+    // console.log(phones);
   }
 
   /**
@@ -58,6 +69,10 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
     //TODO : create a pipe out of this function
     const { apart = '', streetNumber = '', street = '', country = '', province = '', postalCode = '' } = address || {};
     return `${apart}-${streetNumber}, ${street}, ${province}, ${country}, ${postalCode}`;
+  }
+
+  getFormattedPhone() {
+    return this.phones.phoneNumber;
   }
 
   /**
@@ -78,7 +93,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
   private async fetchOrganization(id: number) {
     try {
-      this.organization = await this._adminOrganizationsService.getOrganization(id);
+      this.organization = await await this._adminOrganizationsService.getOrganization(id);
     } catch (error) {
       this._toastrService.showError(constants.FETCH_ORGANIZATION_FAILED);
     }
