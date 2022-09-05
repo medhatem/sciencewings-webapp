@@ -23,10 +23,10 @@
       <mat-icon aria-hidden="false" aria-label="organization email">email</mat-icon>
       <div class="ml-4">{{ organization.email ? organization.email : ('ORGANIZATION.MEMBERS.MISSING_INFO' | transloco) }}</div>
     </div>
-    <div class="w-full flex lg:pl-16 sm:pl-8 pt-4" [style.color]="!organization.phones ? '#FFBFBF' : 'black'">
+    <div class="w-full flex lg:pl-16 sm:pl-8 pt-4" [style.color]="!phoneNumber ? '#FFBFBF' : 'black'">
       <mat-icon aria-hidden="false" aria-label="organization's phone">phone</mat-icon>
       <div class="ml-4">
-        {{ organization.phones ? organization.phones : ('ORGANIZATION.MEMBERS.MISSING_INFO' | transloco) }}
+        {{ phoneNumber }}
       </div>
     </div>
     <div class="w-full lg:pl-16 sm:pl-8 pt-4 flex" [style.color]="!organization.addresses ? '#FFBFBF' : 'black'">
