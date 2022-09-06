@@ -114,33 +114,6 @@
           </div>
         </div>
       </div>
-
-      <div class="sm:col-span-4">
-        <mat-form-field class="example-chip-list fill w-full" appearance="fill">
-          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.MANAGERS' | transloco }}</mat-label>
-          <mat-chip-list #chipList>
-            <mat-chip *ngFor="let manager of managers" (removed)="remove(manager)">
-              {{ manager.name }}
-              <button matChipRemove>
-                <mat-icon>cancel</mat-icon>
-              </button>
-            </mat-chip>
-            <input
-              placeholder="New manager..."
-              #managerInput
-              [formControl]="managerCtrl"
-              [matAutocomplete]="auto"
-              [matChipInputFor]="chipList"
-              [matChipInputSeparatorKeyCodes]="separatorKeysCodesManager"
-              (matChipInputTokenEnd)="addManager($event)" />
-          </mat-chip-list>
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedManager($event)">
-            <mat-option *ngFor="let manager of filteredManagers | async" [value]="fruit">
-              {{ manager.name }}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </div>
     </div>
 
     <!-- Divider -->

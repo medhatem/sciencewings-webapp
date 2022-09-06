@@ -12,11 +12,16 @@
           {{ organization?.name || ('ORGANIZATION.MEMBERS.MISSING_INFO' | transloco) }}
         </div>
       </div>
+      <button class="text-tiny border rounded-2xl flex align-center justify-evenly p-0.5 w-20">
+        <mat-icon aria-hidden="false" aria-label="edit">edit</mat-icon>
+        Edit
+      </button>
     </div>
     <hr class="w-full border-t my-6" />
 
     <div class="w-full flex lg:pl-16 sm:pl-8 pt-4" [style.color]="!organization.type ? '#FFBFBF' : 'black'">
       <mat-icon aria-hidden="false" aria-label="organization's type">work</mat-icon>
+
       <div class="ml-4">{{ organization?.type || ('ORGANIZATION.MEMBERS.MISSING_INFO' | transloco) }}</div>
     </div>
     <div class="w-full flex lg:pl-16 sm:pl-8 pt-4" [style.color]="!organization.email ? '#FFBFBF' : 'black'">
@@ -31,6 +36,7 @@
     </div>
     <div class="w-full lg:pl-16 sm:pl-8 pt-4 flex" [style.color]="!organization.addresses ? '#FFBFBF' : 'black'">
       <mat-icon aria-hidden="false" aria-label="organization's adresse">location_on</mat-icon>
+
       <div class="ml-4">{{ organization?.addresses || ('ORGANIZATION.MEMBERS.MISSING_INFO' | transloco) }}</div>
     </div>
     <div class="w-full lg:pl-16 sm:pl-8 pt-4 flex mb-4" [style.color]="!organization.description ? '#FFBFBF' : 'black'">

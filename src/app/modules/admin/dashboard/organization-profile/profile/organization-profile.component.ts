@@ -23,6 +23,8 @@ export interface InventoryPagination {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrganizationProfileComponent implements OnInit, OnDestroy {
+  profile: Organization;
+
   pagination: InventoryPagination = {
     length: 5,
     size: 5,
@@ -39,6 +41,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
     private _adminOrganizationsService: AdminOrganizationsService,
     private _route: ActivatedRoute,
     private _toastrService: ToastrService,
+
     private _changeDetectorRef: ChangeDetectorRef,
   ) {}
 

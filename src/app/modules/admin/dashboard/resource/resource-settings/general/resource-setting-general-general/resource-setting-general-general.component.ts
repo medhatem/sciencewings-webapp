@@ -35,13 +35,8 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
 
   // manager chip
   separatorKeysCodesManager: number[] = [ENTER, COMMA];
-  managerCtrl = new FormControl();
-  filteredManagers: Observable<any[]>;
-  managers = [];
-  allManagers = [];
 
   isTagsDirty = false;
-  isManagersDirty = false;
 
   timezones = TIMEZONES;
 
@@ -69,15 +64,8 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
         return;
       }
 
-      this.allManagers = data;
-
       this.getCurrentResourceData();
     });
-
-    this.filteredManagers = this.managerCtrl.valueChanges.pipe(
-      startWith(null),
-      map((manager: any) => (manager ? this._filterManager(manager) : this.allManagers.slice())),
-    );
   }
 
   async onSubmit() {
@@ -92,12 +80,7 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
       resourceType: this.form.value.resourceType,
       resourceClass: this.form.value.resourceClass,
     };
-    if (this.isManagersDirty) {
-      _resource['managers'] = this.managers.map((manager) => ({
-        organization: manager.organization.id,
-        user: manager.user.id,
-      }));
-    }
+
     if (this.isTagsDirty) {
       _resource['tags'] = this.tags.map((tag) => ({ title: tag }));
     }
@@ -244,44 +227,10 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
     return !!!(inputValue === '' || this.tags.findIndex((tag) => tag.toLowerCase() === inputValue.toLowerCase()) > -1);
   }
 
-  // manager chip
-  addManager(event: MatChipInputEvent): void {
-    this.isManagersDirty = true;
-    const value = (event.value || '').trim();
-
-    if (value) {
-      this.managers.push(value);
-    }
-
-    event.chipInput.clear();
-
-    this.managerCtrl.setValue(null);
-  }
-
-  removeManager(fruit: string): void {
-    const index = this.managers.indexOf(fruit);
-
-    if (index >= 0) {
-      this.managers.splice(index, 1);
-    }
-  }
-
-  selectedManager(event: MatAutocompleteSelectedEvent): void {
-    this.managers.push(this.allManagers.filter((man) => man.name === event.option.viewValue)[0]);
-    this.managerInput.nativeElement.value = '';
-    this.managerCtrl.setValue(null);
-  }
-
   private _filterTag(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.allTags.filter((tag) => tag.toLowerCase().includes(filterValue));
-  }
-
-  private _filterManager(value: any): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.allManagers.filter(({ name }) => name.toLowerCase().includes(filterValue));
   }
 
   private getCurrentResourceData() {
@@ -302,7 +251,6 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
       this.tags = data.tags.map((tag) => tag.title);
       this.filteredTags = data.tags.map((tag) => tag.title);
       this.allTags = data.tags.map((tag) => tag.title);
-      this.managers = this.allManagers.filter((man) => data.managers.map((dman) => dman.id === man.id).length > 0);
     });
   }
 }
