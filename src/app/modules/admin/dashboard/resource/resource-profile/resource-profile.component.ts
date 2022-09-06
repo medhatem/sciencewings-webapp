@@ -26,17 +26,6 @@ export class ResourceProfileComponent implements OnInit {
         this._toastrService.showError(errorMessage, constants.SOMETHING_WENT_WRONG);
       }
       this.resource = body.data[0];
-      //   this.form.setValue({
-      //     name: data.name,
-      //     description: data.description,
-      //     timezone: data.timezone,
-      //     resourceType: data.resourceType,
-      //     resourceClass: data.resourceClass,
-      //   });
-      //   this.resource = data.resources;
-      //   this.tags = data.tags.map((tag) => tag.title);
-      //   this.filteredTags = this.tags;
-      //   this.managers = data.managers;
     });
   }
 }

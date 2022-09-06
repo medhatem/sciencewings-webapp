@@ -3,7 +3,6 @@
   <form [formGroup]="form">
     <div class="w-full mb-5">
       <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.TIME_RESTRICTION_OPTIONS' | transloco }}</div>
-      <!-- <div class="text-secondary">Following information is publicly displayed, be careful!</div> -->
     </div>
 
     <!-- Section -->
@@ -12,19 +11,16 @@
         <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION_EDITING_WINDOW_FOR_USERS' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isEditingWindowForUsers'" [color]="'primary'"> </mat-slide-toggle>
       </div>
-      <!-- <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div> -->
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESTRICT_CREATING_NEW_RESERVATION_BEFORE_A_TIME' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isRestrictCreatingNewReservationBeforeTime'" [color]="'primary'"> </mat-slide-toggle>
       </div>
-      <!-- <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div> -->
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESTRICT_CREATING_NEW_RESERVATION_AFTER_A_TIME' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isRestrictCreatingNewReservationAfterTime'" [color]="'primary'"> </mat-slide-toggle>
       </div>
-      <!-- <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div> -->
 
       <div class="my-2">
         <div class="sm:col-span-4">
@@ -43,7 +39,6 @@
         <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ALLOW_USERS_TO_END_A_RESERVATION_EARLY' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isAllowUsersToEndReservationEarly'" [color]="'primary'"> </mat-slide-toggle>
       </div>
-      <!-- <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div> -->
 
       <div class="my-2">
         <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.DEFAULT_RESERVATION_DURATION' | transloco }}</div>
