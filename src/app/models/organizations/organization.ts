@@ -30,7 +30,7 @@ export class Organization implements CreateOrganizationRo {
   constructor(organization: any) {
     const {
       id,
-      description = 'Ajouter une description',
+      description,
       department,
       sector,
       adminContact,

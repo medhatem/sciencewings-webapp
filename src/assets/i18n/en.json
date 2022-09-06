@@ -211,7 +211,7 @@
           "SERVICE": "Service",
           "TITLE": "Type"
         },
-        "DESCRIPTION": "About (description)",
+        "DESCRIPTION": "Add Description",
         "EMAIL": "Email",
         "LABELS": "Labels",
         "NAME": "Name",
@@ -224,7 +224,11 @@
         "SUB_TITLE": "Fill in your basic information for your organization",
         "TIMEZONE": "Time zone",
         "TITLE": "General Information",
-        "TYPE": "Choose organization type"
+        "TYPE": "Choose organization type",
+
+        "PROFILE": {
+          "BTN_BACK": "Back"
+        }
       },
       "STEP2": {
         "APARTMENT": "Apartment",
