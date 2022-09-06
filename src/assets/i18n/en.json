@@ -292,6 +292,7 @@
       "ERROR_LOADING_MEMBERS": "Could not load members.",
       "EXPORT_MEMBERS": "Export",
       "FILTER_MEMBERS": "Filter",
+      "BACK_BTN": "Back",
       "FORM": {
         "CANCEL": "Cancel",
         "DESCRIPTION": "About (description)",

@@ -291,6 +291,7 @@
       "ERROR_LOADING_MEMBERS": "impossible de charger les membres.",
       "EXPORT_MEMBERS": "Exporter",
       "FILTER_MEMBERS": "Filtre",
+      "BACK_BTN": "Retour",
       "FORM": {
         "CANCEL": "Annuler",
         "DESCRIPTION": "À propos (description)",
