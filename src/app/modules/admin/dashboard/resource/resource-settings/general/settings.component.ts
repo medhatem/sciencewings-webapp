@@ -5,6 +5,8 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { constants } from 'app/shared/constants';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'settings',
@@ -30,6 +32,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private _resourceService: ResourceService,
     private _toastrService: ToastrService,
     private _coookies: CookieService,
+    private _translocoService: TranslocoService,
   ) {}
 
   // -----------------------------------------------------------------------------------------------------
@@ -45,32 +48,26 @@ export class SettingsComponent implements OnInit, OnDestroy {
       {
         id: 'general',
         icon: 'heroicons_outline:clipboard-check',
-        title: 'General',
+        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_GENERAL),
         description: 'Manage your public profile and private information',
       },
       {
         id: 'status',
         icon: 'heroicons_outline:refresh',
-        title: 'Status',
-        description: 'Manage your password and 2-step verification preferences',
-      },
-      {
-        id: 'barcodes',
-        icon: 'heroicons_outline:chart-bar',
-        title: 'Barcodes',
+        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_STATUS),
         description: 'Manage your password and 2-step verification preferences',
       },
       {
         id: 'visibility',
         icon: 'heroicons_outline:eye',
-        title: 'Visibility',
+        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_VISIBILITY),
         description: 'Manage your subscription plan, payment method and billing information',
       },
       {
         id: 'properties',
         icon: 'heroicons_outline:view-list',
-        title: 'Properties',
-        description: 'Manage when you\'ll be notified on which channels',
+        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_PROPERTIES),
+        description: 'Manage when you willl be notified on which channels',
       },
     ];
 
@@ -92,7 +89,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
     this._resourceService.getResourceSettings(selectedResourceId).subscribe(({ body }) => {
       if (body.statusCode === 500) {
-        this._toastrService.showError('Something went wrong!');
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
         return;
       }
       this.settings = body;

@@ -2,34 +2,30 @@
   <!-- Form -->
   <form [formGroup]="form">
     <div class="w-full mb-5">
-      <div class="text-xl">{{ 'Time Restriction Options' | transloco }}</div>
-      <div class="text-secondary">Following information is publicly displayed, be careful!</div>
+      <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.TIME_RESTRICTION_OPTIONS' | transloco }}</div>
     </div>
 
     <!-- Section -->
     <div class="w-full">
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'Reservation Editing Window for Users' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION_EDITING_WINDOW_FOR_USERS' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isEditingWindowForUsers'" [color]="'primary'"> </mat-slide-toggle>
       </div>
-      <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'Restrict Creating New Reservation Before a Time' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESTRICT_CREATING_NEW_RESERVATION_BEFORE_A_TIME' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isRestrictCreatingNewReservationBeforeTime'" [color]="'primary'"> </mat-slide-toggle>
       </div>
-      <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'Restrict Creating New Reservation After a Time' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESTRICT_CREATING_NEW_RESERVATION_AFTER_A_TIME' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isRestrictCreatingNewReservationAfterTime'" [color]="'primary'"> </mat-slide-toggle>
       </div>
-      <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
 
       <div class="my-2">
         <div class="sm:col-span-4">
           <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>{{ 'Reservation Time Granularity' | transloco }}</mat-label>
+            <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION_TIME_GRANULARITY' | transloco }}</mat-label>
             <mat-select [formControlName]="'reservationTimeGranularity'">
               <mat-option [value]="'english'">X</mat-option>
               <mat-option [value]="'french'">Y</mat-option>
@@ -40,13 +36,12 @@
       </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
-        <mat-label>{{ 'Allow Users to End a Reservation Early' | transloco }}</mat-label>
+        <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.ALLOW_USERS_TO_END_A_RESERVATION_EARLY' | transloco }}</mat-label>
         <mat-slide-toggle [formControlName]="'isAllowUsersToEndReservationEarly'" [color]="'primary'"> </mat-slide-toggle>
       </div>
-      <div class="mt-1 text-md text-hint mb-2">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
 
       <div class="my-2">
-        <div>{{ 'Default Reservation Duration' | transloco }}</div>
+        <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.DEFAULT_RESERVATION_DURATION' | transloco }}</div>
         <div class="sm:col-span-4">
           <mat-form-field class="fuse-mat-no-subscript w-full">
             <input [formControlName]="'defaultReservationDuration'" matInput />
@@ -55,7 +50,7 @@
       </div>
 
       <div class="my-2">
-        <div>{{ 'Reservation Duration Minimum' | transloco }}</div>
+        <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION_DURATION_MINIMUM' | transloco }}</div>
         <div class="sm:col-span-4">
           <mat-form-field class="fuse-mat-no-subscript w-full">
             <input [formControlName]="'reservationDurationMinimum'" matInput />
@@ -64,7 +59,7 @@
       </div>
 
       <div class="my-2">
-        <div>{{ 'Reservation Duration Maximum' | transloco }}</div>
+        <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION_DURATION_MAXIMUM' | transloco }}</div>
         <div class="sm:col-span-4">
           <mat-form-field class="fuse-mat-no-subscript w-full">
             <input [formControlName]="'reservationDurationMaximum'" matInput />
@@ -73,7 +68,7 @@
       </div>
 
       <div class="my-2">
-        <div>{{ 'Buffer Time Before Reservation' | transloco }}</div>
+        <div>{{ 'ORGANIZATION.SETTINGS.RESOUCES.BUFFER_TIME_BEFORE_RESERVATION' | transloco }}</div>
         <div class="sm:col-span-4">
           <mat-form-field class="fuse-mat-no-subscript w-full">
             <input [formControlName]="'bufferTimeBeforeReservation'" matInput />
@@ -88,7 +83,7 @@
     <!-- Actions -->
     <div class="flex items-center justify-end">
       <button mat-stroked-button type="button">Cancel</button>
-      <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">Save</button>
+      <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">{{ 'APP.BTN.SUBMIT' | transloco }}</button>
     </div>
   </form>
 </div>

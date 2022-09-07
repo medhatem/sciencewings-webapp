@@ -6,8 +6,11 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
+import { ResourceRo } from 'generated/models';
 import { CookieService } from 'ngx-cookie-service';
 import { lastValueFrom, map, Observable, startWith } from 'rxjs';
+import { constants } from 'app/shared/constants';
+import { TIMEZONES } from '../../../resurce-setting-rule/timezones';
 
 @Component({
   selector: 'app-resource-setting-general-general',
@@ -32,13 +35,10 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
 
   // manager chip
   separatorKeysCodesManager: number[] = [ENTER, COMMA];
-  managerCtrl = new FormControl();
-  filteredManagers: Observable<any[]>;
-  managers = [];
-  allManagers = [];
 
   isTagsDirty = false;
-  isManagersDirty = false;
+
+  timezones = TIMEZONES;
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -58,47 +58,38 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
     });
 
     this._resourceService.getOrgMembers(1).subscribe(({ body }) => {
-      const { members, statusCode } = body;
+      const { data, statusCode } = body;
       if (statusCode !== 200) {
-        this._toastrService.showError('Something went wrong!');
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
         return;
       }
 
-      this.allManagers = members;
-
       this.getCurrentResourceData();
     });
-
-    this.filteredManagers = this.managerCtrl.valueChanges.pipe(
-      startWith(null),
-      map((manager: any) => (manager ? this._filterManager(manager) : this.allManagers.slice())),
-    );
   }
 
   async onSubmit() {
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
-    const generalData = {
-      ...this.form.value,
+    const _resource = {
+      name: this.form.value.name,
+      timezone: this.form.value.timezone,
+      description: this.form.value.description,
+      active: true,
+      user: 1,
+      organization: 1,
+      resourceType: this.form.value.resourceType,
+      resourceClass: this.form.value.resourceClass,
     };
-    if (this.isManagersDirty) {
-      generalData['managers'] = this.managers.map((manager) => ({
-        organization: manager.organization.id,
-        user: manager.user.id,
-      }));
-    }
+
     if (this.isTagsDirty) {
-      generalData['tags'] = this.tags.map((tag) => ({ title: tag }));
+      _resource['tags'] = this.tags.map((tag) => ({ title: tag }));
     }
 
     try {
-      const response: any = await lastValueFrom(this._resourceService.updateResource(selectedResourceId, generalData));
-      if (response.body.statusCode === 204) {
-        this._toastrService.showSuccess('Updated Successfully');
-      } else {
-        this._toastrService.showError('Something went wrong!');
-      }
+      await lastValueFrom(this._resourceService.updateResource(selectedResourceId, _resource));
+      this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
     } catch (error) {
-      this._toastrService.showError('Something went wrong!');
+      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }
   }
 
@@ -236,65 +227,30 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
     return !!!(inputValue === '' || this.tags.findIndex((tag) => tag.toLowerCase() === inputValue.toLowerCase()) > -1);
   }
 
-  // manager chip
-  addManager(event: MatChipInputEvent): void {
-    this.isManagersDirty = true;
-    const value = (event.value || '').trim();
-
-    if (value) {
-      this.managers.push(value);
-    }
-
-    event.chipInput.clear();
-
-    this.managerCtrl.setValue(null);
-  }
-
-  removeManager(fruit: string): void {
-    const index = this.managers.indexOf(fruit);
-
-    if (index >= 0) {
-      this.managers.splice(index, 1);
-    }
-  }
-
-  selectedManager(event: MatAutocompleteSelectedEvent): void {
-    this.managers.push(this.allManagers.filter((man) => man.name === event.option.viewValue)[0]);
-    this.managerInput.nativeElement.value = '';
-    this.managerCtrl.setValue(null);
-  }
-
   private _filterTag(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.allTags.filter((tag) => tag.toLowerCase().includes(filterValue));
   }
 
-  private _filterManager(value: any): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.allManagers.filter(({ name }) => name.toLowerCase().includes(filterValue));
-  }
-
   private getCurrentResourceData() {
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
     this._resourceService.getResource(selectedResourceId).subscribe(({ body }) => {
       if (body.statusCode !== 200) {
-        this._toastrService.showError('Something went wrong!');
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
         return;
       }
       const data = body.data[0];
       this.form.setValue({
-        name: data.name,
-        resourceClass: data.resourceClass,
-        resourceType: data.resourceType,
-        timezone: data.timezone,
-        description: data.description,
+        name: data.name || '',
+        resourceClass: data.resourceClass || 'equipement',
+        resourceType: data.resourceType || 'reservable',
+        timezone: data.timezone || TIMEZONES[0].name,
+        description: data.description || '',
       });
       this.tags = data.tags.map((tag) => tag.title);
       this.filteredTags = data.tags.map((tag) => tag.title);
       this.allTags = data.tags.map((tag) => tag.title);
-      this.managers = this.allManagers.filter((man) => data.managers.map((dman) => dman.id === man.id).length > 0);
     });
   }
 }

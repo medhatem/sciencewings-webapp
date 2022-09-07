@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { Organization } from 'app/models/organizations/organization';
-import { Subject } from 'rxjs';
+import { lastValueFrom, Subject } from 'rxjs';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
@@ -23,6 +23,8 @@ export interface InventoryPagination {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrganizationProfileComponent implements OnInit, OnDestroy {
+  profile: Organization;
+
   pagination: InventoryPagination = {
     length: 5,
     size: 5,
@@ -35,6 +37,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
     private _adminOrganizationsService: AdminOrganizationsService,
     private _route: ActivatedRoute,
     private _toastrService: ToastrService,
+    private _cdr: ChangeDetectorRef,
   ) {}
 
   /**
