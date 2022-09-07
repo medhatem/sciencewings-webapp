@@ -210,7 +210,7 @@
           "SERVICE": "Service",
           "TITLE": "Type"
         },
-        "DESCRIPTION": "À propos (description)",
+        "DESCRIPTION": "Ajouter une Description",
         "EMAIL": "e-mail",
         "LABELS": "Étiquettes",
         "NAME": "Nom",
@@ -248,6 +248,9 @@
         "SUB_TITLE_ADMIN": "Inviter des administrateurs pour cette organisation",
         "SUB_TITLE_USER": "Inviter des membres pour cette organisation",
         "TITLE": "Administrateurs et Membres"
+      },
+      "PROFILE": {
+        "BTN_BACK": "Back"
       },
       "TITLE": "Création d'Organisation"
     },
@@ -288,6 +291,7 @@
       "ERROR_LOADING_MEMBERS": "impossible de charger les membres.",
       "EXPORT_MEMBERS": "Exporter",
       "FILTER_MEMBERS": "Filtre",
+      "BACK_BTN": "Retour",
       "FORM": {
         "CANCEL": "Annuler",
         "DESCRIPTION": "À propos (description)",
