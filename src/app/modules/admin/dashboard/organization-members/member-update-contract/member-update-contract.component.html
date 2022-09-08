@@ -1,1 +1,56 @@
-<p>member-update-contract works!</p>
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+  <!-- Header -->
+  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8">
+    <div class="text-lg font-extrabold tracking-tight leading-none">Contract details</div>
+  </div>
+  <hr class="w-full border-t my-2" />
+  <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="contractForm">
+    <mat-form-field class="flex-auto mx-4">
+      <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.LABEL_NAME' | transloco }}</mat-label>
+      <input matInput [formControlName]="'jobName'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PROJECT_NAME' | transloco }}" required />
+      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
+    </mat-form-field>
+    <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+      <mat-label class="w-100">contract type</mat-label>
+      <mat-select [formControlName]="'contractType'" placeholder="contract type">
+        <mat-option *ngFor="let contractType of contractTypes" [value]="contractType">
+          {{ contractType }}
+        </mat-option>
+      </mat-select>
+      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+    </mat-form-field>
+    <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+      <mat-label class="w-100">job level</mat-label>
+      <mat-select [formControlName]="'jobLevel'" placeholder="job level">
+        <mat-option *ngFor="let jobLevel of jobLevels" [value]="jobLevel">
+          {{ jobLevel }}
+        </mat-option>
+      </mat-select>
+      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+    </mat-form-field>
+    <mat-form-field class="flex-auto mx-4">
+      <mat-label>start date</mat-label>
+      <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:cake'"></mat-icon>
+      <input matInput [matDatepicker]="startDatepicker" [formControlName]="'dateStart'" placeholder="startDate" />
+      <mat-datepicker-toggle matSuffix [for]="startDatepicker"> </mat-datepicker-toggle>
+      <mat-datepicker #startDatepicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="flex-auto mx-4">
+      <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.DESCRIPTION' | transloco }}</mat-label>
+      <input matInput [formControlName]="'description'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PROJECT_NAME' | transloco }}" required />
+      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
+    </mat-form-field>
+    <!-- Body -->
+    <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
+      <button mat-button mat-dialog-close mat-flat-button [color]="'primary'" (click)="onSubmit()">
+        {{ 'ORGANIZATION.PROJECTS.FORM.SAVE' | transloco }}
+      </button>
+      <button class="px-6 ml-3" [mat-dialog-close]="true">{{ 'ORGANIZATION.PROJECTS.FORM.CANCEL' | transloco }}</button>
+    </div>
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+      <div class="-ml-2"></div>
+      <div class="flex items-center mt-4 sm:mt-0"></div>
+    </div>
+  </form>
+</div>

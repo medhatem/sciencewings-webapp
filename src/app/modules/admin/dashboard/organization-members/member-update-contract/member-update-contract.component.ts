@@ -27,11 +27,11 @@ export class MemberUpdateContractComponent implements OnInit {
 
   ngOnInit(): void {
     const contractFormObj = {
-      name: ['', [Validators.required]],
+      jobName: ['', [Validators.required]],
       jobLevel: ['', [Validators.required]],
-      wage: ['', [Validators.required]],
       contractType: ['', [Validators.required]],
       dateStart: ['', [Validators.required]],
+      description: ['', [Validators.required]],
     };
     this.contractForm = this._formBuilder.group(contractFormObj);
   }
