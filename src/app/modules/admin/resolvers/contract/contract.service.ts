@@ -27,7 +27,7 @@ export class ContractService {
     return this._pagination.asObservable();
   }
 
-  get projects$(): Observable<any> {
+  get contracts$(): Observable<any> {
     return this._projects.asObservable();
   }
 
@@ -35,9 +35,27 @@ export class ContractService {
     return lastValueFrom(this._swaggerService.contractRoutesCreateContract({ body: project as any }));
   }
 
-  getMemberContracts(): Observable<any> {
-    const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    const userId = 1;
+  getMemberContracts(orgId: number, userId: number): Observable<any> {
     return this._swaggerService.contractRoutesGetAllMemberContracts({ orgId, userId });
+  }
+
+  getAndParseMemberContracts(orgId: number, userId: number): Observable<any[]> {
+    return this.getMemberContracts(orgId, userId).pipe(
+      map((contracts) => contracts.body.data.map((contract) => new ContractRo(contract))),
+      map((projects: ContractRo[]) =>
+        projects.map(({ name, supervisor, jobLevel, dateStart }) => ({
+          name: `${name}`,
+          supervisor: supervisor,
+          jobLevel: jobLevel,
+          dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+        })),
+      ),
+      tap((response) => {
+        this._projects.next(response);
+      }),
+    );
+  }
+  private parseMembersToHtml(members: Member[]) {
+    return members.map(({ name, workEmail }) => `<div>${name}</div><div>${workEmail}</div>`);
   }
 }
