@@ -32,7 +32,7 @@ export class ContractRo implements CreateContractRo {
 export const ContractType = ['Cdd', 'Cdi'];
 export const JobLevel = ['Intern', 'Junior', 'Midlle', 'Mid-senior', 'Senior'];
 
-export class CetContractRo implements ContracBaseBodyDto {
+export class GetContractRo implements ContracBaseBodyDto {
   contractType?: 'Cdd' | 'Cdi';
   dateEnd?: string;
   dateStart?: string;
@@ -46,8 +46,8 @@ export class CetContractRo implements ContracBaseBodyDto {
   supervisor?: MemberDto;
   wage?: number;
 
-  constructor(project: any) {
-    const { contractType, dateEnd, dateStart, description, jobLevel, name, organization, job, supervisor, user, wage } = project || {};
+  constructor(contract: any) {
+    const { contractType, dateEnd, dateStart, description, jobLevel, name, organization, job, supervisor, user, wage } = contract || {};
     Object.assign(this, {
       contractType,
       dateEnd,
@@ -56,8 +56,8 @@ export class CetContractRo implements ContracBaseBodyDto {
       jobLevel,
       name,
       organization,
-      supervisor,
       job,
+      supervisor,
       user,
       wage,
     });

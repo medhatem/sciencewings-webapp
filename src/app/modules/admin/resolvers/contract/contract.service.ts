@@ -7,7 +7,7 @@ import { Member } from 'app/models/members/member';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
 import { Project, ProjectListItem } from 'app/models/projects/project';
-import { ContractRo } from 'app/models/contract/contract';
+import { ContractRo, GetContractRo } from 'app/models/contract/contract';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ import { ContractRo } from 'app/models/contract/contract';
 export class ContractService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
-  private _projects: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _contracts: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private _swaggerService: ApiService) {}
 
@@ -28,7 +28,7 @@ export class ContractService {
   }
 
   get contracts$(): Observable<any> {
-    return this._projects.asObservable();
+    return this._contracts.asObservable();
   }
 
   async createContract(project: ContractRo): Promise<ContracBaseDto> {
@@ -41,21 +41,22 @@ export class ContractService {
 
   getAndParseMemberContracts(orgId: number, userId: number): Observable<any[]> {
     return this.getMemberContracts(orgId, userId).pipe(
-      map((contracts) => contracts.body.data.map((contract) => new ContractRo(contract))),
-      map((projects: ContractRo[]) =>
-        projects.map(({ name, supervisor, jobLevel, dateStart }) => ({
-          name: `${name}`,
-          supervisor: supervisor,
+      map((contracts) => contracts.body.data.map((contract) => new GetContractRo(contract))),
+      map((projects: GetContractRo[]) =>
+        projects.map(({ job, supervisor, jobLevel, dateStart }) => ({
+          name: `${job.name}`,
+          supervisor: `${supervisor.name}`,
           jobLevel: jobLevel,
           dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
         })),
       ),
       tap((response) => {
-        this._projects.next(response);
+        console.log(
+          'contracts supervisor =============== ',
+          response.map((contracts) => console.log(contracts)),
+        );
+        this._contracts.next(response);
       }),
     );
-  }
-  private parseMembersToHtml(members: Member[]) {
-    return members.map(({ name, workEmail }) => `<div>${name}</div><div>${workEmail}</div>`);
   }
 }
