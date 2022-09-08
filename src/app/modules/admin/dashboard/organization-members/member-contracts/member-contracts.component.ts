@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { lastValueFrom, map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,6 +15,7 @@ import { ContractService } from 'app/modules/admin/resolvers/contract/contract.s
   styleUrls: ['./member-contracts.component.scss'],
 })
 export class MemberContractsComponent implements OnInit {
+  @Input() userId: number;
   profile: any = {};
   openedDialogRef: any;
   constructor(
@@ -28,11 +29,12 @@ export class MemberContractsComponent implements OnInit {
   ngOnInit(): void {}
   openInviteProjectDialog(): void {
     const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    const userId = this.userId;
     if (!orgID) {
       this._toastrService.showError('Something went wrong!');
     }
     this.openedDialogRef = this._matDialog.open(MemberContractsFormComponent, {
-      data: { orgID },
+      data: { orgID, userId },
     });
     this.openedDialogRef.afterClosed().subscribe((result) => {
       lastValueFrom(this._contractService.getMemberContracts());

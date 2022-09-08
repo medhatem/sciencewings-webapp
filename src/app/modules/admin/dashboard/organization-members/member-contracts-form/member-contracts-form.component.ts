@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ContractRo, ContractType, JobLevel } from 'app/models/contract/contract';
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
 import { constants } from 'app/shared/constants';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-member-contracts-form',
@@ -17,6 +18,7 @@ export class MemberContractsFormComponent implements OnInit {
   contractForm: FormGroup;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { orgId: number; userId: number },
     private _route: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private _contractService: ContractService,
@@ -54,12 +56,10 @@ export class MemberContractsFormComponent implements OnInit {
   private getContractFromFormBuilder(): ContractRo {
     return new ContractRo({
       ...this.contractForm.value,
-      organization: this.getOrganizationIdFromLocalStorage(),
-      user: 1,
+      organization: Number(this.data.orgId),
+      user: Number(this.data.userId),
       wage: Number(this.contractForm.value.wage),
+      dateStart: String(this.contractForm.value.dateStart),
     });
-  }
-  private getOrganizationIdFromLocalStorage(): number {
-    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
 }
