@@ -67,6 +67,14 @@ export class MemberContractsComponent implements OnInit {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
   async onElementSelected() {
-    this._router.navigate(['/admin/project/organization-members']);
+    const orgID = this.getOrganizationIdFromLocalStorage();
+    const userId = this.userId;
+
+    this.openedDialogRef = this._matDialog.open(MemberContractsFormComponent, {
+      data: { orgID, userId },
+    });
+    this.openedDialogRef.afterClosed().subscribe((result) => {
+      lastValueFrom(this._contractService.getAndParseMemberContracts(this.userId, this.userId));
+    });
   }
 }
