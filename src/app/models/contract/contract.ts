@@ -28,3 +28,6 @@ export class ContractRo implements CreateContractRo {
     });
   }
 }
+
+export const ContractType = ['Cdd', 'Cdi'];
+export const JobLevel = ['Intern', 'Junior', 'Midlle', 'Mid-senior', 'Senior'];

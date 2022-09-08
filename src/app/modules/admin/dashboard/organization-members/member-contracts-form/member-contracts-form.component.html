@@ -10,6 +10,38 @@
       <input matInput [formControlName]="'name'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PROJECT_NAME' | transloco }}" required />
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
     </mat-form-field>
+    <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+      <mat-label class="w-100">contract type</mat-label>
+      <mat-select [formControlName]="'contractType'" placeholder="contract type">
+        <mat-option *ngFor="let contractType of contractTypes" [value]="contractType">
+          {{ contractType }}
+        </mat-option>
+      </mat-select>
+      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+    </mat-form-field>
+    <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+      <mat-label class="w-100">job level</mat-label>
+      <mat-select [formControlName]="'jobLevel'" placeholder="job level">
+        <mat-option *ngFor="let jobLevel of jobLevels" [value]="jobLevel">
+          {{ jobLevel }}
+        </mat-option>
+      </mat-select>
+      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="flex-auto mx-4">
+      <mat-label>wage</mat-label>
+      <input matInput [formControlName]="'wage'" placeholder="wage" required />
+      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
+    </mat-form-field>
+    <mat-form-field class="flex-auto mx-4">
+      <mat-label>start date</mat-label>
+      <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:cake'"></mat-icon>
+      <input matInput [matDatepicker]="startDatepicker" [formControlName]="'dateStart'" placeholder="startDate" />
+      <mat-datepicker-toggle matSuffix [for]="startDatepicker"> </mat-datepicker-toggle>
+      <mat-datepicker #startDatepicker></mat-datepicker>
+    </mat-form-field>
+
     <!-- Body -->
     <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
       <button mat-button mat-dialog-close mat-flat-button [color]="'primary'" (click)="onSubmit()">

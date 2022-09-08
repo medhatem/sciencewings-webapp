@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { ContractRo } from 'app/models/contract/contract';
+import { ContractRo, ContractType, JobLevel } from 'app/models/contract/contract';
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
 import { constants } from 'app/shared/constants';
 
@@ -12,6 +12,8 @@ import { constants } from 'app/shared/constants';
   styleUrls: ['./member-contracts-form.component.scss'],
 })
 export class MemberContractsFormComponent implements OnInit {
+  contractTypes = ContractType;
+  jobLevels = JobLevel;
   contractForm: FormGroup;
 
   constructor(
@@ -42,15 +44,20 @@ export class MemberContractsFormComponent implements OnInit {
     const contract = this.getContractFromFormBuilder();
     try {
       await this._contractService.createContract(contract);
-      this._toastrService.showSuccess(constants.CREATE_PROJECT_COMPLETED);
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.PROJECT]);
+      this._toastrService.showSuccess('create contract succeeded');
+      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS]);
     } catch (error) {
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.PROJECT]);
-      this._toastrService.showError(constants.CREATE_PROJECT_FAILED);
+      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS]);
+      this._toastrService.showError('create contract failed');
     }
   }
   private getContractFromFormBuilder(): ContractRo {
-    return new ContractRo({ ...this.contractForm.value, organization: this.getOrganizationIdFromLocalStorage() });
+    return new ContractRo({
+      ...this.contractForm.value,
+      organization: this.getOrganizationIdFromLocalStorage(),
+      user: 1,
+      wage: Number(this.contractForm.value.wage),
+    });
   }
   private getOrganizationIdFromLocalStorage(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
