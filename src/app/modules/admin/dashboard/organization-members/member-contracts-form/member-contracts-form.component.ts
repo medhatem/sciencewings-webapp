@@ -56,10 +56,13 @@ export class MemberContractsFormComponent implements OnInit {
   private getContractFromFormBuilder(): ContractRo {
     return new ContractRo({
       ...this.contractForm.value,
-      organization: Number(this.data.orgId),
+      organization: this.getOrganizationIdFromLocalStorage(),
       user: Number(this.data.userId),
       wage: Number(this.contractForm.value.wage),
       dateStart: String(this.contractForm.value.dateStart),
     });
+  }
+  private getOrganizationIdFromLocalStorage(): number {
+    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
 }

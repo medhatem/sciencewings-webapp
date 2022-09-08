@@ -28,7 +28,7 @@ export class MemberContractsComponent implements OnInit {
 
   ngOnInit(): void {}
   openInviteProjectDialog(): void {
-    const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    const orgID = this.getOrganizationIdFromLocalStorage();
     const userId = this.userId;
     if (!orgID) {
       this._toastrService.showError('Something went wrong!');
@@ -39,5 +39,8 @@ export class MemberContractsComponent implements OnInit {
     this.openedDialogRef.afterClosed().subscribe((result) => {
       lastValueFrom(this._contractService.getMemberContracts());
     });
+  }
+  private getOrganizationIdFromLocalStorage(): number {
+    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
 }
