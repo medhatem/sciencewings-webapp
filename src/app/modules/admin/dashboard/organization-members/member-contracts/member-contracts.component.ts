@@ -9,7 +9,8 @@ import { constants } from 'app/shared/constants';
 import { MemberContractsFormComponent } from '../member-contracts-form/member-contracts-form.component';
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
 import { ListOption } from '../../reusable-components/list/list-component.component';
-import { ContractRo } from 'app/models/contract/contract';
+import { ContractRo, GetContract } from 'app/models/contract/contract';
+import { MemberUpdateContractComponent } from '../member-update-contract/member-update-contract.component';
 
 @Component({
   selector: 'app-member-contracts',
@@ -33,7 +34,7 @@ export class MemberContractsComponent implements OnInit {
 
   ngOnInit(): void {
     this.orgID = this.getOrganizationIdFromLocalStorage();
-    this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: ContractRo[]) => {
+    this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: GetContract[]) => {
       this.contracts = contracts;
       this._cdr.markForCheck();
     });
@@ -41,7 +42,7 @@ export class MemberContractsComponent implements OnInit {
     this.options = {
       columns: [
         { columnName: 'Name', columnPropertyToUse: 'name', customClass: '' },
-        { columnName: 'Supervisor', columnPropertyToUse: 'supervizor', customClass: 'hidden' },
+        { columnName: 'Supervisor', columnPropertyToUse: 'supervisor', customClass: 'hidden' },
         { columnName: 'Job Level', columnPropertyToUse: 'jobLevel', customClass: 'hidden' },
         { columnName: 'Date start', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
@@ -66,12 +67,12 @@ export class MemberContractsComponent implements OnInit {
   private getOrganizationIdFromLocalStorage(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
-  async onElementSelected() {
+  async onElementSelected(item: any) {
     const orgID = this.getOrganizationIdFromLocalStorage();
     const userId = this.userId;
-
-    this.openedDialogRef = this._matDialog.open(MemberContractsFormComponent, {
-      data: { orgID, userId },
+    const contractId = item.id;
+    this.openedDialogRef = this._matDialog.open(MemberUpdateContractComponent, {
+      data: { orgID, userId, contractId },
     });
     this.openedDialogRef.afterClosed().subscribe((result) => {
       lastValueFrom(this._contractService.getAndParseMemberContracts(this.userId, this.userId));
