@@ -7,7 +7,7 @@ import { Member } from 'app/models/members/member';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
 import { Project, ProjectListItem } from 'app/models/projects/project';
-import { ContractRo, GetContractRo } from 'app/models/contract/contract';
+import { ContractRo, GetContract } from 'app/models/contract/contract';
 
 @Injectable({
   providedIn: 'root',
@@ -41,20 +41,16 @@ export class ContractService {
 
   getAndParseMemberContracts(orgId: number, userId: number): Observable<any[]> {
     return this.getMemberContracts(orgId, userId).pipe(
-      map((contracts) => contracts.body.data.map((contract) => new GetContractRo(contract))),
-      map((projects: GetContractRo[]) =>
+      map((contracts) => contracts.body.data.map((contract) => new GetContract(contract))),
+      map((projects: GetContract[]) =>
         projects.map(({ job, supervisor, jobLevel, dateStart }) => ({
           name: `${job.name}`,
-          supervisor: `${supervisor.name}`,
+          supervisor: supervisor,
           jobLevel: jobLevel,
           dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
         })),
       ),
       tap((response) => {
-        console.log(
-          'contracts supervisor =============== ',
-          response.map((contracts) => console.log(contracts)),
-        );
         this._contracts.next(response);
       }),
     );

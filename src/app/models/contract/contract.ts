@@ -32,7 +32,7 @@ export class ContractRo implements CreateContractRo {
 export const ContractType = ['Cdd', 'Cdi'];
 export const JobLevel = ['Intern', 'Junior', 'Midlle', 'Mid-senior', 'Senior'];
 
-export class GetContractRo implements ContracBaseBodyDto {
+export class GetContract implements ContracBaseBodyDto {
   contractType?: 'Cdd' | 'Cdi';
   dateEnd?: string;
   dateStart?: string;

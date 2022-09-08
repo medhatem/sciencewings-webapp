@@ -41,7 +41,7 @@ export class MemberContractsComponent implements OnInit {
     this.options = {
       columns: [
         { columnName: 'Name', columnPropertyToUse: 'name', customClass: '' },
-        { columnName: 'Supervisor', columnPropertyToUse: 'supervisor.name', customClass: 'hidden' },
+        { columnName: 'Supervisor', columnPropertyToUse: 'supervizor', customClass: 'hidden' },
         { columnName: 'Job Level', columnPropertyToUse: 'jobLevel', customClass: 'hidden' },
         { columnName: 'Date start', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
@@ -52,6 +52,7 @@ export class MemberContractsComponent implements OnInit {
   openInviteProjectDialog(): void {
     const orgID = this.getOrganizationIdFromLocalStorage();
     const userId = this.userId;
+
     if (!orgID) {
       this._toastrService.showError('Something went wrong!');
     }
