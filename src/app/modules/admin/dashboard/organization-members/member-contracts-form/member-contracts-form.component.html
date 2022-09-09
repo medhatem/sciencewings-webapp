@@ -31,8 +31,8 @@
 
     <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
       <mat-label class="w-100">choose supervizor</mat-label>
-      <mat-select [formControlName]="'supervisor'" placeholder="supervizor">
-        <mat-option *ngFor="let supervisor of supervisors; trackBy: trackByFn" [value]="supervisor.id">
+      <mat-select [formControlName]="'supervisor'" placeholder="supervisor">
+        <mat-option *ngFor="let supervisor of supervisors; trackBy: trackByFn" [value]="supervisor.user">
           {{ supervisor.name }}
         </mat-option>
       </mat-select>

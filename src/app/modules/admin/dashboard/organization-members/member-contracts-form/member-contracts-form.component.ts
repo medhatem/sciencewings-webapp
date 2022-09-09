@@ -31,24 +31,22 @@ export class MemberContractsFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.supervisors = this._memberService.getOrgMembers();
+    this._memberService.getOrgMembers().subscribe(({ body }) => {
+      this.supervisors = body.data.map((member) => new OrganizationMembers(member));
+    });
     const contractFormObj = {
       name: ['', [Validators.required]],
       jobLevel: ['', [Validators.required]],
       wage: ['', [Validators.required]],
       contractType: ['', [Validators.required]],
       dateStart: ['', [Validators.required]],
+      supervisor: ['', [Validators.required]],
       dateEnd: [''],
     };
 
     this.contractForm = this._formBuilder.group(contractFormObj);
   }
   async onSubmit() {
-    if (!this.contractForm.valid) {
-      this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
-      return;
-    }
-
     const contract = this.getContractFromFormBuilder();
     try {
       await this._contractService.createContract(contract);
@@ -60,13 +58,18 @@ export class MemberContractsFormComponent implements OnInit {
     }
   }
   private getContractFromFormBuilder(): ContractRo {
-    return new ContractRo({
+    const contractRo = new ContractRo({
       ...this.contractForm.value,
       organization: this.getOrganizationIdFromLocalStorage(),
       user: Number(this.data.userId),
       wage: Number(this.contractForm.value.wage),
       dateStart: String(this.contractForm.value.dateStart),
+      dateEnd: String(this.contractForm.value?.dateEnd || ''),
     });
+    if (contractRo.contractType === 'Cdi') {
+      delete contractRo.dateEnd;
+    }
+    return contractRo;
   }
   private getOrganizationIdFromLocalStorage(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
