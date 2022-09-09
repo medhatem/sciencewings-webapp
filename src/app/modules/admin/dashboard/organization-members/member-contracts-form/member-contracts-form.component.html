@@ -1,7 +1,7 @@
 <div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
   <!-- Header -->
   <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8">
-    <div class="text-lg font-extrabold tracking-tight leading-none">Add new contract</div>
+    <div class="text-lg font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.CONTRACTS.TITLE' | transloco }}</div>
   </div>
   <hr class="w-full border-t my-2" />
   <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="contractForm">
@@ -11,8 +11,8 @@
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
     </mat-form-field>
     <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
-      <mat-label class="w-100">contract type</mat-label>
-      <mat-select [formControlName]="'contractType'" placeholder="contract type">
+      <mat-label class="w-100">{{ 'ORGANIZATION.PROJECTS.FORM.CONTRACT_TYPE' | transloco }}</mat-label>
+      <mat-select [formControlName]="'contractType'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.CONTRACT_TYPE' | transloco }}">
         <mat-option *ngFor="let contractType of contractTypes" [value]="contractType">
           {{ contractType }}
         </mat-option>
@@ -20,8 +20,8 @@
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
     </mat-form-field>
     <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
-      <mat-label class="w-100">job level</mat-label>
-      <mat-select [formControlName]="'jobLevel'" placeholder="job level">
+      <mat-label class="w-100">{{ 'ORGANIZATION.PROJECTS.FORM.JOB_LEVEL' | transloco }}</mat-label>
+      <mat-select [formControlName]="'jobLevel'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.JOB_LEVEL' | transloco }}">
         <mat-option *ngFor="let jobLevel of jobLevels" [value]="jobLevel">
           {{ jobLevel }}
         </mat-option>
@@ -30,8 +30,8 @@
     </mat-form-field>
 
     <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
-      <mat-label class="w-100">choose supervizor</mat-label>
-      <mat-select [formControlName]="'supervisor'" placeholder="supervisor">
+      <mat-label class="w-100">{{ 'ORGANIZATION.PROJECTS.FORM.CHOOSE_SUPERVISOR' | transloco }}</mat-label>
+      <mat-select [formControlName]="'supervisor'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.SUPERVISOR' | transloco }}">
         <mat-option *ngFor="let supervisor of supervisors; trackBy: trackByFn" [value]="supervisor.user">
           {{ supervisor.name }}
         </mat-option>
@@ -40,21 +40,30 @@
     </mat-form-field>
 
     <mat-form-field class="flex-auto mx-4">
-      <mat-label>wage</mat-label>
-      <input matInput [formControlName]="'wage'" placeholder="wage" required />
+      <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.WAGE' | transloco }}</mat-label>
+      <input matInput [formControlName]="'wage'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.WAGE' | transloco }}" required />
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
     </mat-form-field>
     <mat-form-field class="flex-auto mx-4">
-      <mat-label>start date</mat-label>
+      <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.STARTDATE' | transloco }}</mat-label>
       <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:cake'"></mat-icon>
-      <input matInput [matDatepicker]="startDatepicker" [formControlName]="'dateStart'" placeholder="startDate" />
+      <input
+        matInput
+        [matDatepicker]="startDatepicker"
+        [formControlName]="'dateStart'"
+        placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.STARTDATE' | transloco }}" />
       <mat-datepicker-toggle matSuffix [for]="startDatepicker"> </mat-datepicker-toggle>
       <mat-datepicker #startDatepicker></mat-datepicker>
     </mat-form-field>
     <mat-form-field *ngIf="this.contractForm.value.contractType === 'Cdd'" class="flex-auto mx-4">
-      <mat-label>end date</mat-label>
+      <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.ENDDATE' | transloco }}</mat-label>
       <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:cake'"></mat-icon>
-      <input matInput [matDatepicker]="startDatepicker" [formControlName]="'dateEnd'" placeholder="dateEnd" required />
+      <input
+        matInput
+        [matDatepicker]="startDatepicker"
+        [formControlName]="'dateEnd'"
+        placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.ENDDATE' | transloco }}"
+        required />
       <mat-datepicker-toggle matSuffix [for]="startDatepicker"> </mat-datepicker-toggle>
       <mat-datepicker #startDatepicker></mat-datepicker>
     </mat-form-field>
