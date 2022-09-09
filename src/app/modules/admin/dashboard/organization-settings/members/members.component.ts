@@ -28,12 +28,12 @@ export class MembersComponent implements OnInit {
       acountNumberNote: '',
       allowMembersToSeeAllOtherMembers: true,
     });
-    this.isAccountNumberNote = !!this.settings.acountNumberNote;
+    this.isAccountNumberNote = !!this.form.value.acountNumberNote;
     this.form.setValue({
-      membersCanEditAccountNumbers: this.settings.membersCanEditAccountNumbers,
-      promptForAccouantNumbers: this.settings.promptForAccouantNumbers,
-      acountNumberNote: this.settings.acountNumberNote,
-      allowMembersToSeeAllOtherMembers: this.settings.allowMembersToSeeAllOtherMembers,
+      membersCanEditAccountNumbers: this.form.value.membersCanEditAccountNumbers,
+      promptForAccouantNumbers: this.form.value.promptForAccouantNumbers,
+      acountNumberNote: this.form.value.acountNumberNote,
+      allowMembersToSeeAllOtherMembers: this.form.value.allowMembersToSeeAllOtherMembers,
     });
   }
   accountNumberNoteListener(event) {

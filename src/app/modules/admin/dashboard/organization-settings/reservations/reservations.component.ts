@@ -31,14 +31,14 @@ export class ReservationsComponent implements OnInit {
       emailAddressToReceiveReservationReplyMessages: '',
     });
     this.form.setValue({
-      approversCanEditReservations: this.settings.approversCanEditReservations,
-      requireReasonWhenEditingReservation: this.settings.requireReasonWhenEditingReservation,
-      hideOrganizationCalendar: this.settings.hideOrganizationCalendar,
-      hideAccountNumberWhenMakingReservation: this.settings.hideAccountNumberWhenMakingReservation,
-      showResourceImagesInReservation: this.settings.showResourceImagesInReservation,
-      confirmationEmailWhenMakingReservation: this.settings.confirmationEmailWhenMakingReservation,
-      attachedIcsCalendarFeeds: this.settings.attachedIcsCalendarFeeds,
-      emailAddressToReceiveReservationReplyMessages: this.settings.emailAddressToReceiveReservationReplyMessages,
+      approversCanEditReservations: this.form.value.approversCanEditReservations,
+      requireReasonWhenEditingReservation: this.form.value.requireReasonWhenEditingReservation,
+      hideOrganizationCalendar: this.form.value.hideOrganizationCalendar,
+      hideAccountNumberWhenMakingReservation: this.form.value.hideAccountNumberWhenMakingReservation,
+      showResourceImagesInReservation: this.form.value.showResourceImagesInReservation,
+      confirmationEmailWhenMakingReservation: this.form.value.confirmationEmailWhenMakingReservation,
+      attachedIcsCalendarFeeds: this.form.value.attachedIcsCalendarFeeds,
+      emailAddressToReceiveReservationReplyMessages: this.form.value.emailAddressToReceiveReservationReplyMessages,
     });
   }
 

@@ -3,7 +3,6 @@ import { GeneralComponent } from './general/general.component';
 import { MembersComponent } from './members/members.component';
 import { LocationComponent } from './location/location.component';
 import { ReservationsComponent } from './reservations/reservations.component';
-import { InvociesComponent } from './invocies/invocies.component';
 import { AccessComponent } from './access/access.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { OrganizationSettingsComponent } from './organization-settings.component';
@@ -20,7 +19,6 @@ import { TranslocoModule } from '@ngneat/transloco';
     MembersComponent,
     LocationComponent,
     ReservationsComponent,
-    InvociesComponent,
     AccessComponent,
     SubscriptionComponent,
   ],

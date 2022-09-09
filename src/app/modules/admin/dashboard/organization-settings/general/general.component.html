@@ -3,7 +3,7 @@
   <form [formGroup]="form">
     <!-- Section -->
     <div class="w-full">
-      <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.GENERAL.GENERAL_INFORMATION' | transloco }}</div>
+      <div class="text-3xl font-semibold tracking-tight leading-8">{{ 'ORGANIZATION.SETTINGS.GENERAL.GENERAL_INFORMATION' | transloco }}</div>
     </div>
 
     <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
@@ -24,6 +24,7 @@
 
       <div class="relative flex sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript flex-auto">
+          <mat-label>{{ 'ORGANIZATION.FORM.STEP1.PHONE_NUMBER' | transloco }}</mat-label>
           <input matInput formControlName="phoneNumber" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.PHONE' | transloco" />
           <mat-select class="mr-1.5" formControlName="phoneCode" matPrefix>
             <mat-select-trigger>
@@ -51,17 +52,22 @@
             </ng-container>
           </mat-select>
         </mat-form-field>
+
         <mat-form-field class="fuse-mat-no-subscript flex-auto w-full max-w-24 sm:max-w-40 ml-2 sm:ml-4">
-          <!-- Label -->
+          <mat-label>{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}</mat-label>
           <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:tag'"></mat-icon>
-          <input matInput formControlName="phoneLabel" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.LABEL' | transloco" />
+          <mat-select [formControlName]="'labels'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}">
+            <mat-option *ngFor="let label of labelsKeys; trackBy: trackByFn" [value]="labels[label]"
+              >{{ labelsTranslation[label] | transloco }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
 
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.TYPE' | transloco }}</mat-label>
-          <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}" required>
+          <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}">
             <mat-option value="Public">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}</mat-option>
             <mat-option value="Service">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.SERVICE' | transloco }}</mat-option>
             <mat-option value="Institut">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.INSTITUT' | transloco }}</mat-option>
@@ -71,7 +77,7 @@
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.DIRECTION' | transloco }}</mat-label>
-          <mat-select [formControlName]="'direction'" placeholder="{{ 'ORGANIZATION.SETTINGS.GENERAL.DIRECTION' | transloco }}" required>
+          <mat-select [formControlName]="'direction'" placeholder="{{ 'ORGANIZATION.SETTINGS.GENERAL.DIRECTION' | transloco }}">
             <mat-option value="1">User 1</mat-option>
             <mat-option value="2">User 2</mat-option>
             <mat-option value="3">User 3</mat-option>
@@ -79,11 +85,18 @@
         </mat-form-field>
       </div>
 
+      <!-- Notes -->
       <div class="sm:col-span-4">
-        <mat-form-field class="fuse-mat-no-subscript w-full">
+        <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.DESCRIPTION' | transloco }}</mat-label>
-          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:view-list'"></mat-icon>
-          <textarea matInput formControlName="description"></textarea>
+          <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:menu-alt-2'"></mat-icon>
+          <textarea
+            matInput
+            [formControlName]="'description'"
+            [placeholder]="'Notes'"
+            [rows]="5"
+            [spellcheck]="false"
+            matTextareaAutosize></textarea>
         </mat-form-field>
       </div>
     </div>

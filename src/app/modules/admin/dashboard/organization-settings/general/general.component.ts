@@ -4,6 +4,8 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
 import { Subject, takeUntil } from 'rxjs';
 import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
+import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
+
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { constants } from 'app/shared/constants';
 
@@ -17,6 +19,11 @@ export class GeneralComponent implements OnInit {
   @Output() updateLocalOrganization = new EventEmitter<string>();
   @Input() countries: any;
   form: FormGroup;
+  labels = OrganizationLabels;
+  phoneLabel = OrganizationLabels;
+  labelsKeys = Object.keys(OrganizationLabels);
+  labelsTranslation = OrganizationLabelsTranslation;
+
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -33,7 +40,7 @@ export class GeneralComponent implements OnInit {
       email: ['', Validators.email],
       phoneCode: 'fr',
       phoneNumber: '',
-      phoneLabel: '',
+      labels: [],
       type: '',
       direction: '',
       description: '',
@@ -41,11 +48,12 @@ export class GeneralComponent implements OnInit {
 
     this.form.setValue({
       ...this.form.value,
-      name: this.currentOrganizations.name,
-      email: this.currentOrganizations.email,
-      type: this.currentOrganizations.type,
-      direction: this.currentOrganizations.direction,
-      description: this.currentOrganizations.description,
+      name: this.form.value.name,
+      email: this.form.value.email,
+      type: this.form.value.type,
+      labels: this.form.value.labels,
+      direction: this.form.value.direction,
+      description: this.form.value.description,
     });
 
     // Get the country telephone codes
@@ -55,19 +63,19 @@ export class GeneralComponent implements OnInit {
       // Mark for check
       this._changeDetectorRef.markForCheck();
 
-      if (this.currentOrganizations.phone) {
+      if (this.form.value.phone) {
         this.form.setValue({
           ...this.form.value,
-          phoneCode: this.currentOrganizations.phone.phoneCode,
-          phoneNumber: this.currentOrganizations.phone.phoneNumber,
-          phoneLabel: this.currentOrganizations.phone.phoneLabel,
+          phoneCode: this.form.value.phone.phoneCode,
+          phoneNumber: this.form.value.phone.phoneNumber,
+          labels: this.form.value.phone.labels,
         });
       } else {
         this.form.setValue({
           ...this.form.value,
           phoneCode: 'fr',
           phoneNumber: '',
-          phoneLabel: '',
+          labels: [this.labels],
         });
       }
     });
@@ -78,13 +86,13 @@ export class GeneralComponent implements OnInit {
     data.direction = this.form.value.direction.id;
     delete data.phoneCode;
     delete data.phoneNumber;
-    delete data.phoneLabel;
+    delete data.labels;
     data.phones = [
       {
-        id: this.currentOrganizations.phone.id,
+        id: this.form.value.id,
         phoneCode: this.form.value.phoneCode,
         phoneNumber: this.form.value.phoneNumber,
-        phoneLabel: this.form.value.phoneLabel,
+        labels: this.form.value.phone.labels,
       },
     ];
     const response = await this.organizationService.updateOrganization(1, data);

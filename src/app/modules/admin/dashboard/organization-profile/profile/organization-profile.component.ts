@@ -23,6 +23,9 @@ export interface InventoryPagination {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrganizationProfileComponent implements OnInit, OnDestroy {
+  readonly organizationProfilePath = `/${constants.MODULES_ROUTINGS_URLS.ADMIN}/${constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_SETTINGS}`;
+  readonly fullCreateOrganizationPath = this.organizationProfilePath;
+
   profile: Organization;
 
   pagination: InventoryPagination = {

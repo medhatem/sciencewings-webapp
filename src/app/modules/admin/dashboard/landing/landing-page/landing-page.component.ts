@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Organization } from 'app/models/organizations/organization';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
@@ -21,6 +21,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any> = new Subject<any>();
   private _userSelected: Subject<boolean> = new Subject<boolean>();
   private _router: Router;
+  private _changeDetectorRef: ChangeDetectorRef;
 
   constructor(private _adminOrganizationsService: AdminOrganizationsService) {}
 

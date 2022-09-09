@@ -29,15 +29,15 @@ export class AccessComponent implements OnInit {
       listResourceToNonMembers: true,
       messageSentToNewMembers: '',
     });
-    this.isMemberShouldAccessByJoinCode = !!this.settings.joinCode;
+    this.isMemberShouldAccessByJoinCode = !!this.form.value.joinCode;
 
     this.form.setValue({
-      anyMemberCanJoinYourOrganizationAndAccessResourceSchedules: this.settings.anyMemberCanJoinYourOrganizationAndAccessResourceSchedules,
-      joinCode: this.settings.joinCode,
-      yourOrganizationWillNeverAppearInSearchResults: this.settings.yourOrganizationWillNeverAppearInSearchResults,
-      notifyAdministratorsWhenMembersJoinOrganization: this.settings.notifyAdministratorsWhenMembersJoinOrganization,
-      listResourceToNonMembers: this.settings.listResourceToNonMembers,
-      messageSentToNewMembers: this.settings.messageSentToNewMembers,
+      anyMemberCanJoinYourOrganizationAndAccessResourceSchedules: this.form.value.anyMemberCanJoinYourOrganizationAndAccessResourceSchedules,
+      joinCode: this.form.value.joinCode,
+      yourOrganizationWillNeverAppearInSearchResults: this.form.value.yourOrganizationWillNeverAppearInSearchResults,
+      notifyAdministratorsWhenMembersJoinOrganization: this.form.value.notifyAdministratorsWhenMembersJoinOrganization,
+      listResourceToNonMembers: this.form.value.listResourceToNonMembers,
+      messageSentToNewMembers: this.form.value.messageSentToNewMembers,
     });
   }
 

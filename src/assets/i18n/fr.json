@@ -84,7 +84,7 @@
           "TITLE": "Members"
         },
         "ORGANIZATION_PROFILE": {
-          "SETTINGS": "Réglages Organization",
+          "SETTINGS": "Paramètres de l'organisation",
           "TITLE": "Profil Organization"
         },
         "PROJECT": {
@@ -388,7 +388,10 @@
     },
 
     "SETTINGS": {
+      "TITLE": "Paramètres de l'organisation",
       "ACCESS": {
+        "TITLE": "Accès",
+        "MESSAGE": "Gérer les options d'accès pour votre organisation",
         "Cancel": "Annuler",
         "OPTION_1": "Tous les membres peuvent rejoindre votre organisation et accéder aux plannings des ressources.",
         "OPTION_2": "Le membre doit accéder par code d'adhésion",
@@ -397,10 +400,11 @@
         "OPTION_5": "Notifier les administrateurs lorsque des membres rejoignent l'organisation",
         "OPTION_6": "Répertorier les ressources aux non-membres",
         "OPTION_7": "Message envoyé aux nouveaux membres",
-        "TITLE": "Paramètres d'accès",
+        "TITLE_1": "Paramètres d'accès",
         "Update": "Modifier"
       },
       "GENERAL": {
+        "TITLE": "Général",
         "DESCRIPTION": "Description",
         "DIRECTION": "Direction",
         "EMAIL": "Email",
@@ -409,9 +413,11 @@
         "NAME": "Nom",
         "PHONE": "Téléphone",
         "TYPE": "Type",
-        "UPDATE": "Modifier"
+        "UPDATE": "Modifier",
+        "MESSAGE": "Gérez les informations générales de votre organisation"
       },
       "MEMBERS": {
+        "TITLE": "Membres",
         "Cancel": "Annuler",
         "OPTION_1_1": "Les membres peuvent modifier les numéros de compte",
         "OPTION_1_2": "Inviter les numéros de compte",
@@ -419,10 +425,13 @@
         "OPTION_2_1": "Autoriser les membres à voir tous les autres membres",
         "SECTION_1_TITLE": "Numéro de compte membre",
         "SECTION_2_TITLE": "Visibilité de la liste des membres",
-        "TITLE": "Options de compte de membre",
-        "Update": "Modifier"
+        "TITLE_1": "Options de compte de membre",
+        "Update": "Modifier",
+        "MESSAGE": "Gérer les options de compte des membres et les autorisations des membres"
       },
       "RESERVATIONS": {
+        "TITLE": "Réservations",
+        "MESSAGE": "Gérer les option de réservation pour toutes les ressources de votre organisation ",
         "ApproversCanEditReservations": "Les approbateurs peuvent modifier les réservations",
         "AttachedICSCalendarFeeds": "Flux de calendrier ICS joints",
         "Cancel": "Annuler",
@@ -437,7 +446,15 @@
         "ReservationOptions": "Options de réservation",
         "ShowResourceImagesInReservation": "Afficher les images de ressources dans la réservation",
         "Update": "Modifier",
-        "Utilisateur HideCalenderForMemberOnly": "Masquer le calendrier pour les membres uniquement"
+        "UserHideCalenderForMemberOnly": "Masquer le calendrier pour les membres uniquement"
+      },
+      "SUBSCRIPTION": {
+        "TITLE": "Abonnement",
+        "MESSAGE": "Gérer votre plan d'abonnement, votre mode de paiement et vos informations de facturation"
+      },
+      "LOCATION": {
+        "MESSAGE": "Gérez les adresses de localisation de votre organisation ",
+        "TITLE": "Emplacements"
       },
       "RESOUCES": {
         "TITLE": "Ressources",

@@ -11,6 +11,10 @@
         <div class="flex-1 text-2xl font-semibold p-1 leading-tight">
           {{ organization?.name || ('ORGANIZATION.MEMBERS.MISSING_INFO' | transloco) }}
         </div>
+        <button class="text-tiny border rounded-2xl flex align-center justify-evenly p-0.5 w-20" [routerLink]="fullCreateOrganizationPath">
+          <mat-icon aria-hidden="false" aria-label="edit">edit</mat-icon>
+          Edit
+        </button>
       </div>
     </div>
     <hr class="w-full border-t my-6" />

@@ -3,9 +3,11 @@
   <form [formGroup]="form">
     <!-- Section -->
     <div class="w-full">
-      <div class="text-xl my-3">{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.ReservationOptions' | transloco }}</div>
+      <div class="text-3xl font-semibold tracking-tight leading-8">
+        {{ 'ORGANIZATION.SETTINGS.RESERVATIONS.ReservationOptions' | transloco }}
+      </div>
 
-      <div class="text-lg my-5">{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.GENERAL_RESERVATION_OPTIONS' | transloco }}</div>
+      <div class="col-span-8 text-lg font-medium my-5">{{ 'ORGANIZATION.SETTINGS.RESOUCES.GENERAL_RESERVATION_OPTIONS' | transloco }}</div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.ApproversCanEditReservations' | transloco }}</mat-label>
@@ -22,7 +24,7 @@
         <mat-slide-toggle [formControlName]="'hideOrganizationCalendar'" [color]="'primary'"> </mat-slide-toggle>
       </div>
 
-      <!-- <div class="sm:col-span-4">
+      <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-select
             [formControlName]="'hideAccountNumberWhenMakingReservation'"
@@ -32,7 +34,7 @@
             <mat-option value="MEMBER">{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.UserHideCalenderForMemberOnly' | transloco }}</mat-option>
           </mat-select>
         </mat-form-field>
-      </div> -->
+      </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.RESERVATIONS.HideAccountNumberWhenMakingReservation' | transloco }}</mat-label>

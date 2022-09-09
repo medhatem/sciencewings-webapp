@@ -2,7 +2,7 @@
   <mat-drawer-container class="flex-auto sm:h-full">
     <mat-drawer class="sm:w-96 dark:bg-gray-900" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #drawer>
       <div class="flex items-center justify-between m-8 mr-6 sm:my-10">
-        <div class="text-4xl font-extrabold tracking-tight leading-none">{{ 'Settings' | transloco }}</div>
+        <div class="text-4xl font-extrabold tracking-tight leading-none py-2">{{ 'ORGANIZATION.SETTINGS.TITLE' | transloco }}</div>
         <div class="lg:hidden">
           <button mat-icon-button (click)="drawer.close()">
             <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
@@ -26,11 +26,13 @@
               }"
               [svgIcon]="panel.icon"></mat-icon>
             <div class="ml-3">
-              <div class="font-medium leading-6" [ngClass]="{ 'text-primary dark:text-primary-500': selectedPanel && selectedPanel === panel.id }">
-                {{ panel.title }}
+              <div
+                class="font-medium leading-6"
+                [ngClass]="{ 'text-primary dark:text-primary-500': selectedPanel && selectedPanel === panel.id }">
+                {{ panel.title | transloco }}
               </div>
               <div class="mt-0.5 text-secondary">
-                {{ panel.description }}
+                {{ panel.description | transloco }}
               </div>
             </div>
           </div>
@@ -52,26 +54,34 @@
         <div class="mt-8">
           <ng-container [ngSwitch]="selectedPanel">
             <ng-container *ngSwitchCase="'general'">
-              <organization-settings-general [currentOrganizations]="currentOrganizations" (updateLocalOrganization)="updateLocalOrganization($event)">
+              <organization-settings-general
+                [currentOrganizations]="currentOrganizations"
+                (updateLocalOrganization)="updateLocalOrganization($event)">
               </organization-settings-general>
             </ng-container>
             <ng-container *ngSwitchCase="'members'">
-              <organization-settings-members [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)"> </organization-settings-members>
+              <organization-settings-members [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
+              </organization-settings-members>
             </ng-container>
             <ng-container *ngSwitchCase="'location'">
-              <organization-settings-location [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)"> </organization-settings-location>
+              <organization-settings-location [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
+              </organization-settings-location>
             </ng-container>
             <ng-container *ngSwitchCase="'reservations'">
-              <organization-settings-reservations [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)"> </organization-settings-reservations>
+              <organization-settings-reservations [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
+              </organization-settings-reservations>
             </ng-container>
             <ng-container *ngSwitchCase="'invocie'">
-              <organization-settings-invocies [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)"> </organization-settings-invocies>
+              <organization-settings-invocies [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
+              </organization-settings-invocies>
             </ng-container>
             <ng-container *ngSwitchCase="'access'">
-              <organization-settings-access [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)"> </organization-settings-access>
+              <organization-settings-access [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
+              </organization-settings-access>
             </ng-container>
             <ng-container *ngSwitchCase="'subscription'">
-              <organization-settings-subscription [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)"> </organization-settings-subscription>
+              <organization-settings-subscription [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
+              </organization-settings-subscription>
             </ng-container>
           </ng-container>
         </div>
