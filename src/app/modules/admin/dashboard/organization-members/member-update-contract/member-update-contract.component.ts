@@ -18,7 +18,7 @@ export class MemberUpdateContractComponent implements OnInit {
   contractForm: FormGroup;
   contracts: any[] = [];
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { orgId: number; userId: number; contractId: number },
+    @Inject(MAT_DIALOG_DATA) public data: { orgId: number; userId: number; item: any },
     private _route: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private _contractService: ContractService,
@@ -28,17 +28,13 @@ export class MemberUpdateContractComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._contractService.getMemberContracts(this.data.userId, this.data.userId).subscribe((contracts: GetContract[]) => {
-      this.contracts = contracts;
-      this._cdr.markForCheck();
-    });
-
+    console.log('old contract ================= ', this.data.item);
     const contractFormObj = {
-      jobName: ['', [Validators.required]],
-      jobLevel: ['', [Validators.required]],
-      contractType: ['', [Validators.required]],
-      dateStart: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      jobName: [this.data?.item?.name || '', [Validators.required]],
+      jobLevel: [this.data?.item?.jobLevel || '', [Validators.required]],
+      contractType: [this.data?.item?.contractType || '', [Validators.required]],
+      dateStart: [this.data?.item?.dateStart || '', [Validators.required]],
+      description: [this.data?.item?.description || '', [Validators.required]],
     };
     this.contractForm = this._formBuilder.group(contractFormObj);
   }
@@ -50,8 +46,8 @@ export class MemberUpdateContractComponent implements OnInit {
 
     const contract = this.getUpdatedContractFromFormBuilder();
     try {
-      console.log('contractId============ ', this.data.contractId);
-      await this._contractService.updateContract(this.data.contractId, contract);
+      console.log('contractId============ ', this.data.item.id);
+      await this._contractService.updateContract(this.data.item.id, contract);
       this._toastrService.showSuccess('update contract succeeded');
       this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS]);
     } catch (error) {

@@ -47,11 +47,12 @@ export class ContractService {
     return this.getMemberContracts(orgId, userId).pipe(
       map((contracts) => contracts.body.data.map((contract) => new GetContract(contract))),
       map((projects: GetContract[]) =>
-        projects.map(({ job, supervisor, jobLevel, dateStart }) => ({
+        projects.map(({ id, job, supervisor, jobLevel, dateStart }) => ({
           name: `${job.name}`,
           supervisor: supervisor,
           jobLevel: jobLevel,
           dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+          id: id,
         })),
       ),
       tap((response) => {

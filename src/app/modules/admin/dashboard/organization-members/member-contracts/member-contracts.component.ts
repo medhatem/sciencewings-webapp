@@ -68,11 +68,11 @@ export class MemberContractsComponent implements OnInit {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
   async onElementSelected(item: any) {
+    console.log('old item ========= indide cimpon', item);
     const orgID = this.getOrganizationIdFromLocalStorage();
     const userId = this.userId;
-    const contractId = item.id;
     this.openedDialogRef = this._matDialog.open(MemberUpdateContractComponent, {
-      data: { orgID, userId, contractId },
+      data: { orgID, userId, item },
     });
     this.openedDialogRef.afterClosed().subscribe((result) => {
       lastValueFrom(this._contractService.getAndParseMemberContracts(this.userId, this.userId));
