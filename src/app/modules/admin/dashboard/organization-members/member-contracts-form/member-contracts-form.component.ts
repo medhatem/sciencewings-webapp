@@ -6,6 +6,9 @@ import { ContractRo, ContractType, JobLevel } from 'app/models/contract/contract
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
 import { constants } from 'app/shared/constants';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
+import { OrganizationMembers } from 'app/models/members/member';
+import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
 
 @Component({
   selector: 'app-member-contracts-form',
@@ -16,17 +19,19 @@ export class MemberContractsFormComponent implements OnInit {
   contractTypes = ContractType;
   jobLevels = JobLevel;
   contractForm: FormGroup;
-
+  supervisors: any;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { orgId: number; userId: number },
     private _route: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private _contractService: ContractService,
+    private _memberService: MemberService,
     private _toastrService: ToastrService,
     private _router: Router,
   ) {}
 
   ngOnInit(): void {
+    this.supervisors = this._memberService.getOrgMembers();
     const contractFormObj = {
       name: ['', [Validators.required]],
       jobLevel: ['', [Validators.required]],
@@ -65,5 +70,14 @@ export class MemberContractsFormComponent implements OnInit {
   }
   private getOrganizationIdFromLocalStorage(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+  }
+  /**
+   * Track by function for ngFor loops
+   *
+   * @param index
+   * @param item
+   */
+  trackByFn(index: number, item: any): any {
+    return item.id || index;
   }
 }

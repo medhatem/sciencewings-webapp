@@ -29,6 +29,16 @@
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
     </mat-form-field>
 
+    <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+      <mat-label class="w-100">choose supervizor</mat-label>
+      <mat-select [formControlName]="'supervisor'" placeholder="supervizor">
+        <mat-option *ngFor="let supervisor of supervisors; trackBy: trackByFn" [value]="supervisor.id">
+          {{ supervisor.name }}
+        </mat-option>
+      </mat-select>
+      <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+    </mat-form-field>
+
     <mat-form-field class="flex-auto mx-4">
       <mat-label>wage</mat-label>
       <input matInput [formControlName]="'wage'" placeholder="wage" required />
