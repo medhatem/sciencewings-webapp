@@ -40,7 +40,7 @@ export class MemberContractsComponent implements OnInit {
 
     this.options = {
       columns: [
-        { columnName: 'Name', columnPropertyToUse: 'name', customClass: '' },
+        { columnName: 'Name', columnPropertyToUse: 'name', customClass: 'hidden' },
         { columnName: 'Supervisor', columnPropertyToUse: 'supervizor', customClass: 'hidden' },
         { columnName: 'Job Level', columnPropertyToUse: 'jobLevel', customClass: 'hidden' },
         { columnName: 'Date start', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
