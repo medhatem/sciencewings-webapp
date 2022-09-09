@@ -21,6 +21,7 @@ export class MemberContractsComponent implements OnInit {
   orgID: number;
   options: ListOption = { columns: [], numnberOfColumns: 4 };
   contracts: any[] = [];
+  conDto: any;
   openedDialogRef: any;
   constructor(
     private _route: ActivatedRoute,
@@ -41,13 +42,15 @@ export class MemberContractsComponent implements OnInit {
     this.options = {
       columns: [
         { columnName: 'Name', columnPropertyToUse: 'name', customClass: 'hidden' },
-        { columnName: 'Supervisor', columnPropertyToUse: 'supervizor', customClass: 'hidden' },
+        { columnName: 'Supervisor', columnPropertyToUse: 'supervisor', customClass: 'hidden' },
         { columnName: 'Job Level', columnPropertyToUse: 'jobLevel', customClass: 'hidden' },
         { columnName: 'Date start', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
       numnberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
     };
+    this.conDto = this._contractService.getAndParseMemberContracts(this.userId, this.userId);
+    console.log('contdtoooooooooooooooo= ', this.conDto.supervisor);
   }
   openInviteProjectDialog(): void {
     const orgID = this.getOrganizationIdFromLocalStorage();

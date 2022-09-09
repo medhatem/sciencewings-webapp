@@ -47,7 +47,7 @@ export class GetContract implements ContracBaseBodyDto {
   wage?: number;
 
   constructor(contract: any) {
-    const { contractType, dateEnd, dateStart, description, jobLevel, name, organization, job, supervisor, user, wage } = contract || {};
+    const { contractType, dateEnd, dateStart, description, jobLevel, name, organization, job, supervisor, user, wage, id } = contract || {};
     Object.assign(this, {
       contractType,
       dateEnd,
@@ -60,6 +60,7 @@ export class GetContract implements ContracBaseBodyDto {
       supervisor,
       user,
       wage,
+      id,
     });
   }
 }
