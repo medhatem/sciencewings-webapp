@@ -33,6 +33,7 @@ export class MemberContractsFormComponent implements OnInit {
       wage: ['', [Validators.required]],
       contractType: ['', [Validators.required]],
       dateStart: ['', [Validators.required]],
+      dateEnd: [''],
     };
 
     this.contractForm = this._formBuilder.group(contractFormObj);

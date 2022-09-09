@@ -41,6 +41,13 @@
       <mat-datepicker-toggle matSuffix [for]="startDatepicker"> </mat-datepicker-toggle>
       <mat-datepicker #startDatepicker></mat-datepicker>
     </mat-form-field>
+    <mat-form-field *ngIf="this.contractForm.value.contractType === 'Cdd'" class="flex-auto mx-4">
+      <mat-label>end date</mat-label>
+      <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:cake'"></mat-icon>
+      <input matInput [matDatepicker]="startDatepicker" [formControlName]="'dateEnd'" placeholder="dateEnd" required />
+      <mat-datepicker-toggle matSuffix [for]="startDatepicker"> </mat-datepicker-toggle>
+      <mat-datepicker #startDatepicker></mat-datepicker>
+    </mat-form-field>
 
     <!-- Body -->
     <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
