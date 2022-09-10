@@ -28,7 +28,6 @@ export class MemberUpdateContractComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('old contract ================= ', this.data.contractDto);
     const contractFormObj = {
       jobName: [this.data?.contractDto?.job?.name || '', [Validators.required]],
       jobLevel: [this.data?.contractDto?.jobLevel || '', [Validators.required]],
@@ -47,7 +46,6 @@ export class MemberUpdateContractComponent implements OnInit {
 
     const contract = this.getUpdatedContractFromFormBuilder();
     try {
-      console.log('contractId============ ', this.data.contractDto.id);
       await this._contractService.updateContract(this.data.contractDto.id, contract);
       this._toastrService.showSuccess('update contract succeeded');
       this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS]);
@@ -57,13 +55,18 @@ export class MemberUpdateContractComponent implements OnInit {
     }
   }
   private getUpdatedContractFromFormBuilder(): ContractRo {
-    return new ContractRo({
+    const contractRo = new ContractRo({
       ...this.data.contractDto,
       ...this.contractForm.value,
       organization: this.getOrganizationIdFromLocalStorage(),
       user: Number(this.data.userId),
       dateStart: String(this.contractForm.value.dateStart),
+      dateEnd: String(this.contractForm.value?.dateEnd || ''),
     });
+    if (contractRo.contractType === 'Permanant') {
+      delete contractRo.dateEnd;
+    }
+    return contractRo;
   }
   private getOrganizationIdFromLocalStorage(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
