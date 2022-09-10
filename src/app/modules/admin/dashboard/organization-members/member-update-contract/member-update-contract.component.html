@@ -7,7 +7,7 @@
   <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="contractForm">
     <mat-form-field class="flex-auto mx-4">
       <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.LABEL_NAME' | transloco }}</mat-label>
-      <input matInput [formControlName]="'name'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PROJECT_NAME' | transloco }}" required />
+      <input matInput [formControlName]="'jobName'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.PROJECT_NAME' | transloco }}" required />
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
     </mat-form-field>
     <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">

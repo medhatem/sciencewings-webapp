@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { ContractRo, ContractType, GetContract, JobLevel } from 'app/models/contract/contract';
+import { ContractRo, ContractType, GetContract, JobLevel, UpdateContract } from 'app/models/contract/contract';
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
 import { constants } from 'app/shared/constants';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -36,7 +36,7 @@ export class MemberUpdateContractComponent implements OnInit {
       this.supervisors = body.data.map((member) => new OrganizationMembers(member));
     });
     const contractFormObj = {
-      name: [this.data?.contractDto?.job?.name || '', [Validators.required]],
+      jobName: [this.data?.contractDto?.job?.name || '', [Validators.required]],
       jobLevel: [this.data?.contractDto?.jobLevel || '', [Validators.required]],
       contractType: [this.data?.contractDto?.contractType || '', [Validators.required]],
       dateStart: [this.data?.contractDto?.dateStart || '', [Validators.required]],
@@ -71,14 +71,15 @@ export class MemberUpdateContractComponent implements OnInit {
       this._toastrService.showError('update contract failed');
     }
   }
-  private getUpdatedContractFromFormBuilder(): ContractRo {
-    const contractRo = new ContractRo({
+  private getUpdatedContractFromFormBuilder(): UpdateContract {
+    const contractRo = new UpdateContract({
       ...this.data.contractDto,
       ...this.contractForm.value,
       organization: this.getOrganizationIdFromLocalStorage(),
       user: Number(this.data.userId),
       dateStart: String(this.contractForm.value.dateStart),
       dateEnd: String(this.contractForm.value?.dateEnd || ''),
+      jobName: this.contractForm.value?.jobName || this.data.contractDto.name,
     });
     if (contractRo.contractType === 'Permanant') {
       delete contractRo.dateEnd;

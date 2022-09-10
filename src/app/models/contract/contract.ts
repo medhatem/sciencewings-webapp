@@ -1,4 +1,4 @@
-import { ContracBaseBodyDto, CreateContractRo, JobBaseBodyGetDto, MemberDto } from 'generated/models';
+import { ContracBaseBodyDto, CreateContractRo, JobBaseBodyGetDto, MemberDto, UpdateContractRo } from 'generated/models';
 
 export class ContractRo implements CreateContractRo {
   contractType: 'Permanant' | 'Contract base';
@@ -61,6 +61,36 @@ export class GetContract implements ContracBaseBodyDto {
       user,
       wage,
       id,
+    });
+  }
+}
+
+export class UpdateContract implements UpdateContractRo {
+  contractType?: 'Permanant' | 'Contract base';
+  dateEnd?: string;
+  dateStart?: string;
+  description?: string;
+  jobLevel?: 'Internship' | 'Junior' | 'Midlle' | 'Mid-senior' | 'Senior';
+  jobName?: string;
+  organization: number;
+  state?: 'Working' | 'Banned';
+  supervisor?: number;
+  user?: number;
+  wage?: number;
+
+  constructor(project: any) {
+    const { contractType, dateEnd, dateStart, description, jobLevel, jobName, organization, supervisor, user, wage } = project || {};
+    Object.assign(this, {
+      contractType,
+      dateEnd,
+      dateStart,
+      description,
+      jobLevel,
+      jobName,
+      organization,
+      supervisor,
+      user,
+      wage,
     });
   }
 }
