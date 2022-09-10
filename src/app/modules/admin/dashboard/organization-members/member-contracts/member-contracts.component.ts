@@ -19,7 +19,7 @@ import { MemberUpdateContractComponent } from '../member-update-contract/member-
 })
 export class MemberContractsComponent implements OnInit {
   @Input() userId: number;
-  orgID: number;
+  @Input() orgId: number;
   options: ListOption = { columns: [], numnberOfColumns: 4 };
   contracts: any[] = [];
   conDto: any;
@@ -52,18 +52,21 @@ export class MemberContractsComponent implements OnInit {
     };
   }
   openInviteProjectDialog(): void {
-    const orgID = this.getOrganizationIdFromLocalStorage();
+    const orgID = this.orgId;
     const userId = this.userId;
-
     if (!orgID) {
       this._toastrService.showError('Something went wrong!');
     }
     this.openedDialogRef = this._matDialog.open(MemberContractsFormComponent, {
       data: { orgID, userId },
     });
-    this.openedDialogRef.afterClosed().subscribe((result) => {
-      lastValueFrom(this._contractService.getAndParseMemberContracts(this.userId, this.userId));
-    });
+    this.openedDialogRef
+      .afterClosed()
+      ._contractService.getAndParseMemberContracts(this.orgId, this.userId)
+      .subscribe((contracts: GetContract[]) => {
+        this.contracts = contracts;
+        this._cdr.markForCheck();
+      });
   }
   private getOrganizationIdFromLocalStorage(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));

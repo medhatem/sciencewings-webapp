@@ -516,7 +516,7 @@
         "DESCRIPTION_LABEL": "Description",
         "DESCRIPTION": "About (description)",
         "PROJECT_MEMBERS": "Project's Members",
-        "PROJECT_NAME": "Project's Name",
+        "JOB_NAME": "Job name",
         "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
         "SAVE": "Save",
         "TITLE": "Create Project",
@@ -530,7 +530,9 @@
         "ACTIVE": "Active",
         "CREATE_COMPLETED": "Create project succeeded"
       },
-      "LIST": {},
+      "LIST": {
+        "MESSAGE": "There is no contracts"
+      },
       "SEARCH_CONTRACTS": "Find a contract",
       "TITLE": "Contracts",
       "ERROR": {
