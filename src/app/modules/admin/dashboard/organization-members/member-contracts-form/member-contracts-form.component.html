@@ -46,7 +46,7 @@
     </mat-form-field>
     <mat-form-field class="flex-auto mx-4">
       <mat-label>{{ 'ORGANIZATION.CONTRACTS.FORM.STARTDATE' | transloco }}</mat-label>
-      <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:cake'"></mat-icon>
+      <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:lock-closed'"></mat-icon>
       <input
         matInput
         [matDatepicker]="startDatepicker"
@@ -57,7 +57,7 @@
     </mat-form-field>
     <mat-form-field *ngIf="this.contractForm.value.contractType === 'Contract base'" class="flex-auto mx-4">
       <mat-label>{{ 'ORGANIZATION.CONTRACTS.FORM.ENDDATE' | transloco }}</mat-label>
-      <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:cake'"></mat-icon>
+      <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:lock-open'"></mat-icon>
       <input
         matInput
         [matDatepicker]="startDatepicker"
