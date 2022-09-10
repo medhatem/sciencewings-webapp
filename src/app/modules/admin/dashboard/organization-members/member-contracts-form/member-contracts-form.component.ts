@@ -5,7 +5,7 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ContractRo, ContractType, JobLevel } from 'app/models/contract/contract';
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
 import { constants } from 'app/shared/constants';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { OrganizationMembers } from 'app/models/members/member';
 import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
@@ -21,8 +21,9 @@ export class MemberContractsFormComponent implements OnInit {
   contractForm: FormGroup;
   supervisors: any;
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { orgId: number; userId: number },
+    @Inject(MAT_DIALOG_DATA) public data: { orgID: number; userId: number },
     private _route: ActivatedRoute,
+    public matDialogRef: MatDialogRef<MemberContractsFormComponent>,
     private _formBuilder: FormBuilder,
     private _contractService: ContractService,
     private _memberService: MemberService,
@@ -56,18 +57,10 @@ export class MemberContractsFormComponent implements OnInit {
         constants.MODULES_ROUTINGS_URLS.ADMIN,
         constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS,
         constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.MEMBER_PROFILE,
-        this.data.orgId,
+        this.data.orgID,
         this.data.userId,
       ]);
     } catch (error) {
-      this._router.navigate([
-        '/',
-        constants.MODULES_ROUTINGS_URLS.ADMIN,
-        constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS,
-        constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.MEMBER_PROFILE,
-        this.data.orgId,
-        this.data.userId,
-      ]);
       this._toastrService.showError('create contract failed');
     }
   }

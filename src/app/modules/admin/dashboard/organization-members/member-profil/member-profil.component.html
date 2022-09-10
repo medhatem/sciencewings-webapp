@@ -39,5 +39,5 @@
       <div class="ml-4">{{ profile.status ? profile.status : ('ORGANIZATION.MEMBERS.MISSING_INFO' | transloco) }}</div>
     </div>
   </div>
-  <app-member-contracts [userId]="id"></app-member-contracts>
+  <app-member-contracts [userId]="userId" [orgId]="orgId"></app-member-contracts>
 </div>
