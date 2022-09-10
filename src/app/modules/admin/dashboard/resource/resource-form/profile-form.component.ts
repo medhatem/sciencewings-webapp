@@ -10,6 +10,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { TIMEZONES } from 'app/modules/admin/dashboard/resource/resurce-setting-rule/timezones';
 import { ResourceRo } from 'generated/models';
+import { Resource } from 'app/models/resource/resource';
 @Component({
   selector: 'app-profile-form',
   templateUrl: './profile-form.component.html',
@@ -94,7 +95,7 @@ export class ResourceProfileFormComponent implements OnInit {
       return;
     }
 
-    const _resource: ResourceRo = {
+    const _resource: Resource = {
       name: this.form.value.name,
       timezone: this.form.value.timezone,
       description: this.form.value.description,

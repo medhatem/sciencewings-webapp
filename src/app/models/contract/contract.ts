@@ -1,11 +1,11 @@
 import { ContracBaseBodyDto, CreateContractRo, JobBaseBodyGetDto, MemberDto } from 'generated/models';
 
 export class ContractRo implements CreateContractRo {
-  contractType: 'Cdd' | 'Cdi';
+  contractType: 'Permanant' | 'Contract base';
   dateEnd?: string;
   dateStart: string;
   description?: string;
-  jobLevel: 'Intern' | 'Junior' | 'Midlle' | 'Mid-senior' | 'Senior';
+  jobLevel: 'Internship' | 'Junior' | 'Midlle' | 'Mid-senior' | 'Senior';
   name: string;
   organization: number;
   supervisor?: number;
@@ -29,8 +29,8 @@ export class ContractRo implements CreateContractRo {
   }
 }
 
-export const ContractType = ['Cdd', 'Cdi'];
-export const JobLevel = ['Intern', 'Junior', 'Midlle', 'Mid-senior', 'Senior'];
+export const ContractType = ['Permanant', 'Contract base'];
+export const JobLevel = ['Internship', 'Junior', 'Midlle', 'Mid-senior', 'Senior'];
 
 export class GetContract implements ContracBaseBodyDto {
   contractType?: 'Cdd' | 'Cdi';

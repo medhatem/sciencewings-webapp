@@ -501,6 +501,42 @@
         "CREATE_FAILED": "La création de l'organisation a échoué"
       }
     },
+    "CONTRACTS": {
+      "CREATE_CONTRACTS": "Ajouter une nouvelle contrat",
+      "EXPORT_CONTRACTS": "Exporter",
+      "FILTER_CONTRACTS": "Filtre",
+      "FORM": {
+        "LABEL_NAME": "Titre",
+        "CONTRACT_TYPE": "Type de contract",
+        "JOB_LEVEL": "Niveau d'expérience",
+        "CHOOSE_SUPERVISOR": "choisi un superviseur",
+        "SUPERVISOR": "Superviseur",
+        "WAGE": "Salaire",
+        "CANCEL": "Annuler",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION": "À propos (description)",
+        "PROJECT_MEMBERS": "Membres du projet",
+        "PROJECT_NAME": "Nom du Projet",
+        "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
+        "SAVE": "Sauvegarder",
+        "TITLE": "Créer un nouveau projet",
+        "LOCATION": "Localisation",
+        "MANAGERS": "Gérant(s)",
+        "PARTICIPANTS": "Participent(s)",
+        "ENTER_DATE": "Saisissez une plage de dates",
+        "DATE_HINT": "MM/JJ/AAAA – MM/JJ/AAAA",
+        "STARTDATE": "La date de debut",
+        "ENDDATE": "La date de fin",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "La création du contrat a réussi"
+      },
+      "LIST": {},
+      "SEARCH_GROUPS": "Chercher un projet",
+      "TITLE": "Contracts",
+      "ERROR": {
+        "CREATE_FAILED": "La création de contrat a échoué"
+      }
+    },
 
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
     "WELCOME_BACK": "Bonjour"
