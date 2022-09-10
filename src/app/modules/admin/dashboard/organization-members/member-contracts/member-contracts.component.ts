@@ -34,7 +34,6 @@ export class MemberContractsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.orgID = this.getOrganizationIdFromLocalStorage();
     this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: GetContract[]) => {
       this.contracts = contracts;
       this._cdr.markForCheck();
