@@ -50,6 +50,7 @@ export const constants = {
       LANDING_PAGE: 'landing-page',
       ORGANIZATION_PROFILE: 'organization-profile',
       ORGANIZATION_MEMBERS: 'organization-members',
+      MEMBER_PROFILE: 'memberProfile',
       ORGANIZATION_GROUPS: 'organization-groups',
       ORGANIZATION_SETTINGS: 'organization-settings',
       ORGANIZATION_PROJECT: 'project',
