@@ -51,9 +51,23 @@ export class MemberContractsFormComponent implements OnInit {
     try {
       await this._contractService.createContract(contract);
       this._toastrService.showSuccess('create contract succeeded');
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS]);
+      this._router.navigate([
+        '/',
+        constants.MODULES_ROUTINGS_URLS.ADMIN,
+        constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS,
+        constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.MEMBER_PROFILE,
+        this.data.orgId,
+        this.data.userId,
+      ]);
     } catch (error) {
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS]);
+      this._router.navigate([
+        '/',
+        constants.MODULES_ROUTINGS_URLS.ADMIN,
+        constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS,
+        constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.MEMBER_PROFILE,
+        this.data.orgId,
+        this.data.userId,
+      ]);
       this._toastrService.showError('create contract failed');
     }
   }
