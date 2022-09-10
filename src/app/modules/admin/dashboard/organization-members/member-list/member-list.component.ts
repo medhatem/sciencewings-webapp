@@ -1,16 +1,17 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subject, debounceTime, lastValueFrom, map, switchMap, takeUntil } from 'rxjs';
+
 import { FormControl } from '@angular/forms';
-import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
-import { MemberFormComponent } from '../member-form/member-form.component';
+import { InventoryPagination } from '../../organization-profile/profile/organization-profile.component';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { ToastrService } from 'app/core/toastr/toastr.service';
-import { InventoryPagination } from '../../organization-profile/profile/organization-profile.component';
+import { MemberFormComponent } from '../member-form/member-form.component';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
-import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
-import { members } from 'app/mock-api/apps/tasks/data';
+import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
+import { members } from 'app/mock-api/apps/tasks/data';
 
 @Component({
   selector: 'app-member-list',
@@ -102,10 +103,6 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this._memberService.getOrgMembers(memberId).subscribe(({ body }) => {
-      if (body.statusCode === 500) {
-        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
-      }
-
       this.selectedMember = body.data[0];
     });
   }
