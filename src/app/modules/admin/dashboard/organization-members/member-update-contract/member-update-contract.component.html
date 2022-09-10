@@ -39,14 +39,14 @@
     </mat-form-field>
     <mat-form-field class="flex-auto mx-4">
       <mat-label>start date</mat-label>
-      <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:cake'"></mat-icon>
+      <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:lock-closed'"></mat-icon>
       <input matInput [matDatepicker]="startDatepicker" [formControlName]="'dateStart'" placeholder="startDate" />
       <mat-datepicker-toggle matSuffix [for]="startDatepicker"> </mat-datepicker-toggle>
       <mat-datepicker #startDatepicker></mat-datepicker>
     </mat-form-field>
     <mat-form-field *ngIf="this.contractForm.value.contractType === 'Contract base'" class="flex-auto mx-4">
       <mat-label>end date</mat-label>
-      <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:cake'"></mat-icon>
+      <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:lock-open'"></mat-icon>
       <input matInput [matDatepicker]="startDatepicker" [formControlName]="'dateEnd'" placeholder="startDate" />
       <mat-datepicker-toggle matSuffix [for]="startDatepicker"> </mat-datepicker-toggle>
       <mat-datepicker #startDatepicker></mat-datepicker>
