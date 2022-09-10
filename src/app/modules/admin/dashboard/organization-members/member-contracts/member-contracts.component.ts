@@ -50,8 +50,6 @@ export class MemberContractsComponent implements OnInit {
       numnberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
     };
-    this.conDto = this._contractService.getAndParseMemberContracts(this.userId, this.userId);
-    console.log('contdtoooooooooooooooo= ', this.conDto.supervisor);
   }
   openInviteProjectDialog(): void {
     const orgID = this.getOrganizationIdFromLocalStorage();
@@ -71,7 +69,6 @@ export class MemberContractsComponent implements OnInit {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
   async onElementSelected(item: any) {
-    console.log('old item ========= indide cimpon', item.contractDto);
     const orgID = this.getOrganizationIdFromLocalStorage();
     const userId = this.userId;
     const contractDto = item.contractDto;

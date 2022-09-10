@@ -39,18 +39,27 @@ export class MemberUpdateContractComponent implements OnInit {
     this.contractForm = this._formBuilder.group(contractFormObj);
   }
   async onSubmit() {
-    if (!this.contractForm.valid) {
-      this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
-      return;
-    }
-
     const contract = this.getUpdatedContractFromFormBuilder();
     try {
       await this._contractService.updateContract(this.data.contractDto.id, contract);
       this._toastrService.showSuccess('update contract succeeded');
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS]);
+      this._router.navigate([
+        '/',
+        constants.MODULES_ROUTINGS_URLS.ADMIN,
+        constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS,
+        constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.MEMBER_PROFILE,
+        this.data.orgId,
+        this.data.userId,
+      ]);
     } catch (error) {
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS]);
+      this._router.navigate([
+        '/',
+        constants.MODULES_ROUTINGS_URLS.ADMIN,
+        constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS,
+        constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.MEMBER_PROFILE,
+        this.data.orgId,
+        this.data.userId,
+      ]);
       this._toastrService.showError('update contract failed');
     }
   }
