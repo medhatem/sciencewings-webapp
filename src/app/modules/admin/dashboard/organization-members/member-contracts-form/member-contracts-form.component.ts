@@ -66,7 +66,7 @@ export class MemberContractsFormComponent implements OnInit {
       dateStart: String(this.contractForm.value.dateStart),
       dateEnd: String(this.contractForm.value?.dateEnd || ''),
     });
-    if (contractRo.contractType === 'Cdi') {
+    if (contractRo.contractType === 'Permanant') {
       delete contractRo.dateEnd;
     }
     return contractRo;
