@@ -501,7 +501,42 @@
         "CREATE_FAILED": "The creation of the project has failed"
       }
     },
-
+    "CONTRACTS": {
+      "CREATE_CONTRACTS": "Add a new contract",
+      "EXPORT_CONTRACTS": "Export",
+      "FILTER_CONTRACTS": "Filter",
+      "FORM": {
+        "LABEL_NAME": "Title",
+        "CONTRACT_TYPE": "Contract type",
+        "JOB_LEVEL": "Job level",
+        "CHOOSE_SUPERVISOR": "Choose a supervisor",
+        "SUPERVISOR": "Supervisor",
+        "WAGE": "Wage",
+        "CANCEL": "Cancel",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION": "About (description)",
+        "PROJECT_MEMBERS": "Project's Members",
+        "PROJECT_NAME": "Project's Name",
+        "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
+        "SAVE": "Save",
+        "TITLE": "Create Project",
+        "LOCATION": "Location",
+        "MANAGERS": "Manager(s)",
+        "PARTICIPANTS": "Participant(s)",
+        "ENTER_DATE": "Enter a date range",
+        "DATE_HINT": "MM/DD/YYYY – MM/DD/YYYY",
+        "STARTDATE": "Start date",
+        "ENDDATE": "End date",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "Create project succeeded"
+      },
+      "LIST": {},
+      "SEARCH_CONTRACTS": "Find a contract",
+      "TITLE": "Contracts",
+      "ERROR": {
+        "CREATE_FAILED": "The creation of the contract has failed"
+      }
+    },
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
     "WELCOME_BACK": "Hello"
   },
