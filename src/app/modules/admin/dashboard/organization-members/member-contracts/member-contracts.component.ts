@@ -9,8 +9,7 @@ import { constants } from 'app/shared/constants';
 import { MemberContractsFormComponent } from '../member-contracts-form/member-contracts-form.component';
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
 import { ListOption } from '../../reusable-components/list/list-component.component';
-import { ContractRo } from 'app/models/contract/contract';
-
+import { ContractRo, GetContract } from 'app/models/contract/contract';
 @Component({
   selector: 'app-member-contracts',
   templateUrl: './member-contracts.component.html',
@@ -18,7 +17,7 @@ import { ContractRo } from 'app/models/contract/contract';
 })
 export class MemberContractsComponent implements OnInit {
   @Input() userId: number;
-  orgID: number;
+  @Input() orgId: number;
   options: ListOption = { columns: [], numnberOfColumns: 4 };
   contracts: any[] = [];
   conDto: any;
@@ -33,8 +32,7 @@ export class MemberContractsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.orgID = this.getOrganizationIdFromLocalStorage();
-    this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: ContractRo[]) => {
+    this._contractService.getAndParseMemberContracts(this.orgId, this.userId).subscribe((contracts: GetContract[]) => {
       this.contracts = contracts;
       this._cdr.markForCheck();
     });
@@ -49,25 +47,23 @@ export class MemberContractsComponent implements OnInit {
       numnberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
     };
-    this.conDto = this._contractService.getAndParseMemberContracts(this.userId, this.userId);
-    console.log('contdtoooooooooooooooo= ', this.conDto.supervisor);
   }
   openInviteProjectDialog(): void {
-    const orgID = this.getOrganizationIdFromLocalStorage();
+    const orgID = this.orgId;
     const userId = this.userId;
-
     if (!orgID) {
       this._toastrService.showError('Something went wrong!');
     }
     this.openedDialogRef = this._matDialog.open(MemberContractsFormComponent, {
       data: { orgID, userId },
     });
-    this.openedDialogRef.afterClosed().subscribe((result) => {
-      lastValueFrom(this._contractService.getAndParseMemberContracts(this.userId, this.userId));
-    });
-  }
-  private getOrganizationIdFromLocalStorage(): number {
-    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    this.openedDialogRef
+      .afterClosed()
+      ._contractService.getAndParseMemberContracts(this.orgId, this.userId)
+      .subscribe((contracts: GetContract[]) => {
+        this.contracts = contracts;
+        this._cdr.markForCheck();
+      });
   }
   async onElementSelected() {
     this._router.navigate(['/admin/project/organization-members']);
