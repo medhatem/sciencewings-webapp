@@ -4,6 +4,7 @@ import { EventMountArg } from '@fullcalendar/core';
 import listPlugin from '@fullcalendar/list';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'app-schedule',
@@ -98,9 +99,9 @@ export class ResourceScheduleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._resourceService.getOrgResource(1).subscribe(({ statusCode, body, errorMessage }) => {
+    this._resourceService.getOrgResource().subscribe(({ statusCode, body, errorMessage }) => {
       if (statusCode === 500) {
-        this._toastrService.showError(errorMessage, 'Something went wrong!');
+        this._toastrService.showError(errorMessage, constants.SOMETHING_WENT_WRONG);
       }
       this.resources = body.resources;
       const events = [];

@@ -5,6 +5,7 @@ import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
 import { Subject, takeUntil } from 'rxjs';
 import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'organization-settings-general',
@@ -89,9 +90,9 @@ export class GeneralComponent implements OnInit {
     const response = await this.organizationService.updateOrganization(1, data);
     if (response.body.statusCode === 204) {
       this.updateLocalOrganization.emit(this.form.value);
-      this._toastrService.showSuccess('Updated Successfully');
+      this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
     } else {
-      this._toastrService.showError('Something went wrong!');
+      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }
   }
 

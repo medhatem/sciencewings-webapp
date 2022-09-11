@@ -58,7 +58,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   openInviteProjectDialog(): void {
     const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     if (!orgID) {
-      this._toastrService.showError('Something went wrong!');
+      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }
     this.openedDialogRef = this._matDialog.open(ProjectFormComponent, {
       data: { orgID },
