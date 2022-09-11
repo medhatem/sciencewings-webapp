@@ -513,6 +513,9 @@
         "CANCEL": "Cancel",
         "SUCCESS": {
           "CREATE_COMPLETED": "The resource was created succefully"
+        },
+        "RESERVATION":{
+          "DETAILS":"Reservation Details"
         }
       }
     },

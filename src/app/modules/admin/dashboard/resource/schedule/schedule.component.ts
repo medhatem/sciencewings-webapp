@@ -1,10 +1,12 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarOptions, FullCalendarComponent } from '@fullcalendar/angular';
 import { lastValueFrom, map } from 'rxjs';
 
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { Reservation } from 'app/models/reservation/Reservation';
+import { ReservationDetailsComponent } from './reservationDetails/reservation-details.component';
 import { ReservationService } from 'app/modules/admin/resolvers/reservation/reservation.service';
-import { ToastrService } from 'app/core/toastr/toastr.service';
 import timeGridPlugin from '@fullcalendar/timegrid';
 
 @Component({
@@ -14,93 +16,82 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 })
 export class ResourceScheduleComponent implements OnInit, AfterViewInit {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
+  openedDialogRef: any;
 
   calendarOptions: CalendarOptions = {
     plugins: [timeGridPlugin],
     initialView: 'timeGridWeek',
-    // themeSystem: 'litera',
-    // selectable: true,
-    // headerToolbar: {
-    //   left: 'l,c,r',
-    //   //   right: 'custom2 prevYear,prev,next,nextYear',
-    // },
-    // customButtons: {
-    //   l: {
-    //     text: 'Past',
-    //     click: () => {
-    //       this.calendarOptions.events = this.allEvents.filter((event) => this.diffDates(event.start) === -1);
-    //     },
-    //   },
-    //   c: {
-    //     text: 'Current',
-    //     click: () => {
-    //       this.calendarOptions.events = this.allEvents.filter((event) => this.diffDates(event.start) === 0);
-    //     },
-    //   },
-    //   r: {
-    //     text: 'Upcoming',
-    //     click: () => {
-    //       this.calendarOptions.events = this.allEvents.filter((event) => this.diffDates(event.start) === 1);
-    //     },
-    //   },
-    // },
-    // eventDidMount: (mountAg: EventMountArg) => {
-    //   const checkbox = this.renderer.createElement('input');
-    //   checkbox.type = 'checkbox';
-    //   checkbox.setAttribute('id', mountAg.event._def.publicId);
-    //   checkbox.setAttribute('style', 'margin-top: 14px;');
-    //   mountAg.el.appendChild(checkbox);
-    //   this.renderer.listen(checkbox, 'change', ({ target }) => {
-    //     if (target.checked) {
-    //       this.selectedEvents.push(target.id);
-    //     } else {
-    //       this.selectedEvents.splice(this.selectedEvents.indexOf(target.id), 1);
-    //     }
-    //   });
-    // },
-    eventClick: function (info) {
-      alert('Event: ' + info.event.title);
-      alert('Event: ' + info.event.id);
+    customButtons: {
+      next: {
+        click: () => {
+          this.handleNextClick();
+        },
+      },
+      prev: {
+        click: () => {
+          this.handlePreviousClick();
+        },
+      },
+    },
 
-      // change the border color just for fun
-      info.el.style.borderColor = 'red';
+    eventClick: (info) => {
+      this.displayReservationDetails(info.event);
     },
     events: [],
   };
 
   resources = [];
 
-  constructor(
-    private _reservationService: ReservationService,
-    private _toastrService: ToastrService,
-    private _changeDetectorRef: ChangeDetectorRef,
-    private renderer: Renderer2,
-  ) {}
+  constructor(private _reservationService: ReservationService, private route: ActivatedRoute, private _matDialog: MatDialog) {}
   async ngAfterViewInit(): Promise<void> {
     await this.getSchedule();
   }
 
-  async ngOnInit(): Promise<void> {}
+  async ngOnInit(): Promise<void> {
+    this.calendarOptions.events = [];
+  }
 
   onCheckboxChange($event) {}
+
+  async handleNextClick() {
+    const api = this.calendarComponent.getApi();
+    api.next();
+    await this.getSchedule();
+  }
+  async handlePreviousClick() {
+    const api = this.calendarComponent.getApi();
+    api.prev();
+    await this.getSchedule();
+  }
 
   async getSchedule() {
     const { activeStart, activeEnd } = this.calendarComponent.getApi().view;
     const reservations = await lastValueFrom(
-      this._reservationService.getReservations(7, new Date(activeStart).toISOString(), new Date(activeEnd).toISOString()).pipe(
-        map((reservations) =>
-          reservations.body?.data.map((res) => {
-            return new Reservation((res as any) || {});
-          }),
+      this._reservationService
+        .getReservations(Number(this.route.snapshot.paramMap.get('id')), new Date(activeStart).toISOString(), new Date(activeEnd).toISOString())
+        .pipe(
+          map((reservations) =>
+            reservations.body?.data.map((res) => {
+              return new Reservation((res as any) || {});
+            }),
+          ),
         ),
-      ),
     );
-
-    reservations.map((r) => {
-      this.calendarComponent.getApi().addEvent({
+    this.calendarOptions.events = reservations.map((r) => {
+      return {
         start: new Date(r.start).toISOString(),
         end: new Date(r.end).toISOString(),
-      });
+        id: r.id,
+        title: r.title,
+      };
+    });
+  }
+
+  displayReservationDetails(event: any) {
+    this.openedDialogRef = this._matDialog.open(ReservationDetailsComponent, event);
+    this.openedDialogRef.afterClosed().subscribe(async (result) => {
+      // const { body } = await lastValueFrom(this._resourceService.getOrgResource());
+      // this.resources = body.data;
     });
   }
 
