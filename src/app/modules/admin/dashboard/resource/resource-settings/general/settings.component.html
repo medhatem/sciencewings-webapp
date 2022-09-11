@@ -2,7 +2,7 @@
   <mat-drawer-container class="flex-auto sm:h-full">
     <mat-drawer class="sm:w-96 dark:bg-gray-900" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #drawer>
       <div class="flex items-center justify-between m-8 mr-6 sm:my-10">
-        <div class="text-4xl font-extrabold tracking-tight leading-none">{{ 'Settings' | transloco }}</div>
+        <div class="text-4xl font-extrabold tracking-tight leading-none">{{ 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE' | transloco }}</div>
         <div class="lg:hidden">
           <button mat-icon-button (click)="drawer.close()">
             <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
@@ -45,10 +45,6 @@
           <button class="lg:hidden -ml-2" mat-icon-button (click)="drawer.toggle()">
             <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
           </button>
-
-          <!-- <div class="ml-2 lg:ml-0 text-3xl font-bold tracking-tight leading-none">
-                        {{getPanelInfo(selectedPanel).title}}
-                    </div> -->
         </div>
 
         <div class="mt-8">
@@ -59,10 +55,6 @@
             <ng-container *ngSwitchCase="'status'">
               <app-resource-setting-general-status [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
               </app-resource-setting-general-status>
-            </ng-container>
-            <ng-container *ngSwitchCase="'barcodes'">
-              <app-resource-setting-general-barcode [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
-              </app-resource-setting-general-barcode>
             </ng-container>
             <ng-container *ngSwitchCase="'visibility'">
               <app-resource-setting-general-visibility [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">

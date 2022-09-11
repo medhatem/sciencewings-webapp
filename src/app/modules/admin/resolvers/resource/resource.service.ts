@@ -1,9 +1,11 @@
-import { BehaviorSubject, Observable, map, tap, take } from 'rxjs';
+import { BehaviorSubject, Observable, map, tap, take, lastValueFrom } from 'rxjs';
 
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
+  CreateResourceDto,
+  GetAllInfrastructuresDto,
   ResourceRateRo,
   ResourceReservationVisibilityRo,
   ResourceRo,
@@ -14,14 +16,16 @@ import {
   ResourcesSettingsReservationUnitRo,
   ResourceTimerRestrictionRo,
 } from 'generated/models';
-import moment from 'moment';
+import { Resource, ResourceListItem } from 'app/models/resources/resource';
 import { constants } from 'app/shared/constants';
-
+import moment from 'moment';
+import { Infrastructure } from 'app/models/infrastructures/infrastructure';
 @Injectable({
   providedIn: 'root',
 })
 export class ResourceService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
+  private _resources: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
@@ -37,6 +41,10 @@ export class ResourceService {
     return this._pagination.asObservable();
   }
 
+  get resources$(): Observable<any> {
+    return this._resources.asObservable();
+  }
+
   /**
    * Get data
    */
@@ -47,20 +55,43 @@ export class ResourceService {
     );
   }
 
+  getAndParseOrganizationResource(): Observable<any[]> {
+    return this.getOrgResource().pipe(
+      map((resources) => resources.body.data.map((resource) => new ResourceListItem(resource))),
+      map((resources: ResourceListItem[]) =>
+        resources.map(({ name, resourceClass, resourceType, infrastructures, dateStart }) => ({
+          name: `${name}`,
+          resourceClass,
+          infrastructures: this.parseInfrastructuresToHtml(infrastructures),
+          resourceType,
+          dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+        })),
+      ),
+      tap((response) => {
+        this._resources.next(response);
+      }),
+    );
+  }
+
   getOrgMembers(id: number): Observable<any> {
     return this.swaggerAPI.organizationRoutesGetUsers({ id });
   }
-  getOrgResource(organizationId: number): Observable<any> {
+
+  getOrgResource(): Observable<any> {
+    const organizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId });
   }
-  createResource(body: ResourceRo): Observable<any> {
-    return this.swaggerAPI.resourceRoutesCreateResource({ body });
+  createResource(resource: Resource): Promise<CreateResourceDto> {
+    return lastValueFrom(this.swaggerAPI.resourceRoutesCreateResource({ body: resource as any }));
   }
   updateResource(id: number, body: ResourceRo): Observable<any> {
     return this.swaggerAPI.resourceRoutesUpdateResource({ id, body });
   }
   getResource(id: number): Observable<any> {
     return this.swaggerAPI.resourceRoutesGetById({ id });
+  }
+  getResourceInfrastructure(orgId: number): Observable<GetAllInfrastructuresDto> {
+    return this.swaggerAPI.infrastructureRoutesGetAllOrganizationInfrastructures({ orgId });
   }
   deleteResource(id: number): Observable<any> {
     return this.swaggerAPI.resourceRoutesRemove({ id });
@@ -101,5 +132,8 @@ export class ResourceService {
   }
   updateResourceSettingsReservationVisibility(resourceId: number, body: ResourceReservationVisibilityRo): Observable<any> {
     return this.swaggerAPI.resourceRoutesUpdateResourceRestrictionVisibility({ resourceId, body });
+  }
+  private parseInfrastructuresToHtml(infrastructures: Infrastructure[]) {
+    return infrastructures.map(({ name }) => `<div>${name}</div>`);
   }
 }

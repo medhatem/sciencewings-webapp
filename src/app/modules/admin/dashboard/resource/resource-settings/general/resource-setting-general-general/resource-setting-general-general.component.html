@@ -3,20 +3,20 @@
   <form [formGroup]="form">
     <!-- Section -->
     <div class="w-full">
-      <div class="text-xl">{{ 'Profile' | transloco }}</div>
-      <div class="text-secondary">Following information is publicly displayed, be careful!</div>
+      <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.GENERAL' | transloco }}</div>
+      <!-- <div class="text-secondary">Following information is publicly displayed, be careful!</div> -->
     </div>
     <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'Name' | transloco }}</mat-label>
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.NAME' | transloco }}</mat-label>
           <input [formControlName]="'name'" matInput />
         </mat-form-field>
       </div>
 
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'Class' | transloco }}</mat-label>
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.CLASS' | transloco }}</mat-label>
           <mat-select [formControlName]="'resourceClass'">
             <mat-option [value]="'equipement'">Equipement</mat-option>
             <mat-option [value]="'service'">Service</mat-option>
@@ -28,32 +28,32 @@
       </div>
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'Type' | transloco }}</mat-label>
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.TYPE' | transloco }}</mat-label>
           <mat-select [formControlName]="'resourceType'">
             <mat-option [value]="'reservable'">Reservable</mat-option>
             <mat-option [value]="'requestable'">Requestable</mat-option>
           </mat-select>
         </mat-form-field>
-        <div class="mt-1 text-md text-hint">The type of resource, which defines what actions can take place on the resource.</div>
+        <!-- <div class="mt-1 text-md text-hint">The type of resource, which defines what actions can take place on the resource.</div> -->
       </div>
-
       <div class="sm:col-span-4">
-        <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'Timezone' | transloco }}</mat-label>
-          <input matInput formControlName="timezone" />
+        <mat-form-field class="w-full">
+          <mat-label>Timezone</mat-label>
+          <mat-select [formControlName]="'timezone'">
+            <mat-option *ngFor="let tz of timezones" [value]="tz.offset">{{ tz.name }}</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
-
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'Description' | transloco }}</mat-label>
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.DESCRIPTION' | transloco }}</mat-label>
           <textarea matInput [formControlName]="'description'" cdkTextareaAutosize [cdkAutosizeMinRows]="5"></textarea>
         </mat-form-field>
       </div>
 
       <div class="sm:col-span-4">
         <!-- Tags -->
-        <span class="mb-px font-medium leading-tight">{{ 'Tags' | transloco }}</span>
+        <span class="mb-px font-medium leading-tight">{{ 'ORGANIZATION.SETTINGS.RESOUCES.TAGS' | transloco }}</span>
         <div class="mt-1.5 rounded-md border border-gray-300 dark:border-gray-500 shadow-sm overflow-hidden" style="margin-bottom: 16px">
           <!-- Header -->
           <div class="flex items-center -my-px py-2 px-3">
@@ -78,7 +78,11 @@
             <!-- Tags -->
             <ng-container *ngIf="!tagsEditMode">
               <ng-container *ngFor="let tag of filteredTags; trackBy: trackByFn">
-                <mat-checkbox class="flex items-center h-10 min-h-10 px-4" [color]="'primary'" [checked]="tags.includes(tag)" (change)="toggleProductTag(tag, $event)">
+                <mat-checkbox
+                  class="flex items-center h-10 min-h-10 px-4"
+                  [color]="'primary'"
+                  [checked]="tags.includes(tag)"
+                  (change)="toggleProductTag(tag, $event)">
                   {{ tag }}
                 </mat-checkbox>
               </ng-container>
@@ -110,33 +114,6 @@
           </div>
         </div>
       </div>
-
-      <div class="sm:col-span-4">
-        <mat-form-field class="example-chip-list fill w-full" appearance="fill">
-          <mat-label>{{ 'Managers' | transloco }}</mat-label>
-          <mat-chip-list #chipList>
-            <mat-chip *ngFor="let manager of managers" (removed)="remove(manager)">
-              {{ manager.name }}
-              <button matChipRemove>
-                <mat-icon>cancel</mat-icon>
-              </button>
-            </mat-chip>
-            <input
-              placeholder="New manager..."
-              #managerInput
-              [formControl]="managerCtrl"
-              [matAutocomplete]="auto"
-              [matChipInputFor]="chipList"
-              [matChipInputSeparatorKeyCodes]="separatorKeysCodesManager"
-              (matChipInputTokenEnd)="addManager($event)" />
-          </mat-chip-list>
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedManager($event)">
-            <mat-option *ngFor="let manager of filteredManagers | async" [value]="fruit">
-              {{ manager.name }}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </div>
     </div>
 
     <!-- Divider -->
@@ -144,9 +121,9 @@
 
     <!-- Actions -->
     <div class="flex items-center justify-end">
-      <button mat-stroked-button type="button">{{ 'Cancel' | transloco }}</button>
+      <button mat-stroked-button type="button">{{ 'APP.BTN.CANCEL' | transloco }}</button>
       <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
-        {{ 'Update' | transloco }}
+        {{ 'APP.BTN.UPDATE' | transloco }}
       </button>
     </div>
   </form>

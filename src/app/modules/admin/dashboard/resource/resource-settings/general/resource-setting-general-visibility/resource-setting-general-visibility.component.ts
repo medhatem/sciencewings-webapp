@@ -4,6 +4,7 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { CookieService } from 'ngx-cookie-service';
 import { lastValueFrom } from 'rxjs';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'app-resource-setting-general-visibility',
@@ -23,37 +24,35 @@ export class ResourceSettingGeneralVisibilityComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.form = this._formBuilder.group({
-      visibility: false,
-      isUnlistedOnOrganizationPage: false,
-      isUnlistedToUsersWhoCannotReserve: false,
-      isFullyHiddentoUsersWhoCannotReserve: false,
-      isPromotedOnSitePageAsALargeButtonAboveOtherResources: false,
-      isHideAvailabilityonSitePage: false,
-    });
+    const {
+      visibility,
+      isUnlistedOnOrganizationPage,
+      isUnlistedToUsersWhoCannotReserve,
+      isFullyHiddentoUsersWhoCannotReserve,
+      isPromotedOnSitePageAsALargeButtonAboveOtherResources,
+      isHideAvailabilityonSitePage,
+    } = this.settings;
 
-    this.form.setValue({
-      visibility: this.settings.visibility,
-      isUnlistedOnOrganizationPage: this.settings.isUnlistedOnOrganizationPage,
-      isUnlistedToUsersWhoCannotReserve: this.settings.isUnlistedToUsersWhoCannotReserve,
-      isFullyHiddentoUsersWhoCannotReserve: this.settings.isFullyHiddentoUsersWhoCannotReserve,
-      isPromotedOnSitePageAsALargeButtonAboveOtherResources: this.settings.isPromotedOnSitePageAsALargeButtonAboveOtherResources,
-      isHideAvailabilityonSitePage: this.settings.isHideAvailabilityonSitePage,
+    this.form = this._formBuilder.group({
+      visibility: visibility || false,
+      isUnlistedOnOrganizationPage: isUnlistedOnOrganizationPage || false,
+      isUnlistedToUsersWhoCannotReserve: isUnlistedToUsersWhoCannotReserve || false,
+      isFullyHiddentoUsersWhoCannotReserve: isFullyHiddentoUsersWhoCannotReserve || false,
+      isPromotedOnSitePageAsALargeButtonAboveOtherResources: isPromotedOnSitePageAsALargeButtonAboveOtherResources || false,
+      isHideAvailabilityonSitePage: isHideAvailabilityonSitePage || false,
     });
   }
 
   async onSubmit() {
-    try {
-      const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
-      const response = await lastValueFrom(this._resourceService.updateResourceSettingsGeneralVisibility(selectedResourceId, this.form.value));
-      if (response.body.statusCode === 204) {
+    if (this.form.valid) {
+      try {
+        const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
+        await lastValueFrom(this._resourceService.updateResourceSettingsGeneralVisibility(selectedResourceId, this.form.value));
         this.updateLocalSettings.emit(this.form.value);
-        this._toastrService.showSuccess('Updated Successfully');
-      } else {
-        this._toastrService.showError('Something went wrong!');
+        this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
+      } catch (error) {
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
       }
-    } catch (error) {
-      this._toastrService.showError('Something went wrong!');
     }
   }
 }

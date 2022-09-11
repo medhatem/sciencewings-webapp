@@ -1,13 +1,16 @@
 {
   "APP": {
     "BTN": {
-      "APPLY": "Appliquer",
       "CANCEL": "Annuler",
       "DONE_AND_CREATE_NEW": "Soumettre et créer un nouveau",
       "NEXT": "Suivant",
       "PREVIOUS": "Précédent",
       "RELOAD": "Recharger",
-      "SUBMIT": "Soumettre"
+      "SUBMIT": "Soumettre",
+      "APPLY": "Appliquer",
+      "UPDATE": "Modifier",
+      "ADD": "Ajouter",
+      "DELETE": "Supprimer"
     },
     "COMMON": {
       "APP_MODULES": {
@@ -207,7 +210,7 @@
           "SERVICE": "Service",
           "TITLE": "Type"
         },
-        "DESCRIPTION": "À propos (description)",
+        "DESCRIPTION": "Ajouter une Description",
         "EMAIL": "e-mail",
         "LABELS": "Étiquettes",
         "NAME": "Nom",
@@ -245,6 +248,9 @@
         "SUB_TITLE_ADMIN": "Inviter des administrateurs pour cette organisation",
         "SUB_TITLE_USER": "Inviter des membres pour cette organisation",
         "TITLE": "Administrateurs et Membres"
+      },
+      "PROFILE": {
+        "BTN_BACK": "Back"
       },
       "TITLE": "Création d'Organisation"
     },
@@ -285,6 +291,7 @@
       "ERROR_LOADING_MEMBERS": "impossible de charger les membres.",
       "EXPORT_MEMBERS": "Exporter",
       "FILTER_MEMBERS": "Filtre",
+      "BACK_BTN": "Retour",
       "FORM": {
         "CANCEL": "Annuler",
         "DESCRIPTION": "À propos (description)",
@@ -367,7 +374,10 @@
     "PROFILE": "Profil",
     "PROFILE_RESOURCE": {
       "DETAILS": {
-        "ROLE": "Rôle"
+        "ROLE": "Rôle",
+        "CLASS": "Classe",
+        "RESOURCE_STATUS": "Statut",
+        "TYPE": "Type"
       },
       "TABS": {
         "GENERAL_INFOS": "Informations générales",
@@ -428,6 +438,80 @@
         "ShowResourceImagesInReservation": "Afficher les images de ressources dans la réservation",
         "Update": "Modifier",
         "Utilisateur HideCalenderForMemberOnly": "Masquer le calendrier pour les membres uniquement"
+      },
+      "RESOUCES": {
+        "TITLE": "Ressources",
+        "CREATE_RESOURCE": "Créer une ressource",
+        "CREATE_RESOURCE_MOBILE": "Ajouter",
+        "MESSAGE": "Gérez les accès pour toutes vos ressources dans",
+        "GENERAL": "Général",
+        "NAME": "Nom",
+        "CLASS": "Classe",
+        "TYPE": "Type",
+        "TIMEZONE": "Fuseau horaire",
+        "DESCRIPTION": "Description",
+        "TAGS": "Mots clés",
+        "MANAGERS": "Managers",
+        "STATUS": "Status",
+        "DETAILS": "Détails",
+        "NAME_REQUIRED": "Le nom de la ressource est requis",
+        "CLASS_REQUIRED": "La classe de ressources est requise",
+        "TYPE_REQUIRED": "Le type de ressource est requis",
+        "ACCESS_TO_RESOURCE": "Accès à la ressource",
+        "VISIBILITY_SETTINGS": "Paramètres de visibilité",
+        "VISIBILITY": "Visibilité",
+        "RESOURCE_UNLISTED_ON_SITE_PAGE": "Ressource non répertoriée sur la page du site",
+        "RESOURCE_UNLISTED_TO_USERS_WHO_CANNOT_RESERVE": "Ressource non répertoriée pour les utilisateurs qui ne peuvent pas réserver",
+        "RESOURCE_FULLY_HIDDEN_TO_USERS_WHO_CANNOT_RESERVE": "Ressource entièrement masquée pour les utilisateurs qui ne peuvent pas réserver",
+        "PROMOTE_ON_SITE_PAGE_AS_A_LARGE_BUTTON_ABOVE_OTHER_RESOURCES": "Promouvoir la page du site comme un gros bouton au-dessus des autres ressources",
+        "HIDE_AVAILABILITY_ON_SITE_PAGE": "Masquer la disponibilité sur la page du site",
+        "GENERAL_RESERVATION_OPTIONS": "Options générales de réservation",
+        "RESERVATIONS_ENABLED": "Réservations activées",
+        "LOANABLE": "Prêtable",
+        "LOANABLE_RESOURCE": "Ressource prêtable",
+        "USERS_CAN_RETURN_THEIR_OWN_LOANS": "Les utilisateurs peuvent retourner leurs propres prêts",
+        "ALLOW_RESERVING_LOANS_AT_FUTURE_DATES": "Autoriser la réservation de prêts à des dates futures",
+        "FIXED_LOAN_DURATION": "Durée de prêt fixe",
+        "OVERDUE_NOTICE_DELAY": "Délai de notification de retard",
+        "RECURRING_RESERVATIONS": "Réservations récurrentes",
+        "RESOURCE_UNITS_OPTIONS": "Options des unités de ressources",
+        "UNITES": "Unit",
+        "UNIT_NAME": "Nom de l'unité",
+        "UNIT_LIMIT": "Limite d'unité",
+        "UNIT_LIMIT_HINT": "Le nombre maximum d'unités pouvant être réservées dans une seule réservation. Laissez vide pour aucune limite.",
+        "RATE": "Rate",
+        "DURATION": "Durée",
+        "ACCOUNT": "Compte",
+        "APPLIES_TO": "S'applique à",
+        "APPLIES_TO_PUBLIC": "S'applique au public",
+        "CATEGORY": "Catégorie",
+        "TIME_RESTRICTION_OPTIONS": "Options de restriction de temps",
+        "TIME_RESTRICTION": "Restriction de temps",
+        "RESERVATION_EDITING_WINDOW_FOR_USERS": "Fenêtre d'édition de réservation pour les utilisateurs",
+        "RESTRICT_CREATING_NEW_RESERVATION_BEFORE_A_TIME": "Restreindre la création d'une nouvelle réservation avant une heure",
+        "RESTRICT_CREATING_NEW_RESERVATION_AFTER_A_TIME": "Restreindre la création d'une nouvelle réservation après un certain temps",
+        "RESERVATION_TIME_GRANULARITY": "Granularité du temps de réservation",
+        "ALLOW_USERS_TO_END_A_RESERVATION_EARLY": "Autoriser les utilisateurs à mettre fin à une réservation plus tôt",
+        "DEFAULT_RESERVATION_DURATION": "Durée de réservation par défaut",
+        "RESERVATION_DURATION_MINIMUM": "Durée de réservation minimale",
+        "RESERVATION_DURATION_MAXIMUM": "Durée de réservation maximale",
+        "BUFFER_TIME_BEFORE_RESERVATION": "Temps tampon avant réservation",
+        "VISIBILITY_OPTIONS": "Options de visibilité",
+        "RESERVATION_DETAILS_VISIBILITY_TO_NON_MODERATORS": "Visibilité des détails de la réservation pour les non-modérateurs",
+        "ALL_RESERVATION_DETAILS": "Tous les détails de la réservation",
+        "PROPERTIES": "Propriétés",
+        "EQUIPEMENT": "Equipement",
+        "SERVICE": "Service",
+        "PERSON": "Personne",
+        "SOFTWARE": "Logiciel",
+        "EVENT": "Evenementt",
+        "RESERVABLE": "Réservable",
+        "REQUESTABLE": "Demandable",
+        "SAVE": "Sauvegarder",
+        "CANCEL": "Annuler",
+        "SUCCESS": {
+          "CREATE_COMPLETED": "La resource a été créer avec succées "
+        }
       }
     },
     "SUCCESS": {
@@ -543,7 +627,24 @@
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
     "WELCOME_BACK": "Bonjour"
   },
+  "ERROR": {
+    "CREATE_FAILED": "La création de l'organisation a échoué",
+    "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
+    "WRONG_ORG_ID": "L'organization demandé est introuvable",
+    "ERROR": {
+      "CREATE_FAILED": "La création de l'organisation a échoué",
+      "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
+      "WRONG_ORG_ID": "L'organization demandé est introuvable"
+    }
+  },
+  "STATES": {
+    "UPDATE_SUCCESSFULLY": "Mise à jour réussie",
+    "SOMETHING_WENT_WRONG": "Quelque chose s'est mal passé !"
+  },
   "PROFILE": "Profil",
   "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
-  "WELCOME_BACK": "Bonjour"
+  "GET_MEMBERS_LOAD_FAILED": "Vous n'avez pas d'organisation",
+  "WELCOME_BACK": "Bonjour",
+  "STATUS": "Status",
+  "DESCRIPTION": "Description"
 }
