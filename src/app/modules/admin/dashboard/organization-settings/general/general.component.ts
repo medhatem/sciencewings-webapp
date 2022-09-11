@@ -36,24 +36,14 @@ export class GeneralComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
-      name: '',
-      email: ['', Validators.email],
-      phoneCode: 'fr',
-      phoneNumber: '',
-      labels: [],
-      type: '',
-      direction: '',
-      description: '',
-    });
-
-    this.form.setValue({
-      ...this.form.value,
-      name: this.form.value.name,
-      email: this.form.value.email,
-      type: this.form.value.type,
-      labels: this.form.value.labels,
-      direction: this.form.value.direction,
-      description: this.form.value.description,
+      name: this.currentOrganizations?.name || '',
+      email: this.currentOrganizations?.email || '',
+      phoneCode: (this.currentOrganizations?.phoneCode && ['', Validators.email]) || 'fr',
+      phoneNumber: this.currentOrganizations?.phoneNumber || '',
+      labels: this.currentOrganizations?.labels || '',
+      type: this.currentOrganizations?.type || '',
+      direction: this.currentOrganizations?.direction || '',
+      description: this.currentOrganizations?.description || '',
     });
 
     // Get the country telephone codes
@@ -66,22 +56,23 @@ export class GeneralComponent implements OnInit {
       if (this.form.value.phone) {
         this.form.setValue({
           ...this.form.value,
-          phoneCode: this.form.value.phone.phoneCode,
-          phoneNumber: this.form.value.phone.phoneNumber,
-          labels: this.form.value.phone.labels,
+          phoneCode: this.currentOrganizations?.phone.phoneCode,
+          phoneNumber: this.currentOrganizations?.phone.phoneNumber,
+          labels: this.currentOrganizations?.phone.labels,
         });
       } else {
         this.form.setValue({
           ...this.form.value,
           phoneCode: 'fr',
           phoneNumber: '',
-          labels: [this.labels],
+          labels: '',
         });
       }
     });
   }
 
   async onSubmit() {
+    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     const data = { ...this.form.value };
     data.direction = this.form.value.direction.id;
     delete data.phoneCode;
@@ -90,12 +81,12 @@ export class GeneralComponent implements OnInit {
     data.phones = [
       {
         id: this.form.value.id,
-        phoneCode: this.form.value.phoneCode,
-        phoneNumber: this.form.value.phoneNumber,
-        labels: this.form.value.phone.labels,
+        phoneCode: this.currentOrganizations?.phoneCode,
+        phoneNumber: this.currentOrganizations?.phoneNumber,
+        labels: this.currentOrganizations?.phone.labels,
       },
     ];
-    const response = await this.organizationService.updateOrganization(1, data);
+    const response = await this.organizationService.updateOrganization(Number(orgId), data);
     if (response.body.statusCode === 204) {
       this.updateLocalOrganization.emit(this.form.value);
       this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);

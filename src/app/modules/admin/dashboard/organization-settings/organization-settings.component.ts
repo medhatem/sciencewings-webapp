@@ -95,8 +95,8 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
       // Mark for check
       this._changeDetectorRef.markForCheck();
     });
-
-    this._organizationService.getOrganizationSettingsById(1).subscribe(({ body }) => {
+    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    this._organizationService.getOrganizationSettingsById(Number(orgId)).subscribe(({ body }) => {
       if (body.statusCode === 500) {
         this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
         return;
@@ -104,7 +104,6 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
       const organization = body.data.organization;
       organization.phone = organization.phones[0];
       this.currentOrganizations = organization;
-
       this.settings = body.data.settings;
     });
   }

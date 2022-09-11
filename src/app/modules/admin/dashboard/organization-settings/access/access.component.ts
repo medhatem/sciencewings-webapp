@@ -23,29 +23,21 @@ export class AccessComponent implements OnInit {
   ngOnInit(): void {
     this.form = this._formBuilder.group({
       anyMemberCanJoinYourOrganizationAndAccessResourceSchedules: true,
-      joinCode: '',
+      joinCode: this.settings?.joinCode || '',
       yourOrganizationWillNeverAppearInSearchResults: true,
       notifyAdministratorsWhenMembersJoinOrganization: true,
       listResourceToNonMembers: true,
-      messageSentToNewMembers: '',
+      messageSentToNewMembers: this.settings?.messageSentToNewMembers || '',
     });
     this.isMemberShouldAccessByJoinCode = !!this.form.value.joinCode;
-
-    this.form.setValue({
-      anyMemberCanJoinYourOrganizationAndAccessResourceSchedules: this.form.value.anyMemberCanJoinYourOrganizationAndAccessResourceSchedules,
-      joinCode: this.form.value.joinCode,
-      yourOrganizationWillNeverAppearInSearchResults: this.form.value.yourOrganizationWillNeverAppearInSearchResults,
-      notifyAdministratorsWhenMembersJoinOrganization: this.form.value.notifyAdministratorsWhenMembersJoinOrganization,
-      listResourceToNonMembers: this.form.value.listResourceToNonMembers,
-      messageSentToNewMembers: this.form.value.messageSentToNewMembers,
-    });
   }
 
   onSubmit() {
+    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     const data = { ...this.form.value };
     data.joinCode = this.isMemberShouldAccessByJoinCode ? data.joinCode : null;
 
-    this.organizationService.updateOrganizationsSettingsProperties(1, data).subscribe((response) => {
+    this.organizationService.updateOrganizationsSettingsProperties(Number(orgId), data).subscribe((response) => {
       if (response.body.statusCode === 204) {
         this.updateLocalSettings.emit(this.form.value);
         this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);

@@ -26,26 +26,17 @@ export class ReservationsComponent implements OnInit {
       hideOrganizationCalendar: false,
       hideAccountNumberWhenMakingReservation: false,
       showResourceImagesInReservation: false,
-      confirmationEmailWhenMakingReservation: '',
+      confirmationEmailWhenMakingReservation: this.settings?.confirmationEmailWhenMakingReservation || '',
       attachedIcsCalendarFeeds: false,
-      emailAddressToReceiveReservationReplyMessages: '',
-    });
-    this.form.setValue({
-      approversCanEditReservations: this.form.value.approversCanEditReservations,
-      requireReasonWhenEditingReservation: this.form.value.requireReasonWhenEditingReservation,
-      hideOrganizationCalendar: this.form.value.hideOrganizationCalendar,
-      hideAccountNumberWhenMakingReservation: this.form.value.hideAccountNumberWhenMakingReservation,
-      showResourceImagesInReservation: this.form.value.showResourceImagesInReservation,
-      confirmationEmailWhenMakingReservation: this.form.value.confirmationEmailWhenMakingReservation,
-      attachedIcsCalendarFeeds: this.form.value.attachedIcsCalendarFeeds,
-      emailAddressToReceiveReservationReplyMessages: this.form.value.emailAddressToReceiveReservationReplyMessages,
+      emailAddressToReceiveReservationReplyMessages: this.settings?.emailAddressToReceiveReservationReplyMessages || '',
     });
   }
 
   onSubmit() {
+    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     const data = { ...this.form.value };
 
-    this.organizationService.updateOrganizationsSettingsProperties(1, data).subscribe((response) => {
+    this.organizationService.updateOrganizationsSettingsProperties(Number(orgId), data).subscribe((response) => {
       if (response.body.statusCode === 204) {
         this.updateLocalSettings.emit(this.form.value);
         this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);

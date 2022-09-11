@@ -25,25 +25,20 @@ export class MembersComponent implements OnInit {
     this.form = this._formBuilder.group({
       membersCanEditAccountNumbers: true,
       promptForAccouantNumbers: true,
-      acountNumberNote: '',
+      accountNumberNote: this.settings?.accountNumberNote || '',
       allowMembersToSeeAllOtherMembers: true,
     });
-    this.isAccountNumberNote = !!this.form.value.acountNumberNote;
-    this.form.setValue({
-      membersCanEditAccountNumbers: this.form.value.membersCanEditAccountNumbers,
-      promptForAccouantNumbers: this.form.value.promptForAccouantNumbers,
-      acountNumberNote: this.form.value.acountNumberNote,
-      allowMembersToSeeAllOtherMembers: this.form.value.allowMembersToSeeAllOtherMembers,
-    });
+    this.isAccountNumberNote = !!this.settings?.accountNumberNote;
   }
   accountNumberNoteListener(event) {
     this.isAccountNumberNote = event.checked;
   }
 
   onSubmit() {
+    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     const data = { ...this.form.value };
 
-    this.organizationService.updateOrganizationsSettingsProperties(1, data).subscribe((response) => {
+    this.organizationService.updateOrganizationsSettingsProperties(Number(orgId), data).subscribe((response) => {
       if (response.body.statusCode === 204) {
         this.updateLocalSettings.emit(this.form.value);
         this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
