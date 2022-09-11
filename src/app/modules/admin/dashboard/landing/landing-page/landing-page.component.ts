@@ -14,6 +14,7 @@ import { AdminOrganizationsService } from '../../../resolvers/admin-organization
 export class LandingPageComponent implements OnInit, OnDestroy {
   readonly organizationProfilePath = `/${constants.MODULES_ROUTINGS_URLS.ADMIN}/${constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_PROFILE}`;
   readonly fullCreateOrganizationPath = [this.organizationProfilePath, 'create'];
+
   organizations: UserOrganizations[] = [];
   isLoading: boolean = false;
   selectOrganizationEvent = new EventEmitter();
