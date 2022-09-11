@@ -10,6 +10,7 @@ import { MemberContractsFormComponent } from '../member-contracts-form/member-co
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
 import { ListOption } from '../../reusable-components/list/list-component.component';
 import { ContractRo, GetContract } from 'app/models/contract/contract';
+
 @Component({
   selector: 'app-member-contracts',
   templateUrl: './member-contracts.component.html',
@@ -32,7 +33,7 @@ export class MemberContractsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._contractService.getAndParseMemberContracts(this.orgId, this.userId).subscribe((contracts: GetContract[]) => {
+    this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: GetContract[]) => {
       this.contracts = contracts;
       this._cdr.markForCheck();
     });
@@ -54,18 +55,19 @@ export class MemberContractsComponent implements OnInit {
     if (!orgID) {
       this._toastrService.showError('Something went wrong!');
     }
-    this.openedDialogRef = this._matDialog.open(MemberContractsFormComponent, {
-      data: { orgID, userId },
-    });
-    this.openedDialogRef
+    this.openedDialogRef = this._matDialog
+      .open(MemberContractsFormComponent, {
+        data: { orgID, userId },
+      })
       .afterClosed()
-      ._contractService.getAndParseMemberContracts(this.orgId, this.userId)
       .subscribe((contracts: GetContract[]) => {
-        this.contracts = contracts;
-        this._cdr.markForCheck();
+        this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: GetContract[]) => {
+          this.contracts = contracts;
+          this._cdr.markForCheck();
+        });
       });
   }
-  async onElementSelected() {
+  async onElementSelected(item: any) {
     this._router.navigate(['/admin/project/organization-members']);
   }
 }
