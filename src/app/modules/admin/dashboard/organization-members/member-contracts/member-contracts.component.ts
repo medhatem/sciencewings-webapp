@@ -56,15 +56,16 @@ export class MemberContractsComponent implements OnInit {
     if (!orgID) {
       this._toastrService.showError('Something went wrong!');
     }
-    this.openedDialogRef = this._matDialog.open(MemberContractsFormComponent, {
-      data: { orgID, userId },
-    });
-    this.openedDialogRef
+    this.openedDialogRef = this._matDialog
+      .open(MemberContractsFormComponent, {
+        data: { orgID, userId },
+      })
       .afterClosed()
-      ._contractService.getAndParseMemberContracts(this.orgId, this.userId)
       .subscribe((contracts: GetContract[]) => {
-        this.contracts = contracts;
-        this._cdr.markForCheck();
+        this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: GetContract[]) => {
+          this.contracts = contracts;
+          this._cdr.markForCheck();
+        });
       });
   }
   private getOrganizationIdFromLocalStorage(): number {
