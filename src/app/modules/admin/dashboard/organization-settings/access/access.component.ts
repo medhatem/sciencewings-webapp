@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'organization-settings-access',
@@ -47,9 +48,9 @@ export class AccessComponent implements OnInit {
     this.organizationService.updateOrganizationsSettingsProperties(1, data).subscribe((response) => {
       if (response.body.statusCode === 204) {
         this.updateLocalSettings.emit(this.form.value);
-        this._toastrService.showSuccess('Updated Successfully');
+        this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
       } else {
-        this._toastrService.showError('Something went wrong!');
+        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
       }
     });
   }

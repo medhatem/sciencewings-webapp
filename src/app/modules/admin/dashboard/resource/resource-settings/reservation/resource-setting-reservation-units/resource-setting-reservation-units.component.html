@@ -3,31 +3,31 @@
   <form [formGroup]="form">
     <!-- Section -->
     <div class="w-full">
-      <div class="text-xl">{{ 'Resource Units Options' | transloco }}</div>
-      <div class="text-secondary">Following information is publicly displayed, be careful!</div>
+      <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESOURCE_UNITS_OPTIONS' | transloco }}</div>
     </div>
     <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'Unites' | transloco }}</mat-label>
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESOURCE_UNITS_OPTIONS' | transloco }}</mat-label>
           <input [formControlName]="'unites'" matInput />
         </mat-form-field>
       </div>
 
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'Unit Name' | transloco }}</mat-label>
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.UNIT_NAME' | transloco }}</mat-label>
           <input [formControlName]="'unitName'" matInput />
         </mat-form-field>
-        <div class="mt-1 text-md text-hint">Brief description for your profile. Basic HTML and Emoji are allowed.</div>
       </div>
 
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'Unit Limit' | transloco }}</mat-label>
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.UNIT_LIMIT' | transloco }}</mat-label>
           <input [formControlName]="'unitLimit'" matInput />
         </mat-form-field>
-        <div class="mt-1 text-md text-hint">The maximum number of units that can be reserved in a single reservation. Leave blank for no limit.</div>
+        <div class="mt-1 text-md text-hint">
+          {{ 'ORGANIZATION.SETTINGS.RESOUCES.UNIT_LIMIT_HINT' | transloco }}
+        </div>
       </div>
     </div>
 
@@ -37,7 +37,7 @@
     <!-- Actions -->
     <div class="flex items-center justify-end">
       <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
-        {{ 'Save' | transloco }}
+        {{ 'APP.BTN.SUBMIT' | transloco }}
       </button>
     </div>
   </form>

@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { Organization } from 'app/models/organizations/organization';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { constants } from 'app/shared/constants';
 import { interval, map, retryWhen, Subject, takeUntil, tap } from 'rxjs';
@@ -18,6 +20,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
   private _userSelected: Subject<boolean> = new Subject<boolean>();
+  private _router: Router;
 
   constructor(private _adminOrganizationsService: AdminOrganizationsService) {}
 
