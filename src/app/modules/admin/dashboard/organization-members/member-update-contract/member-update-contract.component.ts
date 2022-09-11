@@ -5,7 +5,7 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ContractRo, ContractType, GetContract, JobLevel, UpdateContract } from 'app/models/contract/contract';
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
 import { constants } from 'app/shared/constants';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { OrganizationMembers } from 'app/models/members/member';
 
@@ -27,6 +27,7 @@ export class MemberUpdateContractComponent implements OnInit {
     private _contractService: ContractService,
     private _memberService: MemberService,
     private _toastrService: ToastrService,
+    public matDialogRef: MatDialogRef<MemberUpdateContractComponent>,
     private _router: Router,
     private _cdr: ChangeDetectorRef,
   ) {}
@@ -42,7 +43,7 @@ export class MemberUpdateContractComponent implements OnInit {
       dateStart: [this.data?.contractDto?.dateStart || '', [Validators.required]],
       dateEnd: [this.data?.contractDto?.endDate || ''],
       description: [this.data?.contractDto?.description || '', [Validators.required]],
-      supervisor: [this.data?.contractDto?.supervisor, [Validators.required]],
+      supervisor: [this.data?.contractDto?.supervisor?.name, [Validators.required]],
     };
     this.contractForm = this._formBuilder.group(contractFormObj);
   }
@@ -51,23 +52,8 @@ export class MemberUpdateContractComponent implements OnInit {
     try {
       await this._contractService.updateContract(this.data.contractDto.id, contract);
       this._toastrService.showSuccess('update contract succeeded');
-      this._router.navigate([
-        '/',
-        constants.MODULES_ROUTINGS_URLS.ADMIN,
-        constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS,
-        constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.MEMBER_PROFILE,
-        this.data.orgId,
-        this.data.userId,
-      ]);
+      this.matDialogRef.close();
     } catch (error) {
-      this._router.navigate([
-        '/',
-        constants.MODULES_ROUTINGS_URLS.ADMIN,
-        constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_MEMBERS,
-        constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.MEMBER_PROFILE,
-        this.data.orgId,
-        this.data.userId,
-      ]);
       this._toastrService.showError('update contract failed');
     }
   }

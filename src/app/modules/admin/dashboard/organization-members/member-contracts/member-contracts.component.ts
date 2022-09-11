@@ -75,11 +75,16 @@ export class MemberContractsComponent implements OnInit {
     const orgID = this.getOrganizationIdFromLocalStorage();
     const userId = this.userId;
     const contractDto = item.contractDto;
-    this.openedDialogRef = this._matDialog.open(MemberUpdateContractComponent, {
-      data: { orgID, userId, contractDto },
-    });
-    this.openedDialogRef.afterClosed().subscribe((result) => {
-      lastValueFrom(this._contractService.getAndParseMemberContracts(this.userId, this.userId));
-    });
+    this.openedDialogRef = this._matDialog
+      .open(MemberUpdateContractComponent, {
+        data: { orgID, userId, contractDto },
+      })
+      .afterClosed()
+      .subscribe((contracts: GetContract[]) => {
+        this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: GetContract[]) => {
+          this.contracts = contracts;
+          this._cdr.markForCheck();
+        });
+      });
   }
 }
