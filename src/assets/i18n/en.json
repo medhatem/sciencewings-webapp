@@ -182,19 +182,8 @@
   },
   "COMPLETING_FORM_REQUIRED": "Please complete all required fields to continue.",
   "EMPTY_ORGANIZATIONS": "No Organization",
-  "ERROR": {
-    "CREATE_FAILED": "The creation of the organization has failed",
-    "ERROR": {
-      "CREATE_FAILED": "The creation of the organization has failed",
-      "FETCH_FAILED": "Could not get the information of the organization",
-      "WRONG_ORG_ID": "Organization not found"
-    },
-    "FETCH_FAILED": "Could not get the information of the organization",
-    "WRONG_ORG_ID": "Organization not found"
-  },
   "FAILED_LOAD_COUNTRIES": "Country list downloads failed",
   "FATAL_ERROR_OCCURED": "A fatal error has occurred",
-  "GET_MEMBERS_LOAD_FAILED": "You have no organization",
   "ORGANIZATION": {
     "FORM": {
       "DONE": {
