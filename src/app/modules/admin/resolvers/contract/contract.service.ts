@@ -31,8 +31,8 @@ export class ContractService {
     return this._contracts.asObservable();
   }
 
-  async createContract(project: ContractRo): Promise<ContracBaseDto> {
-    return lastValueFrom(this._swaggerService.contractRoutesCreateContract({ body: project as any }));
+  async createContract(contract: ContractRo): Promise<ContracBaseDto> {
+    return lastValueFrom(this._swaggerService.contractRoutesCreateContract({ body: contract as any }));
   }
 
   async updateContract(id: number, body: UpdateContractRo): Promise<ContracBaseDto> {
@@ -50,8 +50,8 @@ export class ContractService {
         projects.map((contract) => ({
           contractDto: contract,
           name: `${contract.job.name}`,
-          supervisor: `${contract.supervisor.name}`,
-          jobLevel: contract.jobLevel,
+          supervisor: `${contract?.supervisor?.name || ''}`,
+          jobLevel: `${contract?.jobLevel || ''}`,
           dateStart: moment(contract.dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
         })),
       ),

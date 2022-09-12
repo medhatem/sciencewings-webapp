@@ -581,7 +581,7 @@
       "EXPORT_CONTRACTS": "Export",
       "FILTER_CONTRACTS": "Filter",
       "FORM": {
-        "LABEL_NAME": "Title",
+        "LABEL_NAME": "Job name",
         "CONTRACT_TYPE": "Contract type",
         "JOB_LEVEL": "Job level",
         "CHOOSE_SUPERVISOR": "Choose a supervisor",

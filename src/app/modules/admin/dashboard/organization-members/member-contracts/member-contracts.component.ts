@@ -34,7 +34,7 @@ export class MemberContractsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: GetContract[]) => {
+    this._contractService.getAndParseMemberContracts(this.userId, this.orgId).subscribe((contracts: GetContract[]) => {
       this.contracts = contracts;
       this._cdr.markForCheck();
     });
@@ -50,7 +50,7 @@ export class MemberContractsComponent implements OnInit {
       onElementClick: this.onElementSelected.bind(this),
     };
   }
-  openInviteProjectDialog(): void {
+  openInviteContractDialog(): void {
     const orgID = this.orgId;
     const userId = this.userId;
     if (!orgID) {
