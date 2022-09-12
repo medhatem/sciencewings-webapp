@@ -31,8 +31,8 @@ export class ContractService {
     return this._contracts.asObservable();
   }
 
-  async createContract(project: ContractRo): Promise<ContracBaseDto> {
-    return lastValueFrom(this._swaggerService.contractRoutesCreateContract({ body: project as any }));
+  async createContract(contract: ContractRo): Promise<ContracBaseDto> {
+    return lastValueFrom(this._swaggerService.contractRoutesCreateContract({ body: contract as any }));
   }
 
   getMemberContracts(orgId: number, userId: number): Observable<any> {

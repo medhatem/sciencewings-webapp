@@ -37,11 +37,11 @@ export class MemberContractsFormComponent implements OnInit {
     });
     const contractFormObj = {
       name: ['', [Validators.required]],
-      jobLevel: ['', [Validators.required]],
-      wage: ['', [Validators.required]],
-      contractType: ['', [Validators.required]],
+      jobLevel: [''],
+      wage: [''],
+      contractType: [''],
       dateStart: ['', [Validators.required]],
-      supervisor: ['', [Validators.required]],
+      supervisor: [''],
       dateEnd: [''],
     };
 
@@ -58,21 +58,21 @@ export class MemberContractsFormComponent implements OnInit {
     }
   }
   private getContractFromFormBuilder(): ContractRo {
-    const contractRo = new ContractRo({
-      ...this.contractForm.value,
-      organization: this.getOrganizationIdFromLocalStorage(),
-      user: Number(this.data.userId),
-      wage: Number(this.contractForm.value.wage),
+    const contract = new ContractRo({
+      name: String(this.contractForm.value?.name) || null,
+      contractType: String(this.contractForm.value?.contractType) || null,
+      organization: this.data.orgID,
+      user: this.data.userId,
       dateStart: String(this.contractForm.value.dateStart),
-      dateEnd: String(this.contractForm.value?.dateEnd || ''),
+      dateEnd: String(this.contractForm.value?.dateEnd) || null,
+      supervisor: this.contractForm.value?.supervisor || null,
+      jobLevel: String(this.contractForm.value?.jobLevel) || null,
+      wage: String(this.contractForm.value?.wage) || null,
     });
-    if (contractRo.contractType === 'Permanant') {
-      delete contractRo.dateEnd;
+    if (contract.contractType === 'Permanant') {
+      delete contract.dateEnd;
     }
-    return contractRo;
-  }
-  private getOrganizationIdFromLocalStorage(): number {
-    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    return contract;
   }
   /**
    * Track by function for ngFor loops
