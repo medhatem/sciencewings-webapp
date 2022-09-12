@@ -47,7 +47,7 @@ export class ContractService {
           contractDto: contract,
           name: `${contract.job.name}`,
           supervisor: `${contract?.supervisor?.name || ''}`,
-          jobLevel: contract.jobLevel,
+          jobLevel: `${contract?.jobLevel || ''}`,
           dateStart: moment(contract.dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
         })),
       ),
