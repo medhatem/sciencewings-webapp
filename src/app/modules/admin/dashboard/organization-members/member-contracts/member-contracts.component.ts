@@ -16,6 +16,7 @@ import { ContractService } from 'app/modules/admin/resolvers/contract/contract.s
 })
 export class MemberContractsComponent implements OnInit {
   @Input() userId: number;
+  @Input() orgId: number;
   profile: any = {};
   openedDialogRef: any;
   constructor(
@@ -27,8 +28,8 @@ export class MemberContractsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
-  openInviteProjectDialog(): void {
-    const orgID = this.getOrganizationIdFromLocalStorage();
+  openInviteContractDialog(): void {
+    const orgID = this.orgId;
     const userId = this.userId;
     if (!orgID) {
       this._toastrService.showError('Something went wrong!');
@@ -39,8 +40,5 @@ export class MemberContractsComponent implements OnInit {
     this.openedDialogRef.afterClosed().subscribe((result) => {
       lastValueFrom(this._contractService.getMemberContracts());
     });
-  }
-  private getOrganizationIdFromLocalStorage(): number {
-    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
 }
