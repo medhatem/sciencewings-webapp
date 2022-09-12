@@ -80,7 +80,7 @@ export class GeneralComponent implements OnInit {
     delete data.labels;
     data.phones = [
       {
-        id: this.form.value.id,
+        id: this.currentOrganizations.id,
         phoneCode: this.currentOrganizations?.phoneCode,
         phoneNumber: this.currentOrganizations?.phoneNumber,
         labels: this.currentOrganizations?.phone.labels,
