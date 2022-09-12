@@ -1,5 +1,6 @@
 import { InfrastructureDto, InfrastructureRo } from 'generated/models';
 import { Member } from '../members/member';
+import { Resource } from '../resources/resource';
 export class Infrastructure implements InfrastructureRo {
   id?: string;
   description?: string;
@@ -7,7 +8,7 @@ export class Infrastructure implements InfrastructureRo {
   name: string;
   organization: number;
   parent?: number;
-  resources?: Array<number>;
+  resources?: number[];
   dateStart?: Date;
   responsibles: number[];
 
@@ -35,15 +36,17 @@ export class InfrastructureListItem {
   description: string;
   key: string;
   responsibles: Array<Member>;
+  resources: Array<Resource>;
   dateStart?: Date;
   name: string;
 
   constructor(infrastructure?: any) {
-    const { id, name, key, dateStart, description } = infrastructure || {};
+    const { id, name, key, dateStart, resources, description } = infrastructure || {};
     Object.assign(this, {
       id,
       name,
       key,
+      resources,
       dateStart,
       description,
     });

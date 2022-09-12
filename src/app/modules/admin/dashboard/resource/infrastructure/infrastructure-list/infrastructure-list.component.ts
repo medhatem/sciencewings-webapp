@@ -18,7 +18,7 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
   infrastructures: any[] = [];
   isLoading: boolean = false;
   infrastructuresCount: number = 0;
-  options: ListOption = { columns: [], numnberOfColumns: 3 };
+  options: ListOption = { columns: [], numnberOfColumns: 4 };
   openedDialogRef: any;
   searchInputControl: FormControl = new FormControl();
 
@@ -37,9 +37,10 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
       columns: [
         { columnName: 'Infrastructure', columnPropertyToUse: 'name', customClass: '' },
         { columnName: 'Key', columnPropertyToUse: 'key', customClass: 'hidden' },
+        { columnName: '#Resources', columnPropertyToUse: 'resources', customClass: 'hidden' },
         { columnName: 'Created Date', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
-      numnberOfColumns: 3,
+      numnberOfColumns: 4,
     };
 
     this._infrastructureService.infrastructures$.pipe(takeUntil(this._unsubscribeAll)).subscribe((infrastructures: Infrastructure[]) => {
