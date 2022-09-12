@@ -49,7 +49,7 @@ export class MemberContractsComponent implements OnInit {
       onElementClick: this.onElementSelected.bind(this),
     };
   }
-  openInviteProjectDialog(): void {
+  openInviteContractDialog(): void {
     const orgID = this.orgId;
     const userId = this.userId;
     if (!orgID) {
