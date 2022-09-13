@@ -37,13 +37,13 @@ export class MemberUpdateContractComponent implements OnInit {
       this.supervisors = body.data.map((member) => new OrganizationMembers(member));
     });
     const contractFormObj = {
-      jobName: [this.data?.contractDto?.job?.name || '', [Validators.required]],
-      jobLevel: [this.data?.contractDto?.jobLevel || '', [Validators.required]],
-      contractType: [this.data?.contractDto?.contractType || '', [Validators.required]],
-      dateStart: [this.data?.contractDto?.dateStart || '', [Validators.required]],
+      jobName: [this.data?.contractDto?.job?.name || ''],
+      jobLevel: [this.data?.contractDto?.jobLevel || ''],
+      contractType: [this.data?.contractDto?.contractType || ''],
+      dateStart: [this.data?.contractDto?.dateStart || ''],
       dateEnd: [this.data?.contractDto?.endDate || ''],
-      description: [this.data?.contractDto?.description || '', [Validators.required]],
-      supervisor: [this.data?.contractDto?.supervisor?.name, [Validators.required]],
+      description: [this.data?.contractDto?.description || ''],
+      supervisor: [this.data?.contractDto?.supervisor?.name],
     };
     this.contractForm = this._formBuilder.group(contractFormObj);
   }
@@ -59,21 +59,20 @@ export class MemberUpdateContractComponent implements OnInit {
   }
   private getUpdatedContractFromFormBuilder(): UpdateContract {
     const contractRo = new UpdateContract({
-      ...this.data.contractDto,
-      ...this.contractForm.value,
-      organization: this.getOrganizationIdFromLocalStorage(),
+      organization: Number(this.data.orgId),
       user: Number(this.data.userId),
       dateStart: String(this.contractForm.value.dateStart),
       dateEnd: String(this.contractForm.value?.dateEnd || ''),
       jobName: this.contractForm.value?.jobName || this.data.contractDto.name,
+      jobLevel: this.contractForm.value?.jobLevel || this.data.contractDto.jobLevel,
+      contractType: this.contractForm.value?.contractType || this.data.contractDto.contractType,
+      description: this.contractForm.value?.description || this.data.contractDto.description,
+      supervisor: this.contractForm.value?.supervisor || this.data.contractDto.supervisor,
     });
-    if (contractRo.contractType === 'Permanant') {
+    if (contractRo.contractType !== 'Contract base') {
       delete contractRo.dateEnd;
     }
     return contractRo;
-  }
-  private getOrganizationIdFromLocalStorage(): number {
-    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
   /**
    * Track by function for ngFor loops
