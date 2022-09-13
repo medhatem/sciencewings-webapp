@@ -16,6 +16,7 @@ import { Project } from 'app/models/projects/project';
 })
 export class ProjectListComponent implements OnInit, OnDestroy {
   projects: any[] = [];
+  managers: any[] = [];
   options: ListOption = { columns: [], numnberOfColumns: 5 };
   openedDialogRef: any;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -31,10 +32,10 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.options = {
       columns: [
-        { columnName: 'Title', columnPropertyToUse: 'title', customClass: '' },
-        { columnName: 'Managers', columnPropertyToUse: 'managers', customClass: 'hidden' },
-        { columnName: '# Members', columnPropertyToUse: 'participents', customClass: 'hidden' },
-        { columnName: 'Date start', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.PROJECTS.LIST.TITLE', columnPropertyToUse: 'title', customClass: '' },
+        { columnName: 'ORGANIZATION.PROJECTS.LIST.MANAGER', columnPropertyToUse: 'managers', customClass: '' },
+        { columnName: 'ORGANIZATION.PROJECTS.LIST.MEMBERS', columnPropertyToUse: 'participents', customClass: '' },
+        { columnName: 'ORGANIZATION.PROJECTS.LIST.CREATIONDATE', columnPropertyToUse: 'creatingDate', customClass: '' },
       ],
       numnberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
@@ -58,7 +59,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   openInviteProjectDialog(): void {
     const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     if (!orgID) {
-      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
+      this._toastrService.showError('Something went wrong!');
     }
     this.openedDialogRef = this._matDialog.open(ProjectFormComponent, {
       data: { orgID },
@@ -67,8 +68,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       lastValueFrom(this._projectService.getAndParseOrganizationProject());
     });
   }
-
-  async onElementSelected() {
-    this._router.navigate(['/admin/project']);
+  async onElementSelected(project: Project) {
+    this._router.navigate(['/project/project-settings', { id: project.id }]);
   }
 }
