@@ -16,9 +16,10 @@ import { ListComponentModule } from '../reusable-components/list/list-component.
 import { ProjectGeneralSettingsComponent } from './project-general-settings/project-general-settings.component';
 import { ProjectMembershipSettingsComponent } from './project-membership-settings/project-membership-settings.component';
 import { ProjectGroupsSettingsComponent } from './project-groups-settings/project-groups-settings.component';
+import { ProjectSettingsModule } from './project-settings/project-settings.module';
 
 @NgModule({
-  declarations: [ProjectComponent, ProjectListComponent, ProjectFormComponent, ProjectSettingsComponent],
+  declarations: [ProjectComponent, ProjectListComponent, ProjectFormComponent],
   imports: [
     RouterModule.forChild(projectRoutes),
     MatDatepickerModule,
@@ -29,6 +30,7 @@ import { ProjectGroupsSettingsComponent } from './project-groups-settings/projec
     FuseFindByKeyPipeModule,
     MatNativeDateModule,
     ListComponentModule,
+    ProjectSettingsModule,
   ],
 })
 export class ProjectModule {}

@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectComponent } from './project.component';
 import { AdminOrganizationResolver } from '../../resolvers/admin-organization/admin-organization.resolvers';
+import { ProjectSettingsComponent } from './project-settings/project-settings.component';
 
 export const projectRoutes: Route[] = [
   {
@@ -11,6 +12,10 @@ export const projectRoutes: Route[] = [
       {
         path: '',
         component: ProjectListComponent,
+      },
+      {
+        path: 'project-settings',
+        component: ProjectSettingsComponent,
       },
     ],
   },

@@ -68,7 +68,8 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       lastValueFrom(this._projectService.getAndParseOrganizationProjects());
     });
   }
-  async onElementSelected(project: Project) {
+  async onElementSelected(project: any) {
+    console.log('project : ========== ', project);
     localStorage.setItem(constants.CURRENT_PROJECT_ID, `${project.id}`);
 
     this._router.navigate(['/project/project-settings', { id: project.id }]);
