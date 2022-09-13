@@ -11,10 +11,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ProjectFormComponent } from './project-form/project-form.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
+import { ProjectSettingsComponent } from './project-settings/project-settings.component';
 import { ListComponentModule } from '../reusable-components/list/list-component.module';
+import { ProjectGeneralSettingsComponent } from './project-general-settings/project-general-settings.component';
+import { ProjectMembershipSettingsComponent } from './project-membership-settings/project-membership-settings.component';
+import { ProjectGroupsSettingsComponent } from './project-groups-settings/project-groups-settings.component';
 
 @NgModule({
-  declarations: [ProjectComponent, ProjectListComponent, ProjectFormComponent],
+  declarations: [ProjectComponent, ProjectListComponent, ProjectFormComponent, ProjectSettingsComponent, ProjectGeneralSettingsComponent, ProjectMembershipSettingsComponent, ProjectGroupsSettingsComponent],
   imports: [
     RouterModule.forChild(projectRoutes),
     MatDatepickerModule,
