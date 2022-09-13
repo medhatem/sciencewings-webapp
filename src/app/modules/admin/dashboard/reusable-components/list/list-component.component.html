@@ -32,7 +32,7 @@
             matSortDisableClear>
             <ng-container *ngFor="let key of keys">
               <div class="{{ key.customClass }} sm:block  ">
-                {{ key.columnName }}
+                {{ key.columnName | transloco }}
               </div>
             </ng-container>
           </div>

@@ -540,6 +540,13 @@
         "SAVE": "Save",
         "CANCEL": "Cancel"
       },
+      "INFRASTRUCTURE_LIST": {
+        "TITLE": "Infrastructure",
+        "KEY": "Key",
+        "DATE": "Created Date",
+        "RESPONSIBLE": "Responsible",
+        "RESOURCES_NB": "#Resources"
+      },
       "VALIDATORS": {
         "NAME_REQUIRED": "Infrastructue name is required",
         "KEY_REQUIRED": "Key required"

@@ -2,6 +2,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Injectable } from '@angular/core';
 import { lastValueFrom, Observable } from 'rxjs';
 import { InfrastructureService } from './infrastructure.service';
+import { Member } from 'app/models/members/member';
 
 @Injectable({
   providedIn: 'root',

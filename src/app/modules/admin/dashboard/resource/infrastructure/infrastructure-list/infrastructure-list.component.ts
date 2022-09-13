@@ -18,7 +18,7 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
   infrastructures: any[] = [];
   isLoading: boolean = false;
   infrastructuresCount: number = 0;
-  options: ListOption = { columns: [], numnberOfColumns: 4 };
+  options: ListOption = { columns: [], numnberOfColumns: 5 };
   openedDialogRef: any;
   searchInputControl: FormControl = new FormControl();
 
@@ -35,12 +35,21 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.options = {
       columns: [
-        { columnName: 'Infrastructure', columnPropertyToUse: 'name', customClass: '' },
-        { columnName: 'Key', columnPropertyToUse: 'key', customClass: 'hidden' },
-        { columnName: '#Resources', columnPropertyToUse: 'resources', customClass: 'hidden' },
-        { columnName: 'Created Date', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.TITLE', columnPropertyToUse: 'name', customClass: '' },
+        { columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.KEY', columnPropertyToUse: 'key', customClass: 'hidden' },
+        {
+          columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.RESPONSIBLE',
+          columnPropertyToUse: 'responsible',
+          customClass: 'hidden',
+        },
+        {
+          columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.RESOURCES_NB',
+          columnPropertyToUse: 'resourcesNb',
+          customClass: 'hidden',
+        },
+        { columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.DATE', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
-      numnberOfColumns: 4,
+      numnberOfColumns: 5,
     };
 
     this._infrastructureService.infrastructures$.pipe(takeUntil(this._unsubscribeAll)).subscribe((infrastructures: Infrastructure[]) => {

@@ -3,11 +3,11 @@ import { BehaviorSubject, Observable, map, take, tap, lastValueFrom } from 'rxjs
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateInfrastructureDto, InfrastructureRo, UpdateinfrastructureRo } from 'generated/models';
+import { CreateInfrastructureDto, InfrastructureRo, ResponsableObjectDto, UpdateinfrastructureRo } from 'generated/models';
 import moment from 'moment';
 import { constants } from 'app/shared/constants';
 import { Member } from 'app/models/members/member';
-import { Infrastructure, InfrastructureListItem } from 'app/models/infrastructures/infrastructure';
+import { Infrastructure, InfrastructureListItem, ResponsableDto } from 'app/models/infrastructures/infrastructure';
 @Injectable({
   providedIn: 'root',
 })
@@ -70,10 +70,12 @@ export class InfrastructureService {
     return this.getOrgInfrastructures().pipe(
       map((infrastructures) => infrastructures.body.data.map((infrastructure) => new InfrastructureListItem(infrastructure))),
       map((infrastructures: InfrastructureListItem[]) => {
-        return infrastructures.map(({ name, key, resources, dateStart }) => ({
+        console.log(infrastructures);
+        return infrastructures.map(({ name, key, resources, responsible, resourcesNb, dateStart }) => ({
           name: `${name}`,
           key,
-          resources: resources.length,
+          resourcesNb: `${resourcesNb}`,
+          responsible: this.parseInfrastructureResponsible(responsible),
           dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
         }));
       }),
@@ -92,6 +94,11 @@ export class InfrastructureService {
   deleteInfrastructure(id: number): Observable<any> {
     return this.swaggerAPI.infrastructureRoutesRemove({ id });
   }
+
+  parseInfrastructureResponsible(responsible: ResponsableObjectDto): string {
+    return `<div>${responsible?.name}</div><div>${responsible?.email}</div>`;
+  }
+
   parseMembersToHtml(members: Member[]) {
     return members.map(({ name, workEmail }) => `<div>${name}</div><div>${workEmail}</div>`);
   }

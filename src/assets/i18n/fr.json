@@ -538,6 +538,13 @@
         "SAVE": "Sauvegarder",
         "CANCEL": "Annuler"
       },
+      "INFRASTRUCTURE_LIST": {
+        "TITLE": "Infrastructures",
+        "KEY": "Clé",
+        "DATE": "Date de création",
+        "RESPONSIBLE": "Responsable",
+        "RESOURCES_NB": "#Ressources"
+      },
       "VALIDATORS": {
         "NAME_REQUIRED": "Le nom de l'infrastructure est requis",
         "KEY_REQUIRED": "La clé de l'infrastructure est requise"
