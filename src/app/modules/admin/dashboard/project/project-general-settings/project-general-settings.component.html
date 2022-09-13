@@ -1,1 +1,120 @@
-<p>project-general-settings works!</p>
+<div class="w-full max-w-3xl">
+  <!-- Form -->
+  <form [formGroup]="generalSettingstForm">
+    <!-- Section -->
+    <div class="w-full">
+      <div class="text-3xl font-extrabold tracking-tight leading-none">Project details</div>
+    </div>
+    <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+      <!-- Title -->
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.LABEL_NAME' | transloco }}</mat-label>
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:user'" matPrefix></mat-icon>
+          <input [formControlName]="'title'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.LABEL_NAME' | transloco }}" matInput required />
+        </mat-form-field>
+      </div>
+      <!-- Key -->
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.KEY' | transloco }}</mat-label>
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:key'" matPrefix></mat-icon>
+          <input [formControlName]="'key'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.KEY' | transloco }}" matInput required />
+        </mat-form-field>
+      </div>
+      <!-- Responsable -->
+      <!-- <div class="sm:col-span-4">
+        <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
+          <mat-label>Responsable</mat-label>
+          <mat-select [formControlName]="'responsable'" placeholder="Responsable">
+            <mat-option *ngFor="let member of project.members; trackBy: trackByFn" [value]="project.members[0]">{{ member.name }} </mat-option>
+          </mat-select>
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+        </mat-form-field>
+      </div> -->
+      <!-- <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label class="w-100">responsable</mat-label>
+          <mat-select [formControlName]="'responsable'" placeholder="responsable">
+            <mat-option *ngFor="let member of project.members" [value]="member.id">
+              {{ member.name }}
+            </mat-option>
+          </mat-select>
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+        </mat-form-field>
+      </div>
+ -->
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}</mat-label>
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:location-marker'" matPrefix></mat-icon>
+          <mat-select placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}" [formControlName]="'status'">
+            <mat-option [value]="'1'">responsable 1</mat-option>
+            <mat-option [value]="'2'">responsable 2</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- Start and end date -->
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.STARTDATE' | transloco }}</mat-label>
+        <input
+          matInput
+          [formControlName]="'dateStart'"
+          placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.STARTDATE' | transloco }}"
+          [matDatepicker]="picker2" />
+        <mat-hint>{{ 'ORGANIZATION.PROJECTS.FORM.DATE_HINT' | transloco }}</mat-hint>
+        <mat-datepicker-toggle matPrefix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2 color="primary"></mat-datepicker>
+      </mat-form-field>
+      <!-- Start and end date -->
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.ENDDATE' | transloco }}</mat-label>
+        <input
+          matInput
+          [formControlName]="'dateEnd'"
+          placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.ENDDATE' | transloco }}"
+          [matDatepicker]="picker1" />
+        <mat-hint>{{ 'ORGANIZATION.PROJECTS.FORM.DATE_HINT' | transloco }}</mat-hint>
+        <mat-datepicker-toggle matPrefix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      <!-- Status -->
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.STATUS' | transloco }}</mat-label>
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:location-marker'" matPrefix></mat-icon>
+          <mat-select [formControlName]="'status'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.STATUS' | transloco }}">
+            <mat-option [value]="'to-do'">to do</mat-option>
+            <mat-option [value]="'in-progress'">in progress</mat-option>
+            <mat-option [value]="'review'">review</mat-option>
+            <mat-option [value]="'done'">done</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- Description -->
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.DESCRIPTION_LABEL' | transloco }}</mat-label>
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:menu-alt-2'" matPrefix></mat-icon>
+          <textarea
+            matInput
+            [formControlName]="'description'"
+            placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.DESCRIPTION_LABEL' | transloco }}"
+            cdkTextareaAutosize
+            [cdkAutosizeMinRows]="5"
+            required></textarea>
+        </mat-form-field>
+        <div class="mt-1 text-md text-hint"></div>
+      </div>
+    </div>
+    <!-- Divider -->
+    <div class="mt-11 mb-10 border-t"></div>
+    <!-- Actions -->
+    <div class="flex items-center justify-end">
+      <button mat-stroked-button type="button">{{ 'ORGANIZATION.PROJECTS.FORM.CANCEL' | transloco }}</button>
+      <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
+        {{ 'ORGANIZATION.PROJECTS.FORM.SAVE' | transloco }}
+      </button>
+    </div>
+  </form>
+</div>

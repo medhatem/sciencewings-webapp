@@ -1,12 +1,14 @@
 import {
   CreateOrganizationRo,
   MemberDto,
+  OrganizationInformationDto,
   ProjectDto,
   ProjectListDto,
   ProjectMemberDto,
   ProjectMemberRo,
   ProjectRo,
   ResponsableObjectDto,
+  UpdateProjectRo,
 } from 'generated/models';
 import { Member } from '../members/member';
 
@@ -130,6 +132,89 @@ export class participantListItem {
       role,
 
       status,
+    });
+  }
+}
+export class ProjectDropDone implements ProjectDto {
+  id?: number;
+
+  status?: 'To-do' | 'In-progress' | 'Review' | 'Done';
+
+  dateEnd?: string;
+
+  dateStart?: string;
+
+  description: string;
+
+  key: string;
+
+  members?: MemberDto[];
+
+  organization: OrganizationInformationDto;
+
+  title: string;
+
+  statusCode: number;
+
+  constructor(project: any) {
+    const { id, status, dateEnd, dateStart, description, key, members, organization, title } = project || {};
+
+    Object.assign(this, {
+      status,
+
+      dateEnd,
+
+      dateStart,
+
+      description,
+
+      key,
+
+      members,
+
+      organization,
+
+      title,
+    });
+
+    if (id) {
+      this.id = id;
+    }
+  }
+}
+
+export class UpdateProject implements UpdateProjectRo {
+  status?: 'To-do' | 'In-progress' | 'Review' | 'Done';
+
+  dateEnd?: string;
+
+  dateStart?: string;
+
+  description?: string;
+
+  key?: string;
+
+  title?: string;
+
+  newManager?: number;
+
+  constructor(project: any) {
+    const { status, dateEnd, dateStart, description, key, title, newManager } = project || {};
+
+    Object.assign(this, {
+      status,
+
+      dateEnd,
+
+      dateStart,
+
+      description,
+
+      key,
+
+      title,
+
+      newManager,
     });
   }
 }
