@@ -11,6 +11,7 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 })
 export class ProjectSettingsComponent implements OnInit {
   selectedPanel: string = 'project-general';
+  title = 'Project settings';
   settings = null;
   currentProjects = null;
   panels: any[];

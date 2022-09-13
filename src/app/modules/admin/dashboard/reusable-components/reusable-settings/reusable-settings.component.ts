@@ -11,13 +11,14 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./reusable-settings.component.scss'],
 })
 export class ReusableSettingsComponent implements OnInit, OnDestroy {
-  @Input() selectedPanel: string;
-  @Input() title: string;
-  @Input() panels: any[] = [];
-  @Output() onSelectedPanelChange = new EventEmitter<string>();
   @ViewChild('drawer') drawer: MatDrawer;
+  // @ViewChild('showComponent') showComponent: HTMLElement;
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
+  @Input() selectedPanel: string;
+  @Output() OnSelectedPanelChange = new EventEmitter<string>();
+  @Input() panels: any[] = [];
+  @Input() title: string;
 
   settings = null;
   currentProjects = null;
@@ -26,6 +27,7 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _fuseMediaWatcherService: FuseMediaWatcherService) {}
 
   ngOnInit(): void {
+    // this.showComponent.appendChild()
     // Subscribe to media changes
     this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
       // Set the drawerMode and drawerOpened
@@ -60,7 +62,7 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
    */
   goToPanel(panel: string): void {
     this.selectedPanel = panel;
-    this.onSelectedPanelChange.emit(this.selectedPanel);
+    this.OnSelectedPanelChange.emit(this.selectedPanel);
     // Close the drawer on 'over' mode
     if (this.drawerMode === 'over') {
       this.drawer.close();
