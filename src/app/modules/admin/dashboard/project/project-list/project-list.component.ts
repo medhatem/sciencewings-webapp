@@ -69,7 +69,6 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     });
   }
   async onElementSelected(project: any) {
-    console.log('project : ========== ', project);
     localStorage.setItem(constants.CURRENT_PROJECT_ID, `${project.id}`);
 
     this._router.navigate(['/project/project-settings', { id: project.id }]);

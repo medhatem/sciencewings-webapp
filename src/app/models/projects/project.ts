@@ -51,12 +51,13 @@ export class ProjectListItem {
   title: string;
 
   constructor(project?: any) {
-    const { members, creatingDate, responsable, title } = project || {};
+    const { members, creatingDate, responsable, title, id } = project || {};
     Object.assign(this, {
       members,
       creatingDate,
       responsable,
       title,
+      id,
     });
   }
 }
