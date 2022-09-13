@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'generated/services/api.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Reservation } from 'app/models/reservation/Reservation';
 
 @Injectable({
   providedIn: 'root',
@@ -31,5 +32,9 @@ export class ReservationService {
 
   getReservations(resourceId: number, start: string, end: string): Observable<any> {
     return this.swaggerAPI.reservationRoutesGetEventsByRange({ resourceId, start, end });
+  }
+
+  create(resourceId: number, event: Reservation) {
+    return this.swaggerAPI.reservationRoutesCreateReservation({ body: event, resourceId });
   }
 }

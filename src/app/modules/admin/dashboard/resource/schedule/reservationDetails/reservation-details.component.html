@@ -4,10 +4,13 @@
       <div class="text-lg font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.DETAILS' | transloco }}</div>
     </div>
     <hr class="w-full border-t my-2" />
-     
-    <div>
-        start: {{event.title}}   
-    </div>
-
+     <div class="flex flex-col p-4 b-5">
+         <div>
+            {{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.EVENTS.START' | transloco }} : <span>{{start}}</span>
+        </div>
+         <div>
+             {{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.EVENTS.END' | transloco }}: <span>{{end}}</span>
+         </div>
+     </div>
 </div>
   

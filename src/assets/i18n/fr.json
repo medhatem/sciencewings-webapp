@@ -513,7 +513,19 @@
           "CREATE_COMPLETED": "La resource a été créer avec succées "
         },
         "RESERVATION":{
-          "DETAILS":"DETAILS DE LA RESERVATION"
+          "CREATE_BTN":"Créer",
+          "DETAILS":"DETAILS DE LA RESERVATION",
+          "CREATE_RESERVATION":"creer un evenement",
+          "RESOURCE_NAME":"Resource",
+          "EVENTS":{
+            "START":"Debut de l'evenemnt",
+            "END":"fin de l'evenement",
+            "TITLE":"Titre",
+            "DURATION":"Duree",
+            "FOR":"Reserver Pour",
+            "INVALID":"Reservation Invalide",
+            "INVALID_RESERVATION_DURATION_LIMIT":"La Reservation doit Faire 1 heure au minimum"
+          }
         }
       }
     },

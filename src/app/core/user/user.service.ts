@@ -1,6 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Observable, ReplaySubject, map } from 'rxjs';
+
+import { ApiService } from 'generated/services/api.service';
+import { BaseRequestDto } from 'generated/models/base-request-dto';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, ReplaySubject, tap } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { User } from 'app/core/user/user.types';
 
 @Injectable({
@@ -9,7 +12,7 @@ import { User } from 'app/core/user/user.types';
 export class UserService {
   private _user: ReplaySubject<User> = new ReplaySubject<User>(1);
 
-  constructor(private _httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient, private _apiService: ApiService) {}
 
   /**
    * Setter & getter for user
@@ -25,12 +28,10 @@ export class UserService {
   }
 
   /**
-   * Get the current logged in user data
+   * Get the current logged in user by id
    */
-  get(): Observable<User> {
-    //TODO
-    // implement keycloak and api
-    return new Observable<User>();
+  get(id: number): Observable<BaseRequestDto> {
+    return this._apiService.userRoutesGetById({ id });
   }
 
   /**

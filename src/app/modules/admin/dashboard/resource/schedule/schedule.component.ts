@@ -5,8 +5,11 @@ import { lastValueFrom, map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Reservation } from 'app/models/reservation/Reservation';
+import { ReservationCreationComponent } from './reservationCreation/reservation-creation.component';
 import { ReservationDetailsComponent } from './reservationDetails/reservation-details.component';
 import { ReservationService } from 'app/modules/admin/resolvers/reservation/reservation.service';
+import { Resource } from 'app/models/resources/resource';
+import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import timeGridPlugin from '@fullcalendar/timegrid';
 
 @Component({
@@ -16,11 +19,13 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 })
 export class ResourceScheduleComponent implements OnInit, AfterViewInit {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
-  openedDialogRef: any;
-
+  eventDetailsDialogRef: any;
+  createEventDialogRef: any;
+  resource: Resource;
   calendarOptions: CalendarOptions = {
     plugins: [timeGridPlugin],
     initialView: 'timeGridWeek',
+    handleWindowResize: true,
     customButtons: {
       next: {
         click: () => {
@@ -42,28 +47,44 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
 
   resources = [];
 
-  constructor(private _reservationService: ReservationService, private route: ActivatedRoute, private _matDialog: MatDialog) {}
+  constructor(
+    private _reservationService: ReservationService,
+    private route: ActivatedRoute,
+    private _matDialog: MatDialog,
+    private _resourceService: ResourceService,
+  ) {}
   async ngAfterViewInit(): Promise<void> {
     await this.getSchedule();
   }
 
   async ngOnInit(): Promise<void> {
     this.calendarOptions.events = [];
+    await this.getResource();
   }
 
   onCheckboxChange($event) {}
 
+  /**
+   * display next week's schedule
+   */
   async handleNextClick() {
     const api = this.calendarComponent.getApi();
     api.next();
     await this.getSchedule();
   }
+
+  /**
+   * display previous week's schedule
+   */
   async handlePreviousClick() {
     const api = this.calendarComponent.getApi();
     api.prev();
     await this.getSchedule();
   }
 
+  /**
+   * get a resource's schedule for the current displayed week
+   */
   async getSchedule() {
     const { activeStart, activeEnd } = this.calendarComponent.getApi().view;
     const reservations = await lastValueFrom(
@@ -87,12 +108,45 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * display the reservation details
+   *
+   * @param event
+   */
   displayReservationDetails(event: any) {
-    this.openedDialogRef = this._matDialog.open(ReservationDetailsComponent, event);
-    this.openedDialogRef.afterClosed().subscribe(async (result) => {
+    this.eventDetailsDialogRef = this._matDialog.open(ReservationDetailsComponent, { data: { event } });
+    this.eventDetailsDialogRef.afterClosed().subscribe(async (result) => {
       // const { body } = await lastValueFrom(this._resourceService.getOrgResource());
       // this.resources = body.data;
     });
+  }
+
+  /**
+   * trigger the modal for a reservation creation
+   */
+  createReservation() {
+    this.createEventDialogRef = this._matDialog.open(ReservationCreationComponent, { data: { resource: this.resource } });
+    this.createEventDialogRef.afterClosed().subscribe(async (result) => {
+      const event = {
+        title: result.title,
+        start: new Date(result.start).toISOString(),
+        end: new Date(result.end).toISOString(),
+      };
+
+      console.log('received ---- ', event);
+      this.calendarComponent.getApi().addEvent(event);
+      // const { body } = await lastValueFrom(this._resourceService.getOrgResource());
+      // this.resources = body.data;
+    });
+  }
+
+  /**
+   * get the resource data from db
+   */
+  async getResource() {
+    this.resource = await lastValueFrom(
+      this._resourceService.getResource(Number(this.route.snapshot.paramMap.get('id'))).pipe(map((resource) => resource.body?.data[0])),
+    );
   }
 
   // -1: past, 0: today, 1: future

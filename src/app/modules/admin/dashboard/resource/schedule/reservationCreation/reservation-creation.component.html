@@ -1,0 +1,54 @@
+
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8">
+      <div class="text-lg font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.CREATE_RESERVATION' | transloco }}</div>
+    </div>
+    <hr class="w-full border-t my-2"/>
+     <div class="flex flex-col p-4 b-5">
+        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 flex flex-col gt-xs:flex-row">
+            <mat-form-field class="mx-4 col-span-1" [formGroup]="formGroup">
+              <mat-label>{{'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.EVENTS.START' | transloco }}</mat-label>
+                <input matInput [ngxMatDatetimePicker]="startDatePicker" placeholder="Choose a date"  formControlName="dateStart">
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #startDatePicker [showSpinners]="datePickerOption.showSpinners" [showSeconds]="datePickerOption.showSeconds"
+                   [stepHour]="datePickerOption.stepHour" [stepMinute]="datePickerOption.stepMinute" [stepSecond]="datePickerOption.stepSecond"
+                   [touchUi]="datePickerOption.touchUi" [color]="datePickerOption.color" [enableMeridian]="datePickerOption.enableMeridian" 
+                   [disableMinute]="datePickerOption.disableMinute" [hideTime]="datePickerOption.hideTime">
+                </ngx-mat-datetime-picker>
+            </mat-form-field>
+
+            <mat-form-field class="mx-4 col-span-1" [formGroup]="formGroup">
+              <mat-label>{{'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.EVENTS.END' | transloco }}</mat-label>
+                <input matInput [ngxMatDatetimePicker]="endDatePicker" placeholder="Choose a date" formControlName="dateEnd">
+                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker  #endDatePicker [showSpinners]="datePickerOption.showSpinners" [showSeconds]="datePickerOption.showSeconds"
+                   [stepHour]="datePickerOption.stepHour" [stepMinute]="datePickerOption.stepMinute" [stepSecond]="datePickerOption.stepSecond"
+                   [touchUi]="datePickerOption.touchUi" [color]="datePickerOption.color" [enableMeridian]="datePickerOption.enableMeridian" 
+                   [disableMinute]="datePickerOption.disableMinute" [hideTime]="datePickerOption.hideTime">
+                </ngx-mat-datetime-picker>
+            </mat-form-field>
+            <mat-form-field class="mx-4 col-span-1">
+                <mat-label>{{'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.EVENTS.DURATION' | transloco }}</mat-label>
+                  <input matInput disabled="true"    [value]="duration"  >
+                  <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:clock'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="mx-4 col-span-1">
+                <mat-label>{{'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.RESOURCE_NAME' | transloco }}</mat-label>
+                  <input matInput disabled="true" [value]="resource.name"  >
+                  <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:cube'"></mat-icon>
+              </mat-form-field>
+              <mat-form-field class="mx-4 col-span-1">
+                <mat-label>{{'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.EVENTS.FOR' | transloco }}</mat-label>
+                  <input matInput disabled="true" [value]="userCompleteName"  >
+                  <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+              </mat-form-field>
+        </div>
+        <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
+            <button mat-button mat-dialog-close>{{ 'ORGANIZATION.MEMBERS.FORM.CANCEL' | transloco }}</button>
+            <button class="px-6 ml-3" mat-flat-button [color]="'primary'" (click)="createEvent()">
+                {{'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.CREATE_BTN' | transloco }}
+            </button>
+          </div>
+     </div>
+</div>
+  
