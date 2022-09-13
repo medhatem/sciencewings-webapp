@@ -18,7 +18,7 @@ import { ProjectMembershipSettingsComponent } from './project-membership-setting
 import { ProjectGroupsSettingsComponent } from './project-groups-settings/project-groups-settings.component';
 
 @NgModule({
-  declarations: [ProjectComponent, ProjectListComponent, ProjectFormComponent, ProjectSettingsComponent, ProjectGeneralSettingsComponent, ProjectMembershipSettingsComponent, ProjectGroupsSettingsComponent],
+  declarations: [ProjectComponent, ProjectListComponent, ProjectFormComponent, ProjectSettingsComponent],
   imports: [
     RouterModule.forChild(projectRoutes),
     MatDatepickerModule,
