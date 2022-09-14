@@ -1,18 +1,20 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FuseNavigationItem, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { Subject, lastValueFrom, takeUntil } from 'rxjs';
+
+import { CookieService } from 'ngx-cookie-service';
+import { FormControl } from '@angular/forms';
+import { ListOption } from '../../reusable-components/list/list-component.component';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { ResourceService } from '../../../resolvers/resource/resource.service';
-import { ToastrService } from 'app/core/toastr/toastr.service';
-import { Router } from '@angular/router';
-import { FuseNavigationItem, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
-import { CookieService } from 'ngx-cookie-service';
-import { constants } from 'app/shared/constants';
-import { MatDialog } from '@angular/material/dialog';
-import { ResourceProfileFormComponent } from '../resource-form/profile-form.component';
 import { Resource } from 'app/models/resources/resource';
-import { ListOption } from '../../reusable-components/list/list-component.component';
+import { ResourceProfileFormComponent } from '../resource-form/profile-form.component';
+import { ResourceService } from '../../../resolvers/resource/resource.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'app/core/toastr/toastr.service';
+import { constants } from 'app/shared/constants';
+
 export interface ResourceType {
   name: string;
   resourceType: number;
@@ -161,7 +163,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
             title: 'Schedule',
             type: 'basic',
             icon: 'heroicons_outline:calendar',
-            link: 'resources/resource/schedule',
+            link: 'resources/resource/schedule/' + resourceID,
           },
         ],
       },
