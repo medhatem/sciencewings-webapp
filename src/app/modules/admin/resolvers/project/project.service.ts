@@ -7,6 +7,7 @@ import { Member } from 'app/models/members/member';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
 import { Project, ProjectListItem, ProjectListMember } from 'app/models/projects/project';
+import { projectMember } from 'app/models/projects/project-member';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +45,9 @@ export class ProjectService {
         id,
       }),
     );
+  }
+  async addMemberToProject(id: number, payload: projectMember): Promise<CreateProjectDto> {
+    return lastValueFrom(this._swaggerService.projectRoutesAddMembersToProject({ id, body: payload as projectMember }));
   }
 
   getProjectsAll(
@@ -110,7 +114,7 @@ export class ProjectService {
     return this._swaggerService.projectRoutesGetAllProjectParticipants({ id });
   }
   getAndParseProjectParticipants(projectId?: number): Observable<any[]> {
-    const id = projectId || Number(localStorage.getItem('1'));
+    const id = projectId || Number(localStorage.getItem(constants.CURRENT_PROJECT_ID));
     return this.getOrgProjectMembers(id).pipe(
       map((participants) => participants.body.data.map((participant) => new ProjectListMember(participant))),
       map((participants: ProjectListMember[]) =>

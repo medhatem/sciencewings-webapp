@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ProjectListMember, ProjectMember } from 'app/models/projects/project';
@@ -15,6 +15,8 @@ import { AddMemberToProjectComponent } from '../add-member-to-project/add-member
   styleUrls: ['./project-membership-settings.component.scss'],
 })
 export class ProjectMembershipSettingsComponent implements OnInit {
+  @Input() id: number;
+
   participants: any[] = [];
   options: ListOption = { columns: [], numnberOfColumns: 4 };
   openedDialogRef: any;
@@ -29,6 +31,11 @@ export class ProjectMembershipSettingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this._projectService.getAndParseProjectParticipants().subscribe((participant: ProjectListMember[]) => {
+      this.participants = participant;
+      this._changeDetectorRef.markForCheck();
+    });
+
     this.options = {
       columns: [
         { columnName: 'ORGANIZATION.PROFILE', columnPropertyToUse: 'member', customClass: '' },
@@ -39,14 +46,12 @@ export class ProjectMembershipSettingsComponent implements OnInit {
       numnberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
     };
-    this._projectService.getOrgProjectMembers().subscribe(({ body }) => {
-      this.participants = body.data.map((m) => new ProjectListMember(m).member);
-    });
   }
   openInviteProjectDialog(): void {
     const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    const projectId = this.id;
     this.openedDialogRef = this._matDialog.open(AddMemberToProjectComponent, {
-      data: { orgID },
+      data: { orgID, projectId },
     });
     this.openedDialogRef.afterClosed().subscribe((result) => {
       lastValueFrom(this._projectService.getAndParseOrganizationProjects());

@@ -3,6 +3,7 @@ import { ChangeDetectorRef, OnDestroy, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-project-settings',
@@ -15,15 +16,22 @@ export class ProjectSettingsComponent implements OnInit {
   settings = null;
   currentProjects = null;
   panels: any[];
+  id: number;
   /**
    * Constructor
    */
-  constructor(private _changeDetectorRef: ChangeDetectorRef, private _fuseMediaWatcherService: FuseMediaWatcherService) {}
+  constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _fuseMediaWatcherService: FuseMediaWatcherService,
+    private route: ActivatedRoute,
+  ) {}
 
   /**
    * On init
    */
   ngOnInit(): void {
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+
     // Setup available panels
     this.panels = [
       {

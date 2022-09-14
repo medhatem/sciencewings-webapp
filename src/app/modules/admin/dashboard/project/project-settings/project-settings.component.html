@@ -1,13 +1,13 @@
 <app-reusable-settings [title]="title" [selectedPanel]="selectedPanel" (OnSelectedPanelChange)="changeSelectedPanel($event)" [panels]="panels">
   <ng-container content [ngSwitch]="selectedPanel">
     <ng-container *ngSwitchCase="'project-general'">
-      <app-project-general-settings> </app-project-general-settings>
+      <app-project-general-settings [id]="id"> </app-project-general-settings>
     </ng-container>
     <ng-container *ngSwitchCase="'membership-settings'">
-      <app-project-membership-settings> </app-project-membership-settings>
+      <app-project-membership-settings [id]="id"> </app-project-membership-settings>
     </ng-container>
     <ng-container *ngSwitchCase="'groups-settings'">
-      <app-project-groups-settings> </app-project-groups-settings>
+      <app-project-groups-settings [id]="id"> </app-project-groups-settings>
     </ng-container>
   </ng-container>
 </app-reusable-settings>

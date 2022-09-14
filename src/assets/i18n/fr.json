@@ -569,6 +569,7 @@
         "PROJECT_NAME": "Projet",
         "PROJECT_STATUS": "Status",
         "MESSAGE": "Il n'y a pas de Projets !",
+        "MESSAGE_MEMBER_LIST": "Il n'y a pas des membres",
         "TITLE": "Titre",
         "MANAGER": "Manager",
         "MEMBERS": "# Membres",

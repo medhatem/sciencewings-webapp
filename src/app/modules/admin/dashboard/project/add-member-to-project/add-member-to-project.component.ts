@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { OrganizationMembers } from 'app/models/members/member';
 import { ProjectLabels, ProjectLabelsTranslation } from 'app/models/projects/project-lables.enum';
@@ -10,6 +10,7 @@ import { constants } from 'app/shared/constants';
 import { Router } from '@angular/router';
 import { Project, ProjectListMember } from 'app/models/projects/project';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
+import { projectMember } from 'app/models/projects/project-member';
 
 @Component({
   selector: 'app-add-member-to-project',
@@ -33,6 +34,7 @@ export class AddMemberToProjectComponent implements OnInit {
   participants: [] = [];
   members: any[] = [];
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { orgID: number; projectId: number },
     public matDialogRef: MatDialogRef<AddMemberToProjectComponent>,
     private _formBuilder: FormBuilder,
     private _projectService: ProjectService,
@@ -62,7 +64,7 @@ export class AddMemberToProjectComponent implements OnInit {
 
     const project = this.getProjectFromFormBuilder();
     try {
-      await this._projectService.createProject(project);
+      await this._projectService.addMemberToProject(this.data.projectId, project as projectMember);
       this._toastrService.showSuccess(constants.CREATE_PROJECT_COMPLETED);
       this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.PROJECT]);
     } catch (error) {
@@ -82,11 +84,12 @@ export class AddMemberToProjectComponent implements OnInit {
     return item.id || index;
   }
 
-  private getProjectFromFormBuilder(): Project {
-    return new Project({ ...this.projectForm.value, organization: this.getOrganizationIdFromLocalStorage() });
-  }
-
-  private getOrganizationIdFromLocalStorage(): number {
-    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+  private getProjectFromFormBuilder(): projectMember {
+    return new projectMember({
+      orgId: this.data.orgID,
+      role: this.projectForm.value.role,
+      status: '',
+      userId: this.projectForm.value.member,
+    });
   }
 }
