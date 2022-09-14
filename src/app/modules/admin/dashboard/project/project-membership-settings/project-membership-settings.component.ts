@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ListOption } from '../../reusable-components/list/list-component.component';
 import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { constants } from 'app/shared/constants';
+import { AddMemberToProjectComponent } from '../add-member-to-project/add-member-to-project.component';
 
 @Component({
   selector: 'app-project-membership-settings',
@@ -38,19 +39,18 @@ export class ProjectMembershipSettingsComponent implements OnInit {
       numnberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
     };
-    this._projectService.projectParticipent$.pipe(takeUntil(this._unsubscribeAll)).subscribe((participants: ProjectListMember[]) => {
-      this.participants = participants;
-      this._changeDetectorRef.markForCheck();
+    this._projectService.getOrgProjectMembers().subscribe(({ body }) => {
+      this.participants = body.data.map((m) => new ProjectListMember(m).member);
     });
   }
   openInviteProjectDialog(): void {
     const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
-    // this.openedDialogRef = this._matDialog.open(AddMemberToProjectComponent, {
-    //   data: { orgID },
-    // });
-    // this.openedDialogRef.afterClosed().subscribe((result) => {
-    //   lastValueFrom(this._projectService.getAndParseOrganizationProjects());
-    // });
+    this.openedDialogRef = this._matDialog.open(AddMemberToProjectComponent, {
+      data: { orgID },
+    });
+    this.openedDialogRef.afterClosed().subscribe((result) => {
+      lastValueFrom(this._projectService.getAndParseOrganizationProjects());
+    });
   }
 
   async onElementSelected(item: ProjectMember) {

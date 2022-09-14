@@ -8,6 +8,9 @@ import { ReusableSettingsComponent } from '../../reusable-components/reusable-se
 import { ProjectGeneralSettingsComponent } from '../../project/project-general-settings/project-general-settings.component';
 import { ProjectMembershipSettingsComponent } from '../../project/project-membership-settings/project-membership-settings.component';
 import { ProjectGroupsSettingsComponent } from '../../project/project-groups-settings/project-groups-settings.component';
+import { RouterModule } from '@angular/router';
+import { AddMemberToProjectComponent } from '../add-member-to-project/add-member-to-project.component';
+import { ListComponentModule } from '../../reusable-components/list/list-component.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,8 @@ import { ProjectGroupsSettingsComponent } from '../../project/project-groups-set
     ProjectGeneralSettingsComponent,
     ProjectMembershipSettingsComponent,
     ProjectGroupsSettingsComponent,
+    AddMemberToProjectComponent,
   ],
-  imports: [CommonModule, MatFormFieldModule, SharedModule, TranslocoModule],
+  imports: [CommonModule, MatFormFieldModule, SharedModule, TranslocoModule, RouterModule, ListComponentModule],
 })
 export class ProjectSettingsModule {}
