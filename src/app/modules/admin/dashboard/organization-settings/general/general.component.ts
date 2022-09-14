@@ -8,7 +8,6 @@ import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/or
 
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { constants } from 'app/shared/constants';
-import { map } from 'lodash';
 import { Organization } from 'app/models/organizations/organization';
 
 @Component({
@@ -45,7 +44,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       phoneNumber: '',
       phoneLabel: '',
       type: '',
-      direction: '',
       description: '',
     });
 
@@ -83,7 +81,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       phoneNumber: orgInfo?.phones[0].phoneNumber || '',
       phoneLabel: orgInfo?.phones[0].phoneLabel || '',
       type: orgInfo?.type || '',
-      direction: orgInfo?.direction || '',
+
       description: orgInfo?.description || '',
     });
   }
