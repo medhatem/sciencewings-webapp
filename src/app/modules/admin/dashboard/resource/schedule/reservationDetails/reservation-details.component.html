@@ -1,0 +1,25 @@
+
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8">
+      <div class="text-lg font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.DETAILS' | transloco }}</div>
+    </div>
+    <hr class="w-full border-t my-2" />
+     <div class="flex flex-col p-4 b-5">
+         <div>
+            {{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.EVENTS.START' | transloco }} : <span>{{start}}</span>
+        </div>
+         <div>
+             {{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.EVENTS.END' | transloco }}: <span>{{end}}</span>
+         </div>
+         <div>
+             {{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.EVENTS.FOR' | transloco }}: <span>{{userFullName}}</span>
+         </div>
+     </div>
+     <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
+        <button mat-button mat-dialog-close>{{ 'ORGANIZATION.MEMBERS.FORM.CANCEL' | transloco }}</button>
+        <button class="px-6 ml-3" mat-flat-button [color]="'primary'" (click)="deleteEvent()">
+            {{'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.DELETE_BTN' | transloco }}
+        </button>
+      </div>
+</div>
+  

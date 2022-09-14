@@ -1,13 +1,12 @@
-import { ResourceComponent } from './resource.component';
-import { ResourceProfileFormComponent } from './resource-form/profile-form.component';
-import { ResourceResolver } from '../../resolvers/resource/resource.resolvers';
-import { Route } from '@angular/router';
-import { ResourceListComponent } from './resource-list-componenet/resource-list.component';
 import { SettingsComponent as GeneralSettingsComponent } from './resource-settings/general/settings.component';
 import { SettingsComponent as ReservationSettingsComponent } from './resource-settings/reservation/settings.component';
+import { ResourceComponent } from './resource.component';
+import { ResourceListComponent } from './resource-list-componenet/resource-list.component';
 import { ResourceProfileComponent } from './resource-profile/resource-profile.component';
+import { ResourceProfileFormComponent } from './resource-form/profile-form.component';
+import { ResourceResolver } from '../../resolvers/resource/resource.resolvers';
 import { ResourceScheduleComponent } from './schedule/schedule.component';
-import { InfrastructureListComponent } from './infrastructure/infrastructure-list/infrastructure-list.component';
+import { Route } from '@angular/router';
 export const resourceRoutes: Route[] = [
   {
     path: '',
@@ -26,7 +25,7 @@ export const resourceRoutes: Route[] = [
         component: ResourceProfileFormComponent,
       },
       {
-        path: 'schedule',
+        path: 'schedule/:id',
         component: ResourceScheduleComponent,
       },
       {
