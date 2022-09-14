@@ -522,10 +522,12 @@
           "EVENTS":{
             "START":"event start",
             "END":"event end",
-            "TITLE":"title",
+            "TITLE":"title for Reservation",
+            "TITLE_PLACEHOLDER":"Enter the reservation title",
             "DURATION":"Duration",
             "FOR":"Reserved for",
             "INVALID":"Invalid Reservation",
+            "INVALID_PAST":"Cannot make reservation in the Past",
             "INVALID_RESERVATION_DURATION_LIMIT":"The Reservation minimum duration must be 1 hour"
           }
         }

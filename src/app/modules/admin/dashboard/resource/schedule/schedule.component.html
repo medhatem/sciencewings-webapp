@@ -1,10 +1,10 @@
-<div class="w-full m-4">
+<div class="w-full h-full m-4 flex flex-col">
     <div class="flex basis-full justify-end w-full m-2">
           <button class="ml-4" mat-flat-button [color]="'primary'" (click)="createReservation()">
             <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
             <span class="ml-0.5 mr-0.5">{{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.CREATE_RESERVATION' | transloco }}</span>
           </button>
     </div>
-    <full-calendar #calendar class="fc-container m-0 h-full" deepChangeDetection="true" [options]="calendarOptions"> </full-calendar>
+    <full-calendar #calendar class="flex-1" deepChangeDetection="true" [options]="calendarOptions"> </full-calendar>
 </div>
 

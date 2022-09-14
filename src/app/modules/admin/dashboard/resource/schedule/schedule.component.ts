@@ -10,6 +10,7 @@ import { ReservationDetailsComponent } from './reservationDetails/reservation-de
 import { ReservationService } from 'app/modules/admin/resolvers/reservation/reservation.service';
 import { Resource } from 'app/models/resources/resource';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
+import moment from 'moment';
 import timeGridPlugin from '@fullcalendar/timegrid';
 
 @Component({
@@ -22,28 +23,7 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
   eventDetailsDialogRef: any;
   createEventDialogRef: any;
   resource: Resource;
-  calendarOptions: CalendarOptions = {
-    plugins: [timeGridPlugin],
-    initialView: 'timeGridWeek',
-    handleWindowResize: true,
-    customButtons: {
-      next: {
-        click: () => {
-          this.handleNextClick();
-        },
-      },
-      prev: {
-        click: () => {
-          this.handlePreviousClick();
-        },
-      },
-    },
-
-    eventClick: (info) => {
-      this.displayReservationDetails(info.event);
-    },
-    events: [],
-  };
+  calendarOptions: CalendarOptions = {};
 
   resources = [];
 
@@ -58,7 +38,27 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.calendarOptions.events = [];
+    this.calendarOptions = {
+      plugins: [timeGridPlugin],
+      initialView: 'timeGridWeek',
+      handleWindowResize: true,
+      customButtons: {
+        next: {
+          click: () => {
+            this.handleNextClick();
+          },
+        },
+        prev: {
+          click: () => {
+            this.handlePreviousClick();
+          },
+        },
+      },
+
+      eventClick: (info) => {
+        this.displayReservationDetails(info.event);
+      },
+    };
     await this.getResource();
   }
 
@@ -98,14 +98,16 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
           ),
         ),
     );
-    this.calendarOptions.events = reservations.map((r) => {
-      return {
-        start: new Date(r.start).toISOString(),
-        end: new Date(r.end).toISOString(),
-        id: r.id,
-        title: r.title,
-      };
-    });
+    this.calendarComponent.getApi().removeAllEvents();
+    this.calendarOptions.events =
+      reservations.map((r) => {
+        return {
+          start: moment(r.start).tz('utc').toISOString(),
+          end: moment(r.end).tz('utc').toISOString(),
+          id: r.id,
+          title: r.title,
+        };
+      }) || [];
   }
 
   /**
@@ -128,12 +130,11 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
     this.createEventDialogRef = this._matDialog.open(ReservationCreationComponent, { data: { resource: this.resource } });
     this.createEventDialogRef.afterClosed().subscribe(async (result) => {
       const event = {
-        title: result.title,
-        start: new Date(result.start).toISOString(),
-        end: new Date(result.end).toISOString(),
+        id: result.body.id,
+        title: result.body.title,
+        start: moment(result.body.start).tz('utc').toISOString(),
+        end: moment(result.body.end).tz('utc').toISOString(),
       };
-
-      console.log('received ---- ', event);
       this.calendarComponent.getApi().addEvent(event);
       // const { body } = await lastValueFrom(this._resourceService.getOrgResource());
       // this.resources = body.data;

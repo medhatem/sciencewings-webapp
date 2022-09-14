@@ -10,6 +10,7 @@ import { lastValueFrom, map } from 'rxjs';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ReservationService } from 'app/modules/admin/resolvers/reservation/reservation.service';
 import { Reservation } from 'app/models/reservation/Reservation';
+import moment from 'moment';
 @Component({
   selector: 'reservation-creation',
   templateUrl: './reservation-creation.component.html',
@@ -52,6 +53,7 @@ export class ReservationCreationComponent implements OnInit {
     this.formGroup = this._formBuilder.group({
       dateStart: [null, [Validators.required]],
       dateEnd: [null, [Validators.required]],
+      title: ['', [Validators.required]],
     });
     this.formGroup.valueChanges.subscribe((value) => {
       const { dateStart, dateEnd } = value;
@@ -75,8 +77,8 @@ export class ReservationCreationComponent implements OnInit {
       this._toastrService.showError(this.errorMessage);
       return;
     }
-    const { dateStart, dateEnd } = this.formGroup.value;
-    const reservation = new Reservation({ title: 'created ', end: dateEnd, start: dateStart });
+    const { dateStart, dateEnd, title } = this.formGroup.value;
+    const reservation = new Reservation({ title, end: dateEnd, start: dateStart });
     const event = await lastValueFrom(this._reservationService.create(this.resource.id, reservation).pipe(map((res) => res)));
     this.matDialogRef.close(event);
   }
@@ -89,13 +91,19 @@ export class ReservationCreationComponent implements OnInit {
    *
    */
   calculateDuration(start: Date, end: Date) {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
+    const startDate = moment(start).tz('utc').toDate();
+    const endDate = moment(end).tz('utc').toDate();
 
     if (endDate <= start) {
       this.errorMessage = constants.INVALID_RESERVATION;
       this._toastrService.showError(this.errorMessage);
 
+      return;
+    }
+
+    if (start < new Date()) {
+      this.errorMessage = constants.INVALID_RESERVATION_PAST;
+      this._toastrService.showError(this.errorMessage);
       return;
     }
     let diffInMilliSeconds = Math.abs(startDate.valueOf() - endDate.valueOf()) / 1000;

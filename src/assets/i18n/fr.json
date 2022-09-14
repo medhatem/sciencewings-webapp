@@ -520,10 +520,12 @@
           "EVENTS":{
             "START":"Debut de l'evenemnt",
             "END":"fin de l'evenement",
-            "TITLE":"Titre",
-            "DURATION":"Duree",
-            "FOR":"Reserver Pour",
+            "TITLE":"Titre de la reservation",
+            "TITLE_PLACEHOLDER":"Entrer un titre pour la reservation",
+            "DURATION":"durée",
+            "FOR":"réservé pour",
             "INVALID":"Reservation Invalide",
+            "INVALID_PAST":"ne peut pas faire de réservation dans le passé",
             "INVALID_RESERVATION_DURATION_LIMIT":"La Reservation doit Faire 1 heure au minimum"
           }
         }
