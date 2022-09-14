@@ -11,7 +11,7 @@
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.LABEL_NAME' | transloco }}</mat-label>
           <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:user'" matPrefix></mat-icon>
-          <input [formControlName]="'title'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.LABEL_NAME' | transloco }}" matInput required />
+          <input [formControlName]="'title'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.LABEL_NAME' | transloco }}" matInput />
         </mat-form-field>
       </div>
       <!-- Key -->
@@ -19,38 +19,17 @@
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.KEY' | transloco }}</mat-label>
           <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:key'" matPrefix></mat-icon>
-          <input [formControlName]="'key'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.KEY' | transloco }}" matInput required />
+          <input [formControlName]="'key'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.KEY' | transloco }}" matInput />
         </mat-form-field>
       </div>
-      <!-- Responsable -->
-      <!-- <div class="sm:col-span-4">
-        <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-1">
-          <mat-label>Responsable</mat-label>
-          <mat-select [formControlName]="'responsable'" placeholder="Responsable">
-            <mat-option *ngFor="let member of project.members; trackBy: trackByFn" [value]="project.members[0]">{{ member.name }} </mat-option>
-          </mat-select>
-          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
-        </mat-form-field>
-      </div> -->
-      <!-- <div class="sm:col-span-4">
-        <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label class="w-100">responsable</mat-label>
-          <mat-select [formControlName]="'responsable'" placeholder="responsable">
-            <mat-option *ngFor="let member of project.members" [value]="member.id">
-              {{ member.name }}
-            </mat-option>
-          </mat-select>
-          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
-        </mat-form-field>
-      </div>
- -->
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}</mat-label>
           <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:location-marker'" matPrefix></mat-icon>
-          <mat-select placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}" [formControlName]="'status'">
-            <mat-option [value]="'1'">responsable 1</mat-option>
-            <mat-option [value]="'2'">responsable 2</mat-option>
+          <mat-select placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}" [formControlName]="'newManager'">
+            <mat-option *ngFor="let manager of managers; trackBy: trackByFn" [value]="manager.user">
+              {{ manager.name }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -101,8 +80,7 @@
             [formControlName]="'description'"
             placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.DESCRIPTION_LABEL' | transloco }}"
             cdkTextareaAutosize
-            [cdkAutosizeMinRows]="5"
-            required></textarea>
+            [cdkAutosizeMinRows]="5"></textarea>
         </mat-form-field>
         <div class="mt-1 text-md text-hint"></div>
       </div>

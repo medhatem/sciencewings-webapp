@@ -2,10 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { ProjectDropDone, UpdateProject } from 'app/models/projects/project';
+import { ProjectDropDone, ProjectListMember, UpdateProject } from 'app/models/projects/project';
 import { constants } from 'app/shared/constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
+import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
+import { OrganizationMembers } from 'app/models/members/member';
+import { ProjectMemberDto } from 'generated/models';
 
 @Component({
   selector: 'app-project-general-settings',
@@ -13,6 +16,8 @@ import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
   styleUrls: ['./project-general-settings.component.scss'],
 })
 export class ProjectGeneralSettingsComponent implements OnInit {
+  managers: any[] = [];
+  projectList: ProjectListMember[] = [];
   project;
   id;
   generalSettingstForm: FormGroup;
@@ -24,6 +29,7 @@ export class ProjectGeneralSettingsComponent implements OnInit {
     private _toastrService: ToastrService,
     private _router: Router,
     private route: ActivatedRoute,
+    private _memberService: MemberService,
   ) {}
 
   ngOnInit(): void {
@@ -36,14 +42,19 @@ export class ProjectGeneralSettingsComponent implements OnInit {
       this.project = new ProjectDropDone(body);
     });
 
+    this._projectService.getOrgProjectMembers().subscribe(({ body }) => {
+      this.managers = body.data.map((m) => new ProjectListMember(m).member);
+    });
+    console.log('this.managers =', this.managers);
     this.generalSettingstForm = this._formBuilder.group({
-      title: ['', [Validators.required]],
+      title: [''],
       description: [''],
-      key: ['', [Validators.required]],
+      key: [''],
       responsable: [],
       dateStart: [''],
       dateEnd: [''],
       status: [''],
+      newManager: [''],
     });
   }
   async onSubmit() {
