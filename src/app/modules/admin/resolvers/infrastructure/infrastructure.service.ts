@@ -96,10 +96,6 @@ export class InfrastructureService {
   }
 
   parseInfrastructureResponsible(responsible: ResponsableObjectDto): string {
-    return `<div>${responsible?.name}</div><div>${responsible?.email}</div>`;
-  }
-
-  parseMembersToHtml(members: Member[]) {
-    return members.map(({ name, workEmail }) => `<div>${name}</div><div>${workEmail}</div>`);
+    return `<div>${responsible?.name}</div><div>${(responsible as any)?.workEmail}</div>`;
   }
 }

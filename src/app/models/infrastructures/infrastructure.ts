@@ -22,10 +22,11 @@ export class Infrastructure implements InfrastructureRo {
   resources?: number[];
   resourcesNb?: number[];
   dateStart?: Date;
-  responsibles: number;
+  responsible: number;
 
   constructor(infrastructure: any) {
-    const { id, description, key, dateEnd, dateStart, organization, members, parent, resources, resourcesNb, name } = infrastructure || {};
+    const { id, description, key, dateEnd, dateStart, organization, responsible, members, parent, resources, resourcesNb, name } =
+      infrastructure || {};
 
     Object.assign(this, {
       description,
@@ -36,6 +37,7 @@ export class Infrastructure implements InfrastructureRo {
       members,
       parent,
       resources,
+      responsible,
       resourcesNb,
       name,
     });
