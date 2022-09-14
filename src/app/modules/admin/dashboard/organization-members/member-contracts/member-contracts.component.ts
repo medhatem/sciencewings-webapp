@@ -5,7 +5,9 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { MemberContractsFormComponent } from '../member-contracts-form/member-contracts-form.component';
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
 import { ListOption } from '../../reusable-components/list/list-component.component';
-import { GetContract } from 'app/models/contract/contract';
+import { ContractRo, GetContract } from 'app/models/contract/contract';
+import { MemberUpdateContractComponent } from '../member-update-contract/member-update-contract.component';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'app-member-contracts',
@@ -66,6 +68,23 @@ export class MemberContractsComponent implements OnInit {
   }
 
   async onElementSelected(item: any) {
-    this._router.navigate(['/admin/project/organization-members']);
+    const orgID = this.getOrganizationIdFromLocalStorage();
+    const userId = this.userId;
+    const contractDto = item.contractDto;
+    this.openedDialogRef = this._matDialog
+      .open(MemberUpdateContractComponent, {
+        data: { orgID, userId, contractDto },
+      })
+      .afterClosed()
+      .subscribe(() => {
+        this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: GetContract[]) => {
+          this.contracts = contracts;
+          this._cdr.markForCheck();
+        });
+      });
+  }
+
+  private getOrganizationIdFromLocalStorage(): number {
+    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
 }

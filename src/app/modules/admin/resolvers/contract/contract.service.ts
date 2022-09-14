@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable, map, tap, lastValueFrom } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ContracBaseDto } from 'generated/models';
+import { ContracBaseDto, UpdateContractRo } from 'generated/models';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
 import { ContractRo, GetContract } from 'app/models/contract/contract';
@@ -31,6 +31,10 @@ export class ContractService {
 
   async createContract(contract: ContractRo): Promise<ContracBaseDto> {
     return lastValueFrom(this._swaggerService.contractRoutesCreateContract({ body: contract as any }));
+  }
+
+  async updateContract(id: number, body: UpdateContractRo): Promise<ContracBaseDto> {
+    return lastValueFrom(this._swaggerService.contractRoutesCreateUpdateContract({ id, body }));
   }
 
   getMemberContracts(orgId: number, userId: number): Observable<any> {

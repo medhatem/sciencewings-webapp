@@ -13,6 +13,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { organizationMemebrsRoutes } from './organization-members.routing';
 import { MemberContractsComponent } from './member-contracts/member-contracts.component';
 import { MemberContractsFormComponent } from './member-contracts-form/member-contracts-form.component';
+import { MemberUpdateContractComponent } from './member-update-contract/member-update-contract.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MemberContractsFormComponent } from './member-contracts-form/member-con
     MemberProfileFormComponent,
     MemberContractsComponent,
     MemberContractsFormComponent,
+    MemberUpdateContractComponent,
   ],
   imports: [
     RouterModule.forChild(organizationMemebrsRoutes),
