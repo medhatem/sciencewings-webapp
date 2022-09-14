@@ -181,19 +181,8 @@
   },
   "COMPLETING_FORM_REQUIRED": "Veuillez remplir tous les champs obligatoires pour continuer.",
   "EMPTY_ORGANIZATIONS": "Aucune Organisation",
-  "ERROR": {
-    "CREATE_FAILED": "La création de l'organisation a échoué",
-    "ERROR": {
-      "CREATE_FAILED": "La création de l'organisation a échoué",
-      "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
-      "WRONG_ORG_ID": "L'organization demandé est introuvable"
-    },
-    "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
-    "WRONG_ORG_ID": "L'organization demandé est introuvable"
-  },
   "FAILED_LOAD_COUNTRIES": "Les téléchargements de la liste des pays ont échoué",
   "FATAL_ERROR_OCCURED": "Une erreur fatale s'est produite",
-  "GET_MEMBERS_LOAD_FAILED": "Vous n'avez pas d'organisation",
   "ORGANIZATION": {
     "FORM": {
       "DONE": {
@@ -601,6 +590,44 @@
       "TITLE": "Projets",
       "ERROR": {
         "CREATE_FAILED": "La création de l'organisation a échoué"
+      }
+    },
+    "CONTRACTS": {
+      "CREATE_CONTRACTS": "Ajouter une nouvelle contrat",
+      "EXPORT_CONTRACTS": "Exporter",
+      "FILTER_CONTRACTS": "Filtre",
+      "FORM": {
+        "LABEL_NAME": "Nom de travaille",
+        "CONTRACT_TYPE": "Type de contract",
+        "JOB_LEVEL": "Niveau d'expérience",
+        "CHOOSE_SUPERVISOR": "choisi un superviseur",
+        "SUPERVISOR": "Superviseur",
+        "WAGE": "Salaire",
+        "CANCEL": "Annuler",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION": "À propos (description)",
+        "PROJECT_MEMBERS": "Membres du projet",
+        "JOB_NAME": "Nom du poste",
+        "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
+        "SAVE": "Sauvegarder",
+        "TITLE": "Créer un nouveau projet",
+        "LOCATION": "Localisation",
+        "MANAGERS": "Gérant(s)",
+        "PARTICIPANTS": "Participent(s)",
+        "ENTER_DATE": "Saisissez une plage de dates",
+        "DATE_HINT": "MM/JJ/AAAA – MM/JJ/AAAA",
+        "STARTDATE": "La date de debut",
+        "ENDDATE": "La date de fin",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "La création du contrat a réussi"
+      },
+      "LIST": {
+        "MESSAGE": "Il n'y a pas des contracts !"
+      },
+      "SEARCH_GROUPS": "Chercher un projet",
+      "TITLE": "Contracts",
+      "ERROR": {
+        "CREATE_FAILED": "La création de contrat a échoué"
       }
     },
 

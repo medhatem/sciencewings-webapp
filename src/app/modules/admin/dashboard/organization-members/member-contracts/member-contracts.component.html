@@ -1,0 +1,11 @@
+<div class="w-full mt-4 mb-4 ml-auto mr-auto bg-card shadow rounded-2xl">
+  <div class="flex items-center w-full p-4">
+    <div class="flex-1 text-2xl font-semibold p-1 leading-tight">{{ 'ORGANIZATION.CONTRACTS.TITLE' | transloco }}</div>
+    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+      <button class="ml-4" mat-flat-button [color]="'primary'" (click)="openInviteContractDialog()">
+        <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+        <span class="ml-2 mr-1"> {{ 'ORGANIZATION.CONTRACTS.CREATE_CONTRACTS' | transloco }} </span>
+      </button>
+    </div>
+  </div>
+</div>

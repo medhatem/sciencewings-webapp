@@ -182,19 +182,8 @@
   },
   "COMPLETING_FORM_REQUIRED": "Please complete all required fields to continue.",
   "EMPTY_ORGANIZATIONS": "No Organization",
-  "ERROR": {
-    "CREATE_FAILED": "The creation of the organization has failed",
-    "ERROR": {
-      "CREATE_FAILED": "The creation of the organization has failed",
-      "FETCH_FAILED": "Could not get the information of the organization",
-      "WRONG_ORG_ID": "Organization not found"
-    },
-    "FETCH_FAILED": "Could not get the information of the organization",
-    "WRONG_ORG_ID": "Organization not found"
-  },
   "FAILED_LOAD_COUNTRIES": "Country list downloads failed",
   "FATAL_ERROR_OCCURED": "A fatal error has occurred",
-  "GET_MEMBERS_LOAD_FAILED": "You have no organization",
   "ORGANIZATION": {
     "FORM": {
       "DONE": {
@@ -605,7 +594,44 @@
         "CREATE_FAILED": "The creation of the project has failed"
       }
     },
-
+    "CONTRACTS": {
+      "CREATE_CONTRACTS": "Add a new contract",
+      "EXPORT_CONTRACTS": "Export",
+      "FILTER_CONTRACTS": "Filter",
+      "FORM": {
+        "LABEL_NAME": "Job name",
+        "CONTRACT_TYPE": "Contract type",
+        "JOB_LEVEL": "Job level",
+        "CHOOSE_SUPERVISOR": "Choose a supervisor",
+        "SUPERVISOR": "Supervisor",
+        "WAGE": "Wage",
+        "CANCEL": "Cancel",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION": "About (description)",
+        "PROJECT_MEMBERS": "Project's Members",
+        "JOB_NAME": "Job name",
+        "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
+        "SAVE": "Save",
+        "TITLE": "Create Project",
+        "LOCATION": "Location",
+        "MANAGERS": "Manager(s)",
+        "PARTICIPANTS": "Participant(s)",
+        "ENTER_DATE": "Enter a date range",
+        "DATE_HINT": "MM/DD/YYYY – MM/DD/YYYY",
+        "STARTDATE": "Start date",
+        "ENDDATE": "End date",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "Create project succeeded"
+      },
+      "LIST": {
+        "MESSAGE": "There is no contracts"
+      },
+      "SEARCH_CONTRACTS": "Find a contract",
+      "TITLE": "Contracts",
+      "ERROR": {
+        "CREATE_FAILED": "The creation of the contract has failed"
+      }
+    },
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
     "WELCOME_BACK": "Hello"
   },

@@ -11,9 +11,19 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { TranslocoModule } from '@ngneat/transloco';
 import { organizationMemebrsRoutes } from './organization-members.routing';
+import { MemberContractsComponent } from './member-contracts/member-contracts.component';
+import { MemberContractsFormComponent } from './member-contracts-form/member-contracts-form.component';
 
 @NgModule({
-  declarations: [OrganizationMemebrsComponent, MemberListComponent, MemberFormComponent, MemberProfileComponent, MemberProfileFormComponent],
+  declarations: [
+    OrganizationMemebrsComponent,
+    MemberListComponent,
+    MemberFormComponent,
+    MemberProfileComponent,
+    MemberProfileFormComponent,
+    MemberContractsComponent,
+    MemberContractsFormComponent,
+  ],
   imports: [
     RouterModule.forChild(organizationMemebrsRoutes),
     SharedModule,
