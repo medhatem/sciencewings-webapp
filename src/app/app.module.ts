@@ -1,27 +1,28 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { ExtraOptions, PreloadAllModules, RouterModule } from '@angular/router';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+
 import { ApiModule } from '../generated/api.module';
-import { ApiService } from '../generated/services';
+import { ApiService } from '../generated/services/api.service';
 import { AppComponent } from 'app/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { CookieService } from 'ngx-cookie-service';
 import { CoreModule } from 'app/core/core.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { FuseAlertModule } from '@fuse/components/alert';
 import { FuseConfigModule } from '@fuse/services/config';
 import { FuseMockApiModule } from '@fuse/lib/mock-api';
 import { FuseModule } from '@fuse';
-import { FuseAlertModule } from '@fuse/components/alert';
 import { LayoutModule } from 'app/layout/layout.module';
 import { NewUserInfosModule } from './layout/new-user-infos/new-user-infos.module';
 import { appConfig } from 'app/core/config/app.config';
 import { appRoutes } from 'app/app.routing';
+import dayGridPlugin from '@fullcalendar/daygrid';
 import { environment } from 'environments/environment';
 import { initializeKeycloak } from './core/auth/keycloak/app.init';
 import interactionPlugin from '@fullcalendar/interaction';
 import { mockApiServices } from 'app/mock-api';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import { CookieService } from 'ngx-cookie-service';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy: PreloadAllModules,
