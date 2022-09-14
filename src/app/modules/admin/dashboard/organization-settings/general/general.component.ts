@@ -1,20 +1,22 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
-import { Subject, takeUntil } from 'rxjs';
+import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
 import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
 
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { constants } from 'app/shared/constants';
+import { map } from 'lodash';
+import { Organization } from 'app/models/organizations/organization';
 
 @Component({
   selector: 'organization-settings-general',
   templateUrl: './general.component.html',
   styleUrls: ['./general.component.scss'],
 })
-export class GeneralComponent implements OnInit {
+export class GeneralComponent implements OnInit, AfterViewInit {
   @Input() currentOrganizations: any;
   @Output() updateLocalOrganization = new EventEmitter<string>();
   @Input() countries: any;
@@ -23,6 +25,7 @@ export class GeneralComponent implements OnInit {
   phoneLabel = OrganizationLabels;
   labelsKeys = Object.keys(OrganizationLabels);
   labelsTranslation = OrganizationLabelsTranslation;
+  organization: Organization;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -34,16 +37,16 @@ export class GeneralComponent implements OnInit {
     private organizationService: AdminOrganizationsService,
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.form = this._formBuilder.group({
-      name: this.currentOrganizations?.name || '',
-      email: this.currentOrganizations?.email || '',
-      phoneCode: (this.currentOrganizations?.phoneCode && ['', Validators.email]) || 'fr',
-      phoneNumber: this.currentOrganizations?.phoneNumber || '',
-      labels: this.currentOrganizations?.labels || '',
-      type: this.currentOrganizations?.type || '',
-      direction: this.currentOrganizations?.direction || '',
-      description: this.currentOrganizations?.description || '',
+      name: '',
+      email: '',
+      phoneCode: 'fr',
+      phoneNumber: '',
+      phoneLabel: '',
+      type: '',
+      direction: '',
+      description: '',
     });
 
     // Get the country telephone codes
@@ -71,21 +74,24 @@ export class GeneralComponent implements OnInit {
     });
   }
 
+  async ngAfterViewInit(): Promise<void> {
+    const orgInfo = await this.getOrganizationInformations();
+    this.form.setValue({
+      name: orgInfo?.name || '',
+      email: orgInfo?.email || '',
+      phoneCode: orgInfo?.phones[0].phoneCode || 'fr',
+      phoneNumber: orgInfo?.phones[0].phoneNumber || '',
+      phoneLabel: orgInfo?.phones[0].phoneLabel || '',
+      type: orgInfo?.type || '',
+      direction: orgInfo?.direction || '',
+      description: orgInfo?.description || '',
+    });
+  }
+
   async onSubmit() {
     const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     const data = { ...this.form.value };
-    data.direction = this.form.value.direction.id;
-    delete data.phoneCode;
-    delete data.phoneNumber;
-    delete data.labels;
-    data.phones = [
-      {
-        id: this.currentOrganizations.id,
-        phoneCode: this.currentOrganizations?.phoneCode,
-        phoneNumber: this.currentOrganizations?.phoneNumber,
-        labels: this.currentOrganizations?.phone.labels,
-      },
-    ];
+
     const response = await this.organizationService.updateOrganization(Number(orgId), data);
     if (response.body.statusCode === 204) {
       this.updateLocalOrganization.emit(this.form.value);
@@ -101,5 +107,10 @@ export class GeneralComponent implements OnInit {
 
   trackByFn(index: number, item: any): any {
     return item.id || index;
+  }
+
+  async getOrganizationInformations() {
+    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    return (this.organization = await this.organizationService.getOrganization(Number(orgId)));
   }
 }

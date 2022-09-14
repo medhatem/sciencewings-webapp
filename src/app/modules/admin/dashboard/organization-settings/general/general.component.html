@@ -57,7 +57,7 @@
           <mat-label>{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}</mat-label>
           <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:tag'"></mat-icon>
           <mat-select [formControlName]="'labels'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}">
-            <mat-option *ngFor="let label of labelsKeys; trackBy: trackByFn" [value]="labels[label]"
+            <mat-option *ngFor="let phoneLabel of labelsKeys; trackBy: trackByFn" [value]="labels[phoneLabel]"
               >{{ labelsTranslation[label] | transloco }}
             </mat-option>
           </mat-select>
