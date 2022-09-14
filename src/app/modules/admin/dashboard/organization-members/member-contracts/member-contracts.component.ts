@@ -45,6 +45,7 @@ export class MemberContractsComponent implements OnInit {
       onElementClick: this.onElementSelected.bind(this),
     };
   }
+
   openInviteContractDialog(): void {
     const orgID = this.orgId;
     const userId = this.userId;
@@ -56,13 +57,14 @@ export class MemberContractsComponent implements OnInit {
         data: { orgID, userId },
       })
       .afterClosed()
-      .subscribe((contracts: GetContract[]) => {
+      .subscribe(() => {
         this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: GetContract[]) => {
           this.contracts = contracts;
           this._cdr.markForCheck();
         });
       });
   }
+
   async onElementSelected(item: any) {
     this._router.navigate(['/admin/project/organization-members']);
   }
