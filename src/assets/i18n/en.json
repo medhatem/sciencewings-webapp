@@ -502,6 +502,24 @@
         "CANCEL": "Cancel",
         "SUCCESS": {
           "CREATE_COMPLETED": "The resource was created succefully"
+        },
+        "RESERVATION":{
+          "CREATE_BTN":"Create",
+          "DELETE_BTN":"Delete Event",
+          "DETAILS":"Reservation Details",
+          "CREATE_RESERVATION":"create event",
+          "RESOURCE_NAME":"Resource",
+          "EVENTS":{
+            "START":"event start",
+            "END":"event end",
+            "TITLE":"title for Reservation",
+            "TITLE_PLACEHOLDER":"Enter the reservation title",
+            "DURATION":"Duration",
+            "FOR":"Reserved for",
+            "INVALID":"Invalid Reservation",
+            "INVALID_PAST":"Cannot make reservation in the Past",
+            "INVALID_RESERVATION_DURATION_LIMIT":"The Reservation minimum duration must be 1 hour"
+          }
         }
       }
     },
