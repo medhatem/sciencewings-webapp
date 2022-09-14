@@ -28,6 +28,3 @@ export class ContractRo implements CreateContractRo {
     });
   }
 }
-
-export const ContractType = ['Permanant', 'Contract base'];
-export const JobLevel = ['Internship', 'Junior', 'Midlle', 'Mid-senior', 'Senior'];
