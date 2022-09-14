@@ -37,22 +37,16 @@ export class ProjectFormComponent implements OnInit {
     public matDialogRef: MatDialogRef<ProjectFormComponent>,
     private _formBuilder: FormBuilder,
     private _projectService: ProjectService,
-    private _memberService: MemberService,
 
     private _toastrService: ToastrService,
     private _router: Router,
   ) {}
 
   ngOnInit() {
-    this.getMembers();
     const projectFormObj = {
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      managers: [],
-      participants: [],
-      dateStart: [this.deadline.dateStart, [Validators.required]],
-      dateEnd: [this.deadline.dateEnd, [Validators.required]],
-      active: [false, [Validators.required]],
+      key: ['', [Validators.required]],
     };
 
     this.projectForm = this._formBuilder.group(projectFormObj);
@@ -84,16 +78,6 @@ export class ProjectFormComponent implements OnInit {
    */
   trackByFn(index: number, item: any): any {
     return item.id || index;
-  }
-
-  private getMembers() {
-    const idOrg = this.getOrganizationIdFromLocalStorage();
-    return this._memberService
-      .getMembersByOrgId(idOrg)
-      .then((resolve) => (this.organizationMembers = resolve))
-      .catch(() => {
-        this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');
-      });
   }
 
   private getProjectFromFormBuilder(): Project {
