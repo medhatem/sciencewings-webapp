@@ -64,6 +64,7 @@ export class InfrastructureService {
   getAndParseOrganizationInfrastructures(): Observable<any[]> {
     return this.getOrgInfrastructures().pipe(
       map((infrastructures) => infrastructures.body.data.map((infrastructure) => new InfrastructureListItem(infrastructure))),
+
       map((infrastructures: InfrastructureListItem[]) => {
         return infrastructures.map(({ name, key, resources, responsible, resourcesNb, dateStart }) => ({
           name: `${name}`,
