@@ -1,10 +1,9 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { ContractRo, GetContract, UpdateContract } from 'app/models/contract/contract';
+import { UpdateContract } from 'app/models/contract/contract';
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
-import { constants } from 'app/shared/constants';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { OrganizationMembers } from 'app/models/members/member';
@@ -21,6 +20,7 @@ export class MemberUpdateContractComponent implements OnInit {
   contractForm: FormGroup;
   contracts: any[] = [];
   supervisors: any;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { orgId: number; userId: number; contractDto: any },
     private _route: ActivatedRoute,
@@ -48,6 +48,7 @@ export class MemberUpdateContractComponent implements OnInit {
     };
     this.contractForm = this._formBuilder.group(contractFormObj);
   }
+
   async onSubmit() {
     const contract = this.getUpdatedContractFromFormBuilder();
     try {
@@ -58,6 +59,17 @@ export class MemberUpdateContractComponent implements OnInit {
       this._toastrService.showError('update contract failed');
     }
   }
+
+  /**
+   * Track by function for ngFor loops
+   *
+   * @param index
+   * @param item
+   */
+  trackByFn(index: number, item: any): any {
+    return item.id || index;
+  }
+
   private getUpdatedContractFromFormBuilder(): UpdateContract {
     const contractRo = new UpdateContract({
       organization: Number(this.data.orgId),
@@ -74,14 +86,5 @@ export class MemberUpdateContractComponent implements OnInit {
       delete contractRo.dateEnd;
     }
     return contractRo;
-  }
-  /**
-   * Track by function for ngFor loops
-   *
-   * @param index
-   * @param item
-   */
-  trackByFn(index: number, item: any): any {
-    return item.id || index;
   }
 }
