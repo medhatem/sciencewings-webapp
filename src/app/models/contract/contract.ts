@@ -28,39 +28,3 @@ export class ContractRo implements CreateContractRo {
     });
   }
 }
-
-export const ContractType = ['Permanant', 'Contract base'];
-export const JobLevel = ['Internship', 'Junior', 'Midlle', 'Mid-senior', 'Senior'];
-
-export class GetContract implements ContracBaseBodyDto {
-  contractType: 'Permanant' | 'Contract base';
-  dateEnd?: string;
-  dateStart?: string;
-  description?: string;
-  id: number;
-  job?: JobBaseBodyGetDto;
-  jobLevel: 'Internship' | 'Junior' | 'Midlle' | 'Mid-senior' | 'Senior';
-  member?: MemberDto;
-  organization?: number;
-  statusCode: number;
-  supervisor?: MemberDto;
-  wage?: number;
-
-  constructor(contract: any) {
-    const { contractType, dateEnd, dateStart, description, jobLevel, name, organization, job, supervisor, user, wage, id } = contract || {};
-    Object.assign(this, {
-      contractType,
-      dateEnd,
-      dateStart,
-      description,
-      jobLevel,
-      name,
-      organization,
-      job,
-      supervisor,
-      user,
-      wage,
-      id,
-    });
-  }
-}
