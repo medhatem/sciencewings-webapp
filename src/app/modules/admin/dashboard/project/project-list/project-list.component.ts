@@ -8,7 +8,7 @@ import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { ListOption } from '../../reusable-components/list/list-component.component';
 import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 import { ProjectFormComponent } from '../project-form/project-form.component';
-import { Project } from 'app/models/projects/project';
+import { Project, ProjectMember } from 'app/models/projects/project';
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -65,10 +65,12 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       data: { orgID },
     });
     this.openedDialogRef.afterClosed().subscribe((result) => {
-      lastValueFrom(this._projectService.getAndParseOrganizationProject());
+      lastValueFrom(this._projectService.getAndParseOrganizationProjects());
     });
   }
   async onElementSelected(project: Project) {
+    localStorage.setItem(constants.CURRENT_PROJECT_ID, `${project.id}`);
+
     this._router.navigate(['/project/project-settings', { id: project.id }]);
   }
 }

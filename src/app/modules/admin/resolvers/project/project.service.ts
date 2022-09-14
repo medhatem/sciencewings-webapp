@@ -2,11 +2,11 @@ import { BehaviorSubject, Observable, map, take, tap, lastValueFrom } from 'rxjs
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateProjectDto } from 'generated/models';
+import { CreateProjectDto, MemberDto, ResponsableObjectDto, UpdateProjectDto, UpdateProjectRo } from 'generated/models';
 import { Member } from 'app/models/members/member';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
-import { Project, ProjectListItem } from 'app/models/projects/project';
+import { Project, ProjectListItem, ProjectListMember } from 'app/models/projects/project';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,7 @@ export class ProjectService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _projects: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _projectParticipent: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private _swaggerService: ApiService) {}
 
@@ -29,9 +30,20 @@ export class ProjectService {
   get projects$(): Observable<any> {
     return this._projects.asObservable();
   }
+  get projectParticipent$(): Observable<any> {
+    return this._projectParticipent.asObservable();
+  }
 
   async createProject(project: Project): Promise<CreateProjectDto> {
     return lastValueFrom(this._swaggerService.projectRoutesCreateProject({ body: project as any }));
+  }
+  async updateProject(project: UpdateProjectRo, id: number): Promise<UpdateProjectDto> {
+    return lastValueFrom(
+      this._swaggerService.projectRoutesUpdateProject({
+        body: project as any,
+        id,
+      }),
+    );
   }
 
   getProjectsAll(
@@ -64,20 +76,58 @@ export class ProjectService {
     return this._swaggerService.projectRoutesGetOrganizationProjects({ id });
   }
 
-  getAndParseOrganizationProject(): Observable<any[]> {
-    return this.getOrgProjects().pipe(
+  getOrgProjectsList(): Observable<any> {
+    const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    return this._swaggerService.projectRoutesGetAllOrganizationProjectsList({ id });
+  }
+
+  getAndParseOrganizationProjects(): Observable<any[]> {
+    return this.getOrgProjectsList().pipe(
       map((projects) => projects.body.data.map((project) => new ProjectListItem(project))),
       map((projects: ProjectListItem[]) =>
-        projects.map(({ members, creatingDate, responsable, title }) => ({
+        projects.map(({ creatingDate, members, responsable, title, id }) => ({
           title: `${title}`,
-          managers: responsable,
-          participents: members,
-          dateStart: moment(creatingDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
+          managers: this.parseProjectResponsible(responsable),
+          participents: `${members}`,
+          creatingDate: moment(creatingDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
+          id,
         })),
       ),
       tap((response) => {
         this._projects.next(response);
       }),
     );
+  }
+  parseProjectResponsible(responsable: ResponsableObjectDto): string {
+    return `<div>${responsable.name}</div><div>${responsable.email}</div>`;
+  }
+  getOrgProjectById(id: number): Observable<any> {
+    return this._swaggerService.projectRoutesGetOrganizationProjectById({ id });
+  }
+
+  getOrgProjectMembers(projectId?: number): Observable<any> {
+    const id = projectId || Number(localStorage.getItem(constants.CURRENT_PROJECT_ID));
+    return this._swaggerService.projectRoutesGetAllProjectParticipants({ id });
+  }
+  getAndParseProjectParticipants(projectId?: number): Observable<any[]> {
+    const id = projectId || Number(localStorage.getItem('1'));
+    return this.getOrgProjectMembers(id).pipe(
+      map((participants) => participants.body.data.map((participant) => new ProjectListMember(participant))),
+      map((participants: ProjectListMember[]) =>
+        participants.map(({ member, role, status, createdAt }) => ({
+          member: this.parseProjectMembers(member),
+          role: `${role}`,
+          status: `${status}`,
+          createdAt: `${createdAt}`,
+        })),
+      ),
+      tap((response) => {
+        console.log('response= ', response);
+        this._projectParticipent.next(response);
+      }),
+    );
+  }
+  parseProjectMembers(member: MemberDto): string {
+    return `<div>${member.name}</div><div>${member.workEmail}</div>`;
   }
 }

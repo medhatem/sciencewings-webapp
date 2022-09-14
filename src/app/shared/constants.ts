@@ -46,6 +46,7 @@ export const constants = {
   CURRENT_USER_ID: 'pgid',
   CURRENT_ORGANIZATION_ID: 'orgid',
   CURRENT_MODULE: 'module',
+  CURRENT_PROJECT_ID: 'projectId',
 
   /**
    * ****************** ROUTING *******************
