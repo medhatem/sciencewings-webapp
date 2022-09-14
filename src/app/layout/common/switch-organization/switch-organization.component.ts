@@ -39,7 +39,8 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.triggerLoopCheckForUserAndAvailableOrganizations();
+    this.subscribeToUserOrganizations();
+    this.loopCheckForUserId();
   }
 
   /**
@@ -63,16 +64,18 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * loops on the get current user id, until it is available. then subscibes
+   * loops on the get current user id from LocalStorage. then subscibes
    * to userOrganizations once the user is selected and available is localStorage.
    * and the user has organizations.
    */
-  private triggerLoopCheckForUserAndAvailableOrganizations() {
+  private loopCheckForUserId() {
     interval(1000)
       .pipe(
         map(async () => {
-          const userHasOrganizations = await this.subscribeToUserOrganizations();
-          if (userHasOrganizations) {
+          const userId = this.checkIfUserExists();
+          if (userId) {
+            this.initUserOrganizations(userId);
+            this.subscribeToUserOrganizations();
             this._userSelected.next(true);
             this._userSelected.complete();
           }
@@ -86,29 +89,10 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Subscribes to userOrganizations subject, for the goal to update switch orgs
-   * everytime the _adminOrganizationsService.getAllUserOrganizations is called in entire application
-   *
-   * @returns
+   * Subscribe to getAllUserOrganizations() from AdminOrganizationService.
+   * each time the getAllUserOrganizations is called, this.organizations are updated.
    */
-  private async subscribeToUserOrganizations(): Promise<boolean> {
-    const userId = Number(localStorage.getItem(constants.CURRENT_USER_ID));
-    if (!userId) {
-      this.isNoOrganization = true;
-      return false;
-    }
-
-    this.availableOrganizations = await lastValueFrom(this._adminOrganizationsService.getAllUserOrganizations(userId));
-    if (this.availableOrganizations?.length) {
-      const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-      const organizationExist = this.availableOrganizations.find(({ id }) => id === orgId);
-      if (organizationExist) {
-        this.setActiveOrganization(organizationExist);
-      }
-      this.isNoOrganization = false;
-      this._changeDetectorRef.markForCheck();
-    }
-
+  private subscribeToUserOrganizations() {
     this._adminOrganizationsService.userOrganiztions.pipe(takeUntil(this._unsubscribeAll)).subscribe({
       next: (organizations) => {
         this.availableOrganizations = organizations;
@@ -126,6 +110,35 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
         this._changeDetectorRef.markForCheck();
       },
     });
-    return true;
+  }
+
+  /**
+   * Subscribes to userOrganizations subject, for the goal to update switch orgs
+   * everytime the _adminOrganizationsService.getAllUserOrganizations is called in entire application
+   */
+  private async initUserOrganizations(userId: number) {
+    this.availableOrganizations = await lastValueFrom(this._adminOrganizationsService.getAllUserOrganizations(userId));
+    if (this.availableOrganizations?.length) {
+      const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+      const organizationExist = this.availableOrganizations.find(({ id }) => id === orgId);
+      if (organizationExist) {
+        this.setActiveOrganization(organizationExist);
+      }
+      this.isNoOrganization = false;
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+
+  /**
+   * Checks if user id exists, the returns it.
+   * @returns number
+   */
+  private checkIfUserExists(): number {
+    const userId = Number(localStorage.getItem(constants.CURRENT_USER_ID));
+    if (!userId) {
+      this.isNoOrganization = true;
+      return userId;
+    }
+    return 0; // false
   }
 }
