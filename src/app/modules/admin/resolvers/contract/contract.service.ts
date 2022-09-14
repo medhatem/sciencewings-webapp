@@ -1,12 +1,10 @@
-import { BehaviorSubject, Observable, map, take, tap, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable, map, tap, lastValueFrom } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ContracBaseDto, CreateProjectDto, UpdateContractRo } from 'generated/models';
-import { Member } from 'app/models/members/member';
+import { ContracBaseDto } from 'generated/models';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
-import { Project, ProjectListItem } from 'app/models/projects/project';
 import { ContractRo, GetContract } from 'app/models/contract/contract';
 
 @Injectable({
