@@ -599,7 +599,12 @@
       "SEARCH_PROJECTS": "Find a project",
       "TITLE": "Projects",
       "ERROR": {
-        "CREATE_FAILED": "The creation of the project has failed"
+        "CREATE_FAILED": "The creation of the project has failed",
+        "UPDATE_FAILED": "The update of the project has failed"
+      },
+      "SUCCESS": {
+        "CREATE_COMPLETED": "project was created successfuly ",
+        "UPDATE_COMPLETED": "project was created successfuly "
       }
     },
     "CONTRACTS": {

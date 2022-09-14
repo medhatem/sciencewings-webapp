@@ -18,7 +18,7 @@ import { ProjectMemberDto } from 'generated/models';
 export class ProjectGeneralSettingsComponent implements OnInit {
   managers: any[] = [];
   projectList: ProjectListMember[] = [];
-  project;
+  project: ProjectDropDone;
   id;
   generalSettingstForm: FormGroup;
   @Input() deadline: any = {};
@@ -34,27 +34,23 @@ export class ProjectGeneralSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    this._projectService.getOrgProjectById(this.id).subscribe(({ body }) => {
-      if (body.statusCode !== 200) {
-        this._toastrService.showError('Something went wrong!');
-        return;
-      }
-      this.project = new ProjectDropDone(body);
+    console.log('this.id', this.id);
+    this._projectService.getOrgProjectById(this.id).subscribe((c) => {
+      console.log('body =========== ', c);
+      this.project = new ProjectDropDone(c.body);
+      console.log('this.project==', this.project);
     });
 
     this._projectService.getOrgProjectMembers().subscribe(({ body }) => {
       this.managers = body.data.map((m) => new ProjectListMember(m).member);
     });
-    console.log('this.managers =', this.managers);
     this.generalSettingstForm = this._formBuilder.group({
-      title: [''],
-      description: [''],
-      key: [''],
-      responsable: [],
-      dateStart: [''],
-      dateEnd: [''],
-      status: [''],
-      newManager: [''],
+      title: [this?.project?.title || ''],
+      description: [this?.project?.description || ''],
+      key: [this?.project?.key || ''],
+      dateStart: [this?.project?.dateStart || ''],
+      dateEnd: [this?.project?.dateEnd || ''],
+      newManager: [],
     });
   }
   async onSubmit() {
@@ -66,10 +62,10 @@ export class ProjectGeneralSettingsComponent implements OnInit {
     try {
       await this._projectService.updateProject(project, this.id);
       await lastValueFrom(this._projectService.getAndParseOrganizationProjects());
-      this._toastrService.showSuccess(constants.CREATE_ORGANIZATION_COMPLETED);
+      this._toastrService.showSuccess(constants.UPDATE_PROJECT_COMPLETED);
       this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.PROJECT]);
     } catch (error) {
-      this._toastrService.showError(constants.CREATE_ORGANIZATION_FAILED);
+      this._toastrService.showError(constants.UPDATE_PROJECT_FAILED);
     }
   }
 
@@ -86,8 +82,12 @@ export class ProjectGeneralSettingsComponent implements OnInit {
 
   private getProjectFromFormBuilder(): UpdateProject {
     return new UpdateProject({
-      ...this.project,
-      ...this.generalSettingstForm.value,
+      title: this.generalSettingstForm.value?.title || this.project.title,
+      description: this.generalSettingstForm.value?.description || this.project.description,
+      key: this.generalSettingstForm.value?.key || this.project.key,
+      dateStart: this.generalSettingstForm.value?.dateStart || this.project.dateStart,
+      dateEnd: this.generalSettingstForm.value?.dateEnd || this.project.dateEnd,
+      newManager: this.generalSettingstForm.value?.newManager,
     });
   }
 }

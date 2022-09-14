@@ -57,19 +57,6 @@
         <mat-datepicker-toggle matPrefix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
-      <!-- Status -->
-      <div class="sm:col-span-4">
-        <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.STATUS' | transloco }}</mat-label>
-          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:location-marker'" matPrefix></mat-icon>
-          <mat-select [formControlName]="'status'" placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.STATUS' | transloco }}">
-            <mat-option [value]="'to-do'">to do</mat-option>
-            <mat-option [value]="'in-progress'">in progress</mat-option>
-            <mat-option [value]="'review'">review</mat-option>
-            <mat-option [value]="'done'">done</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
       <!-- Description -->
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">

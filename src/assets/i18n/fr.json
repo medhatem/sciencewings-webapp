@@ -597,7 +597,12 @@
       "SEARCH_GROUPS": "Chercher un projet",
       "TITLE": "Projets",
       "ERROR": {
-        "CREATE_FAILED": "La création de l'organisation a échoué"
+        "CREATE_FAILED": "La création de projet a échoué",
+        "UPDATE_FAILED": "La modification de projet a échoué"
+      },
+      "SUCCESS": {
+        "CREATE_COMPLETED": "La projet a été créer avec succées ",
+        "UPDATE_COMPLETED": "La projet a été créer avec succées "
       }
     },
     "CONTRACTS": {

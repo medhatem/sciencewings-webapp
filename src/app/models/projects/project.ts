@@ -1,5 +1,6 @@
 import {
   CreateOrganizationRo,
+  GetProjectDto,
   MemberDto,
   OrganizationInformationDto,
   ProjectDto,
@@ -136,31 +137,22 @@ export class participantListItem {
   }
 }
 export class ProjectDropDone implements ProjectDto {
-  id?: number;
-
-  status?: 'To-do' | 'In-progress' | 'Review' | 'Done';
-
+  active?: boolean;
   dateEnd?: string;
-
   dateStart?: string;
-
-  description: string;
-
-  key: string;
-
-  members?: MemberDto[];
-
-  organization: OrganizationInformationDto;
-
-  title: string;
-
+  description?: string;
+  id?: number;
+  key?: string;
+  members?: Array<MemberDto>;
+  organization?: OrganizationInformationDto;
   statusCode: number;
+  title?: string;
 
   constructor(project: any) {
-    const { id, status, dateEnd, dateStart, description, key, members, organization, title } = project || {};
+    const { id, dateEnd, active, dateStart, description, key, members, organization, title } = project || {};
 
     Object.assign(this, {
-      status,
+      active,
 
       dateEnd,
 
