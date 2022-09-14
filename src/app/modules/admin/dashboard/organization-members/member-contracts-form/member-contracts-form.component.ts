@@ -2,13 +2,13 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { ContractRo, ContractType, JobLevel } from 'app/models/contract/contract';
+import { ContractRo } from 'app/models/contract/contract';
+import { contractType, jobLevel } from 'app/models/contract/contract.constants';
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
 import { constants } from 'app/shared/constants';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { OrganizationMembers } from 'app/models/members/member';
-import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
 
 @Component({
   selector: 'app-member-contracts-form',
@@ -16,8 +16,8 @@ import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
   styleUrls: ['./member-contracts-form.component.scss'],
 })
 export class MemberContractsFormComponent implements OnInit {
-  contractTypes = ContractType;
-  jobLevels = JobLevel;
+  contractTypes = contractType;
+  jobLevels = jobLevel;
   contractForm: FormGroup;
   supervisors: any;
   constructor(
@@ -47,6 +47,7 @@ export class MemberContractsFormComponent implements OnInit {
 
     this.contractForm = this._formBuilder.group(contractFormObj);
   }
+
   async onSubmit() {
     const contract = this.getContractFromFormBuilder();
     try {
@@ -57,6 +58,17 @@ export class MemberContractsFormComponent implements OnInit {
       this._toastrService.showError('create contract failed');
     }
   }
+
+  /**
+   * Track by function for ngFor loops
+   *
+   * @param index
+   * @param item
+   */
+  trackByFn(index: number, item: any): any {
+    return item.id || index;
+  }
+
   private getContractFromFormBuilder(): ContractRo {
     const contract = new ContractRo({
       name: String(this.contractForm.value?.name) || null,
@@ -73,14 +85,5 @@ export class MemberContractsFormComponent implements OnInit {
       delete contract.dateEnd;
     }
     return contract;
-  }
-  /**
-   * Track by function for ngFor loops
-   *
-   * @param index
-   * @param item
-   */
-  trackByFn(index: number, item: any): any {
-    return item.id || index;
   }
 }

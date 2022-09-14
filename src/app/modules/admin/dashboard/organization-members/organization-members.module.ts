@@ -16,7 +16,16 @@ import { MemberContractsFormComponent } from './member-contracts-form/member-con
 import { MemberUpdateContractComponent } from './member-update-contract/member-update-contract.component';
 
 @NgModule({
-  declarations: [OrganizationMemebrsComponent, MemberListComponent, MemberFormComponent, MemberProfileComponent, MemberProfileFormComponent, MemberContractsComponent, MemberContractsFormComponent, MemberUpdateContractComponent],
+  declarations: [
+    OrganizationMemebrsComponent,
+    MemberListComponent,
+    MemberFormComponent,
+    MemberProfileComponent,
+    MemberProfileFormComponent,
+    MemberContractsComponent,
+    MemberContractsFormComponent,
+    MemberUpdateContractComponent,
+  ],
   imports: [
     RouterModule.forChild(organizationMemebrsRoutes),
     SharedModule,
