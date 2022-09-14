@@ -46,9 +46,7 @@ export class AdminOrganizationsService {
   async getOrganization(id: number): Promise<Organization> {
     return lastValueFrom(
       this._swaggerService.organizationRoutesGetById({ id: Number(id) }).pipe(
-        map(({ body }) => {
-          return new Organization((body as any).data[0]);
-        }),
+        map(({ body }) => new Organization((body as any).data[0])),
       ),
     );
   }

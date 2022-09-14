@@ -64,13 +64,11 @@ export class InfrastructureService {
   getAndParseOrganizationInfrastructures(): Observable<any[]> {
     return this.getOrgInfrastructures().pipe(
       map((infrastructures) => infrastructures.body.data.map((infrastructure) => new InfrastructureListItem(infrastructure))),
-      map((infrastructures: InfrastructureListItem[]) => {
-        return infrastructures.map(({ name, key, dateStart }) => ({
+      map((infrastructures: InfrastructureListItem[]) => infrastructures.map(({ name, key, dateStart }) => ({
           name: `${name}`,
           key,
           dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-        }));
-      }),
+        }))),
       tap((response) => {
         this._infrastructures.next(response);
       }),
