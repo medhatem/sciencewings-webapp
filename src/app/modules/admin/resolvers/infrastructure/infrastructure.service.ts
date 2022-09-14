@@ -56,11 +56,6 @@ export class InfrastructureService {
     return lastValueFrom(this.swaggerAPI.infrastructureRoutesCreateInfrastructure({ body: infrastructure as any }));
   }
 
-  // getOrgInfrastructures(): Observable<any> {
-  //   const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-  //   return this.swaggerAPI.infrastructureRoutesGetAllOrganizationInfrastructures({ orgId });
-  // }
-
   getOrgInfrastructures(): Observable<any> {
     const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId });
@@ -70,7 +65,6 @@ export class InfrastructureService {
     return this.getOrgInfrastructures().pipe(
       map((infrastructures) => infrastructures.body.data.map((infrastructure) => new InfrastructureListItem(infrastructure))),
       map((infrastructures: InfrastructureListItem[]) => {
-        console.log(infrastructures);
         return infrastructures.map(({ name, key, resources, responsible, resourcesNb, dateStart }) => ({
           name: `${name}`,
           key,
