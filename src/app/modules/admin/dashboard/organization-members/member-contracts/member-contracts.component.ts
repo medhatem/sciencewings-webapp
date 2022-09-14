@@ -1,16 +1,13 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { lastValueFrom, map } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { Member } from 'app/models/Member';
-import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { constants } from 'app/shared/constants';
 import { MemberContractsFormComponent } from '../member-contracts-form/member-contracts-form.component';
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
 import { ListOption } from '../../reusable-components/list/list-component.component';
 import { ContractRo, GetContract } from 'app/models/contract/contract';
 import { MemberUpdateContractComponent } from '../member-update-contract/member-update-contract.component';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'app-member-contracts',
@@ -50,6 +47,7 @@ export class MemberContractsComponent implements OnInit {
       onElementClick: this.onElementSelected.bind(this),
     };
   }
+
   openInviteContractDialog(): void {
     const orgID = this.orgId;
     const userId = this.userId;
@@ -61,16 +59,14 @@ export class MemberContractsComponent implements OnInit {
         data: { orgID, userId },
       })
       .afterClosed()
-      .subscribe((contracts: GetContract[]) => {
+      .subscribe(() => {
         this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: GetContract[]) => {
           this.contracts = contracts;
           this._cdr.markForCheck();
         });
       });
   }
-  private getOrganizationIdFromLocalStorage(): number {
-    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-  }
+
   async onElementSelected(item: any) {
     const orgID = this.getOrganizationIdFromLocalStorage();
     const userId = this.userId;
@@ -80,11 +76,15 @@ export class MemberContractsComponent implements OnInit {
         data: { orgID, userId, contractDto },
       })
       .afterClosed()
-      .subscribe((contracts: GetContract[]) => {
+      .subscribe(() => {
         this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: GetContract[]) => {
           this.contracts = contracts;
           this._cdr.markForCheck();
         });
       });
+  }
+
+  private getOrganizationIdFromLocalStorage(): number {
+    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
 }
