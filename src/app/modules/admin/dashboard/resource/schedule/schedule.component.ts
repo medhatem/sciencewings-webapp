@@ -99,17 +99,14 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
       this._reservationService
         .getReservations(Number(this.route.snapshot.paramMap.get('id')), new Date(activeStart).toISOString(), new Date(activeEnd).toISOString())
         .pipe(
-          map((reservations) =>
-            reservations.body?.data.map((res) => {
-              return new Reservation((res as any) || {});
-            }),
+          map((r) =>
+            r.body?.data.map((res) => new Reservation((res as any) || {})),
           ),
         ),
     );
     this.calendarComponent.getApi().removeAllEvents();
     this.calendarOptions.events =
-      reservations.map((r) => {
-        return {
+      reservations.map((r) => ({
           start: moment(r.start).tz('utc').toISOString(),
           end: moment(r.end).tz('utc').toISOString(),
           id: r.id,
@@ -117,8 +114,7 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
           data: {
             userId: r.userId,
           },
-        };
-      }) || [];
+        })) || [];
   }
 
   /**
