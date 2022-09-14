@@ -34,6 +34,10 @@ export class UserService {
     return this._apiService.userRoutesGetById({ id });
   }
 
+  delete(id: number) {
+    return this._apiService.reservationRoutesRemove({ id });
+  }
+
   /**
    * Update the user
    *

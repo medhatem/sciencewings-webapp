@@ -10,6 +10,7 @@ import { ReservationDetailsComponent } from './reservationDetails/reservation-de
 import { ReservationService } from 'app/modules/admin/resolvers/reservation/reservation.service';
 import { Resource } from 'app/models/resources/resource';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
+import dayGridPlugin from '@fullcalendar/daygrid';
 import moment from 'moment';
 import timeGridPlugin from '@fullcalendar/timegrid';
 
@@ -39,9 +40,19 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
 
   async ngOnInit(): Promise<void> {
     this.calendarOptions = {
-      plugins: [timeGridPlugin],
+      plugins: [timeGridPlugin, dayGridPlugin],
       initialView: 'timeGridWeek',
       handleWindowResize: true,
+      headerToolbar: {
+        left: 'prev,next',
+        center: 'title',
+        right: 'timeGridWeek,monthView',
+      },
+      views: {
+        monthView: {
+          type: 'dayGridMonth',
+        },
+      },
       customButtons: {
         next: {
           click: () => {
@@ -54,15 +65,12 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
           },
         },
       },
-
       eventClick: (info) => {
         this.displayReservationDetails(info.event);
       },
     };
     await this.getResource();
   }
-
-  onCheckboxChange($event) {}
 
   /**
    * display next week's schedule
@@ -106,6 +114,9 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
           end: moment(r.end).tz('utc').toISOString(),
           id: r.id,
           title: r.title,
+          data: {
+            userId: r.userId,
+          },
         };
       }) || [];
   }
@@ -118,8 +129,9 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
   displayReservationDetails(event: any) {
     this.eventDetailsDialogRef = this._matDialog.open(ReservationDetailsComponent, { data: { event } });
     this.eventDetailsDialogRef.afterClosed().subscribe(async (result) => {
-      // const { body } = await lastValueFrom(this._resourceService.getOrgResource());
-      // this.resources = body.data;
+      if (result) {
+        await this.getSchedule();
+      }
     });
   }
 
@@ -134,6 +146,9 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
         title: result.body.title,
         start: moment(result.body.start).tz('utc').toISOString(),
         end: moment(result.body.end).tz('utc').toISOString(),
+        data: {
+          userId: result.body.userId,
+        },
       };
       this.calendarComponent.getApi().addEvent(event);
       // const { body } = await lastValueFrom(this._resourceService.getOrgResource());
@@ -148,17 +163,5 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
     this.resource = await lastValueFrom(
       this._resourceService.getResource(Number(this.route.snapshot.paramMap.get('id'))).pipe(map((resource) => resource.body?.data[0])),
     );
-  }
-
-  // -1: past, 0: today, 1: future
-  // https://stackoverflow.com/questions/2698725/comparing-date-part-only-without-comparing-time-in-javascript#answer-55782480
-  diffDates(date: Date) {
-    if (new Date().toISOString().split('T')[0] === date.toISOString().split('T')[0]) {
-      return 0;
-    } else if (new Date().toISOString().split('T')[0] > date.toISOString().split('T')[0]) {
-      return -1;
-    } else {
-      return 1;
-    }
   }
 }

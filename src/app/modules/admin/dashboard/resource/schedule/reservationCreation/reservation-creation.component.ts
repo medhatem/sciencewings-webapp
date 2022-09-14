@@ -78,7 +78,7 @@ export class ReservationCreationComponent implements OnInit {
       return;
     }
     const { dateStart, dateEnd, title } = this.formGroup.value;
-    const reservation = new Reservation({ title, end: dateEnd, start: dateStart });
+    const reservation = new Reservation({ title, end: dateEnd, start: dateStart, userId: this.currentUser.id });
     const event = await lastValueFrom(this._reservationService.create(this.resource.id, reservation).pipe(map((res) => res)));
     this.matDialogRef.close(event);
   }

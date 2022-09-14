@@ -5,9 +5,10 @@ export class Reservation implements ReservationRo {
   end: string;
   start: string;
   title: string;
+  userId: number;
 
   constructor(reservation: any) {
-    const { end, start, title, id } = reservation || {};
-    Object.assign(this, { end, start, title, id });
+    const { end, start, title, id, userId } = reservation || {};
+    Object.assign(this, { end, start, title, id, userId });
   }
 }

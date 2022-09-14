@@ -11,6 +11,15 @@
          <div>
              {{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.EVENTS.END' | transloco }}: <span>{{end}}</span>
          </div>
+         <div>
+             {{ 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.EVENTS.FOR' | transloco }}: <span>{{userFullName}}</span>
+         </div>
      </div>
+     <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
+        <button mat-button mat-dialog-close>{{ 'ORGANIZATION.MEMBERS.FORM.CANCEL' | transloco }}</button>
+        <button class="px-6 ml-3" mat-flat-button [color]="'primary'" (click)="deleteEvent()">
+            {{'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.DELETE_BTN' | transloco }}
+        </button>
+      </div>
 </div>
   

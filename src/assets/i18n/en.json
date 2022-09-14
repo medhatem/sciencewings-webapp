@@ -516,6 +516,7 @@
         },
         "RESERVATION":{
           "CREATE_BTN":"Create",
+          "DELETE_BTN":"Delete Event",
           "DETAILS":"Reservation Details",
           "CREATE_RESERVATION":"create event",
           "RESOURCE_NAME":"Resource",

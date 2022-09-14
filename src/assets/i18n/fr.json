@@ -514,6 +514,7 @@
         },
         "RESERVATION":{
           "CREATE_BTN":"Créer",
+          "DELETE_BTN":"Supprimer l'événement",
           "DETAILS":"DETAILS DE LA RESERVATION",
           "CREATE_RESERVATION":"creer un evenement",
           "RESOURCE_NAME":"Resource",
