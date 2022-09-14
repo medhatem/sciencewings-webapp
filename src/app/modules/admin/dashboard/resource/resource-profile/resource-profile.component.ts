@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+
 import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
-import { constants } from 'app/shared/constants';
+import { ToastrService } from 'app/core/toastr/toastr.service';
 
 @Component({
   selector: 'app-resource-profile',
@@ -11,7 +11,7 @@ import { constants } from 'app/shared/constants';
 })
 export class ResourceProfileComponent implements OnInit {
   params: any;
-  resource: any;
+  resource: any = {};
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
@@ -22,9 +22,6 @@ export class ResourceProfileComponent implements OnInit {
   ngOnInit(): void {
     this.params = this.route.snapshot.paramMap.get('id');
     this._resourceService.getResource(this.params).subscribe(({ statusCode, body, errorMessage }) => {
-      if (statusCode === 500) {
-        this._toastrService.showError(errorMessage, constants.SOMETHING_WENT_WRONG);
-      }
       this.resource = body.data[0];
     });
   }
