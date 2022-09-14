@@ -1,136 +1,163 @@
-import { ChangeDetectorRef, Component, Renderer2, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarOptions, FullCalendarComponent } from '@fullcalendar/angular';
-import { EventMountArg } from '@fullcalendar/core';
-import listPlugin from '@fullcalendar/list';
+import { lastValueFrom, map } from 'rxjs';
+
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { Reservation } from 'app/models/reservation/Reservation';
+import { ReservationCreationComponent } from './reservationCreation/reservation-creation.component';
+import { ReservationDetailsComponent } from './reservationDetails/reservation-details.component';
+import { ReservationService } from 'app/modules/admin/resolvers/reservation/reservation.service';
+import { Resource } from 'app/models/resources/resource';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
-import { ToastrService } from 'app/core/toastr/toastr.service';
-import { constants } from 'app/shared/constants';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import moment from 'moment';
+import timeGridPlugin from '@fullcalendar/timegrid';
 
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.scss'],
 })
-export class ResourceScheduleComponent implements OnInit {
+export class ResourceScheduleComponent implements OnInit, AfterViewInit {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
-
-  calendarOptions: CalendarOptions = {
-    plugins: [listPlugin],
-    initialView: 'listWeek',
-    themeSystem: 'litera',
-    selectable: true,
-    headerToolbar: {
-      left: 'l,c,r',
-      //   right: 'custom2 prevYear,prev,next,nextYear',
-    },
-    customButtons: {
-      l: {
-        text: 'Past',
-        click: () => {
-          this.calendarOptions.events = this.allEvents.filter((event) => this.diffDates(event.start) === -1);
-        },
-      },
-      c: {
-        text: 'Current',
-        click: () => {
-          this.calendarOptions.events = this.allEvents.filter((event) => this.diffDates(event.start) === 0);
-        },
-      },
-      r: {
-        text: 'Upcoming',
-        click: () => {
-          this.calendarOptions.events = this.allEvents.filter((event) => this.diffDates(event.start) === 1);
-        },
-      },
-    },
-    eventDidMount: (mountAg: EventMountArg) => {
-      const checkbox = this.renderer.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.setAttribute('id', mountAg.event._def.publicId);
-      checkbox.setAttribute('style', 'margin-top: 14px;');
-      mountAg.el.appendChild(checkbox);
-      this.renderer.listen(checkbox, 'change', ({ target }) => {
-        if (target.checked) {
-          this.selectedEvents.push(target.id);
-        } else {
-          this.selectedEvents.splice(this.selectedEvents.indexOf(target.id), 1);
-        }
-      });
-    },
-    events: [],
-  };
+  eventDetailsDialogRef: any;
+  createEventDialogRef: any;
+  resource: Resource;
+  calendarOptions: CalendarOptions = {};
 
   resources = [];
-  private selectedEvents = [];
-  private allEvents = [
-    {
-      title: 'PAST',
-      start: new Date('2022-03-18T14:00:00.000+01:00'),
-      end: new Date('2022-03-18T20:00:00.000+01:00'),
-      id: '1',
-      extendedProps: {
-        status: 'done',
-        eventID: 1,
-      },
-    },
-    {
-      title: 'TODAY - MORNING',
-      start: new Date('2022-03-21T07:00:00.000+01:00'),
-      end: new Date('2022-03-21T07:12:00.000+01:00'),
-      backgroundColor: 'green',
-      borderColor: 'green',
-      id: '2',
-    },
-    {
-      title: 'FUTURE',
-      start: new Date('2022-03-23T07:00:00.000+01:00'),
-      end: new Date('2022-03-23T11:00:00.000+01:00'),
-      backgroundColor: 'red',
-      borderColor: 'green',
-      id: '3',
-    },
-  ];
 
   constructor(
+    private _reservationService: ReservationService,
+    private route: ActivatedRoute,
+    private _matDialog: MatDialog,
     private _resourceService: ResourceService,
-    private _toastrService: ToastrService,
-    private _changeDetectorRef: ChangeDetectorRef,
-    private renderer: Renderer2,
   ) {}
+  async ngAfterViewInit(): Promise<void> {
+    await this.getSchedule();
+  }
 
-  ngOnInit(): void {
-    this._resourceService.getOrgResource().subscribe(({ statusCode, body, errorMessage }) => {
-      if (statusCode === 500) {
-        this._toastrService.showError(errorMessage, constants.SOMETHING_WENT_WRONG);
+  async ngOnInit(): Promise<void> {
+    this.calendarOptions = {
+      plugins: [timeGridPlugin, dayGridPlugin],
+      initialView: 'timeGridWeek',
+      handleWindowResize: true,
+      headerToolbar: {
+        left: 'prev,next',
+        center: 'title',
+        right: 'timeGridWeek,monthView',
+      },
+      views: {
+        monthView: {
+          type: 'dayGridMonth',
+        },
+      },
+      customButtons: {
+        next: {
+          click: () => {
+            this.handleNextClick();
+          },
+        },
+        prev: {
+          click: () => {
+            this.handlePreviousClick();
+          },
+        },
+      },
+      eventClick: (info) => {
+        this.displayReservationDetails(info.event);
+      },
+    };
+    await this.getResource();
+  }
+
+  /**
+   * display next week's schedule
+   */
+  async handleNextClick() {
+    const api = this.calendarComponent.getApi();
+    api.next();
+    await this.getSchedule();
+  }
+
+  /**
+   * display previous week's schedule
+   */
+  async handlePreviousClick() {
+    const api = this.calendarComponent.getApi();
+    api.prev();
+    await this.getSchedule();
+  }
+
+  /**
+   * get a resource's schedule for the current displayed week
+   */
+  async getSchedule() {
+    const { activeStart, activeEnd } = this.calendarComponent.getApi().view;
+    const reservations = await lastValueFrom(
+      this._reservationService
+        .getReservations(Number(this.route.snapshot.paramMap.get('id')), new Date(activeStart).toISOString(), new Date(activeEnd).toISOString())
+        .pipe(
+          map((r) =>
+            r.body?.data.map((res) => new Reservation((res as any) || {})),
+          ),
+        ),
+    );
+    this.calendarComponent.getApi().removeAllEvents();
+    this.calendarOptions.events =
+      reservations.map((r) => ({
+          start: moment(r.start).tz('utc').toISOString(),
+          end: moment(r.end).tz('utc').toISOString(),
+          id: r.id,
+          title: r.title,
+          data: {
+            userId: r.userId,
+          },
+        })) || [];
+  }
+
+  /**
+   * display the reservation details
+   *
+   * @param event
+   */
+  displayReservationDetails(event: any) {
+    this.eventDetailsDialogRef = this._matDialog.open(ReservationDetailsComponent, { data: { event } });
+    this.eventDetailsDialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        await this.getSchedule();
       }
-      this.resources = body.resources;
-      const events = [];
-      body.resources.map((resource, i: number) => {
-        resource.calendar.events.map((event) => {
-          events.push({
-            start: event.dateFrom,
-            end: event.dateTo,
-            title: event.title,
-          });
-        });
-      });
-
-      this.calendarComponent.getApi().addEvent(events);
-      this.calendarOptions.events = this.allEvents;
     });
   }
 
-  onCheckboxChange($event) {}
+  /**
+   * trigger the modal for a reservation creation
+   */
+  createReservation() {
+    this.createEventDialogRef = this._matDialog.open(ReservationCreationComponent, { data: { resource: this.resource } });
+    this.createEventDialogRef.afterClosed().subscribe(async (result) => {
+      const event = {
+        id: result.body.id,
+        title: result.body.title,
+        start: moment(result.body.start).tz('utc').toISOString(),
+        end: moment(result.body.end).tz('utc').toISOString(),
+        data: {
+          userId: result.body.userId,
+        },
+      };
+      this.calendarComponent.getApi().addEvent(event);
+      // const { body } = await lastValueFrom(this._resourceService.getOrgResource());
+      // this.resources = body.data;
+    });
+  }
 
-  // -1: past, 0: today, 1: future
-  // https://stackoverflow.com/questions/2698725/comparing-date-part-only-without-comparing-time-in-javascript#answer-55782480
-  diffDates(date: Date) {
-    if (new Date().toISOString().split('T')[0] === date.toISOString().split('T')[0]) {
-      return 0;
-    } else if (new Date().toISOString().split('T')[0] > date.toISOString().split('T')[0]) {
-      return -1;
-    } else {
-      return 1;
-    }
+  /**
+   * get the resource data from db
+   */
+  async getResource() {
+    this.resource = await lastValueFrom(
+      this._resourceService.getResource(Number(this.route.snapshot.paramMap.get('id'))).pipe(map((resource) => resource.body?.data[0])),
+    );
   }
 }
