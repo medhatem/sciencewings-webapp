@@ -9,7 +9,6 @@ import {
 } from 'generated/models';
 import { Member, OrganizationMembers } from '../members/member';
 import { Resource } from '../resources/resource';
-// import { CreateOrganizationRo, ProjectDto, ProjectListDto, ProjectMemberRo, ProjectRo } from 'generated/models';
 export class Infrastructure implements InfrastructureRo {
   id?: string;
   description?: string;
