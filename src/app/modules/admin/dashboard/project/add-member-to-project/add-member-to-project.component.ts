@@ -86,10 +86,9 @@ export class AddMemberToProjectComponent implements OnInit {
 
   private getProjectFromFormBuilder(): projectMember {
     return new projectMember({
-      orgId: this.data.orgID,
+      orgId: Number(this.data.orgID),
       role: this.projectForm.value.role,
-      status: '',
-      userId: this.projectForm.value.member,
+      userId: Number(this.projectForm.value.member),
     });
   }
 }

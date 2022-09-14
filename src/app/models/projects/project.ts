@@ -12,13 +12,13 @@ import {
   UpdateProjectRo,
 } from 'generated/models';
 import { Member } from '../members/member';
+import { ResponsableObjectDTO } from './project-type';
 
 export class Project implements ProjectRo {
-  id?: string;
   active?: boolean;
   dateEnd?: string;
   dateStart?: string;
-  description: string;
+  description?: string;
   key: string;
   organization: number;
   title: string;
@@ -34,33 +34,26 @@ export class Project implements ProjectRo {
       participants,
       title,
     });
-
-    if (id) {
-      this.id = id;
-    }
   }
 }
-export class ProjectListItem {
-  id?: number;
-
-  members: number;
-
-  responsable: ResponsableObjectDto;
-
+export class ProjectListItem implements ProjectListDto {
   creatingDate: string;
-
+  id?: number;
+  members: number;
+  projectDto: ProjectDto;
+  responsable: ResponsableObjectDto;
   statusCode: number;
-
   title: string;
 
   constructor(project?: any) {
-    const { members, creatingDate, responsable, title, id } = project || {};
+    const { members, creatingDate, responsable, title, id, projectDto } = project || {};
     Object.assign(this, {
       members,
       creatingDate,
       responsable,
       title,
       id,
+      projectDto,
     });
   }
 }

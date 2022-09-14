@@ -6,7 +6,6 @@ import { NewUserInfosResolver } from './layout/new-user-infos/new-user-infos.res
 import { ResourceScheduleComponent } from './modules/admin/dashboard/resource/schedule/schedule.component';
 import { Route } from '@angular/router';
 import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers';
-import { ProjectResolver } from './modules/admin/resolvers/project/project.resolvers';
 import { constants } from './shared/constants';
 import { InfrastructureListComponent } from './modules/admin/dashboard/resource/infrastructure/infrastructure-list/infrastructure-list.component';
 import { InfrastructureResolver } from './modules/admin/resolvers/infrastructure/infrastructure.resolvers';
@@ -194,9 +193,6 @@ export const appRoutes: Route[] = [
               title: 'APP.ROUTES.ADMIN.PROJECT.TITLE',
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:table',
-            },
-            resolve: {
-              projects: ProjectResolver,
             },
             loadChildren: () => import('app/modules/admin/dashboard/project/project.module').then((m) => m.ProjectModule),
           },

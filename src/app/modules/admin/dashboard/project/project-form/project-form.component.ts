@@ -37,7 +37,6 @@ export class ProjectFormComponent implements OnInit {
     public matDialogRef: MatDialogRef<ProjectFormComponent>,
     private _formBuilder: FormBuilder,
     private _projectService: ProjectService,
-
     private _toastrService: ToastrService,
     private _router: Router,
   ) {}
@@ -45,7 +44,7 @@ export class ProjectFormComponent implements OnInit {
   ngOnInit() {
     const projectFormObj = {
       title: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      description: [''],
       key: ['', [Validators.required]],
     };
 
@@ -62,7 +61,7 @@ export class ProjectFormComponent implements OnInit {
     try {
       await this._projectService.createProject(project);
       this._toastrService.showSuccess(constants.CREATE_PROJECT_COMPLETED);
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.PROJECT]);
+      this.matDialogRef.close();
     } catch (error) {
       this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.PROJECT]);
       this._toastrService.showError(constants.CREATE_PROJECT_FAILED);

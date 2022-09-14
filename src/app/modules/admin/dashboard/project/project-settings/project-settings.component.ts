@@ -17,6 +17,7 @@ export class ProjectSettingsComponent implements OnInit {
   currentProjects = null;
   panels: any[];
   id: number;
+  project;
   /**
    * Constructor
    */
@@ -31,6 +32,7 @@ export class ProjectSettingsComponent implements OnInit {
    */
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.project = Number(this.route.snapshot.paramMap.get('project'));
 
     // Setup available panels
     this.panels = [

@@ -8,7 +8,7 @@ import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { ListOption } from '../../reusable-components/list/list-component.component';
 import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 import { ProjectFormComponent } from '../project-form/project-form.component';
-import { Project, ProjectMember } from 'app/models/projects/project';
+import { Project, ProjectListItem, ProjectMember } from 'app/models/projects/project';
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -30,6 +30,11 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this._projectService.getAndParseOrganizationProjects().subscribe((projects: ProjectListItem[]) => {
+      this.projects = projects;
+      this._changeDetectorRef.markForCheck();
+    });
+
     this.options = {
       columns: [
         { columnName: 'ORGANIZATION.PROJECTS.LIST.TITLE', columnPropertyToUse: 'title', customClass: '' },
@@ -40,11 +45,6 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       numnberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
     };
-
-    this._projectService.projects$.pipe(takeUntil(this._unsubscribeAll)).subscribe((projects: Project[]) => {
-      this.projects = projects;
-      this._changeDetectorRef.markForCheck();
-    });
   }
 
   /**
@@ -61,16 +61,25 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     if (!orgID) {
       this._toastrService.showError('Something went wrong!');
     }
-    this.openedDialogRef = this._matDialog.open(ProjectFormComponent, {
-      data: { orgID },
-    });
-    this.openedDialogRef.afterClosed().subscribe((result) => {
-      lastValueFrom(this._projectService.getAndParseOrganizationProjects());
-    });
-  }
-  async onElementSelected(project: any) {
-    localStorage.setItem(constants.CURRENT_PROJECT_ID, `${project.id}`);
+    this.openedDialogRef = this._matDialog
+      .open(ProjectFormComponent, {
+        data: { orgID },
+      })
+      .afterClosed()
+      .subscribe((projects: ProjectListItem[]) => {
+        this._projectService.getAndParseOrganizationProjects().subscribe((projects: ProjectListItem[]) => {
+          this.projects = projects;
+          this._changeDetectorRef.markForCheck();
+        });
+      });
 
-    this._router.navigate(['/project/project-settings', { id: project.id }]);
+    // this.openedDialogRef.afterClosed().subscribe((result) => {
+    //   lastValueFrom(this._projectService.getAndParseOrganizationProjects());
+    // });
+  }
+  async onElementSelected(p: ProjectListItem) {
+    localStorage.setItem(constants.CURRENT_PROJECT_ID, `${p.id}`);
+    const project = p.projectDto;
+    this._router.navigate(['/project/project-settings', { id: p.id, project }]);
   }
 }

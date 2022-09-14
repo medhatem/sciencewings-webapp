@@ -2,12 +2,13 @@ import { BehaviorSubject, Observable, map, take, tap, lastValueFrom } from 'rxjs
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateProjectDto, MemberDto, ResponsableObjectDto, UpdateProjectDto, UpdateProjectRo } from 'generated/models';
+import { CreateProjectDto, MemberDto, UpdateProjectDto, UpdateProjectRo } from 'generated/models';
 import { Member } from 'app/models/members/member';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
 import { Project, ProjectListItem, ProjectListMember } from 'app/models/projects/project';
 import { projectMember } from 'app/models/projects/project-member';
+import { ResponsableObjectDTO } from 'app/models/projects/project-type';
 
 @Injectable({
   providedIn: 'root',
@@ -89,12 +90,13 @@ export class ProjectService {
     return this.getOrgProjectsList().pipe(
       map((projects) => projects.body.data.map((project) => new ProjectListItem(project))),
       map((projects: ProjectListItem[]) =>
-        projects.map(({ creatingDate, members, responsable, title, id }) => ({
+        projects.map(({ title, responsable, members, creatingDate, id, projectDto }) => ({
           title: `${title}`,
           managers: this.parseProjectResponsible(responsable),
           participents: `${members}`,
           creatingDate: moment(creatingDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
-          id,
+          id: id,
+          projectDto: projectDto,
         })),
       ),
       tap((response) => {
@@ -102,7 +104,7 @@ export class ProjectService {
       }),
     );
   }
-  parseProjectResponsible(responsable: ResponsableObjectDto): string {
+  parseProjectResponsible(responsable: ResponsableObjectDTO): string {
     return `<div>${responsable.name}</div><div>${responsable.email}</div>`;
   }
   getOrgProjectById(id: number): Observable<any> {
@@ -126,7 +128,6 @@ export class ProjectService {
         })),
       ),
       tap((response) => {
-        console.log('response= ', response);
         this._projectParticipent.next(response);
       }),
     );
