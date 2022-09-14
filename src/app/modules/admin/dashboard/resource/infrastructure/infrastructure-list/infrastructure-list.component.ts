@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
+import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { ListOption } from '../../../reusable-components/list/list-component.component';
 import { FormControl } from '@angular/forms';
 import { Infrastructure } from 'app/models/infrastructures/infrastructure';

@@ -1,13 +1,4 @@
-import {
-  CreateOrganizationRo,
-  MemberDto,
-  InfrastructureDto,
-  InfrastructureListBodyDto,
-  InfrastructureResponsableObjectDto,
-  ResponsableObjectDto,
-  InfrastructureRo,
-} from 'generated/models';
-import { Member, OrganizationMembers } from '../members/member';
+import { MemberDto, ResponsableObjectDto, InfrastructureRo } from 'generated/models';
 import { Resource } from '../resources/resource';
 export class Infrastructure implements InfrastructureRo {
   id?: string;
