@@ -41,6 +41,19 @@
     </div>
 
     <mat-form-field class="flex-auto mx-4">
+      <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.RESPONSIBLES' | transloco }}</mat-label>
+      <mat-select [formControlName]="'responsible'">
+        <mat-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember?.user">
+          {{ organizationMember?.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="submitted && validationControls.name.errors" class="flex-auto mx-4 invalid-feedback">
+      <mat-error *ngIf="validationControls.key.errors.required">{{
+        'ORGANIZATION.INFRASTRUCTURES.VALIDATORS.RESPONSIBLE_REQUIRED' | transloco
+      }}</mat-error>
+    </div>
+    <mat-form-field class="flex-auto mx-4">
       <mat-label required>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.DESCRIPTION' | transloco }}</mat-label>
       <textarea
         matInput

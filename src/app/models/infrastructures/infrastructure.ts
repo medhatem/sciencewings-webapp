@@ -1,28 +1,34 @@
-import { InfrastructureDto, InfrastructureRo } from 'generated/models';
-import { Member } from '../members/member';
+import { MemberDto, ResponsableObjectDto, InfrastructureRo } from 'generated/models';
+import { Resource } from '../resources/resource';
 export class Infrastructure implements InfrastructureRo {
   id?: string;
   description?: string;
   key: string;
   name: string;
+  default?: boolean = false;
   organization: number;
+  members: number[];
   parent?: number;
-  resources?: Array<number>;
+  resources?: number[];
+  resourcesNb?: number[];
   dateStart?: Date;
-  responsibles: number[];
+  responsible: number;
 
   constructor(infrastructure: any) {
-    const { id, description, key, dateEnd, dateStart, responsibles, organization, parent, resources, name } = infrastructure || {};
+    const { id, description, key, dateEnd, dateStart, organization, responsible, members, parent, resources, resourcesNb, name } =
+      infrastructure || {};
 
     Object.assign(this, {
       description,
       key,
       dateEnd,
       dateStart,
-      responsibles,
       organization,
+      members,
       parent,
       resources,
+      responsible,
+      resourcesNb,
       name,
     });
     if (id) {
@@ -30,20 +36,42 @@ export class Infrastructure implements InfrastructureRo {
     }
   }
 }
+
+export class ResponsableDto implements ResponsableObjectDto {
+  email: string;
+  member: MemberDto;
+  name: string;
+  statusCode: number;
+
+  constructor(responsible?: any) {
+    const { email, member, name } = responsible || {};
+    Object.assign(this, {
+      email,
+      member,
+      name,
+    });
+  }
+}
+
 export class InfrastructureListItem {
   id: number;
   description: string;
   key: string;
-  responsibles: Array<Member>;
+  responsible: ResponsableDto;
+  resources: Array<Resource>;
+  resourcesNb: number[];
   dateStart?: Date;
   name: string;
 
   constructor(infrastructure?: any) {
-    const { id, name, key, dateStart, description } = infrastructure || {};
+    const { id, name, key, dateStart, resources, resourcesNb, responsible, description } = infrastructure || {};
     Object.assign(this, {
       id,
       name,
       key,
+      responsible,
+      resources,
+      resourcesNb,
       dateStart,
       description,
     });

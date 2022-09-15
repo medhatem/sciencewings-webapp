@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
+import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { ListOption } from '../../../reusable-components/list/list-component.component';
 import { FormControl } from '@angular/forms';
 import { Infrastructure } from 'app/models/infrastructures/infrastructure';
@@ -18,7 +18,7 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
   infrastructures: any[] = [];
   isLoading: boolean = false;
   infrastructuresCount: number = 0;
-  options: ListOption = { columns: [], numnberOfColumns: 3 };
+  options: ListOption = { columns: [], numnberOfColumns: 5 };
   openedDialogRef: any;
   searchInputControl: FormControl = new FormControl();
 
@@ -35,11 +35,21 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.options = {
       columns: [
-        { columnName: 'Infrastructure', columnPropertyToUse: 'name', customClass: '' },
-        { columnName: 'Key', columnPropertyToUse: 'key', customClass: 'hidden' },
-        { columnName: 'Created Date', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.TITLE', columnPropertyToUse: 'name', customClass: '' },
+        { columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.KEY', columnPropertyToUse: 'key', customClass: 'hidden' },
+        {
+          columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.RESPONSIBLE',
+          columnPropertyToUse: 'responsible',
+          customClass: 'hidden',
+        },
+        {
+          columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.RESOURCES_NB',
+          columnPropertyToUse: 'resourcesNb',
+          customClass: 'hidden',
+        },
+        { columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.DATE', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
-      numnberOfColumns: 3,
+      numnberOfColumns: 5,
     };
 
     this._infrastructureService.infrastructures$.pipe(takeUntil(this._unsubscribeAll)).subscribe((infrastructures: Infrastructure[]) => {

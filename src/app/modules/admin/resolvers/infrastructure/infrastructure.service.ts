@@ -1,12 +1,11 @@
-import { BehaviorSubject, Observable, map, take, tap, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable, map, tap, lastValueFrom } from 'rxjs';
 
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateInfrastructureDto, InfrastructureRo, UpdateinfrastructureRo } from 'generated/models';
+import { CreateInfrastructureDto, InfrastructureRo, ResponsableObjectDto, UpdateinfrastructureRo } from 'generated/models';
 import moment from 'moment';
 import { constants } from 'app/shared/constants';
-import { Member } from 'app/models/members/member';
 import { Infrastructure, InfrastructureListItem } from 'app/models/infrastructures/infrastructure';
 @Injectable({
   providedIn: 'root',
@@ -58,17 +57,22 @@ export class InfrastructureService {
 
   getOrgInfrastructures(): Observable<any> {
     const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this.swaggerAPI.infrastructureRoutesGetAllOrganizationInfrastructures({ orgId });
+    return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId });
   }
 
   getAndParseOrganizationInfrastructures(): Observable<any[]> {
     return this.getOrgInfrastructures().pipe(
       map((infrastructures) => infrastructures.body.data.map((infrastructure) => new InfrastructureListItem(infrastructure))),
-      map((infrastructures: InfrastructureListItem[]) => infrastructures.map(({ name, key, dateStart }) => ({
+
+      map((infrastructures: InfrastructureListItem[]) => {
+        return infrastructures.map(({ name, key, resources, responsible, resourcesNb, dateStart }) => ({
           name: `${name}`,
           key,
+          resourcesNb: `${resourcesNb}`,
+          responsible: this.parseInfrastructureResponsible(responsible),
           dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-        }))),
+        }));
+      }),
       tap((response) => {
         this._infrastructures.next(response);
       }),
@@ -84,7 +88,8 @@ export class InfrastructureService {
   deleteInfrastructure(id: number): Observable<any> {
     return this.swaggerAPI.infrastructureRoutesRemove({ id });
   }
-  parseMembersToHtml(members: Member[]) {
-    return members.map(({ name, workEmail }) => `<div>${name}</div><div>${workEmail}</div>`);
+
+  parseInfrastructureResponsible(responsible: ResponsableObjectDto): string {
+    return `<div>${responsible?.name}</div><div>${(responsible as any)?.workEmail}</div>`;
   }
 }
