@@ -5,12 +5,13 @@
     <!-- Section -->
 
     <div class="w-full">
-      <div class="text-xl my-3">{{ 'ORGANIZATION.SETTINGS.ACCESS.TITLE' | transloco }}</div>
+      <div class="text-3xl font-semibold tracking-tight leading-8 my-5">{{ 'ORGANIZATION.SETTINGS.ACCESS.TITLE_1' | transloco }}</div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.ACCESS.OPTION_1' | transloco }}</mat-label>
 
-        <mat-slide-toggle [formControlName]="'anyMemberCanJoinYourOrganizationAndAccessResourceSchedules'" [color]="'primary'"> </mat-slide-toggle>
+        <mat-slide-toggle [formControlName]="'anyMemberCanJoinYourOrganizationAndAccessResourceSchedules'" [color]="'primary'">
+        </mat-slide-toggle>
       </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
@@ -51,12 +52,16 @@
 
       <div class="text-lg my-5">{{ 'ORGANIZATION.SETTINGS.ACCESS.OPTION_7' | transloco }}</div>
 
-      <div class="sm:col-span-4">
-        <mat-form-field class="fuse-mat-no-subscript w-full">
-          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-add'"></mat-icon>
-          <textarea matInput formControlName="messageSentToNewMembers"></textarea>
-        </mat-form-field>
-      </div>
+      <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+        <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:user-add'"></mat-icon>
+        <textarea
+          matInput
+          [formControlName]="'messageSentToNewMembers'"
+          [placeholder]="'Notes'"
+          [rows]="5"
+          [spellcheck]="false"
+          matTextareaAutosize></textarea>
+      </mat-form-field>
     </div>
 
     <div class="grid sm:grid-cols-4 gap-6 w-full mt-8"></div>

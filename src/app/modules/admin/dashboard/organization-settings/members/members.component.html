@@ -5,8 +5,10 @@
     <!-- Section -->
 
     <div class="w-full">
-      <div class="text-xl my-3">{{ 'ORGANIZATION.SETTINGS.MEMBERS.TITLE' | transloco }}</div>
-      <div class="text-lg my-5">{{ 'ORGANIZATION.SETTINGS.MEMBERS.SECTION_1_TITLE' | transloco }}</div>
+      <div class="text-3xl font-semibold tracking-tight leading-8">{{ 'ORGANIZATION.SETTINGS.MEMBERS.TITLE_1' | transloco }}</div>
+      <div class="mr-4 text-lg tracking-tight leading-6 truncate my-5">
+        {{ 'ORGANIZATION.SETTINGS.MEMBERS.SECTION_1_TITLE' | transloco }}
+      </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.MEMBERS.OPTION_1_1' | transloco }}</mat-label>
@@ -21,17 +23,22 @@
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.MEMBERS.OPTION_1_3' | transloco }}</mat-label>
 
-        <mat-slide-toggle [(ngModel)]="isAccountNumberNote" [ngModelOptions]="{ standalone: true }"
-        (change)="accountNumberNoteListener($event)"
-        [color]="'primary'"> </mat-slide-toggle>
+        <mat-slide-toggle
+          [(ngModel)]="isAccountNumberNote"
+          [ngModelOptions]="{ standalone: true }"
+          (change)="accountNumberNoteListener($event)"
+          [color]="'primary'">
+        </mat-slide-toggle>
       </div>
 
       <mat-form-field *ngIf="isAccountNumberNote" class="fuse-mat-no-subscript w-full">
         <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:view-list'"></mat-icon>
-        <input matInput formControlName="acountNumberNote" />
+        <input matInput formControlName="accountNumberNote" />
       </mat-form-field>
 
-      <div class="text-lg my-5">{{ 'ORGANIZATION.SETTINGS.MEMBERS.SECTION_2_TITLE' | transloco }}</div>
+      <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate my-5">
+        {{ 'ORGANIZATION.SETTINGS.MEMBERS.SECTION_2_TITLE' | transloco }}
+      </div>
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.MEMBERS.OPTION_2_1' | transloco }}</mat-label>

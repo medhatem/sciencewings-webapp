@@ -170,7 +170,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     } catch (error) {
       // Ignore error
     } finally {
-      await this.resetNavigation(false);
+      this._fuseSplashScreenService.show();
+      setTimeout(() => {
+        this._fuseSplashScreenService.hide();
+      }, 1000);
     }
   }
 
