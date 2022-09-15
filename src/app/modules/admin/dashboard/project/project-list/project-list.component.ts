@@ -1,14 +1,14 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
-import { lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { ListOption } from '../../reusable-components/list/list-component.component';
 import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 import { ProjectFormComponent } from '../project-form/project-form.component';
-import { Project } from 'app/models/projects/project';
+import { ProjectListItem } from 'app/models/projects/project';
+
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -16,6 +16,7 @@ import { Project } from 'app/models/projects/project';
 })
 export class ProjectListComponent implements OnInit, OnDestroy {
   projects: any[] = [];
+  managers: any[] = [];
   options: ListOption = { columns: [], numnberOfColumns: 5 };
   openedDialogRef: any;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -29,21 +30,21 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this._projectService.getAndParseOrganizationProjects().subscribe((projects: ProjectListItem[]) => {
+      this.projects = projects;
+      this._changeDetectorRef.markForCheck();
+    });
+
     this.options = {
       columns: [
-        { columnName: 'Title', columnPropertyToUse: 'title', customClass: '' },
-        { columnName: 'Managers', columnPropertyToUse: 'managers', customClass: 'hidden' },
-        { columnName: '# Members', columnPropertyToUse: 'participents', customClass: 'hidden' },
-        { columnName: 'Date start', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.PROJECTS.LIST.TITLE', columnPropertyToUse: 'title', customClass: '' },
+        { columnName: 'ORGANIZATION.PROJECTS.LIST.MANAGER', columnPropertyToUse: 'managers', customClass: '' },
+        { columnName: 'ORGANIZATION.PROJECTS.LIST.MEMBERS', columnPropertyToUse: 'participents', customClass: '' },
+        { columnName: 'ORGANIZATION.PROJECTS.LIST.CREATIONDATE', columnPropertyToUse: 'creatingDate', customClass: '' },
       ],
       numnberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
     };
-
-    this._projectService.projects$.pipe(takeUntil(this._unsubscribeAll)).subscribe((projects: Project[]) => {
-      this.projects = projects;
-      this._changeDetectorRef.markForCheck();
-    });
   }
 
   /**
@@ -58,17 +59,24 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   openInviteProjectDialog(): void {
     const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     if (!orgID) {
-      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
+      this._toastrService.showError('Something went wrong!');
     }
-    this.openedDialogRef = this._matDialog.open(ProjectFormComponent, {
-      data: { orgID },
-    });
-    this.openedDialogRef.afterClosed().subscribe((result) => {
-      lastValueFrom(this._projectService.getAndParseOrganizationProject());
-    });
+    this.openedDialogRef = this._matDialog
+      .open(ProjectFormComponent, {
+        data: { orgID },
+      })
+      .afterClosed()
+      .subscribe(() => {
+        this._projectService.getAndParseOrganizationProjects().subscribe((projects: ProjectListItem[]) => {
+          this.projects = projects;
+          this._changeDetectorRef.markForCheck();
+        });
+      });
   }
 
-  async onElementSelected() {
-    this._router.navigate(['/admin/project']);
+  async onElementSelected(p: ProjectListItem) {
+    localStorage.setItem(constants.CURRENT_PROJECT_ID, `${p.id}`);
+    const project = p.projectDto;
+    this._router.navigate(['/project/project-settings', { id: p.id, project }]);
   }
 }
