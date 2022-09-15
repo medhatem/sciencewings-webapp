@@ -1,8 +1,10 @@
-import { BehaviorSubject, Observable, map, take, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, take, tap, lastValueFrom } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {} from 'generated/models';
+import { GroupRo } from 'generated/models';
+import { assign } from 'lodash';
+import { constants } from 'app/shared/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -49,5 +51,23 @@ export class GroupService {
           this._groups.next(response.groups);
         }),
       );
+  }
+
+  async createGroup(group: Group) {
+    return await lastValueFrom(this.swaggerAPI.groupRoutesCreateGroup({ body: group }));
+  }
+}
+
+export class Group implements GroupRo {
+  active: boolean;
+  description: string;
+  members?: number[];
+  name: string;
+  organization: number;
+  parent: number;
+
+  constructor(group: any) {
+    const { active, description, members, name, organization, parent } = group || {};
+    Object.assign(this, { active, description, members, name, organization, parent });
   }
 }

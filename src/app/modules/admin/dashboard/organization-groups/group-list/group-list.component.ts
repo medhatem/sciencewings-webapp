@@ -96,8 +96,10 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openGroupForm(): void {
-    const dialogRef = this._matDialog.open(GroupFormComponent);
-    dialogRef.afterClosed().subscribe((result) => {});
+    this._matDialog
+      .open(GroupFormComponent)
+      .afterClosed()
+      .subscribe((result) => {});
   }
 
   trackByFn(index: number, item: any): any {
