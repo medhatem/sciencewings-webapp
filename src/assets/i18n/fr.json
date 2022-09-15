@@ -562,9 +562,17 @@
         "SAVE": "Sauvegarder",
         "CANCEL": "Annuler"
       },
+      "INFRASTRUCTURE_LIST": {
+        "TITLE": "Infrastructures",
+        "KEY": "Clé",
+        "DATE": "Date de création",
+        "RESPONSIBLE": "Responsable",
+        "RESOURCES_NB": "#Ressources"
+      },
       "VALIDATORS": {
         "NAME_REQUIRED": "Le nom de l'infrastructure est requis",
-        "KEY_REQUIRED": "La clé de l'infrastructure est requise"
+        "KEY_REQUIRED": "La clé de l'infrastructure est requise",
+        "RESPONSIBLE_REQUIRED": "Le Responsable de l'infrastructure est requis"
       },
       "SUCCESS": {
         "CREATE_COMPLETED": "L'infrastructure a été créée avec succès "
