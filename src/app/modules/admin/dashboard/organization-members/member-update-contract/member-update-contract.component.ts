@@ -8,6 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { OrganizationMembers } from 'app/models/members/member';
 import { contractType, jobLevel } from 'app/models/contract/contract.constants';
+import moment from 'moment';
 
 @Component({
   selector: 'app-member-update-contract',
@@ -74,8 +75,8 @@ export class MemberUpdateContractComponent implements OnInit {
     const contractRo = new UpdateContract({
       organization: Number(this.data.orgId),
       user: Number(this.data.userId),
-      dateStart: String(this.contractForm.value.dateStart),
-      dateEnd: String(this.contractForm.value?.dateEnd || ''),
+      dateStart: String(moment(this.contractForm.value?.dateStart).format('YYYY-MM-DD')),
+      dateEnd: String(moment(this.contractForm.value?.dateEnd).format('YYYY-MM-DD')),
       jobName: this.contractForm.value?.jobName || this.data.contractDto.name,
       jobLevel: this.contractForm.value?.jobLevel || this.data.contractDto.jobLevel,
       contractType: this.contractForm.value?.contractType || this.data.contractDto.contractType,

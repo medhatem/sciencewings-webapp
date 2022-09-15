@@ -5,10 +5,10 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { ContractRo } from 'app/models/contract/contract';
 import { contractType, jobLevel } from 'app/models/contract/contract.constants';
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
-import { constants } from 'app/shared/constants';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { OrganizationMembers } from 'app/models/members/member';
+import moment from 'moment';
 
 @Component({
   selector: 'app-member-contracts-form',
@@ -75,8 +75,8 @@ export class MemberContractsFormComponent implements OnInit {
       contractType: String(this.contractForm.value?.contractType) || null,
       organization: this.data.orgID,
       user: this.data.userId,
-      dateStart: String(this.contractForm.value.dateStart),
-      dateEnd: String(this.contractForm.value?.dateEnd) || null,
+      dateStart: moment(this.contractForm.value?.dateStart).format('YYYY-MM-DD').toString(),
+      dateEnd: moment(this.contractForm.value?.dateEnd).format('YYYY-MM-DD').toString(),
       supervisor: this.contractForm.value?.supervisor || null,
       jobLevel: String(this.contractForm.value?.jobLevel) || null,
       wage: String(this.contractForm.value?.wage) || null,
