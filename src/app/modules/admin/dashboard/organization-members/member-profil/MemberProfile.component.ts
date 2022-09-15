@@ -16,6 +16,8 @@ import { constants } from 'app/shared/constants';
 export class MemberProfileComponent implements OnInit {
   profile: Member = {};
   openedDialogRef: any;
+  userId: number;
+  orgId: number;
   constructor(
     private _route: ActivatedRoute,
     private _memberService: MemberService,
@@ -29,6 +31,8 @@ export class MemberProfileComponent implements OnInit {
 
   async getMemberProfile() {
     const { idOrg, userId } = this._route.snapshot.params;
+    this.userId = userId;
+    this.orgId = idOrg;
     try {
       this.profile = await lastValueFrom(
         this._memberService.getMember(Number(idOrg), Number(userId)).pipe(map((profile) => new Member((profile.body as any) || {}))),
