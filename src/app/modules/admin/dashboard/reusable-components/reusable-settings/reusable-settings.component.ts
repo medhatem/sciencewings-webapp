@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subject, takeUntil } from 'rxjs';
-import { ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, OnDestroy, ViewChild } from '@angular/core';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-reusable-settings',
@@ -12,20 +11,21 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ReusableSettingsComponent implements OnInit, OnDestroy {
   @Input() selectedPanel: string;
-  @Input() title: string;
-  @Input() panels: any[] = [];
   @Output() onSelectedPanelChange = new EventEmitter<string>();
+  @Input() panels: any[] = [];
+  @Input() title: string;
   @ViewChild('drawer') drawer: MatDrawer;
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
-
   settings = null;
   currentProjects = null;
+
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _fuseMediaWatcherService: FuseMediaWatcherService) {}
 
   ngOnInit(): void {
+    // this.showComponent.appendChild()
     // Subscribe to media changes
     this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
       // Set the drawerMode and drawerOpened
@@ -41,6 +41,7 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
       this._changeDetectorRef.markForCheck();
     });
   }
+
   /**
    * On destroy
    */
@@ -85,6 +86,7 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
   trackByFn(index: number, item: any): any {
     return item.id || index;
   }
+
   updateLocalSettings(payload) {
     this.settings = {
       ...this.settings,

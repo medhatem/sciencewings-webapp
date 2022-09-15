@@ -589,6 +589,7 @@
         "PROJECT_NAME": "Project",
         "PROJECT_STATUS": "Status",
         "MESSAGE": "There is no projects",
+        "MESSAGE_MEMBER_LIST": "There is any member yet",
         "TITLE": "Title",
         "MANAGER": "Manager",
         "MEMBERS": "# Members",
@@ -617,7 +618,12 @@
       "SEARCH_PROJECTS": "Find a project",
       "TITLE": "Projects",
       "ERROR": {
-        "CREATE_FAILED": "The creation of the project has failed"
+        "CREATE_FAILED": "The creation of the project has failed",
+        "UPDATE_FAILED": "The update of the project has failed"
+      },
+      "SUCCESS": {
+        "CREATE_COMPLETED": "project was created successfuly ",
+        "UPDATE_COMPLETED": "project was created successfuly "
       }
     },
     "CONTRACTS": {

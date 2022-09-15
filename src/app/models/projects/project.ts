@@ -1,21 +1,21 @@
 import {
-  CreateOrganizationRo,
   MemberDto,
+  OrganizationInformationDto,
   ProjectDto,
   ProjectListDto,
   ProjectMemberDto,
   ProjectMemberRo,
   ProjectRo,
   ResponsableObjectDto,
+  UpdateProjectRo,
 } from 'generated/models';
 import { Member } from '../members/member';
 
 export class Project implements ProjectRo {
-  id?: string;
   active?: boolean;
   dateEnd?: string;
   dateStart?: string;
-  description: string;
+  description?: string;
   key: string;
   organization: number;
   title: string;
@@ -31,46 +31,37 @@ export class Project implements ProjectRo {
       participants,
       title,
     });
-
-    if (id) {
-      this.id = id;
-    }
   }
 }
-export class ProjectListItem {
-  id?: number;
 
-  members: number;
-
-  responsable: ResponsableObjectDto;
-
+export class ProjectListItem implements ProjectListDto {
   creatingDate: string;
-
+  id?: number;
+  members: number;
+  projectDto: ProjectDto;
+  responsable: ResponsableObjectDto;
   statusCode: number;
-
   title: string;
 
   constructor(project?: any) {
-    const { members, creatingDate, responsable, title } = project || {};
+    const { members, creatingDate, responsable, title, id, projectDto } = project || {};
     Object.assign(this, {
       members,
       creatingDate,
       responsable,
       title,
+      id,
+      projectDto,
     });
   }
 }
+
 export class ProjectListMember implements ProjectMemberDto {
   member: MemberDto;
-
   project: ProjectDto;
-
   role: string;
-
   status: string;
-
   statusCode: number;
-
   createdAt: string;
 
   constructor(project?: any) {
@@ -78,24 +69,18 @@ export class ProjectListMember implements ProjectMemberDto {
 
     Object.assign(this, {
       member,
-
       role,
-
       status,
-
       createdAt,
-
       statusCode,
     });
   }
 }
+
 export class ProjectMember implements ProjectMemberRo {
   userId: number;
-
   orgId: number;
-
   role: string;
-
   status: string;
 
   constructor(participant?: any) {
@@ -103,21 +88,16 @@ export class ProjectMember implements ProjectMemberRo {
 
     Object.assign(this, {
       userId,
-
       orgId,
-
       role,
-
       status,
     });
   }
 }
 
-export class participantListItem {
+export class ParticipantListItem {
   member: Member;
-
   role: string;
-
   status: string;
 
   constructor(participant?: any) {
@@ -125,10 +105,64 @@ export class participantListItem {
 
     Object.assign(this, {
       member,
-
       role,
-
       status,
+    });
+  }
+}
+
+export class ProjectDropDone implements ProjectDto {
+  active?: boolean;
+  dateEnd?: string;
+  dateStart?: string;
+  description?: string;
+  id?: number;
+  key?: string;
+  members?: Array<MemberDto>;
+  organization?: OrganizationInformationDto;
+  statusCode: number;
+  title?: string;
+
+  constructor(project: any) {
+    const { id, dateEnd, active, dateStart, description, key, members, organization, title } = project || {};
+
+    Object.assign(this, {
+      active,
+      dateEnd,
+      dateStart,
+      description,
+      key,
+      members,
+      organization,
+      title,
+    });
+
+    if (id) {
+      this.id = id;
+    }
+  }
+}
+
+export class UpdateProject implements UpdateProjectRo {
+  status?: 'To-do' | 'In-progress' | 'Review' | 'Done';
+  dateEnd?: string;
+  dateStart?: string;
+  description?: string;
+  key?: string;
+  title?: string;
+  newManager?: number;
+
+  constructor(project: any) {
+    const { status, dateEnd, dateStart, description, key, title, newManager } = project || {};
+
+    Object.assign(this, {
+      status,
+      dateEnd,
+      dateStart,
+      description,
+      key,
+      title,
+      newManager,
     });
   }
 }
