@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
+import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { Organization } from 'app/models/organizations/organization';
 import { Subject } from 'rxjs';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
-import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 
 export interface InventoryPagination {
   length: number;
@@ -54,7 +54,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.organization = await this.fetchOrganizationInformation();
-    this.phoneNumber = this.organization.phones[0].phoneNumber;
+    this.phoneNumber = this.organization.phones[0]?.phoneNumber || null;
     this._changeDetectorRef.markForCheck();
   }
 

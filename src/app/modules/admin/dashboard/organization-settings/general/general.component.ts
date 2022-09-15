@@ -1,14 +1,14 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'app/core/toastr/toastr.service';
-import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
-import { lastValueFrom, Subject, takeUntil } from 'rxjs';
-import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
 import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
+import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
-import { constants } from 'app/shared/constants';
+import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
 import { Organization } from 'app/models/organizations/organization';
+import { ToastrService } from 'app/core/toastr/toastr.service';
+import { constants } from 'app/shared/constants';
+import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
 
 @Component({
   selector: 'organization-settings-general',
@@ -57,9 +57,9 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       if (this.form.value.phone) {
         this.form.setValue({
           ...this.form.value,
-          phoneCode: this.currentOrganizations?.phone.phoneCode,
+          phoneCode: this.currentOrganizations?.phone?.phoneCode,
           phoneNumber: this.currentOrganizations?.phone.phoneNumber,
-          labels: this.currentOrganizations?.phone.labels,
+          labels: this.currentOrganizations?.phone?.labels,
         });
       } else {
         this.form.setValue({
@@ -77,9 +77,9 @@ export class GeneralComponent implements OnInit, AfterViewInit {
     this.form.setValue({
       name: orgInfo?.name || '',
       email: orgInfo?.email || '',
-      phoneCode: orgInfo?.phones[0].phoneCode || 'fr',
-      phoneNumber: orgInfo?.phones[0].phoneNumber || '',
-      phoneLabel: orgInfo?.phones[0].phoneLabel || '',
+      phoneCode: orgInfo?.phones[0]?.phoneCode || 'fr',
+      phoneNumber: orgInfo?.phones[0]?.phoneNumber || '',
+      phoneLabel: orgInfo?.phones[0]?.phoneLabel || '',
       type: orgInfo?.type || '',
 
       description: orgInfo?.description || '',
