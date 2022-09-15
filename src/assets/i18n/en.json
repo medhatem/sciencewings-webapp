@@ -378,7 +378,10 @@
     },
 
     "SETTINGS": {
+      "TITLE": "Organization Settings",
       "ACCESS": {
+        "TITLE": "Access",
+        "MESSAGE": "Manage access options for your organization ",
         "Cancel": "Cancel",
         "OPTION_1": "Any member may join your organisation and access resource schedules.",
         "OPTION_2": "Member should access by join code ",
@@ -387,10 +390,11 @@
         "OPTION_5": "Notify administrators when Memebers Join Organisation",
         "OPTION_6": "List Resources to Non-Members",
         "OPTION_7": "Message Sent to New Members",
-        "TITLE": "Access Settings",
+        "TITLE_1": "Access Settings",
         "Update": "Update"
       },
       "GENERAL": {
+        "TITLE": "General",
         "DESCRIPTION": "Description",
         "DIRECTION": "Direction",
         "EMAIL": "Email",
@@ -399,9 +403,11 @@
         "NAME": "Name",
         "PHONE": "Phone",
         "TYPE": "Type",
-        "UPDATE": "Update"
+        "UPDATE": "Update",
+        "MESSAGE": "Manage the general informations of your orsganization"
       },
       "MEMBERS": {
+        "TITLE": "Members",
         "Cancel": "Cancel",
         "OPTION_1_1": "Members can edit account numbers",
         "OPTION_1_2": "Prompt for accouant numbers",
@@ -409,10 +415,13 @@
         "OPTION_2_1": "Allow Members to See All Other Members",
         "SECTION_1_TITLE": "Member Account Number",
         "SECTION_2_TITLE": "Member list visibility",
-        "TITLE": "Member Account Options",
-        "Update": "Update"
+        "TITLE_1": "Member Account Options",
+        "Update": "Update",
+        "MESSAGE": "Manage members account options and member autorisations"
       },
       "RESERVATIONS": {
+        "TITLE": "Reservations",
+        "MESSAGE": "Manage reservation options for all resources in your organization",
         "ApproversCanEditReservations": "Approvers can Edit Reservations",
         "AttachedICSCalendarFeeds": "Attached  ICS Calendar Feeds",
         "Cancel": "Cancel",
@@ -428,6 +437,14 @@
         "ShowResourceImagesInReservation": "Show Resource Images in Reservation ",
         "Update": "Update",
         "UserHideCalenderForMemberOnly": "User Hide Calender For Member Only"
+      },
+      "SUBSCRIPTION": {
+        "TITLE": "Subscription",
+        "MESSAGE": "Manage your subscription plan, payment method and billing information"
+      },
+      "LOCATION": {
+        "MESSAGE": "Manage location adresses for your organization ",
+        "TITLE": "Locations"
       },
       "RESOUCES": {
         "TITLE": "Resources",

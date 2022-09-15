@@ -45,44 +45,39 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
       {
         id: 'general',
         icon: 'heroicons_outline:clipboard-check',
-        title: 'General',
-        description: 'Manage your public profile and private information',
+        title: 'ORGANIZATION.SETTINGS.GENERAL.TITLE',
+        description: 'ORGANIZATION.SETTINGS.GENERAL.MESSAGE',
       },
       {
         id: 'members',
-        icon: 'heroicons_outline:cube',
-        title: 'Members',
-        description: 'Manage your password and 2-step verification preferences',
+        icon: 'heroicons_outline:users',
+        title: 'ORGANIZATION.SETTINGS.MEMBERS.TITLE',
+        description: 'ORGANIZATION.SETTINGS.MEMBERS.MESSAGE',
       },
       {
         id: 'location',
-        icon: 'heroicons_outline:credit-card',
-        title: 'Location',
-        description: 'Manage your subscription plan, payment method and billing information',
+        icon: 'heroicons_outline:eye',
+        title: 'ORGANIZATION.SETTINGS.LOCATION.TITLE',
+        description: 'ORGANIZATION.SETTINGS.LOCATION.MESSAGE',
       },
       {
         id: 'reservations',
         icon: 'heroicons_outline:bell',
-        title: 'Reservations',
-        description: 'Manage when you will be notified on which channels',
+        title: 'ORGANIZATION.SETTINGS.RESERVATIONS.TITLE',
+        description: 'ORGANIZATION.SETTINGS.RESERVATIONS.MESSAGE',
       },
-      {
-        id: 'invocie',
-        icon: 'heroicons_outline:user-group',
-        title: 'Invocies',
-        description: 'Manage your existing team and change roles/permissions',
-      },
+
       {
         id: 'access',
         icon: 'heroicons_outline:eye',
-        title: 'Access',
-        description: 'Manage your existing team and change roles/permissions',
+        title: 'ORGANIZATION.SETTINGS.ACCESS.TITLE',
+        description: 'ORGANIZATION.SETTINGS.ACCESS.MESSAGE',
       },
       {
         id: 'subscription',
-        icon: 'heroicons_outline:eye',
-        title: 'Subscription',
-        description: 'Manage your existing team and change roles/permissions',
+        icon: 'heroicons_outline:credit-card',
+        title: 'ORGANIZATION.SETTINGS.SUBSCRIPTION.TITLE',
+        description: 'ORGANIZATION.SETTINGS.SUBSCRIPTION.MESSAGE',
       },
     ];
 
@@ -100,8 +95,8 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
       // Mark for check
       this._changeDetectorRef.markForCheck();
     });
-
-    this._organizationService.getOrganizationSettingsById(1).subscribe(({ body }) => {
+    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    this._organizationService.getOrganizationSettingsById(Number(orgId)).subscribe(({ body }) => {
       if (body.statusCode === 500) {
         this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
         return;
@@ -109,7 +104,6 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
       const organization = body.data.organization;
       organization.phone = organization.phones[0];
       this.currentOrganizations = organization;
-
       this.settings = body.data.settings;
     });
   }
