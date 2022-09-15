@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
 import { Subject, takeUntil } from 'rxjs';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { ToastrService } from 'app/core/toastr/toastr.service';
+
 import { AdminOrganizationsService } from '../../resolvers/admin-organization/admin-organization.service';
+import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
+import { MatDrawer } from '@angular/material/sidenav';
+import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 
 @Component({
@@ -97,12 +98,8 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
     });
     const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     this._organizationService.getOrganizationSettingsById(Number(orgId)).subscribe(({ body }) => {
-      if (body.statusCode === 500) {
-        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
-        return;
-      }
       const organization = body.data.organization;
-      organization.phone = organization.phones[0];
+      organization.phone = organization?.phones[0];
       this.currentOrganizations = organization;
       this.settings = body.data.settings;
     });
