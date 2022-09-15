@@ -8,9 +8,8 @@ import { ProjectType, ProjectTypeTrasnlation } from 'app/models/projects/project
 import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 import { constants } from 'app/shared/constants';
 import { Router } from '@angular/router';
-import { Project, ProjectListMember } from 'app/models/projects/project';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
-import { projectMember } from 'app/models/projects/project-member';
+import { ProjectMember } from 'app/models/projects/project-member';
 
 @Component({
   selector: 'app-add-member-to-project',
@@ -64,7 +63,7 @@ export class AddMemberToProjectComponent implements OnInit {
 
     const project = this.getProjectFromFormBuilder();
     try {
-      await this._projectService.addMemberToProject(this.data.projectId, project as projectMember);
+      await this._projectService.addMemberToProject(this.data.projectId, project as ProjectMember);
       this._toastrService.showSuccess(constants.CREATE_PROJECT_COMPLETED);
       this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.PROJECT]);
     } catch (error) {
@@ -84,8 +83,8 @@ export class AddMemberToProjectComponent implements OnInit {
     return item.id || index;
   }
 
-  private getProjectFromFormBuilder(): projectMember {
-    return new projectMember({
+  private getProjectFromFormBuilder(): ProjectMember {
+    return new ProjectMember({
       orgId: Number(this.data.orgID),
       role: this.projectForm.value.role,
       userId: Number(this.projectForm.value.member),

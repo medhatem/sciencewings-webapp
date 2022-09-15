@@ -1,6 +1,4 @@
 import {
-  CreateOrganizationRo,
-  GetProjectDto,
   MemberDto,
   OrganizationInformationDto,
   ProjectDto,
@@ -12,7 +10,6 @@ import {
   UpdateProjectRo,
 } from 'generated/models';
 import { Member } from '../members/member';
-import { ResponsableObjectDTO } from './project-type';
 
 export class Project implements ProjectRo {
   active?: boolean;
@@ -36,6 +33,7 @@ export class Project implements ProjectRo {
     });
   }
 }
+
 export class ProjectListItem implements ProjectListDto {
   creatingDate: string;
   id?: number;
@@ -57,17 +55,13 @@ export class ProjectListItem implements ProjectListDto {
     });
   }
 }
+
 export class ProjectListMember implements ProjectMemberDto {
   member: MemberDto;
-
   project: ProjectDto;
-
   role: string;
-
   status: string;
-
   statusCode: number;
-
   createdAt: string;
 
   constructor(project?: any) {
@@ -75,24 +69,18 @@ export class ProjectListMember implements ProjectMemberDto {
 
     Object.assign(this, {
       member,
-
       role,
-
       status,
-
       createdAt,
-
       statusCode,
     });
   }
 }
+
 export class ProjectMember implements ProjectMemberRo {
   userId: number;
-
   orgId: number;
-
   role: string;
-
   status: string;
 
   constructor(participant?: any) {
@@ -100,21 +88,16 @@ export class ProjectMember implements ProjectMemberRo {
 
     Object.assign(this, {
       userId,
-
       orgId,
-
       role,
-
       status,
     });
   }
 }
 
-export class participantListItem {
+export class ParticipantListItem {
   member: Member;
-
   role: string;
-
   status: string;
 
   constructor(participant?: any) {
@@ -122,13 +105,12 @@ export class participantListItem {
 
     Object.assign(this, {
       member,
-
       role,
-
       status,
     });
   }
 }
+
 export class ProjectDropDone implements ProjectDto {
   active?: boolean;
   dateEnd?: string;
@@ -146,19 +128,12 @@ export class ProjectDropDone implements ProjectDto {
 
     Object.assign(this, {
       active,
-
       dateEnd,
-
       dateStart,
-
       description,
-
       key,
-
       members,
-
       organization,
-
       title,
     });
 
@@ -170,17 +145,11 @@ export class ProjectDropDone implements ProjectDto {
 
 export class UpdateProject implements UpdateProjectRo {
   status?: 'To-do' | 'In-progress' | 'Review' | 'Done';
-
   dateEnd?: string;
-
   dateStart?: string;
-
   description?: string;
-
   key?: string;
-
   title?: string;
-
   newManager?: number;
 
   constructor(project: any) {
@@ -188,17 +157,11 @@ export class UpdateProject implements UpdateProjectRo {
 
     Object.assign(this, {
       status,
-
       dateEnd,
-
       dateStart,
-
       description,
-
       key,
-
       title,
-
       newManager,
     });
   }

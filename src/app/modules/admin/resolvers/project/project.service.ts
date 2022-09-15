@@ -7,7 +7,7 @@ import { Member } from 'app/models/members/member';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
 import { Project, ProjectListItem, ProjectListMember } from 'app/models/projects/project';
-import { projectMember } from 'app/models/projects/project-member';
+import { ProjectMember } from 'app/models/projects/project-member';
 import { ResponsableObjectDTO } from 'app/models/projects/project-type';
 
 @Injectable({
@@ -47,8 +47,8 @@ export class ProjectService {
       }),
     );
   }
-  async addMemberToProject(id: number, payload: projectMember): Promise<CreateProjectDto> {
-    return lastValueFrom(this._swaggerService.projectRoutesAddMembersToProject({ id, body: payload as projectMember }));
+  async addMemberToProject(id: number, payload: ProjectMember): Promise<CreateProjectDto> {
+    return lastValueFrom(this._swaggerService.projectRoutesAddMembersToProject({ id, body: payload as ProjectMember }));
   }
 
   getProjectsAll(

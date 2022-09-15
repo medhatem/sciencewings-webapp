@@ -1,15 +1,11 @@
-import { Component, Input, Inject, OnInit, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { ProjectDropDone, ProjectListMember, UpdateProject } from 'app/models/projects/project';
+import { ProjectListMember, UpdateProject } from 'app/models/projects/project';
 import { constants } from 'app/shared/constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
-import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
-import { OrganizationMembers } from 'app/models/members/member';
-import { ProjectMemberDto } from 'generated/models';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map } from 'rxjs';
 
 @Component({
@@ -18,14 +14,13 @@ import { map } from 'rxjs';
   styleUrls: ['./project-general-settings.component.scss'],
 })
 export class ProjectGeneralSettingsComponent implements OnInit, AfterViewInit {
+  @Input() id: any;
+  @Input() deadline: any = {};
   managers: any[] = [];
   projects: any[] = [];
   projectList: ProjectListMember[] = [];
-  @Input() id;
-  project;
-
+  project: any;
   generalSettingstForm: FormGroup;
-  @Input() deadline: any = {};
 
   constructor(
     private _projectService: ProjectService,
@@ -33,7 +28,6 @@ export class ProjectGeneralSettingsComponent implements OnInit, AfterViewInit {
     private _toastrService: ToastrService,
     private _router: Router,
     private route: ActivatedRoute,
-    private _memberService: MemberService,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -52,6 +46,7 @@ export class ProjectGeneralSettingsComponent implements OnInit, AfterViewInit {
       newManager: [],
     });
   }
+
   async ngAfterViewInit(): Promise<void> {
     this.project = await lastValueFrom(this._projectService.getOrgProjectById(this.id).pipe(map((r) => r.body)));
     this.generalSettingstForm.setValue({
@@ -63,6 +58,7 @@ export class ProjectGeneralSettingsComponent implements OnInit, AfterViewInit {
       newManager: '',
     });
   }
+
   async onSubmit() {
     if (!this.generalSettingstForm.valid) {
       this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);

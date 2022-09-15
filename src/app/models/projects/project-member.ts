@@ -1,6 +1,6 @@
 import { ProjectMemberRo } from 'generated/models';
 
-export class projectMember implements ProjectMemberRo {
+export class ProjectMember implements ProjectMemberRo {
   orgId: number;
   role: string;
   userId: number;
@@ -10,7 +10,6 @@ export class projectMember implements ProjectMemberRo {
     Object.assign(this, {
       orgId,
       role,
-
       userId,
     });
   }

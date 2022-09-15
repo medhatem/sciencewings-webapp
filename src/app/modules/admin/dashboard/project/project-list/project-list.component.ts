@@ -1,14 +1,14 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
-import { lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { ListOption } from '../../reusable-components/list/list-component.component';
 import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 import { ProjectFormComponent } from '../project-form/project-form.component';
-import { Project, ProjectListItem, ProjectMember } from 'app/models/projects/project';
+import { ProjectListItem } from 'app/models/projects/project';
+
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -66,17 +66,14 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         data: { orgID },
       })
       .afterClosed()
-      .subscribe((projects: ProjectListItem[]) => {
+      .subscribe(() => {
         this._projectService.getAndParseOrganizationProjects().subscribe((projects: ProjectListItem[]) => {
           this.projects = projects;
           this._changeDetectorRef.markForCheck();
         });
       });
-
-    // this.openedDialogRef.afterClosed().subscribe((result) => {
-    //   lastValueFrom(this._projectService.getAndParseOrganizationProjects());
-    // });
   }
+
   async onElementSelected(p: ProjectListItem) {
     localStorage.setItem(constants.CURRENT_PROJECT_ID, `${p.id}`);
     const project = p.projectDto;

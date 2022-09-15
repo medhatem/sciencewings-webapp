@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subject, takeUntil } from 'rxjs';
-import { ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, OnDestroy, ViewChild } from '@angular/core';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-reusable-settings',
@@ -11,17 +10,16 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./reusable-settings.component.scss'],
 })
 export class ReusableSettingsComponent implements OnInit, OnDestroy {
-  @ViewChild('drawer') drawer: MatDrawer;
-  // @ViewChild('showComponent') showComponent: HTMLElement;
-  drawerMode: 'over' | 'side' = 'side';
-  drawerOpened: boolean = true;
   @Input() selectedPanel: string;
-  @Output() OnSelectedPanelChange = new EventEmitter<string>();
+  @Output() onSelectedPanelChange = new EventEmitter<string>();
   @Input() panels: any[] = [];
   @Input() title: string;
-
+  @ViewChild('drawer') drawer: MatDrawer;
+  drawerMode: 'over' | 'side' = 'side';
+  drawerOpened: boolean = true;
   settings = null;
   currentProjects = null;
+
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _fuseMediaWatcherService: FuseMediaWatcherService) {}
@@ -43,6 +41,7 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
       this._changeDetectorRef.markForCheck();
     });
   }
+
   /**
    * On destroy
    */
@@ -62,7 +61,7 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
    */
   goToPanel(panel: string): void {
     this.selectedPanel = panel;
-    this.OnSelectedPanelChange.emit(this.selectedPanel);
+    this.onSelectedPanelChange.emit(this.selectedPanel);
     // Close the drawer on 'over' mode
     if (this.drawerMode === 'over') {
       this.drawer.close();
@@ -87,6 +86,7 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
   trackByFn(index: number, item: any): any {
     return item.id || index;
   }
+
   updateLocalSettings(payload) {
     this.settings = {
       ...this.settings,
