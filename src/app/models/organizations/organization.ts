@@ -26,6 +26,7 @@ export class Organization implements CreateOrganizationRo {
   dealingType: string;
   timezone: string;
   parent?: number;
+  responsible: string;
 
   constructor(organization: any) {
     const {
@@ -36,6 +37,7 @@ export class Organization implements CreateOrganizationRo {
       adminContact,
       direction,
       members,
+      responsible,
       socialFacebook,
       socialGithub,
       socialInstagram,
@@ -64,6 +66,7 @@ export class Organization implements CreateOrganizationRo {
       labels,
       members,
       name,
+      responsible,
       parent,
       phones,
       socialFacebook,

@@ -9,6 +9,10 @@ import { Organization } from 'app/models/organizations/organization';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
+import { UserOrganizations } from 'app/models/organizations/user-organizations';
+import { ActivatedRoute } from '@angular/router';
+import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
+import { OrganizationMembers } from 'app/models/members/member';
 
 @Component({
   selector: 'organization-settings-general',
@@ -25,6 +29,10 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   labelsKeys = Object.keys(OrganizationLabels);
   labelsTranslation = OrganizationLabelsTranslation;
   organization: Organization;
+  hasOrganizations: boolean = true;
+  userOrganizations: UserOrganizations[] = [];
+  organizationMembers: OrganizationMembers[];
+  responsible: OrganizationMembers[];
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -34,9 +42,16 @@ export class GeneralComponent implements OnInit, AfterViewInit {
     private _contactsService: ContactsService,
     private _changeDetectorRef: ChangeDetectorRef,
     private organizationService: AdminOrganizationsService,
+    private _route: ActivatedRoute,
+    private _memberService: MemberService,
   ) {}
 
   async ngOnInit(): Promise<void> {
+    this.getMembers();
+
+    // const { userOrganizations = [] } = this._route.snapshot.data;
+    // this.userOrganizations = userOrganizations;
+
     this.form = this._formBuilder.group({
       name: '',
       email: '',
@@ -44,6 +59,8 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       phoneNumber: '',
       phoneLabel: '',
       type: '',
+      parent: [],
+      responsible: '',
       description: '',
     });
 
@@ -81,7 +98,8 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       phoneNumber: orgInfo?.phones[0]?.phoneNumber || '',
       phoneLabel: orgInfo?.phones[0]?.phoneLabel || '',
       type: orgInfo?.type || '',
-
+      parent: orgInfo?.parent || '',
+      responsible: orgInfo?.responsible || '',
       description: orgInfo?.description || '',
     });
   }
@@ -99,6 +117,16 @@ export class GeneralComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private getMembers() {
+    const idOrg = this.getOrganizationIdFromLocalStorage();
+    return this._memberService
+      .getMembersByOrgId(idOrg)
+      .then((resolve) => (this.organizationMembers = resolve))
+      .catch(() => {
+        this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');
+      });
+  }
+
   getCountryByIso(): any {
     return this.countries.find(({ iso }) => iso === this.form.value.phoneCode);
   }
@@ -110,5 +138,9 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   async getOrganizationInformations() {
     const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     return (this.organization = await this.organizationService.getOrganization(Number(orgId)));
+  }
+
+  private getOrganizationIdFromLocalStorage(): number {
+    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
 }

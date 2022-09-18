@@ -74,13 +74,24 @@
           </mat-select>
         </mat-form-field>
       </div>
+      <div *ngIf="hasOrganizations" class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label class="w-100">{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}</mat-label>
+          <mat-select [formControlName]="'parent'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}">
+            <mat-option *ngFor="let userOrganization of userOrganizations; trackBy: trackByFn" [value]="userOrganization.id">
+              {{ userOrganization?.name }}
+            </mat-option>
+          </mat-select>
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+        </mat-form-field>
+      </div>
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.DIRECTION' | transloco }}</mat-label>
-          <mat-select [formControlName]="'direction'" placeholder="{{ 'ORGANIZATION.SETTINGS.GENERAL.DIRECTION' | transloco }}">
-            <mat-option value="1">User 1</mat-option>
-            <mat-option value="2">User 2</mat-option>
-            <mat-option value="3">User 3</mat-option>
+          <mat-select [formControlName]="'responsible'">
+            <mat-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember?.user">
+              {{ organizationMember?.name }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
