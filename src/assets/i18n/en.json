@@ -130,6 +130,7 @@
       },
       "USER": {
         "ABOUT": {
+          "MESSAGE": "User Details",
           "ADDRESS": "Address",
           "ADD_EMAIL": "Add an e-mail address",
           "ADD_PHONE_NUMBER": "Add a phone number",
@@ -227,7 +228,7 @@
         "POSTAL_CODE": "Postal Code",
         "PROVINCE": "Province/region",
         "SECTOR": "Sector",
-        "SELECT_COUNTRY": "Choose a country",
+        "SELECT_COUNTRY": "Country",
         "SOCIAL_MEDIA": "Social Networks",
         "STREET": "Street",
         "SUB_TITLE": "Organization Address",
@@ -520,22 +521,22 @@
         "SUCCESS": {
           "CREATE_COMPLETED": "The resource was created succefully"
         },
-        "RESERVATION":{
-          "CREATE_BTN":"Create",
-          "DELETE_BTN":"Delete Event",
-          "DETAILS":"Reservation Details",
-          "CREATE_RESERVATION":"create event",
-          "RESOURCE_NAME":"Resource",
-          "EVENTS":{
-            "START":"event start",
-            "END":"event end",
-            "TITLE":"title for Reservation",
-            "TITLE_PLACEHOLDER":"Enter the reservation title",
-            "DURATION":"Duration",
-            "FOR":"Reserved for",
-            "INVALID":"Invalid Reservation",
-            "INVALID_PAST":"Cannot make reservation in the Past",
-            "INVALID_RESERVATION_DURATION_LIMIT":"The Reservation minimum duration must be 1 hour"
+        "RESERVATION": {
+          "CREATE_BTN": "Create",
+          "DELETE_BTN": "Delete Event",
+          "DETAILS": "Reservation Details",
+          "CREATE_RESERVATION": "create event",
+          "RESOURCE_NAME": "Resource",
+          "EVENTS": {
+            "START": "event start",
+            "END": "event end",
+            "TITLE": "title for Reservation",
+            "TITLE_PLACEHOLDER": "Enter the reservation title",
+            "DURATION": "Duration",
+            "FOR": "Reserved for",
+            "INVALID": "Invalid Reservation",
+            "INVALID_PAST": "Cannot make reservation in the Past",
+            "INVALID_RESERVATION_DURATION_LIMIT": "The Reservation minimum duration must be 1 hour"
           }
         }
       }

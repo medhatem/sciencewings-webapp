@@ -129,6 +129,7 @@
       },
       "USER": {
         "ABOUT": {
+          "MESSAGE": "Détails de l'utilisateur",
           "ADDRESS": "Adresse",
           "ADD_EMAIL": "Ajouter une adresse e-mail",
           "ADD_PHONE_NUMBER": "Ajouter un numéro de téléphone",
@@ -223,7 +224,7 @@
         "POSTAL_CODE": "Code postal",
         "PROVINCE": "Province/région",
         "SECTOR": "Secteur",
-        "SELECT_COUNTRY": "Choisissez un pays",
+        "SELECT_COUNTRY": " Pays",
         "SOCIAL_MEDIA": "Réseaux sociaux",
         "STREET": "Rue",
         "SUB_TITLE": "Adresse de l'organisation",
@@ -518,22 +519,22 @@
         "SUCCESS": {
           "CREATE_COMPLETED": "La resource a été créer avec succées "
         },
-        "RESERVATION":{
-          "CREATE_BTN":"Créer",
-          "DELETE_BTN":"Supprimer l'événement",
-          "DETAILS":"DETAILS DE LA RESERVATION",
-          "CREATE_RESERVATION":"creer un evenement",
-          "RESOURCE_NAME":"Resource",
-          "EVENTS":{
-            "START":"Debut de l'evenemnt",
-            "END":"fin de l'evenement",
-            "TITLE":"Titre de la reservation",
-            "TITLE_PLACEHOLDER":"Entrer un titre pour la reservation",
-            "DURATION":"durée",
-            "FOR":"réservé pour",
-            "INVALID":"Reservation Invalide",
-            "INVALID_PAST":"ne peut pas faire de réservation dans le passé",
-            "INVALID_RESERVATION_DURATION_LIMIT":"La Reservation doit Faire 1 heure au minimum"
+        "RESERVATION": {
+          "CREATE_BTN": "Créer",
+          "DELETE_BTN": "Supprimer l'événement",
+          "DETAILS": "DETAILS DE LA RESERVATION",
+          "CREATE_RESERVATION": "creer un evenement",
+          "RESOURCE_NAME": "Resource",
+          "EVENTS": {
+            "START": "Debut de l'evenemnt",
+            "END": "fin de l'evenement",
+            "TITLE": "Titre de la reservation",
+            "TITLE_PLACEHOLDER": "Entrer un titre pour la reservation",
+            "DURATION": "durée",
+            "FOR": "réservé pour",
+            "INVALID": "Reservation Invalide",
+            "INVALID_PAST": "ne peut pas faire de réservation dans le passé",
+            "INVALID_RESERVATION_DURATION_LIMIT": "La Reservation doit Faire 1 heure au minimum"
           }
         }
       }
