@@ -272,7 +272,7 @@
       "CREATE_ORGANIZATION": "Créer une organisation",
       "ERROR_LOADING_ORGANIZATIONS": "Une erreur s'est produite lors du chargement des organisations",
       "MESSAGE": "organisations",
-      "NO_ORGANIZATIONS": "Vous avez aucune organisation",
+      "NO_ORGANIZATIONS": "vous n'avez aucune organisation",
       "TITLE": "Mes Organisations"
     },
     "MEMBERS": {
@@ -518,22 +518,22 @@
         "SUCCESS": {
           "CREATE_COMPLETED": "La resource a été créer avec succées "
         },
-        "RESERVATION":{
-          "CREATE_BTN":"Créer",
-          "DELETE_BTN":"Supprimer l'événement",
-          "DETAILS":"DETAILS DE LA RESERVATION",
-          "CREATE_RESERVATION":"creer un evenement",
-          "RESOURCE_NAME":"Resource",
-          "EVENTS":{
-            "START":"Debut de l'evenemnt",
-            "END":"fin de l'evenement",
-            "TITLE":"Titre de la reservation",
-            "TITLE_PLACEHOLDER":"Entrer un titre pour la reservation",
-            "DURATION":"durée",
-            "FOR":"réservé pour",
-            "INVALID":"Reservation Invalide",
-            "INVALID_PAST":"ne peut pas faire de réservation dans le passé",
-            "INVALID_RESERVATION_DURATION_LIMIT":"La Reservation doit Faire 1 heure au minimum"
+        "RESERVATION": {
+          "CREATE_BTN": "Créer",
+          "DELETE_BTN": "Supprimer l'événement",
+          "DETAILS": "DETAILS DE LA RESERVATION",
+          "CREATE_RESERVATION": "creer un evenement",
+          "RESOURCE_NAME": "Resource",
+          "EVENTS": {
+            "START": "Debut de l'evenemnt",
+            "END": "fin de l'evenement",
+            "TITLE": "Titre de la reservation",
+            "TITLE_PLACEHOLDER": "Entrer un titre pour la reservation",
+            "DURATION": "durée",
+            "FOR": "réservé pour",
+            "INVALID": "Reservation Invalide",
+            "INVALID_PAST": "ne peut pas faire de réservation dans le passé",
+            "INVALID_RESERVATION_DURATION_LIMIT": "La Reservation doit Faire 1 heure au minimum"
           }
         }
       }
@@ -611,8 +611,8 @@
         "PROJECT_MEMBERS": "Membres",
         "PROJECT_NAME": "Projet",
         "PROJECT_STATUS": "Status",
-        "MESSAGE": "Il n'y a pas de Projets !",
-        "MESSAGE_MEMBER_LIST": "Il n'y a pas des membres",
+        "MESSAGE": "Aucun projet",
+        "MESSAGE_MEMBER_LIST": "Aucun membres",
         "TITLE": "Titre",
         "MANAGER": "Manager",
         "MEMBERS": "# Membres",
@@ -650,7 +650,7 @@
       }
     },
     "CONTRACTS": {
-      "CREATE_CONTRACTS": "Ajouter une nouvelle contrat",
+      "CREATE_CONTRACTS": "Nouveau contrat",
       "EXPORT_CONTRACTS": "Exporter",
       "FILTER_CONTRACTS": "Filtre",
       "FORM": {
@@ -679,7 +679,7 @@
         "CREATE_COMPLETED": "La création du contrat a réussi"
       },
       "LIST": {
-        "MESSAGE": "Il n'y a pas des contracts !"
+        "MESSAGE": "Aucun contract"
       },
       "SEARCH_GROUPS": "Chercher un projet",
       "TITLE": "Contracts",

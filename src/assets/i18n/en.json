@@ -520,22 +520,22 @@
         "SUCCESS": {
           "CREATE_COMPLETED": "The resource was created succefully"
         },
-        "RESERVATION":{
-          "CREATE_BTN":"Create",
-          "DELETE_BTN":"Delete Event",
-          "DETAILS":"Reservation Details",
-          "CREATE_RESERVATION":"create event",
-          "RESOURCE_NAME":"Resource",
-          "EVENTS":{
-            "START":"event start",
-            "END":"event end",
-            "TITLE":"title for Reservation",
-            "TITLE_PLACEHOLDER":"Enter the reservation title",
-            "DURATION":"Duration",
-            "FOR":"Reserved for",
-            "INVALID":"Invalid Reservation",
-            "INVALID_PAST":"Cannot make reservation in the Past",
-            "INVALID_RESERVATION_DURATION_LIMIT":"The Reservation minimum duration must be 1 hour"
+        "RESERVATION": {
+          "CREATE_BTN": "Create",
+          "DELETE_BTN": "Delete Event",
+          "DETAILS": "Reservation Details",
+          "CREATE_RESERVATION": "create event",
+          "RESOURCE_NAME": "Resource",
+          "EVENTS": {
+            "START": "event start",
+            "END": "event end",
+            "TITLE": "title for Reservation",
+            "TITLE_PLACEHOLDER": "Enter the reservation title",
+            "DURATION": "Duration",
+            "FOR": "Reserved for",
+            "INVALID": "Invalid Reservation",
+            "INVALID_PAST": "Cannot make reservation in the Past",
+            "INVALID_RESERVATION_DURATION_LIMIT": "The Reservation minimum duration must be 1 hour"
           }
         }
       }
@@ -553,7 +553,7 @@
       "FILTER_INFRASTRUCTURE": "Filter ",
       "IMPORT_INFRASTRUCTURE": "Import ",
       "EXPORT_INFRASTRUCTURE": "Export ",
-      "NO_INFRASTRUCTURE": "There are no infrastructure",
+      "NO_INFRASTRUCTURE": "There are no infrastructures",
       "INFRASTRUCTURE_FORM": {
         "TITLE": "Create infrastructure ",
         "NAME": "Name",
@@ -613,8 +613,8 @@
         "PROJECT_MEMBERS": "Membres",
         "PROJECT_NAME": "Project",
         "PROJECT_STATUS": "Status",
-        "MESSAGE": "There is no projects",
-        "MESSAGE_MEMBER_LIST": "There is any member yet",
+        "MESSAGE": "There are no projects",
+        "MESSAGE_MEMBER_LIST": "There are any member yet",
         "TITLE": "Title",
         "MANAGER": "Manager",
         "MEMBERS": "# Members",
@@ -681,7 +681,7 @@
         "CREATE_COMPLETED": "Create project succeeded"
       },
       "LIST": {
-        "MESSAGE": "There is no contracts"
+        "MESSAGE": "There are no contracts"
       },
       "SEARCH_CONTRACTS": "Find a contract",
       "TITLE": "Contracts",
