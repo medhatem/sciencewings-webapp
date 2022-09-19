@@ -1,5 +1,5 @@
 import { Address } from '../address';
-import { CreateOrganizationRo } from 'generated/models';
+import { CreateOrganizationRo, UpdateOrganizationRo } from 'generated/models';
 import { OrganizationType } from './organization-type.enum';
 import { Phone } from '../phone';
 
@@ -83,5 +83,53 @@ export class Organization implements CreateOrganizationRo {
     if (id) {
       this.id = id;
     }
+  }
+}
+
+export class Project implements UpdateOrganizationRo {
+  description?: string;
+  direction?: number;
+  email?: string;
+  labels?: Array<string>;
+  name?: string;
+  parent?: number;
+  socialFacebook?: string;
+  socialGithub?: string;
+  socialInstagram?: string;
+  socialLinkedin?: string;
+  socialTwitter?: string;
+  socialYoutube?: string;
+  type?: string;
+  constructor(organization: any) {
+    const {
+      description,
+      direction,
+      email,
+      labels,
+      name,
+      parent,
+      socialFacebook,
+      socialGithub,
+      socialInstagram,
+      socialLinkedin,
+      socialTwitter,
+      socialYoutube,
+      type,
+    } = organization || {};
+    Object.assign(this, {
+      description,
+      direction,
+      email,
+      labels,
+      name,
+      parent,
+      socialFacebook,
+      socialGithub,
+      socialInstagram,
+      socialLinkedin,
+      socialTwitter,
+      socialYoutube,
+      type,
+    });
   }
 }
