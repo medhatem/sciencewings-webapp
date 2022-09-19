@@ -49,9 +49,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   async ngOnInit(): Promise<void> {
     this.getMembers();
 
-    // const { userOrganizations = [] } = this._route.snapshot.data;
-    // this.userOrganizations = userOrganizations;
-
     this.form = this._formBuilder.group({
       name: '',
       email: '',
@@ -103,6 +100,18 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       description: orgInfo?.description || '',
     });
   }
+  getCountryByIso(): any {
+    return this.countries.find(({ iso }) => iso === this.form.value.phoneCode);
+  }
+
+  trackByFn(index: number, item: any): any {
+    return item.id || index;
+  }
+
+  async getOrganizationInformations() {
+    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    return (this.organization = await this.organizationService.getOrganization(Number(orgId)));
+  }
 
   async onSubmit() {
     const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
@@ -125,19 +134,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       .catch(() => {
         this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');
       });
-  }
-
-  getCountryByIso(): any {
-    return this.countries.find(({ iso }) => iso === this.form.value.phoneCode);
-  }
-
-  trackByFn(index: number, item: any): any {
-    return item.id || index;
-  }
-
-  async getOrganizationInformations() {
-    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
-    return (this.organization = await this.organizationService.getOrganization(Number(orgId)));
   }
 
   private getOrganizationIdFromLocalStorage(): number {
