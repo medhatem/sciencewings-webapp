@@ -28,21 +28,22 @@
           <input matInput formControlName="phoneNumber" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.PHONE' | transloco" />
           <mat-select class="mr-1.5" formControlName="phoneCode" matPrefix>
             <mat-select-trigger>
-              <span class="flex items-center">
+              <!--               <span class="flex items-center">
                 <span
                   class="hidden sm:flex w-6 h-4 mr-1 overflow-hidden"
-                  [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
+                  [style.background]="'url(\'../../../../../../assets/images/flags/flags.png\') no-repeat 0 0'"
                   [style.backgroundSize]="'24px 3876px'"
                   [style.backgroundPosition]="getCountryByIso().flagImagePos"></span>
                 <span class="sm:mx-0.5 font-medium text-default">{{ getCountryByIso().code }}</span>
               </span>
+ -->
             </mat-select-trigger>
             <ng-container *ngFor="let country of countries; trackBy: trackByFn">
               <mat-option [value]="country.iso">
                 <span class="flex items-center">
                   <span
                     class="w-6 h-4 overflow-hidden"
-                    [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
+                    [style.background]="'url(\'../../../../../../assets/images/flags/flags.png\') no-repeat 0 0'"
                     [style.backgroundSize]="'24px 3876px'"
                     [style.backgroundPosition]="country.flagImagePos"></span>
                   <span class="ml-2">{{ country.name }}</span>
@@ -88,7 +89,7 @@
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.DIRECTION' | transloco }}</mat-label>
-          <mat-select [formControlName]="'responsible'">
+          <mat-select [formControlName]="'direction'">
             <mat-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember?.user">
               {{ organizationMember?.name }}
             </mat-option>

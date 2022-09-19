@@ -5,7 +5,7 @@ import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
-import { Organization } from 'app/models/organizations/organization';
+import { Organization, UpdateOrganization } from 'app/models/organizations/organization';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
@@ -13,7 +13,6 @@ import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { ActivatedRoute } from '@angular/router';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { OrganizationMembers } from 'app/models/members/member';
-
 @Component({
   selector: 'organization-settings-general',
   templateUrl: './general.component.html',
@@ -32,7 +31,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   hasOrganizations: boolean = true;
   userOrganizations: UserOrganizations[] = [];
   organizationMembers: OrganizationMembers[];
-  responsible: OrganizationMembers[];
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -57,7 +55,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       phoneLabel: '',
       type: '',
       parent: [],
-      responsible: '',
+      direction: '',
       description: '',
     });
 
@@ -96,7 +94,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       phoneLabel: orgInfo?.phones[0]?.phoneLabel || '',
       type: orgInfo?.type || '',
       parent: orgInfo?.parent || '',
-      responsible: orgInfo?.responsible || '',
+      direction: orgInfo?.direction || '',
       description: orgInfo?.description || '',
     });
   }
@@ -115,9 +113,9 @@ export class GeneralComponent implements OnInit, AfterViewInit {
 
   async onSubmit() {
     const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
-    const data = { ...this.form.value };
+    const updatedOrganization = this.getOrganizationFromFormBuilder();
 
-    const response = await this.organizationService.updateOrganization(Number(orgId), data);
+    const response = await this.organizationService.updateOrganization(Number(orgId), updatedOrganization);
     if (response.body.statusCode === 204) {
       this.updateLocalOrganization.emit(this.form.value);
       this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
@@ -138,5 +136,18 @@ export class GeneralComponent implements OnInit, AfterViewInit {
 
   private getOrganizationIdFromLocalStorage(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+  }
+  private getOrganizationFromFormBuilder(): UpdateOrganization {
+    return new UpdateOrganization({
+      name: this.form.value?.name || this.organization.name,
+      email: this.form.value?.email || this.organization.email,
+      // phoneCode: 'fr',
+      // phoneNumber: this.form.value?.name || this.organization.name,
+      // phoneLabel: this.form.value?.name || this.organization.name,
+      type: this.form.value?.type || this.organization.type,
+      parent: this.form.value?.parent || this.organization.parent,
+      direction: this.form.value?.direction || this.organization.direction,
+      description: this.form.value?.description || this.organization.description,
+    });
   }
 }
