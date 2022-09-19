@@ -86,7 +86,7 @@ export class Organization implements CreateOrganizationRo {
   }
 }
 
-export class Project implements UpdateOrganizationRo {
+export class UpdateOrganization implements UpdateOrganizationRo {
   description?: string;
   direction?: number;
   email?: string;
