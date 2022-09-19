@@ -45,9 +45,7 @@ export class AdminOrganizationsService {
    */
   async getOrganization(id: number): Promise<Organization> {
     return lastValueFrom(
-      this._swaggerService.organizationRoutesGetById({ id: Number(id) }).pipe(
-        map(({ body }) => new Organization((body as any).data[0])),
-      ),
+      this._swaggerService.organizationRoutesGetById({ id: Number(id) }).pipe(map(({ body }) => new Organization((body as any).data[0]))),
     );
   }
 
@@ -90,5 +88,9 @@ export class AdminOrganizationsService {
    */
   updateOrganizationsSettingsProperties(id: number, body: any): Observable<any> {
     return this._swaggerService.organizationRoutesUpdateOrganizationsSettingsnAccessProperties({ organizationId: id, body });
+  }
+
+  getOrgOrganizationById(id: number): Observable<any> {
+    return this._swaggerService.organizationRoutesGetById({ id });
   }
 }

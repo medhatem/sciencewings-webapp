@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { lastValueFrom, map, Subject, takeUntil } from 'rxjs';
 
 import { AdminOrganizationsService } from '../../resolvers/admin-organization/admin-organization.service';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
@@ -20,7 +20,7 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
   panels: any[] = [];
   selectedPanel: string = 'account';
   settings = null;
-  currentOrganizations = null;
+  organization: any;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   /**
@@ -40,7 +40,7 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
   /**
    * On init
    */
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     // Setup available panels
     this.panels = [
       {
@@ -97,14 +97,8 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
       this._changeDetectorRef.markForCheck();
     });
     const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
-    this._organizationService.getOrganizationSettingsById(Number(orgId)).subscribe(({ body }) => {
-      const organization = body.data.organization;
-      organization.phone = organization?.phones[0];
-      this.currentOrganizations = organization;
-      this.settings = body.data.settings;
-    });
+    this.organization = await lastValueFrom(this._organizationService.getOrgOrganizationById(Number(orgId)).pipe(map((r) => r.body.data[0])));
   }
-
   /**
    * On destroy
    */
@@ -159,8 +153,8 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
   }
 
   updateLocalOrganization(payload) {
-    this.currentOrganizations = {
-      ...this.currentOrganizations,
+    this.organization = {
+      ...this.organization,
       ...payload,
     };
   }

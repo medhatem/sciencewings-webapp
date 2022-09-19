@@ -22,12 +22,13 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   @Input() currentOrganizations: any;
   @Output() updateLocalOrganization = new EventEmitter<string>();
   @Input() countries: any;
+  @Input() organization: any;
+
   form: FormGroup;
   labels = OrganizationLabels;
   phoneLabel = OrganizationLabels;
   labelsKeys = Object.keys(OrganizationLabels);
   labelsTranslation = OrganizationLabelsTranslation;
-  organization: Organization;
   hasOrganizations: boolean = true;
   userOrganizations: UserOrganizations[] = [];
   organizationMembers: OrganizationMembers[];
@@ -85,17 +86,16 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   }
 
   async ngAfterViewInit(): Promise<void> {
-    const orgInfo = await this.getOrganizationInformations();
     this.form.setValue({
-      name: orgInfo?.name || '',
-      email: orgInfo?.email || '',
-      phoneCode: orgInfo?.phones[0]?.phoneCode || 'fr',
-      phoneNumber: orgInfo?.phones[0]?.phoneNumber || '',
-      phoneLabel: orgInfo?.phones[0]?.phoneLabel || '',
-      type: orgInfo?.type || '',
-      parent: orgInfo?.parent || '',
-      direction: orgInfo?.direction || '',
-      description: orgInfo?.description || '',
+      name: this.organization?.name || '',
+      email: this.organization?.email || '',
+      phoneCode: this.organization?.phones[0]?.phoneCode || 'fr',
+      phoneNumber: this.organization?.phones[0]?.phoneNumber || '',
+      phoneLabel: this.organization?.phones[0]?.phoneLabel || '',
+      type: this.organization?.type || '',
+      parent: this.organization?.parent || '',
+      direction: this.organization?.direction || '',
+      description: this.organization?.description || '',
     });
   }
   getCountryByIso(): any {
@@ -104,11 +104,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
 
   trackByFn(index: number, item: any): any {
     return item.id || index;
-  }
-
-  async getOrganizationInformations() {
-    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
-    return (this.organization = await this.organizationService.getOrganization(Number(orgId)));
   }
 
   async onSubmit() {
