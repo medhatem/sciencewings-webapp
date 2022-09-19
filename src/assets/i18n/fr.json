@@ -273,7 +273,7 @@
       "CREATE_ORGANIZATION": "Créer une organisation",
       "ERROR_LOADING_ORGANIZATIONS": "Une erreur s'est produite lors du chargement des organisations",
       "MESSAGE": "organisations",
-      "NO_ORGANIZATIONS": "Vous avez aucune organisation",
+      "NO_ORGANIZATIONS": "vous n'avez aucune organisation",
       "TITLE": "Mes Organisations"
     },
     "MEMBERS": {
@@ -612,8 +612,8 @@
         "PROJECT_MEMBERS": "Membres",
         "PROJECT_NAME": "Projet",
         "PROJECT_STATUS": "Status",
-        "MESSAGE": "Il n'y a pas de Projets !",
-        "MESSAGE_MEMBER_LIST": "Il n'y a pas des membres",
+        "MESSAGE": "Aucun projet",
+        "MESSAGE_MEMBER_LIST": "Aucun membres",
         "TITLE": "Titre",
         "MANAGER": "Manager",
         "MEMBERS": "# Membres",
@@ -651,7 +651,7 @@
       }
     },
     "CONTRACTS": {
-      "CREATE_CONTRACTS": "Ajouter une nouvelle contrat",
+      "CREATE_CONTRACTS": "Nouveau contrat",
       "EXPORT_CONTRACTS": "Exporter",
       "FILTER_CONTRACTS": "Filtre",
       "FORM": {
@@ -680,7 +680,7 @@
         "CREATE_COMPLETED": "La création du contrat a réussi"
       },
       "LIST": {
-        "MESSAGE": "Il n'y a pas des contracts !"
+        "MESSAGE": "Aucun contract"
       },
       "SEARCH_GROUPS": "Chercher un projet",
       "TITLE": "Contracts",
