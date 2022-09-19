@@ -73,14 +73,14 @@ export class GeneralComponent implements OnInit, AfterViewInit {
           ...this.form.value,
           phoneCode: this.currentOrganizations?.phone?.phoneCode,
           phoneNumber: this.currentOrganizations?.phone.phoneNumber,
-          labels: this.currentOrganizations?.phone?.labels,
+          phoneLabel: this.currentOrganizations?.phone?.phoneLabel,
         });
       } else {
         this.form.setValue({
           ...this.form.value,
           phoneCode: 'fr',
           phoneNumber: '',
-          labels: '',
+          phoneLabel: '',
         });
       }
     });
