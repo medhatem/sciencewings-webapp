@@ -19,7 +19,6 @@ export class NewUserInfosComponent implements OnInit {
   @Output() onFormNotComplete = new EventEmitter<boolean>();
   user: any;
   form: FormGroup;
-  submitted = false;
 
   constructor(
     private _route: ActivatedRoute,
@@ -38,10 +37,6 @@ export class NewUserInfosComponent implements OnInit {
     this.createFormBuilderForUser();
   }
 
-  getvalidationControls() {
-    return this.form.controls;
-  }
-
   /**
    * Validates the form informations and fields,
    * then calls create user endpoint.
@@ -49,7 +44,6 @@ export class NewUserInfosComponent implements OnInit {
    * @returns void to out from function if form not valid.
    */
   async emitOnFormComplete() {
-    this.submitted = true;
     if (this.form.invalid) {
       return this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
     }
