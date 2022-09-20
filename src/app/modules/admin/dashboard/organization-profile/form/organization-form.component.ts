@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address, Phone } from 'app/models';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Organization } from 'app/models/organizations/organization';
 import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
@@ -11,7 +11,9 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
+import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
 
 @Component({
   selector: 'organization-form',
@@ -19,7 +21,8 @@ import { lastValueFrom } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class OrganizationFormComponent implements OnInit {
-  countries = countryCanada;
+  @Input() countries: any;
+  // countries = countryCanada;
   formGroup: FormGroup;
   organizationTypesKeys = Object.keys(OrganizationType).map((key) => key);
   organizationType = OrganizationType;
@@ -30,10 +33,15 @@ export class OrganizationFormComponent implements OnInit {
   userOrganizations: UserOrganizations[] = [];
   hasOrganizations: boolean = true;
 
+  private _unsubscribeAll: Subject<any> = new Subject<any>();
+
   constructor(
     private _formBuilder: FormBuilder,
     private _adminOrganizationsService: AdminOrganizationsService,
     private _toastrService: ToastrService,
+    private _contactsService: ContactsService,
+    private _changeDetectorRef: ChangeDetectorRef,
+
     private _route: ActivatedRoute,
     private _router: Router,
   ) {}
@@ -57,6 +65,14 @@ export class OrganizationFormComponent implements OnInit {
       labels: [],
       organizationType: ['', [Validators.required]],
     };
+
+    // Get the country telephone codes
+    this._contactsService.countries$.pipe(takeUntil(this._unsubscribeAll)).subscribe((codes: any[]) => {
+      this.countries = countriesData;
+
+      // Mark for check
+      this._changeDetectorRef.markForCheck();
+    });
 
     if (!this.userOrganizations?.length) {
       this.hasOrganizations = false;
@@ -88,9 +104,9 @@ export class OrganizationFormComponent implements OnInit {
     }
   }
 
-  getCountryByIso(value: string): any {
+  getCountryByIso(): any {
     // keep only canada for the moment
-    return this.countries.length > 0 ? this.countries[0] : { code: '', name: '', flagImagePos: '' };
+    return this.countries.length ? this.countries[0] : { code: '', name: '', flagImagePos: '' };
   }
 
   /**

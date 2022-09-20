@@ -3,10 +3,6 @@
   <!-- Header -->
   <div class="relative flex-0 py-8 px-4 sm:p-8 overflow-hidden">
     <div class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none">
-      <!-- <button class="fuse-mat-button-rounded sm:ml-16" mat-flat-button [color]="'primary'" routerLink="{{ ['../'] }}">
-        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:arrow-circle-left'"></mat-icon>
-        <span class="ml-2">Back</span>
-      </button> -->
       <div class="font-semibold">
         <b>{{ 'ORGANIZATION.FORM.TITLE' | transloco }}</b>
       </div>
@@ -61,18 +57,16 @@
         <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
           <mat-form-field class="flex-auto gt-xs:pr-3 mx-4 col-span-2">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP1.PHONE_NUMBER' | transloco }}</mat-label>
-            <input matInput formControlName="phoneNumber" [placeholder]="'APP.GENERAL.PHONE.PHONE_NUMBER' | transloco" />
-            <mat-select *ngIf="countries?.length" class="mr-1.5" formControlName="phoneCode" matPrefix [value]="getCountryByIso().code">
+            <input matInput formControlName="phoneNumber" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.PHONE' | transloco" />
+            <mat-select class="mr-1.5" formControlName="phoneCode" matPrefix>
               <mat-select-trigger>
                 <span class="flex items-center">
                   <span
-                    class="w-6 h-4 overflow-hidden"
+                    class="hidden sm:flex w-6 h-4 mr-1 overflow-hidden"
                     [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
                     [style.backgroundSize]="'24px 3876px'"
-                    [style.backgroundPosition]="getCountryByIso().flagImagePos">
-                  </span>
-                  <span class="ml-2">{{ getCountryByIso().name }}</span>
-                  <span class="sm:mx-0.5 font-medium">{{ getCountryByIso().code }}</span>
+                    [style.backgroundPosition]="getCountryByIso().flagImagePos"></span>
+                  <span class="sm:mx-0.5 font-medium text-default">{{ getCountryByIso().code }}</span>
                 </span>
               </mat-select-trigger>
               <ng-container *ngFor="let country of countries; trackBy: trackByFn">
@@ -82,8 +76,7 @@
                       class="w-6 h-4 overflow-hidden"
                       [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
                       [style.backgroundSize]="'24px 3876px'"
-                      [style.backgroundPosition]="getCountryByIso().flagImagePos">
-                    </span>
+                      [style.backgroundPosition]="country.flagImagePos"></span>
                     <span class="ml-2">{{ country.name }}</span>
                     <span class="ml-2 font-medium">{{ country.code }}</span>
                   </span>
@@ -131,12 +124,12 @@
             </mat-select>
             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
           </mat-form-field>
-          <mat-form-field class="flex-auto gt-xs:pr-3 mx-8">
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-2">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP2.PROVINCE' | transloco }}</mat-label>
             <input matInput [formControlName]="'province'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.PROVINCE' | transloco }}" required />
             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
           </mat-form-field>
-          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-2">
+          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP2.POSTAL_CODE' | transloco }}</mat-label>
             <input matInput [formControlName]="'code'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.POSTAL_CODE' | transloco }}" />
             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
