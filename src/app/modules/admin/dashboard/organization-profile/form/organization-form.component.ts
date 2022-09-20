@@ -22,7 +22,6 @@ import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
 })
 export class OrganizationFormComponent implements OnInit {
   @Input() countries: any;
-  // countries = countryCanada;
   formGroup: FormGroup;
   organizationTypesKeys = Object.keys(OrganizationType).map((key) => key);
   organizationType = OrganizationType;
