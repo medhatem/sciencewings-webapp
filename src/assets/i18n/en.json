@@ -109,6 +109,9 @@
         "RESOURCE_SETTINGS": {
           "TITLE": "Resource Settings"
         },
+        "RESERVATION_SETTINGS": {
+          "TITLE": "Reservation Settings"
+        },
         "RESOURCE_TAGS": {
           "TITLE": "Resource tags"
         },
@@ -550,12 +553,6 @@
             "INVALID": "Invalid Reservation",
             "INVALID_PAST": "Cannot make reservation in the Past",
             "INVALID_RESERVATION_DURATION_LIMIT": "The Reservation minimum duration must be 1 hour"
-          }
-        },
-        "SETTINGS": {
-          "GENERAL": {
-            "TITLE": "General",
-            "MESSAGE": "Manage the general informations of your resources"
           }
         }
       }

@@ -32,7 +32,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private _resourceService: ResourceService,
     private _toastrService: ToastrService,
     private _coookies: CookieService,
-    private _translocoService: TranslocoService,
   ) {}
 
   // -----------------------------------------------------------------------------------------------------
