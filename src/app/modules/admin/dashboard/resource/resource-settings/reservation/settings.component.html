@@ -29,10 +29,10 @@
               <div
                 class="font-medium leading-6"
                 [ngClass]="{ 'text-primary dark:text-primary-500': selectedPanel && selectedPanel === panel.id }">
-                {{ panel.title }}
+                {{ panel.title | transloco }}
               </div>
               <div class="mt-0.5 text-secondary">
-                {{ panel.description }}
+                {{ panel.description | transloco }}
               </div>
             </div>
           </div>

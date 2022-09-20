@@ -48,32 +48,32 @@ export class SettingsComponent implements OnInit, OnDestroy {
       {
         id: 'general',
         icon: 'heroicons_outline:clipboard-check',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_GENERAL),
-        description: 'Manage your public profile and private information',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.RESERVATION_TITLE',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.GENERAL_MESSAGE',
       },
       {
         id: 'units',
         icon: 'heroicons_outline:cube',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_UNITES),
-        description: 'Manage your password and 2-step verification preferences',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.UNIT_TITLE',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.UNIT_MESSAGE',
       },
       {
         id: 'rates',
         icon: 'heroicons_outline:credit-card',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_RATE),
-        description: 'Manage your subscription plan, payment method and billing information',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.RATE_TITILE',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.RATE_MESSAGE',
       },
       {
         id: 'time_restriction',
         icon: 'heroicons_outline:bell',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_TIME_RESTRICTION),
-        description: 'Manage when you willll be notified on which channels',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.TIME_RESTRICTION_TITLE',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.TIME_RESTRICTION_MESSAGE',
       },
       {
         id: 'visibility',
         icon: 'heroicons_outline:eye',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_VISIBILITY),
-        description: 'Manage your existing team and change roles/permissions',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.VISIBILITY_TITLE',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.VISIBILITY_MESSAGE',
       },
     ];
 
