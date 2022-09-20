@@ -452,6 +452,7 @@
         "CREATE_RESOURCE_MOBILE": "Add",
         "MESSAGE": "Manage Access for all your resources in",
         "GENERAL": "General",
+        "PANAL_MESSAGE": "Manage the general informations of your resources",
         "NAME": "Name",
         "CLASS": "Class",
         "TYPE": "Type",
@@ -536,6 +537,12 @@
             "INVALID": "Invalid Reservation",
             "INVALID_PAST": "Cannot make reservation in the Past",
             "INVALID_RESERVATION_DURATION_LIMIT": "The Reservation minimum duration must be 1 hour"
+          }
+        },
+        "SETTINGS": {
+          "GENERAL": {
+            "TITLE": "General",
+            "MESSAGE": "Manage the general informations of your resources"
           }
         }
       }

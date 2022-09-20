@@ -535,6 +535,12 @@
             "INVALID_PAST": "ne peut pas faire de réservation dans le passé",
             "INVALID_RESERVATION_DURATION_LIMIT": "La Reservation doit Faire 1 heure au minimum"
           }
+        },
+        "SETTINGS": {
+          "GENERAL": {
+            "TITLE": "Général",
+            "MESSAGE": "Gérez les informations générales de vos ressources"
+          }
         }
       }
     },

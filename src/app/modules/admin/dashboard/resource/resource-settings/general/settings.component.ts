@@ -49,7 +49,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         id: 'general',
         icon: 'heroicons_outline:clipboard-check',
         title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_GENERAL),
-        description: 'Manage your public profile and private information',
+        description: this._translocoService.translate(constants.RESOURCE_SIDEBAR_GENERAL_MESSAGE),
       },
       {
         id: 'status',
