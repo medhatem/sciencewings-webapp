@@ -132,6 +132,7 @@
       },
       "USER": {
         "ABOUT": {
+          "MESSAGE": "Détails de l'utilisateur",
           "ADDRESS": "Adresse",
           "ADD_EMAIL": "Ajouter une adresse e-mail",
           "ADD_PHONE_NUMBER": "Ajouter un numéro de téléphone",
@@ -226,7 +227,7 @@
         "POSTAL_CODE": "Code postal",
         "PROVINCE": "Province/région",
         "SECTOR": "Secteur",
-        "SELECT_COUNTRY": "Choisissez un pays",
+        "SELECT_COUNTRY": " Pays",
         "SOCIAL_MEDIA": "Réseaux sociaux",
         "STREET": "Rue",
         "SUB_TITLE": "Adresse de l'organisation",
