@@ -20,7 +20,7 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
   drawerOpened: boolean = true;
   panels: any[] = [];
   selectedPanel: string = 'account';
-  settings = null;
+  settings: any;
   organization: any;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -101,6 +101,7 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
     this.organization = await lastValueFrom(
       this._organizationService.getOrgOrganizationById(Number(orgId)).pipe(map(({ body }) => new GetOrganization(body))),
     );
+    this.settings = this.organization.settings;
   }
   /**
    * On destroy

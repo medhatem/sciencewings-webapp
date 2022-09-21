@@ -93,4 +93,8 @@ export class AdminOrganizationsService {
   getOrgOrganizationById(id: number): Observable<any> {
     return this._swaggerService.organizationRoutesGetOrganizationById({ id });
   }
+
+  async updateOrganizationMembersProperties(organizationId: number, body: any): Promise<any> {
+    return lastValueFrom(this._swaggerService.organizationRoutesUpdateOrganizationsSettingsnMembersProperties({ organizationId, body }));
+  }
 }

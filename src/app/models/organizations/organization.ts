@@ -4,6 +4,8 @@ import {
   CreateOrganizationRo,
   GetOrganizationDto,
   OrganizationInformationDto,
+  OrganizationMemberSettingsRo,
+  OrganizationSettingsBodyDto,
   PhoneInformationDto,
   UpdateOrganizationRo,
   UserDto,
@@ -21,9 +23,10 @@ export class GetOrganization implements OrganizationInformationDto {
   phone?: PhoneInformationDto;
   statusCode: number;
   type?: string;
+  settings?: OrganizationSettingsBodyDto;
 
   constructor(organization: any) {
-    const { address, description, email, id, name, owner, phone, statusCode, type } = organization || {};
+    const { address, description, email, id, name, owner, phone, statusCode, type, settings } = organization || {};
 
     Object.assign(this, {
       address,
@@ -35,6 +38,7 @@ export class GetOrganization implements OrganizationInformationDto {
       phone,
       statusCode,
       type,
+      settings,
     });
 
     if (id) {
@@ -170,6 +174,23 @@ export class UpdateOrganization implements UpdateOrganizationRo {
       socialTwitter,
       socialYoutube,
       type,
+    });
+  }
+}
+
+export class UpdateOrganizationMemberSettingsRo implements OrganizationMemberSettingsRo {
+  acountNumberNote: string;
+  allowMembersToSeeAllOtherMembers: boolean;
+  membersCanEditAccountNumbers: boolean;
+  promptForAccouantNumbers: boolean;
+
+  constructor(settings?: any) {
+    const { acountNumberNote, allowMembersToSeeAllOtherMembers, membersCanEditAccountNumbers, promptForAccouantNumbers } = settings || {};
+    Object.assign(this, {
+      acountNumberNote,
+      allowMembersToSeeAllOtherMembers,
+      membersCanEditAccountNumbers,
+      promptForAccouantNumbers,
     });
   }
 }
