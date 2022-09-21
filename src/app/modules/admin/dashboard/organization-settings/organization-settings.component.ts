@@ -6,6 +6,7 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
+import { GetOrganization } from 'app/models/organizations/organization';
 
 @Component({
   selector: 'organization-settings',
@@ -97,7 +98,9 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
       this._changeDetectorRef.markForCheck();
     });
     const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
-    this.organization = await lastValueFrom(this._organizationService.getOrgOrganizationById(Number(orgId)).pipe(map((r) => r.body.data[0])));
+    this.organization = await lastValueFrom(
+      this._organizationService.getOrgOrganizationById(Number(orgId)).pipe(map(({ body }) => new GetOrganization(body))),
+    );
   }
   /**
    * On destroy

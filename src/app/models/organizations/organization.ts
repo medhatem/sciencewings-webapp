@@ -1,7 +1,47 @@
 import { Address } from '../address';
-import { CreateOrganizationRo, UpdateOrganizationRo } from 'generated/models';
+import {
+  AddressDto,
+  CreateOrganizationRo,
+  GetOrganizationDto,
+  OrganizationInformationDto,
+  PhoneInformationDto,
+  UpdateOrganizationRo,
+  UserDto,
+} from 'generated/models';
 import { OrganizationType } from './organization-type.enum';
 import { Phone } from '../phone';
+
+export class GetOrganization implements OrganizationInformationDto {
+  address?: Array<AddressDto>;
+  description?: string;
+  email?: string;
+  id: number;
+  name?: string;
+  owner?: UserDto;
+  phone?: PhoneInformationDto;
+  statusCode: number;
+  type?: string;
+
+  constructor(organization: any) {
+    const { address, description, email, id, name, owner, phone, statusCode, type } = organization || {};
+
+    Object.assign(this, {
+      address,
+      description,
+      email,
+      id,
+      name,
+      owner,
+      phone,
+      statusCode,
+      type,
+    });
+
+    if (id) {
+      this.id = id;
+    }
+  }
+}
 
 export class Organization implements CreateOrganizationRo {
   id?: string;
@@ -10,7 +50,7 @@ export class Organization implements CreateOrganizationRo {
   sector?: string;
   addresses: Address[];
   adminContact: number;
-  direction: number;
+  owner: number;
   email: string;
   labels: string[];
   members: number[];
@@ -35,7 +75,7 @@ export class Organization implements CreateOrganizationRo {
       department,
       sector,
       adminContact,
-      direction,
+      owner,
       members,
       responsible,
       socialFacebook,
@@ -61,7 +101,7 @@ export class Organization implements CreateOrganizationRo {
       sector,
       addresses,
       adminContact,
-      direction,
+      owner,
       email,
       labels,
       members,
@@ -88,7 +128,7 @@ export class Organization implements CreateOrganizationRo {
 
 export class UpdateOrganization implements UpdateOrganizationRo {
   description?: string;
-  direction?: number;
+  owner?: number;
   email?: string;
   labels?: Array<string>;
   name?: string;
@@ -103,7 +143,7 @@ export class UpdateOrganization implements UpdateOrganizationRo {
   constructor(organization: any) {
     const {
       description,
-      direction,
+      owner,
       email,
       labels,
       name,
@@ -118,7 +158,7 @@ export class UpdateOrganization implements UpdateOrganizationRo {
     } = organization || {};
     Object.assign(this, {
       description,
-      direction,
+      owner,
       email,
       labels,
       name,

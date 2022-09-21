@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnIni
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
 import { Subject, lastValueFrom, takeUntil } from 'rxjs';
+import { Address, Phone } from 'app/models';
 
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
@@ -56,7 +57,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       phoneLabel: '',
       type: '',
       parent: [],
-      direction: '',
+      owner: '',
       description: '',
     });
 
@@ -94,7 +95,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       phoneLabel: this.organization?.phone?.phoneLabel || '',
       type: this.organization?.type || '',
       parent: this.organization?.parent || '',
-      direction: this.organization?.direction || '',
+      owner: this.organization?.owner?.id || '',
       description: this.organization?.description || '',
     });
   }
@@ -133,15 +134,14 @@ export class GeneralComponent implements OnInit, AfterViewInit {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
   private getOrganizationFromFormBuilder(): UpdateOrganization {
+    const phone = new Phone({ phoneNumber: this.form.value?.phoneNumber, phoneCode: this.form.value?.phoneCode, phoneLabel: 'Organization' });
     return new UpdateOrganization({
       name: this.form.value?.name || this.organization.name,
       email: this.form.value?.email || this.organization.email,
-      // phoneCode: 'fr',
-      // phoneNumber: this.form.value?.name || this.organization.name,
-      // phoneLabel: this.form.value?.name || this.organization.name,
+      phone: phone,
       type: this.form.value?.type || this.organization.type,
       parent: this.form.value?.parent || this.organization.parent,
-      direction: this.form.value?.direction || this.organization.direction,
+      owner: this.form.value?.owner || this.organization.owner.id,
       description: this.form.value?.description || this.organization.description,
     });
   }

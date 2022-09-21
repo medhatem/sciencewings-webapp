@@ -89,7 +89,7 @@
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.DIRECTION' | transloco }}</mat-label>
-          <mat-select [formControlName]="'direction'">
+          <mat-select [formControlName]="'owner'">
             <mat-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember?.user">
               {{ organizationMember?.name }}
             </mat-option>
