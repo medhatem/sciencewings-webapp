@@ -113,7 +113,7 @@ export class NewUserInfosComponent implements OnInit {
       email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
       dateofbirth: new FormControl(moment()),
       keycloakId: localStorage.getItem(constants.CURRENT_USER_KEYCLOAK_ID),
-      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(20)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(8)]],
       street: ['', Validators.required],
       apartment: [''],
       province: ['', Validators.required],
