@@ -15,7 +15,7 @@ export class Organization implements CreateOrganizationRo {
   labels: string[];
   members: number[];
   name: string;
-  phones: Phone[];
+  phone: Phone;
   socialFacebook?: string;
   socialGithub?: string;
   socialInstagram?: string;
@@ -48,7 +48,7 @@ export class Organization implements CreateOrganizationRo {
       addresses = new Array<Address>(),
       type = OrganizationType.public,
       email = '',
-      phones,
+      phone,
       labels,
       dealingType,
       parent,
@@ -68,7 +68,7 @@ export class Organization implements CreateOrganizationRo {
       name,
       responsible,
       parent,
-      phones,
+      phone,
       socialFacebook,
       socialGithub,
       socialInstagram,
