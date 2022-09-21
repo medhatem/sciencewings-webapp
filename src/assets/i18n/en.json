@@ -109,6 +109,9 @@
         "RESOURCE_SETTINGS": {
           "TITLE": "Resource Settings"
         },
+        "RESERVATION_SETTINGS": {
+          "TITLE": "Reservation Settings"
+        },
         "RESOURCE_TAGS": {
           "TITLE": "Resource tags"
         },
@@ -452,6 +455,7 @@
         "CREATE_RESOURCE_MOBILE": "Add",
         "MESSAGE": "Manage Access for all your resources in",
         "GENERAL": "General",
+        "PANAL_MESSAGE": "Manage the general informations of your resources",
         "NAME": "Name",
         "CLASS": "Class",
         "TYPE": "Type",
@@ -460,6 +464,8 @@
         "TAGS": "Tags",
         "MANAGERS": "Managers",
         "STATUS": "Status",
+        "STATUS_MESSAGE": "Manage status resources",
+        "PROPERTIES_MESSAGE": "Manage resources Properties",
         "DETAILS": "Details",
         "NAME_REQUIRED": "Resource name is required",
         "CLASS_REQUIRED": "Resource class is required",
@@ -467,6 +473,7 @@
         "ACCESS_TO_RESOURCE": "Access To Resource",
         "VISIBILITY_SETTINGS": "Visibility Settings",
         "VISIBILITY": "Visibility",
+        "VISIBILITY_MESSAGE": "Manage resources visibility",
         "RESOURCE_UNLISTED_ON_SITE_PAGE": "Resource Unlisted on Site Page",
         "RESOURCE_UNLISTED_TO_USERS_WHO_CANNOT_RESERVE": "Resource Unlisted to Users Who Cannot Reserve",
         "RESOURCE_FULLY_HIDDEN_TO_USERS_WHO_CANNOT_RESERVE": "Resource Fully Hidden to Users Who Cannot Reserve",
@@ -521,6 +528,16 @@
           "CREATE_COMPLETED": "The resource was created succefully"
         },
         "RESERVATION": {
+          "GENERAL_MESSAGE": "Manage the general informations of your reservations",
+          "RESERVATION_TITLE": "Reservations",
+          "UNIT_TITLE": "Units",
+          "UNIT_MESSAGE": "Manage options of resource units in reservations",
+          "RATE_TITILE": "Rates",
+          "RATE_MESSAGE": "Add Rates to your reservations",
+          "TIME_RESTRICTION_TITLE": "Time Restrictions",
+          "TIME_RESTRICTION_MESSAGE": "Manage time restrictions in your reservations",
+          "VISIBILITY_TITLE": "Visibility",
+          "VISIBILITY_MESSAGE": "Manage reservation visibility",
           "CREATE_BTN": "Create",
           "DELETE_BTN": "Delete Event",
           "DETAILS": "Reservation Details",
