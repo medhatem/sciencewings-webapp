@@ -89,9 +89,9 @@ export class GeneralComponent implements OnInit, AfterViewInit {
     this.form.setValue({
       name: this.organization?.name || '',
       email: this.organization?.email || '',
-      phoneCode: this.organization?.phones[0]?.phoneCode || 'fr',
-      phoneNumber: this.organization?.phones[0]?.phoneNumber || '',
-      phoneLabel: this.organization?.phones[0]?.phoneLabel || '',
+      phoneCode: this.organization?.phone?.phoneCode || 'fr',
+      phoneNumber: this.organization?.phone?.phoneNumber || '',
+      phoneLabel: this.organization?.phone?.phoneLabel || '',
       type: this.organization?.type || '',
       parent: this.organization?.parent || '',
       direction: this.organization?.direction || '',
