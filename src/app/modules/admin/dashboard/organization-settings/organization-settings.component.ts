@@ -19,7 +19,7 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
   panels: any[] = [];
-  selectedPanel: string = 'account';
+  selectedPanel: string = 'general';
   settings: any;
   organization: any;
   private _unsubscribeAll: Subject<any> = new Subject<any>();

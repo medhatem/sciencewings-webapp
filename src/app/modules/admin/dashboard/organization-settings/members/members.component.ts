@@ -53,12 +53,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
   async onSubmit() {
     const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     const updatedMemberSettings = this.getUpdatedSettingsFromFormBuilder();
-    console.log('this.form.value?.acountNumberNote== ', this.form.value?.acountNumberNote);
-    console.log('this.form.value?.allowMembersToSeeAllOtherMembers== ', this.form.value?.allowMembersToSeeAllOtherMembers);
-    console.log('this.form.value?.membersCanEditAccountNumbers== ', this.form.value?.membersCanEditAccountNumbers);
-    console.log('this.form.value?.promptForAccouantNumbers== ', this.form.value?.promptForAccouantNumbers);
 
-    try {
+    /*     try {
       await this.organizationService.updateOrganizationMembersProperties(Number(orgId), updatedMemberSettings);
       await lastValueFrom(this.organizationService.getOrgOrganizationById(Number(orgId)));
       this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
@@ -66,15 +62,14 @@ export class MembersComponent implements OnInit, AfterViewInit {
     } catch (error) {
       this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }
-
-    /*     const response = await this.organizationService.updateOrganizationMembersProperties(Number(orgId), updatedMemberSettings);
+ */
+    const response = await this.organizationService.updateOrganizationMembersProperties(Number(orgId), updatedMemberSettings);
     if (response.body.statusCode === 204) {
       this.updateLocalSettings.emit(this.form.value);
       this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
     } else {
       this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }
- */
   }
   private getUpdatedSettingsFromFormBuilder(): UpdateOrganizationMemberSettingsRo {
     return new UpdateOrganizationMemberSettingsRo({
