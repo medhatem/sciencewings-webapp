@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { UpdateOrganizationAccessSettingsRo } from 'app/models/organizations/organization';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { constants } from 'app/shared/constants';
 
@@ -9,7 +10,7 @@ import { constants } from 'app/shared/constants';
   templateUrl: './access.component.html',
   styleUrls: ['./access.component.scss'],
 })
-export class AccessComponent implements OnInit {
+export class AccessComponent implements OnInit, AfterViewInit {
   @Input() settings: any;
   @Output() updateLocalSettings = new EventEmitter<string>();
   form: FormGroup;
@@ -24,30 +25,51 @@ export class AccessComponent implements OnInit {
     this.form = this._formBuilder.group({
       anyMemberCanJoinYourOrganizationAndAccessResourceSchedules: true,
       joinCode: this.settings?.joinCode || '',
-      yourOrganizationWillNeverAppearInSearchResults: true,
-      notifyAdministratorsWhenMembersJoinOrganization: true,
       listResourceToNonMembers: true,
       messageSentToNewMembers: this.settings?.messageSentToNewMembers || '',
+      notifyAdministratorsWhenMembersJoinOrganization: true,
+      yourOrganizationWillNeverAppearInSearchResults: true,
     });
     this.isMemberShouldAccessByJoinCode = !!this.form.value.joinCode;
   }
 
-  onSubmit() {
-    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
-    const data = { ...this.form.value };
-    data.joinCode = this.isMemberShouldAccessByJoinCode ? data.joinCode : null;
-
-    this.organizationService.updateOrganizationsSettingsProperties(Number(orgId), data).subscribe((response) => {
-      if (response.body.statusCode === 204) {
-        this.updateLocalSettings.emit(this.form.value);
-        this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
-      } else {
-        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
-      }
+  async ngAfterViewInit(): Promise<void> {
+    this.form.setValue({
+      anyMemberCanJoinYourOrganizationAndAccessResourceSchedules: this.settings.anyMemberCanJoinYourOrganizationAndAccessResourceSchedules,
+      joinCode: this.settings?.joinCode || '',
+      listResourceToNonMembers: this.settings.listResourceToNonMembers,
+      messageSentToNewMembers: this.settings?.messageSentToNewMembers || '',
+      notifyAdministratorsWhenMembersJoinOrganization: this.settings.notifyAdministratorsWhenMembersJoinOrganization,
+      yourOrganizationWillNeverAppearInSearchResults: this.settings.yourOrganizationWillNeverAppearInSearchResults,
     });
+  }
+
+  async onSubmit() {
+    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    const updatedSettings = this.getUpdatedSettingsFromFormBuilder();
+    updatedSettings.joinCode = this.isMemberShouldAccessByJoinCode ? updatedSettings.joinCode : null;
+
+    const response = await this.organizationService.updateOrganizationAccessProperties(Number(orgId), updatedSettings);
+    if (response.body.statusCode === 204) {
+      this.updateLocalSettings.emit(this.form.value);
+      this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
+    } else {
+      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
+    }
   }
 
   memberShouldAccessByJoinCodeListener(event) {
     this.isMemberShouldAccessByJoinCode = event.checked;
+  }
+
+  private getUpdatedSettingsFromFormBuilder(): UpdateOrganizationAccessSettingsRo {
+    return new UpdateOrganizationAccessSettingsRo({
+      anyMemberCanJoinYourOrganizationAndAccessResourceSchedules: this.form.value.anyMemberCanJoinYourOrganizationAndAccessResourceSchedules,
+      joinCode: this.form.value.joinCode,
+      listResourceToNonMembers: this.form.value.listResourceToNonMembers,
+      messageSentToNewMembers: this.form.value.messageSentToNewMembers,
+      notifyAdministratorsWhenMembersJoinOrganization: this.form.value.notifyAdministratorsWhenMembersJoinOrganization,
+      yourOrganizationWillNeverAppearInSearchResults: this.form.value.yourOrganizationWillNeverAppearInSearchResults,
+    });
   }
 }

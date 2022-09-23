@@ -3,6 +3,7 @@ import {
   AddressDto,
   CreateOrganizationRo,
   GetOrganizationDto,
+  OrganizationAccessSettingsRo,
   OrganizationInformationDto,
   OrganizationMemberSettingsRo,
   OrganizationReservationSettingsRo,
@@ -226,6 +227,34 @@ export class UpdateOrganizationReservationSettingsRo implements OrganizationRese
       hideOrganizationCalendar,
       requireReasonWhenEditingReservation,
       showResourceImagesInReservation,
+    });
+  }
+}
+
+export class UpdateOrganizationAccessSettingsRo implements OrganizationAccessSettingsRo {
+  anyMemberCanJoinYourOrganizationAndAccessResourceSchedules?: boolean;
+  joinCode?: string;
+  listResourceToNonMembers?: boolean;
+  messageSentToNewMembers?: string;
+  notifyAdministratorsWhenMembersJoinOrganization?: boolean;
+  yourOrganizationWillNeverAppearInSearchResults?: boolean;
+
+  constructor(settings?: any) {
+    const {
+      anyMemberCanJoinYourOrganizationAndAccessResourceSchedules,
+      joinCode,
+      listResourceToNonMembers,
+      messageSentToNewMembers,
+      notifyAdministratorsWhenMembersJoinOrganization,
+      yourOrganizationWillNeverAppearInSearchResults,
+    } = settings || {};
+    Object.assign(this, {
+      anyMemberCanJoinYourOrganizationAndAccessResourceSchedules,
+      joinCode,
+      listResourceToNonMembers,
+      messageSentToNewMembers,
+      notifyAdministratorsWhenMembersJoinOrganization,
+      yourOrganizationWillNeverAppearInSearchResults,
     });
   }
 }

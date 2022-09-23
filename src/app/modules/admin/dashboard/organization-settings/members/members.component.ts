@@ -37,11 +37,6 @@ export class MembersComponent implements OnInit, AfterViewInit {
     this.isAccountNumberNote = event.checked;
   }
   async ngAfterViewInit(): Promise<void> {
-    console.log('this.settings.membersCanEditAccountNumbers= ', this.settings.membersCanEditAccountNumbers);
-    console.log('this.settings.promptForAccouantNumbers= ', this.settings.promptForAccouantNumbers);
-    console.log('this.settings.acountNumberNote= ', this.settings.acountNumberNote);
-    console.log('this.settings.allowMembersToSeeAllOtherMembers= ', this.settings.allowMembersToSeeAllOtherMembers);
-
     this.form.setValue({
       membersCanEditAccountNumbers: this.settings.membersCanEditAccountNumbers || '',
       promptForAccouantNumbers: this.settings.promptForAccouantNumbers || '',
@@ -54,15 +49,6 @@ export class MembersComponent implements OnInit, AfterViewInit {
     const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     const updatedMemberSettings = this.getUpdatedSettingsFromFormBuilder();
 
-    /*     try {
-      await this.organizationService.updateOrganizationMembersProperties(Number(orgId), updatedMemberSettings);
-      await lastValueFrom(this.organizationService.getOrgOrganizationById(Number(orgId)));
-      this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.ADMIN, constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_SETTINGS]);
-    } catch (error) {
-      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
-    }
- */
     const response = await this.organizationService.updateOrganizationMembersProperties(Number(orgId), updatedMemberSettings);
     if (response.body.statusCode === 204) {
       this.updateLocalSettings.emit(this.form.value);
