@@ -97,4 +97,8 @@ export class AdminOrganizationsService {
   async updateOrganizationMembersProperties(organizationId: number, body: any): Promise<any> {
     return lastValueFrom(this._swaggerService.organizationRoutesUpdateOrganizationsSettingsnMembersProperties({ organizationId, body }));
   }
+
+  async updateOrganizationReservationProperties(organizationId: number, body: any): Promise<any> {
+    return lastValueFrom(this._swaggerService.organizationRoutesUpdateOrganizationsSettingsnReservationProperties({ organizationId, body }));
+  }
 }

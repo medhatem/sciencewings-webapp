@@ -37,16 +37,16 @@ export class MembersComponent implements OnInit, AfterViewInit {
     this.isAccountNumberNote = event.checked;
   }
   async ngAfterViewInit(): Promise<void> {
-    console.log('this.settings?.membersCanEditAccountNumbers= ', this.settings?.membersCanEditAccountNumbers);
-    console.log('this.settings?.promptForAccouantNumbers= ', this.settings?.promptForAccouantNumbers);
-    console.log('this.settings?.acountNumberNote= ', this.settings?.acountNumberNote);
-    console.log('this.settings?.allowMembersToSeeAllOtherMembers= ', this.settings?.allowMembersToSeeAllOtherMembers);
+    console.log('this.settings.membersCanEditAccountNumbers= ', this.settings.membersCanEditAccountNumbers);
+    console.log('this.settings.promptForAccouantNumbers= ', this.settings.promptForAccouantNumbers);
+    console.log('this.settings.acountNumberNote= ', this.settings.acountNumberNote);
+    console.log('this.settings.allowMembersToSeeAllOtherMembers= ', this.settings.allowMembersToSeeAllOtherMembers);
 
     this.form.setValue({
-      membersCanEditAccountNumbers: this.settings?.membersCanEditAccountNumbers || '',
-      promptForAccouantNumbers: this.settings?.promptForAccouantNumbers || '',
-      acountNumberNote: this.settings?.acountNumberNote || '',
-      allowMembersToSeeAllOtherMembers: this.settings?.allowMembersToSeeAllOtherMembers || '',
+      membersCanEditAccountNumbers: this.settings.membersCanEditAccountNumbers || '',
+      promptForAccouantNumbers: this.settings.promptForAccouantNumbers || '',
+      acountNumberNote: this.settings.acountNumberNote || '',
+      allowMembersToSeeAllOtherMembers: this.settings.allowMembersToSeeAllOtherMembers || '',
     });
   }
 
@@ -73,10 +73,10 @@ export class MembersComponent implements OnInit, AfterViewInit {
   }
   private getUpdatedSettingsFromFormBuilder(): UpdateOrganizationMemberSettingsRo {
     return new UpdateOrganizationMemberSettingsRo({
-      acountNumberNote: this.form.value?.acountNumberNote,
-      allowMembersToSeeAllOtherMembers: this.form.value?.allowMembersToSeeAllOtherMembers,
-      membersCanEditAccountNumbers: this.form.value?.membersCanEditAccountNumbers,
-      promptForAccouantNumbers: this.form.value?.promptForAccouantNumbers,
+      acountNumberNote: this.form.value.acountNumberNote,
+      allowMembersToSeeAllOtherMembers: this.form.value.allowMembersToSeeAllOtherMembers,
+      membersCanEditAccountNumbers: this.form.value.membersCanEditAccountNumbers,
+      promptForAccouantNumbers: this.form.value.promptForAccouantNumbers,
     });
   }
 }

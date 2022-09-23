@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { lastValueFrom, map, Subject, takeUntil } from 'rxjs';
 
 import { AdminOrganizationsService } from '../../resolvers/admin-organization/admin-organization.service';
@@ -14,12 +23,51 @@ import { GetOrganization } from 'app/models/organizations/organization';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrganizationSettingsComponent implements OnInit, OnDestroy {
+export class OrganizationSettingsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('drawer') drawer: MatDrawer;
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
-  panels: any[] = [];
-  selectedPanel: string = 'general';
+  panels: any[] = [
+    {
+      id: 'general',
+      icon: 'heroicons_outline:clipboard-check',
+      title: 'ORGANIZATION.SETTINGS.GENERAL.TITLE',
+      description: 'ORGANIZATION.SETTINGS.GENERAL.MESSAGE',
+    },
+    {
+      id: 'members',
+      icon: 'heroicons_outline:users',
+      title: 'ORGANIZATION.SETTINGS.MEMBERS.TITLE',
+      description: 'ORGANIZATION.SETTINGS.MEMBERS.MESSAGE',
+    },
+    {
+      id: 'location',
+      icon: 'heroicons_outline:eye',
+      title: 'ORGANIZATION.SETTINGS.LOCATION.TITLE',
+      description: 'ORGANIZATION.SETTINGS.LOCATION.MESSAGE',
+    },
+    {
+      id: 'reservations',
+      icon: 'heroicons_outline:bell',
+      title: 'ORGANIZATION.SETTINGS.RESERVATIONS.TITLE',
+      description: 'ORGANIZATION.SETTINGS.RESERVATIONS.MESSAGE',
+    },
+
+    {
+      id: 'access',
+      icon: 'heroicons_outline:eye',
+      title: 'ORGANIZATION.SETTINGS.ACCESS.TITLE',
+      description: 'ORGANIZATION.SETTINGS.ACCESS.MESSAGE',
+    },
+    {
+      id: 'subscription',
+      icon: 'heroicons_outline:credit-card',
+      title: 'ORGANIZATION.SETTINGS.SUBSCRIPTION.TITLE',
+      description: 'ORGANIZATION.SETTINGS.SUBSCRIPTION.MESSAGE',
+    },
+  ];
+
+  selectedPanel: string = 'account';
   settings: any;
   organization: any;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -42,47 +90,16 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
    * On init
    */
   async ngOnInit(): Promise<void> {
+    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    this.organization = await lastValueFrom(
+      this._organizationService.getOrgOrganizationById(Number(orgId)).pipe(map(({ body }) => new GetOrganization(body))),
+    );
+    this.settings = await this.organization.settings;
+
     // Setup available panels
-    this.panels = [
-      {
-        id: 'general',
-        icon: 'heroicons_outline:clipboard-check',
-        title: 'ORGANIZATION.SETTINGS.GENERAL.TITLE',
-        description: 'ORGANIZATION.SETTINGS.GENERAL.MESSAGE',
-      },
-      {
-        id: 'members',
-        icon: 'heroicons_outline:users',
-        title: 'ORGANIZATION.SETTINGS.MEMBERS.TITLE',
-        description: 'ORGANIZATION.SETTINGS.MEMBERS.MESSAGE',
-      },
-      {
-        id: 'location',
-        icon: 'heroicons_outline:eye',
-        title: 'ORGANIZATION.SETTINGS.LOCATION.TITLE',
-        description: 'ORGANIZATION.SETTINGS.LOCATION.MESSAGE',
-      },
-      {
-        id: 'reservations',
-        icon: 'heroicons_outline:bell',
-        title: 'ORGANIZATION.SETTINGS.RESERVATIONS.TITLE',
-        description: 'ORGANIZATION.SETTINGS.RESERVATIONS.MESSAGE',
-      },
+  }
 
-      {
-        id: 'access',
-        icon: 'heroicons_outline:eye',
-        title: 'ORGANIZATION.SETTINGS.ACCESS.TITLE',
-        description: 'ORGANIZATION.SETTINGS.ACCESS.MESSAGE',
-      },
-      {
-        id: 'subscription',
-        icon: 'heroicons_outline:credit-card',
-        title: 'ORGANIZATION.SETTINGS.SUBSCRIPTION.TITLE',
-        description: 'ORGANIZATION.SETTINGS.SUBSCRIPTION.MESSAGE',
-      },
-    ];
-
+  ngAfterViewInit(): void {
     // Subscribe to media changes
     this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
       // Set the drawerMode and drawerOpened
@@ -97,12 +114,8 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
       // Mark for check
       this._changeDetectorRef.markForCheck();
     });
-    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
-    this.organization = await lastValueFrom(
-      this._organizationService.getOrgOrganizationById(Number(orgId)).pipe(map(({ body }) => new GetOrganization(body))),
-    );
-    this.settings = this.organization.settings;
   }
+
   /**
    * On destroy
    */

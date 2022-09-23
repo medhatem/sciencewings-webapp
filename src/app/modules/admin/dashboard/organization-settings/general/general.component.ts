@@ -67,26 +67,13 @@ export class GeneralComponent implements OnInit, AfterViewInit {
 
       // Mark for check
       this._changeDetectorRef.markForCheck();
-
-      if (this.form.value.phone) {
-        this.form.setValue({
-          ...this.form.value,
-          phoneCode: this.currentOrganizations?.phone?.phoneCode,
-          phoneNumber: this.currentOrganizations?.phone.phoneNumber,
-          phoneLabel: this.currentOrganizations?.phone?.phoneLabel,
-        });
-      } else {
-        this.form.setValue({
-          ...this.form.value,
-          phoneCode: 'fr',
-          phoneNumber: '',
-          phoneLabel: '',
-        });
-      }
     });
   }
 
   async ngAfterViewInit(): Promise<void> {
+    console.log('organizaio', this.organization);
+    console.log('curr', this.currentOrganizations);
+
     this.form.setValue({
       name: this.organization?.name || '',
       email: this.organization?.email || '',

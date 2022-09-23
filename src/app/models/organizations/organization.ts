@@ -5,6 +5,7 @@ import {
   GetOrganizationDto,
   OrganizationInformationDto,
   OrganizationMemberSettingsRo,
+  OrganizationReservationSettingsRo,
   OrganizationSettingsBodyDto,
   PhoneInformationDto,
   UpdateOrganizationRo,
@@ -191,6 +192,40 @@ export class UpdateOrganizationMemberSettingsRo implements OrganizationMemberSet
       allowMembersToSeeAllOtherMembers,
       membersCanEditAccountNumbers,
       promptForAccouantNumbers,
+    });
+  }
+}
+
+export class UpdateOrganizationReservationSettingsRo implements OrganizationReservationSettingsRo {
+  approversCanEditReservations?: boolean;
+  attachedIcsCalendarFeeds?: boolean;
+  confirmationEmailWhenMakingReservation?: string;
+  emailAddressToReceiveReservationReplyMessages?: Array<string>;
+  hideAccountNumberWhenMakingReservation?: boolean;
+  hideOrganizationCalendar?: boolean;
+  requireReasonWhenEditingReservation?: boolean;
+  showResourceImagesInReservation?: boolean;
+
+  constructor(settings?: any) {
+    const {
+      approversCanEditReservations,
+      attachedIcsCalendarFeeds,
+      confirmationEmailWhenMakingReservation,
+      emailAddressToReceiveReservationReplyMessages,
+      hideAccountNumberWhenMakingReservation,
+      hideOrganizationCalendar,
+      requireReasonWhenEditingReservation,
+      showResourceImagesInReservation,
+    } = settings || {};
+    Object.assign(this, {
+      approversCanEditReservations,
+      attachedIcsCalendarFeeds,
+      confirmationEmailWhenMakingReservation,
+      emailAddressToReceiveReservationReplyMessages,
+      hideAccountNumberWhenMakingReservation,
+      hideOrganizationCalendar,
+      requireReasonWhenEditingReservation,
+      showResourceImagesInReservation,
     });
   }
 }
