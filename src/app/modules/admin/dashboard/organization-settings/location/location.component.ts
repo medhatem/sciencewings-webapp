@@ -10,7 +10,5 @@ export class LocationComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log('settings == ', this.settings);
-  }
+  ngOnInit(): void {}
 }
