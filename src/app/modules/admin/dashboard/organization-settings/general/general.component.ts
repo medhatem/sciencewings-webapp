@@ -71,9 +71,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   }
 
   async ngAfterViewInit(): Promise<void> {
-    console.log('organizaio', this.organization);
-    console.log('curr', this.currentOrganizations);
-
     this.form.setValue({
       name: this.organization?.name || '',
       email: this.organization?.email || '',
