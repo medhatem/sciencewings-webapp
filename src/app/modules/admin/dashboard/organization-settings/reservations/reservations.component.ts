@@ -33,11 +33,6 @@ export class ReservationsComponent implements OnInit, AfterViewInit {
     });
   }
   async ngAfterViewInit(): Promise<void> {
-    console.log('this.settings?.approversCanEditReservations= ', this.settings.approversCanEditReservations);
-    console.log('this.settings.requireReasonWhenEditingReservation= ', this.settings.requireReasonWhenEditingReservation);
-    console.log('this.settings.hideOrganizationCalendar= ', this.settings.hideOrganizationCalendar);
-    console.log('this.settings.hideAccountNumberWhenMakingReservation= ', this.settings.hideAccountNumberWhenMakingReservation);
-
     this.form.setValue({
       approversCanEditReservations: this.settings.approversCanEditReservations,
       requireReasonWhenEditingReservation: this.settings.requireReasonWhenEditingReservation,
