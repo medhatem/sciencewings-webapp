@@ -135,7 +135,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       email: this.form.value?.email || this.organization.email,
       phone: phone,
       type: this.form.value?.type || this.organization.type,
-      parent: this.form.value?.parent || this.organization.parent.id,
+      parent: this.form.value?.parent || this.organization?.parent?.id,
       owner: this.form.value?.owner || this.organization.owner.id,
       description: this.form.value?.description || this.organization.description,
     });
