@@ -109,6 +109,9 @@
         "RESOURCE_SETTINGS": {
           "TITLE": "Resource Settings"
         },
+        "RESERVATION_SETTINGS": {
+          "TITLE": "Reservation Settings"
+        },
         "RESOURCE_TAGS": {
           "TITLE": "Resource tags"
         },
@@ -130,6 +133,7 @@
       },
       "USER": {
         "ABOUT": {
+          "MESSAGE": "User Details",
           "ADDRESS": "Address",
           "ADD_EMAIL": "Add an e-mail address",
           "ADD_PHONE_NUMBER": "Add a phone number",
@@ -227,7 +231,7 @@
         "POSTAL_CODE": "Postal Code",
         "PROVINCE": "Province/region",
         "SECTOR": "Sector",
-        "SELECT_COUNTRY": "Choose a country",
+        "SELECT_COUNTRY": "Country",
         "SOCIAL_MEDIA": "Social Networks",
         "STREET": "Street",
         "SUB_TITLE": "Organization Address",
@@ -452,6 +456,7 @@
         "CREATE_RESOURCE_MOBILE": "Add",
         "MESSAGE": "Manage Access for all your resources in",
         "GENERAL": "General",
+        "PANAL_MESSAGE": "Manage the general informations of your resources",
         "NAME": "Name",
         "CLASS": "Class",
         "TYPE": "Type",
@@ -460,6 +465,8 @@
         "TAGS": "Tags",
         "MANAGERS": "Managers",
         "STATUS": "Status",
+        "STATUS_MESSAGE": "Manage status resources",
+        "PROPERTIES_MESSAGE": "Manage resources Properties",
         "DETAILS": "Details",
         "NAME_REQUIRED": "Resource name is required",
         "CLASS_REQUIRED": "Resource class is required",
@@ -467,6 +474,7 @@
         "ACCESS_TO_RESOURCE": "Access To Resource",
         "VISIBILITY_SETTINGS": "Visibility Settings",
         "VISIBILITY": "Visibility",
+        "VISIBILITY_MESSAGE": "Manage resources visibility",
         "RESOURCE_UNLISTED_ON_SITE_PAGE": "Resource Unlisted on Site Page",
         "RESOURCE_UNLISTED_TO_USERS_WHO_CANNOT_RESERVE": "Resource Unlisted to Users Who Cannot Reserve",
         "RESOURCE_FULLY_HIDDEN_TO_USERS_WHO_CANNOT_RESERVE": "Resource Fully Hidden to Users Who Cannot Reserve",
@@ -520,22 +528,32 @@
         "SUCCESS": {
           "CREATE_COMPLETED": "The resource was created succefully"
         },
-        "RESERVATION":{
-          "CREATE_BTN":"Create",
-          "DELETE_BTN":"Delete Event",
-          "DETAILS":"Reservation Details",
-          "CREATE_RESERVATION":"create event",
-          "RESOURCE_NAME":"Resource",
-          "EVENTS":{
-            "START":"event start",
-            "END":"event end",
-            "TITLE":"title for Reservation",
-            "TITLE_PLACEHOLDER":"Enter the reservation title",
-            "DURATION":"Duration",
-            "FOR":"Reserved for",
-            "INVALID":"Invalid Reservation",
-            "INVALID_PAST":"Cannot make reservation in the Past",
-            "INVALID_RESERVATION_DURATION_LIMIT":"The Reservation minimum duration must be 1 hour"
+        "RESERVATION": {
+          "GENERAL_MESSAGE": "Manage the general informations of your reservations",
+          "RESERVATION_TITLE": "Reservations",
+          "UNIT_TITLE": "Units",
+          "UNIT_MESSAGE": "Manage options of resource units in reservations",
+          "RATE_TITILE": "Rates",
+          "RATE_MESSAGE": "Add Rates to your reservations",
+          "TIME_RESTRICTION_TITLE": "Time Restrictions",
+          "TIME_RESTRICTION_MESSAGE": "Manage time restrictions in your reservations",
+          "VISIBILITY_TITLE": "Visibility",
+          "VISIBILITY_MESSAGE": "Manage reservation visibility",
+          "CREATE_BTN": "Create",
+          "DELETE_BTN": "Delete Event",
+          "DETAILS": "Reservation Details",
+          "CREATE_RESERVATION": "create event",
+          "RESOURCE_NAME": "Resource",
+          "EVENTS": {
+            "START": "event start",
+            "END": "event end",
+            "TITLE": "title for Reservation",
+            "TITLE_PLACEHOLDER": "Enter the reservation title",
+            "DURATION": "Duration",
+            "FOR": "Reserved for",
+            "INVALID": "Invalid Reservation",
+            "INVALID_PAST": "Cannot make reservation in the Past",
+            "INVALID_RESERVATION_DURATION_LIMIT": "The Reservation minimum duration must be 1 hour"
           }
         }
       }
@@ -553,7 +571,7 @@
       "FILTER_INFRASTRUCTURE": "Filter ",
       "IMPORT_INFRASTRUCTURE": "Import ",
       "EXPORT_INFRASTRUCTURE": "Export ",
-      "NO_INFRASTRUCTURE": "There are no infrastructure",
+      "NO_INFRASTRUCTURE": "There are no infrastructures",
       "INFRASTRUCTURE_FORM": {
         "TITLE": "Create infrastructure ",
         "NAME": "Name",
@@ -613,8 +631,8 @@
         "PROJECT_MEMBERS": "Membres",
         "PROJECT_NAME": "Project",
         "PROJECT_STATUS": "Status",
-        "MESSAGE": "There is no projects",
-        "MESSAGE_MEMBER_LIST": "There is any member yet",
+        "MESSAGE": "There are no projects",
+        "MESSAGE_MEMBER_LIST": "There are any member yet",
         "TITLE": "Title",
         "MANAGER": "Manager",
         "MEMBERS": "# Members",
@@ -681,7 +699,7 @@
         "CREATE_COMPLETED": "Create project succeeded"
       },
       "LIST": {
-        "MESSAGE": "There is no contracts"
+        "MESSAGE": "There are no contracts"
       },
       "SEARCH_CONTRACTS": "Find a contract",
       "TITLE": "Contracts",

@@ -48,26 +48,26 @@ export class SettingsComponent implements OnInit, OnDestroy {
       {
         id: 'general',
         icon: 'heroicons_outline:clipboard-check',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_GENERAL),
-        description: 'Manage your public profile and private information',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.GENERAL',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.PANAL_MESSAGE',
       },
       {
         id: 'status',
         icon: 'heroicons_outline:refresh',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_STATUS),
-        description: 'Manage your password and 2-step verification preferences',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.STATUS',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.STATUS_MESSAGE',
       },
       {
         id: 'visibility',
         icon: 'heroicons_outline:eye',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_VISIBILITY),
-        description: 'Manage your subscription plan, payment method and billing information',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.VISIBILITY',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.VISIBILITY_MESSAGE',
       },
       {
         id: 'properties',
         icon: 'heroicons_outline:view-list',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_PROPERTIES),
-        description: 'Manage when you willl be notified on which channels',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.PROPERTIES',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.PROPERTIES_MESSAGE',
       },
     ];
 

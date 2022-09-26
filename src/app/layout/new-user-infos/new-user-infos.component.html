@@ -2,21 +2,25 @@
 <div *ngIf="user" class="inset-0 pt-8 flex flex-col min-w-0 overflow-y-auto" cdkScrollable>
   <div class="flex flex-auto mt-2">
     <div class="flex flex-col flex-auto w-full max-w-lg sm:max-w-7xl mx-auto">
-      <form class="p-4 mt-2 bg-card shadow rounded overflow-hidden mx-auto" [formGroup]="form">
-        <p class="my-6 font-medium"></p>
-        <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
+      <form class="p-10 mt-2 bg-card shadow rounded overflow-hidden mx-auto" [formGroup]="form">
+        <div class="flex-1 text-2xl font-semibold p-1 leading-tight">
+          {{ 'APP.ROUTES.USER.ABOUT.MESSAGE' | transloco }}
+        </div>
+        <hr class="w-full border-t my-6" />
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex flex-col gt-xs:flex-row">
           <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
             <mat-label>{{ 'APP.ROUTES.USER.ABOUT.FIRST_NAME' | transloco }}</mat-label>
             <input matInput [formControlName]="'firstname'" [placeholder]="'APP.ROUTES.USER.ABOUT.FIRST_NAME' | transloco" required />
-            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
           </mat-form-field>
+
           <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
             <mat-label>{{ 'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco }}</mat-label>
-            <input matInput [formControlName]="'lastname'" [placeholder]="'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco" required/>
-            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:newspaper'"></mat-icon>
+            <input matInput [formControlName]="'lastname'" [placeholder]="'APP.ROUTES.USER.ABOUT.LAST_NAME' | transloco" required />
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
           </mat-form-field>
-        </div>
-        <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
+
           <mat-form-field class="flex-auto mx-4">
             <mat-label>{{ 'APP.ROUTES.USER.ABOUT.EMAIL' | transloco }}</mat-label>
             <input matInput [formControlName]="'email'" [placeholder]="'APP.ROUTES.USER.ABOUT.EMAIL' | transloco" required />
@@ -24,11 +28,15 @@
           </mat-form-field>
           <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP1.PHONE_LABEL' | transloco }}</mat-label>
-            <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:tag'"></mat-icon>
-            <input matInput formControlName="phoneNumber" (keypress)="keyPress($event)" [ngClass]="{ 'is-invalid': submitted && formcontrols?.phonenumber.errors }" [placeholder]="'ORGANIZATION.FORM.STEP1.PHONE_LABEL' | transloco" />
+            <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+            <input
+              matInput
+              formControlName="phoneNumber"
+              (keypress)="keyPress($event)"
+              [ngClass]="{ 'is-invalid': submitted && formcontrols?.phonenumber.errors }"
+              [placeholder]="'ORGANIZATION.FORM.STEP1.PHONE_NUMBER' | transloco" />
           </mat-form-field>
-        </div>
-        <div class="grid grid-cols-2 flex flex-col gt-xs:flex-row">
+
           <mat-form-field class="flex-auto mx-4">
             <mat-label>{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}</mat-label>
             <input
@@ -44,35 +52,31 @@
           </mat-form-field>
         </div>
 
-        <div class="grid grid-cols-4 flex flex-col gt-xs:flex-row">
-          <!-- <mat-form-field class="flex-auto gt-xs:pr-3 mx-4"> -->
-          <p class="text-l pl-4 mb-4">{{ 'APP.GENERAL.ADDRESS.ADDRESSES' | transloco }}</p>
-          <!-- </mat-form-field> -->
-        </div>
-        <div class="grid grid-cols-4 flex flex-col gt-xs:flex-row">
+        <div class="mx-4 font-semibold">{{ 'APP.GENERAL.ADDRESS.ADDRESSES' | transloco }}</div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 flex flex-col gt-xs:flex-row mt-3">
           <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP2.APARTMENT' | transloco }}</mat-label>
             <input matInput [formControlName]="'apartment'" placeholder="#{{ 'ORGANIZATION.FORM.STEP2.APARTMENT' | transloco }}" />
-            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:chip'"></mat-icon>
           </mat-form-field>
-          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-2">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP2.STREET' | transloco }}</mat-label>
             <input matInput [formControlName]="'street'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.STREET' | transloco }}" required />
             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
           </mat-form-field>
-          <mat-form-field class="flex-auto gt-xs:pr-3 mx-4">
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-2">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP2.CITY' | transloco }}</mat-label>
             <input matInput [formControlName]="'city'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.CITY' | transloco }}" />
-            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:chip'"></mat-icon>
           </mat-form-field>
-        </div>
-        <div class="grid grid-cols-4 flex flex-col gt-xs:flex-row mt-3">
+
           <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP2.SELECT_COUNTRY' | transloco }}</mat-label>
             <input matInput [formControlName]="'country'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.COUNTRY' | transloco }}" required />
             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
           </mat-form-field>
-          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4">
+          <mat-form-field class="flex-auto gt-xs:pl-3 mx-4 col-span-2">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP2.PROVINCE' | transloco }}</mat-label>
             <input matInput [formControlName]="'province'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.PROVINCE' | transloco }}" required />
             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
