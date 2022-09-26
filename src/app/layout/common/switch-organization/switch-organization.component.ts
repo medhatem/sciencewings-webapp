@@ -131,6 +131,7 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
 
   /**
    * Checks if user id exists, the returns it.
+   *
    * @returns number
    */
   private checkIfUserExists(): number {

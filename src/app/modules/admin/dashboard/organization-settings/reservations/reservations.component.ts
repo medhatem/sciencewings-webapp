@@ -4,6 +4,7 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { UpdateOrganizationReservationSettingsRo } from 'app/models/organizations/organization';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { constants } from 'app/shared/constants';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'organization-settings-reservations',
@@ -32,6 +33,7 @@ export class ReservationsComponent implements OnInit, AfterViewInit {
       showResourceImagesInReservation: [],
     });
   }
+
   async ngAfterViewInit(): Promise<void> {
     this.form.setValue({
       approversCanEditReservations: this.settings.approversCanEditReservations,
@@ -49,33 +51,18 @@ export class ReservationsComponent implements OnInit, AfterViewInit {
     const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     const data = { ...this.form.value };
     const updatedReservationSettings = this.getUpdatedSettingsFromFormBuilder();
-    this.organizationService.updateOrganizationsSettingsProperties(Number(orgId), data).subscribe((response) => {
-      if (response.body.statusCode === 204) {
-        this.updateLocalSettings.emit(this.form.value);
-        this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
-      } else {
-        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
-      }
-    });
 
-    const response = await this.organizationService.updateOrganizationReservationProperties(Number(orgId), updatedReservationSettings);
-    if (response.body.statusCode === 204) {
+    try {
+      await lastValueFrom(this.organizationService.updateOrganizationsSettingsProperties(Number(orgId), data));
+      await this.organizationService.updateOrganizationReservationProperties(Number(orgId), updatedReservationSettings);
       this.updateLocalSettings.emit(this.form.value);
       this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
-    } else {
+    } catch (error) {
       this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }
   }
+
   private getUpdatedSettingsFromFormBuilder(): UpdateOrganizationReservationSettingsRo {
-    return new UpdateOrganizationReservationSettingsRo({
-      approversCanEditReservations: this.form.value.approversCanEditReservations,
-      attachedIcsCalendarFeeds: this.form.value.attachedIcsCalendarFeeds,
-      confirmationEmailWhenMakingReservation: this.form.value.confirmationEmailWhenMakingReservation,
-      emailAddressToReceiveReservationReplyMessages: this.form.value.emailAddressToReceiveReservationReplyMessages,
-      hideAccountNumberWhenMakingReservation: this.form.value.hideAccountNumberWhenMakingReservation,
-      hideOrganizationCalendar: this.form.value.hideOrganizationCalendar,
-      requireReasonWhenEditingReservation: this.form.value.requireReasonWhenEditingReservation,
-      showResourceImagesInReservation: this.form.value.showResourceImagesInReservation,
-    });
+    return new UpdateOrganizationReservationSettingsRo({ ...this.form.value });
   }
 }

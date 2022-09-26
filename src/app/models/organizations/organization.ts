@@ -2,7 +2,6 @@ import { Address } from '../address';
 import {
   AddressDto,
   CreateOrganizationRo,
-  GetOrganizationDto,
   OrganizationAccessSettingsRo,
   OrganizationInformationDto,
   OrganizationMemberSettingsRo,
