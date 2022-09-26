@@ -20,15 +20,17 @@ export class GetOrganization implements OrganizationInformationDto {
   description?: string;
   email?: string;
   id: number;
+  labels?: Array<OrganizationInformationDto>;
   name?: string;
   owner?: UserDto;
+  parent?: OrganizationInformationDto;
   phone?: PhoneInformationDto;
+  settings?: OrganizationSettingsBodyDto;
   statusCode: number;
   type?: string;
-  settings?: OrganizationSettingsBodyDto;
 
   constructor(organization: any) {
-    const { address, description, email, id, name, owner, phone, statusCode, type, settings } = organization || {};
+    const { address, description, email, id, name, owner, phone, statusCode, type, settings, labels, parent } = organization || {};
 
     Object.assign(this, {
       address,
@@ -41,6 +43,8 @@ export class GetOrganization implements OrganizationInformationDto {
       statusCode,
       type,
       settings,
+      labels,
+      parent,
     });
 
     if (id) {

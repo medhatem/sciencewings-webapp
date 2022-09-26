@@ -31,7 +31,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   labelsKeys = Object.keys(OrganizationLabels);
   labelsTranslation = OrganizationLabelsTranslation;
   hasOrganizations: boolean = true;
-  userOrganizations: UserOrganizations[] = [];
+  userOrganizations: any[] = [];
   organizationMembers: OrganizationMembers[];
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -48,6 +48,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
 
   async ngOnInit(): Promise<void> {
     this.getMembers();
+    this.getOrganizations();
 
     this.form = this._formBuilder.group({
       name: '',
@@ -56,7 +57,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       phoneNumber: '',
       phoneLabel: '',
       type: '',
-      parent: [],
+      parent: '',
       owner: '',
       description: '',
     });
@@ -78,7 +79,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       phoneNumber: this.organization?.phone?.phoneNumber || '',
       phoneLabel: this.organization?.phone?.phoneLabel || '',
       type: this.organization?.type || '',
-      parent: this.organization?.parent || '',
+      parent: this.organization?.parent?.id || '',
       owner: this.organization?.owner?.id || '',
       description: this.organization?.description || '',
     });
@@ -114,6 +115,16 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       });
   }
 
+  private getOrganizations() {
+    const userId = Number(localStorage.getItem(constants.CURRENT_USER_ID));
+    return this.organizationService
+      .getUserOrganizations(userId)
+      .then((resolve) => (this.userOrganizations = resolve))
+      .catch(() => {
+        this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');
+      });
+  }
+
   private getOrganizationIdFromLocalStorage(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
@@ -124,7 +135,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       email: this.form.value?.email || this.organization.email,
       phone: phone,
       type: this.form.value?.type || this.organization.type,
-      parent: this.form.value?.parent || this.organization.parent,
+      parent: this.form.value?.parent || this.organization.parent.id,
       owner: this.form.value?.owner || this.organization.owner.id,
       description: this.form.value?.description || this.organization.description,
     });

@@ -37,6 +37,14 @@ export class AdminOrganizationsService {
     );
   }
 
+  async getUserOrganizations(userId?: number): Promise<UserOrganizations[]> {
+    return lastValueFrom(
+      this._swaggerService
+        .memberRoutesGetUserMemberships({ userId })
+        .pipe(map(({ body }) => body.data.map((member) => new UserOrganizations(member)))),
+    );
+  }
+
   /**
    * get organization by id
    *
