@@ -28,15 +28,16 @@
           <input matInput formControlName="phoneNumber" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.PHONE' | transloco" />
           <mat-select class="mr-1.5" formControlName="phoneCode" matPrefix>
             <mat-select-trigger>
-              <!--               <span class="flex items-center">
+              <span class="flex items-center">
                 <span
-                  class="hidden sm:flex w-6 h-4 mr-1 overflow-hidden"
-                  [style.background]="'url(\'../../../../../../assets/images/flags/flags.png\') no-repeat 0 0'"
+                  class="w-6 h-4 overflow-hidden"
+                  [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
                   [style.backgroundSize]="'24px 3876px'"
-                  [style.backgroundPosition]="getCountryByIso().flagImagePos"></span>
-                <span class="sm:mx-0.5 font-medium text-default">{{ getCountryByIso().code }}</span>
+                  [style.backgroundPosition]="getCountryByIso().flagImagePos">
+                </span>
+                <span class="ml-2">{{ getCountryByIso().name }}</span>
+                <span class="sm:mx-0.5 font-medium">{{ getCountryByIso().code }}</span>
               </span>
- -->
             </mat-select-trigger>
             <ng-container *ngFor="let country of countries; trackBy: trackByFn">
               <mat-option [value]="country.iso">
@@ -57,10 +58,9 @@
         <mat-form-field class="fuse-mat-no-subscript flex-auto w-full max-w-24 sm:max-w-40 ml-2 sm:ml-4">
           <mat-label>{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}</mat-label>
           <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:tag'"></mat-icon>
-          <mat-select [formControlName]="'phoneLabel'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}">
-            <mat-option *ngFor="let labels of labelsKeys; trackBy: trackByFn" [value]="labels[phoneLabel]"
-              >{{ labelsTranslation[label] | transloco }}
-            </mat-option>
+
+          <mat-select [formControlName]="'labels'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}">
+            <mat-option *ngFor="let label of labelsKeys; trackBy: trackByFn" [value]="label">{{ label }} </mat-option>
           </mat-select>
         </mat-form-field>
       </div>

@@ -9,11 +9,11 @@ import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
 import { Organization, UpdateOrganization } from 'app/models/organizations/organization';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
-import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { ActivatedRoute } from '@angular/router';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { OrganizationMembers } from 'app/models/members/member';
+import { countryCanada } from 'app/mock-api/apps/contacts/data';
 @Component({
   selector: 'organization-settings-general',
   templateUrl: './general.component.html',
@@ -22,17 +22,16 @@ import { OrganizationMembers } from 'app/models/members/member';
 export class GeneralComponent implements OnInit, AfterViewInit {
   @Input() currentOrganizations: any;
   @Output() updateLocalOrganization = new EventEmitter<string>();
-  @Input() countries: any;
+  countries = countryCanada;
   @Input() organization: any;
 
   form: FormGroup;
-  labels = OrganizationLabels;
   phoneLabel = OrganizationLabels;
-  labelsKeys = Object.keys(OrganizationLabels);
-  labelsTranslation = OrganizationLabelsTranslation;
   hasOrganizations: boolean = true;
   userOrganizations: any[] = [];
   organizationMembers: OrganizationMembers[];
+  labels: OrganizationLabels;
+  labelsKeys = Object.keys(OrganizationLabels);
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -55,20 +54,14 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       email: '',
       phoneCode: 'fr',
       phoneNumber: '',
-      phoneLabel: '',
       type: '',
       parent: '',
       owner: '',
       description: '',
+      labels: '',
     });
 
     // Get the country telephone codes
-    this._contactsService.countries$.pipe(takeUntil(this._unsubscribeAll)).subscribe((codes: any[]) => {
-      this.countries = countriesData;
-
-      // Mark for check
-      this._changeDetectorRef.markForCheck();
-    });
   }
 
   async ngAfterViewInit(): Promise<void> {
@@ -77,15 +70,18 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       email: this.organization?.email || '',
       phoneCode: this.organization?.phone?.phoneCode || 'fr',
       phoneNumber: this.organization?.phone?.phoneNumber || '',
-      phoneLabel: this.organization?.phone?.phoneLabel || '',
       type: this.organization?.type || '',
       parent: this.organization?.parent?.id || '',
       owner: this.organization?.owner?.id || '',
       description: this.organization?.description || '',
+      labels: this.organization?.labels[0] || '',
     });
   }
   getCountryByIso(): any {
-    return this.countries.find(({ iso }) => iso === this.form.value.phoneCode);
+    // keep only canada for the moment
+    const v = this.countries.length > 0 ? this.countries[0] : { code: '', name: '', flagImagePos: '' };
+    console.log('v)=================== ', v);
+    return v;
   }
 
   trackByFn(index: number, item: any): any {
@@ -131,13 +127,14 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   private getOrganizationFromFormBuilder(): UpdateOrganization {
     const phone = new Phone({ phoneNumber: this.form.value?.phoneNumber, phoneCode: this.form.value?.phoneCode, phoneLabel: 'Organization' });
     return new UpdateOrganization({
-      name: this.form.value?.name || this.organization.name,
-      email: this.form.value?.email || this.organization.email,
+      name: this.form.value?.name || this.organization?.name,
+      email: this.form.value?.email || this.organization?.email,
       phone: phone,
-      type: this.form.value?.type || this.organization.type,
+      type: this.form.value?.type || this.organization?.type,
       parent: this.form.value?.parent || this.organization?.parent?.id,
-      owner: this.form.value?.owner || this.organization.owner.id,
-      description: this.form.value?.description || this.organization.description,
+      owner: this.form.value?.owner || this.organization?.owner.id,
+      description: this.form.value?.description || this.organization?.description,
+      labels: [this.form.value?.labels || this.organization?.labels],
     });
   }
 }
