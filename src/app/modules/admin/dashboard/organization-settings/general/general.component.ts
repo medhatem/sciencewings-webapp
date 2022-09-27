@@ -30,7 +30,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   hasOrganizations: boolean = true;
   userOrganizations: any[] = [];
   organizationMembers: OrganizationMembers[];
-  labels: OrganizationLabels;
   labelsKeys = Object.keys(OrganizationLabels);
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -58,7 +57,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       parent: '',
       owner: '',
       description: '',
-      labels: '',
     });
 
     // Get the country telephone codes
@@ -74,7 +72,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       parent: this.organization?.parent?.id || '',
       owner: this.organization?.owner?.id || '',
       description: this.organization?.description || '',
-      labels: this.organization?.labels[0] || '',
     });
   }
   getCountryByIso(): any {
@@ -132,7 +129,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       parent: this.form.value?.parent || this.organization?.parent?.id,
       owner: this.form.value?.owner || this.organization?.owner.id,
       description: this.form.value?.description || this.organization?.description,
-      labels: [this.form.value?.labels || this.organization?.labels],
     });
   }
 }
