@@ -79,9 +79,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   }
   getCountryByIso(): any {
     // keep only canada for the moment
-    const v = this.countries.length > 0 ? this.countries[0] : { code: '', name: '', flagImagePos: '' };
-    console.log('v)=================== ', v);
-    return v;
+    return this.countries.length > 0 ? this.countries[0] : { code: '', name: '', flagImagePos: '' };
   }
 
   trackByFn(index: number, item: any): any {
