@@ -31,17 +31,17 @@ export class MemberContractsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._contractService.getAndParseMemberContracts(this.userId, this.orgId).subscribe((contracts: GetContract[]) => {
+    this._contractService.getAndParseMemberContracts(this.orgId, this.userId).subscribe((contracts: GetContract[]) => {
       this.contracts = contracts;
       this._cdr.markForCheck();
     });
 
     this.options = {
       columns: [
-        { columnName: 'Name', columnPropertyToUse: 'name', customClass: 'hidden' },
-        { columnName: 'Supervisor', columnPropertyToUse: 'supervisor', customClass: 'hidden' },
-        { columnName: 'Job Level', columnPropertyToUse: 'jobLevel', customClass: 'hidden' },
-        { columnName: 'Date start', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.CONTRACTS.FORM.JOB_NAME', columnPropertyToUse: 'name', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.CONTRACTS.FORM.SUPERVISOR', columnPropertyToUse: 'supervisor', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.CONTRACTS.FORM.JOB_LEVEL', columnPropertyToUse: 'jobLevel', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.CONTRACTS.FORM.STARTDATE', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
       numnberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
@@ -60,7 +60,7 @@ export class MemberContractsComponent implements OnInit {
       })
       .afterClosed()
       .subscribe(() => {
-        this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: GetContract[]) => {
+        this._contractService.getAndParseMemberContracts(this.orgId, this.userId).subscribe((contracts: GetContract[]) => {
           this.contracts = contracts;
           this._cdr.markForCheck();
         });
@@ -77,7 +77,7 @@ export class MemberContractsComponent implements OnInit {
       })
       .afterClosed()
       .subscribe(() => {
-        this._contractService.getAndParseMemberContracts(this.userId, this.userId).subscribe((contracts: GetContract[]) => {
+        this._contractService.getAndParseMemberContracts(orgID, this.userId).subscribe((contracts: GetContract[]) => {
           this.contracts = contracts;
           this._cdr.markForCheck();
         });
