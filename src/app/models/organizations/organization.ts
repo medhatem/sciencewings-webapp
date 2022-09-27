@@ -205,7 +205,7 @@ export class UpdateOrganizationReservationSettingsRo implements OrganizationRese
   attachedIcsCalendarFeeds?: boolean;
   confirmationEmailWhenMakingReservation?: string;
   emailAddressToReceiveReservationReplyMessages?: Array<string>;
-  hideAccountNumberWhenMakingReservation?: boolean;
+  hideAccountNumberWhenMakingReservation?: 'EVERYONE' | 'MEMBER';
   hideOrganizationCalendar?: boolean;
   requireReasonWhenEditingReservation?: boolean;
   showResourceImagesInReservation?: boolean;
