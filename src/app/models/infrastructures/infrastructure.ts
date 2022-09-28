@@ -1,5 +1,5 @@
-import { MemberDto, ResponsableObjectDto, InfrastructureRo } from 'generated/models';
-import { Resource } from '../resources/resource';
+import { MemberDto, ResponsableObjectDto, InfrastructureRo, InfrastructureDto, UpdateinfrastructureRo, ResourceDto } from 'generated/models';
+
 export class Infrastructure implements InfrastructureRo {
   id?: string;
   description?: string;
@@ -13,6 +13,7 @@ export class Infrastructure implements InfrastructureRo {
   resourcesNb?: number[];
   dateStart?: Date;
   responsible: number;
+  infrastructureDto: InfrastructureDto;
 
   constructor(infrastructure: any) {
     const { id, description, key, dateEnd, dateStart, organization, responsible, members, parent, resources, resourcesNb, name } =
@@ -53,15 +54,17 @@ export class ResponsableDto implements ResponsableObjectDto {
   }
 }
 
-export class InfrastructureListItem {
+export class InfrastructureListItem implements InfrastructureDto {
   id: number;
   description: string;
   key: string;
-  responsible: ResponsableDto;
-  resources: Array<Resource>;
+  resources?: ResourceDto[];
+  responsible?: MemberDto;
   resourcesNb: number[];
   dateStart?: Date;
   name: string;
+  statusCode: number;
+  infrastructureDto: InfrastructureDto;
 
   constructor(infrastructure?: any) {
     const { id, name, key, dateStart, resources, resourcesNb, responsible, description } = infrastructure || {};
@@ -73,6 +76,28 @@ export class InfrastructureListItem {
       resources,
       resourcesNb,
       dateStart,
+      description,
+    });
+  }
+}
+
+export class UpdateInfrastructure implements UpdateinfrastructureRo {
+  name?: string;
+  key?: number;
+  responsible?: number;
+  parent?: number;
+  resources?: Array<number>;
+  description?: string;
+  organization?: number;
+
+  constructor(infrastructure: any) {
+    const { name, key, responsible, parent, description } = infrastructure || {};
+
+    Object.assign(this, {
+      name,
+      key,
+      responsible,
+      parent,
       description,
     });
   }

@@ -12,6 +12,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { ListComponentModule } from '../../reusable-components/list/list-component.module';
 import { InfrastructureFormComponent } from './infrastructure-form/infrastructure-form.component';
+import { InfrastructureSettingsModule } from './infrastructure-settings/infrastructure-settings.module';
+
 @NgModule({
   declarations: [InfrastructureComponent, InfrastructureListComponent, InfrastructureFormComponent],
   imports: [
@@ -24,7 +26,7 @@ import { InfrastructureFormComponent } from './infrastructure-form/infrastructur
     FuseFindByKeyPipeModule,
     MatNativeDateModule,
     ListComponentModule,
-    InfrastructureComponent,
+    InfrastructureSettingsModule,
   ],
 })
 export class InfrastrustureModule {}
