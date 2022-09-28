@@ -108,6 +108,9 @@
         "RESOURCE_SETTINGS": {
           "TITLE": "Paramètres des ressources"
         },
+        "RESERVATION_SETTINGS": {
+          "TITLE": "Paramètres des réservations"
+        },
         "RESOURCE_TAGS": {
           "TITLE": "Tags des ressources"
         },
@@ -129,6 +132,7 @@
       },
       "USER": {
         "ABOUT": {
+          "MESSAGE": "Détails de l'utilisateur",
           "ADDRESS": "Adresse",
           "ADD_EMAIL": "Ajouter une adresse e-mail",
           "ADD_PHONE_NUMBER": "Ajouter un numéro de téléphone",
@@ -223,7 +227,7 @@
         "POSTAL_CODE": "Code postal",
         "PROVINCE": "Province/région",
         "SECTOR": "Secteur",
-        "SELECT_COUNTRY": "Choisissez un pays",
+        "SELECT_COUNTRY": " Pays",
         "SOCIAL_MEDIA": "Réseaux sociaux",
         "STREET": "Rue",
         "SUB_TITLE": "Adresse de l'organisation",
@@ -272,7 +276,7 @@
       "CREATE_ORGANIZATION": "Créer une organisation",
       "ERROR_LOADING_ORGANIZATIONS": "Une erreur s'est produite lors du chargement des organisations",
       "MESSAGE": "organisations",
-      "NO_ORGANIZATIONS": "Vous avez aucune organisation",
+      "NO_ORGANIZATIONS": "vous n'avez aucune organisation",
       "TITLE": "Mes Organisations"
     },
     "MEMBERS": {
@@ -450,6 +454,7 @@
         "CREATE_RESOURCE": "Créer une ressource",
         "CREATE_RESOURCE_MOBILE": "Ajouter",
         "MESSAGE": "Gérez les accès pour toutes vos ressources dans",
+        "PANAL_MESSAGE": "Gérez les informations générales de vos ressources",
         "GENERAL": "Général",
         "NAME": "Nom",
         "CLASS": "Classe",
@@ -458,14 +463,17 @@
         "DESCRIPTION": "Description",
         "TAGS": "Mots clés",
         "MANAGERS": "Managers",
-        "STATUS": "Status",
+        "STATUS": "Statut",
+        "STATUS_MESSAGE": "Gérer le statut de vos ressources",
         "DETAILS": "Détails",
         "NAME_REQUIRED": "Le nom de la ressource est requis",
         "CLASS_REQUIRED": "La classe de ressources est requise",
         "TYPE_REQUIRED": "Le type de ressource est requis",
         "ACCESS_TO_RESOURCE": "Accès à la ressource",
         "VISIBILITY_SETTINGS": "Paramètres de visibilité",
+        "PROPERTIES_MESSAGE": "Gérer les Propriétés de vos ressources",
         "VISIBILITY": "Visibilité",
+        "VISIBILITY_MESSAGE": "Gérer la visibilité de vos ressources",
         "RESOURCE_UNLISTED_ON_SITE_PAGE": "Ressource non répertoriée sur la page du site",
         "RESOURCE_UNLISTED_TO_USERS_WHO_CANNOT_RESERVE": "Ressource non répertoriée pour les utilisateurs qui ne peuvent pas réserver",
         "RESOURCE_FULLY_HIDDEN_TO_USERS_WHO_CANNOT_RESERVE": "Ressource entièrement masquée pour les utilisateurs qui ne peuvent pas réserver",
@@ -518,22 +526,32 @@
         "SUCCESS": {
           "CREATE_COMPLETED": "La resource a été créer avec succées "
         },
-        "RESERVATION":{
-          "CREATE_BTN":"Créer",
-          "DELETE_BTN":"Supprimer l'événement",
-          "DETAILS":"DETAILS DE LA RESERVATION",
-          "CREATE_RESERVATION":"creer un evenement",
-          "RESOURCE_NAME":"Resource",
-          "EVENTS":{
-            "START":"Debut de l'evenemnt",
-            "END":"fin de l'evenement",
-            "TITLE":"Titre de la reservation",
-            "TITLE_PLACEHOLDER":"Entrer un titre pour la reservation",
-            "DURATION":"durée",
-            "FOR":"réservé pour",
-            "INVALID":"Reservation Invalide",
-            "INVALID_PAST":"ne peut pas faire de réservation dans le passé",
-            "INVALID_RESERVATION_DURATION_LIMIT":"La Reservation doit Faire 1 heure au minimum"
+        "RESERVATION": {
+          "GENERAL_MESSAGE": "Gérez les informations générales de vos réservations",
+          "RESERVATION_TITLE": "Réservations",
+          "UNIT_TITLE": "Unités",
+          "UNIT_MESSAGE": "Gérer les options des unités de ressources dans les réservations",
+          "RATE_TITILE": "Tarifs",
+          "RATE_MESSAGE": "Ajouter des tarifs à vos réservations",
+          "TIME_RESTRICTION_TITLE": "Restrictions de temps",
+          "TIME_RESTRICTION_MESSAGE": "Gérez les restrictions de temps dans vos réservations",
+          "VISIBILITY_TITLE": "Visibilité",
+          "VISIBILITY_MESSAGE": "Gérer la visibilité des réservations",
+          "CREATE_BTN": "Créer",
+          "DELETE_BTN": "Supprimer l'événement",
+          "DETAILS": "DETAILS DE LA RESERVATION",
+          "CREATE_RESERVATION": "creer un evenement",
+          "RESOURCE_NAME": "Resource",
+          "EVENTS": {
+            "START": "Debut de l'evenemnt",
+            "END": "fin de l'evenement",
+            "TITLE": "Titre de la reservation",
+            "TITLE_PLACEHOLDER": "Entrer un titre pour la reservation",
+            "DURATION": "durée",
+            "FOR": "réservé pour",
+            "INVALID": "Reservation Invalide",
+            "INVALID_PAST": "ne peut pas faire de réservation dans le passé",
+            "INVALID_RESERVATION_DURATION_LIMIT": "La Reservation doit Faire 1 heure au minimum"
           }
         }
       }
@@ -611,8 +629,8 @@
         "PROJECT_MEMBERS": "Membres",
         "PROJECT_NAME": "Projet",
         "PROJECT_STATUS": "Status",
-        "MESSAGE": "Il n'y a pas de Projets !",
-        "MESSAGE_MEMBER_LIST": "Il n'y a pas des membres",
+        "MESSAGE": "Aucun projet",
+        "MESSAGE_MEMBER_LIST": "Aucun membres",
         "TITLE": "Titre",
         "MANAGER": "Manager",
         "MEMBERS": "# Membres",
@@ -650,7 +668,7 @@
       }
     },
     "CONTRACTS": {
-      "CREATE_CONTRACTS": "Ajouter une nouvelle contrat",
+      "CREATE_CONTRACTS": "Nouveau contrat",
       "EXPORT_CONTRACTS": "Exporter",
       "FILTER_CONTRACTS": "Filtre",
       "FORM": {
@@ -679,7 +697,7 @@
         "CREATE_COMPLETED": "La création du contrat a réussi"
       },
       "LIST": {
-        "MESSAGE": "Il n'y a pas des contracts !"
+        "MESSAGE": "Aucun contract"
       },
       "SEARCH_GROUPS": "Chercher un projet",
       "TITLE": "Contracts",

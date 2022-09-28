@@ -44,9 +44,10 @@ export class NewUserInfosComponent implements OnInit {
    * @returns void to out from function if form not valid.
    */
   async emitOnFormComplete() {
-    if (!this.form.valid) {
+    if (this.form.invalid) {
       return this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
     }
+
     const formUser = { ...this.form.value };
     const phones = [new Phone({ ...this.form.value })];
     const addresses = [new Address({ ...this.form.value })];
@@ -112,7 +113,7 @@ export class NewUserInfosComponent implements OnInit {
       email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
       dateofbirth: new FormControl(moment()),
       keycloakId: localStorage.getItem(constants.CURRENT_USER_KEYCLOAK_ID),
-      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(8)]],
       street: ['', Validators.required],
       apartment: [''],
       province: ['', Validators.required],
