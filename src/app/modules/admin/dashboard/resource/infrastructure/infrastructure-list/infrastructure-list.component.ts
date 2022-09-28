@@ -6,7 +6,7 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { ListOption } from '../../../reusable-components/list/list-component.component';
 import { FormControl } from '@angular/forms';
-import { Infrastructure } from 'app/models/infrastructures/infrastructure';
+import { Infrastructure, InfrastructureListItem } from 'app/models/infrastructures/infrastructure';
 import { InfrastructureService } from 'app/modules/admin/resolvers/infrastructure/infrastructure.service';
 import { constants } from 'app/shared/constants';
 import { InfrastructureFormComponent } from '../infrastructure-form/infrastructure-form.component';
@@ -49,6 +49,7 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
         },
         { columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.DATE', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
+      onElementClick: this.onElementSelected.bind(this),
       numnberOfColumns: 5,
     };
 
@@ -58,11 +59,13 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
       this._changeDetectorRef.markForCheck();
     });
   }
+
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
+
   openCreateInfrastructureDialog(): void {
     const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     if (!orgID) {
@@ -75,4 +78,15 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
       lastValueFrom(this._infrastructureService.getAndParseOrganizationInfrastructures());
     });
   }
+
+  async onElementSelected(item: Infrastructure) {
+    const id = 1;
+    this._router.navigate(['/infrastructure/infrastructure-settings', { id, item }]);
+  }
+
+  // async onElementSelected(item: InfrastructureListItem) {
+  //   localStorage.setItem(constants.CURRENT_PROJECT_ID, `${item.id}`);
+  //   const infrastructure = item.infrastructureDto;
+  //   this._router.navigate([`/resources/resource/infrastructure-settings`]);
+  // }
 }

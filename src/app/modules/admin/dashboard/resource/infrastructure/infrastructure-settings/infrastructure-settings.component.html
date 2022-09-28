@@ -1,0 +1,7 @@
+<app-reusable-settings [title]="title" [selectedPanel]="selectedPanel" (onSelectedPanelChange)="changeSelectedPanel($event)" [panels]="panels">
+  <ng-container content [ngSwitch]="selectedPanel">
+    <ng-container *ngSwitchCase="'infrastructure-general'">
+      <app-infrastructure-general-settings [id]="id" [infrastructure]="infrastructure"> </app-infrastructure-general-settings>
+    </ng-container>
+  </ng-container>
+</app-reusable-settings>

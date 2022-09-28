@@ -7,6 +7,7 @@ import { ResourceProfileFormComponent } from './resource-form/profile-form.compo
 import { ResourceResolver } from '../../resolvers/resource/resource.resolvers';
 import { ResourceScheduleComponent } from './schedule/schedule.component';
 import { Route } from '@angular/router';
+
 export const resourceRoutes: Route[] = [
   {
     path: '',
