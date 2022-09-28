@@ -1,5 +1,5 @@
-import { SettingsComponent as GeneralSettingsComponent } from './resource-settings/general/settings.component';
-import { SettingsComponent as ReservationSettingsComponent } from './resource-settings/reservation/settings.component';
+import { ResourceGeneralSettingsComponent } from './resource-settings/general/resource-general-settings.component';
+import { ReservationSettingsComponent } from './resource-settings/reservation/reservation-settings.component';
 import { ResourceComponent } from './resource.component';
 import { ResourceListComponent } from './resource-list-componenet/resource-list.component';
 import { ResourceProfileComponent } from './resource-profile/resource-profile.component';
@@ -7,6 +7,7 @@ import { ResourceProfileFormComponent } from './resource-form/profile-form.compo
 import { ResourceResolver } from '../../resolvers/resource/resource.resolvers';
 import { ResourceScheduleComponent } from './schedule/schedule.component';
 import { Route } from '@angular/router';
+
 export const resourceRoutes: Route[] = [
   {
     path: '',
@@ -19,7 +20,6 @@ export const resourceRoutes: Route[] = [
           data: ResourceResolver,
         },
       },
-
       {
         path: 'create',
         component: ResourceProfileFormComponent,
@@ -34,7 +34,7 @@ export const resourceRoutes: Route[] = [
       },
       {
         path: 'settings/general',
-        component: GeneralSettingsComponent,
+        component: ResourceGeneralSettingsComponent,
       },
       {
         path: 'settings/reservation',

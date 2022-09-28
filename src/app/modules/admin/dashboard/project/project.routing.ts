@@ -15,7 +15,7 @@ export const projectRoutes: Route[] = [
         component: ProjectListComponent,
       },
       {
-        path: 'project-settings',
+        path: 'project-settings/:id',
         component: ProjectSettingsComponent,
       },
       {
