@@ -26,17 +26,13 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
     private _toastrService: ToastrService,
     private _router: Router,
     private _memberService: MemberService,
-    private _cdf: ChangeDetectorRef,
   ) {}
 
   async ngOnInit() {
-    console.log('dans les settinsg', this.infrastructure);
     this.form = this._formBuilder.group({
       name: this?.infrastructure?.name || '',
       key: this?.infrastructure?.key || '',
-      responsible: this?.infrastructure?.responsible?.user || '',
-      contact: this?.infrastructure?.contact || '',
-      parent: this?.infrastructure?.parent,
+      responsible: this?.infrastructure?.responsible || '',
       description: this?.infrastructure?.description || '',
     });
     await this.getMembers();
@@ -52,7 +48,7 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
       await lastValueFrom(this._infarstructureService.updateInfrastructure(this.infrastructure.id, infrastructure));
       await lastValueFrom(this._infarstructureService.getAndParseOrganizationInfrastructures());
       this._toastrService.showSuccess(constants.UPDATE_INFRASTRUCTURE_COMPLETED);
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.INFRASTRUCTURE]);
+      this._router.navigate(['/resources/Infrastructure/']);
     } catch (error) {
       this._toastrService.showError(constants.UPDATE_INFRASTRUCTURE_FAILED);
     }

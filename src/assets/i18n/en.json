@@ -580,7 +580,8 @@
         "DESCRIPTION": "Description",
         "KEY": "Key",
         "SAVE": "Save",
-        "CANCEL": "Cancel"
+        "CANCEL": "Cancel",
+        "UPDATE": "Update"
       },
       "INFRASTRUCTURE_LIST": {
         "TITLE": "Infrastructure",
@@ -589,13 +590,23 @@
         "RESPONSIBLE": "Responsible",
         "RESOURCES_NB": "#Resources"
       },
+      "SETTINGS": {
+        "TITLE_FORM": "Infrastructure Details",
+        "TITLE": "Infrastructure settings",
+        "PANEL_GENERAL": "General",
+        "GENERAL_MESSAGE": "Manage the general informations of your infrastructures"
+      },
       "VALIDATORS": {
         "NAME_REQUIRED": "Infrastructue name is required",
         "KEY_REQUIRED": "Infrastructure Key is required",
         "RESPONSIBLE_REQUIRED": "Infrastructure Responsible is required"
       },
       "SUCCESS": {
-        "CREATE_COMPLETED": "Infrastructure was created successfuly "
+        "CREATE_COMPLETED": "Infrastructure was created successfuly ",
+        "UPDATE_COMPLETED": "Infrastructure was updated successfuly",
+        "ERROR": {
+          "UPDATE_FAILED": "The update of infrastructure has failed"
+        }
       }
     },
 

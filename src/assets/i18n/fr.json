@@ -578,7 +578,8 @@
         "RESPONSIBLES": "Responsable",
         "KEY": "Clé",
         "SAVE": "Sauvegarder",
-        "CANCEL": "Annuler"
+        "CANCEL": "Annuler",
+        "UPDATE": "Modifier"
       },
       "INFRASTRUCTURE_LIST": {
         "TITLE": "Infrastructures",
@@ -587,13 +588,23 @@
         "RESPONSIBLE": "Responsable",
         "RESOURCES_NB": "#Ressources"
       },
+      "SETTINGS": {
+        "TITLE_FORM": "Détails d'infrastructure",
+        "TITLE": "Paramètres d'infrastructure",
+        "PANEL_GENERAL": "Général",
+        "GENERAL_MESSAGE": "Gérez les informations générales de vos infrastructures"
+      },
       "VALIDATORS": {
         "NAME_REQUIRED": "Le nom de l'infrastructure est requis",
         "KEY_REQUIRED": "La clé de l'infrastructure est requise",
         "RESPONSIBLE_REQUIRED": "Le Responsable de l'infrastructure est requis"
       },
       "SUCCESS": {
-        "CREATE_COMPLETED": "L'infrastructure a été créée avec succès "
+        "CREATE_COMPLETED": "L'infrastructure a été créée avec succès ",
+        "UPDATE_COMPLETED": "L'infrastructure a été mise à jour avec succès"
+      },
+      "ERROR": {
+        "UPDATE_FAILED": "La mise à jour de l'infrastructure a échoué"
       }
     },
 
