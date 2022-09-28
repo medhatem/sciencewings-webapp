@@ -10,6 +10,7 @@ import { Infrastructure, InfrastructureListItem } from 'app/models/infrastructur
 import { InfrastructureService } from 'app/modules/admin/resolvers/infrastructure/infrastructure.service';
 import { constants } from 'app/shared/constants';
 import { InfrastructureFormComponent } from '../infrastructure-form/infrastructure-form.component';
+
 @Component({
   selector: 'app-infrastructure-list',
   templateUrl: './infrastructure-list.component.html',
@@ -33,6 +34,12 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this._infrastructureService.infrastructures$.pipe(takeUntil(this._unsubscribeAll)).subscribe((infrastructures: Infrastructure[]) => {
+      this.infrastructures = infrastructures;
+      this.infrastructuresCount = infrastructures.length;
+      this._changeDetectorRef.markForCheck();
+    });
+
     this.options = {
       columns: [
         { columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.TITLE', columnPropertyToUse: 'name', customClass: '' },
@@ -52,12 +59,6 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
       onElementClick: this.onElementSelected.bind(this),
       numnberOfColumns: 5,
     };
-
-    this._infrastructureService.infrastructures$.pipe(takeUntil(this._unsubscribeAll)).subscribe((infrastructures: Infrastructure[]) => {
-      this.infrastructures = infrastructures;
-      this.infrastructuresCount = infrastructures.length;
-      this._changeDetectorRef.markForCheck();
-    });
   }
 
   ngOnDestroy(): void {
@@ -79,14 +80,8 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
     });
   }
 
-  async onElementSelected(item: Infrastructure) {
-    const id = 1;
-    this._router.navigate(['/infrastructure/infrastructure-settings', { id, item }]);
+  async onElementSelected(infrastructure: InfrastructureListItem) {
+    localStorage.setItem(constants.CURRENT_INFRASTRUCTURE_ID, `${infrastructure.id}`);
+    this._router.navigate([`/resources/Infrastructure/infrastructure-settings/${infrastructure.id}`]);
   }
-
-  // async onElementSelected(item: InfrastructureListItem) {
-  //   localStorage.setItem(constants.CURRENT_PROJECT_ID, `${item.id}`);
-  //   const infrastructure = item.infrastructureDto;
-  //   this._router.navigate([`/resources/resource/infrastructure-settings`]);
-  // }
 }

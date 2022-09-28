@@ -7,7 +7,6 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 @Component({
   selector: 'app-reusable-settings',
   templateUrl: './reusable-settings.component.html',
-  styleUrls: ['./reusable-settings.component.scss'],
 })
 export class ReusableSettingsComponent implements OnInit, OnDestroy {
   @Input() selectedPanel: string;

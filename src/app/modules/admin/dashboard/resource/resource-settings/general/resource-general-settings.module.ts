@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SharedModule } from 'app/shared/shared.module';
-import { SettingsComponent } from './settings.component';
-import { settingsRoutes } from './settings.routing';
+import { ResourceGeneralSettingsComponent } from './resource-general-settings.component';
+import { settingsRoutes } from './resource-general-settings.routing';
 import { ResourceSettingGeneralGeneralComponent } from './resource-setting-general-general/resource-setting-general-general.component';
 import { ResourceSettingGeneralStatusComponent } from './resource-setting-general-status/resource-setting-general-status.component';
 import { ResourceSettingGeneralBarcodeComponent } from './resource-setting-general-barcode/resource-setting-general-barcode.component';
@@ -13,7 +13,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 @NgModule({
   declarations: [
-    SettingsComponent,
+    ResourceGeneralSettingsComponent,
     ResourceSettingGeneralGeneralComponent,
     ResourceSettingGeneralStatusComponent,
     ResourceSettingGeneralBarcodeComponent,

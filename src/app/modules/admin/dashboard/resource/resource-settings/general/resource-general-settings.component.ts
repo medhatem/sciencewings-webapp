@@ -9,12 +9,12 @@ import { constants } from 'app/shared/constants';
 import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
-  selector: 'settings',
-  templateUrl: 'settings.component.html',
+  selector: 'resource-general-settings',
+  templateUrl: 'resource-general-settings.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class ResourceGeneralSettingsComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') drawer: MatDrawer;
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { InfrastructureService } from 'app/modules/admin/resolvers/infrastructure/infrastructure.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-infrastructure-settings',
@@ -12,14 +14,18 @@ export class InfrastructureSettingsComponent implements OnInit {
   currentInfrastructures = null;
   panels: any[];
   id: number;
-  infrastructure;
+  infrastructure: any;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private _infrastructureService: InfrastructureService, private _cdf: ChangeDetectorRef) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-    this.infrastructure = Number(this.route.snapshot.paramMap.get('infrastructure'));
-    // Setup available panels
+
+    await lastValueFrom(this._infrastructureService.getInfrastructure(this.id)).then(({ body }) => {
+      this.infrastructure = body;
+      this._cdf.markForCheck();
+    });
+
     this.panels = [
       {
         id: 'infrastructure-general',

@@ -130,7 +130,9 @@ export const appRoutes: Route[] = [
               icon: 'heroicons_outline:users',
             },
             loadChildren: () =>
-              import('app/modules/admin/dashboard/resource/resource-settings/general/settings.module').then((m) => m.SettingsGeneralModule),
+              import('app/modules/admin/dashboard/resource/resource-settings/general/resource-general-settings.module').then(
+                (m) => m.SettingsGeneralModule,
+              ),
           },
         ],
       },
@@ -160,7 +162,8 @@ export const appRoutes: Route[] = [
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:collection',
             },
-            component: InfrastructureListComponent,
+            loadChildren: () =>
+              import('app/modules/admin/dashboard/resource/infrastructure/infrastructure.module').then((m) => m.InfrastrustureModule),
             resolve: {
               data: InfrastructureResolver,
             },

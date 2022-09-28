@@ -74,9 +74,8 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       });
   }
 
-  async onElementSelected(p: ProjectListItem) {
-    localStorage.setItem(constants.CURRENT_PROJECT_ID, `${p.id}`);
-    const project = p.projectDto;
-    this._router.navigate(['/project/project-settings', { id: p.id, project }]);
+  async onElementSelected(project: ProjectListItem) {
+    localStorage.setItem(constants.CURRENT_PROJECT_ID, `${project.id}`);
+    this._router.navigate(['/project/project-settings', project.id]);
   }
 }
