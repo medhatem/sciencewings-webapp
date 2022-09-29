@@ -7,6 +7,7 @@ import { MemberService } from 'app/modules/admin/resolvers/members/member.servic
 import { constants } from 'app/shared/constants';
 import { InfrastructureService } from 'app/modules/admin/resolvers/infrastructure/infrastructure.service';
 import { Infrastructure } from 'app/models/infrastructures/infrastructure';
+
 @Component({
   selector: 'app-infrastructure-form',
   templateUrl: './infrastructure-form.component.html',
@@ -21,10 +22,6 @@ export class InfrastructureFormComponent implements OnInit {
   organizationMembers: OrganizationMembers[];
   responsible: any;
 
-  get validationControls() {
-    return this.infrastructureForm.controls;
-  }
-
   constructor(
     public matDialogRef: MatDialogRef<InfrastructureFormComponent>,
     private _formBuilder: FormBuilder,
@@ -32,6 +29,10 @@ export class InfrastructureFormComponent implements OnInit {
     private _memberService: MemberService,
     private _toastrService: ToastrService,
   ) {}
+
+  get validationControls() {
+    return this.infrastructureForm.controls;
+  }
 
   ngOnInit() {
     this.getMembers();

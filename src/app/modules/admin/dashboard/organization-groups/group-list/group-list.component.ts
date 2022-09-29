@@ -49,10 +49,10 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
       ],
     };
 
-    const { groups } = this._route.snapshot.data;
-    this.groupsCount = groups.length;
-    this._groupService.groups$.pipe(takeUntil(this._unsubscribeAll)).subscribe((groups: Group[]) => {
-      this.groups = groups;
+    const data = this._route.snapshot.data;
+    this.groupsCount = data.groups.length;
+    this._groupService.groups$.pipe(takeUntil(this._unsubscribeAll)).subscribe((organizationGroups: Group[]) => {
+      this.groups = organizationGroups;
       this._changeDetectorRef.markForCheck();
     });
 
