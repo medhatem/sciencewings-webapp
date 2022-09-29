@@ -2,13 +2,14 @@
   <mat-drawer-container class="flex-auto sm:h-full">
     <mat-drawer class="sm:w-96 dark:bg-gray-900" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #drawer>
       <div class="flex items-center justify-between m-8 mr-6 sm:my-10">
-        <div class="text-4xl font-extrabold tracking-tight leading-none">{{ 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE' | transloco }}</div>
+        <div class="text-4xl font-extrabold tracking-tight leading-none">{{ 'APP.ROUTES.ADMIN.RESERVATION_SETTINGS.TITLE' | transloco }}</div>
         <div class="lg:hidden">
           <button mat-icon-button (click)="drawer.close()">
             <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
           </button>
         </div>
       </div>
+      <!-- Panel links -->
       <div class="flex flex-col divide-y border-t border-b">
         <ng-container *ngFor="let panel of panels; trackBy: trackByFn">
           <div
@@ -28,10 +29,10 @@
               <div
                 class="font-medium leading-6"
                 [ngClass]="{ 'text-primary dark:text-primary-500': selectedPanel && selectedPanel === panel.id }">
-                {{ panel.title }}
+                {{ panel.title | transloco }}
               </div>
               <div class="mt-0.5 text-secondary">
-                {{ panel.description }}
+                {{ panel.description | transloco }}
               </div>
             </div>
           </div>
@@ -50,19 +51,28 @@
         <div class="mt-8">
           <ng-container [ngSwitch]="selectedPanel">
             <ng-container *ngSwitchCase="'general'">
-              <app-resource-setting-general-general [settings]="settings"> </app-resource-setting-general-general>
+              <app-resource-setting-reservation-general [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
+              </app-resource-setting-reservation-general>
             </ng-container>
-            <ng-container *ngSwitchCase="'status'">
-              <app-resource-setting-general-status [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
-              </app-resource-setting-general-status>
+            <ng-container *ngSwitchCase="'units'">
+              <app-resource-setting-reservation-units [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
+              </app-resource-setting-reservation-units>
+            </ng-container>
+            <ng-container *ngSwitchCase="'rates'">
+              <app-resource-setting-reservation-rates [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
+              </app-resource-setting-reservation-rates>
+            </ng-container>
+            <ng-container *ngSwitchCase="'time_restriction'">
+              <app-resource-setting-reservation-time-restriction [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
+              </app-resource-setting-reservation-time-restriction>
+            </ng-container>
+            <ng-container *ngSwitchCase="'groups'">
+              <app-resource-setting-reservation-group [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
+              </app-resource-setting-reservation-group>
             </ng-container>
             <ng-container *ngSwitchCase="'visibility'">
-              <app-resource-setting-general-visibility [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
-              </app-resource-setting-general-visibility>
-            </ng-container>
-            <ng-container *ngSwitchCase="'properties'">
-              <app-resource-setting-general-properties [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
-              </app-resource-setting-general-properties>
+              <app-resource-setting-reservation-visibility [settings]="settings" (updateLocalSettings)="updateLocalSettings($event)">
+              </app-resource-setting-reservation-visibility>
             </ng-container>
           </ng-container>
         </div>

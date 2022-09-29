@@ -3,18 +3,17 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
+import { CookieService } from 'ngx-cookie-service';
 import { constants } from 'app/shared/constants';
-import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
-  selector: 'settings',
-  templateUrl: 'settings.component.html',
+  selector: 'reservation-settings',
+  templateUrl: './reservation-settings.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class ReservationSettingsComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') drawer: MatDrawer;
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
@@ -32,7 +31,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private _resourceService: ResourceService,
     private _toastrService: ToastrService,
     private _coookies: CookieService,
-    private _translocoService: TranslocoService,
   ) {}
 
   // -----------------------------------------------------------------------------------------------------
@@ -48,26 +46,32 @@ export class SettingsComponent implements OnInit, OnDestroy {
       {
         id: 'general',
         icon: 'heroicons_outline:clipboard-check',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_GENERAL),
-        description: 'Manage your public profile and private information',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.RESERVATION_TITLE',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.GENERAL_MESSAGE',
       },
       {
-        id: 'status',
-        icon: 'heroicons_outline:refresh',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_STATUS),
-        description: 'Manage your password and 2-step verification preferences',
+        id: 'units',
+        icon: 'heroicons_outline:cube',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.UNIT_TITLE',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.UNIT_MESSAGE',
+      },
+      {
+        id: 'rates',
+        icon: 'heroicons_outline:credit-card',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.RATE_TITILE',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.RATE_MESSAGE',
+      },
+      {
+        id: 'time_restriction',
+        icon: 'heroicons_outline:bell',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.TIME_RESTRICTION_TITLE',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.TIME_RESTRICTION_MESSAGE',
       },
       {
         id: 'visibility',
         icon: 'heroicons_outline:eye',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_VISIBILITY),
-        description: 'Manage your subscription plan, payment method and billing information',
-      },
-      {
-        id: 'properties',
-        icon: 'heroicons_outline:view-list',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_PROPERTIES),
-        description: 'Manage when you willl be notified on which channels',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.VISIBILITY_TITLE',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.RESERVATION.VISIBILITY_MESSAGE',
       },
     ];
 

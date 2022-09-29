@@ -3,18 +3,18 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
-import { ToastrService } from 'app/core/toastr/toastr.service';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
-  selector: 'settings',
-  templateUrl: 'settings.component.html',
+  selector: 'resource-general-settings',
+  templateUrl: 'resource-general-settings.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class ResourceGeneralSettingsComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') drawer: MatDrawer;
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
@@ -48,32 +48,26 @@ export class SettingsComponent implements OnInit, OnDestroy {
       {
         id: 'general',
         icon: 'heroicons_outline:clipboard-check',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_GENERAL),
-        description: 'Manage your public profile and private information',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.GENERAL',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.PANAL_MESSAGE',
       },
       {
-        id: 'units',
-        icon: 'heroicons_outline:cube',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_UNITES),
-        description: 'Manage your password and 2-step verification preferences',
-      },
-      {
-        id: 'rates',
-        icon: 'heroicons_outline:credit-card',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_RATE),
-        description: 'Manage your subscription plan, payment method and billing information',
-      },
-      {
-        id: 'time_restriction',
-        icon: 'heroicons_outline:bell',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_TIME_RESTRICTION),
-        description: 'Manage when you willll be notified on which channels',
+        id: 'status',
+        icon: 'heroicons_outline:refresh',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.STATUS',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.STATUS_MESSAGE',
       },
       {
         id: 'visibility',
         icon: 'heroicons_outline:eye',
-        title: this._translocoService.translate(constants.RESOURCE_SIDEBAR_VISIBILITY),
-        description: 'Manage your existing team and change roles/permissions',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.VISIBILITY',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.VISIBILITY_MESSAGE',
+      },
+      {
+        id: 'properties',
+        icon: 'heroicons_outline:view-list',
+        title: 'ORGANIZATION.SETTINGS.RESOUCES.PROPERTIES',
+        description: 'ORGANIZATION.SETTINGS.RESOUCES.PROPERTIES_MESSAGE',
       },
     ];
 
