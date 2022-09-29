@@ -59,7 +59,7 @@
   <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4"></div>
 
   <!-- Main -->
-  <ng-container *ngIf="groups$ | async as groups">
+  <ng-container *ngIf="groups?.length">
     <list-component [dataList]="groups" [options]="options"></list-component>
   </ng-container>
 </div>

@@ -21,6 +21,10 @@ export class InfrastructureFormComponent implements OnInit {
   organizationMembers: OrganizationMembers[];
   responsible: any;
 
+  get validationControls() {
+    return this.infrastructureForm.controls;
+  }
+
   constructor(
     public matDialogRef: MatDialogRef<InfrastructureFormComponent>,
     private _formBuilder: FormBuilder,
@@ -28,9 +32,6 @@ export class InfrastructureFormComponent implements OnInit {
     private _memberService: MemberService,
     private _toastrService: ToastrService,
   ) {}
-  get validationControls() {
-    return this.infrastructureForm.controls;
-  }
 
   ngOnInit() {
     this.getMembers();
@@ -41,6 +42,7 @@ export class InfrastructureFormComponent implements OnInit {
       description: [''],
     });
   }
+
   async onSubmit() {
     this.submitted = true;
     if (!this.infrastructureForm.valid) {
@@ -69,9 +71,11 @@ export class InfrastructureFormComponent implements OnInit {
         this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');
       });
   }
+
   private getInfrastructureFromFormBuilder(): Infrastructure {
     return new Infrastructure({ ...this.infrastructureForm.value, organization: this.getOrganizationIdFromLocalStorage() });
   }
+
   private getOrganizationIdFromLocalStorage(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }

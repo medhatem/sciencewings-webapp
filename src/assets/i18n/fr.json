@@ -1,16 +1,16 @@
 {
   "APP": {
     "BTN": {
+      "ADD": "Ajouter",
+      "APPLY": "Appliquer",
       "CANCEL": "Annuler",
+      "DELETE": "Supprimer",
       "DONE_AND_CREATE_NEW": "Soumettre et créer un nouveau",
       "NEXT": "Suivant",
       "PREVIOUS": "Précédent",
       "RELOAD": "Recharger",
       "SUBMIT": "Soumettre",
-      "APPLY": "Appliquer",
-      "UPDATE": "Modifier",
-      "ADD": "Ajouter",
-      "DELETE": "Supprimer"
+      "UPDATE": "Modifier"
     },
     "COMMON": {
       "APP_MODULES": {
@@ -71,6 +71,9 @@
     },
     "ROUTES": {
       "ADMIN": {
+        "INFRASTRUCTURE": {
+          "TITLE": "Infrastructure"
+        },
         "LANDING_PAGE": {
           "TITLE": "Page d'accueil"
         },
@@ -90,6 +93,9 @@
         "PROJECT": {
           "TITLE": "Project"
         },
+        "RESERVATION_SETTINGS": {
+          "TITLE": "Paramètres des réservations"
+        },
         "RESOURCE": {
           "TITLE": "Resource de l'organisation"
         },
@@ -108,17 +114,9 @@
         "RESOURCE_SETTINGS": {
           "TITLE": "Paramètres des ressources"
         },
-        "RESERVATION_SETTINGS": {
-          "TITLE": "Paramètres des réservations"
-        },
         "RESOURCE_TAGS": {
           "TITLE": "Tags des ressources"
         },
-
-        "INFRASTRUCTURE": {
-          "TITLE": "Infrastructure"
-        },
-
         "TITLE": "Tableau de bord",
         "USER_PROFILE": {
           "TITLE": "Profil utilisateur"
@@ -132,7 +130,6 @@
       },
       "USER": {
         "ABOUT": {
-          "MESSAGE": "Détails de l'utilisateur",
           "ADDRESS": "Adresse",
           "ADD_EMAIL": "Ajouter une adresse e-mail",
           "ADD_PHONE_NUMBER": "Ajouter un numéro de téléphone",
@@ -148,6 +145,7 @@
           "FIRST_NAME": "Prénom",
           "LABEL": "Étiquette",
           "LAST_NAME": "Nom",
+          "MESSAGE": "Détails de l'utilisateur",
           "NAME": "Nom",
           "NOTES": "Notes",
           "PHONE": "Numéro de téléphone",
@@ -184,16 +182,69 @@
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "échec du chargement des organisations d'utilisateur"
   },
   "COMPLETING_FORM_REQUIRED": "Veuillez remplir tous les champs obligatoires pour continuer.",
+  "DESCRIPTION": "Description",
   "EMPTY_ORGANIZATIONS": "Aucune Organisation",
+  "ERROR": {
+    "CREATE_FAILED": "La création de l'organisation a échoué",
+    "ERROR": {
+      "CREATE_FAILED": "La création de l'organisation a échoué",
+      "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
+      "WRONG_ORG_ID": "L'organization demandé est introuvable"
+    },
+    "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
+    "WRONG_ORG_ID": "L'organization demandé est introuvable"
+  },
   "FAILED_LOAD_COUNTRIES": "Les téléchargements de la liste des pays ont échoué",
   "FATAL_ERROR_OCCURED": "Une erreur fatale s'est produite",
+  "GET_MEMBERS_LOAD_FAILED": "Vous n'avez pas d'organisation",
   "ORGANIZATION": {
+    "CONTRACTS": {
+      "CREATE_CONTRACTS": "Nouveau contrat",
+      "ERROR": {
+        "CREATE_FAILED": "La création de contrat a échoué"
+      },
+      "EXPORT_CONTRACTS": "Exporter",
+      "FILTER_CONTRACTS": "Filtre",
+      "FORM": {
+        "ACTIVE": "Active",
+        "CANCEL": "Annuler",
+        "CHOOSE_SUPERVISOR": "choisi un superviseur",
+        "CONTRACT_TYPE": "Type de contract",
+        "CREATE_COMPLETED": "La création du contrat a réussi",
+        "DATE_HINT": "MM/JJ/AAAA – MM/JJ/AAAA",
+        "DESCRIPTION": "À propos (description)",
+        "DESCRIPTION_LABEL": "Description",
+        "ENDDATE": "La date de fin",
+        "ENTER_DATE": "Saisissez une plage de dates",
+        "JOB_LEVEL": "Niveau d'expérience",
+        "JOB_NAME": "Nom du poste",
+        "LABEL_NAME": "Nom de travaille",
+        "LOCATION": "Localisation",
+        "MANAGERS": "Gérant(s)",
+        "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
+        "PARTICIPANTS": "Participent(s)",
+        "PROJECT_MEMBERS": "Membres du projet",
+        "SAVE": "Sauvegarder",
+        "STARTDATE": "La date de debut",
+        "SUPERVISOR": "Superviseur",
+        "TITLE": "Créer un nouveau projet",
+        "WAGE": "Salaire"
+      },
+      "LIST": {
+        "MESSAGE": "Aucun contract"
+      },
+      "SEARCH_GROUPS": "Chercher un projet",
+      "TITLE": "Contracts"
+    },
     "FORM": {
       "DONE": {
         "HELPER1": "Merci d'avoir rempli les informations de votre Organization !",
         "HELPER2": "Vous pouvez maintenant gérer votre Organization et créer vos ressources et bien plein d'autres fonctionnalités intéressantes",
         "HELPER3": "Vous pouvez cliquer sur réinitialiser si vous souhaitez creer une autre organization",
         "TITLE": "Terminé"
+      },
+      "PROFILE": {
+        "BTN_BACK": "Back"
       },
       "STEP1": {
         "CHOOSE_SUB_ORGANIZATION": "Organisation Parent",
@@ -242,13 +293,14 @@
         "SUB_TITLE_USER": "Inviter des membres pour cette organisation",
         "TITLE": "Administrateurs et Membres"
       },
-      "PROFILE": {
-        "BTN_BACK": "Back"
-      },
       "TITLE": "Création d'Organisation"
     },
     "GROUPS": {
       "CREATE_GROUP": "Créer un groupe",
+      "ERROR": {
+        "CREATE_FAILED": "Échec de la création du groupe",
+        "UPDATE_FAILED": "Échec de la mise à jour du groupe"
+      },
       "EXPORT_GROUPS": "Exporter",
       "FILTER_GROUPS": "Filtre",
       "FORM": {
@@ -256,6 +308,7 @@
         "DESCRIPTION": "À propos (description)",
         "GROUP_MEMBERS": "Membres du groupe",
         "GROUP_NAME": "Nom du groupe",
+        "GROUP_PARENT": "Parent du groupe",
         "MESSAGE": "Les membres ajoutés à ce groupe recevront les mêmes services et autorisations",
         "SAVE": "Sauvegarder",
         "TITLE": "Créer un nouveau groupe"
@@ -270,7 +323,47 @@
       },
       "MESSAGE": "Gérer les accès pour tous les groupes de votre organisation dans ",
       "SEARCH_GROUPS": "Chercher un groupe",
+      "SUCCESS": {
+        "CREATE_COMPLETED": "Groupe créé avec succès",
+        "UPDATE_COMPLETED": "Groupe mis à jour avec succès"
+      },
       "TITLE": "Groupes"
+    },
+    "INFRASTRUCTURES": {
+      "CREATE_INFRASTRUCTURE": "Créer une infrastructure",
+      "CREATE_INFRASTRUCTURE_MOBILE": "Créer",
+      "EXPORT_INFRASTRUCTURE": "Exporter ",
+      "FILTER_INFRASTRUCTURE": "Filter ",
+      "IMPORT_INFRASTRUCTURE": "Importer ",
+      "INFRASTRUCTURE_FORM": {
+        "CANCEL": "Annuler",
+        "DESCRIPTION": "Description",
+        "HOLDER_NAME": "Nom de l'infrastructure",
+        "KEY": "Clé",
+        "NAME": "Nom",
+        "RESPONSIBLES": "Responsable",
+        "SAVE": "Sauvegarder",
+        "TITLE": "Créer une infrastructure "
+      },
+      "INFRASTRUCTURE_LIST": {
+        "DATE": "Date de création",
+        "KEY": "Clé",
+        "RESOURCES_NB": "#Ressources",
+        "RESPONSIBLE": "Responsable",
+        "TITLE": "Infrastructures"
+      },
+      "MESSAGE": "Gérez les accès pour toutes vos infrastructures dans",
+      "NO_INFRASTRUCTURE": "Aucune infrastructure",
+      "SEARCH_INFRASTRUCTURE": "Rechercher une infrastructure",
+      "SUCCESS": {
+        "CREATE_COMPLETED": "L'infrastructure a été créée avec succès "
+      },
+      "TITLE": "Infrastructures",
+      "VALIDATORS": {
+        "KEY_REQUIRED": "La clé de l'infrastructure est requise",
+        "NAME_REQUIRED": "Le nom de l'infrastructure est requis",
+        "RESPONSIBLE_REQUIRED": "Le Responsable de l'infrastructure est requis"
+      }
     },
     "LANDING_PAGE": {
       "CREATE_ORGANIZATION": "Créer une organisation",
@@ -280,11 +373,11 @@
       "TITLE": "Mes Organisations"
     },
     "MEMBERS": {
+      "BACK_BTN": "Retour",
       "EDIT_MEMBER_TITILE": "Détails du membre",
       "ERROR_LOADING_MEMBERS": "impossible de charger les membres.",
       "EXPORT_MEMBERS": "Exporter",
       "FILTER_MEMBERS": "Filtre",
-      "BACK_BTN": "Retour",
       "FORM": {
         "CANCEL": "Annuler",
         "DESCRIPTION": "À propos (description)",
@@ -335,6 +428,12 @@
       "TITLE": "Membres"
     },
     "ORGANIZATION_DASHBOARD": {
+      "ERROR": {
+        "CREATE_FAILED": "Echec de l'envoi de l'invitation"
+      },
+      "INFO": {
+        "EDIT_PROFILE": "Veuillez compléter les informations du profil"
+      },
       "MEMBERSHIPS_REVIEW": "Les invitations à revoir",
       "MESSAGE1": "Invitations récentes ",
       "MESSAGE2": "Réservations récentes",
@@ -342,34 +441,28 @@
       "RECENT_RESOURCES": "Les ressources récentes",
       "RESERVATIONS_REVIEW": "Les réservations à revoir",
       "SEE_MORE": "Voir Plus",
-      "TABLE": {
-        "ACCEPTE": "Accepter",
-        "APPEOVE": "Approver",
-        "REJECTE": "Rejeter",
-        "RESOURCE": "Ressource",
-        "SAVE": "modifier",
-        "CANCEL": "annuler"
-      },
-      "VALIDATORS": {
-        "EMAIL_REQUIRED": "L'e-mail est requis",
-        "EMAIL_INVALID": "Veuillez saisir une adresse e-mail valide"
-      },
-      "ERROR": {
-        "CREATE_FAILED": "Echec de l'envoi de l'invitation"
-      },
       "SUCCESS": {
         "CREATE_COMPLETED": "Le membre a été invité avec succès "
       },
-      "INFO": {
-        "EDIT_PROFILE": "Veuillez compléter les informations du profil"
+      "TABLE": {
+        "ACCEPTE": "Accepter",
+        "APPEOVE": "Approver",
+        "CANCEL": "annuler",
+        "REJECTE": "Rejeter",
+        "RESOURCE": "Ressource",
+        "SAVE": "modifier"
+      },
+      "VALIDATORS": {
+        "EMAIL_INVALID": "Veuillez saisir une adresse e-mail valide",
+        "EMAIL_REQUIRED": "L'e-mail est requis"
       }
     },
     "PROFILE": "Profil",
     "PROFILE_RESOURCE": {
       "DETAILS": {
-        "ROLE": "Rôle",
         "CLASS": "Classe",
         "RESOURCE_STATUS": "Statut",
+        "ROLE": "Rôle",
         "TYPE": "Type"
       },
       "TABS": {
@@ -379,13 +472,80 @@
         "USERS": "Utilisateurs"
       }
     },
-
+    "PROJECTS": {
+      "CREATE_PROJECTS": "Créer un projet",
+      "ERROR": {
+        "CREATE_FAILED": "La création de projet a échoué",
+        "UPDATE_FAILED": "La modification de projet a échoué"
+      },
+      "EXPORT_PROJECTS": "Exporter",
+      "FILTER_PROJECTS": "Filtre",
+      "FORM": {
+        "CANCEL": "Annuler",
+        "CREATE_COMPLETED": "La création du projet a réussi",
+        "DATE_HINT": "AAAA/MM/JJ",
+        "DATE_HINT_DOUBLE": "AAAA/MM/JJ - AAAA/MM/JJ",
+        "DESCRIPTION": "À propos (description)",
+        "DESCRIPTION_LABEL": "Description",
+        "ENDDATE": "Date de fin",
+        "ENTER_DATE": "Saisissez une plage de dates",
+        "KEY": "Clé",
+        "LABEL_NAME": "Titre",
+        "LOCATION": "Localisation",
+        "MANAGERS": "Manager(s)",
+        "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
+        "PARTICIPANTS": "Participent(s)",
+        "PROJECT_MEMBERS": "Membres du projet",
+        "PROJECT_NAME": "Nom du Projet",
+        "SAVE": "Sauvegarder",
+        "STARTDATE": "Date de debut",
+        "STATUS": "Status",
+        "TITLE": "Créer un nouveau projet"
+      },
+      "IMPORT_PROJECTS": "Importer",
+      "LIST": {
+        "CREATIONDATE": "Date de création",
+        "MANAGER": "Manager",
+        "MEMBERS": "# Membres",
+        "MESSAGE": "Aucun projet",
+        "MESSAGE_MEMBER_LIST": "Aucun membres",
+        "PROJECT_DATE": "Date",
+        "PROJECT_MEMBERS": "Membres",
+        "PROJECT_NAME": "Projet",
+        "PROJECT_STATUS": "Status",
+        "ROLE": "Role",
+        "TITLE": "Titre"
+      },
+      "SEARCH_GROUPS": "Chercher un projet",
+      "SETTINGS": {
+        "ADD_MEMBER": "Ajouter un membre",
+        "GENERAL_DESC": "Gérez votre projet public et vos informations privées",
+        "GENERAL_PANEL": "Générale",
+        "GROUPS": "Paramètres des groupes de projet",
+        "GROUPS_DESC": "Gérez vos groupes",
+        "GROUPS_PANEL": "Groupes",
+        "JOINED_DATE": "Date d'adhésion",
+        "MEMBER": "Membre",
+        "MESSAGE_GROUPS": "Gérer l'accès pour tous les participants à ce projet.",
+        "MESSAGE_Participant": "Gérer les accès pour tous les membres de cette projet.",
+        "Membership_DESC": "Gérer les adhésions",
+        "Membership_PANEL": "Adhésion",
+        "PARTICIPANTS": "Paramètres des membres de projet",
+        "PROJECT_DESC": "Une description pour votre projet.",
+        "PROJECT_GENERALE": "General informations",
+        "PROJECT_SETTINGS": "Paramètres",
+        "UPDATE_SUCCESS": "Projet mis à jour avec succès"
+      },
+      "SUCCESS": {
+        "CREATE_COMPLETED": "La projet a été créer avec succées ",
+        "UPDATE_COMPLETED": "La projet a été créer avec succées "
+      },
+      "TITLE": "Projets"
+    },
     "SETTINGS": {
-      "TITLE": "Paramètres de l'organisation",
       "ACCESS": {
-        "TITLE": "Accès",
-        "MESSAGE": "Gérer les options d'accès pour votre organisation",
         "Cancel": "Annuler",
+        "MESSAGE": "Gérer les options d'accès pour votre organisation",
         "OPTION_1": "Tous les membres peuvent rejoindre votre organisation et accéder aux plannings des ressources.",
         "OPTION_2": "Le membre doit accéder par code d'adhésion",
         "OPTION_3": "Rejoindre le code",
@@ -393,38 +553,41 @@
         "OPTION_5": "Notifier les administrateurs lorsque des membres rejoignent l'organisation",
         "OPTION_6": "Répertorier les ressources aux non-membres",
         "OPTION_7": "Message envoyé aux nouveaux membres",
+        "TITLE": "Accès",
         "TITLE_1": "Paramètres d'accès",
         "Update": "Modifier"
       },
       "GENERAL": {
-        "TITLE": "Général",
         "DESCRIPTION": "Description",
         "DIRECTION": "Direction",
         "EMAIL": "Email",
         "GENERAL_INFORMATION": "Informations générales",
         "LABEL": "Étiquette",
+        "MESSAGE": "Gérez les informations générales de votre organisation",
         "NAME": "Nom",
         "PHONE": "Téléphone",
+        "TITLE": "Général",
         "TYPE": "Type",
-        "UPDATE": "Modifier",
-        "MESSAGE": "Gérez les informations générales de votre organisation"
+        "UPDATE": "Modifier"
+      },
+      "LOCATION": {
+        "MESSAGE": "Gérez les adresses de localisation de votre organisation ",
+        "TITLE": "Emplacements"
       },
       "MEMBERS": {
-        "TITLE": "Membres",
         "Cancel": "Annuler",
+        "MESSAGE": "Gérer les options de compte des membres et les autorisations des membres",
         "OPTION_1_1": "Les membres peuvent modifier les numéros de compte",
         "OPTION_1_2": "Inviter les numéros de compte",
         "OPTION_1_3": "Remarque sur le numéro de compte",
         "OPTION_2_1": "Autoriser les membres à voir tous les autres membres",
         "SECTION_1_TITLE": "Numéro de compte membre",
         "SECTION_2_TITLE": "Visibilité de la liste des membres",
+        "TITLE": "Membres",
         "TITLE_1": "Options de compte de membre",
-        "Update": "Modifier",
-        "MESSAGE": "Gérer les options de compte des membres et les autorisations des membres"
+        "Update": "Modifier"
       },
       "RESERVATIONS": {
-        "TITLE": "Réservations",
-        "MESSAGE": "Gérer les option de réservation pour toutes les ressources de votre organisation ",
         "ApproversCanEditReservations": "Les approbateurs peuvent modifier les réservations",
         "AttachedICSCalendarFeeds": "Flux de calendrier ICS joints",
         "Cancel": "Annuler",
@@ -434,299 +597,139 @@
         "HideAccountNumberWhenMakingReservation": "Masquer le numéro de compte lors de la réservation",
         "HideCalanderForEveryone": "Masquer le calendrier pour tout le monde",
         "HideOrganisationCalendar": "Masquer le calendrier de l'organisation",
+        "MESSAGE": "Gérer les option de réservation pour toutes les ressources de votre organisation ",
         "RequireAReasonWhenEditingAReservation": "Exiger un motif lors de la modification d'une réservation",
         "ReservationEmails": "E-mails de réservation",
         "ReservationOptions": "Options de réservation",
         "ShowResourceImagesInReservation": "Afficher les images de ressources dans la réservation",
+        "TITLE": "Réservations",
         "Update": "Modifier",
         "UserHideCalenderForMemberOnly": "Masquer le calendrier pour les membres uniquement"
       },
-      "SUBSCRIPTION": {
-        "TITLE": "Abonnement",
-        "MESSAGE": "Gérer votre plan d'abonnement, votre mode de paiement et vos informations de facturation"
-      },
-      "LOCATION": {
-        "MESSAGE": "Gérez les adresses de localisation de votre organisation ",
-        "TITLE": "Emplacements"
-      },
       "RESOUCES": {
-        "TITLE": "Ressources",
-        "CREATE_RESOURCE": "Créer une ressource",
-        "CREATE_RESOURCE_MOBILE": "Ajouter",
-        "MESSAGE": "Gérez les accès pour toutes vos ressources dans",
-        "PANAL_MESSAGE": "Gérez les informations générales de vos ressources",
-        "GENERAL": "Général",
-        "NAME": "Nom",
-        "CLASS": "Classe",
-        "TYPE": "Type",
-        "TIMEZONE": "Fuseau horaire",
-        "DESCRIPTION": "Description",
-        "TAGS": "Mots clés",
-        "MANAGERS": "Managers",
-        "STATUS": "Statut",
-        "STATUS_MESSAGE": "Gérer le statut de vos ressources",
-        "DETAILS": "Détails",
-        "NAME_REQUIRED": "Le nom de la ressource est requis",
-        "CLASS_REQUIRED": "La classe de ressources est requise",
-        "TYPE_REQUIRED": "Le type de ressource est requis",
         "ACCESS_TO_RESOURCE": "Accès à la ressource",
-        "VISIBILITY_SETTINGS": "Paramètres de visibilité",
-        "PROPERTIES_MESSAGE": "Gérer les Propriétés de vos ressources",
-        "VISIBILITY": "Visibilité",
-        "VISIBILITY_MESSAGE": "Gérer la visibilité de vos ressources",
-        "RESOURCE_UNLISTED_ON_SITE_PAGE": "Ressource non répertoriée sur la page du site",
-        "RESOURCE_UNLISTED_TO_USERS_WHO_CANNOT_RESERVE": "Ressource non répertoriée pour les utilisateurs qui ne peuvent pas réserver",
-        "RESOURCE_FULLY_HIDDEN_TO_USERS_WHO_CANNOT_RESERVE": "Ressource entièrement masquée pour les utilisateurs qui ne peuvent pas réserver",
-        "PROMOTE_ON_SITE_PAGE_AS_A_LARGE_BUTTON_ABOVE_OTHER_RESOURCES": "Promouvoir la page du site comme un gros bouton au-dessus des autres ressources",
-        "HIDE_AVAILABILITY_ON_SITE_PAGE": "Masquer la disponibilité sur la page du site",
-        "GENERAL_RESERVATION_OPTIONS": "Options générales de réservation",
-        "RESERVATIONS_ENABLED": "Réservations activées",
-        "LOANABLE": "Prêtable",
-        "LOANABLE_RESOURCE": "Ressource prêtable",
-        "USERS_CAN_RETURN_THEIR_OWN_LOANS": "Les utilisateurs peuvent retourner leurs propres prêts",
-        "ALLOW_RESERVING_LOANS_AT_FUTURE_DATES": "Autoriser la réservation de prêts à des dates futures",
-        "FIXED_LOAN_DURATION": "Durée de prêt fixe",
-        "OVERDUE_NOTICE_DELAY": "Délai de notification de retard",
-        "RECURRING_RESERVATIONS": "Réservations récurrentes",
-        "RESOURCE_UNITS_OPTIONS": "Options des unités de ressources",
-        "UNITES": "Unit",
-        "UNIT_NAME": "Nom de l'unité",
-        "UNIT_LIMIT": "Limite d'unité",
-        "UNIT_LIMIT_HINT": "Le nombre maximum d'unités pouvant être réservées dans une seule réservation. Laissez vide pour aucune limite.",
-        "RATE": "Rate",
-        "DURATION": "Durée",
         "ACCOUNT": "Compte",
+        "ALLOW_RESERVING_LOANS_AT_FUTURE_DATES": "Autoriser la réservation de prêts à des dates futures",
+        "ALLOW_USERS_TO_END_A_RESERVATION_EARLY": "Autoriser les utilisateurs à mettre fin à une réservation plus tôt",
+        "ALL_RESERVATION_DETAILS": "Tous les détails de la réservation",
         "APPLIES_TO": "S'applique à",
         "APPLIES_TO_PUBLIC": "S'applique au public",
-        "CATEGORY": "Catégorie",
-        "TIME_RESTRICTION_OPTIONS": "Options de restriction de temps",
-        "TIME_RESTRICTION": "Restriction de temps",
-        "RESERVATION_EDITING_WINDOW_FOR_USERS": "Fenêtre d'édition de réservation pour les utilisateurs",
-        "RESTRICT_CREATING_NEW_RESERVATION_BEFORE_A_TIME": "Restreindre la création d'une nouvelle réservation avant une heure",
-        "RESTRICT_CREATING_NEW_RESERVATION_AFTER_A_TIME": "Restreindre la création d'une nouvelle réservation après un certain temps",
-        "RESERVATION_TIME_GRANULARITY": "Granularité du temps de réservation",
-        "ALLOW_USERS_TO_END_A_RESERVATION_EARLY": "Autoriser les utilisateurs à mettre fin à une réservation plus tôt",
-        "DEFAULT_RESERVATION_DURATION": "Durée de réservation par défaut",
-        "RESERVATION_DURATION_MINIMUM": "Durée de réservation minimale",
-        "RESERVATION_DURATION_MAXIMUM": "Durée de réservation maximale",
         "BUFFER_TIME_BEFORE_RESERVATION": "Temps tampon avant réservation",
-        "VISIBILITY_OPTIONS": "Options de visibilité",
-        "RESERVATION_DETAILS_VISIBILITY_TO_NON_MODERATORS": "Visibilité des détails de la réservation pour les non-modérateurs",
-        "ALL_RESERVATION_DETAILS": "Tous les détails de la réservation",
-        "PROPERTIES": "Propriétés",
-        "EQUIPEMENT": "Equipement",
-        "SERVICE": "Service",
-        "PERSON": "Personne",
-        "SOFTWARE": "Logiciel",
-        "EVENT": "Evenementt",
-        "RESERVABLE": "Réservable",
-        "REQUESTABLE": "Demandable",
-        "SAVE": "Sauvegarder",
         "CANCEL": "Annuler",
-        "SUCCESS": {
-          "CREATE_COMPLETED": "La resource a été créer avec succées "
-        },
+        "CATEGORY": "Catégorie",
+        "CLASS": "Classe",
+        "CLASS_REQUIRED": "La classe de ressources est requise",
+        "CREATE_RESOURCE": "Créer une ressource",
+        "CREATE_RESOURCE_MOBILE": "Ajouter",
+        "DEFAULT_RESERVATION_DURATION": "Durée de réservation par défaut",
+        "DESCRIPTION": "Description",
+        "DETAILS": "Détails",
+        "DURATION": "Durée",
+        "EQUIPEMENT": "Equipement",
+        "EVENT": "Evenementt",
+        "FIXED_LOAN_DURATION": "Durée de prêt fixe",
+        "GENERAL": "Général",
+        "GENERAL_RESERVATION_OPTIONS": "Options générales de réservation",
+        "HIDE_AVAILABILITY_ON_SITE_PAGE": "Masquer la disponibilité sur la page du site",
+        "LOANABLE": "Prêtable",
+        "LOANABLE_RESOURCE": "Ressource prêtable",
+        "MANAGERS": "Managers",
+        "MESSAGE": "Gérez les accès pour toutes vos ressources dans",
+        "NAME": "Nom",
+        "NAME_REQUIRED": "Le nom de la ressource est requis",
+        "OVERDUE_NOTICE_DELAY": "Délai de notification de retard",
+        "PANAL_MESSAGE": "Gérez les informations générales de vos ressources",
+        "PERSON": "Personne",
+        "PROMOTE_ON_SITE_PAGE_AS_A_LARGE_BUTTON_ABOVE_OTHER_RESOURCES": "Promouvoir la page du site comme un gros bouton au-dessus des autres ressources",
+        "PROPERTIES": "Propriétés",
+        "PROPERTIES_MESSAGE": "Gérer les Propriétés de vos ressources",
+        "RATE": "Rate",
+        "RECURRING_RESERVATIONS": "Réservations récurrentes",
+        "REQUESTABLE": "Demandable",
+        "RESERVABLE": "Réservable",
         "RESERVATION": {
-          "GENERAL_MESSAGE": "Gérez les informations générales de vos réservations",
-          "RESERVATION_TITLE": "Réservations",
-          "UNIT_TITLE": "Unités",
-          "UNIT_MESSAGE": "Gérer les options des unités de ressources dans les réservations",
-          "RATE_TITILE": "Tarifs",
-          "RATE_MESSAGE": "Ajouter des tarifs à vos réservations",
-          "TIME_RESTRICTION_TITLE": "Restrictions de temps",
-          "TIME_RESTRICTION_MESSAGE": "Gérez les restrictions de temps dans vos réservations",
-          "VISIBILITY_TITLE": "Visibilité",
-          "VISIBILITY_MESSAGE": "Gérer la visibilité des réservations",
           "CREATE_BTN": "Créer",
+          "CREATE_RESERVATION": "creer un evenement",
           "DELETE_BTN": "Supprimer l'événement",
           "DETAILS": "DETAILS DE LA RESERVATION",
-          "CREATE_RESERVATION": "creer un evenement",
-          "RESOURCE_NAME": "Resource",
           "EVENTS": {
-            "START": "Debut de l'evenemnt",
-            "END": "fin de l'evenement",
-            "TITLE": "Titre de la reservation",
-            "TITLE_PLACEHOLDER": "Entrer un titre pour la reservation",
             "DURATION": "durée",
+            "END": "fin de l'evenement",
             "FOR": "réservé pour",
             "INVALID": "Reservation Invalide",
             "INVALID_PAST": "ne peut pas faire de réservation dans le passé",
-            "INVALID_RESERVATION_DURATION_LIMIT": "La Reservation doit Faire 1 heure au minimum"
-          }
-        }
-      }
+            "INVALID_RESERVATION_DURATION_LIMIT": "La Reservation doit Faire 1 heure au minimum",
+            "START": "Debut de l'evenemnt",
+            "TITLE": "Titre de la reservation",
+            "TITLE_PLACEHOLDER": "Entrer un titre pour la reservation"
+          },
+          "GENERAL_MESSAGE": "Gérez les informations générales de vos réservations",
+          "RATE_MESSAGE": "Ajouter des tarifs à vos réservations",
+          "RATE_TITILE": "Tarifs",
+          "RESERVATION_TITLE": "Réservations",
+          "RESOURCE_NAME": "Resource",
+          "TIME_RESTRICTION_MESSAGE": "Gérez les restrictions de temps dans vos réservations",
+          "TIME_RESTRICTION_TITLE": "Restrictions de temps",
+          "UNIT_MESSAGE": "Gérer les options des unités de ressources dans les réservations",
+          "UNIT_TITLE": "Unités",
+          "VISIBILITY_MESSAGE": "Gérer la visibilité des réservations",
+          "VISIBILITY_TITLE": "Visibilité"
+        },
+        "RESERVATIONS_ENABLED": "Réservations activées",
+        "RESERVATION_DETAILS_VISIBILITY_TO_NON_MODERATORS": "Visibilité des détails de la réservation pour les non-modérateurs",
+        "RESERVATION_DURATION_MAXIMUM": "Durée de réservation maximale",
+        "RESERVATION_DURATION_MINIMUM": "Durée de réservation minimale",
+        "RESERVATION_EDITING_WINDOW_FOR_USERS": "Fenêtre d'édition de réservation pour les utilisateurs",
+        "RESERVATION_TIME_GRANULARITY": "Granularité du temps de réservation",
+        "RESOURCE_FULLY_HIDDEN_TO_USERS_WHO_CANNOT_RESERVE": "Ressource entièrement masquée pour les utilisateurs qui ne peuvent pas réserver",
+        "RESOURCE_UNITS_OPTIONS": "Options des unités de ressources",
+        "RESOURCE_UNLISTED_ON_SITE_PAGE": "Ressource non répertoriée sur la page du site",
+        "RESOURCE_UNLISTED_TO_USERS_WHO_CANNOT_RESERVE": "Ressource non répertoriée pour les utilisateurs qui ne peuvent pas réserver",
+        "RESTRICT_CREATING_NEW_RESERVATION_AFTER_A_TIME": "Restreindre la création d'une nouvelle réservation après un certain temps",
+        "RESTRICT_CREATING_NEW_RESERVATION_BEFORE_A_TIME": "Restreindre la création d'une nouvelle réservation avant une heure",
+        "SAVE": "Sauvegarder",
+        "SERVICE": "Service",
+        "SOFTWARE": "Logiciel",
+        "STATUS": "Statut",
+        "STATUS_MESSAGE": "Gérer le statut de vos ressources",
+        "SUCCESS": {
+          "CREATE_COMPLETED": "La resource a été créer avec succées "
+        },
+        "TAGS": "Mots clés",
+        "TIMEZONE": "Fuseau horaire",
+        "TIME_RESTRICTION": "Restriction de temps",
+        "TIME_RESTRICTION_OPTIONS": "Options de restriction de temps",
+        "TITLE": "Ressources",
+        "TYPE": "Type",
+        "TYPE_REQUIRED": "Le type de ressource est requis",
+        "UNITES": "Unit",
+        "UNIT_LIMIT": "Limite d'unité",
+        "UNIT_LIMIT_HINT": "Le nombre maximum d'unités pouvant être réservées dans une seule réservation. Laissez vide pour aucune limite.",
+        "UNIT_NAME": "Nom de l'unité",
+        "USERS_CAN_RETURN_THEIR_OWN_LOANS": "Les utilisateurs peuvent retourner leurs propres prêts",
+        "VISIBILITY": "Visibilité",
+        "VISIBILITY_MESSAGE": "Gérer la visibilité de vos ressources",
+        "VISIBILITY_OPTIONS": "Options de visibilité",
+        "VISIBILITY_SETTINGS": "Paramètres de visibilité"
+      },
+      "SUBSCRIPTION": {
+        "MESSAGE": "Gérer votre plan d'abonnement, votre mode de paiement et vos informations de facturation",
+        "TITLE": "Abonnement"
+      },
+      "TITLE": "Paramètres de l'organisation"
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
     },
-
-    "INFRASTRUCTURES": {
-      "TITLE": "Infrastructures",
-      "MESSAGE": "Gérez les accès pour toutes vos infrastructures dans",
-      "CREATE_INFRASTRUCTURE": "Créer une infrastructure",
-      "CREATE_INFRASTRUCTURE_MOBILE": "Créer",
-      "SEARCH_INFRASTRUCTURE": "Rechercher une infrastructure",
-      "FILTER_INFRASTRUCTURE": "Filter ",
-      "IMPORT_INFRASTRUCTURE": "Importer ",
-      "EXPORT_INFRASTRUCTURE": "Exporter ",
-      "NO_INFRASTRUCTURE": "Aucune infrastructure",
-      "INFRASTRUCTURE_FORM": {
-        "TITLE": "Créer une infrastructure ",
-        "NAME": "Nom",
-        "HOLDER_NAME": "Nom de l'infrastructure",
-        "DESCRIPTION": "Description",
-        "RESPONSIBLES": "Responsable",
-        "KEY": "Clé",
-        "SAVE": "Sauvegarder",
-        "CANCEL": "Annuler"
-      },
-      "INFRASTRUCTURE_LIST": {
-        "TITLE": "Infrastructures",
-        "KEY": "Clé",
-        "DATE": "Date de création",
-        "RESPONSIBLE": "Responsable",
-        "RESOURCES_NB": "#Ressources"
-      },
-      "VALIDATORS": {
-        "NAME_REQUIRED": "Le nom de l'infrastructure est requis",
-        "KEY_REQUIRED": "La clé de l'infrastructure est requise",
-        "RESPONSIBLE_REQUIRED": "Le Responsable de l'infrastructure est requis"
-      },
-      "SUCCESS": {
-        "CREATE_COMPLETED": "L'infrastructure a été créée avec succès "
-      }
-    },
-
-    "PROJECTS": {
-      "CREATE_PROJECTS": "Créer un projet",
-      "EXPORT_PROJECTS": "Exporter",
-      "FILTER_PROJECTS": "Filtre",
-      "FORM": {
-        "LABEL_NAME": "Titre",
-        "CANCEL": "Annuler",
-        "DESCRIPTION_LABEL": "Description",
-        "DESCRIPTION": "À propos (description)",
-        "PROJECT_MEMBERS": "Membres du projet",
-        "PROJECT_NAME": "Nom du Projet",
-        "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
-        "SAVE": "Sauvegarder",
-        "KEY": "Clé",
-        "TITLE": "Créer un nouveau projet",
-        "LOCATION": "Localisation",
-        "MANAGERS": "Manager(s)",
-        "PARTICIPANTS": "Participent(s)",
-        "ENTER_DATE": "Saisissez une plage de dates",
-        "DATE_HINT": "AAAA/MM/JJ",
-        "DATE_HINT_DOUBLE": "AAAA/MM/JJ - AAAA/MM/JJ",
-        "STARTDATE": "Date de debut",
-        "ENDDATE": "Date de fin",
-        "STATUS": "Status",
-        "CREATE_COMPLETED": "La création du projet a réussi"
-      },
-      "IMPORT_PROJECTS": "Importer",
-      "LIST": {
-        "PROJECT_DATE": "Date",
-        "PROJECT_MEMBERS": "Membres",
-        "PROJECT_NAME": "Projet",
-        "PROJECT_STATUS": "Status",
-        "MESSAGE": "Aucun projet",
-        "MESSAGE_MEMBER_LIST": "Aucun membres",
-        "TITLE": "Titre",
-        "MANAGER": "Manager",
-        "MEMBERS": "# Membres",
-        "CREATIONDATE": "Date de création",
-        "ROLE": "Role"
-      },
-      "SETTINGS": {
-        "PROJECT_SETTINGS": "Paramètres",
-        "PROJECT_GENERALE": "General informations",
-        "PARTICIPANTS": "Paramètres des membres de projet",
-        "JOINED_DATE": "Date d'adhésion",
-        "UPDATE_SUCCESS": "Projet mis à jour avec succès",
-        "MESSAGE_Participant": "Gérer les accès pour tous les membres de cette projet.",
-        "MESSAGE_GROUPS": "Gérer l'accès pour tous les participants à ce projet.",
-        "GROUPS": "Paramètres des groupes de projet",
-        "PROJECT_DESC": "Une description pour votre projet.",
-        "GENERAL_PANEL": "Générale",
-        "GENERAL_DESC": "Gérez votre projet public et vos informations privées",
-        "Membership_PANEL": "Adhésion",
-        "Membership_DESC": "Gérer les adhésions",
-        "GROUPS_PANEL": "Groupes",
-        "GROUPS_DESC": "Gérez vos groupes",
-        "ADD_MEMBER": "Ajouter un membre",
-        "MEMBER": "Membre"
-      },
-      "SEARCH_GROUPS": "Chercher un projet",
-      "TITLE": "Projets",
-      "ERROR": {
-        "CREATE_FAILED": "La création de projet a échoué",
-        "UPDATE_FAILED": "La modification de projet a échoué"
-      },
-      "SUCCESS": {
-        "CREATE_COMPLETED": "La projet a été créer avec succées ",
-        "UPDATE_COMPLETED": "La projet a été créer avec succées "
-      }
-    },
-    "CONTRACTS": {
-      "CREATE_CONTRACTS": "Nouveau contrat",
-      "EXPORT_CONTRACTS": "Exporter",
-      "FILTER_CONTRACTS": "Filtre",
-      "FORM": {
-        "LABEL_NAME": "Nom de travaille",
-        "CONTRACT_TYPE": "Type de contract",
-        "JOB_LEVEL": "Niveau d'expérience",
-        "CHOOSE_SUPERVISOR": "choisi un superviseur",
-        "SUPERVISOR": "Superviseur",
-        "WAGE": "Salaire",
-        "CANCEL": "Annuler",
-        "DESCRIPTION_LABEL": "Description",
-        "DESCRIPTION": "À propos (description)",
-        "PROJECT_MEMBERS": "Membres du projet",
-        "JOB_NAME": "Nom du poste",
-        "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
-        "SAVE": "Sauvegarder",
-        "TITLE": "Créer un nouveau projet",
-        "LOCATION": "Localisation",
-        "MANAGERS": "Gérant(s)",
-        "PARTICIPANTS": "Participent(s)",
-        "ENTER_DATE": "Saisissez une plage de dates",
-        "DATE_HINT": "MM/JJ/AAAA – MM/JJ/AAAA",
-        "STARTDATE": "La date de debut",
-        "ENDDATE": "La date de fin",
-        "ACTIVE": "Active",
-        "CREATE_COMPLETED": "La création du contrat a réussi"
-      },
-      "LIST": {
-        "MESSAGE": "Aucun contract"
-      },
-      "SEARCH_GROUPS": "Chercher un projet",
-      "TITLE": "Contracts",
-      "ERROR": {
-        "CREATE_FAILED": "La création de contrat a échoué"
-      }
-    },
-
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
     "WELCOME_BACK": "Bonjour"
   },
-  "ERROR": {
-    "CREATE_FAILED": "La création de l'organisation a échoué",
-    "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
-    "WRONG_ORG_ID": "L'organization demandé est introuvable",
-    "ERROR": {
-      "CREATE_FAILED": "La création de l'organisation a échoué",
-      "FETCH_FAILED": "Impossible d'obtenir les informations de l'organisation",
-      "WRONG_ORG_ID": "L'organization demandé est introuvable"
-    }
-  },
-  "STATES": {
-    "UPDATE_SUCCESSFULLY": "Mise à jour réussie",
-    "SOMETHING_WENT_WRONG": "Quelque chose s'est mal passé !"
-  },
   "PROFILE": "Profil",
-  "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
-  "GET_MEMBERS_LOAD_FAILED": "Vous n'avez pas d'organisation",
-  "WELCOME_BACK": "Bonjour",
+  "STATES": {
+    "SOMETHING_WENT_WRONG": "Quelque chose s'est mal passé !",
+    "UPDATE_SUCCESSFULLY": "Mise à jour réussie"
+  },
   "STATUS": "Status",
-  "DESCRIPTION": "Description"
+  "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
+  "WELCOME_BACK": "Bonjour"
 }

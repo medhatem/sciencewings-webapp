@@ -9,8 +9,9 @@ import { InventoryPagination } from '../../organization-profile/profile/organiza
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { PageEvent } from '@angular/material/paginator';
 import { ListOption } from '../../reusable-components/list/list-component.component';
+import { Group } from 'app/models/groups/group';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'app-group-list',
@@ -21,7 +22,7 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
   @ViewChild(MatSort) private _sort: MatSort;
 
-  groups$: any = [];
+  groups: Group[] = [];
   isLoading: boolean = false;
   selectedGroup = null;
   groupsCount: number = 0;
@@ -44,18 +45,16 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
         { columnName: 'name', columnPropertyToUse: 'name', customClass: '' },
         { columnName: 'Status', columnPropertyToUse: 'status', customClass: 'hidden' },
         { columnName: 'Members', columnPropertyToUse: 'members', customClass: 'hidden' },
-        { columnName: 'Date', columnPropertyToUse: 'date', customClass: 'hidden' },
+        { columnName: 'Description', columnPropertyToUse: 'description', customClass: 'hidden' },
       ],
     };
 
     const { groups } = this._route.snapshot.data;
-    this._groupService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
-      this.pagination = pagination;
+    this.groupsCount = groups.length;
+    this._groupService.groups$.pipe(takeUntil(this._unsubscribeAll)).subscribe((groups: Group[]) => {
+      this.groups = groups;
       this._changeDetectorRef.markForCheck();
     });
-
-    this.groups$ = this._groupService.groups$;
-    this.groupsCount = groups.length;
 
     this.searchInputControl.valueChanges
       .pipe(
@@ -64,7 +63,8 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
         switchMap((query) => {
           this.closeDetails();
           this.isLoading = true;
-          return this._groupService.getGroups(0, 10, 'name', 'asc', query);
+          return this._groupService.getAndParseOrganizationGroups(Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID)));
+          // return this._groupService.getGroups(0, 10, 'name', 'asc', query);
         }),
         map(() => {
           this.isLoading = false;
@@ -73,12 +73,12 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe();
   }
 
-  handlePageEvent(event: PageEvent) {
-    this.pagination.length = event.length;
-    this.pagination.size = event.pageSize;
-    this.pagination.page = event.pageIndex;
-    lastValueFrom(this._groupService.getGroups(event.pageIndex, event.pageSize));
-  }
+  // handlePageEvent(event: PageEvent) {
+  //   this.pagination.length = event.length;
+  //   this.pagination.size = event.pageSize;
+  //   this.pagination.page = event.pageIndex;
+  //   lastValueFrom(this._groupService.getGroups(event.pageIndex, event.pageSize));
+  // }
 
   ngAfterViewInit(): void {
     if (this._sort && this._paginator) {
@@ -99,7 +99,11 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
     this._matDialog
       .open(GroupFormComponent)
       .afterClosed()
-      .subscribe((result) => {});
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(async () => {
+        await lastValueFrom(this._groupService.getAndParseOrganizationGroups(Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID))));
+        this._changeDetectorRef.markForCheck();
+      });
   }
 
   trackByFn(index: number, item: any): any {
