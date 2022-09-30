@@ -21,6 +21,6 @@ import { ReusableSettingsModule } from '../../../reusable-components/reusable-se
     ResourceSettingGeneralVisibilityComponent,
     ResourceSettingGeneralPropertiesComponent,
   ],
-  imports: [RouterModule.forChild(settingsRoutes), MatFormFieldModule, SharedModule, TranslocoModule, ReusableSettingsModule],
+  imports: [RouterModule, MatFormFieldModule, SharedModule, TranslocoModule, ReusableSettingsModule],
 })
 export class SettingsGeneralModule {}

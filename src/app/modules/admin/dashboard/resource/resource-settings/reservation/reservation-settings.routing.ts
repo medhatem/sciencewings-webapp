@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 import { ReservationSettingsComponent } from './reservation-settings.component';
 
-export const settingsRoutes: Route[] = [
+export const settingsReservationRoutes: Route[] = [
   {
     path: '',
     component: ReservationSettingsComponent,
