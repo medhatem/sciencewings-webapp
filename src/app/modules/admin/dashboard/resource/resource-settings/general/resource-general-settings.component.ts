@@ -22,7 +22,7 @@ export class ResourceGeneralSettingsComponent implements OnInit, OnDestroy {
   selectedPanel: string = 'account';
   settings = null;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
-
+  title = 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE';
   /**
    * Constructor
    */
@@ -147,5 +147,8 @@ export class ResourceGeneralSettingsComponent implements OnInit, OnDestroy {
       ...this.settings,
       ...payload,
     };
+  }
+  changeSelectedPanel(selectedPanel) {
+    this.selectedPanel = selectedPanel;
   }
 }

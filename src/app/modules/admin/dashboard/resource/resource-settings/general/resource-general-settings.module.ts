@@ -10,6 +10,7 @@ import { ResourceSettingGeneralBarcodeComponent } from './resource-setting-gener
 import { ResourceSettingGeneralVisibilityComponent } from './resource-setting-general-visibility/resource-setting-general-visibility.component';
 import { ResourceSettingGeneralPropertiesComponent } from './resource-setting-general-properties/resource-setting-general-properties.component';
 import { TranslocoModule } from '@ngneat/transloco';
+import { ReusableSettingsModule } from '../../../reusable-components/reusable-settings/reusable-settings.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,6 @@ import { TranslocoModule } from '@ngneat/transloco';
     ResourceSettingGeneralVisibilityComponent,
     ResourceSettingGeneralPropertiesComponent,
   ],
-  imports: [RouterModule.forChild(settingsRoutes), MatFormFieldModule, SharedModule, TranslocoModule],
+  imports: [RouterModule.forChild(settingsRoutes), MatFormFieldModule, SharedModule, TranslocoModule, ReusableSettingsModule],
 })
 export class SettingsGeneralModule {}
