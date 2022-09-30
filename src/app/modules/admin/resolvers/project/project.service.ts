@@ -105,9 +105,11 @@ export class ProjectService {
       }),
     );
   }
+
   parseProjectResponsible(responsable: ResponsableObjectDTO): string {
     return `<div>${responsable.name}</div><div>${responsable.email}</div>`;
   }
+
   getOrgProjectById(id: number): Observable<any> {
     return this._swaggerService.projectRoutesGetOrganizationProjectById({ id });
   }
@@ -116,6 +118,7 @@ export class ProjectService {
     const id = projectId || Number(localStorage.getItem(constants.CURRENT_PROJECT_ID));
     return this._swaggerService.projectRoutesGetAllProjectParticipants({ id });
   }
+
   getAndParseProjectParticipants(projectId?: number): Observable<any[]> {
     const id = projectId || Number(localStorage.getItem(constants.CURRENT_PROJECT_ID));
     return this.getOrgProjectMembers(id).pipe(
@@ -133,6 +136,7 @@ export class ProjectService {
       }),
     );
   }
+
   parseProjectMembers(member: MemberDto): string {
     return `<div>${member.name}</div><div>${member.workEmail}</div>`;
   }
