@@ -23,6 +23,7 @@ export class ProjectGeneralSettingsComponent implements OnInit, AfterViewInit {
   orgId: any;
   projectList: any;
   managers: any[] = [];
+  projectMember: any[] = [];
   currentProjectManager: any;
   projects: any[] = [];
   project: any;
@@ -57,19 +58,18 @@ export class ProjectGeneralSettingsComponent implements OnInit, AfterViewInit {
 
   async ngAfterViewInit(): Promise<void> {
     this.project = await lastValueFrom(this._projectService.getOrgProjectById(this.id).pipe(map((r) => r.body)));
-    this.managers = await lastValueFrom(this._projectService.getOrgProjectMembers(this.id).pipe(map((r) => r.body.data)));
-    this.currentProjectManager = this.managers.find((manager) => manager.member.user === this.projectResponsableId).member;
-    console.log('this.currentProjectManager', this.currentProjectManager);
+    this.projectMember = await lastValueFrom(this._projectService.getOrgProjectMembers(this.id).pipe(map((r) => r.body.data)));
+    this.projectMember.map((m) => this.managers.push(m.member));
 
-    await this.generalSettingstForm.setValue({
+    this.currentProjectManager = this.projectMember.find((manager) => manager.member.user === this.projectResponsableId).member;
+    this.generalSettingstForm.setValue({
       title: this?.project?.title || '',
       description: this?.project?.description || '',
       key: this?.project?.key || '',
       dateStart: this?.project?.dateStart || '',
       dateEnd: this?.project?.dateEnd || '',
-      newManager: this.currentProjectManager,
+      newManager: this.currentProjectManager.user || '',
     });
-    console.log('project==== ', this.project);
   }
 
   async onSubmit() {
