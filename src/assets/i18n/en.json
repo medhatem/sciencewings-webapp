@@ -610,6 +610,7 @@
         "DESCRIPTION": "About (description)",
         "PROJECT_MEMBERS": "Project's Members",
         "PROJECT_NAME": "Project's Name",
+        "PROJECT_SETTINGS": "Project settings",
         "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
         "SAVE": "Save",
         "KEY": "Key",

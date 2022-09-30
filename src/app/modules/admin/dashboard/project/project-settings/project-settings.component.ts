@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProjectSettingsComponent implements OnInit {
   selectedPanel: string = 'project-general';
-  title = 'Project settings';
+  title = 'ORGANIZATION.PROJECTS.FORM.PROJECT_SETTINGS';
   settings = null;
   currentProjects = null;
   panels: any[];
