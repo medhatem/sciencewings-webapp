@@ -49,13 +49,13 @@ export class GeneralComponent implements OnInit, AfterViewInit {
     this.getOrganizations();
 
     this.form = this._formBuilder.group({
-      name: '',
-      email: '',
-      phoneCode: 'fr',
-      phoneNumber: '',
-      type: '',
+      name: ['' || Validators.required],
+      email: ['' || Validators.required],
+      phoneCode: ['fr' || Validators.required],
+      phoneNumber: ['' || Validators.required],
+      type: ['' || Validators.required],
       parent: '',
-      owner: '',
+      owner: ['' || Validators.required],
       description: '',
     });
 
@@ -86,6 +86,10 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   async onSubmit() {
     const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     const updatedOrganization = this.getOrganizationFromFormBuilder();
+    if (!this.form.valid) {
+      this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
+      return;
+    }
 
     const response = await this.organizationService.updateOrganization(Number(orgId), updatedOrganization);
     if (response.body.statusCode === 204) {

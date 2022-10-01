@@ -11,22 +11,22 @@
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
           <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.NAME' | transloco }}</mat-label>
-          <input matInput formControlName="name" />
+          <input matInput formControlName="name" required />
         </mat-form-field>
       </div>
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
           <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.EMAIL' | transloco }}</mat-label>
-          <input matInput formControlName="email" />
+          <input matInput formControlName="email" required />
         </mat-form-field>
       </div>
 
       <div class="relative flex sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript flex-auto">
           <mat-label>{{ 'ORGANIZATION.FORM.STEP1.PHONE_NUMBER' | transloco }}</mat-label>
-          <input matInput formControlName="phoneNumber" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.PHONE' | transloco" />
-          <mat-select class="mr-1.5" formControlName="phoneCode" matPrefix>
+          <input matInput formControlName="phoneNumber" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.PHONE' | transloco" required />
+          <mat-select class="mr-1.5" formControlName="phoneCode" required matPrefix>
             <mat-select-trigger>
               <span class="flex items-center">
                 <span
@@ -59,7 +59,7 @@
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.TYPE' | transloco }}</mat-label>
-          <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}">
+          <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}" required>
             <mat-option value="Public">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}</mat-option>
             <mat-option value="Service">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.SERVICE' | transloco }}</mat-option>
             <mat-option value="Institut">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.INSTITUT' | transloco }}</mat-option>
@@ -80,7 +80,7 @@
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.DIRECTION' | transloco }}</mat-label>
-          <mat-select [formControlName]="'owner'">
+          <mat-select [formControlName]="'owner'" required>
             <mat-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember?.user">
               {{ organizationMember?.name }}
             </mat-option>
