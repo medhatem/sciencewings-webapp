@@ -1,11 +1,21 @@
-import { Route, Routes } from '@angular/router';
-import { InfrastructureResolver } from 'app/modules/admin/resolvers/infrastructure/infrastructure.resolvers';
+import { Route } from '@angular/router';
 import { InfrastructureListComponent } from './infrastructure-list/infrastructure-list.component';
+import { InfrastructureSettingsComponent } from './infrastructure-settings/infrastructure-settings.component';
 import { InfrastructureComponent } from './infrastructure.component';
 
 export const infrastructureRoutes: Route[] = [
   {
     path: '',
-    component: InfrastructureListComponent,
+    component: InfrastructureComponent,
+    children: [
+      {
+        path: '',
+        component: InfrastructureListComponent,
+      },
+      {
+        path: 'infrastructure-settings/:id',
+        component: InfrastructureSettingsComponent,
+      },
+    ],
   },
 ];

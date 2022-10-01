@@ -45,6 +45,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AvatarComponent } from 'app/components/avatar/avatar.component';
@@ -101,6 +102,7 @@ import { constants } from './constants';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    MatFormFieldModule,
     OverlayModule,
     PortalModule,
     ScrollingModule,
@@ -155,6 +157,7 @@ import { constants } from './constants';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    MatFormFieldModule,
     OverlayModule,
     PortalModule,
     ScrollingModule,

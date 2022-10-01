@@ -33,6 +33,8 @@ export const constants = {
   CREATE_INFRASTRUCTURE_COMPLETED: 'ORGANIZATION.INFRASTRUCTURES.SUCCESS.CREATE_COMPLETED',
   UPDATE_PROJECT_FAILED: 'ORGANIZATION.PROJECTS.ERROR.update_FAILED',
   UPDATE_PROJECT_COMPLETED: 'ORGANIZATION.PROJECTS.SUCCESS.UPDATE_COMPLETED',
+  UPDATE_INFRASTRUCTURE_FAILED: 'ORGANIZATION.INFRASTRUCTURES.ERROR.UPDATE_FAILED',
+  UPDATE_INFRASTRUCTURE_COMPLETED: 'ORGANIZATION.INFRASTRUCTURES.SUCCESS.UPDATE_COMPLETED',
 
   /**
    * LocalStorage & Cookies items keys
@@ -42,6 +44,7 @@ export const constants = {
   CURRENT_ORGANIZATION_ID: 'orgid',
   CURRENT_MODULE: 'module',
   CURRENT_PROJECT_ID: 'projectId',
+  CURRENT_INFRASTRUCTURE_ID: 'infraId',
 
   /**
    * ****************** ROUTING *******************
@@ -53,6 +56,7 @@ export const constants = {
     RESOURCES: 'resources',
     RESOURCE: 'resources/resource/create/*',
     RESOURCES_SETTINGS: 'resource-settings',
+    INFRASTRUCTURE: 'infrastructure',
     LANDING_PAGE: 'landing-page',
     PROJECT: 'project',
     ERROR_PAGE: '**',

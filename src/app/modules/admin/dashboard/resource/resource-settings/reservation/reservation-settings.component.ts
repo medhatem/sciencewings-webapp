@@ -6,15 +6,14 @@ import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.s
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { CookieService } from 'ngx-cookie-service';
 import { constants } from 'app/shared/constants';
-import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
-  selector: 'settings',
-  templateUrl: 'settings.component.html',
+  selector: 'reservation-settings',
+  templateUrl: './reservation-settings.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class ReservationSettingsComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') drawer: MatDrawer;
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
