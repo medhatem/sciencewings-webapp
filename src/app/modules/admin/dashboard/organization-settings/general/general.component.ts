@@ -20,10 +20,10 @@ import { countryCanada } from 'app/mock-api/apps/contacts/data';
   styleUrls: ['./general.component.scss'],
 })
 export class GeneralComponent implements OnInit, AfterViewInit {
-  countries = countryCanada;
   @Input() currentOrganizations: any;
-  @Output() updateLocalOrganization = new EventEmitter<string>();
   @Input() organization: any;
+  @Output() updateLocalOrganization = new EventEmitter<string>();
+  countries = countryCanada;
 
   form: FormGroup;
   phoneLabel = OrganizationLabels;
