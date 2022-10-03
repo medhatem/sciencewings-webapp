@@ -68,16 +68,14 @@ export class InfrastructureService {
     return this.getOrgInfrastructures().pipe(
       map((infrastructures) => infrastructures.body.data.map((infrastructure) => new InfrastructureListItem(infrastructure))),
 
-      map((infrastructures: InfrastructureListItem[]) => {
-        return infrastructures.map(({ name, key, id, responsible, resourcesNb, dateStart }) => ({
+      map((infrastructures: InfrastructureListItem[]) => infrastructures.map(({ name, key, id, responsible, resourcesNb, dateStart }) => ({
           name: `${name}`,
           key,
           resourcesNb: `${resourcesNb}`,
           responsible: this.parseInfrastructureResponsible(responsible),
           dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
           id: id,
-        }));
-      }),
+        }))),
       tap((response) => {
         this._infrastructures.next(response);
       }),

@@ -11,6 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { lastValueFrom, map, Observable, startWith } from 'rxjs';
 import { constants } from 'app/shared/constants';
 import { TIMEZONES } from '../../../resurce-setting-rule/timezones';
+import { UpdateResource } from 'app/models/resources/resource';
 
 @Component({
   selector: 'app-resource-setting-general-general',
@@ -70,7 +71,7 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
 
   async onSubmit() {
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
-    const _resource = {
+    const _resource = new UpdateResource({
       name: this.form.value.name,
       timezone: this.form.value.timezone,
       description: this.form.value.description,
@@ -79,7 +80,7 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
       organization: 1,
       resourceType: this.form.value.resourceType,
       resourceClass: this.form.value.resourceClass,
-    };
+    });
 
     if (this.isTagsDirty) {
       _resource['tags'] = this.tags.map((tag) => ({ title: tag }));

@@ -37,6 +37,14 @@ export class AdminOrganizationsService {
     );
   }
 
+  async getUserOrganizations(userId?: number): Promise<UserOrganizations[]> {
+    return lastValueFrom(
+      this._swaggerService
+        .memberRoutesGetUserMemberships({ userId })
+        .pipe(map(({ body }) => body.data.map((member) => new UserOrganizations(member)))),
+    );
+  }
+
   /**
    * get organization by id
    *
@@ -45,9 +53,7 @@ export class AdminOrganizationsService {
    */
   async getOrganization(id: number): Promise<Organization> {
     return lastValueFrom(
-      this._swaggerService.organizationRoutesGetById({ id: Number(id) }).pipe(
-        map(({ body }) => new Organization((body as any).data[0])),
-      ),
+      this._swaggerService.organizationRoutesGetById({ id: Number(id) }).pipe(map(({ body }) => new Organization((body as any).data[0]))),
     );
   }
 
@@ -90,5 +96,21 @@ export class AdminOrganizationsService {
    */
   updateOrganizationsSettingsProperties(id: number, body: any): Observable<any> {
     return this._swaggerService.organizationRoutesUpdateOrganizationsSettingsnAccessProperties({ organizationId: id, body });
+  }
+
+  getOrgOrganizationById(id: number): Observable<any> {
+    return this._swaggerService.organizationRoutesGetOrganizationById({ id });
+  }
+
+  async updateOrganizationMembersProperties(organizationId: number, body: any): Promise<any> {
+    return lastValueFrom(this._swaggerService.organizationRoutesUpdateOrganizationsSettingsnMembersProperties({ organizationId, body }));
+  }
+
+  async updateOrganizationReservationProperties(organizationId: number, body: any): Promise<any> {
+    return lastValueFrom(this._swaggerService.organizationRoutesUpdateOrganizationsSettingsnReservationProperties({ organizationId, body }));
+  }
+
+  async updateOrganizationAccessProperties(organizationId: number, body: any): Promise<any> {
+    return lastValueFrom(this._swaggerService.organizationRoutesUpdateOrganizationsSettingsnAccessProperties({ organizationId, body }));
   }
 }
