@@ -14,6 +14,7 @@ import { constants } from 'app/shared/constants';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReservationSettingsComponent implements OnInit, OnDestroy {
+  title = 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE';
   @ViewChild('drawer') drawer: MatDrawer;
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
@@ -21,7 +22,6 @@ export class ReservationSettingsComponent implements OnInit, OnDestroy {
   selectedPanel: string = 'account';
   settings = null;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
-  title = 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE';
 
   /**
    * Constructor

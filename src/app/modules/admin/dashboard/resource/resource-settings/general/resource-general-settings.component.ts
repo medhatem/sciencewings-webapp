@@ -15,6 +15,7 @@ import { TranslocoService } from '@ngneat/transloco';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResourceGeneralSettingsComponent implements OnInit, OnDestroy {
+  title = 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE';
   @ViewChild('drawer') drawer: MatDrawer;
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
@@ -22,7 +23,6 @@ export class ResourceGeneralSettingsComponent implements OnInit, OnDestroy {
   selectedPanel: string = 'account';
   settings = null;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
-  title = 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE';
   /**
    * Constructor
    */
