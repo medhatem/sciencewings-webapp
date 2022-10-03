@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { InfrastructureService } from 'app/modules/admin/resolvers/infrastructure/infrastructure.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
@@ -21,6 +21,7 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
   form: FormGroup;
   userOrganizations: UserOrganizations[] = [];
   organizationMembers: OrganizationMembers[];
+  organization: number;
 
   constructor(
     private _infarstructureService: InfrastructureService,
@@ -31,7 +32,7 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.id = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    this.organization = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     this.form = this._formBuilder.group({
       name: this?.infrastructure?.name || '',
       key: this?.infrastructure?.key || '',
@@ -46,13 +47,12 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
       this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
       return;
     }
-    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     const infrastructure = this.getInfrastructureFromFormBuilder();
     try {
-      await lastValueFrom(this._infarstructureService.updateInfrastructure(Number(orgId), infrastructure));
+      await lastValueFrom(this._infarstructureService.updateInfrastructure(this.organization, infrastructure));
       await lastValueFrom(this._infarstructureService.getAndParseOrganizationInfrastructures());
       this._toastrService.showSuccess(constants.UPDATE_INFRASTRUCTURE_COMPLETED);
-      this._router.navigate(['/resources/Infrastructure/']);
+      this._router.navigate([constants.MODULES_ROUTINGS_URLS.INFRASTRUCTURE]);
     } catch (error) {
       this._toastrService.showError(constants.UPDATE_INFRASTRUCTURE_FAILED);
     }
@@ -75,6 +75,7 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
   private getInfrastructureFromFormBuilder(): UpdateInfrastructure {
     return new UpdateInfrastructure({
       ...this.form.value,
+      organization: this.organization,
     });
   }
 }

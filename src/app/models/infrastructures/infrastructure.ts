@@ -113,13 +113,14 @@ export class UpdateInfrastructure implements UpdateinfrastructureRo {
   organization?: number;
 
   constructor(infrastructure: any) {
-    const { name, key, responsible, parent, description } = infrastructure || {};
+    const { name, key, responsible, parent, organization, description } = infrastructure || {};
 
     Object.assign(this, {
       name,
       key,
       responsible,
       parent,
+      organization,
       description,
     });
   }
