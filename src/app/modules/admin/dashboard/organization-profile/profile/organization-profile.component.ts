@@ -34,7 +34,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
     page: 2,
   };
 
-  organization: Partial<Organization> = { phones: [], addresses: [] };
+  organization: any;
   phoneNumber: any;
   adress: any;
 
@@ -54,7 +54,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.organization = await this.fetchOrganizationInformation();
-    this.phoneNumber = this.organization.phones[0]?.phoneNumber || null;
+    this.phoneNumber = this.organization.phone?.phoneNumber || null;
     this._changeDetectorRef.markForCheck();
   }
 

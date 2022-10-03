@@ -39,12 +39,12 @@ export class ProjectListItem implements ProjectListDto {
   id?: number;
   members: number;
   projectDto: ProjectDto;
-  responsable: ResponsableObjectDto;
+  responsable: ProjectResponsableDto;
   statusCode: number;
   title: string;
-
+  responsableInformations: ProjectResponsableDto;
   constructor(project?: any) {
-    const { members, creatingDate, responsable, title, id, projectDto } = project || {};
+    const { members, creatingDate, responsable, title, id, projectDto, responsableInformations } = project || {};
     Object.assign(this, {
       members,
       creatingDate,
@@ -52,6 +52,25 @@ export class ProjectListItem implements ProjectListDto {
       title,
       id,
       projectDto,
+      responsableInformations,
+    });
+  }
+}
+
+export class ProjectResponsableDto implements ResponsableObjectDto {
+  email: string;
+  id?: number;
+  member: MemberDto;
+  name: string;
+  statusCode: number;
+
+  constructor(project?: any) {
+    const { email, id, member, name } = project || {};
+    Object.assign(this, {
+      email,
+      id,
+      member,
+      name,
     });
   }
 }

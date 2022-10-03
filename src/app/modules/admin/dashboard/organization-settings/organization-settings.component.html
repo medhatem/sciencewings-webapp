@@ -54,9 +54,7 @@
         <div class="mt-8">
           <ng-container [ngSwitch]="selectedPanel">
             <ng-container *ngSwitchCase="'general'">
-              <organization-settings-general
-                [currentOrganizations]="currentOrganizations"
-                (updateLocalOrganization)="updateLocalOrganization($event)">
+              <organization-settings-general [organization]="organization" (updateLocalOrganization)="updateLocalOrganization($event)">
               </organization-settings-general>
             </ng-container>
             <ng-container *ngSwitchCase="'members'">

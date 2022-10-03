@@ -16,7 +16,7 @@ import {
   ResourcesSettingsReservationUnitRo,
   ResourceTimerRestrictionRo,
 } from 'generated/models';
-import { Resource, ResourceListItem } from 'app/models/resources/resource';
+import { Resource, ResourceListItem, UpdateResource } from 'app/models/resources/resource';
 import { constants } from 'app/shared/constants';
 import moment from 'moment';
 import { Infrastructure } from 'app/models/infrastructures/infrastructure';
@@ -84,7 +84,7 @@ export class ResourceService {
   createResource(resource: Resource): Promise<CreateResourceDto> {
     return lastValueFrom(this.swaggerAPI.resourceRoutesCreateResource({ body: resource as any }));
   }
-  updateResource(id: number, body: ResourceRo): Observable<any> {
+  updateResource(id: number, body: UpdateResource): Observable<any> {
     return this.swaggerAPI.resourceRoutesUpdateResource({ id, body });
   }
   getResource(id: number): Observable<any> {

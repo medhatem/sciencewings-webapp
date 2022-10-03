@@ -1,4 +1,4 @@
-import { AddressRo } from 'generated/models';
+import { AddressDto, AddressRo } from 'generated/models';
 
 export class Address implements AddressRo {
   apartment: string;
@@ -18,4 +18,28 @@ export class Address implements AddressRo {
 export enum AddressType {
   user = 'USER',
   organization = 'ORGANIZATION',
+}
+
+export class GetAddress implements AddressDto {
+  apartment?: string;
+  city: string;
+  code: string;
+  country: string;
+  id: number;
+  province: string;
+  street: string;
+  type: string;
+
+  constructor(project?: any) {
+    const { apartment, city, code, province, id, street, type } = project || {};
+    Object.assign(this, {
+      apartment,
+      city,
+      code,
+      province,
+      id,
+      street,
+      type,
+    });
+  }
 }
