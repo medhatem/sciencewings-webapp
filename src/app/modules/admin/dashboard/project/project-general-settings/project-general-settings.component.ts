@@ -50,10 +50,6 @@ export class ProjectGeneralSettingsComponent implements OnInit, AfterViewInit {
 
     this.id = localStorage.getItem(constants.CURRENT_PROJECT_ID);
     this.orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
-    // this._projectService.getOrgProjectMembers().subscribe(({ body }) => {
-    //   this.managers = body.data.map((m) => new ProjectListMember(m).member);
-    // });
-    // this.project = await lastValueFrom(this._projectService.getOrgProjectById(this.id).pipe(map(({ body }) => new ProjectDropDone(body))));
   }
 
   async ngAfterViewInit(): Promise<void> {
