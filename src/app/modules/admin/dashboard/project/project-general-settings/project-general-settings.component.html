@@ -27,8 +27,8 @@
           <mat-label>{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}</mat-label>
           <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:location-marker'" matPrefix></mat-icon>
           <mat-select placeholder="{{ 'ORGANIZATION.PROJECTS.FORM.MANAGERS' | transloco }}" [formControlName]="'newManager'">
-            <mat-option *ngFor="let manager of managers; trackBy: trackByFn" [value]="manager.user">
-              {{ manager.name }}
+            <mat-option *ngFor="let manager of managers; trackBy: trackByFn" [value]="manager?.user">
+              {{ manager?.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>

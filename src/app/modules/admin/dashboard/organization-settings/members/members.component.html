@@ -15,6 +15,7 @@
 
         <mat-slide-toggle [formControlName]="'membersCanEditAccountNumbers'" [color]="'primary'"> </mat-slide-toggle>
       </div>
+
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label>{{ 'ORGANIZATION.SETTINGS.MEMBERS.OPTION_1_2' | transloco }}</mat-label>
 
@@ -33,7 +34,7 @@
 
       <mat-form-field *ngIf="isAccountNumberNote" class="fuse-mat-no-subscript w-full">
         <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:view-list'"></mat-icon>
-        <input matInput formControlName="accountNumberNote" />
+        <input matInput [formControlName]="acountNumberNote" />
       </mat-form-field>
 
       <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate my-5">
