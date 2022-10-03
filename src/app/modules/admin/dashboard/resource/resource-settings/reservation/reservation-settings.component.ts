@@ -14,8 +14,8 @@ import { constants } from 'app/shared/constants';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReservationSettingsComponent implements OnInit, OnDestroy {
-  title = 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE';
   @ViewChild('drawer') drawer: MatDrawer;
+  title = 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE';
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
   panels: any[] = [];
