@@ -1,4 +1,13 @@
-import { CreateOrganizationRo, MemberBodyDto, MemberDto, MemberRo, OrganizationDto, UserDto } from 'generated/models';
+import {
+  AddressDto,
+  CreateOrganizationRo,
+  MemberBodyDto,
+  MemberDto,
+  MemberRo,
+  OrganizationDto,
+  PhoneInformationDto,
+  UserDto,
+} from 'generated/models';
 
 export class Member implements MemberRo {
   id?: number;
@@ -123,5 +132,20 @@ export class OrganizationMembers implements MemberDto {
   constructor(memberDto: any) {
     const { id, name, user } = memberDto;
     Object.assign(this, { id, name, user });
+  }
+}
+
+export class MemberProfile implements MemberProfile {
+  address: AddressDto;
+  jobTitle: string;
+  name: string;
+  status: string;
+  statusCode: number;
+  workEmail: string;
+  workPhone: PhoneInformationDto;
+
+  constructor(memberDto: any) {
+    const { address, name } = memberDto;
+    Object.assign(this, { address, name });
   }
 }

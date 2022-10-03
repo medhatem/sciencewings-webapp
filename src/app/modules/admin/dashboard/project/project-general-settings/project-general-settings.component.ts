@@ -2,11 +2,15 @@ import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { ProjectListMember, UpdateProject } from 'app/models/projects/project';
+import { ProjectDropDone, ProjectListMember, UpdateProject } from 'app/models/projects/project';
 import { constants } from 'app/shared/constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
 import { map } from 'rxjs';
+import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
+import { MemberProfileBodyDto } from 'generated/models';
+import { OrganizationMembers } from 'app/models/members/member';
+import { T } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-project-general-settings',
@@ -14,16 +18,20 @@ import { map } from 'rxjs';
   styleUrls: ['./project-general-settings.component.scss'],
 })
 export class ProjectGeneralSettingsComponent implements OnInit, AfterViewInit {
-  @Input() id: any;
-  @Input() deadline: any = {};
+  @Input() projectResponsableId: any;
+  id: any;
+  orgId: any;
+  projectList: any;
   managers: any[] = [];
+  projectMember: any[] = [];
+  currentProjectManager: any;
   projects: any[] = [];
-  projectList: ProjectListMember[] = [];
   project: any;
   generalSettingstForm: FormGroup;
-
+  list: any;
   constructor(
     private _projectService: ProjectService,
+    private _memberService: MemberService,
     private _formBuilder: FormBuilder,
     private _toastrService: ToastrService,
     private _router: Router,
@@ -31,31 +39,32 @@ export class ProjectGeneralSettingsComponent implements OnInit, AfterViewInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.id = this.route.snapshot.paramMap.get('id');
-
-    this._projectService.getOrgProjectMembers().subscribe(({ body }) => {
-      this.managers = body.data.map((m) => new ProjectListMember(m).member);
-    });
-
     this.generalSettingstForm = this._formBuilder.group({
       title: [''],
       description: [''],
       key: [''],
       dateStart: [''],
       dateEnd: [''],
-      newManager: [],
+      newManager: [''],
     });
+
+    this.id = localStorage.getItem(constants.CURRENT_PROJECT_ID);
+    this.orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
   }
 
   async ngAfterViewInit(): Promise<void> {
     this.project = await lastValueFrom(this._projectService.getOrgProjectById(this.id).pipe(map((r) => r.body)));
+    this.projectMember = await lastValueFrom(this._projectService.getOrgProjectMembers(this.id).pipe(map((r) => r.body.data)));
+    this.projectMember.map((m) => this.managers.push(m.member));
+
+    this.currentProjectManager = this.projectMember.find((manager) => manager.member.user === this.projectResponsableId).member;
     this.generalSettingstForm.setValue({
       title: this?.project?.title || '',
       description: this?.project?.description || '',
       key: this?.project?.key || '',
       dateStart: this?.project?.dateStart || '',
       dateEnd: this?.project?.dateEnd || '',
-      newManager: '',
+      newManager: this.currentProjectManager.user || '',
     });
   }
 
