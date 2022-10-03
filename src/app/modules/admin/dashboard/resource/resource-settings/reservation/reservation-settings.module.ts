@@ -7,6 +7,11 @@ import { ResourceSettingReservationRatesComponent } from './resource-setting-res
 import { ResourceSettingReservationTimeRestrictionComponent } from './resource-setting-reservation-time-restriction/resource-setting-reservation-time-restriction.component';
 import { ResourceSettingReservationGroupComponent } from './resource-setting-reservation-group/resource-setting-reservation-group.component';
 import { ResourceSettingReservationVisibilityComponent } from './resource-setting-reservation-visibility/resource-setting-reservation-visibility.component';
+import { RouterModule } from '@angular/router';
+import { settingsReservationRoutes } from './reservation-settings.routing';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { TranslocoModule } from '@ngneat/transloco';
+import { ReusableSettingsModule } from '../../../reusable-components/reusable-settings/reusable-settings.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +23,6 @@ import { ResourceSettingReservationVisibilityComponent } from './resource-settin
     ResourceSettingReservationGroupComponent,
     ResourceSettingReservationVisibilityComponent,
   ],
-  imports: [SharedModule],
+  imports: [RouterModule, MatFormFieldModule, SharedModule, TranslocoModule, ReusableSettingsModule],
 })
 export class SettingsReservationModule {}

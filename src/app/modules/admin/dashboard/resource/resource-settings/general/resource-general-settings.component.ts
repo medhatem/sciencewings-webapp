@@ -16,13 +16,13 @@ import { TranslocoService } from '@ngneat/transloco';
 })
 export class ResourceGeneralSettingsComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') drawer: MatDrawer;
+  title = 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE';
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
   panels: any[] = [];
   selectedPanel: string = 'account';
   settings = null;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
-
   /**
    * Constructor
    */
@@ -147,5 +147,8 @@ export class ResourceGeneralSettingsComponent implements OnInit, OnDestroy {
       ...this.settings,
       ...payload,
     };
+  }
+  changeSelectedPanel(selectedPanel) {
+    this.selectedPanel = selectedPanel;
   }
 }
