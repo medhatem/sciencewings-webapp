@@ -16,6 +16,8 @@ import { OrganizationMembers } from 'app/models/members/member';
 })
 export class InfrastructureGeneralSettingsComponent implements OnInit {
   @Input() infrastructure: any;
+  @Input() id: any;
+
   form: FormGroup;
   userOrganizations: UserOrganizations[] = [];
   organizationMembers: OrganizationMembers[];
@@ -29,10 +31,11 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.id = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     this.form = this._formBuilder.group({
       name: this?.infrastructure?.name || '',
       key: this?.infrastructure?.key || '',
-      responsible: this?.infrastructure?.responsible || '',
+      responsible: this?.infrastructure?.responsible,
       description: this?.infrastructure?.description || '',
     });
     await this.getMembers();
@@ -43,9 +46,10 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
       this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
       return;
     }
+    const orgId = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     const infrastructure = this.getInfrastructureFromFormBuilder();
     try {
-      await lastValueFrom(this._infarstructureService.updateInfrastructure(this.infrastructure.id, infrastructure));
+      await lastValueFrom(this._infarstructureService.updateInfrastructure(Number(orgId), infrastructure));
       await lastValueFrom(this._infarstructureService.getAndParseOrganizationInfrastructures());
       this._toastrService.showSuccess(constants.UPDATE_INFRASTRUCTURE_COMPLETED);
       this._router.navigate(['/resources/Infrastructure/']);
@@ -69,6 +73,8 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
   }
 
   private getInfrastructureFromFormBuilder(): UpdateInfrastructure {
-    return new UpdateInfrastructure({ ...this.form.value });
+    return new UpdateInfrastructure({
+      ...this.form.value,
+    });
   }
 }

@@ -29,7 +29,7 @@
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.RESPONSIBLES' | transloco }}</mat-label>
           <mat-select [formControlName]="'responsible'">
-            <mat-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember?.id">
+            <mat-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember?.user">
               {{ organizationMember?.name }}
             </mat-option>
           </mat-select>

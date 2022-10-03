@@ -603,10 +603,10 @@
       },
       "SUCCESS": {
         "CREATE_COMPLETED": "Infrastructure was created successfuly ",
-        "UPDATE_COMPLETED": "Infrastructure was updated successfuly",
-        "ERROR": {
-          "UPDATE_FAILED": "The update of infrastructure has failed"
-        }
+        "UPDATE_COMPLETED": "Infrastructure was updated successfuly"
+      },
+      "ERROR": {
+        "UPDATE_FAILED": "The update of infrastructure has failed"
       }
     },
 
