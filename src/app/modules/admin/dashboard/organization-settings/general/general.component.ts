@@ -22,8 +22,8 @@ import { countryCanada } from 'app/mock-api/apps/contacts/data';
 export class GeneralComponent implements OnInit, AfterViewInit {
   @Input() currentOrganizations: any;
   @Output() updateLocalOrganization = new EventEmitter<string>();
-  countries = countryCanada;
   @Input() organization: any;
+  countries = countryCanada;
 
   form: FormGroup;
   phoneLabel = OrganizationLabels;
