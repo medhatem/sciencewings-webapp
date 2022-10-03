@@ -1,7 +1,56 @@
 import { Address } from '../address';
-import { CreateOrganizationRo } from 'generated/models';
+import {
+  AddressDto,
+  CreateOrganizationRo,
+  OrganizationAccessSettingsRo,
+  OrganizationInformationDto,
+  OrganizationMemberSettingsRo,
+  OrganizationReservationSettingsRo,
+  OrganizationSettingsBodyDto,
+  PhoneInformationDto,
+  UpdateOrganizationRo,
+  UserDto,
+} from 'generated/models';
 import { OrganizationType } from './organization-type.enum';
 import { Phone } from '../phone';
+
+export class GetOrganization implements OrganizationInformationDto {
+  address?: Array<AddressDto>;
+  description?: string;
+  email?: string;
+  id: number;
+  labels?: Array<OrganizationInformationDto>;
+  name?: string;
+  owner?: UserDto;
+  parent?: OrganizationInformationDto;
+  phone?: PhoneInformationDto;
+  settings?: OrganizationSettingsBodyDto;
+  statusCode: number;
+  type?: string;
+
+  constructor(organization: any) {
+    const { address, description, email, id, name, owner, phone, statusCode, type, settings, labels, parent } = organization || {};
+
+    Object.assign(this, {
+      address,
+      description,
+      email,
+      id,
+      name,
+      owner,
+      phone,
+      statusCode,
+      type,
+      settings,
+      labels,
+      parent,
+    });
+
+    if (id) {
+      this.id = id;
+    }
+  }
+}
 
 export class Organization implements CreateOrganizationRo {
   id?: string;
@@ -10,12 +59,12 @@ export class Organization implements CreateOrganizationRo {
   sector?: string;
   addresses: Address[];
   adminContact: number;
-  direction: number;
+  owner: number;
   email: string;
   labels: string[];
   members: number[];
   name: string;
-  phones: Phone[];
+  phone: Phone;
   socialFacebook?: string;
   socialGithub?: string;
   socialInstagram?: string;
@@ -26,6 +75,7 @@ export class Organization implements CreateOrganizationRo {
   dealingType: string;
   timezone: string;
   parent?: number;
+  responsible: string;
 
   constructor(organization: any) {
     const {
@@ -34,8 +84,9 @@ export class Organization implements CreateOrganizationRo {
       department,
       sector,
       adminContact,
-      direction,
+      owner,
       members,
+      responsible,
       socialFacebook,
       socialGithub,
       socialInstagram,
@@ -46,7 +97,7 @@ export class Organization implements CreateOrganizationRo {
       addresses = new Array<Address>(),
       type = OrganizationType.public,
       email = '',
-      phones,
+      phone,
       labels,
       dealingType,
       parent,
@@ -59,13 +110,14 @@ export class Organization implements CreateOrganizationRo {
       sector,
       addresses,
       adminContact,
-      direction,
+      owner,
       email,
       labels,
       members,
       name,
+      responsible,
       parent,
-      phones,
+      phone,
       socialFacebook,
       socialGithub,
       socialInstagram,
@@ -80,5 +132,132 @@ export class Organization implements CreateOrganizationRo {
     if (id) {
       this.id = id;
     }
+  }
+}
+
+export class UpdateOrganization implements UpdateOrganizationRo {
+  description?: string;
+  owner?: number;
+  email?: string;
+  labels?: Array<string>;
+  name?: string;
+  parent?: number;
+  socialFacebook?: string;
+  socialGithub?: string;
+  socialInstagram?: string;
+  socialLinkedin?: string;
+  socialTwitter?: string;
+  socialYoutube?: string;
+  type?: string;
+  constructor(organization: any) {
+    const {
+      description,
+      owner,
+      email,
+      labels,
+      name,
+      parent,
+      socialFacebook,
+      socialGithub,
+      socialInstagram,
+      socialLinkedin,
+      socialTwitter,
+      socialYoutube,
+      type,
+    } = organization || {};
+    Object.assign(this, {
+      description,
+      owner,
+      email,
+      labels,
+      name,
+      parent,
+      socialFacebook,
+      socialGithub,
+      socialInstagram,
+      socialLinkedin,
+      socialTwitter,
+      socialYoutube,
+      type,
+    });
+  }
+}
+
+export class UpdateOrganizationMemberSettingsRo implements OrganizationMemberSettingsRo {
+  acountNumberNote: string;
+  allowMembersToSeeAllOtherMembers: boolean;
+  membersCanEditAccountNumbers: boolean;
+  promptForAccouantNumbers: boolean;
+
+  constructor(settings?: any) {
+    const { acountNumberNote, allowMembersToSeeAllOtherMembers, membersCanEditAccountNumbers, promptForAccouantNumbers } = settings || {};
+    Object.assign(this, {
+      acountNumberNote,
+      allowMembersToSeeAllOtherMembers,
+      membersCanEditAccountNumbers,
+      promptForAccouantNumbers,
+    });
+  }
+}
+
+export class UpdateOrganizationReservationSettingsRo implements OrganizationReservationSettingsRo {
+  approversCanEditReservations?: boolean;
+  attachedIcsCalendarFeeds?: boolean;
+  confirmationEmailWhenMakingReservation?: string;
+  emailAddressToReceiveReservationReplyMessages?: Array<string>;
+  hideAccountNumberWhenMakingReservation?: 'EVERYONE' | 'MEMBER';
+  hideOrganizationCalendar?: boolean;
+  requireReasonWhenEditingReservation?: boolean;
+  showResourceImagesInReservation?: boolean;
+
+  constructor(settings?: any) {
+    const {
+      approversCanEditReservations,
+      attachedIcsCalendarFeeds,
+      confirmationEmailWhenMakingReservation,
+      emailAddressToReceiveReservationReplyMessages,
+      hideAccountNumberWhenMakingReservation,
+      hideOrganizationCalendar,
+      requireReasonWhenEditingReservation,
+      showResourceImagesInReservation,
+    } = settings || {};
+    Object.assign(this, {
+      approversCanEditReservations,
+      attachedIcsCalendarFeeds,
+      confirmationEmailWhenMakingReservation,
+      emailAddressToReceiveReservationReplyMessages,
+      hideAccountNumberWhenMakingReservation,
+      hideOrganizationCalendar,
+      requireReasonWhenEditingReservation,
+      showResourceImagesInReservation,
+    });
+  }
+}
+
+export class UpdateOrganizationAccessSettingsRo implements OrganizationAccessSettingsRo {
+  anyMemberCanJoinYourOrganizationAndAccessResourceSchedules?: boolean;
+  joinCode?: string;
+  listResourceToNonMembers?: boolean;
+  messageSentToNewMembers?: string;
+  notifyAdministratorsWhenMembersJoinOrganization?: boolean;
+  yourOrganizationWillNeverAppearInSearchResults?: boolean;
+
+  constructor(settings?: any) {
+    const {
+      anyMemberCanJoinYourOrganizationAndAccessResourceSchedules,
+      joinCode,
+      listResourceToNonMembers,
+      messageSentToNewMembers,
+      notifyAdministratorsWhenMembersJoinOrganization,
+      yourOrganizationWillNeverAppearInSearchResults,
+    } = settings || {};
+    Object.assign(this, {
+      anyMemberCanJoinYourOrganizationAndAccessResourceSchedules,
+      joinCode,
+      listResourceToNonMembers,
+      messageSentToNewMembers,
+      notifyAdministratorsWhenMembersJoinOrganization,
+      yourOrganizationWillNeverAppearInSearchResults,
+    });
   }
 }

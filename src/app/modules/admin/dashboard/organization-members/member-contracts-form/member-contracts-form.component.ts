@@ -79,7 +79,7 @@ export class MemberContractsFormComponent implements OnInit {
       dateEnd: moment(this.contractForm.value?.dateEnd).format('YYYY-MM-DD').toString(),
       supervisor: this.contractForm.value?.supervisor || null,
       jobLevel: String(this.contractForm.value?.jobLevel) || null,
-      wage: String(this.contractForm.value?.wage) || null,
+      wage: Number(this.contractForm.value?.wage) || null,
     });
     if (contract.contractType === 'Permanant') {
       delete contract.dateEnd;

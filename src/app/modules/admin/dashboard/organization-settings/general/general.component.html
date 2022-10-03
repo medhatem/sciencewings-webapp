@@ -11,30 +11,32 @@
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
           <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.NAME' | transloco }}</mat-label>
-          <input matInput formControlName="name" />
+          <input matInput formControlName="name" required />
         </mat-form-field>
       </div>
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
           <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.EMAIL' | transloco }}</mat-label>
-          <input matInput formControlName="email" />
+          <input matInput formControlName="email" required />
         </mat-form-field>
       </div>
 
       <div class="relative flex sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript flex-auto">
           <mat-label>{{ 'ORGANIZATION.FORM.STEP1.PHONE_NUMBER' | transloco }}</mat-label>
-          <input matInput formControlName="phoneNumber" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.PHONE' | transloco" />
-          <mat-select class="mr-1.5" formControlName="phoneCode" matPrefix>
+          <input matInput formControlName="phoneNumber" [placeholder]="'ORGANIZATION.SETTINGS.GENERAL.PHONE' | transloco" required />
+          <mat-select class="mr-1.5" formControlName="phoneCode" required matPrefix>
             <mat-select-trigger>
               <span class="flex items-center">
                 <span
-                  class="hidden sm:flex w-6 h-4 mr-1 overflow-hidden"
+                  class="w-6 h-4 overflow-hidden"
                   [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
                   [style.backgroundSize]="'24px 3876px'"
-                  [style.backgroundPosition]="getCountryByIso().flagImagePos"></span>
-                <span class="sm:mx-0.5 font-medium text-default">{{ getCountryByIso().code }}</span>
+                  [style.backgroundPosition]="getCountryByIso().flagImagePos">
+                </span>
+                <span class="ml-2">{{ getCountryByIso().name }}</span>
+                <span class="sm:mx-0.5 font-medium">{{ getCountryByIso().code }}</span>
               </span>
             </mat-select-trigger>
             <ng-container *ngFor="let country of countries; trackBy: trackByFn">
@@ -42,7 +44,7 @@
                 <span class="flex items-center">
                   <span
                     class="w-6 h-4 overflow-hidden"
-                    [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
+                    [style.background]="'url(\'../../../../../../assets/images/flags/flags.png\') no-repeat 0 0'"
                     [style.backgroundSize]="'24px 3876px'"
                     [style.backgroundPosition]="country.flagImagePos"></span>
                   <span class="ml-2">{{ country.name }}</span>
@@ -52,35 +54,36 @@
             </ng-container>
           </mat-select>
         </mat-form-field>
-
-        <mat-form-field class="fuse-mat-no-subscript flex-auto w-full max-w-24 sm:max-w-40 ml-2 sm:ml-4">
-          <mat-label>{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}</mat-label>
-          <mat-icon matPrefix class="hidden sm:flex icon-size-5" [svgIcon]="'heroicons_solid:tag'"></mat-icon>
-          <mat-select [formControlName]="'labels'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.LABELS' | transloco }}">
-            <mat-option *ngFor="let phoneLabel of labelsKeys; trackBy: trackByFn" [value]="labels[phoneLabel]"
-              >{{ labelsTranslation[label] | transloco }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
       </div>
 
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.TYPE' | transloco }}</mat-label>
-          <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}">
+          <mat-select [formControlName]="'type'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}" required>
             <mat-option value="Public">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}</mat-option>
             <mat-option value="Service">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.SERVICE' | transloco }}</mat-option>
             <mat-option value="Institut">{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.INSTITUT' | transloco }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
+      <div *ngIf="hasOrganizations" class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label class="w-100">{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}</mat-label>
+          <mat-select [formControlName]="'parent'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.CHOOSE_SUB_ORGANIZATION' | transloco }}">
+            <mat-option *ngFor="let userOrganization of userOrganizations; trackBy: trackByFn" [value]="userOrganization?.id">
+              {{ userOrganization?.name }}
+            </mat-option>
+          </mat-select>
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
+        </mat-form-field>
+      </div>
       <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-label>{{ 'ORGANIZATION.SETTINGS.GENERAL.DIRECTION' | transloco }}</mat-label>
-          <mat-select [formControlName]="'direction'" placeholder="{{ 'ORGANIZATION.SETTINGS.GENERAL.DIRECTION' | transloco }}">
-            <mat-option value="1">User 1</mat-option>
-            <mat-option value="2">User 2</mat-option>
-            <mat-option value="3">User 3</mat-option>
+          <mat-select [formControlName]="'owner'" required>
+            <mat-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember?.user">
+              {{ organizationMember?.name }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
