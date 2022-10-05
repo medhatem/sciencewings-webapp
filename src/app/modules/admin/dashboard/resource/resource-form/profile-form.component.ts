@@ -33,13 +33,14 @@ export class ResourceProfileFormComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.resourceForm = this._formBuilder.group({
-      name: this._formBuilder.control('', [Validators.required]),
-      resourceClass: this._formBuilder.control('', [Validators.required]),
-      resourceType: this._formBuilder.control('', [Validators.required]),
-      infrastructures: ['', [Validators.required]],
-      description: [' '],
-    });
+    (this.infrastructures = Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID))),
+      (this.resourceForm = this._formBuilder.group({
+        name: this._formBuilder.control('', [Validators.required]),
+        resourceClass: this._formBuilder.control('', [Validators.required]),
+        resourceType: this._formBuilder.control('', [Validators.required]),
+        infrastructures: ['', [Validators.required]],
+        description: [' '],
+      }));
     await this.getOrgInfrastructures();
   }
 
@@ -72,7 +73,11 @@ export class ResourceProfileFormComponent implements OnInit {
   }
 
   private getResourceFromFormBuilder(): Resource {
-    return new Resource({ ...this.resourceForm.value, organization: this.getOrganizationIdFromLocalStorage() });
+    return new Resource({
+      ...this.resourceForm.value,
+      organization: this.getOrganizationIdFromLocalStorage(),
+      infrastructure: this.infrastructures,
+    });
   }
   private getOrganizationIdFromLocalStorage(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));

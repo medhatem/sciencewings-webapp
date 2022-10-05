@@ -38,7 +38,7 @@
       <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.TITLE' | transloco }}</mat-label>
       <mat-select [formControlName]="'infrastructures'">
         <mat-option
-          *ngFor="let organizationInfrastructures of organizationInfrastructures; trackBy: trackByFn"
+          *ngFor="let organizationInfrastructure of organizationInfrastructures; trackBy: trackByFn"
           [value]="organizationInfrastructure?.id">
           {{ organizationInfrastructure?.name }}
         </mat-option>
