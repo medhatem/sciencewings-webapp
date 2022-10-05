@@ -92,11 +92,12 @@ export class ProjectService {
       map((projects: ProjectListItem[]) =>
         projects.map(({ title, responsable, members, creatingDate, id, projectDto }) => ({
           title: `${title}`,
-          managers: this.parseProjectResponsible(responsable),
+          responsable: this.parseProjectResponsible(responsable),
           participents: `${members}`,
           creatingDate: moment(creatingDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
           id: id,
           projectDto: projectDto,
+          responsableInformations: responsable,
         })),
       ),
       tap((response) => {

@@ -38,7 +38,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.options = {
       columns: [
         { columnName: 'ORGANIZATION.PROJECTS.LIST.TITLE', columnPropertyToUse: 'title', customClass: '' },
-        { columnName: 'ORGANIZATION.PROJECTS.LIST.MANAGER', columnPropertyToUse: 'managers', customClass: '' },
+        { columnName: 'ORGANIZATION.PROJECTS.LIST.MANAGER', columnPropertyToUse: 'responsable', customClass: '' },
         { columnName: 'ORGANIZATION.PROJECTS.LIST.MEMBERS', columnPropertyToUse: 'participents', customClass: '' },
         { columnName: 'ORGANIZATION.PROJECTS.LIST.CREATIONDATE', columnPropertyToUse: 'creatingDate', customClass: '' },
       ],
@@ -74,8 +74,9 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       });
   }
 
-  async onElementSelected(project: ProjectListItem) {
-    localStorage.setItem(constants.CURRENT_PROJECT_ID, `${project.id}`);
-    this._router.navigate(['/project/project-settings', project.id]);
+  async onElementSelected(p: ProjectListItem) {
+    localStorage.setItem(constants.CURRENT_PROJECT_ID, `${p.id}`);
+    const projectResponsableId = p.responsableInformations.member.user;
+    this._router.navigate(['/project/project-settings', { projectResponsableId }]);
   }
 }

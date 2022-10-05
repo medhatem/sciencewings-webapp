@@ -15,6 +15,7 @@ import { constants } from 'app/shared/constants';
 })
 export class ReservationSettingsComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') drawer: MatDrawer;
+  title = 'APP.ROUTES.ADMIN.RESOURCE_SETTINGS.TITLE';
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
   panels: any[] = [];
@@ -151,5 +152,8 @@ export class ReservationSettingsComponent implements OnInit, OnDestroy {
       ...this.settings,
       ...payload,
     };
+  }
+  changeSelectedPanel(selectedPanel) {
+    this.selectedPanel = selectedPanel;
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
@@ -15,7 +15,7 @@ import moment from 'moment';
   templateUrl: './member-update-contract.component.html',
   styleUrls: ['./member-update-contract.component.scss'],
 })
-export class MemberUpdateContractComponent implements OnInit {
+export class MemberUpdateContractComponent implements OnInit, AfterViewInit {
   contractTypes = contractType;
   jobLevels = jobLevel;
   contractForm: FormGroup;
@@ -39,15 +39,26 @@ export class MemberUpdateContractComponent implements OnInit {
       this.supervisors = body.data.map((member) => new OrganizationMembers(member));
     });
     const contractFormObj = {
-      jobName: [this.data?.contractDto?.job?.name || ''],
-      jobLevel: [this.data?.contractDto?.jobLevel || ''],
-      contractType: [this.data?.contractDto?.contractType || ''],
-      dateStart: [this.data?.contractDto?.dateStart || ''],
-      dateEnd: [this.data?.contractDto?.endDate || ''],
-      description: [this.data?.contractDto?.description || ''],
-      supervisor: [this.data?.contractDto?.supervisor?.name],
+      jobName: '',
+      jobLevel: '',
+      contractType: '',
+      dateStart: '',
+      dateEnd: '',
+      description: '',
+      supervisor: '',
     };
     this.contractForm = this._formBuilder.group(contractFormObj);
+  }
+  async ngAfterViewInit(): Promise<void> {
+    this.contractForm.setValue({
+      jobName: this.data?.contractDto?.job?.name,
+      jobLevel: this.data?.contractDto?.jobLevel,
+      contractType: this.data?.contractDto?.contractType,
+      dateStart: this.data?.contractDto?.dateStart,
+      dateEnd: this.data?.contractDto?.endDate || '',
+      description: this.data?.contractDto?.description || '',
+      supervisor: this.data?.contractDto?.supervisor?.name,
+    });
   }
 
   async onSubmit() {
@@ -81,7 +92,7 @@ export class MemberUpdateContractComponent implements OnInit {
       jobLevel: this.contractForm.value?.jobLevel || this.data.contractDto.jobLevel,
       contractType: this.contractForm.value?.contractType || this.data.contractDto.contractType,
       description: this.contractForm.value?.description || this.data.contractDto.description,
-      supervisor: this.contractForm.value?.supervisor || this.data.contractDto.supervisor,
+      supervisor: Number(this.contractForm.value?.supervisor || this.data.contractDto.supervisor),
     });
     if (contractRo.contractType !== 'Contract base') {
       delete contractRo.dateEnd;
