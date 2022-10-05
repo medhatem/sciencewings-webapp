@@ -105,7 +105,7 @@ export class ListMember implements MemberDto {
 
 export class UpdateInfrastructure implements UpdateinfrastructureRo {
   name?: string;
-  key?: number;
+  key?: string;
   responsible?: number;
   parent?: number;
   resources?: Array<number>;
@@ -113,14 +113,14 @@ export class UpdateInfrastructure implements UpdateinfrastructureRo {
   organization?: number;
 
   constructor(infrastructure: any) {
-    const { name, key, responsible, parent, organization, description } = infrastructure || {};
+    const { name, key, responsible, parent, description } = infrastructure || {};
 
     Object.assign(this, {
       name,
       key,
       responsible,
       parent,
-      organization,
+
       description,
     });
   }

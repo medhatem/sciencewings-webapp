@@ -21,7 +21,7 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
   form: FormGroup;
   userOrganizations: UserOrganizations[] = [];
   organizationMembers: OrganizationMembers[];
-  organization: number;
+  infraId: number;
 
   constructor(
     private _infarstructureService: InfrastructureService,
@@ -32,7 +32,8 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.organization = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    this.infraId = Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
+
     this.form = this._formBuilder.group({
       name: this?.infrastructure?.name || '',
       key: this?.infrastructure?.key || '',
@@ -47,9 +48,10 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
       this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
       return;
     }
+    const infraId = localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID);
     const infrastructure = this.getInfrastructureFromFormBuilder();
     try {
-      await lastValueFrom(this._infarstructureService.updateInfrastructure(this.organization, infrastructure));
+      await lastValueFrom(this._infarstructureService.updateInfrastructure(this.infraId, infrastructure));
       await lastValueFrom(this._infarstructureService.getAndParseOrganizationInfrastructures());
       this._toastrService.showSuccess(constants.UPDATE_INFRASTRUCTURE_COMPLETED);
       this._router.navigate([constants.MODULES_ROUTINGS_URLS.INFRASTRUCTURE]);
@@ -75,7 +77,6 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
   private getInfrastructureFromFormBuilder(): UpdateInfrastructure {
     return new UpdateInfrastructure({
       ...this.form.value,
-      organization: this.organization,
     });
   }
 }
