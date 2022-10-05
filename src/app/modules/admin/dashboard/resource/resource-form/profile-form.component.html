@@ -33,6 +33,18 @@
         <mat-option [value]="'requestable'">{{ 'ORGANIZATION.SETTINGS.RESOUCES.REQUESTABLE' | transloco }}</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <mat-form-field class="flex-auto mx-4">
+      <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.TITLE' | transloco }}</mat-label>
+      <mat-select [formControlName]="'infrastructures'">
+        <mat-option
+          *ngFor="let organizationInfrastructures of organizationInfrastructures; trackBy: trackByFn"
+          [value]="organizationInfrastructure?.id">
+          {{ organizationInfrastructure?.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <mat-error *ngIf="getvalidationControls().resourceType.errors && resourceForm.controls['resourceType'].touched" class="flex-auto mx-4">
       {{ 'ORGANIZATION.SETTINGS.RESOUCES.TYPE_REQUIRED' | transloco }}
     </mat-error>
@@ -48,7 +60,7 @@
     <!-- Actions -->
     <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
       <button mat-button mat-dialog-close>{{ 'ORGANIZATION.SETTINGS.RESOUCES.CANCEL' | transloco }}</button>
-      <button [disabled]="resourceForm.invalid" class="px-6 ml-3" mat-flat-button [color]="'primary'" (click)="onSubmit()">
+      <button class="px-6 ml-3" mat-flat-button [color]="'primary'" (click)="onSubmit()">
         {{ 'ORGANIZATION.SETTINGS.RESOUCES.SAVE' | transloco }}
       </button>
     </div>
