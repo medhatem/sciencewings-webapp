@@ -12,12 +12,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProjectSettingsComponent implements OnInit {
   selectedPanel: string = 'project-general';
-  title = 'Project settings';
+  title = 'ORGANIZATION.PROJECTS.FORM.PROJECT_SETTINGS';
   settings = null;
   currentProjects = null;
   panels: any[];
-  id: number;
+  projectResponsableId: number;
   project;
+  responsable;
   /**
    * Constructor
    */
@@ -31,8 +32,7 @@ export class ProjectSettingsComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
-    this.project = Number(this.route.snapshot.paramMap.get('project'));
+    this.projectResponsableId = Number(this.route.snapshot.paramMap.get('projectResponsableId'));
 
     // Setup available panels
     this.panels = [

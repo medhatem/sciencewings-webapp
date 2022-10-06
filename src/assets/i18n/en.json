@@ -630,6 +630,7 @@
         "GENERAL": "General",
         "GENERAL_RESERVATION_OPTIONS": "General Reservation Options",
         "HIDE_AVAILABILITY_ON_SITE_PAGE": "Hide Availability on Site Page",
+        "INVALID_RESERVATION_DURATION_LIMIT": "The Reservation minimum duration must be 1 hour",
         "LOANABLE": "Loanable",
         "LOANABLE_RESOURCE": "Loanable Resource",
         "MANAGERS": "Managers",
@@ -685,37 +686,8 @@
         "RESOURCE_UNLISTED_ON_SITE_PAGE": "Resource Unlisted on Site Page",
         "RESOURCE_UNLISTED_TO_USERS_WHO_CANNOT_RESERVE": "Resource Unlisted to Users Who Cannot Reserve",
         "RESTRICT_CREATING_NEW_RESERVATION_AFTER_A_TIME": "Restrict Creating New Reservation After a Time",
-        "RESTRICT_CREATING_NEW_RESERVATION_BEFORE_A_TIME": "Restrict Creating New Reservation Before a Time",
-        "SAVE": "Save",
-        "SERVICE": "Service",
-        "SOFTWARE": "Software",
-        "STATUS": "Status",
-        "STATUS_MESSAGE": "Manage status resources",
-        "SUCCESS": {
-          "CREATE_COMPLETED": "The resource was created succefully"
-        },
-        "TAGS": "Tags",
-        "TIMEZONE": "Time zone",
-        "TIME_RESTRICTION": "Time Restriction",
-        "TIME_RESTRICTION_OPTIONS": "Time Restriction Options",
-        "TITLE": "Resources",
-        "TYPE": "Type",
-        "TYPE_REQUIRED": "Resource type is required",
-        "UNITES": "Unites",
-        "UNIT_LIMIT": "Unit Limit",
-        "UNIT_LIMIT_HINT": "The maximum number of units that can be reserved in a single reservation. Leave blank for no limit.",
-        "UNIT_NAME": "Unit Name",
-        "USERS_CAN_RETURN_THEIR_OWN_LOANS": "Users Can Return Their Own Loans",
-        "VISIBILITY": "Visibility",
-        "VISIBILITY_MESSAGE": "Manage resources visibility",
-        "VISIBILITY_OPTIONS": "Visibility Options",
-        "VISIBILITY_SETTINGS": "Visibility Settings"
-      },
-      "SUBSCRIPTION": {
-        "MESSAGE": "Manage your subscription plan, payment method and billing information",
-        "TITLE": "Subscription"
-      },
-      "TITLE": "Organization Settings"
+        "RESTRICT_CREATING_NEW_RESERVATION_BEFORE_A_TIME": "Restrict Creating New Reservation Before a Time"
+      }
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"

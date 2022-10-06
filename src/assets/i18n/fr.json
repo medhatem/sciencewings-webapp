@@ -631,6 +631,7 @@
         "GENERAL": "Général",
         "GENERAL_RESERVATION_OPTIONS": "Options générales de réservation",
         "HIDE_AVAILABILITY_ON_SITE_PAGE": "Masquer la disponibilité sur la page du site",
+        "INVALID_RESERVATION_DURATION_LIMIT": "La Reservation doit Faire 1 heure au minimum",
         "LOANABLE": "Prêtable",
         "LOANABLE_RESOURCE": "Ressource prêtable",
         "MANAGERS": "Managers",
@@ -686,37 +687,8 @@
         "RESOURCE_UNLISTED_ON_SITE_PAGE": "Ressource non répertoriée sur la page du site",
         "RESOURCE_UNLISTED_TO_USERS_WHO_CANNOT_RESERVE": "Ressource non répertoriée pour les utilisateurs qui ne peuvent pas réserver",
         "RESTRICT_CREATING_NEW_RESERVATION_AFTER_A_TIME": "Restreindre la création d'une nouvelle réservation après un certain temps",
-        "RESTRICT_CREATING_NEW_RESERVATION_BEFORE_A_TIME": "Restreindre la création d'une nouvelle réservation avant une heure",
-        "SAVE": "Sauvegarder",
-        "SERVICE": "Service",
-        "SOFTWARE": "Logiciel",
-        "STATUS": "Statut",
-        "STATUS_MESSAGE": "Gérer le statut de vos ressources",
-        "SUCCESS": {
-          "CREATE_COMPLETED": "La resource a été créer avec succées "
-        },
-        "TAGS": "Mots clés",
-        "TIMEZONE": "Fuseau horaire",
-        "TIME_RESTRICTION": "Restriction de temps",
-        "TIME_RESTRICTION_OPTIONS": "Options de restriction de temps",
-        "TITLE": "Ressources",
-        "TYPE": "Type",
-        "TYPE_REQUIRED": "Le type de ressource est requis",
-        "UNITES": "Unit",
-        "UNIT_LIMIT": "Limite d'unité",
-        "UNIT_LIMIT_HINT": "Le nombre maximum d'unités pouvant être réservées dans une seule réservation. Laissez vide pour aucune limite.",
-        "UNIT_NAME": "Nom de l'unité",
-        "USERS_CAN_RETURN_THEIR_OWN_LOANS": "Les utilisateurs peuvent retourner leurs propres prêts",
-        "VISIBILITY": "Visibilité",
-        "VISIBILITY_MESSAGE": "Gérer la visibilité de vos ressources",
-        "VISIBILITY_OPTIONS": "Options de visibilité",
-        "VISIBILITY_SETTINGS": "Paramètres de visibilité"
-      },
-      "SUBSCRIPTION": {
-        "MESSAGE": "Gérer votre plan d'abonnement, votre mode de paiement et vos informations de facturation",
-        "TITLE": "Abonnement"
-      },
-      "TITLE": "Paramètres de l'organisation"
+        "RESTRICT_CREATING_NEW_RESERVATION_BEFORE_A_TIME": "Restreindre la création d'une nouvelle réservation avant une heure"
+      }
     },
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"

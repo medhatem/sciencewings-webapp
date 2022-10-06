@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Resource } from 'app/models/resources/resource';
+import { GetResource, Resource } from 'app/models/resources/resource';
 import { User } from 'app/models';
 import { UserService } from 'app/core/user/user.service';
 import { constants } from 'app/shared/constants';
@@ -22,7 +22,7 @@ export class ReservationCreationComponent implements OnInit {
   resourceForm: FormGroup;
   submitted = false;
   duration: string = '';
-  resource: Resource;
+  resource: GetResource;
   currentUser: User;
   userCompleteName: string;
   errorMessage: string = '';
