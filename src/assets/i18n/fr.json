@@ -576,6 +576,7 @@
         "HOLDER_NAME": "Nom de l'infrastructure",
         "DESCRIPTION": "Description",
         "RESPONSIBLES": "Responsable",
+        "PARENT": "Infrastructure parente",
         "KEY": "Clé",
         "SAVE": "Sauvegarder",
         "CANCEL": "Annuler",
