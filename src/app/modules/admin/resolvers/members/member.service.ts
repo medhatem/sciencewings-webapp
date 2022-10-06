@@ -22,6 +22,7 @@ export class MemberService {
   get data$(): Observable<any> {
     return this._data.asObservable();
   }
+
   get pagination$(): Observable<any> {
     return this._pagination.asObservable();
   }
@@ -66,6 +67,7 @@ export class MemberService {
     const id = orgID || Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     return this.swaggerAPI.organizationRoutesGetUsers({ id });
   }
+
   async getMembersByOrgId(id?: number): Promise<OrganizationMembers[]> {
     return lastValueFrom(
       this.swaggerAPI.organizationRoutesGetUsers({ id }).pipe(map(({ body }) => body.data.map((member) => new OrganizationMembers(member)))),

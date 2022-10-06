@@ -30,7 +30,6 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    console.log('dans les settinsg', this.infrastructure);
     this.form = this._formBuilder.group({
       name: this?.infrastructure?.name || '',
       key: this?.infrastructure?.key || '',
