@@ -62,12 +62,12 @@ export class InfrastructureFormComponent implements OnInit {
     }
   }
 
-  private async getOrgInfrastructures() {
-    this.organizationInfrastructures = await lastValueFrom(this._infrastructureService.getOrgInfrastructures().pipe(map((r) => r.body.data)));
-  }
-
   trackByFn(index: number, item: any): any {
     return item.id || index;
+  }
+
+  private async getOrgInfrastructures() {
+    this.organizationInfrastructures = await lastValueFrom(this._infrastructureService.getOrgInfrastructures().pipe(map((r) => r.body.data)));
   }
 
   private getMembers() {
