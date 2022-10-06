@@ -100,10 +100,6 @@ export class OrganizationFormComponent implements OnInit {
     return this.countries.length > 0 ? this.countries[0] : { code: '', name: '', flagImagePos: '' };
   }
 
-  private getAllCountries(): any {
-    return this.allContacts.length > 0 ? this.allContacts[0] : { name: '' };
-  }
-
   /**
    *
    * Used to track for loops elements by either their id or index
@@ -137,6 +133,10 @@ export class OrganizationFormComponent implements OnInit {
       type: organizationType,
       parent,
     });
+  }
+
+  private getAllCountries(): any {
+    return this.allContacts.length > 0 ? this.allContacts[0] : { name: '' };
   }
 
   // ****************************** code for labels that we will need later on ****************************** //
