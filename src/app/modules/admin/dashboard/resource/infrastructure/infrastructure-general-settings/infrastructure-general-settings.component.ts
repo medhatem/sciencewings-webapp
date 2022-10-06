@@ -49,7 +49,7 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
     }
     const infrastructure = this.getInfrastructureFromFormBuilder();
     try {
-      await lastValueFrom(this._infarstructureService.updateInfrastructure(this.infrastructure.id, infrastructure));
+      await lastValueFrom(this._infarstructureService.updateInfrastructure(this.infrastructure.id, infrastructure as any));
       await lastValueFrom(this._infarstructureService.getAndParseOrganizationInfrastructures());
       this._toastrService.showSuccess(constants.UPDATE_INFRASTRUCTURE_COMPLETED);
       this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.INFRASTRUCTURE]);

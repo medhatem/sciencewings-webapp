@@ -57,8 +57,9 @@
         <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
           <mat-form-field class="flex-auto gt-xs:pr-3 mx-4 col-span-2">
             <mat-label>{{ 'ORGANIZATION.FORM.STEP1.PHONE_NUMBER' | transloco }}</mat-label>
-            <input matInput formControlName="phoneNumber" [placeholder]="'ORGANIZATION.FORM.STEP1.PHONE_NUMBER' | transloco" />
-            <mat-select class="mr-1.5" formControlName="phoneCode" matPrefix>
+
+            <input matInput formControlName="phoneNumber" [placeholder]="'APP.GENERAL.PHONE.PHONE_NUMBER' | transloco" />
+            <mat-select *ngIf="countries?.length" class="mr-1.5" formControlName="phoneCode" matPrefix [value]="getCountryByIso().code">
               <mat-select-trigger>
                 <span class="flex items-center">
                   <span
@@ -66,7 +67,7 @@
                     [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
                     [style.backgroundSize]="'24px 3876px'"
                     [style.backgroundPosition]="getCountryByIso().flagImagePos"></span>
-                  <span class="sm:mx-0.5 font-medium text-default">{{ getCountryByIso().code }}</span>
+                  <span class="sm:mx-0.5 font-medium text-default"> {{ getCountryByIso().code }}</span>
                 </span>
               </mat-select-trigger>
               <ng-container *ngFor="let country of countries; trackBy: trackByFn">
@@ -76,7 +77,7 @@
                       class="w-6 h-4 overflow-hidden"
                       [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
                       [style.backgroundSize]="'24px 3876px'"
-                      [style.backgroundPosition]="country.flagImagePos"></span>
+                      [style.backgroundPosition]="getCountryByIso().flagImagePos"></span>
                     <span class="ml-2">{{ country.name }}</span>
                     <span class="ml-2 font-medium">{{ country.code }}</span>
                   </span>
@@ -120,7 +121,7 @@
             <mat-label>{{ 'ORGANIZATION.FORM.STEP2.COUNTRY' | transloco }}</mat-label>
             <mat-select [formControlName]="'country'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.COUNTRY' | transloco }}" required>
               <mat-option value="" disabled selected>{{ 'ORGANIZATION.FORM.STEP2.SELECT_COUNTRY' | transloco }}</mat-option>
-              <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
+              <mat-option *ngFor="let allContact of allContacts" [value]="allContact.code">{{ allContact.name }}</mat-option>
             </mat-select>
             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
           </mat-form-field>

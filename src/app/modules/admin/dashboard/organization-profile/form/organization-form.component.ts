@@ -11,9 +11,9 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
-import { lastValueFrom, Subject, takeUntil } from 'rxjs';
-import { countries as countriesData } from 'app/mock-api/apps/contacts/data';
+import { lastValueFrom, Subject } from 'rxjs';
 import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
+import { countries } from 'app/mock-api/apps/contacts/data';
 
 @Component({
   selector: 'organization-form',
@@ -21,7 +21,8 @@ import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class OrganizationFormComponent implements OnInit {
-  @Input() countries: any;
+  countries = countryCanada;
+  allContacts = countries;
   formGroup: FormGroup;
   organizationTypesKeys = Object.keys(OrganizationType).map((key) => key);
   organizationType = OrganizationType;
@@ -38,8 +39,6 @@ export class OrganizationFormComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _adminOrganizationsService: AdminOrganizationsService,
     private _toastrService: ToastrService,
-    private _contactsService: ContactsService,
-    private _changeDetectorRef: ChangeDetectorRef,
 
     private _route: ActivatedRoute,
     private _router: Router,
@@ -53,7 +52,7 @@ export class OrganizationFormComponent implements OnInit {
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
-      phoneCode: ['+1'],
+      phoneCode: ['ca'],
       secondPhoneCode: ['+1'],
       apartment: [''],
       city: ['', [Validators.required]],
@@ -64,14 +63,7 @@ export class OrganizationFormComponent implements OnInit {
       labels: [],
       organizationType: ['', [Validators.required]],
     };
-
-    // Get the country telephone codes
-    this._contactsService.countries$.pipe(takeUntil(this._unsubscribeAll)).subscribe((codes: any[]) => {
-      this.countries = countriesData;
-
-      // Mark for check
-      this._changeDetectorRef.markForCheck();
-    });
+    this.getAllCountries();
 
     if (!this.userOrganizations?.length) {
       this.hasOrganizations = false;
@@ -103,9 +95,13 @@ export class OrganizationFormComponent implements OnInit {
     }
   }
 
-  getCountryByIso(): any {
+  getCountryByIso(value: string): any {
     // keep only canada for the moment
-    return this.countries.length ? this.countries[0] : { code: '', name: '', flagImagePos: '' };
+    return this.countries.length > 0 ? this.countries[0] : { code: '', name: '', flagImagePos: '' };
+  }
+
+  private getAllCountries(): any {
+    return this.allContacts.length > 0 ? this.allContacts[0] : { name: '' };
   }
 
   /**
