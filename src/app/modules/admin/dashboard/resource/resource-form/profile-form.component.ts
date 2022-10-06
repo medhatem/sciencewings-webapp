@@ -21,7 +21,7 @@ export class ResourceProfileFormComponent implements OnInit {
   resourceForm: FormGroup;
   submitted = false;
   organizationInfrastructures: Infrastructure[] = [];
-  infrastructures: any;
+  infrastructures: number;
 
   constructor(
     public matDialogRef: MatDialogRef<ResourceProfileFormComponent>,
@@ -33,15 +33,15 @@ export class ResourceProfileFormComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    (this.infrastructures = Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID))),
-      (this.resourceForm = this._formBuilder.group({
-        name: this._formBuilder.control('', [Validators.required]),
-        resourceClass: this._formBuilder.control('', [Validators.required]),
-        resourceType: this._formBuilder.control('', [Validators.required]),
-        infrastructures: ['', [Validators.required]],
-        description: [' '],
-      }));
+    this.resourceForm = this._formBuilder.group({
+      name: this._formBuilder.control('', [Validators.required]),
+      resourceClass: this._formBuilder.control('', [Validators.required]),
+      resourceType: this._formBuilder.control('', [Validators.required]),
+      infrastructures: ['', [Validators.required]],
+      description: [' '],
+    });
     await this.getOrgInfrastructures();
+    this.infrastructures = Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
   }
 
   getvalidationControls() {
