@@ -105,7 +105,7 @@ export class ListMember implements MemberDto {
 
 export class UpdateInfrastructure implements UpdateinfrastructureRo {
   name?: string;
-  key?: string;
+  key?: any;
   responsible?: number;
   parent?: number;
   resources?: Array<number>;
