@@ -2,6 +2,7 @@ import { AdminOrganizationResolver } from '../../resolvers/admin-organization/ad
 import { OrganizationGroupsComponent } from './organization-groups.component';
 import { Route } from '@angular/router';
 import { GroupListComponent } from './group-list/group-list.component';
+import { GroupResolver } from '../../resolvers/groups/groups.resolvers';
 
 export const organizationGroupsRoutes: Route[] = [
   {
@@ -15,7 +16,7 @@ export const organizationGroupsRoutes: Route[] = [
         path: '',
         component: GroupListComponent,
         resolve: {
-          organization: AdminOrganizationResolver,
+          groups: GroupResolver,
         },
       },
     ],
