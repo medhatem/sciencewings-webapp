@@ -33,7 +33,6 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
 
   async ngOnInit() {
     this.infraId = Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
-
     this.form = this._formBuilder.group({
       name: this?.infrastructure?.name || '',
       key: this?.infrastructure?.key || '',

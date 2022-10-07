@@ -8,6 +8,7 @@ import { constants } from 'app/shared/constants';
 import { InfrastructureService } from 'app/modules/admin/resolvers/infrastructure/infrastructure.service';
 import { Infrastructure } from 'app/models/infrastructures/infrastructure';
 import { lastValueFrom, map } from 'rxjs';
+
 @Component({
   selector: 'app-infrastructure-form',
   templateUrl: './infrastructure-form.component.html',
@@ -31,6 +32,7 @@ export class InfrastructureFormComponent implements OnInit {
     private _memberService: MemberService,
     private _toastrService: ToastrService,
   ) {}
+
   get validationControls() {
     return this.infrastructureForm.controls;
   }
@@ -47,6 +49,7 @@ export class InfrastructureFormComponent implements OnInit {
     await this.getOrgInfrastructures();
     this.parent = Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
   }
+
   async onSubmit() {
     this.submitted = true;
     if (!this.infrastructureForm.valid) {
@@ -79,6 +82,7 @@ export class InfrastructureFormComponent implements OnInit {
         this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');
       });
   }
+
   private getInfrastructureFromFormBuilder(): Infrastructure {
     return new Infrastructure({
       ...this.infrastructureForm.value,
@@ -86,6 +90,7 @@ export class InfrastructureFormComponent implements OnInit {
       parent: this.parent,
     });
   }
+
   private getOrganizationIdFromLocalStorage(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
