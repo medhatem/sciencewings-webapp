@@ -58,21 +58,13 @@ export class ECommerceInventoryMockApi {
 
       // Clone the products
       let products: any[] | null = [
-        { name: 'Admin', member: 1, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Admins', member: 1, status: 'Activate', date: 'April 29, 2022', avatar: '' },
         { name: 'Aprovers', member: 2, status: 'Activate', date: 'April 29, 2022', avatar: '' },
         { name: 'Managers', member: 3, status: 'Activate', date: 'April 29, 2022', avatar: '' },
         { name: 'Supervisors', member: 4, status: 'Activate', date: 'April 29, 2022', avatar: '' },
         { name: 'Humaine Resources', member: 5, status: 'Activate', date: 'April 29, 2022', avatar: '' },
-        { name: 'Humaine Resources', member: 6, status: 'Activate', date: 'April 29, 2022', avatar: '' },
-        { name: 'Humaine Resources', member: 7, status: 'Activate', date: 'April 29, 2022', avatar: '' },
-        { name: 'Humaine Resources', member: 8, status: 'Activate', date: 'April 29, 2022', avatar: '' },
-        { name: 'Humaine Resources', member: 9, status: 'Activate', date: 'April 29, 2022', avatar: '' },
-        { name: 'Humaine Resources', member: 10, status: 'Activate', date: 'April 29, 2022', avatar: '' },
-        { name: 'Humaine Resources', member: 11, status: 'Activate', date: 'April 29, 2022', avatar: '' },
-        { name: 'Humaine Resources', member: 12, status: 'Activate', date: 'April 29, 2022', avatar: '' },
-        { name: 'Humaine Resources', member: 13, status: 'Activate', date: 'April 29, 2022', avatar: '' },
-        { name: 'Humaine Resources', member: 14, status: 'Activate', date: 'April 29, 2022', avatar: '' },
-        { name: 'Humaine Resources', member: 15, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Visitors', member: 6, status: 'Activate', date: 'April 29, 2022', avatar: '' },
+        { name: 'Researchers', member: 3, status: 'Activate', date: 'April 29, 2022', avatar: '' },
       ];
 
       // Sort the products
