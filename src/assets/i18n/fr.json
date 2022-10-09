@@ -607,6 +607,7 @@
         "UserHideCalenderForMemberOnly": "Masquer le calendrier pour les membres uniquement"
       },
       "RESOUCES": {
+        "TITLE": "Resources",
         "ACCESS_TO_RESOURCE": "Accès à la ressource",
         "ACCOUNT": "Compte",
         "ALLOW_RESERVING_LOANS_AT_FUTURE_DATES": "Autoriser la réservation de prêts à des dates futures",
@@ -618,6 +619,8 @@
         "CANCEL": "Annuler",
         "CATEGORY": "Catégorie",
         "CLASS": "Classe",
+        "TYPE": "Type",
+        "STATUS": "Statut",
         "CLASS_REQUIRED": "La classe de ressources est requise",
         "CREATE_RESOURCE": "Créer une ressource",
         "CREATE_RESOURCE_MOBILE": "Ajouter",
@@ -638,9 +641,12 @@
         "MESSAGE": "Gérez les accès pour toutes vos ressources dans",
         "NAME": "Nom",
         "NAME_REQUIRED": "Le nom de la ressource est requis",
+        "TYPE_REQUIRED": "Le type de la ressource est requis",
         "OVERDUE_NOTICE_DELAY": "Délai de notification de retard",
         "PANAL_MESSAGE": "Gérez les informations générales de vos ressources",
         "PERSON": "Personne",
+        "SERVICE": "Service",
+        "SOFTWARE": "Logiciel",
         "PROMOTE_ON_SITE_PAGE_AS_A_LARGE_BUTTON_ABOVE_OTHER_RESOURCES": "Promouvoir la page du site comme un gros bouton au-dessus des autres ressources",
         "PROPERTIES": "Propriétés",
         "PROPERTIES_MESSAGE": "Gérer les Propriétés de vos ressources",
@@ -648,6 +654,7 @@
         "RECURRING_RESERVATIONS": "Réservations récurrentes",
         "REQUESTABLE": "Demandable",
         "RESERVABLE": "Réservable",
+        "SAVE": "Enregistrer",
         "RESERVATION": {
           "CREATE_BTN": "Créer",
           "CREATE_RESERVATION": "creer un evenement",
