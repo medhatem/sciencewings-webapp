@@ -39,7 +39,7 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
       name: this?.infrastructure?.name || '',
       key: this?.infrastructure?.key || '',
       responsible: this?.infrastructure?.responsible.user,
-      parent: this?.infrastructure?.parent?.id || '',
+      parent: this?.infrastructure?.parent || '',
       description: this?.infrastructure?.description || '',
     });
     await this.getOrgInfrastructures();
