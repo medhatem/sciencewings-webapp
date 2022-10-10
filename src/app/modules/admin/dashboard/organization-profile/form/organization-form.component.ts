@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address, Phone } from 'app/models';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Organization } from 'app/models/organizations/organization';
 import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
@@ -11,7 +11,9 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Subject } from 'rxjs';
+import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
+import { countries } from 'app/mock-api/apps/contacts/data';
 
 @Component({
   selector: 'organization-form',
@@ -20,6 +22,7 @@ import { lastValueFrom } from 'rxjs';
 })
 export class OrganizationFormComponent implements OnInit {
   countries = countryCanada;
+  allContacts = countries;
   formGroup: FormGroup;
   organizationTypesKeys = Object.keys(OrganizationType).map((key) => key);
   organizationType = OrganizationType;
@@ -30,10 +33,13 @@ export class OrganizationFormComponent implements OnInit {
   userOrganizations: UserOrganizations[] = [];
   hasOrganizations: boolean = true;
 
+  private _unsubscribeAll: Subject<any> = new Subject<any>();
+
   constructor(
     private _formBuilder: FormBuilder,
     private _adminOrganizationsService: AdminOrganizationsService,
     private _toastrService: ToastrService,
+
     private _route: ActivatedRoute,
     private _router: Router,
   ) {}
@@ -46,7 +52,7 @@ export class OrganizationFormComponent implements OnInit {
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]],
-      phoneCode: ['+1'],
+      phoneCode: ['ca'],
       secondPhoneCode: ['+1'],
       apartment: [''],
       city: ['', [Validators.required]],
@@ -57,6 +63,7 @@ export class OrganizationFormComponent implements OnInit {
       labels: [],
       organizationType: ['', [Validators.required]],
     };
+    this.getAllCountries();
 
     if (!this.userOrganizations?.length) {
       this.hasOrganizations = false;
@@ -126,6 +133,10 @@ export class OrganizationFormComponent implements OnInit {
       type: organizationType,
       parent,
     });
+  }
+
+  private getAllCountries(): any {
+    return this.allContacts.length > 0 ? this.allContacts[0] : { name: '' };
   }
 
   // ****************************** code for labels that we will need later on ****************************** //
