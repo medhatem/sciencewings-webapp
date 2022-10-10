@@ -328,42 +328,7 @@
       },
       "TITLE": "Groups"
     },
-    "INFRASTRUCTURES": {
-      "CREATE_INFRASTRUCTURE": "Create Infrastructure",
-      "CREATE_INFRASTRUCTURE_MOBILE": "Create",
-      "EXPORT_INFRASTRUCTURE": "Export ",
-      "FILTER_INFRASTRUCTURE": "Filter ",
-      "IMPORT_INFRASTRUCTURE": "Import ",
-      "INFRASTRUCTURE_FORM": {
-        "CANCEL": "Cancel",
-        "DESCRIPTION": "Description",
-        "HOLDER_NAME": "Infrastructure Name",
-        "KEY": "Key",
-        "NAME": "Name",
-        "RESPONSIBLES": "Responsable",
-        "SAVE": "Save",
-        "TITLE": "Create infrastructure "
-      },
-      "INFRASTRUCTURE_LIST": {
-        "DATE": "Created Date",
-        "KEY": "Key",
-        "RESOURCES_NB": "#Resources",
-        "RESPONSIBLE": "Responsible",
-        "TITLE": "Infrastructure"
-      },
-      "MESSAGE": "Manage Access for all your infrastructures in",
-      "NO_INFRASTRUCTURE": "There are no infrastructures",
-      "SEARCH_INFRASTRUCTURE": "Search Infrastructure",
-      "SUCCESS": {
-        "CREATE_COMPLETED": "Infrastructure was created successfuly "
-      },
-      "TITLE": "Infrastructure",
-      "VALIDATORS": {
-        "KEY_REQUIRED": "Infrastructure Key is required",
-        "NAME_REQUIRED": "Infrastructue name is required",
-        "RESPONSIBLE_REQUIRED": "Infrastructure Responsible is required"
-      }
-    },
+
     "LANDING_PAGE": {
       "CREATE_ORGANIZATION": "Create Organization",
       "ERROR_LOADING_ORGANIZATIONS": "Something went wrong loading organizations",
@@ -606,7 +571,7 @@
         "UserHideCalenderForMemberOnly": "User Hide Calender For Member Only"
       },
       "RESOUCES": {
-        "TITLE": "Ressources",
+        "TITLE": "Resources",
         "ACCESS_TO_RESOURCE": "Access To Resource",
         "ACCOUNT": "Account",
         "ALLOW_RESERVING_LOANS_AT_FUTURE_DATES": "Allow Reserving Loans at Future Dates",
@@ -699,6 +664,166 @@
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"
     },
+
+    "INFRASTRUCTURES": {
+      "TITLE": "Infrastructure",
+      "MESSAGE": "Manage Access for all your infrastructures in",
+      "CREATE_INFRASTRUCTURE": "Create Infrastructure",
+      "CREATE_INFRASTRUCTURE_MOBILE": "Create",
+      "SEARCH_INFRASTRUCTURE": "Search Infrastructure",
+      "FILTER_INFRASTRUCTURE": "Filter ",
+      "IMPORT_INFRASTRUCTURE": "Import ",
+      "EXPORT_INFRASTRUCTURE": "Export ",
+      "NO_INFRASTRUCTURE": "There are no infrastructures",
+      "INFRASTRUCTURE_FORM": {
+        "TITLE": "Create infrastructure ",
+        "NAME": "Name",
+        "HOLDER_NAME": "Infrastructure Name",
+        "RESPONSIBLES": "Responsable",
+        "PARENT": "Parent Infrastructure",
+        "DESCRIPTION": "Description",
+        "KEY": "Key",
+        "SAVE": "Save",
+        "CANCEL": "Cancel",
+        "UPDATE": "Update"
+      },
+      "INFRASTRUCTURE_LIST": {
+        "TITLE": "Infrastructure",
+        "KEY": "Key",
+        "DATE": "Created Date",
+        "RESPONSIBLE": "Responsible",
+        "RESOURCES_NB": "#Resources"
+      },
+      "SETTINGS": {
+        "TITLE_FORM": "Infrastructure Details",
+        "TITLE": "Infrastructure settings",
+        "PANEL_GENERAL": "General",
+        "GENERAL_MESSAGE": "Manage the general informations of your infrastructures"
+      },
+      "VALIDATORS": {
+        "NAME_REQUIRED": "Infrastructue name is required",
+        "KEY_REQUIRED": "Infrastructure Key is required",
+        "RESPONSIBLE_REQUIRED": "Infrastructure Responsible is required"
+      },
+      "SUCCESS": {
+        "CREATE_COMPLETED": "Infrastructure was created successfuly ",
+        "UPDATE_COMPLETED": "Infrastructure was updated successfuly"
+      },
+      "ERROR": {
+        "UPDATE_FAILED": "The update of infrastructure has failed"
+      }
+    },
+
+    "PROJECTS": {
+      "CREATE_PROJECTS": "Create a new project",
+      "EXPORT_PROJECTS": "Export",
+      "FILTER_PROJECTS": "Filter",
+      "FORM": {
+        "LABEL_NAME": "Title",
+        "CANCEL": "Cancel",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION": "About (description)",
+        "PROJECT_MEMBERS": "Project's Members",
+        "PROJECT_NAME": "Project's Name",
+        "PROJECT_SETTINGS": "Project settings",
+        "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
+        "SAVE": "Save",
+        "KEY": "Key",
+        "TITLE": "Create Project",
+        "LOCATION": "Location",
+        "MANAGERS": "Manager(s)",
+        "PARTICIPANTS": "Participant(s)",
+        "ENTER_DATE": "Enter a date range",
+        "DATE_HINT": "MM/DD/YYYY",
+        "DATE_HINT_DOUBLE": "YYYY/MM/DD – YYYY/MM/DD",
+        "STARTDATE": "Start date",
+        "ENDDATE": "End date",
+        "STATUS": "Status",
+        "CREATE_COMPLETED": "Create project succeeded"
+      },
+      "IMPORT_PROJECTS": "Import",
+      "LIST": {
+        "PROJECT_DATE": "Date",
+        "PROJECT_MEMBERS": "Membres",
+        "PROJECT_NAME": "Project",
+        "PROJECT_STATUS": "Status",
+        "MESSAGE": "There are no projects",
+        "MESSAGE_MEMBER_LIST": "There are any member yet",
+        "TITLE": "Title",
+        "MANAGER": "Manager",
+        "MEMBERS": "# Members",
+        "CREATIONDATE": "Creation date",
+        "ROLE": "Role"
+      },
+      "SETTINGS": {
+        "PROJECT_SETTINGS": "Settings",
+        "PROJECT_GENERALE": "Informations general",
+        "PARTICIPANTS": "Project participants settings",
+        "JOINED_DATE": "Joined date",
+        "UPDATE_SUCCESS": "Project updated successfully",
+        "MESSAGE_Participant": "Manage Access for all the particiant in this project.",
+        "MESSAGE_GROUPS": "Manage Access for all the particiant in this project.",
+        "GROUPS": "Groups settings",
+        "PROJECT_DESC": "Description for your project.",
+        "GENERAL_PANEL": "General",
+        "GENERAL_DESC": "Manage your public project and private information",
+        "Membership_PANEL": "Membership",
+        "Membership_DESC": "Manage the memberships",
+        "GROUPS_PANEL": "Groups",
+        "GROUPS_DESC": "Manage your groups",
+        "ADD_MEMBER": "Add a new member",
+        "MEMBER": "Member"
+      },
+      "SEARCH_PROJECTS": "Find a project",
+      "TITLE": "Projects",
+      "ERROR": {
+        "CREATE_FAILED": "The creation of the project has failed",
+        "UPDATE_FAILED": "The update of the project has failed"
+      },
+      "SUCCESS": {
+        "CREATE_COMPLETED": "project was created successfuly ",
+        "UPDATE_COMPLETED": "project was created successfuly "
+      }
+    },
+    "CONTRACTS": {
+      "CREATE_CONTRACTS": "Add a new contract",
+      "EXPORT_CONTRACTS": "Export",
+      "FILTER_CONTRACTS": "Filter",
+      "FORM": {
+        "LABEL_NAME": "Job name",
+        "CONTRACT_TYPE": "Contract type",
+        "JOB_LEVEL": "Job level",
+        "CHOOSE_SUPERVISOR": "Choose a supervisor",
+        "SUPERVISOR": "Supervisor",
+        "WAGE": "Wage",
+        "CANCEL": "Cancel",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION": "About (description)",
+        "PROJECT_MEMBERS": "Project's Members",
+        "JOB_NAME": "Job",
+        "MESSAGE": "Les membres ajoutés à ce project recevront les mêmes services et autorisations",
+        "SAVE": "Save",
+        "TITLE": "Create Project",
+        "LOCATION": "Location",
+        "MANAGERS": "Manager(s)",
+        "PARTICIPANTS": "Participant(s)",
+        "ENTER_DATE": "Enter a date range",
+        "DATE_HINT": "MM/DD/YYYY – MM/DD/YYYY",
+        "STARTDATE": "Start date",
+        "ENDDATE": "End date",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "Create project succeeded"
+      },
+      "LIST": {
+        "MESSAGE": "There are no contracts"
+      },
+      "SEARCH_CONTRACTS": "Find a contract",
+      "TITLE": "Contracts",
+      "ERROR": {
+        "CREATE_FAILED": "The creation of the contract has failed"
+      }
+    },
+
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "You have no organization",
     "WELCOME_BACK": "Hello"
   },
