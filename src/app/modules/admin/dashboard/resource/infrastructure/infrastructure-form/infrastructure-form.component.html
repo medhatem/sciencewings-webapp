@@ -53,6 +53,17 @@
         'ORGANIZATION.INFRASTRUCTURES.VALIDATORS.RESPONSIBLE_REQUIRED' | transloco
       }}</mat-error>
     </div>
+
+    <mat-form-field class="flex-auto mx-4">
+      <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.PARENT' | transloco }}</mat-label>
+      <mat-select [formControlName]="'parent'">
+        <mat-option
+          *ngFor="let organizationInfrastructure of organizationInfrastructures; trackBy: trackByFn"
+          [value]="organizationInfrastructure?.id">
+          {{ organizationInfrastructure?.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <mat-form-field class="flex-auto mx-4">
       <mat-label required>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.DESCRIPTION' | transloco }}</mat-label>
       <textarea
