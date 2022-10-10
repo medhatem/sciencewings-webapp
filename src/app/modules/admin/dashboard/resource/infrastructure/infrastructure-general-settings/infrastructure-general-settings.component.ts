@@ -5,10 +5,11 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
-import { UpdateInfrastructure } from 'app/models/infrastructures/infrastructure';
+import { Infrastructure, UpdateInfrastructure } from 'app/models/infrastructures/infrastructure';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { OrganizationMembers } from 'app/models/members/member';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-infrastructure-general-settings',
@@ -21,6 +22,7 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
   form: FormGroup;
   userOrganizations: UserOrganizations[] = [];
   organizationMembers: OrganizationMembers[];
+  organizationInfrastructures: Infrastructure[] = [];
   infraId: number;
 
   constructor(
@@ -36,9 +38,11 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
     this.form = this._formBuilder.group({
       name: this?.infrastructure?.name || '',
       key: this?.infrastructure?.key || '',
-      responsible: this?.infrastructure?.responsible,
+      responsible: this?.infrastructure?.responsible.user,
+      parent: this?.infrastructure?.parent || '',
       description: this?.infrastructure?.description || '',
     });
+    await this.getOrgInfrastructures();
     await this.getMembers();
   }
 
@@ -61,6 +65,10 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
 
   trackByFn(index: number, item: any): any {
     return item.id || index;
+  }
+
+  private async getOrgInfrastructures() {
+    this.organizationInfrastructures = await lastValueFrom(this._infarstructureService.getOrgInfrastructures().pipe(map((r) => r.body.data)));
   }
 
   private async getMembers() {
