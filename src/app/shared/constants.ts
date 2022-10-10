@@ -60,7 +60,7 @@ export const constants = {
     RESOURCES: 'resources',
     RESOURCE: 'resources/resource/create/*',
     RESOURCES_SETTINGS: 'resource-settings',
-    INFRASTRUCTURE: 'infrastructure',
+    INFRASTRUCTURE: '/resources/Infrastructure/',
     LANDING_PAGE: 'landing-page',
     PROJECT: 'project',
     ERROR_PAGE: '**',

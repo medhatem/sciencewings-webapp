@@ -1,63 +1,64 @@
 <div class="w-full max-w-3xl">
-    <!-- Form -->
-    <form [formGroup]="form">
-      <!-- Section -->
-      <div class="w-full">
-        <div class="text-3xl font-extrabold tracking-tight leading-none">Project details</div>
+  <!-- Form -->
+  <form [formGroup]="form">
+    <!-- Section -->
+    <div class="w-full">
+      <div class="text-3xl font-extrabold tracking-tight leading-none">
+        {{ 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.TITLE_FORM' | transloco }}
       </div>
-      <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
-        <!-- Title -->
-        <div class="sm:col-span-4">
-          <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.NAME' | transloco }}</mat-label>
-            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:user'" matPrefix></mat-icon>
-            <input [formControlName]="'name'" placeholder="{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.NAME' | transloco }}" matInput />
-          </mat-form-field>
-        </div>
-        <!-- Key -->
-        <div class="sm:col-span-4">
-          <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.KEY' | transloco }}</mat-label>
-            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:key'" matPrefix></mat-icon>
-            <input [formControlName]="'key'" placeholder="{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.KEY' | transloco }}" matInput />
-          </mat-form-field>
-        </div>
-  
-        <div class="sm:col-span-4">
-          <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.RESPONSIBLES' | transloco }}</mat-label>
-            <mat-select [formControlName]="'responsible'">
-              <mat-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember?.user">
-                {{ organizationMember?.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-  
-        <!-- Description -->
-        <div class="sm:col-span-4">
-          <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
-            <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.DESCRIPTION' | transloco }}</mat-label>
-            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:menu-alt-2'" matPrefix></mat-icon>
-            <textarea
-              matInput
-              [formControlName]="'description'"
-              placeholder="{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.DESCRIPTION' | transloco }}"
-              cdkTextareaAutosize
-              [cdkAutosizeMinRows]="5"></textarea>
-          </mat-form-field>
-          <div class="mt-1 text-md text-hint"></div>
-        </div>
+    </div>
+    <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+      <!-- Title -->
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.NAME' | transloco }}</mat-label>
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:user'" matPrefix></mat-icon>
+          <input [formControlName]="'name'" placeholder="{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.NAME' | transloco }}" matInput />
+        </mat-form-field>
       </div>
-      <!-- Divider -->
-      <div class="mt-11 mb-10 border-t"></div>
-      <!-- Actions -->
-      <div class="flex items-center justify-end">
-        <button mat-stroked-button type="button">{{ 'ORGANIZATION.PROJECTS.FORM.CANCEL' | transloco }}</button>
-        <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
-          {{ 'ORGANIZATION.PROJECTS.FORM.SAVE' | transloco }}
-        </button>
+      <!-- Key -->
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.KEY' | transloco }}</mat-label>
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:key'" matPrefix></mat-icon>
+          <input [formControlName]="'key'" placeholder="{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.KEY' | transloco }}" matInput />
+        </mat-form-field>
       </div>
-    </form>
-  </div>
-  
+      <!-- Responsible -->
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.RESPONSIBLES' | transloco }}</mat-label>
+          <mat-select [formControlName]="'responsible'">
+            <mat-option *ngFor="let organizationMember of organizationMembers; trackBy: trackByFn" [value]="organizationMember?.user">
+              {{ organizationMember?.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Description -->
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.DESCRIPTION' | transloco }}</mat-label>
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:menu-alt-2'" matPrefix></mat-icon>
+          <textarea
+            matInput
+            [formControlName]="'description'"
+            placeholder="{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.DESCRIPTION' | transloco }}"
+            cdkTextareaAutosize
+            [cdkAutosizeMinRows]="5"></textarea>
+        </mat-form-field>
+        <div class="mt-1 text-md text-hint"></div>
+      </div>
+    </div>
+    <!-- Divider -->
+    <div class="mt-11 mb-10 border-t"></div>
+    <!-- Actions -->
+    <div class="flex items-center justify-end">
+      <button mat-stroked-button type="button">{{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.CANCEL' | transloco }}</button>
+      <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="onSubmit()">
+        {{ 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_FORM.UPDATE' | transloco }}
+      </button>
+    </div>
+  </form>
+</div>
