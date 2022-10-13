@@ -44,18 +44,4 @@ export class InfrastructureResourcesSettingsComponent implements OnInit {
     
     };
   }
-
-  // openAddResourceDialog(): void {
-  //   const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
-  //   const infraId = this.id;
-  //   this.openedDialogRef = this._matDialog.open(AddResourceToInfrastructureComponent, {
-  //     data: { orgID, infraId },
-  //   });
-  //   this.openedDialogRef.afterClosed().subscribe((result) => {
-  //     lastValueFrom(this._infrastructureService.getAndParseOrganizationInfrastructures());
-  //   });
-  // }
-
-
-
 }
