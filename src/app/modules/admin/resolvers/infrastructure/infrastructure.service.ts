@@ -3,10 +3,10 @@ import { BehaviorSubject, Observable, map, tap, lastValueFrom } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateInfrastructureDto, MemberDto, UpdateinfrastructureRo } from 'generated/models';
+import { CreateInfrastructureDto, InfrastructureStatusObjectDto, MemberDto, ResourceDto, UpdateinfrastructureRo } from 'generated/models';
 import moment from 'moment';
 import { constants } from 'app/shared/constants';
-import { Infrastructure, InfrastructureListItem } from 'app/models/infrastructures/infrastructure';
+import { Infrastructure, InfrastructureListItem, ResourcesList } from 'app/models/infrastructures/infrastructure';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,7 @@ export class InfrastructureService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _infrastructures: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _infrastructureResources: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
 
@@ -64,6 +65,29 @@ export class InfrastructureService {
     return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId });
   }
 
+  getInfrastructureResources(infraId?: number): Observable<any> {
+    const id = infraId || Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
+    return this.swaggerAPI.infrastructureRoutesGetAllRessourcesOfAgivenInfrastructure({ id });
+  }
+
+  getAndParseInfrastructureResources(infraId?: number): Observable<any[]> {
+    const id = infraId || Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
+    return this.getInfrastructureResources(id).pipe(
+      map((resources) => resources.body.data.map((resources) => new ResourcesList(resources))),
+      map((resources: ResourcesList[]) =>
+      resources.map(({ name, status, createdAt }) => ({
+          name: `${name}`,
+          status: `${status}`,
+          // status: this.parsInfrastructureStatus(status),
+          createdAt:moment(createdAt).format(constants.DATE_FORMAT_YYYY_MM_DD),
+        })),
+      ),
+      tap((response) => {
+        this._infrastructureResources.next(response);
+      }),
+    );
+  }
+
   getAndParseOrganizationInfrastructures(): Observable<any[]> {
     return this.getOrgInfrastructures().pipe(
       map((infrastructures) => infrastructures.body.data.map((infrastructure) => new InfrastructureListItem(infrastructure))),
@@ -98,5 +122,14 @@ export class InfrastructureService {
 
   parseInfrastructureResponsible(responsible: MemberDto): string {
     return `<div>${responsible?.name}</div><div>${(responsible as any)?.workEmail}</div>`;
+  }
+
+  parseInfrastructureResources(resource: ResourceDto): string{
+    return `<div>${resource.name}</div>`;
+  }
+
+  parsInfrastructureStatus(status: InfrastructureStatusObjectDto){
+    return `<div>${status.statusType}</div>`;
+
   }
 }
