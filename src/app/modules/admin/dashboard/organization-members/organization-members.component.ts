@@ -10,6 +10,8 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { Pagination } from '../../../../models/pagination/IPagination';
+import { PageEvent } from '@angular/material/paginator/paginator';
 
 @Component({
   selector: 'organizationmembers',
@@ -24,6 +26,7 @@ export class OrganizationMemebrsComponent implements OnInit {
   options: ListOption = { columns: [], numnberOfColumns: 5 };
   openedDialogRef: any;
   searchInputControl: FormControl = new FormControl();
+  pagination: Pagination;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -48,24 +51,14 @@ export class OrganizationMemebrsComponent implements OnInit {
       onElementClick: this.onElementSelected.bind(this),
     };
 
-    this._memberService.members$.subscribe((members: Member[]) => {
-      this.members = members;
-      this.membersCount = members.length;
+    this._memberService.members$.subscribe((result) => {
+      this.members = result;
       this._changeDetectorRef.markForCheck();
-      // Subscribe to search input field value changes
-      this.searchInputControl.valueChanges
-        .pipe(
-          takeUntil(this._unsubscribeAll),
-          debounceTime(300),
-          switchMap((query) => {
-            this.isLoading = true;
-            return this._memberService.getMembers(0, 10, 'name', 'asc', query);
-          }),
-          map(() => {
-            this.isLoading = false;
-          }),
-        )
-        .subscribe();
+    });
+
+    this._memberService.pagination$.subscribe((result) => {
+      this.pagination = result;
+      this._changeDetectorRef.markForCheck();
     });
   }
 
@@ -80,6 +73,18 @@ export class OrganizationMemebrsComponent implements OnInit {
     this.openedDialogRef.afterClosed().subscribe((result) => {
       lastValueFrom(this._memberService.getAndParseOrganizationMember());
     });
+  }
+
+  async pageEvent(event: PageEvent) {
+    this.pagination = {
+      ...this.pagination,
+      length: event.length,
+      size: event.pageSize,
+      page: event.pageIndex,
+      lastPage: event.previousPageIndex,
+    };
+    const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    await lastValueFrom(this._memberService.getAndParseOrganizationMember(orgId, this.pagination.page, this.pagination.size));
   }
 
   async onElementSelected(item: Member) {
