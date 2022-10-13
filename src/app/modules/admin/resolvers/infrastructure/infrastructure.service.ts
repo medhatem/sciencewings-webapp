@@ -77,8 +77,7 @@ export class InfrastructureService {
       map((resources: ResourcesList[]) =>
       resources.map(({ name, status, createdAt }) => ({
           name: `${name}`,
-          status: `${status}`,
-          // status: this.parsInfrastructureStatus(status),
+          status: this?.parsInfrastructureStatus(status),
           createdAt:moment(createdAt).format(constants.DATE_FORMAT_YYYY_MM_DD),
         })),
       ),
@@ -129,7 +128,7 @@ export class InfrastructureService {
   }
 
   parsInfrastructureStatus(status: InfrastructureStatusObjectDto){
-    return `<div>${status.statusType}</div>`;
+    return `<div>${status?.statusType}</div>`;
 
   }
 }
