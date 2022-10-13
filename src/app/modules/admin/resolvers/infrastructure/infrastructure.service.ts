@@ -73,7 +73,7 @@ export class InfrastructureService {
   getAndParseInfrastructureResources(infraId?: number): Observable<any[]> {
     const id = infraId || Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
     return this.getInfrastructureResources(id).pipe(
-      map((resources) => resources.body.data.map((resources) => new ResourcesList(resources))),
+      map((resources) => resources.body.data.map((resources: any) => new ResourcesList(resources))),
       map((resources: ResourcesList[]) =>
       resources.map(({ name, status, createdAt }) => ({
           name: `${name}`,
