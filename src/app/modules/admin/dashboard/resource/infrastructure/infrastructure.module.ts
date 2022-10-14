@@ -13,9 +13,10 @@ import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { ListComponentModule } from '../../reusable-components/list/list-component.module';
 import { InfrastructureFormComponent } from './infrastructure-form/infrastructure-form.component';
 import { InfrastructureSettingsModule } from './infrastructure-settings/infrastructure-settings.module';
+import { SubInfrastructureSettingsComponent } from './sub-infrastructure-settings/sub-infrastructure-settings.component';
 
 @NgModule({
-  declarations: [InfrastructureComponent, InfrastructureListComponent, InfrastructureFormComponent],
+  declarations: [InfrastructureComponent, InfrastructureListComponent, InfrastructureFormComponent, SubInfrastructureSettingsComponent],
   imports: [
     RouterModule.forChild(infrastructureRoutes),
     MatDatepickerModule,

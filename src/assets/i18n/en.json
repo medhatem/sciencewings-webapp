@@ -698,7 +698,17 @@
         "TITLE_FORM": "Infrastructure Details",
         "TITLE": "Infrastructure settings",
         "PANEL_GENERAL": "General",
-        "GENERAL_MESSAGE": "Manage the general informations of your infrastructures"
+        "GENERAL_MESSAGE": "Manage the general informations of your infrastructures",
+        "PANEL_SUBINFRASTRUCTURES": "Sub-Infrastructures",
+        "SUBINFRASTRUCTURES_MESSAGE":"Manage the Sub-Infrastructures of your infrastructures",
+        "SUBINFRASTRUCTURES":{
+          "TITLE":"Sub-Infrastructures",
+          "STATUS":"Status",
+          "RESOURCES": "#Resources",
+          "DATE":"Created Date",
+          "MESSAGE":"There are no Sub-Infrastructures"
+        }
+
       },
       "VALIDATORS": {
         "NAME_REQUIRED": "Infrastructue name is required",

@@ -1,4 +1,4 @@
-import { MemberDto, ResponsableObjectDto, InfrastructureRo, InfrastructureDto, UpdateinfrastructureRo, ResourceDto } from 'generated/models';
+import { MemberDto, ResponsableObjectDto, InfrastructureRo, InfrastructureDto, UpdateinfrastructureRo, ResourceDto, SubInfraListLineObjectDto, SubInfraObjectDto } from 'generated/models';
 
 export class Infrastructure implements InfrastructureRo {
   id?: string;
@@ -81,6 +81,23 @@ export class InfrastructureListItem implements InfrastructureDto {
   }
 }
 
+export class SubInfrastructureList implements SubInfraListLineObjectDto {
+  resourcesNb: number;
+  statusCode: number;
+  subInfrastructure: SubInfraObjectDto;
+
+  constructor(infrastructure? : any){
+    const { subInfrastructure, resourcesNb, statusCode} = infrastructure || {};
+
+    Object.assign(this, {
+      subInfrastructure,
+      resourcesNb,
+      statusCode 
+    });
+
+  }
+}
+
 export class ListMember implements MemberDto {
   active: boolean;
   joinDate: string;
@@ -120,7 +137,6 @@ export class UpdateInfrastructure implements UpdateinfrastructureRo {
       key,
       responsible,
       parent,
-
       description,
     });
   }

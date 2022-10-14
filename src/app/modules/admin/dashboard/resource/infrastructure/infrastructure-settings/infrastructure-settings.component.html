@@ -5,5 +5,12 @@
         <app-infrastructure-general-settings [infrastructure]="infrastructure"> </app-infrastructure-general-settings>
       </ng-container>
     </ng-container>
+
+    <ng-container content [ngSwitch]="selectedPanel">
+      <ng-container *ngSwitchCase="'infrastructure-sub-infrastructures'">
+        <app-sub-infrastructure-settings [infrastructure]="infrastructure"> </app-sub-infrastructure-settings>
+      </ng-container>
+    </ng-container>
+
   </app-reusable-settings>
 </ng-container>
