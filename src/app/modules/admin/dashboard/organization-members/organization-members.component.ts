@@ -51,13 +51,13 @@ export class OrganizationMemebrsComponent implements OnInit {
       onElementClick: this.onElementSelected.bind(this),
     };
 
-    this._memberService.members$.subscribe((result) => {
-      this.members = result;
+    this._memberService.members$.subscribe((members) => {
+      this.members = members;
       this._changeDetectorRef.markForCheck();
     });
 
-    this._memberService.pagination$.subscribe((result) => {
-      this.pagination = result;
+    this._memberService.pagination$.subscribe((pagination) => {
+      this.pagination = pagination;
       this._changeDetectorRef.markForCheck();
     });
   }
