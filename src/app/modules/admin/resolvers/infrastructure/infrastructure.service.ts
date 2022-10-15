@@ -74,8 +74,10 @@ export class InfrastructureService {
     const id = infraId || Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
     return this.getInfrastructureSubInfrastructures(id).pipe(
       map((subInfrastructure) => subInfrastructure.body.data.map((subInfrastructure) => new SubInfrastructureList(subInfrastructure))),
-      map((subInfrastructure) => subInfrastructure.map(({ name,resourcesNb, status, createdAt }) => ({
-          name: this?.getAndParseInfrastructureSubInfrastructures(name),
+      map((subInfrastructure) => subInfrastructure.map(({ name,resourcesNb, createdAt }) => ({
+          
+        name: this?.parseInfrastructureSubInfrastructure(name),
+          // name: this?.parseInfrastructureSubInfrastructure(name),
           // resourcesNb: `${subInfrastructure?.resourcesNb}`,
           resourcesNb: `${resourcesNb}`,
           createdAt:moment(createdAt).format(constants.DATE_FORMAT_YYYY_MM_DD),

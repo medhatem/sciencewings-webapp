@@ -16,7 +16,7 @@ import { InfrastructureSettingsModule } from './infrastructure-settings/infrastr
 import { SubInfrastructureSettingsComponent } from './sub-infrastructure-settings/sub-infrastructure-settings.component';
 
 @NgModule({
-  declarations: [InfrastructureComponent, InfrastructureListComponent, InfrastructureFormComponent, SubInfrastructureSettingsComponent],
+  declarations: [InfrastructureComponent, InfrastructureListComponent, InfrastructureFormComponent],
   imports: [
     RouterModule.forChild(infrastructureRoutes),
     MatDatepickerModule,

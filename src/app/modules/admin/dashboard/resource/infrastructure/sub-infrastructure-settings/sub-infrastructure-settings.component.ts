@@ -31,8 +31,8 @@ export class SubInfrastructureSettingsComponent implements OnInit {
     this.options = {
       columns: [
         { columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.TITLE', columnPropertyToUse: 'name', customClass: '' },
-        { columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.STATUS', columnPropertyToUse: 'resourcesNb', customClass: 'hidden' },
-        { columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.DATE', columnPropertyToUse: 'createdAt', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.RESOURCES', columnPropertyToUse: 'resourcesNb', customClass: '' },
+        { columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.DATE', columnPropertyToUse: 'createdAt', customClass: '' },
       ],
       numnberOfColumns: 3,
   }
