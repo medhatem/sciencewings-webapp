@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, map, tap, lastValueFrom } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateInfrastructureDto, InfrastructureDto, MemberDto, UpdateinfrastructureRo } from 'generated/models';
+import { CreateInfrastructureDto, InfrastructureDto, MemberDto, SubInfraObjectDto, UpdateinfrastructureRo } from 'generated/models';
 import moment from 'moment';
 import { constants } from 'app/shared/constants';
 import { Infrastructure, InfrastructureListItem, SubInfrastructureList} from 'app/models/infrastructures/infrastructure';
@@ -15,7 +15,7 @@ export class InfrastructureService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _infrastructures: BehaviorSubject<any | null> = new BehaviorSubject(null);
-  private _infrastructureSubINfrastructures: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _infrastructureSubInfrastructures: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
 
@@ -82,7 +82,7 @@ export class InfrastructureService {
         })),
       ),
       tap((response) => {
-        this._infrastructureSubINfrastructures.next(response);
+        this._infrastructureSubInfrastructures.next(response);
       }),
     );
   }
@@ -124,7 +124,7 @@ export class InfrastructureService {
     return `<div>${responsible?.name}</div><div>${(responsible as any)?.workEmail}</div>`;
   }
 
-  parseInfrastructureSubInfrastructure(subInfrastructure: InfrastructureDto): string{
+  parseInfrastructureSubInfrastructure(subInfrastructure: SubInfraObjectDto): string{
     return `<div>${subInfrastructure?.name}</div>`;
   }
 }
