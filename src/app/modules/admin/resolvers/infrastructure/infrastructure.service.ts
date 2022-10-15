@@ -74,7 +74,8 @@ export class InfrastructureService {
     const id = infraId || Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
     return this.getInfrastructureResources(id).pipe(
       map((resources) => resources.body.data.map((resources) => new ResourcesList(resources))),
-      map((resources) => resources.map(({ name, status, createdAt }) => ({
+      map((resources: ResourcesList[]) => 
+      resources.map(({ name, status, createdAt }) => ({
           name: `${name}`,
           status: this?.parsInfrastructureStatus(status),
           createdAt:moment(createdAt).format(constants.DATE_FORMAT_YYYY_MM_DD),
@@ -89,7 +90,6 @@ export class InfrastructureService {
   getAndParseOrganizationInfrastructures(): Observable<any[]> {
     return this.getOrgInfrastructures().pipe(
       map((infrastructures) => infrastructures.body.data.map((infrastructure) => new InfrastructureListItem(infrastructure))),
-
       map((infrastructures: InfrastructureListItem[]) =>
         infrastructures.map(({ name, key, id, responsible, resourcesNb, dateStart }) => ({
           name: `${name}`,
