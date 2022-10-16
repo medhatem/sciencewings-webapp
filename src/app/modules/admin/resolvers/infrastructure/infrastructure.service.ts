@@ -73,10 +73,10 @@ export class InfrastructureService {
   getAndParseInfrastructureSubInfrastructures(infraId?: number): Observable<any[]> {
     const id = infraId || Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
     return this.getInfrastructureSubInfrastructures(id).pipe(
-      map((subInfrastructure) => subInfrastructure.body.data.map((subInfrastructure) => new SubInfrastructureList(subInfrastructure))),
-      map((subInfrastructure) => subInfrastructure.map(({ name,resourcesNb, createdAt }) => ({
+      map((subInfrastructures) => subInfrastructures.body.data.map((subInfras) => new SubInfrastructureList(subInfras))),
+      map((subInfrastructures) => subInfrastructures.map(({ subInfrastructure,resourcesNb, createdAt }) => ({
           
-        name: this?.parseInfrastructureSubInfrastructure(name),
+        subInfrastructure: this?.parseInfrastructureSubInfrastructure(subInfrastructure),
           // name: this?.parseInfrastructureSubInfrastructure(name),
           // resourcesNb: `${subInfrastructure?.resourcesNb}`,
           resourcesNb: `${resourcesNb}`,

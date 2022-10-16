@@ -30,7 +30,7 @@ export class SubInfrastructureSettingsComponent implements OnInit {
     });
     this.options = {
       columns: [
-        { columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.TITLE', columnPropertyToUse: 'name', customClass: '' },
+        { columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.TITLE', columnPropertyToUse: 'subInfrastructure', customClass: '' },
         { columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.RESOURCES', columnPropertyToUse: 'resourcesNb', customClass: '' },
         { columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.DATE', columnPropertyToUse: 'createdAt', customClass: '' },
       ],
