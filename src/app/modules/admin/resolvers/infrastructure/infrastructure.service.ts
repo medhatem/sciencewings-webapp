@@ -77,8 +77,6 @@ export class InfrastructureService {
       map((subInfrastructures) => subInfrastructures.map(({ subInfrastructure,resourcesNb, createdAt }) => ({
           
         subInfrastructure: this?.parseInfrastructureSubInfrastructure(subInfrastructure),
-          // name: this?.parseInfrastructureSubInfrastructure(name),
-          // resourcesNb: `${subInfrastructure?.resourcesNb}`,
           resourcesNb: `${resourcesNb}`,
           createdAt:moment(createdAt).format(constants.DATE_FORMAT_YYYY_MM_DD),
         })),
