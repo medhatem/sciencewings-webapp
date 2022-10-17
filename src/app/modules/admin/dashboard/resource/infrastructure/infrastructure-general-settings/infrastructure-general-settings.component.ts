@@ -1,14 +1,15 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { InfrastructureService } from 'app/modules/admin/resolvers/infrastructure/infrastructure.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
-import { UpdateInfrastructure } from 'app/models/infrastructures/infrastructure';
+import { Infrastructure, UpdateInfrastructure } from 'app/models/infrastructures/infrastructure';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { OrganizationMembers } from 'app/models/members/member';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-infrastructure-general-settings',
@@ -16,9 +17,13 @@ import { OrganizationMembers } from 'app/models/members/member';
 })
 export class InfrastructureGeneralSettingsComponent implements OnInit {
   @Input() infrastructure: any;
+  @Input() id: any;
+
   form: FormGroup;
   userOrganizations: UserOrganizations[] = [];
   organizationMembers: OrganizationMembers[];
+  organizationInfrastructures: Infrastructure[] = [];
+  infraId: number;
 
   constructor(
     private _infarstructureService: InfrastructureService,
@@ -26,18 +31,18 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
     private _toastrService: ToastrService,
     private _router: Router,
     private _memberService: MemberService,
-    private _cdf: ChangeDetectorRef,
   ) {}
 
   async ngOnInit() {
+    this.infraId = Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
     this.form = this._formBuilder.group({
       name: this?.infrastructure?.name || '',
       key: this?.infrastructure?.key || '',
-      responsible: this?.infrastructure?.responsible?.user || '',
-      contact: this?.infrastructure?.contact || '',
-      parent: this?.infrastructure?.parent,
+      responsible: this?.infrastructure?.responsible.user,
+      parent: this?.infrastructure?.parent || '',
       description: this?.infrastructure?.description || '',
     });
+    await this.getOrgInfrastructures();
     await this.getMembers();
   }
 
@@ -46,12 +51,13 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
       this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
       return;
     }
+    const infraId = localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID);
     const infrastructure = this.getInfrastructureFromFormBuilder();
     try {
-      await lastValueFrom(this._infarstructureService.updateInfrastructure(this.infrastructure.id, infrastructure));
+      await lastValueFrom(this._infarstructureService.updateInfrastructure(this.infrastructure.id, infrastructure as any));
       await lastValueFrom(this._infarstructureService.getAndParseOrganizationInfrastructures());
       this._toastrService.showSuccess(constants.UPDATE_INFRASTRUCTURE_COMPLETED);
-      this._router.navigate(['/', constants.MODULES_ROUTINGS_URLS.INFRASTRUCTURE]);
+      this._router.navigate([constants.MODULES_ROUTINGS_URLS.INFRASTRUCTURE]);
     } catch (error) {
       this._toastrService.showError(constants.UPDATE_INFRASTRUCTURE_FAILED);
     }
@@ -59,6 +65,10 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
 
   trackByFn(index: number, item: any): any {
     return item.id || index;
+  }
+
+  private async getOrgInfrastructures() {
+    this.organizationInfrastructures = await lastValueFrom(this._infarstructureService.getOrgInfrastructures().pipe(map((r) => r.body.data)));
   }
 
   private async getMembers() {
@@ -72,6 +82,8 @@ export class InfrastructureGeneralSettingsComponent implements OnInit {
   }
 
   private getInfrastructureFromFormBuilder(): UpdateInfrastructure {
-    return new UpdateInfrastructure({ ...this.form.value });
+    return new UpdateInfrastructure({
+      ...this.form.value,
+    });
   }
 }

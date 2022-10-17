@@ -1,6 +1,4 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { Organization } from 'app/models/organizations/organization';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { constants } from 'app/shared/constants';
 import { interval, map, retryWhen, Subject, takeUntil, tap } from 'rxjs';
@@ -17,14 +15,13 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   organizations: UserOrganizations[] = [];
   isLoading: boolean = false;
-  selectOrganizationEvent = new EventEmitter();
+  organizationsLoadSucceeded = false;
+  public selectOrganizationEvent = new EventEmitter();
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
   private _userSelected: Subject<boolean> = new Subject<boolean>();
-  private _router: Router;
-  private _changeDetectorRef: ChangeDetectorRef;
 
-  constructor(private _adminOrganizationsService: AdminOrganizationsService) {}
+  constructor(private _adminOrganizationsService: AdminOrganizationsService, private _changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit() {
     //TODO : the same behavior is in SwitchOrganizationComponent
@@ -36,15 +33,19 @@ export class LandingPageComponent implements OnInit, OnDestroy {
      */
     interval(1000)
       .pipe(
-        map(() => {
+        map(async () => {
           const userId = localStorage.getItem(constants.CURRENT_USER_ID);
           if (!Number(userId)) {
             return;
           }
-          this._userSelected.next(true);
-          this._userSelected.complete();
-          this.fetchUserOrganizations();
-          return userId;
+          this.fetchUserOrganizations(Number(userId));
+          setTimeout(() => {}, 1000);
+          if (this.organizationsLoadSucceeded) {
+            this._userSelected.next(true);
+            this._userSelected.complete();
+            return Number(userId);
+          }
+          return;
         }),
         retryWhen((error) => error.pipe(tap())),
         takeUntil(this._userSelected),
@@ -78,15 +79,20 @@ export class LandingPageComponent implements OnInit, OnDestroy {
    *
    * @returns void
    */
-  private fetchUserOrganizations() {
-    const userId = localStorage.getItem(constants.CURRENT_USER_ID);
+  private fetchUserOrganizations(userId: number) {
     this._adminOrganizationsService
-      .getAllUserOrganizations(Number(userId))
+      .getAllUserOrganizations(userId)
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe({
-        next: (organizations) => (this.organizations = organizations),
+        next: (organizations) => {
+          this.organizations = organizations;
+          this.organizationsLoadSucceeded = true;
+          this._changeDetectorRef.markForCheck();
+        },
         error: (error) => {
           this.organizations = [];
+          this.organizationsLoadSucceeded = false;
+          this._changeDetectorRef.markForCheck();
         },
       });
   }

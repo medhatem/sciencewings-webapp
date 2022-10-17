@@ -329,42 +329,7 @@
       },
       "TITLE": "Groupes"
     },
-    "INFRASTRUCTURES": {
-      "CREATE_INFRASTRUCTURE": "Créer une infrastructure",
-      "CREATE_INFRASTRUCTURE_MOBILE": "Créer",
-      "EXPORT_INFRASTRUCTURE": "Exporter ",
-      "FILTER_INFRASTRUCTURE": "Filter ",
-      "IMPORT_INFRASTRUCTURE": "Importer ",
-      "INFRASTRUCTURE_FORM": {
-        "CANCEL": "Annuler",
-        "DESCRIPTION": "Description",
-        "HOLDER_NAME": "Nom de l'infrastructure",
-        "KEY": "Clé",
-        "NAME": "Nom",
-        "RESPONSIBLES": "Responsable",
-        "SAVE": "Sauvegarder",
-        "TITLE": "Créer une infrastructure "
-      },
-      "INFRASTRUCTURE_LIST": {
-        "DATE": "Date de création",
-        "KEY": "Clé",
-        "RESOURCES_NB": "#Ressources",
-        "RESPONSIBLE": "Responsable",
-        "TITLE": "Infrastructures"
-      },
-      "MESSAGE": "Gérez les accès pour toutes vos infrastructures dans",
-      "NO_INFRASTRUCTURE": "Aucune infrastructure",
-      "SEARCH_INFRASTRUCTURE": "Rechercher une infrastructure",
-      "SUCCESS": {
-        "CREATE_COMPLETED": "L'infrastructure a été créée avec succès "
-      },
-      "TITLE": "Infrastructures",
-      "VALIDATORS": {
-        "KEY_REQUIRED": "La clé de l'infrastructure est requise",
-        "NAME_REQUIRED": "Le nom de l'infrastructure est requis",
-        "RESPONSIBLE_REQUIRED": "Le Responsable de l'infrastructure est requis"
-      }
-    },
+
     "LANDING_PAGE": {
       "CREATE_ORGANIZATION": "Créer une organisation",
       "ERROR_LOADING_ORGANIZATIONS": "Une erreur s'est produite lors du chargement des organisations",
@@ -607,6 +572,7 @@
         "UserHideCalenderForMemberOnly": "Masquer le calendrier pour les membres uniquement"
       },
       "RESOUCES": {
+        "TITLE": "Resources",
         "ACCESS_TO_RESOURCE": "Accès à la ressource",
         "ACCOUNT": "Compte",
         "ALLOW_RESERVING_LOANS_AT_FUTURE_DATES": "Autoriser la réservation de prêts à des dates futures",
@@ -618,6 +584,8 @@
         "CANCEL": "Annuler",
         "CATEGORY": "Catégorie",
         "CLASS": "Classe",
+        "TYPE": "Type",
+        "STATUS": "Statut",
         "CLASS_REQUIRED": "La classe de ressources est requise",
         "CREATE_RESOURCE": "Créer une ressource",
         "CREATE_RESOURCE_MOBILE": "Ajouter",
@@ -638,9 +606,12 @@
         "MESSAGE": "Gérez les accès pour toutes vos ressources dans",
         "NAME": "Nom",
         "NAME_REQUIRED": "Le nom de la ressource est requis",
+        "TYPE_REQUIRED": "Le type de la ressource est requis",
         "OVERDUE_NOTICE_DELAY": "Délai de notification de retard",
         "PANAL_MESSAGE": "Gérez les informations générales de vos ressources",
         "PERSON": "Personne",
+        "SERVICE": "Service",
+        "SOFTWARE": "Logiciel",
         "PROMOTE_ON_SITE_PAGE_AS_A_LARGE_BUTTON_ABOVE_OTHER_RESOURCES": "Promouvoir la page du site comme un gros bouton au-dessus des autres ressources",
         "PROPERTIES": "Propriétés",
         "PROPERTIES_MESSAGE": "Gérer les Propriétés de vos ressources",
@@ -648,6 +619,7 @@
         "RECURRING_RESERVATIONS": "Réservations récurrentes",
         "REQUESTABLE": "Demandable",
         "RESERVABLE": "Réservable",
+        "SAVE": "Enregistrer",
         "RESERVATION": {
           "CREATE_BTN": "Créer",
           "CREATE_RESERVATION": "creer un evenement",
@@ -693,6 +665,166 @@
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
     },
+
+    "INFRASTRUCTURES": {
+      "TITLE": "Infrastructures",
+      "MESSAGE": "Gérez les accès pour toutes vos infrastructures dans",
+      "CREATE_INFRASTRUCTURE": "Créer une infrastructure",
+      "CREATE_INFRASTRUCTURE_MOBILE": "Créer",
+      "SEARCH_INFRASTRUCTURE": "Rechercher une infrastructure",
+      "FILTER_INFRASTRUCTURE": "Filter ",
+      "IMPORT_INFRASTRUCTURE": "Importer ",
+      "EXPORT_INFRASTRUCTURE": "Exporter ",
+      "NO_INFRASTRUCTURE": "Aucune infrastructure",
+      "INFRASTRUCTURE_FORM": {
+        "TITLE": "Créer une infrastructure ",
+        "NAME": "Nom",
+        "HOLDER_NAME": "Nom de l'infrastructure",
+        "DESCRIPTION": "Description",
+        "RESPONSIBLES": "Responsable",
+        "PARENT": "Infrastructure parente",
+        "KEY": "Clé",
+        "SAVE": "Sauvegarder",
+        "CANCEL": "Annuler",
+        "UPDATE": "Modifier"
+      },
+      "INFRASTRUCTURE_LIST": {
+        "TITLE": "Infrastructures",
+        "KEY": "Clé",
+        "DATE": "Date de création",
+        "RESPONSIBLE": "Responsable",
+        "RESOURCES_NB": "#Ressources"
+      },
+      "SETTINGS": {
+        "TITLE_FORM": "Détails d'infrastructure",
+        "TITLE": "Paramètres d'infrastructure",
+        "PANEL_GENERAL": "Général",
+        "GENERAL_MESSAGE": "Gérez les informations générales de vos infrastructures"
+      },
+      "VALIDATORS": {
+        "NAME_REQUIRED": "Le nom de l'infrastructure est requis",
+        "KEY_REQUIRED": "La clé de l'infrastructure est requise",
+        "RESPONSIBLE_REQUIRED": "Le Responsable de l'infrastructure est requis"
+      },
+      "SUCCESS": {
+        "CREATE_COMPLETED": "L'infrastructure a été créée avec succès ",
+        "UPDATE_COMPLETED": "L'infrastructure a été mise à jour avec succès"
+      },
+      "ERROR": {
+        "UPDATE_FAILED": "La mise à jour de l'infrastructure a échoué"
+      }
+    },
+
+    "PROJECTS": {
+      "CREATE_PROJECTS": "Créer un projet",
+      "EXPORT_PROJECTS": "Exporter",
+      "FILTER_PROJECTS": "Filtre",
+      "FORM": {
+        "LABEL_NAME": "Titre",
+        "CANCEL": "Annuler",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION": "À propos (description)",
+        "PROJECT_MEMBERS": "Membres du projet",
+        "PROJECT_NAME": "Nom du Projet",
+        "PROJECT_SETTINGS": "Paramètres du projet",
+        "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
+        "SAVE": "Sauvegarder",
+        "KEY": "Clé",
+        "TITLE": "Créer un nouveau projet",
+        "LOCATION": "Localisation",
+        "MANAGERS": "Manager(s)",
+        "PARTICIPANTS": "Participent(s)",
+        "ENTER_DATE": "Saisissez une plage de dates",
+        "DATE_HINT": "AAAA/MM/JJ",
+        "DATE_HINT_DOUBLE": "AAAA/MM/JJ - AAAA/MM/JJ",
+        "STARTDATE": "Date de debut",
+        "ENDDATE": "Date de fin",
+        "STATUS": "Status",
+        "CREATE_COMPLETED": "La création du projet a réussi"
+      },
+      "IMPORT_PROJECTS": "Importer",
+      "LIST": {
+        "PROJECT_DATE": "Date",
+        "PROJECT_MEMBERS": "Membres",
+        "PROJECT_NAME": "Projet",
+        "PROJECT_STATUS": "Status",
+        "MESSAGE": "Aucun projet",
+        "MESSAGE_MEMBER_LIST": "Aucun membres",
+        "TITLE": "Titre",
+        "MANAGER": "Manager",
+        "MEMBERS": "# Membres",
+        "CREATIONDATE": "Date de création",
+        "ROLE": "Role"
+      },
+      "SETTINGS": {
+        "PROJECT_SETTINGS": "Paramètres",
+        "PROJECT_GENERALE": "General informations",
+        "PARTICIPANTS": "Paramètres des membres de projet",
+        "JOINED_DATE": "Date d'adhésion",
+        "UPDATE_SUCCESS": "Projet mis à jour avec succès",
+        "MESSAGE_Participant": "Gérer les accès pour tous les membres de cette projet.",
+        "MESSAGE_GROUPS": "Gérer l'accès pour tous les participants à ce projet.",
+        "GROUPS": "Paramètres des groupes de projet",
+        "PROJECT_DESC": "Une description pour votre projet.",
+        "GENERAL_PANEL": "Générale",
+        "GENERAL_DESC": "Gérez votre projet public et vos informations privées",
+        "Membership_PANEL": "Adhésion",
+        "Membership_DESC": "Gérer les adhésions",
+        "GROUPS_PANEL": "Groupes",
+        "GROUPS_DESC": "Gérez vos groupes",
+        "ADD_MEMBER": "Ajouter un membre",
+        "MEMBER": "Membre"
+      },
+      "SEARCH_GROUPS": "Chercher un projet",
+      "TITLE": "Projets",
+      "ERROR": {
+        "CREATE_FAILED": "La création de projet a échoué",
+        "UPDATE_FAILED": "La modification de projet a échoué"
+      },
+      "SUCCESS": {
+        "CREATE_COMPLETED": "La projet a été créer avec succées ",
+        "UPDATE_COMPLETED": "La projet a été créer avec succées "
+      }
+    },
+    "CONTRACTS": {
+      "CREATE_CONTRACTS": "Nouveau contrat",
+      "EXPORT_CONTRACTS": "Exporter",
+      "FILTER_CONTRACTS": "Filtre",
+      "FORM": {
+        "LABEL_NAME": "Nom de travaille",
+        "CONTRACT_TYPE": "Type de contract",
+        "JOB_LEVEL": "Niveau d'expérience",
+        "CHOOSE_SUPERVISOR": "choisi un superviseur",
+        "SUPERVISOR": "Superviseur",
+        "WAGE": "Salaire",
+        "CANCEL": "Annuler",
+        "DESCRIPTION_LABEL": "Description",
+        "DESCRIPTION": "À propos (description)",
+        "PROJECT_MEMBERS": "Membres du projet",
+        "JOB_NAME": "Nom du poste",
+        "MESSAGE": "Les membres ajoutés à ce Projet recevront les mêmes services et autorisations",
+        "SAVE": "Sauvegarder",
+        "TITLE": "Créer un nouveau projet",
+        "LOCATION": "Localisation",
+        "MANAGERS": "Gérant(s)",
+        "PARTICIPANTS": "Participent(s)",
+        "ENTER_DATE": "Saisissez une plage de dates",
+        "DATE_HINT": "MM/JJ/AAAA – MM/JJ/AAAA",
+        "STARTDATE": "La date de debut",
+        "ENDDATE": "La date de fin",
+        "ACTIVE": "Active",
+        "CREATE_COMPLETED": "La création du contrat a réussi"
+      },
+      "LIST": {
+        "MESSAGE": "Aucun contract"
+      },
+      "SEARCH_GROUPS": "Chercher un projet",
+      "TITLE": "Contracts",
+      "ERROR": {
+        "CREATE_FAILED": "La création de contrat a échoué"
+      }
+    },
+
     "SWITCH_ORGANIZATIONS_LOAD_FAILED": "Vous n'avez pas d'organisation",
     "WELCOME_BACK": "Bonjour"
   },

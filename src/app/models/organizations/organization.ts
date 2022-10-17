@@ -57,7 +57,7 @@ export class Organization implements CreateOrganizationRo {
   description: string;
   department?: string;
   sector?: string;
-  addresses: Address[];
+  address: Address[];
   adminContact: number;
   owner: number;
   email: string;
@@ -94,7 +94,7 @@ export class Organization implements CreateOrganizationRo {
       socialTwitter,
       socialYoutube,
       name = '',
-      addresses = new Array<Address>(),
+      address = new Array<Address>(),
       type = OrganizationType.public,
       email = '',
       phone,
@@ -108,7 +108,7 @@ export class Organization implements CreateOrganizationRo {
       description,
       department,
       sector,
-      addresses,
+      address,
       adminContact,
       owner,
       email,
@@ -149,6 +149,7 @@ export class UpdateOrganization implements UpdateOrganizationRo {
   socialTwitter?: string;
   socialYoutube?: string;
   type?: string;
+
   constructor(organization: any) {
     const {
       description,
@@ -165,6 +166,7 @@ export class UpdateOrganization implements UpdateOrganizationRo {
       socialYoutube,
       type,
     } = organization || {};
+
     Object.assign(this, {
       description,
       owner,
@@ -221,6 +223,7 @@ export class UpdateOrganizationReservationSettingsRo implements OrganizationRese
       requireReasonWhenEditingReservation,
       showResourceImagesInReservation,
     } = settings || {};
+
     Object.assign(this, {
       approversCanEditReservations,
       attachedIcsCalendarFeeds,
@@ -251,6 +254,7 @@ export class UpdateOrganizationAccessSettingsRo implements OrganizationAccessSet
       notifyAdministratorsWhenMembersJoinOrganization,
       yourOrganizationWillNeverAppearInSearchResults,
     } = settings || {};
+
     Object.assign(this, {
       anyMemberCanJoinYourOrganizationAndAccessResourceSchedules,
       joinCode,

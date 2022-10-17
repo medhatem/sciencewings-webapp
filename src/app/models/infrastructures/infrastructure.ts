@@ -81,9 +81,31 @@ export class InfrastructureListItem implements InfrastructureDto {
   }
 }
 
+export class ListMember implements MemberDto {
+  active: boolean;
+  joinDate: string;
+  name: string;
+  organization?: number;
+  status: string;
+  statusCode: number;
+  user?: number;
+  workEmail: string;
+
+  constructor(infrastructure?: any) {
+    const { user, name, active, statusCode } = infrastructure || {};
+
+    Object.assign(this, {
+      name,
+      user,
+      active,
+      statusCode,
+    });
+  }
+}
+
 export class UpdateInfrastructure implements UpdateinfrastructureRo {
   name?: string;
-  key?: number;
+  key?: any;
   responsible?: number;
   parent?: number;
   resources?: Array<number>;
@@ -98,6 +120,7 @@ export class UpdateInfrastructure implements UpdateinfrastructureRo {
       key,
       responsible,
       parent,
+
       description,
     });
   }

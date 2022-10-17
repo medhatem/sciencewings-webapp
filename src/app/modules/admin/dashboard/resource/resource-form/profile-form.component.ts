@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Resource } from 'app/models/resources/resource';
 import { Infrastructure } from 'app/models/infrastructures/infrastructure';
 import { ActivatedRoute } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, map } from 'rxjs';
 import { InfrastructureService } from 'app/modules/admin/resolvers/infrastructure/infrastructure.service';
 
 @Component({
@@ -20,6 +20,8 @@ export class ResourceProfileFormComponent implements OnInit {
   @Input() resource: any;
   resourceForm: FormGroup;
   submitted = false;
+  organizationInfrastructures: Infrastructure[] = [];
+  infrastructures: number;
 
   constructor(
     public matDialogRef: MatDialogRef<ResourceProfileFormComponent>,
@@ -30,15 +32,16 @@ export class ResourceProfileFormComponent implements OnInit {
     private _route: ActivatedRoute,
   ) {}
 
-  ngOnInit() {
-    const formGroupObj = {
+  async ngOnInit() {
+    this.resourceForm = this._formBuilder.group({
       name: this._formBuilder.control('', [Validators.required]),
       resourceClass: this._formBuilder.control('', [Validators.required]),
       resourceType: this._formBuilder.control('', [Validators.required]),
+      infrastructures: ['', [Validators.required]],
       description: [' '],
-    };
-
-    this.resourceForm = this._formBuilder.group(formGroupObj);
+    });
+    await this.getOrgInfrastructures();
+    this.infrastructures = Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
   }
 
   getvalidationControls() {
@@ -61,9 +64,20 @@ export class ResourceProfileFormComponent implements OnInit {
       this._toastrService.showError(res.error.error);
     }
   }
+  trackByFn(index: number, item: any): any {
+    return item.id || index;
+  }
+
+  private async getOrgInfrastructures() {
+    this.organizationInfrastructures = await lastValueFrom(this._infrastructureService.getOrgInfrastructures().pipe(map((r) => r.body.data)));
+  }
 
   private getResourceFromFormBuilder(): Resource {
-    return new Resource({ ...this.resourceForm.value, organization: this.getOrganizationIdFromLocalStorage() });
+    return new Resource({
+      ...this.resourceForm.value,
+      organization: this.getOrganizationIdFromLocalStorage(),
+      infrastructure: this.infrastructures,
+    });
   }
   private getOrganizationIdFromLocalStorage(): number {
     return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));

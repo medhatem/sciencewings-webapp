@@ -7,6 +7,7 @@ import { MemberService } from 'app/modules/admin/resolvers/members/member.servic
 import { constants } from 'app/shared/constants';
 import { InfrastructureService } from 'app/modules/admin/resolvers/infrastructure/infrastructure.service';
 import { Infrastructure } from 'app/models/infrastructures/infrastructure';
+import { lastValueFrom, map } from 'rxjs';
 
 @Component({
   selector: 'app-infrastructure-form',
@@ -20,7 +21,9 @@ export class InfrastructureFormComponent implements OnInit {
   infrastructureForm: FormGroup;
   submitted = false;
   organizationMembers: OrganizationMembers[];
+  organizationInfrastructures: Infrastructure[] = [];
   responsible: any;
+  parent: number;
 
   constructor(
     public matDialogRef: MatDialogRef<InfrastructureFormComponent>,
@@ -34,14 +37,17 @@ export class InfrastructureFormComponent implements OnInit {
     return this.infrastructureForm.controls;
   }
 
-  ngOnInit() {
-    this.getMembers();
+  async ngOnInit() {
     this.infrastructureForm = this._formBuilder.group({
       name: ['', [Validators.required]],
       key: ['', [Validators.required]],
       responsible: ['', [Validators.required]],
+      parent: [],
       description: [''],
     });
+    await this.getMembers();
+    await this.getOrgInfrastructures();
+    this.parent = Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
   }
 
   async onSubmit() {
@@ -63,6 +69,10 @@ export class InfrastructureFormComponent implements OnInit {
     return item.id || index;
   }
 
+  private async getOrgInfrastructures() {
+    this.organizationInfrastructures = await lastValueFrom(this._infrastructureService.getOrgInfrastructures().pipe(map((r) => r.body.data)));
+  }
+
   private getMembers() {
     const idOrg = this.getOrganizationIdFromLocalStorage();
     return this._memberService
@@ -74,7 +84,11 @@ export class InfrastructureFormComponent implements OnInit {
   }
 
   private getInfrastructureFromFormBuilder(): Infrastructure {
-    return new Infrastructure({ ...this.infrastructureForm.value, organization: this.getOrganizationIdFromLocalStorage() });
+    return new Infrastructure({
+      ...this.infrastructureForm.value,
+      organization: this.getOrganizationIdFromLocalStorage(),
+      parent: this.parent,
+    });
   }
 
   private getOrganizationIdFromLocalStorage(): number {
