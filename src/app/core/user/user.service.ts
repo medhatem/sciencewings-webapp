@@ -1,10 +1,11 @@
-import { Observable, ReplaySubject, map } from 'rxjs';
+import { Observable, ReplaySubject, map, lastValueFrom } from 'rxjs';
 
 import { ApiService } from 'generated/services/api.service';
 import { BaseRequestDto } from 'generated/models/base-request-dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from 'app/core/user/user.types';
+import { ChangeUserLanguageDto } from 'generated/models/change-user-language-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ import { User } from 'app/core/user/user.types';
 export class UserService {
   private _user: ReplaySubject<User> = new ReplaySubject<User>(1);
 
-  constructor(private _httpClient: HttpClient, private _apiService: ApiService) {}
+  constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
 
   /**
    * Setter & getter for user
@@ -31,11 +32,17 @@ export class UserService {
    * Get the current logged in user by id
    */
   get(id: number): Observable<BaseRequestDto> {
-    return this._apiService.userRoutesGetById({ id });
+    return this.swaggerAPI.userRoutesGetById({ id });
+  }
+
+
+
+  async updateUserLanguage(language: string): Promise<ChangeUserLanguageDto> {
+    return lastValueFrom(this.swaggerAPI.userRoutesChangeUserLanguage({ language }));
   }
 
   delete(id: number) {
-    return this._apiService.reservationRoutesRemove({ id });
+    return this.swaggerAPI.reservationRoutesRemove({ id });
   }
 
   /**
