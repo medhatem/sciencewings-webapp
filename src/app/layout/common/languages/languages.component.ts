@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { AvailableLangs, TranslocoService } from '@ngneat/transloco';
-import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import moment from 'moment-timezone';
+import { UserService } from 'app/core/user/user.service';
 
 @Component({
   selector: 'languages',
@@ -15,7 +15,7 @@ export class LanguagesComponent implements OnInit, OnDestroy {
   activeLang: string;
   flagCodes: any;
 
-  constructor(private _translocoService: TranslocoService) {}
+  constructor(private _translocoService: TranslocoService, private _userService: UserService) {}
 
   ngOnDestroy(): void {}
 
@@ -28,7 +28,6 @@ export class LanguagesComponent implements OnInit, OnDestroy {
       this.activeLang = activeLang;
       moment.defineLocale(activeLang, { lang: activeLang });
     });
-
     // Set the country iso codes for languages for flags
     this.flagCodes = {
       en: 'us',
@@ -44,6 +43,8 @@ export class LanguagesComponent implements OnInit, OnDestroy {
   setActiveLang(lang: string): void {
     // Set the active lang
     this._translocoService.setActiveLang(lang);
+    // Authenticate the user language to api
+    this._userService.updateUserLanguage(lang);
   }
 
   /**
