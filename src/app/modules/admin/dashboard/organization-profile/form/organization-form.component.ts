@@ -1,18 +1,16 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address, Phone } from 'app/models';
-import { ChangeDetectorRef, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Organization } from 'app/models/organizations/organization';
 import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
 import { OrganizationType, OrganizationTypeTrasnlation } from 'app/models/organizations/organization-type.enum';
-
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { lastValueFrom, Subject } from 'rxjs';
-import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
 import { countries } from 'app/mock-api/apps/contacts/data';
 
 @Component({
@@ -98,6 +96,10 @@ export class OrganizationFormComponent implements OnInit {
   getCountryByIso(value: string): any {
     // keep only canada for the moment
     return this.countries.length > 0 ? this.countries[0] : { code: '', name: '', flagImagePos: '' };
+  }
+
+  resetForm(): void {
+    this.formGroup.reset();
   }
 
   /**
