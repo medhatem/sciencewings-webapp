@@ -54,7 +54,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.organization = await this.fetchOrganizationInformation();
-    this.adress = this.formatAddress(this.organization.address[0]);
+    this.adress = this.formatAddress(this.organization.addresses[0]);
     this.phoneNumber = this.organization.phone?.phoneNumber || null;
     this._changeDetectorRef.markForCheck();
   }
