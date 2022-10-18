@@ -138,7 +138,7 @@
         </div>
 
         <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
-          <button class="px-8" mat-flat-button (click)="resetForm()">
+          <button class="px-8" mat-flat-button [routerLink]="backToLandingPath">
             {{ 'APP.ROUTES.USER.ABOUT.CANCEL' | transloco }}
           </button>
           <button class="px-8" mat-flat-button [color]="'primary'" (click)="onSubmit()">

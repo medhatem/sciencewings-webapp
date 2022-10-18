@@ -10,7 +10,7 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
-import { lastValueFrom, Subject } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { countries } from 'app/mock-api/apps/contacts/data';
 
 @Component({
@@ -19,6 +19,8 @@ import { countries } from 'app/mock-api/apps/contacts/data';
   encapsulation: ViewEncapsulation.None,
 })
 export class OrganizationFormComponent implements OnInit {
+  readonly backToLandingPath = `/${constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.LANDING_PAGE}`;
+
   countries = countryCanada;
   allContacts = countries;
   formGroup: FormGroup;
@@ -30,8 +32,6 @@ export class OrganizationFormComponent implements OnInit {
   labelsTranslation = OrganizationLabelsTranslation;
   userOrganizations: UserOrganizations[] = [];
   hasOrganizations: boolean = true;
-
-  private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -96,10 +96,6 @@ export class OrganizationFormComponent implements OnInit {
   getCountryByIso(value: string): any {
     // keep only canada for the moment
     return this.countries.length > 0 ? this.countries[0] : { code: '', name: '', flagImagePos: '' };
-  }
-
-  resetForm(): void {
-    this.formGroup.reset();
   }
 
   /**
