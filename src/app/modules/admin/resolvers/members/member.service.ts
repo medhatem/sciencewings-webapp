@@ -64,9 +64,13 @@ export class MemberService {
       );
   }
 
-  getOrgMembers(orgID?: number, page: number = 0, size: number = 10): Observable<any> {
+  getOrgMembers(orgID?: number, page?: number, size?: number): Observable<any> {
     const id = orgID || Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this.swaggerAPI.organizationRoutesGetUsers({ id, page, size });
+    if (page | size) {
+      return this.swaggerAPI.organizationRoutesGetUsers({ id, page, size });
+    } else {
+      return this.swaggerAPI.organizationRoutesGetUsers({ id });
+    }
   }
 
   async getMembersByOrgId(id?: number): Promise<OrganizationMembers[]> {
@@ -75,7 +79,10 @@ export class MemberService {
     );
   }
 
-  getAndParseOrganizationMember(id?: number, page?: number, size?: number): Observable<any> {
+  getAndParseOrganizationMember(id: number, page: number = 1, size: number = 10): Observable<any> {
+    page = page * 1 || 1;
+    size = size * 1 || 10;
+
     return this.getOrgMembers(id, page, size).pipe(
       map((result) => {
         const members = result.body.data

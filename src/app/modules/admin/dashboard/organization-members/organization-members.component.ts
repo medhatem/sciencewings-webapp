@@ -27,7 +27,7 @@ export class OrganizationMemebrsComponent implements OnInit {
   openedDialogRef: any;
   searchInputControl: FormControl = new FormControl();
   pagination: Pagination;
-
+  orgID;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -39,6 +39,7 @@ export class OrganizationMemebrsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     this.options = {
       columns: [
         { columnName: 'Profile', columnPropertyToUse: 'profile', customClass: '' },
@@ -71,7 +72,7 @@ export class OrganizationMemebrsComponent implements OnInit {
       data: { orgID },
     });
     this.openedDialogRef.afterClosed().subscribe((result) => {
-      lastValueFrom(this._memberService.getAndParseOrganizationMember());
+      lastValueFrom(this._memberService.getAndParseOrganizationMember(this.orgID));
     });
   }
 
