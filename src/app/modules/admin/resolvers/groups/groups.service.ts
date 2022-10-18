@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable, tap, lastValueFrom, map } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { Injectable } from '@angular/core';
 import { GroupDto } from 'generated/models';
-import { Group } from 'app/models/groups/group';
+import { Group, GroupBody } from 'app/models/groups/group';
 import { constants } from 'app/shared/constants';
 
 @Injectable({
@@ -22,16 +22,16 @@ export class GroupService {
     return this._groups.asObservable();
   }
 
-  getAndParseOrganizationGroups(organizationId: number, page?: number, size?: number) {
+  getAndParseOrganizationGroups(organizationId: number, page: number = 0, size: number = 10) {
     return this.getGroups(organizationId, page, size).pipe(
       map((result) => {
         const groups = result.body.data
-          .map((group) => new Group(group))
-          .map(({ id, name, active, members, parent }: Group) => ({
+          .map((group) => new GroupBody(group))
+          .map(({ id, name, active, members }: GroupBody) => ({
             name,
             status: active ? 'Active' : 'Inactive',
             members,
-            parent,
+            parent: '',
             id,
           }));
         return { groups, pagination: result.body.pagination };
@@ -43,9 +43,14 @@ export class GroupService {
     );
   }
 
-  getGroups(orgaId?: number, page: number = 0, size: number = 10): Observable<any> {
+  getGroups(orgaId: number, page?: number, size?: number): Observable<any> {
     const organizationId = orgaId || Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this.swaggerAPI.groupRoutesGetOrganizationGroup({ organizationId, page, size });
+
+    if (page | size) {
+      return this.swaggerAPI.groupRoutesGetOrganizationGroup({ organizationId, page, size });
+    } else {
+      return this.swaggerAPI.groupRoutesGetOrganizationGroup({ organizationId });
+    }
   }
 
   async createGroup(group: Group): Promise<GroupDto> {
