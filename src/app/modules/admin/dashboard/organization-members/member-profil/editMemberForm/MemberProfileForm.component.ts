@@ -10,7 +10,8 @@ import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/or
 import { Member } from 'app/models/Member';
 import { Phone } from 'app/models/phone';
 import { Address } from 'app/models/address';
-import { MemberGender, MemberGenderTranslation } from 'app/models/members/member-gender.enum';
+import { MemberGenders, MemberGenderTranslation } from 'app/models/members/member-gender.enum';
+import { MemberLabels } from 'app/models/members/member-lables.enum';
 
 export interface DialogData {
   idOrg: number;
@@ -26,10 +27,10 @@ export interface DialogData {
 export class MemberProfileFormComponent implements OnInit {
   profile: FormGroup;
   countries = countryCanada;
-  genders = MemberGender;
-  gendersKeys = Object.keys(MemberGender);
+  genders = MemberGenders;
+  gendersKeys = Object.keys(MemberGenders);
   gendersTranslation = MemberGenderTranslation;
-  labels = OrganizationLabels;
+  phoneLabel = OrganizationLabels;
   labelsKeys = Object.keys(OrganizationLabels);
   labelsTranslation = OrganizationLabelsTranslation;
 
@@ -55,7 +56,7 @@ export class MemberProfileFormComponent implements OnInit {
       workEmail: [workEmail, [Validators.required, Validators.email]],
       name: [name, [Validators.required]],
       jobTitle: [jobTitle, []],
-      gender: [gender, [Validators.required]],
+      gender: [gender],
       phoneNumber: [workPhone?.phoneNumber, [Validators.required]],
       phoneCode: [workPhone?.phoneCode, [Validators.required]],
       phoneLabel: [workPhone?.phoneLabel, [Validators.required]],
