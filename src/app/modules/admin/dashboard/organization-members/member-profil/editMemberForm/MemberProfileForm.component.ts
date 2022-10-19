@@ -12,6 +12,7 @@ import { Phone } from 'app/models/phone';
 import { Address } from 'app/models/address';
 import { MemberGenders, MemberGenderTranslation } from 'app/models/members/member-gender.enum';
 import { MemberLabels } from 'app/models/members/member-lables.enum';
+import { constants } from 'app/shared/constants';
 
 export interface DialogData {
   idOrg: number;
@@ -27,8 +28,9 @@ export interface DialogData {
 export class MemberProfileFormComponent implements OnInit {
   profile: FormGroup;
   countries = countryCanada;
-  genders = MemberGenders;
-  gendersKeys = Object.keys(MemberGenders);
+  gender = MemberGenders;
+  // gendersKeys = Object.keys(MemberGenders);
+  gendersKeys = Object.keys(MemberGenders).map((key) => key);
   gendersTranslation = MemberGenderTranslation;
   phoneLabel = OrganizationLabels;
   labelsKeys = Object.keys(OrganizationLabels);
@@ -59,7 +61,7 @@ export class MemberProfileFormComponent implements OnInit {
       gender: [gender],
       phoneNumber: [workPhone?.phoneNumber, [Validators.required]],
       phoneCode: [workPhone?.phoneCode, [Validators.required]],
-      phoneLabel: [workPhone?.phoneLabel, [Validators.required]],
+      phoneLabel: [workPhone?.phoneLabel],
       apartment: [address?.apartment, []],
       street: [address?.street, []],
       city: [address?.city, []],
@@ -70,6 +72,10 @@ export class MemberProfileFormComponent implements OnInit {
   }
 
   async saveProfileDetails() {
+    if (!this.profile.valid) {
+      this._toastrService.showWarning(constants.COMPLETING_FORM_REQUIRED);
+      return;
+    }
     try {
       await lastValueFrom(
         this._memberService.updateMember(this.data.idOrg, this.data.userId, this.getMemberFormBuilder(this.data.idOrg, this.data.userId)),

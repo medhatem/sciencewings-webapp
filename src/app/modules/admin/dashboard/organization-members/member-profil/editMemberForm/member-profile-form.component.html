@@ -19,7 +19,7 @@
         </mat-form-field>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
+      <!-- <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
         <mat-form-field class="flex-auto gt-xs:pr-3 m-0 p-0.5 col-span-2">
           <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.GENDER' | transloco }}</mat-label>
           <mat-select [formControlName]="'genders'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.GENDER' | transloco }}">
@@ -27,6 +27,17 @@
               >{{ labelsTranslation[label] | transloco }}
             </mat-option>
           </mat-select>
+        </mat-form-field>
+      </div> -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
+        <mat-form-field class="flex-auto gt-xs:pr-3 m-0 p-0.5 col-span-2">
+          <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.GENDER' | transloco }}</mat-label>
+          <mat-select [formControlName]="'gender'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.GENDER' | transloco }}" required>
+            <mat-option *ngFor="let gendersKey of gendersKeys; trackBy: trackByFn" [value]="gender[gendersKey]"
+              >{{ gendersTranslation[gendersKey] | transloco }}
+            </mat-option>
+          </mat-select>
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:office-building'"></mat-icon>
         </mat-form-field>
       </div>
 
@@ -40,7 +51,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
         <mat-form-field class="flex-auto gt-xs:pr-3 m-0 p-0.5 col-span-2">
           <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.PHONE' | transloco }}</mat-label>
-          <input matInput [formControlName]="'phoneNumber'" [placeholder]="'ORGANIZATION.MEMBERS.PROFILE.PHONE' | transloco" />
+          <input matInput [formControlName]="'phoneNumber'" [placeholder]="'ORGANIZATION.MEMBERS.PROFILE.PHONE' | transloco" required />
           <mat-select *ngIf="countries?.length" class="mr-1.5" [formControlName]="'phoneCode'" matPrefix [value]="getCountryByIso().code">
             <mat-select-trigger>
               <span class="flex items-center">
@@ -98,7 +109,7 @@
         </mat-form-field>
         <mat-form-field class="flex-auto gt-xs:pr-3 m-0 p-0.5 col-span-2">
           <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.CITY' | transloco }}</mat-label>
-          <input matInput [formControlName]="'city'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.CITY' | transloco }}" />
+          <input matInput [formControlName]="'city'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.CITY' | transloco }}" required />
           <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
         </mat-form-field>
 
@@ -124,7 +135,7 @@
         </mat-form-field>
         <mat-form-field class="flex-auto gt-xs:pl-3">
           <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.ZIP' | transloco }}</mat-label>
-          <input matInput [formControlName]="'code'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.ZIP' | transloco }}" />
+          <input matInput [formControlName]="'code'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.ZIP' | transloco }}" required />
           <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
         </mat-form-field>
       </div>
