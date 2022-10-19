@@ -11,7 +11,6 @@ import { Member } from 'app/models/Member';
 import { Phone } from 'app/models/phone';
 import { Address } from 'app/models/address';
 import { MemberGenders, MemberGenderTranslation } from 'app/models/members/member-gender.enum';
-import { MemberLabels } from 'app/models/members/member-lables.enum';
 import { constants } from 'app/shared/constants';
 
 export interface DialogData {
@@ -29,7 +28,6 @@ export class MemberProfileFormComponent implements OnInit {
   profile: FormGroup;
   countries = countryCanada;
   gender = MemberGenders;
-  // gendersKeys = Object.keys(MemberGenders);
   gendersKeys = Object.keys(MemberGenders).map((key) => key);
   gendersTranslation = MemberGenderTranslation;
   phoneLabel = OrganizationLabels;
