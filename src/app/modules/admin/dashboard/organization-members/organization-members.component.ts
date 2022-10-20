@@ -52,7 +52,7 @@ export class OrganizationMemebrsComponent implements OnInit {
       onElementClick: this.onElementSelected.bind(this),
     };
 
-    this._memberService.members$.subscribe((members) => {
+    this._memberService.paginatedMembers$.subscribe((members) => {
       this.members = members;
       this._changeDetectorRef.markForCheck();
     });
@@ -61,6 +61,7 @@ export class OrganizationMemebrsComponent implements OnInit {
       this.pagination = pagination;
       this._changeDetectorRef.markForCheck();
     });
+    console.log('pagination inside ng init= ', this.pagination);
   }
 
   openInviteMemberDialog(): void {
@@ -86,6 +87,7 @@ export class OrganizationMemebrsComponent implements OnInit {
     };
     const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     await lastValueFrom(this._memberService.getAndParseOrganizationMember(orgId, this.pagination.page, this.pagination.size));
+    console.log('pagination inside page event= ', this.pagination);
   }
 
   async onElementSelected(item: Member) {
