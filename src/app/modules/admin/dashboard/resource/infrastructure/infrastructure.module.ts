@@ -13,6 +13,7 @@ import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { ListComponentModule } from '../../reusable-components/list/list-component.module';
 import { InfrastructureFormComponent } from './infrastructure-form/infrastructure-form.component';
 import { InfrastructureSettingsModule } from './infrastructure-settings/infrastructure-settings.module';
+import { InfrastructureResourcesSettingsComponent } from './infrastructure-resources-settings/infrastructure-resources-settings.component';
 
 @NgModule({
   declarations: [InfrastructureComponent, InfrastructureListComponent, InfrastructureFormComponent],
