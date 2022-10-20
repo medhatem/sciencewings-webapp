@@ -3,7 +3,7 @@ export enum MemberGenderTranslation {
   female = 'ORGANIZATION.MEMBERS.PROFILE.GENDER_LIST.FEMALE',
 }
 
-export enum MemberGender {
+export enum MemberGenders {
   male = 'Male',
   female = 'Female',
 }

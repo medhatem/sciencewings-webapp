@@ -337,6 +337,9 @@
       "TITLE": "My Organizations"
     },
     "MEMBERS": {
+      "INFO": {
+        "EDIT_PROFILE": "Please complet profile informations"
+      },
       "BACK_BTN": "Back",
       "EDIT_MEMBER_TITILE": "Member Details",
       "ERROR_LOADING_MEMBERS": "Could not load members.",
@@ -395,9 +398,7 @@
       "ERROR": {
         "CREATE_FAILED": "Invite member faild"
       },
-      "INFO": {
-        "EDIT_PROFILE": "Please complet profile informations"
-      },
+
       "MEMBERSHIPS_REVIEW": "Memberships to Review",
       "MESSAGE1": "Recent Invitations",
       "MESSAGE2": "Recent Reservation",
@@ -700,14 +701,13 @@
         "PANEL_GENERAL": "General",
         "GENERAL_MESSAGE": "Manage the general informations of your infrastructures",
         "PANEL_RESOURCES": "Resources",
-        "RESOURCES_MESSAGE":"Manage the resources of your infrastructures",
-        "RESOURCES":{
-          "TITLE":"Resources",
-          "STATUS":"Status",
-          "DATE":"Created Date",
-          "MESSAGE":"There are no resources"
+        "RESOURCES_MESSAGE": "Manage the resources of your infrastructures",
+        "RESOURCES": {
+          "TITLE": "Resources",
+          "STATUS": "Status",
+          "DATE": "Created Date",
+          "MESSAGE": "There are no resources"
         }
-
       },
       "VALIDATORS": {
         "NAME_REQUIRED": "Infrastructue name is required",
