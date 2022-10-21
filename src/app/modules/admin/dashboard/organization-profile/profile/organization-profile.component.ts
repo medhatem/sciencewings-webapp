@@ -55,7 +55,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.organization = await this.fetchOrganizationInformation();
-    this.adress = this.formatAddress(this.organization.address[0]);
+    this.adress = this.formatAddress(this.organization.addresses[0]);
     this.phoneNumber = this.organization.phone?.phoneNumber || null;
     this._changeDetectorRef.markForCheck();
   }
@@ -92,8 +92,8 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   }
 
   private formatAddress(address: Address): string {
-    const { apartment = '', street = '', city = '', province = '', country = '', code = '', type = '' } = address;
-    const addressWithoutApp = `${street}, ${city}, ${province}, ${country}, ${code} | ${type}`;
+    const { apartment = '', street = '', city = '', province = '', country = '', code = '' } = address;
+    const addressWithoutApp = `${street}, ${city}, ${province}, ${country}, ${code}`;
     return apartment ? `${apartment}, ${addressWithoutApp}` : addressWithoutApp;
   }
 }
