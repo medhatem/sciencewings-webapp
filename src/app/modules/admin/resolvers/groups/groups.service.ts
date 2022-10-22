@@ -11,6 +11,7 @@ import { constants } from 'app/shared/constants';
 export class GroupService {
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _groups: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _paginatedGroups: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private swaggerAPI: ApiService) {}
 
@@ -21,8 +22,14 @@ export class GroupService {
   get groups$(): Observable<any> {
     return this._groups.asObservable();
   }
+  get paginatedGroups$(): Observable<any> {
+    return this._paginatedGroups.asObservable();
+  }
 
-  getAndParseOrganizationGroups(organizationId: number, page: number = 0, size: number = 10) {
+  getAndParseOrganizationGroups(organizationId: number, page: number = 0, size: number = 5) {
+    page = page * 1;
+    size = size * 1;
+
     return this.getGroups(organizationId, page, size).pipe(
       map((result) => {
         const groups = result.body.data
@@ -38,7 +45,7 @@ export class GroupService {
       }),
       tap((response) => {
         this._groups.next(response.groups);
-        this._pagination.next(response.pagination);
+        this._paginatedGroups.next(response.pagination);
       }),
     );
   }

@@ -57,7 +57,7 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
       this._changeDetectorRef.markForCheck();
     });
 
-    this._groupService.pagination$.subscribe((result) => {
+    this._groupService.paginatedGroups$.subscribe((result) => {
       this.pagination = result;
       this._changeDetectorRef.markForCheck();
     });

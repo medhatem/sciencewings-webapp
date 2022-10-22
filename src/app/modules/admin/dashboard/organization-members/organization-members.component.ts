@@ -57,7 +57,7 @@ export class OrganizationMemebrsComponent implements OnInit {
       this._changeDetectorRef.markForCheck();
     });
 
-    this._memberService.pagination$.subscribe((pagination) => {
+    this._memberService.paginatedMembers$.subscribe((pagination) => {
       this.pagination = pagination;
       this._changeDetectorRef.markForCheck();
     });
