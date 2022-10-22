@@ -1,18 +1,16 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address, Phone } from 'app/models';
-import { ChangeDetectorRef, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Organization } from 'app/models/organizations/organization';
 import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
 import { OrganizationType, OrganizationTypeTrasnlation } from 'app/models/organizations/organization-type.enum';
-
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
 import { UserOrganizations } from 'app/models/organizations/user-organizations';
-import { lastValueFrom, Subject } from 'rxjs';
-import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
+import { lastValueFrom } from 'rxjs';
 import { countries } from 'app/mock-api/apps/contacts/data';
 
 @Component({
@@ -21,6 +19,8 @@ import { countries } from 'app/mock-api/apps/contacts/data';
   encapsulation: ViewEncapsulation.None,
 })
 export class OrganizationFormComponent implements OnInit {
+  readonly backToLandingPath = `/${constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.LANDING_PAGE}`;
+
   countries = countryCanada;
   allContacts = countries;
   formGroup: FormGroup;
@@ -32,8 +32,6 @@ export class OrganizationFormComponent implements OnInit {
   labelsTranslation = OrganizationLabelsTranslation;
   userOrganizations: UserOrganizations[] = [];
   hasOrganizations: boolean = true;
-
-  private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
     private _formBuilder: FormBuilder,

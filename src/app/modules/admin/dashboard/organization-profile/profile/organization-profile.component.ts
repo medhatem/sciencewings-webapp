@@ -24,6 +24,7 @@ export interface InventoryPagination {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrganizationProfileComponent implements OnInit, OnDestroy {
+  readonly backToLandingPath = `/${constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.LANDING_PAGE}`;
   readonly organizationProfilePath = `/${constants.MODULES_ROUTINGS_URLS.ADMIN}/${constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_SETTINGS}`;
   readonly fullCreateOrganizationPath = this.organizationProfilePath;
 
@@ -91,8 +92,8 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
   }
 
   private formatAddress(address: Address): string {
-    const { apartment = '', street = '', city = '', province = '', country = '', code = '', type = '' } = address;
-    const addressWithoutApp = `${street}, ${city}, ${province}, ${country}, ${code} | ${type}`;
+    const { apartment = '', street = '', city = '', province = '', country = '', code = '' } = address;
+    const addressWithoutApp = `${street}, ${city}, ${province}, ${country}, ${code}`;
     return apartment ? `${apartment}, ${addressWithoutApp}` : addressWithoutApp;
   }
 }
