@@ -8,12 +8,10 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { lastValueFrom, map, Subject, takeUntil } from 'rxjs';
+import { lastValueFrom, map, Subject } from 'rxjs';
 
 import { AdminOrganizationsService } from '../../resolvers/admin-organization/admin-organization.service';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { MatDrawer } from '@angular/material/sidenav';
-import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import { GetOrganization } from 'app/models/organizations/organization';
 import { ActivatedRoute } from '@angular/router';
@@ -35,9 +33,9 @@ export class OrganizationSettingsComponent implements OnInit {
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(private _organizationService: AdminOrganizationsService, private route: ActivatedRoute, private _cdf: ChangeDetectorRef) {}
-  async ngOnInit(): Promise<void> {
-    const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    await lastValueFrom(this._organizationService.getOrgOrganizationById(orgId)).then(({ body }) => {
+  async ngOnInit() {
+    this.id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    await lastValueFrom(this._organizationService.getOrgOrganizationById(this.id)).then(({ body }) => {
       this.settings = body;
       this._cdf.markForCheck();
     });
