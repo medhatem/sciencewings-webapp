@@ -338,6 +338,9 @@
       "TITLE": "Mes Organisations"
     },
     "MEMBERS": {
+      "INFO": {
+        "EDIT_PROFILE": "Veuillez compléter les informations du profil"
+      },
       "BACK_BTN": "Retour",
       "EDIT_MEMBER_TITILE": "Détails du membre",
       "ERROR_LOADING_MEMBERS": "impossible de charger les membres.",
@@ -396,9 +399,7 @@
       "ERROR": {
         "CREATE_FAILED": "Echec de l'envoi de l'invitation"
       },
-      "INFO": {
-        "EDIT_PROFILE": "Veuillez compléter les informations du profil"
-      },
+
       "MEMBERSHIPS_REVIEW": "Les invitations à revoir",
       "MESSAGE1": "Invitations récentes ",
       "MESSAGE2": "Réservations récentes",
@@ -699,7 +700,15 @@
         "TITLE_FORM": "Détails d'infrastructure",
         "TITLE": "Paramètres d'infrastructure",
         "PANEL_GENERAL": "Général",
-        "GENERAL_MESSAGE": "Gérez les informations générales de vos infrastructures"
+        "GENERAL_MESSAGE": "Gérez les informations générales de vos infrastructures",
+        "PANEL_RESOURCES": "Ressources",
+        "RESOURCES_MESSAGE": "Gérez les ressources de vos infrastructures",
+        "RESOURCES": {
+          "TITLE": "Ressources",
+          "STATUS": "Statut",
+          "DATE": "Date de création",
+          "MESSAGE": "Il n'y a pas de ressources"
+        }
       },
       "VALIDATORS": {
         "NAME_REQUIRED": "Le nom de l'infrastructure est requis",
