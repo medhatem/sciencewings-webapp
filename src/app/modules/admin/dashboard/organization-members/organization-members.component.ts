@@ -27,7 +27,7 @@ export class OrganizationMemebrsComponent implements OnInit {
   openedDialogRef: any;
   searchInputControl: FormControl = new FormControl();
   pagination: Pagination;
-
+  orgID;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -39,6 +39,7 @@ export class OrganizationMemebrsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     this.options = {
       columns: [
         { columnName: 'Profile', columnPropertyToUse: 'profile', customClass: '' },
@@ -51,13 +52,13 @@ export class OrganizationMemebrsComponent implements OnInit {
       onElementClick: this.onElementSelected.bind(this),
     };
 
-    this._memberService.members$.subscribe((result) => {
-      this.members = result;
+    this._memberService.paginatedMembers$.subscribe((members) => {
+      this.members = members;
       this._changeDetectorRef.markForCheck();
     });
 
-    this._memberService.pagination$.subscribe((result) => {
-      this.pagination = result;
+    this._memberService.pagination$.subscribe((pagination) => {
+      this.pagination = pagination;
       this._changeDetectorRef.markForCheck();
     });
   }
@@ -71,7 +72,7 @@ export class OrganizationMemebrsComponent implements OnInit {
       data: { orgID },
     });
     this.openedDialogRef.afterClosed().subscribe((result) => {
-      lastValueFrom(this._memberService.getAndParseOrganizationMember());
+      lastValueFrom(this._memberService.getAndParseOrganizationMember(this.orgID));
     });
   }
 
@@ -83,6 +84,7 @@ export class OrganizationMemebrsComponent implements OnInit {
       page: event.pageIndex,
       lastPage: event.previousPageIndex,
     };
+
     const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     await lastValueFrom(this._memberService.getAndParseOrganizationMember(orgId, this.pagination.page, this.pagination.size));
   }

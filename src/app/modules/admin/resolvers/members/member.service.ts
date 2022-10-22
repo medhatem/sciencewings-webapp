@@ -16,6 +16,7 @@ import { Pagination } from 'app/models/pagination/IPagination';
 export class MemberService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
   private _members: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _paginatedMembers: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
@@ -30,6 +31,9 @@ export class MemberService {
 
   get members$(): Observable<any> {
     return this._members.asObservable();
+  }
+  get paginatedMembers$(): Observable<any> {
+    return this._paginatedMembers.asObservable();
   }
 
   getData(id?: string): Observable<any> {
@@ -64,9 +68,13 @@ export class MemberService {
       );
   }
 
-  getOrgMembers(orgID?: number, page: number = 0, size: number = 10): Observable<any> {
+  getOrgMembers(orgID?: number, page?: number, size?: number): Observable<any> {
     const id = orgID || Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this.swaggerAPI.organizationRoutesGetUsers({ id, page, size });
+    if (page | size) {
+      return this.swaggerAPI.organizationRoutesGetUsers({ id, page, size });
+    } else {
+      return this.swaggerAPI.organizationRoutesGetUsers({ id });
+    }
   }
 
   async getMembersByOrgId(id?: number): Promise<OrganizationMembers[]> {
@@ -75,7 +83,10 @@ export class MemberService {
     );
   }
 
-  getAndParseOrganizationMember(id?: number, page?: number, size?: number): Observable<any> {
+  getAndParseOrganizationMember(id: number, page: number = 0, size: number = 5): Observable<any> {
+    page = page * 1;
+    size = size * 1;
+
     return this.getOrgMembers(id, page, size).pipe(
       map((result) => {
         const members = result.body.data
@@ -91,7 +102,7 @@ export class MemberService {
         return { members, pagination: result.body.pagination };
       }),
       tap((response) => {
-        this._members.next(response.members);
+        this._paginatedMembers.next(response.members);
         this._pagination.next(response.pagination);
       }),
     );
