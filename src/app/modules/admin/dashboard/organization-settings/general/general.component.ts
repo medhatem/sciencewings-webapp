@@ -1,16 +1,11 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
-import { Subject, lastValueFrom, takeUntil } from 'rxjs';
-import { Address, Phone } from 'app/models';
-
+import { OrganizationLabels } from 'app/models/organizations/organization-lables.enum';
+import { Phone } from 'app/models';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
-import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
-import { Organization, UpdateOrganization } from 'app/models/organizations/organization';
+import { UpdateOrganization } from 'app/models/organizations/organization';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
-import { UserOrganizations } from 'app/models/organizations/user-organizations';
-import { ActivatedRoute } from '@angular/router';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { OrganizationMembers } from 'app/models/members/member';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
@@ -32,15 +27,10 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   organizationMembers: OrganizationMembers[];
   labelsKeys = Object.keys(OrganizationLabels);
 
-  private _unsubscribeAll: Subject<any> = new Subject<any>();
-
   constructor(
     private _formBuilder: FormBuilder,
     private _toastrService: ToastrService,
-    private _contactsService: ContactsService,
-    private _changeDetectorRef: ChangeDetectorRef,
     private organizationService: AdminOrganizationsService,
-    private _route: ActivatedRoute,
     private _memberService: MemberService,
   ) {}
 
