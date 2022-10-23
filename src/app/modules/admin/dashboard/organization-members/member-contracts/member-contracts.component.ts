@@ -39,13 +39,11 @@ export class MemberContractsComponent implements OnInit {
   ngOnInit(): void {
     this._contractService.contractsPaginated$.subscribe((contracts) => {
       this.contracts = contracts;
-
       this._cdr.markForCheck();
     });
 
     this._contractService.pagination$.subscribe((pagination) => {
       this.pagination = pagination;
-
       this._cdr.markForCheck();
     });
 

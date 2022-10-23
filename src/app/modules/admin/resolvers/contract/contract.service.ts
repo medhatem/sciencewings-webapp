@@ -58,7 +58,7 @@ export class ContractService {
     return this.getMemberContracts(orgId, userId, page, size).pipe(
       map((result) => {
         const contracts = result.body.data
-          .map((infrastructure) => new GetContract(infrastructure))
+          .map((contract) => new GetContract(contract))
           .map((contract: GetContract) => ({
             contractDto: contract,
             name: `${contract.job.name}`,
