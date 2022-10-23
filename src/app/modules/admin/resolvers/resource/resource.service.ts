@@ -27,6 +27,7 @@ export class ResourceService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
   private _resources: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _resourcesPaginated: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
 
@@ -45,6 +46,10 @@ export class ResourceService {
     return this._resources.asObservable();
   }
 
+  get resourcesPaginated$(): Observable<any> {
+    return this._resourcesPaginated.asObservable();
+  }
+
   /**
    * Get data
    */
@@ -55,20 +60,26 @@ export class ResourceService {
     );
   }
 
-  getAndParseOrganizationResource(): Observable<any[]> {
-    return this.getOrgResource().pipe(
-      map((resources) => resources.body.data.map((resource) => new ResourceListItem(resource))),
-      map((resources: ResourceListItem[]) =>
-        resources.map(({ name, resourceClass, resourceType, infrastructures, dateStart }) => ({
-          name: `${name}`,
-          resourceClass,
-          infrastructures: this.parseInfrastructuresToHtml(infrastructures),
-          resourceType,
-          dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-        })),
-      ),
+  getAndParseOrganizationResource(page: number = 0, size: number = 5) {
+    page = page * 1;
+    size = size * 1;
+
+    return this.getOrgResource(page, size).pipe(
+      map((result) => {
+        const resources = result.body.data
+          .map((resource) => new ResourceListItem(resource))
+          .map(({ name, resourceClass, resourceType, infrastructures, dateStart }: ResourceListItem) => ({
+            name: `${name}`,
+            resourceClass,
+            infrastructures: this.parseInfrastructuresToHtml(infrastructures),
+            resourceType,
+            dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+          }));
+        return { resources, pagination: result.body.pagination };
+      }),
       tap((response) => {
-        this._resources.next(response);
+        this._resourcesPaginated.next(response.resources);
+        this._pagination.next(response.pagination);
       }),
     );
   }
@@ -77,9 +88,13 @@ export class ResourceService {
     return this.swaggerAPI.organizationRoutesGetUsers({ id });
   }
 
-  getOrgResource(): Observable<any> {
+  getOrgResource(page?: number, size?: number): Observable<any> {
     const organizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId });
+    if (page | size) {
+      return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId, page, size });
+    } else {
+      return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId });
+    }
   }
   createResource(resource: Resource): Promise<CreateResourceDto> {
     return lastValueFrom(this.swaggerAPI.resourceRoutesCreateResource({ body: resource as any }));
