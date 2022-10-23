@@ -33,16 +33,16 @@ export class InfrastructureSettingsComponent implements OnInit {
         description: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.GENERAL_MESSAGE',
       },
       {
-        id: 'infrastructure-sub-infrastructures',
-        icon: 'heroicons_outline:clipboard-check',
-        title: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.PANEL_SUBINFRASTRUCTURES',
-        description: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES_MESSAGE',
-      },
-      {
         id: 'infrastructure-resources',
-        icon: 'heroicons_outline:clipboard-check',
+        icon: 'heroicons_outline:cube',
         title: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.PANEL_RESOURCES',
         description: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.RESOURCES_MESSAGE',
+      },
+      {
+        id: 'infrastructure-sub-infrastructures',
+        icon: 'heroicons_outline:rectangle-stack',
+        title: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.PANEL_SUBINFRASTRUCTURES',
+        description: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES_MESSAGE',
       },
     ];
   }

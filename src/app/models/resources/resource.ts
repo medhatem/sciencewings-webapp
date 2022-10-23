@@ -16,7 +16,7 @@ export class Resource implements ResourceRo {
   description?: string;
   infrastructure: number;
   managers?: Array<number>;
-  name?: string;
+  name: string;
   organization: number;
   resourceClass: string;
   resourceType: string;
