@@ -1,4 +1,15 @@
-import { MemberDto, ResponsableObjectDto, InfrastructureRo, InfrastructureDto, UpdateinfrastructureRo, ResourceDto, SubInfraListLineObjectDto, SubInfraObjectDto } from 'generated/models';
+import {
+  MemberDto,
+  ResponsableObjectDto,
+  InfrastructureRo,
+  InfrastructureDto,
+  UpdateinfrastructureRo,
+  ResourceDto,
+  InfrastructureStatusObjectDto,
+  InfrastructureResourceDetails,
+  SubInfraListLineObjectDto,
+  SubInfraObjectDto,
+} from 'generated/models';
 
 export class Infrastructure implements InfrastructureRo {
   id?: string;
@@ -86,15 +97,30 @@ export class SubInfrastructureList implements SubInfraListLineObjectDto {
   statusCode: number;
   subInfrastructure: SubInfraObjectDto;
 
-  constructor(infrastructure? : any){
-    const { subInfrastructure, resourcesNb, statusCode} = infrastructure || {};
+  constructor(infrastructure?: any) {
+    const { subInfrastructure, resourcesNb, statusCode } = infrastructure || {};
 
     Object.assign(this, {
       subInfrastructure,
       resourcesNb,
-      statusCode 
+      statusCode,
     });
+  }
+}
+export class ResourcesList implements InfrastructureResourceDetails {
+  createdAt: string;
+  name: string;
+  status: InfrastructureStatusObjectDto;
+  statusCode: number;
+  constructor(infrastructure?: any) {
+    const { name, status, createdAt, statusCode } = infrastructure || {};
 
+    Object.assign(this, {
+      name,
+      status,
+      createdAt,
+      statusCode,
+    });
   }
 }
 

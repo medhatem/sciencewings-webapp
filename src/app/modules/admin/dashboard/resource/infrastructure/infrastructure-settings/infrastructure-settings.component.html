@@ -1,16 +1,23 @@
 <ng-container *ngIf="infrastructure">
-  <app-reusable-settings [title]="title" [selectedPanel]="selectedPanel" (onSelectedPanelChange)="changeSelectedPanel($event)" [panels]="panels">
+  <app-reusable-settings
+    [title]="title"
+    [selectedPanel]="selectedPanel"
+    (onSelectedPanelChange)="changeSelectedPanel($event)"
+    [panels]="panels">
     <ng-container content [ngSwitch]="selectedPanel">
       <ng-container *ngSwitchCase="'infrastructure-general'">
         <app-infrastructure-general-settings [infrastructure]="infrastructure"> </app-infrastructure-general-settings>
       </ng-container>
     </ng-container>
-
     <ng-container content [ngSwitch]="selectedPanel">
       <ng-container *ngSwitchCase="'infrastructure-sub-infrastructures'">
         <app-sub-infrastructure-settings [infrastructure]="infrastructure"> </app-sub-infrastructure-settings>
       </ng-container>
     </ng-container>
-
+    <ng-container content [ngSwitch]="selectedPanel">
+      <ng-container *ngSwitchCase="'infrastructure-resources'">
+        <app-infrastructure-resources-settings [infrastructure]="infrastructure"> </app-infrastructure-resources-settings>
+      </ng-container>
+    </ng-container>
   </app-reusable-settings>
 </ng-container>
