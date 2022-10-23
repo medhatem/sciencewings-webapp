@@ -17,6 +17,7 @@ import { countryCanada } from 'app/mock-api/apps/contacts/data';
 export class GeneralComponent implements OnInit, AfterViewInit {
   @Input() currentOrganizations: any;
   @Input() organization: any;
+  @Input() orgId: any;
   @Output() updateLocalOrganization = new EventEmitter<string>();
   countries = countryCanada;
 
@@ -37,7 +38,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   async ngOnInit(): Promise<void> {
     this.getMembers();
     this.getOrganizations();
-
     this.form = this._formBuilder.group({
       name: ['' || Validators.required],
       email: ['' || Validators.required],
@@ -48,20 +48,18 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       owner: ['' || Validators.required],
       description: '',
     });
-
-    // Get the country telephone codes
   }
 
   async ngAfterViewInit(): Promise<void> {
     this.form.setValue({
-      name: this.organization?.name || '',
-      email: this.organization?.email || '',
-      phoneCode: this.organization?.phone?.phoneCode || 'fr',
-      phoneNumber: this.organization?.phone?.phoneNumber || '',
-      type: this.organization?.type || '',
-      parent: this.organization?.parent?.id || '',
-      owner: this.organization?.owner?.id || '',
-      description: this.organization?.description || '',
+      name: this?.organization?.name || '',
+      email: this?.organization?.email || '',
+      phoneCode: this?.organization?.phone?.phoneCode || 'fr',
+      phoneNumber: this?.organization?.phone?.phoneNumber || '',
+      type: this?.organization?.type || '',
+      parent: this?.organization?.parent?.id || '',
+      owner: this?.organization?.owner?.id || '',
+      description: this?.organization?.description || '',
     });
   }
   getCountryByIso(): any {

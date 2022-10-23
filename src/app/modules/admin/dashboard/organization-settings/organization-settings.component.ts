@@ -1,20 +1,11 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { lastValueFrom, map, Subject } from 'rxjs';
 
 import { AdminOrganizationsService } from '../../resolvers/admin-organization/admin-organization.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { constants } from 'app/shared/constants';
-import { GetOrganization } from 'app/models/organizations/organization';
 import { ActivatedRoute } from '@angular/router';
+import { GetOrganization } from 'app/models/organizations/organization';
 
 @Component({
   selector: 'organization-settings',
@@ -23,20 +14,20 @@ import { ActivatedRoute } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrganizationSettingsComponent implements OnInit {
+  @Input() id: number;
   @ViewChild('drawer') drawer: MatDrawer;
   selectedPanel: string = 'general';
   title = 'Organization settings';
   panels: any[];
-  id: number;
   organization: any;
   settings: any;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(private _organizationService: AdminOrganizationsService, private route: ActivatedRoute, private _cdf: ChangeDetectorRef) {}
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     this.id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     await lastValueFrom(this._organizationService.getOrgOrganizationById(this.id)).then(({ body }) => {
-      this.settings = body;
+      this.organization = body;
       this._cdf.markForCheck();
     });
     this.panels = [

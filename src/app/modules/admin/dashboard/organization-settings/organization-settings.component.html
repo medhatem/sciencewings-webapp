@@ -1,4 +1,4 @@
-<ng-container *ngIf="settings">
+<ng-container *ngIf="organization">
   <app-reusable-settings
     [title]="title"
     [selectedPanel]="selectedPanel"
@@ -6,32 +6,32 @@
     [panels]="panels">
     <ng-container content [ngSwitch]="selectedPanel">
       <ng-container *ngSwitchCase="'general'">
-        <organization-settings-general [settings]="settings"> </organization-settings-general>
+        <organization-settings-general [organization]="organization"> </organization-settings-general>
       </ng-container>
     </ng-container>
     <ng-container content [ngSwitch]="selectedPanel">
       <ng-container *ngSwitchCase="'members'">
-        <organization-settings-members [settings]="settings"> </organization-settings-members>
+        <organization-settings-members [organization]="organization"> </organization-settings-members>
       </ng-container>
     </ng-container>
     <ng-container content [ngSwitch]="selectedPanel">
       <ng-container *ngSwitchCase="'location'">
-        <organization-settings-location [settings]="settings"> </organization-settings-location>
+        <organization-settings-location [organization]="organization"> </organization-settings-location>
       </ng-container>
     </ng-container>
     <ng-container content [ngSwitch]="selectedPanel">
       <ng-container *ngSwitchCase="'reservations'">
-        <organization-settings-reservations [settings]="settings"> </organization-settings-reservations>
+        <organization-settings-reservations [organization]="organization"> </organization-settings-reservations>
       </ng-container>
     </ng-container>
     <ng-container content [ngSwitch]="selectedPanel">
       <ng-container *ngSwitchCase="'access'">
-        <organization-settings-access [settings]="settings"> </organization-settings-access>
+        <organization-settings-access [organization]="organization"> </organization-settings-access>
       </ng-container>
     </ng-container>
     <ng-container content [ngSwitch]="selectedPanel">
       <ng-container *ngSwitchCase="'subscription'">
-        <organization-settings-subscription [settings]="settings"> </organization-settings-subscription>
+        <organization-settings-subscription [organization]="organization"> </organization-settings-subscription>
       </ng-container>
     </ng-container>
   </app-reusable-settings>

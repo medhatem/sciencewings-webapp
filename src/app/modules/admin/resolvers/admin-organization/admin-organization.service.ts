@@ -59,6 +59,9 @@ export class AdminOrganizationsService {
     return new Organization((body as any).data[0]);
   }
 
+  getOrg(id: number): Observable<any> {
+    return this._swaggerService.organizationRoutesGetById({ id });
+  }
   /**
    *
    * @param organization
@@ -101,7 +104,7 @@ export class AdminOrganizationsService {
   }
 
   getOrgOrganizationById(id: number): Observable<any> {
-    return this._swaggerService.organizationRoutesGetOrganizationById({ id });
+    return this._swaggerService.organizationRoutesGetById({ id });
   }
 
   async updateOrganizationMembersProperties(organizationId: number, body: any): Promise<any> {
