@@ -52,12 +52,13 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const data = this._route.snapshot.data;
     this.groupsCount = data.groups.length;
-    this._groupService.groups$.pipe(takeUntil(this._unsubscribeAll)).subscribe((organizationGroups: Group[]) => {
+
+    this._groupService.paginatedGroups$.pipe(takeUntil(this._unsubscribeAll)).subscribe((organizationGroups: Group[]) => {
       this.groups = organizationGroups;
       this._changeDetectorRef.markForCheck();
     });
 
-    this._groupService.paginatedGroups$.subscribe((result) => {
+    this._groupService.pagination$.subscribe((result) => {
       this.pagination = result;
       this._changeDetectorRef.markForCheck();
     });

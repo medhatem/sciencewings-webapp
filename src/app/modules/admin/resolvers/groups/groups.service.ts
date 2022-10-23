@@ -44,8 +44,8 @@ export class GroupService {
         return { groups, pagination: result.body.pagination };
       }),
       tap((response) => {
-        this._groups.next(response.groups);
-        this._paginatedGroups.next(response.pagination);
+        this._paginatedGroups.next(response.groups);
+        this._pagination.next(response.pagination);
       }),
     );
   }

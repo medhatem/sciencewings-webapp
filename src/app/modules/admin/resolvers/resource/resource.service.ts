@@ -71,7 +71,7 @@ export class ResourceService {
           .map(({ name, resourceClass, resourceType, infrastructures, dateStart }: ResourceListItem) => ({
             name: `${name}`,
             resourceClass,
-            infrastructures: this.parseInfrastructuresToHtml(infrastructures),
+            infrastructures: 'None',
             resourceType,
             dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
           }));
@@ -84,10 +84,6 @@ export class ResourceService {
     );
   }
 
-  getOrgMembers(id: number): Observable<any> {
-    return this.swaggerAPI.organizationRoutesGetUsers({ id });
-  }
-
   getOrgResource(page?: number, size?: number): Observable<any> {
     const organizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     if (page | size) {
@@ -96,6 +92,11 @@ export class ResourceService {
       return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId });
     }
   }
+
+  getOrgMembers(id: number): Observable<any> {
+    return this.swaggerAPI.organizationRoutesGetUsers({ id });
+  }
+
   createResource(resource: Resource): Promise<CreateResourceDto> {
     return lastValueFrom(this.swaggerAPI.resourceRoutesCreateResource({ body: resource as any }));
   }
