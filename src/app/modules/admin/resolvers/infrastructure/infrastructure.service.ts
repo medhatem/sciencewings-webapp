@@ -16,6 +16,7 @@ export class InfrastructureService {
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _infrastructures: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _infrastructureResources: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _infrastructurePaginated: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
 
@@ -29,6 +30,9 @@ export class InfrastructureService {
 
   get infrastructures$(): Observable<any> {
     return this._infrastructures.asObservable();
+  }
+  get infrastructurePaginated$(): Observable<any> {
+    return this._infrastructurePaginated.asObservable();
   }
 
   getInfrastructures(
@@ -60,9 +64,14 @@ export class InfrastructureService {
     return lastValueFrom(this.swaggerAPI.infrastructureRoutesCreateInfrastructure({ body: infrastructure as any }));
   }
 
-  getOrgInfrastructures(): Observable<any> {
+  getOrgInfrastructures(page?: number, size?: number): Observable<any> {
     const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId });
+
+    if (page | size) {
+      return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId, page, size });
+    } else {
+      return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId });
+    }
   }
 
   getInfrastructureResources(infraId?: number): Observable<any> {
@@ -74,11 +83,11 @@ export class InfrastructureService {
     const id = infraId || Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
     return this.getInfrastructureResources(id).pipe(
       map((resources) => resources.body.data.map((resource) => new ResourcesList(resource))),
-      map((resources: ResourcesList[]) => 
-      resources.map(({ name, status, createdAt }) => ({
+      map((resources: ResourcesList[]) =>
+        resources.map(({ name, status, createdAt }) => ({
           name: `${name}`,
           status: this?.parsInfrastructureStatus(status),
-          createdAt:moment(createdAt).format(constants.DATE_FORMAT_YYYY_MM_DD),
+          createdAt: moment(createdAt).format(constants.DATE_FORMAT_YYYY_MM_DD),
         })),
       ),
       tap((response) => {
@@ -87,21 +96,27 @@ export class InfrastructureService {
     );
   }
 
-  getAndParseOrganizationInfrastructures(): Observable<any[]> {
-    return this.getOrgInfrastructures().pipe(
-      map((infrastructures) => infrastructures.body.data.map((infrastructure) => new InfrastructureListItem(infrastructure))),
-      map((infrastructures: InfrastructureListItem[]) =>
-        infrastructures.map(({ name, key, id, responsible, resourcesNb, dateStart }) => ({
-          name: `${name}`,
-          key,
-          resourcesNb: `${resourcesNb}`,
-          responsible: this.parseInfrastructureResponsible(responsible),
-          dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-          id: id,
-        })),
-      ),
+  getAndParseOrganizationInfrastructures(page: number = 0, size: number = 5) {
+    page = page * 1;
+    size = size * 1;
+
+    return this.getOrgInfrastructures(page, size).pipe(
+      map((result) => {
+        const infrastructures = result.body.data
+          .map((infrastructure) => new InfrastructureListItem(infrastructure))
+          .map(({ name, key, id, responsible, resourcesNb, dateStart }: InfrastructureListItem) => ({
+            name: `${name}`,
+            key,
+            resourcesNb: `${resourcesNb}`,
+            responsible: this.parseInfrastructureResponsible(responsible),
+            dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+            id: id,
+          }));
+        return { infrastructures, pagination: result.body.pagination };
+      }),
       tap((response) => {
-        this._infrastructures.next(response);
+        this._infrastructurePaginated.next(response.infrastructures);
+        this._pagination.next(response.pagination);
       }),
     );
   }
@@ -122,12 +137,11 @@ export class InfrastructureService {
     return `<div>${responsible?.name}</div><div>${(responsible as any)?.workEmail}</div>`;
   }
 
-  parseInfrastructureResources(resource: ResourceDto): string{
+  parseInfrastructureResources(resource: ResourceDto): string {
     return `<div>${resource.name}</div>`;
   }
 
-  parsInfrastructureStatus(status: InfrastructureStatusObjectDto){
+  parsInfrastructureStatus(status: InfrastructureStatusObjectDto) {
     return `<div>${status?.statusType}</div>`;
-
   }
 }
