@@ -108,7 +108,13 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
       .afterClosed()
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(async () => {
-        await lastValueFrom(this._groupService.getAndParseOrganizationGroups(Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID))));
+        await lastValueFrom(
+          this._groupService.getAndParseOrganizationGroups(
+            Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID)),
+            this.pagination.page,
+            this.pagination.size,
+          ),
+        );
         this._changeDetectorRef.markForCheck();
       });
   }
