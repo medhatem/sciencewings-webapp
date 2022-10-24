@@ -5,7 +5,6 @@ import { AdminOrganizationsService } from '../../resolvers/admin-organization/ad
 import { MatDrawer } from '@angular/material/sidenav';
 import { constants } from 'app/shared/constants';
 import { ActivatedRoute } from '@angular/router';
-import { GetOrganization } from 'app/models/organizations/organization';
 
 @Component({
   selector: 'organization-settings',
@@ -21,7 +20,6 @@ export class OrganizationSettingsComponent implements OnInit {
   panels: any[];
   organization: any;
   settings: any;
-  private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(private _organizationService: AdminOrganizationsService, private route: ActivatedRoute, private _cdf: ChangeDetectorRef) {}
   async ngOnInit(): Promise<void> {

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrganizationLabels } from 'app/models/organizations/organization-lables.enum';
 import { Phone } from 'app/models';
@@ -9,6 +9,8 @@ import { constants } from 'app/shared/constants';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { OrganizationMembers } from 'app/models/members/member';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
+import { lastValueFrom, map } from 'rxjs';
+
 @Component({
   selector: 'organization-settings-general',
   templateUrl: './general.component.html',
@@ -17,7 +19,7 @@ import { countryCanada } from 'app/mock-api/apps/contacts/data';
 export class GeneralComponent implements OnInit, AfterViewInit {
   @Input() currentOrganizations: any;
   @Input() organization: any;
-  @Input() orgId: any;
+  // @Input() orgId: any;
   @Output() updateLocalOrganization = new EventEmitter<string>();
   countries = countryCanada;
 
@@ -33,33 +35,40 @@ export class GeneralComponent implements OnInit, AfterViewInit {
     private _toastrService: ToastrService,
     private organizationService: AdminOrganizationsService,
     private _memberService: MemberService,
+    private _cdf: ChangeDetectorRef,
   ) {}
 
   async ngOnInit(): Promise<void> {
+    // const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    // this.organization = await lastValueFrom(this.organizationService.getOrgOrganizationById(orgId).pipe(map((r) => r.body.data)));
+    // console.log('Organization================', this.organization);
     this.getMembers();
     this.getOrganizations();
     this.form = this._formBuilder.group({
-      name: ['' || Validators.required],
-      email: ['' || Validators.required],
-      phoneCode: ['fr' || Validators.required],
-      phoneNumber: ['' || Validators.required],
-      type: ['' || Validators.required],
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      phoneCode: ['ca', [Validators.required]],
+      phoneNumber: ['', [Validators.required]],
+      type: ['', [Validators.required]],
       parent: '',
-      owner: ['' || Validators.required],
+      owner: ['', [Validators.required]],
       description: '',
     });
   }
 
-  async ngAfterViewInit(): Promise<void> {
+  async ngAfterViewInit(): Promise<any> {
+    const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    this.organization = await lastValueFrom(this.organizationService.getOrgOrganizationById(orgId).pipe(map((r) => r.body.data)));
+    this._cdf.markForCheck();
     this.form.setValue({
-      name: this?.organization?.name || '',
-      email: this?.organization?.email || '',
-      phoneCode: this?.organization?.phone?.phoneCode || 'fr',
-      phoneNumber: this?.organization?.phone?.phoneNumber || '',
-      type: this?.organization?.type || '',
-      parent: this?.organization?.parent?.id || '',
-      owner: this?.organization?.owner?.id || '',
-      description: this?.organization?.description || '',
+      name: this.organization.name || '',
+      email: this?.organization.email || '',
+      phoneCode: this?.organization.phone?.phoneCode || 'fr',
+      phoneNumber: this?.organization.phone?.phoneNumber || '',
+      type: this?.organization.type || '',
+      parent: this?.organization.parent?.id || '',
+      owner: this?.organization.owner?.id || '',
+      description: this?.organization.description || '',
     });
   }
   getCountryByIso(): any {
