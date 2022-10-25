@@ -88,22 +88,23 @@ export class MemberService {
     size = size * 1;
 
     return this.getOrgMembers(id, page, size).pipe(
-      map((result) => {
-        const members = result.body.data
-          .map((member) => new Member(member))
-          .map((m: Member): any => ({
+      map(({ body }) => {
+        const { data, pagination } = body;
+        const members = data.map((memberDirty) => {
+          const member = new Member(memberDirty);
+          return {
             role: 'Member',
-            profile: `${m.name}<br>
-                              ${m.workEmail}`,
-            status: m.status,
-            date: moment(m.joinDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
-            ...m,
-          }));
-        return { members, pagination: result.body.pagination };
+            profile: `${member.name}<br>${member.workEmail}`,
+            status: member.status,
+            date: moment(member.joinDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
+            ...member,
+          };
+        });
+        return { members, pagination };
       }),
-      tap((response) => {
-        this._paginatedMembers.next(response.members);
-        this._pagination.next(response.pagination);
+      tap(({ members, pagination }) => {
+        this._paginatedMembers.next(members);
+        this._pagination.next(pagination);
       }),
     );
   }
