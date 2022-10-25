@@ -27,7 +27,8 @@ export class OrganizationMemebrsComponent implements OnInit {
   openedDialogRef: any;
   searchInputControl: FormControl = new FormControl();
   pagination: Pagination;
-  orgID;
+  orgID: number;
+
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -39,7 +40,8 @@ export class OrganizationMemebrsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    this.orgID = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+
     this.options = {
       columns: [
         { columnName: 'Profile', columnPropertyToUse: 'profile', customClass: '' },
@@ -53,11 +55,13 @@ export class OrganizationMemebrsComponent implements OnInit {
     };
 
     this._memberService.paginatedMembers$.subscribe((members) => {
+      takeUntil(this._unsubscribeAll);
       this.members = members;
       this._changeDetectorRef.markForCheck();
     });
 
     this._memberService.pagination$.subscribe((pagination) => {
+      takeUntil(this._unsubscribeAll);
       this.pagination = pagination;
       this._changeDetectorRef.markForCheck();
     });
@@ -85,8 +89,7 @@ export class OrganizationMemebrsComponent implements OnInit {
       lastPage: event.previousPageIndex,
     };
 
-    const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    await lastValueFrom(this._memberService.getAndParseOrganizationMember(orgId, this.pagination.page, this.pagination.size));
+    await lastValueFrom(this._memberService.getAndParseOrganizationMember(this.orgID, this.pagination.page, this.pagination.size));
   }
 
   async onElementSelected(item: Member) {

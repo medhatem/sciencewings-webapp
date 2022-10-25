@@ -10,13 +10,12 @@ import {
   UpdateResourceRo,
 } from 'generated/models';
 import { Infrastructure } from '../infrastructures/infrastructure';
-import { Member } from '../members/member';
 
 export class Resource implements ResourceRo {
   description?: string;
   infrastructure: number;
   managers?: Array<number>;
-  name?: string;
+  name: string;
   organization: number;
   resourceClass: string;
   resourceType: string;
