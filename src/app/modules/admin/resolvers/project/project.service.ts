@@ -97,13 +97,12 @@ export class ProjectService {
   }
 
   getAndParseOrganizationProjects(page: number = 0, size: number = 5) {
-    page = page * 1;
-    size = size * 1;
     return this.getOrgProjectsList(page, size).pipe(
-      map((result) => {
-        const projects = result.body.data
-          .map((infrastructure) => new ProjectListItem(infrastructure))
-          .map(({ title, responsable, members, creatingDate, id, projectDto }) => ({
+      map(({ body }) => {
+        const { data, pagination } = body;
+        const projects = data.map((projectDirty) => {
+          const { title, responsable, members, creatingDate, id, projectDto } = new ProjectListItem(projectDirty);
+          return {
             title: `${title}`,
             responsable: this.parseProjectResponsible(responsable),
             participents: `${members}`,
@@ -111,12 +110,13 @@ export class ProjectService {
             id: id,
             projectDto: projectDto,
             responsableInformations: responsable,
-          }));
-        return { projects, pagination: result.body.pagination };
+          };
+        });
+        return { projects, pagination };
       }),
-      tap((response) => {
-        this._projectsPaginated.next(response.projects);
-        this._pagination.next(response.pagination);
+      tap(({ projects, pagination }) => {
+        this._projectsPaginated.next(projects);
+        this._pagination.next(pagination);
       }),
     );
   }
