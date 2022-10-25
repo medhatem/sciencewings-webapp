@@ -10,7 +10,6 @@ import {
   UpdateResourceRo,
 } from 'generated/models';
 import { Infrastructure } from '../infrastructures/infrastructure';
-import { Member } from '../members/member';
 
 export class Resource implements ResourceRo {
   description?: string;
