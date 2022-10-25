@@ -225,6 +225,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
           const modulePath = localStorage.getItem(constants.CURRENT_MODULE) || constants.MODULES_ROUTINGS_URLS.ADMIN;
           const found = applicationRoutes.find(({ path }) => path.toLocaleLowerCase() === modulePath.toLocaleLowerCase());
           navigationItems.push(found);
+        } else {
+          localStorage.removeItem(constants.CURRENT_ORGANIZATION_ID);
         }
       }
     } catch (error) {
