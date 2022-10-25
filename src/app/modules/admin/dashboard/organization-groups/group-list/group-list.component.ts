@@ -52,12 +52,13 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const data = this._route.snapshot.data;
     this.groupsCount = data.groups.length;
-    this._groupService.groups$.pipe(takeUntil(this._unsubscribeAll)).subscribe((organizationGroups: Group[]) => {
+    this._groupService.paginatedGroups$.pipe(takeUntil(this._unsubscribeAll)).subscribe((organizationGroups: Group[]) => {
       this.groups = organizationGroups;
       this._changeDetectorRef.markForCheck();
     });
 
-    this._groupService.paginatedGroups$.subscribe((result) => {
+    this._groupService.pagination$.subscribe((result) => {
+      takeUntil(this._unsubscribeAll);
       this.pagination = result;
       this._changeDetectorRef.markForCheck();
     });
@@ -121,13 +122,7 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
       lastPage: event.previousPageIndex,
     };
     const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    await lastValueFrom(
-      this._groupService.getAndParseOrganizationGroups(
-        Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID)),
-        this.pagination.page,
-        this.pagination.size,
-      ),
-    );
+    await lastValueFrom(this._groupService.getAndParseOrganizationGroups(orgId, this.pagination.page, this.pagination.size));
   }
 
   trackByFn(index: number, item: any): any {

@@ -22,30 +22,30 @@ export class GroupService {
   get groups$(): Observable<any> {
     return this._groups.asObservable();
   }
+
   get paginatedGroups$(): Observable<any> {
     return this._paginatedGroups.asObservable();
   }
 
   getAndParseOrganizationGroups(organizationId: number, page: number = 0, size: number = 5) {
-    page = page * 1;
-    size = size * 1;
-
     return this.getGroups(organizationId, page, size).pipe(
-      map((result) => {
-        const groups = result.body.data
-          .map((group) => new GroupBody(group))
-          .map(({ id, name, active, members }: GroupBody) => ({
+      map(({ body }) => {
+        const { data, pagination } = body;
+        const groups = data.map((groupDirty) => {
+          const { id, name, active, members } = new GroupBody(groupDirty);
+          return {
             name,
             status: active ? 'Active' : 'Inactive',
             members,
             parent: '',
             id,
-          }));
-        return { groups, pagination: result.body.pagination };
+          };
+        });
+        return { groups, pagination };
       }),
-      tap((response) => {
-        this._groups.next(response.groups);
-        this._paginatedGroups.next(response.pagination);
+      tap(({ groups, pagination }) => {
+        this._paginatedGroups.next(groups);
+        this._pagination.next(pagination);
       }),
     );
   }
