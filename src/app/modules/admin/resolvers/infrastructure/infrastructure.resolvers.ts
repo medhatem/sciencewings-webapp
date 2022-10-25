@@ -8,6 +8,7 @@ import { InfrastructureService } from './infrastructure.service';
 })
 export class InfrastructureResolver implements Resolve<any> {
   constructor(private _infrasructureService: InfrastructureService) {}
+
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     return this._infrasructureService.getAndParseOrganizationInfrastructures();
   }
