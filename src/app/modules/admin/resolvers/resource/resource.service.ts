@@ -61,25 +61,24 @@ export class ResourceService {
   }
 
   getAndParseOrganizationResource(page: number = 0, size: number = 5) {
-    page = page * 1;
-    size = size * 1;
-
     return this.getOrgResource(page, size).pipe(
-      map((result) => {
-        const resources = result.body.data
-          .map((resource) => new ResourceListItem(resource))
-          .map(({ name, resourceClass, resourceType, infrastructures, dateStart }: ResourceListItem) => ({
+      map(({ body }) => {
+        const { data, pagination } = body;
+        const resources = data.map((resourceDirty) => {
+          const { name, resourceClass, resourceType, infrastructures, dateStart } = new ResourceListItem(resourceDirty);
+          return {
             name: `${name}`,
             resourceClass,
             infrastructures: 'None',
             resourceType,
             dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-          }));
-        return { resources, pagination: result.body.pagination };
+          };
+        });
+        return { resources, pagination };
       }),
-      tap((response) => {
-        this._resourcesPaginated.next(response.resources);
-        this._pagination.next(response.pagination);
+      tap(({ resources, pagination }) => {
+        this._resourcesPaginated.next(resources);
+        this._pagination.next(pagination);
       }),
     );
   }

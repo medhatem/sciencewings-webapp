@@ -31,6 +31,7 @@ export class InfrastructureService {
   get infrastructures$(): Observable<any> {
     return this._infrastructures.asObservable();
   }
+
   get infrastructurePaginated$(): Observable<any> {
     return this._infrastructurePaginated.asObservable();
   }
