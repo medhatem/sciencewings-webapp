@@ -37,13 +37,8 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    /*     this._infrastructureService.infrastructures$.pipe(takeUntil(this._unsubscribeAll)).subscribe((infrastructures: Infrastructure[]) => {
-      this.infrastructures = infrastructures;
-      this.infrastructuresCount = infrastructures.length;
-      this._changeDetectorRef.markForCheck();
-    });
- */
     this._infrastructureService.infrastructurePaginated$.subscribe((infrastructures) => {
+      takeUntil(this._unsubscribeAll);
       this.infrastructures = infrastructures;
       this.infrastructuresCount = infrastructures.length;
 
@@ -51,6 +46,7 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
     });
 
     this._infrastructureService.pagination$.subscribe((pagination) => {
+      takeUntil(this._unsubscribeAll);
       this.pagination = pagination;
 
       this._changeDetectorRef.markForCheck();

@@ -31,6 +31,7 @@ export class InfrastructureService {
   get infrastructures$(): Observable<any> {
     return this._infrastructures.asObservable();
   }
+
   get infrastructurePaginated$(): Observable<any> {
     return this._infrastructurePaginated.asObservable();
   }
@@ -97,26 +98,25 @@ export class InfrastructureService {
   }
 
   getAndParseOrganizationInfrastructures(page: number = 0, size: number = 5) {
-    page = page * 1;
-    size = size * 1;
-
     return this.getOrgInfrastructures(page, size).pipe(
-      map((result) => {
-        const infrastructures = result.body.data
-          .map((infrastructure) => new InfrastructureListItem(infrastructure))
-          .map(({ name, key, id, responsible, resourcesNb, dateStart }: InfrastructureListItem) => ({
+      map(({ body }) => {
+        const { data, pagination } = body;
+        const infrastructures = data.map((infrastructureDirty) => {
+          const { name, key, id, responsible, resourcesNb, dateStart } = new InfrastructureListItem(infrastructureDirty);
+          return {
             name: `${name}`,
             key,
             resourcesNb: `${resourcesNb}`,
             responsible: this.parseInfrastructureResponsible(responsible),
             dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-            id: id,
-          }));
-        return { infrastructures, pagination: result.body.pagination };
+            id,
+          };
+        });
+        return { infrastructures, pagination };
       }),
-      tap((response) => {
-        this._infrastructurePaginated.next(response.infrastructures);
-        this._pagination.next(response.pagination);
+      tap(({ infrastructures, pagination }) => {
+        this._infrastructurePaginated.next(infrastructures);
+        this._pagination.next(pagination);
       }),
     );
   }
