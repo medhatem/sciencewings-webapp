@@ -51,26 +51,27 @@ export class ContractService {
   }
 
   getAndParseMemberContracts(orgId?: number, userId?: number, page: number = 0, size: number = 5) {
-    page = page * 1;
-    size = size * 1;
     orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     userId = Number(localStorage.getItem(constants.CURRENT_USER_ID));
+
     return this.getMemberContracts(orgId, userId, page, size).pipe(
-      map((result) => {
-        const contracts = result.body.data
-          .map((infrastructure) => new GetContract(infrastructure))
-          .map((contract: GetContract) => ({
+      map(({ body }) => {
+        const { data, pagination } = body;
+        const contracts = data.map((contractDirty) => {
+          const contract = new GetContract(contractDirty);
+          return {
             contractDto: contract,
             name: `${contract.job.name}`,
             supervisor: `${contract?.supervisor?.name || ''}`,
             jobLevel: `${contract?.jobLevel || ''}`,
             dateStart: moment(contract.dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-          }));
-        return { contracts, pagination: result.body.pagination };
+          };
+        });
+        return { contracts, pagination };
       }),
-      tap((response) => {
-        this._contractsPaginated.next(response.contracts);
-        this._pagination.next(response.pagination);
+      tap(({ contracts, pagination }) => {
+        this._contractsPaginated.next(contracts);
+        this._pagination.next(pagination);
       }),
     );
   }
