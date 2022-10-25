@@ -59,7 +59,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   async ngAfterViewInit(): Promise<any> {
     const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     this.organization = await lastValueFrom(this.organizationService.getOrgOrganizationById(orgId).pipe(map((r) => r.body.data)));
-    this._cdf.markForCheck();
     this.form.setValue({
       name: this.organization.name || '',
       email: this?.organization.email || '',
@@ -70,6 +69,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       owner: this?.organization.owner?.id || '',
       description: this?.organization.description || '',
     });
+    this._cdf.markForCheck();
   }
   getCountryByIso(): any {
     // keep only canada for the moment

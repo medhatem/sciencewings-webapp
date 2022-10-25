@@ -26,8 +26,8 @@ export class OrganizationSettingsComponent implements OnInit {
     this.id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     await lastValueFrom(this._organizationService.getOrgOrganizationById(this.id)).then(({ body }) => {
       this.organization = body;
-      this._cdf.markForCheck();
     });
+
     this.panels = [
       {
         id: 'general',
@@ -66,6 +66,7 @@ export class OrganizationSettingsComponent implements OnInit {
         description: 'ORGANIZATION.SETTINGS.SUBSCRIPTION.MESSAGE',
       },
     ];
+    this._cdf.markForCheck();
   }
 
   changeSelectedPanel(selectedPanel: string) {
