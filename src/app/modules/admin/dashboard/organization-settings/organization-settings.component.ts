@@ -25,7 +25,7 @@ export class OrganizationSettingsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     await lastValueFrom(this._organizationService.getOrgOrganizationById(this.id)).then(({ body }) => {
-      this.organization = body;
+      this.organization = body.data[0];
     });
 
     this.panels = [

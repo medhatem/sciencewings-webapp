@@ -9,7 +9,6 @@ import { constants } from 'app/shared/constants';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { OrganizationMembers } from 'app/models/members/member';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
-import { lastValueFrom, map } from 'rxjs';
 
 @Component({
   selector: 'organization-settings-general',
@@ -19,7 +18,6 @@ import { lastValueFrom, map } from 'rxjs';
 export class GeneralComponent implements OnInit, AfterViewInit {
   @Input() currentOrganizations: any;
   @Input() organization: any;
-  // @Input() orgId: any;
   @Output() updateLocalOrganization = new EventEmitter<string>();
   countries = countryCanada;
 
@@ -39,9 +37,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    // const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    // this.organization = await lastValueFrom(this.organizationService.getOrgOrganizationById(orgId).pipe(map((r) => r.body.data)));
-    // console.log('Organization================', this.organization);
     this.getMembers();
     this.getOrganizations();
     this.form = this._formBuilder.group({
@@ -58,11 +53,10 @@ export class GeneralComponent implements OnInit, AfterViewInit {
 
   async ngAfterViewInit(): Promise<any> {
     const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    this.organization = await lastValueFrom(this.organizationService.getOrgOrganizationById(orgId).pipe(map((r) => r.body.data)));
     this.form.setValue({
       name: this.organization.name || '',
       email: this?.organization.email || '',
-      phoneCode: this?.organization.phone?.phoneCode || 'fr',
+      phoneCode: this?.organization.phone?.phoneCode || 'ca',
       phoneNumber: this?.organization.phone?.phoneNumber || '',
       type: this?.organization.type || '',
       parent: this?.organization.parent?.id || '',
