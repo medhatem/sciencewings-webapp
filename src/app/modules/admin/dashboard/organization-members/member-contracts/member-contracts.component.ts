@@ -11,6 +11,7 @@ import { constants } from 'app/shared/constants';
 import { Pagination } from 'app/models/pagination/IPagination';
 import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
 import { PageEvent } from '@angular/material/paginator';
+import { takeUntil, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-member-contracts',
@@ -27,6 +28,8 @@ export class MemberContractsComponent implements OnInit {
   pagination: Pagination;
   isLoading: boolean = false;
 
+  private _unsubscribeAll: Subject<any> = new Subject<any>();
+
   constructor(
     private _route: ActivatedRoute,
     private _contractService: ContractService,
@@ -37,12 +40,12 @@ export class MemberContractsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._contractService.contractsPaginated$.subscribe((contracts) => {
+    this._contractService.contractsPaginated$.pipe(takeUntil(this._unsubscribeAll)).subscribe((contracts) => {
       this.contracts = contracts;
       this._cdr.markForCheck();
     });
 
-    this._contractService.pagination$.subscribe((pagination) => {
+    this._contractService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination) => {
       this.pagination = pagination;
       this._cdr.markForCheck();
     });
@@ -70,6 +73,7 @@ export class MemberContractsComponent implements OnInit {
         data: { orgID, userId },
       })
       .afterClosed()
+      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(async () => {
         await lastValueFrom(
           this._contractService.getAndParseMemberContracts(this.orgId, this.userId, this.pagination.page, this.pagination.size),
@@ -87,6 +91,7 @@ export class MemberContractsComponent implements OnInit {
         data: { orgID, userId, contractDto },
       })
       .afterClosed()
+      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(async () => {
         await lastValueFrom(
           this._contractService.getAndParseMemberContracts(this.orgId, this.userId, this.pagination.page, this.pagination.size),
@@ -103,7 +108,6 @@ export class MemberContractsComponent implements OnInit {
       page: event.pageIndex,
       lastPage: event.previousPageIndex,
     };
-    const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     await lastValueFrom(this._contractService.getAndParseMemberContracts(this.orgId, this.userId, this.pagination.page, this.pagination.size));
   }
 
