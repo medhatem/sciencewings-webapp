@@ -1,11 +1,9 @@
 <div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <!-- Header -->
   <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8">
-    <!-- Loader -->
     <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
       <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
     </div>
-    <!-- Title -->
+
     <div>
       <div class="flex items-center justify-between w-full">
         <div class="text-4xl font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.SETTINGS.RESOUCES.TITLE' | transloco }}</div>
@@ -26,9 +24,9 @@
             resourcesCount
               | i18nPlural
                 : {
-                    '=0': 'No infrastructure',
-                    '=1': 'infrastructure',
-                    other: 'infrastructure'
+                    '=0': 'No resources',
+                    '=1': 'resource',
+                    other: 'resources'
                   }
           }}
         </div>
@@ -38,7 +36,7 @@
         <a class="ml-1 text-primary-500 hover:underline" [routerLink]="['/sign-in']">Infrastructure settings </a>
       </div>
     </div>
-    <!-- Actions -->
+
     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
       <button class="hidden sm:inline-flex ml-4" mat-flat-button [color]="'primary'" (click)="openCreateDialog()">
         <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
@@ -46,8 +44,6 @@
       </button>
     </div>
   </div>
-
-  <!-- Main -->
 
   <list-component
     [dataList]="resources"
