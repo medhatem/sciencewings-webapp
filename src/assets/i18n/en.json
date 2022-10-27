@@ -508,6 +508,10 @@
       "TITLE": "Projects"
     },
     "SETTINGS": {
+      "SUBSCRIPTION": {
+        "TITLE": "Subscription",
+        "MESSAGE": "Manage your subscription plan, payment method and billing information"
+      },
       "ACCESS": {
         "Cancel": "Cancel",
         "MESSAGE": "Manage access options for your organization ",

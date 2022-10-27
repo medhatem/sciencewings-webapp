@@ -509,6 +509,10 @@
       "TITLE": "Projets"
     },
     "SETTINGS": {
+      "SUBSCRIPTION": {
+        "TITLE": "Abonnement",
+        "MESSAGE": "Gérer votre plan d'abonnement, votre mode de paiement et vos informations de facturation"
+      },
       "ACCESS": {
         "Cancel": "Annuler",
         "MESSAGE": "Gérer les options d'accès pour votre organisation",

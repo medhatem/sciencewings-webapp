@@ -8,6 +8,7 @@ import { AdminOrganizationComponent } from './admin-organization.component';
 import { adminOrganizationRoutes } from './admin-organization.routing';
 import { FuseFindByKeyPipeModule } from '@fuse/pipes/find-by-key';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { OrganizationSettingsModule } from '../organization-settings/organization-settings.module';
 
 @NgModule({
   declarations: [AdminOrganizationComponent, OrganizationFormComponent, OrganizationProfileComponent],
@@ -17,6 +18,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SharedModule,
     NgSelectModule,
     TranslocoModule,
+    OrganizationSettingsModule,
   ],
 })
 export class AdminOrganizationModule {}

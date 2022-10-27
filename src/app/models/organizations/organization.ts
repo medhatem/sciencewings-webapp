@@ -15,7 +15,7 @@ import { OrganizationType } from './organization-type.enum';
 import { Phone } from '../phone';
 
 export class GetOrganization implements OrganizationInformationDto {
-  address?: Array<AddressDto>;
+  addresses?: Array<AddressDto>;
   description?: string;
   email?: string;
   id: number;
@@ -29,10 +29,10 @@ export class GetOrganization implements OrganizationInformationDto {
   type?: string;
 
   constructor(organization: any) {
-    const { address, description, email, id, name, owner, phone, statusCode, type, settings, labels, parent } = organization || {};
+    const { addresses, description, email, id, name, owner, phone, statusCode, type, settings, labels, parent } = organization || {};
 
     Object.assign(this, {
-      address,
+      addresses,
       description,
       email,
       id,
