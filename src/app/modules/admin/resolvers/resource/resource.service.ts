@@ -6,9 +6,10 @@ import { Injectable } from '@angular/core';
 import {
   CreateResourceDto,
   GetAllInfrastructuresDto,
+  MemberDto,
+  ResourceManagerDto,
   ResourceRateRo,
   ResourceReservationVisibilityRo,
-  ResourceRo,
   ResourceSettingsGeneralPropertiesRo,
   ResourceSettingsGeneralStatusRo,
   ResourceSettingsGeneralVisibilityRo,
@@ -65,13 +66,15 @@ export class ResourceService {
       map(({ body }) => {
         const { data, pagination } = body;
         const resources = data.map((resourceDirty) => {
-          const { name, resourceClass, resourceType, infrastructures, dateStart } = new ResourceListItem(resourceDirty);
+          const { id, name, resourceClass, resourceType, infrastructures, managers, active, dateStart } = new ResourceListItem(resourceDirty);
           return {
             name: `${name}`,
             resourceClass,
             infrastructures: 'None',
             resourceType,
             dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+            active,
+            id: id,
           };
         });
         return { resources, pagination };
@@ -147,8 +150,5 @@ export class ResourceService {
   }
   updateResourceSettingsReservationVisibility(resourceId: number, body: ResourceReservationVisibilityRo): Observable<any> {
     return this.swaggerAPI.resourceRoutesUpdateResourceRestrictionVisibility({ resourceId, body });
-  }
-  private parseInfrastructuresToHtml(infrastructures: Infrastructure[]) {
-    return infrastructures.map(({ name }) => `<div>${name}</div>`);
   }
 }
