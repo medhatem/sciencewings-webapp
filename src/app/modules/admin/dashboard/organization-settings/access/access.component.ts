@@ -22,6 +22,7 @@ export class AccessComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('settings=', this.settings);
     this.form = this._formBuilder.group({
       anyMemberCanJoinYourOrganizationAndAccessResourceSchedules: true,
       joinCode: this.settings?.joinCode || '',

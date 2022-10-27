@@ -39,6 +39,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   async ngOnInit(): Promise<void> {
     this.getMembers();
     this.getOrganizations();
+    console.log('this.userOrganizations', this.userOrganizations);
     this.form = this._formBuilder.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required]],
@@ -64,6 +65,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       description: this?.organization.description || '',
     });
     this._cdf.markForCheck();
+    console.log('this.organizationMembers== ', this.organizationMembers);
   }
   getCountryByIso(): any {
     // keep only canada for the moment
@@ -92,7 +94,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   }
 
   private getMembers() {
-    const idOrg = this.getOrganizationIdFromLocalStorage();
+    const idOrg = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     return this._memberService
       .getMembersByOrgId(idOrg)
       .then((resolve) => (this.organizationMembers = resolve))
@@ -103,6 +105,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
 
   private getOrganizations() {
     const userId = Number(localStorage.getItem(constants.CURRENT_USER_ID));
+    this.organizationService.getOrgOrganizationById(userId).subscribe((value) => console.log('value', value));
     return this.organizationService
       .getUserOrganizations(userId)
       .then((resolve) => (this.userOrganizations = resolve))
