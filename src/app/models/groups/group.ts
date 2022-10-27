@@ -11,7 +11,7 @@ export class Group implements GroupRo {
 
   constructor(group: any) {
     const { active, description, members = [], name, organization, parent, id } = group || {};
-    Object.assign(this, { active, description, members, name, organization, parent });
+    Object.assign(this, { id, active, description, members, name, organization, parent });
     if (id) {
       this.id = id;
     }

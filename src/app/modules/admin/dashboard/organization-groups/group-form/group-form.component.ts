@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { Group } from 'app/models/groups/group';
 import { OrganizationMembers } from 'app/models/members/member';
@@ -26,6 +27,8 @@ export class GroupFormComponent implements OnInit {
     private _groupService: GroupService,
     private _toastrService: ToastrService,
     private _memberService: MemberService,
+    private _cdr: ChangeDetectorRef,
+    private router: Router,
   ) {}
 
   async ngOnInit() {
@@ -45,13 +48,14 @@ export class GroupFormComponent implements OnInit {
       this._toastrService.showError(constants.CREATE_GROUP_FAILED);
       return;
     }
-    const organization = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    const group = new Group({ ...this.groupForm.value, organization });
+    const group = this.getGroupFromFormBuilder();
     try {
       await this._groupService.createGroup(group);
+      this._cdr.markForCheck();
+      this.matDialogRef.afterClosed();
       this._toastrService.showSuccess(constants.CREATE_GROUP_COMPLETED);
-    } catch (error) {
-      this._toastrService.showError(constants.CREATE_GROUP_FAILED);
+    } catch (res) {
+      this._toastrService.showError(res.error.error);
     }
   }
 
@@ -63,11 +67,21 @@ export class GroupFormComponent implements OnInit {
     }
   }
 
+  private getGroupFromFormBuilder(): Group {
+    return new Group({
+      ...this.groupForm.value,
+      organization: this.getOrganizationIdFromLocalStorage(),
+    });
+  }
+
   private async getGroups(): Promise<void> {
     try {
       this.organizationGroups = await this._groupService.getGroupsByOrgId(this.organizationId);
     } catch (error) {
       this._toastrService.showInfo('GET_GROUPS_LOAD_FAILED');
     }
+  }
+  private getOrganizationIdFromLocalStorage(): number {
+    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
 }

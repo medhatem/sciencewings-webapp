@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject, debounceTime, lastValueFrom, map, switchMap, takeUntil } from 'rxjs';
 
 import { ActivatedRoute } from '@angular/router';
@@ -12,16 +12,15 @@ import { MatSort } from '@angular/material/sort';
 import { ListOption } from '../../reusable-components/list/list-component.component';
 import { Group } from 'app/models/groups/group';
 import { constants } from 'app/shared/constants';
+import { ToastrService } from 'app/core/toastr/toastr.service';
 
 @Component({
   selector: 'app-group-list',
   templateUrl: './group-list.component.html',
   styleUrls: ['./group-list.component.scss'],
 })
-export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(MatPaginator) private _paginator: MatPaginator;
-  @ViewChild(MatSort) private _sort: MatSort;
-
+export class GroupListComponent implements OnInit, OnDestroy {
+  @Input() organizationId: number;
   groups: Group[] = [];
   isLoading: boolean = false;
   selectedGroup = null;
@@ -29,6 +28,7 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   pagination: InventoryPagination;
   searchInputControl: FormControl = new FormControl();
   options: ListOption = { columns: [] };
+  openedDialogRef: any;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -37,9 +37,15 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _matDialog: MatDialog,
     private _route: ActivatedRoute,
+    private _toastrService: ToastrService,
   ) {}
 
   ngOnInit(): void {
+    const data = this._route.snapshot.data;
+    this.groupsCount = data.groups.length;
+    this._groupService.groups$.pipe(takeUntil(this._unsubscribeAll)).subscribe((organizationGroups: Group[]) => {
+      this.groups = organizationGroups;
+    });
     this.options = {
       columns: [
         { columnName: 'name', columnPropertyToUse: 'name', customClass: '' },
@@ -47,30 +53,9 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
         { columnName: 'Members', columnPropertyToUse: 'members', customClass: 'hidden' },
         { columnName: 'Description', columnPropertyToUse: 'description', customClass: 'hidden' },
       ],
+      numnberOfColumns: 5,
     };
-
-    const data = this._route.snapshot.data;
-    this.groupsCount = data.groups.length;
-    this._groupService.groups$.pipe(takeUntil(this._unsubscribeAll)).subscribe((organizationGroups: Group[]) => {
-      this.groups = organizationGroups;
-      this._changeDetectorRef.markForCheck();
-    });
-
-    this.searchInputControl.valueChanges
-      .pipe(
-        takeUntil(this._unsubscribeAll),
-        debounceTime(300),
-        switchMap((query) => {
-          this.closeDetails();
-          this.isLoading = true;
-          return this._groupService.getAndParseOrganizationGroups(Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID)));
-          // return this._groupService.getGroups(0, 10, 'name', 'asc', query);
-        }),
-        map(() => {
-          this.isLoading = false;
-        }),
-      )
-      .subscribe();
+    this._changeDetectorRef.markForCheck();
   }
 
   // handlePageEvent(event: PageEvent) {
@@ -79,16 +64,6 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   //   this.pagination.page = event.pageIndex;
   //   lastValueFrom(this._groupService.getGroups(event.pageIndex, event.pageSize));
   // }
-
-  ngAfterViewInit(): void {
-    if (this._sort && this._paginator) {
-      this._sort.sort({
-        id: 'groupProfil',
-        start: 'asc',
-        disableClear: true,
-      });
-    }
-  }
 
   ngOnDestroy(): void {
     this._unsubscribeAll.next(null);
@@ -105,18 +80,4 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
         this._changeDetectorRef.markForCheck();
       });
   }
-
-  trackByFn(index: number, item: any): any {
-    return item.id || index;
-  }
-
-  closeDetails(): void {
-    this.selectedGroup = null;
-  }
-
-  showGroupProfile(groupID) {
-    //TODO
-  }
-
-  createGroup() {}
 }
