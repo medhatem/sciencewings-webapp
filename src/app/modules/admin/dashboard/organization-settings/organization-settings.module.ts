@@ -11,6 +11,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { organizationSettingsRoutes } from './organization-settings.routing';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
+import { ReusableSettingsModule } from '../reusable-components/reusable-settings/reusable-settings.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,6 @@ import { TranslocoModule } from '@ngneat/transloco';
     AccessComponent,
     SubscriptionComponent,
   ],
-  imports: [RouterModule.forChild(organizationSettingsRoutes), MatFormFieldModule, SharedModule, TranslocoModule],
+  imports: [RouterModule.forChild(organizationSettingsRoutes), MatFormFieldModule, SharedModule, TranslocoModule, ReusableSettingsModule],
 })
 export class OrganizationSettingsModule {}

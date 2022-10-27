@@ -1,19 +1,15 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { OrganizationLabels, OrganizationLabelsTranslation } from 'app/models/organizations/organization-lables.enum';
-import { Subject, lastValueFrom, takeUntil } from 'rxjs';
-import { Address, Phone } from 'app/models';
-
+import { OrganizationLabels } from 'app/models/organizations/organization-lables.enum';
+import { Phone } from 'app/models';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
-import { ContactsService } from 'app/modules/admin/resolvers/contact.service';
-import { Organization, UpdateOrganization } from 'app/models/organizations/organization';
+import { UpdateOrganization } from 'app/models/organizations/organization';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
-import { UserOrganizations } from 'app/models/organizations/user-organizations';
-import { ActivatedRoute } from '@angular/router';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { OrganizationMembers } from 'app/models/members/member';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
+
 @Component({
   selector: 'organization-settings-general',
   templateUrl: './general.component.html',
@@ -32,47 +28,42 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   organizationMembers: OrganizationMembers[];
   labelsKeys = Object.keys(OrganizationLabels);
 
-  private _unsubscribeAll: Subject<any> = new Subject<any>();
-
   constructor(
     private _formBuilder: FormBuilder,
     private _toastrService: ToastrService,
-    private _contactsService: ContactsService,
-    private _changeDetectorRef: ChangeDetectorRef,
     private organizationService: AdminOrganizationsService,
-    private _route: ActivatedRoute,
     private _memberService: MemberService,
+    private _cdf: ChangeDetectorRef,
   ) {}
 
   async ngOnInit(): Promise<void> {
     this.getMembers();
     this.getOrganizations();
-
     this.form = this._formBuilder.group({
-      name: ['' || Validators.required],
-      email: ['' || Validators.required],
-      phoneCode: ['fr' || Validators.required],
-      phoneNumber: ['' || Validators.required],
-      type: ['' || Validators.required],
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      phoneCode: ['ca', [Validators.required]],
+      phoneNumber: ['', [Validators.required]],
+      type: ['', [Validators.required]],
       parent: '',
-      owner: ['' || Validators.required],
+      owner: ['', [Validators.required]],
       description: '',
     });
-
-    // Get the country telephone codes
   }
 
-  async ngAfterViewInit(): Promise<void> {
+  async ngAfterViewInit(): Promise<any> {
+    const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     this.form.setValue({
-      name: this.organization?.name || '',
-      email: this.organization?.email || '',
-      phoneCode: this.organization?.phone?.phoneCode || 'fr',
-      phoneNumber: this.organization?.phone?.phoneNumber || '',
-      type: this.organization?.type || '',
-      parent: this.organization?.parent?.id || '',
-      owner: this.organization?.owner?.id || '',
-      description: this.organization?.description || '',
+      name: this.organization.name || '',
+      email: this?.organization.email || '',
+      phoneCode: this?.organization.phone?.phoneCode || 'ca',
+      phoneNumber: this?.organization.phone?.phoneNumber || '',
+      type: this?.organization.type || '',
+      parent: this?.organization.parent?.id || '',
+      owner: this?.organization.owner?.id || '',
+      description: this?.organization.description || '',
     });
+    this._cdf.markForCheck();
   }
   getCountryByIso(): any {
     // keep only canada for the moment
