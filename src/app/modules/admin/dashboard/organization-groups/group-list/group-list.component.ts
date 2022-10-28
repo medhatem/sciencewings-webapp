@@ -42,9 +42,11 @@ export class GroupListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const data = this._route.snapshot.data;
-    this.groupsCount = data.groups.length;
+
     this._groupService.groups$.pipe(takeUntil(this._unsubscribeAll)).subscribe((organizationGroups: Group[]) => {
       this.groups = organizationGroups;
+      this.groupsCount = data.groups.length;
+      this._changeDetectorRef.markForCheck();
     });
     this.options = {
       columns: [
@@ -53,9 +55,8 @@ export class GroupListComponent implements OnInit, OnDestroy {
         { columnName: 'Members', columnPropertyToUse: 'members', customClass: 'hidden' },
         { columnName: 'Description', columnPropertyToUse: 'description', customClass: 'hidden' },
       ],
-      numnberOfColumns: 5,
+      numnberOfColumns: 4,
     };
-    this._changeDetectorRef.markForCheck();
   }
 
   // handlePageEvent(event: PageEvent) {

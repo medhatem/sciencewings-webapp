@@ -51,9 +51,8 @@ export class GroupFormComponent implements OnInit {
     const group = this.getGroupFromFormBuilder();
     try {
       await this._groupService.createGroup(group);
-      this._cdr.markForCheck();
-      this.matDialogRef.afterClosed();
       this._toastrService.showSuccess(constants.CREATE_GROUP_COMPLETED);
+      this.matDialogRef.close();
     } catch (res) {
       this._toastrService.showError(res.error.error);
     }

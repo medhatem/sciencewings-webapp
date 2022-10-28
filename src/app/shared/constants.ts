@@ -63,6 +63,7 @@ export const constants = {
     INFRASTRUCTURE: '/resources/Infrastructure/',
     LANDING_PAGE: 'landing-page',
     PROJECT: 'project',
+    GROUP: 'organization-groups',
     ERROR_PAGE: '**',
   },
   MODULES_ROUTINGS_CHILDREN_URLS: {
