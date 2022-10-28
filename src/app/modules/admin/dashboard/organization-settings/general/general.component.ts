@@ -9,6 +9,8 @@ import { constants } from 'app/shared/constants';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { OrganizationMembers } from 'app/models/members/member';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
+import { lastValueFrom } from 'rxjs';
+import { UserOrganizations } from 'app/models/organizations/user-organizations';
 
 @Component({
   selector: 'organization-settings-general',
@@ -25,7 +27,7 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   phoneLabel = OrganizationLabels;
   hasOrganizations: boolean = true;
   userOrganizations: any[] = [];
-  organizationMembers: OrganizationMembers[];
+  organizationMembers: OrganizationMembers[] = [];
   labelsKeys = Object.keys(OrganizationLabels);
 
   constructor(
@@ -39,7 +41,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
   async ngOnInit(): Promise<void> {
     this.getMembers();
     this.getOrganizations();
-    console.log('this.userOrganizations', this.userOrganizations);
     this.form = this._formBuilder.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required]],
@@ -65,7 +66,6 @@ export class GeneralComponent implements OnInit, AfterViewInit {
       description: this?.organization.description || '',
     });
     this._cdf.markForCheck();
-    console.log('this.organizationMembers== ', this.organizationMembers);
   }
   getCountryByIso(): any {
     // keep only canada for the moment
@@ -93,25 +93,24 @@ export class GeneralComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private getMembers() {
+  private async getMembers(): Promise<void> {
     const idOrg = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this._memberService
-      .getMembersByOrgId(idOrg)
-      .then((resolve) => (this.organizationMembers = resolve))
-      .catch(() => {
-        this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');
+    return await lastValueFrom(this._memberService.getOrgMembers(idOrg)).then(({ body }) => {
+      body.data.map((member) => {
+        member = new OrganizationMembers(member);
+        this.organizationMembers.push(member);
       });
+    });
   }
 
-  private getOrganizations() {
+  private async getOrganizations() {
     const userId = Number(localStorage.getItem(constants.CURRENT_USER_ID));
-    this.organizationService.getOrgOrganizationById(userId).subscribe((value) => console.log('value', value));
-    return this.organizationService
-      .getUserOrganizations(userId)
-      .then((resolve) => (this.userOrganizations = resolve))
-      .catch(() => {
-        this._toastrService.showInfo('GET_MEMBERS_LOAD_FAILED');
+    return await lastValueFrom(this.organizationService.getUserOrganizations(userId)).then(({ body }) => {
+      body.data.map((organization) => {
+        organization = new UserOrganizations(organization);
+        this.userOrganizations.push(organization);
       });
+    });
   }
 
   private getOrganizationIdFromLocalStorage(): number {
