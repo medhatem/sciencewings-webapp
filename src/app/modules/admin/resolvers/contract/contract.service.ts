@@ -43,7 +43,7 @@ export class ContractService {
   }
 
   getMemberContracts(orgId: number, userId: number, page?: number, size?: number): Observable<any> {
-    if (page | size) {
+    if (page || size) {
       return this._swaggerService.contractRoutesGetAllMemberContracts({ orgId, userId, page, size });
     } else {
       return this._swaggerService.contractRoutesGetAllMemberContracts({ orgId, userId });
