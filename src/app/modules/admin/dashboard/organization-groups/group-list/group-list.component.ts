@@ -55,7 +55,7 @@ export class GroupListComponent implements OnInit, OnDestroy {
         { columnName: 'Members', columnPropertyToUse: 'members', customClass: 'hidden' },
         { columnName: 'Description', columnPropertyToUse: 'description', customClass: 'hidden' },
       ],
-      numnberOfColumns: 4,
+      numberOfColumns: 4,
     };
   }
 
