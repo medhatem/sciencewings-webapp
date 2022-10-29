@@ -9,12 +9,9 @@ import { SubInfrastructureList } from 'app/models/infrastructures/infrastructure
 })
 export class SubInfrastructureSettingsComponent implements OnInit {
   subInfrastructures: any[] = [];
-  options: ListOption = { columns: [], numnberOfColumns: 3 };
+  options: ListOption = { columns: [], numberOfColumns: 3 };
 
-  constructor(
-    private _infrastructureService: InfrastructureService,
-    private _changeDetectorRef: ChangeDetectorRef,
-  ) { }
+  constructor(private _infrastructureService: InfrastructureService, private _changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this._infrastructureService.getAndParseInfrastructureSubInfrastructures().subscribe((subInfrastructures: SubInfrastructureList[]) => {
@@ -23,13 +20,23 @@ export class SubInfrastructureSettingsComponent implements OnInit {
     });
     this.options = {
       columns: [
-        { columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.TITLE', columnPropertyToUse: 'subInfrastructure', customClass: '' },
-        { columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.RESOURCES', columnPropertyToUse: 'resourcesNb', customClass: 'hidden' },
-        { columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.DATE', columnPropertyToUse: 'createdAt', customClass: 'hidden' },
+        {
+          columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.TITLE',
+          columnPropertyToUse: 'subInfrastructure',
+          customClass: '',
+        },
+        {
+          columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.RESOURCES',
+          columnPropertyToUse: 'resourcesNb',
+          customClass: 'hidden',
+        },
+        {
+          columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.DATE',
+          columnPropertyToUse: 'createdAt',
+          customClass: 'hidden',
+        },
       ],
-      numnberOfColumns: 3,
+      numberOfColumns: 3,
+    };
   }
-
-}
-
 }
