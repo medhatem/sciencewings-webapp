@@ -53,7 +53,7 @@ export class GroupService {
   getGroups(orgaId: number, page?: number, size?: number): Observable<any> {
     const organizationId = orgaId || Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
 
-    if (page | size) {
+    if (page || size) {
       return this.swaggerAPI.groupRoutesGetOrganizationGroup({ organizationId, page, size });
     } else {
       return this.swaggerAPI.groupRoutesGetOrganizationGroup({ organizationId });
