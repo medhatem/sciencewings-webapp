@@ -89,7 +89,7 @@ export class ProjectService {
   getOrgProjectsList(page?: number, size?: number): Observable<any> {
     const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
 
-    if (page | size) {
+    if (page || size) {
       return this._swaggerService.projectRoutesGetAllOrganizationProjectsList({ id, page, size });
     } else {
       return this._swaggerService.projectRoutesGetAllOrganizationProjectsList({ id });
