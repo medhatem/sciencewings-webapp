@@ -123,6 +123,7 @@ export class OrganizationMembers implements MemberDto {
   name: string;
   active: boolean;
   joinDate: string;
+  memberType: string;
   organization: number;
   status: string;
   statusCode: number;
