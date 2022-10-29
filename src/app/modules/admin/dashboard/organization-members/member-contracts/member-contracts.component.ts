@@ -17,7 +17,7 @@ import { constants } from 'app/shared/constants';
 export class MemberContractsComponent implements OnInit {
   @Input() userId: number;
   @Input() orgId: number;
-  options: ListOption = { columns: [], numnberOfColumns: 4 };
+  options: ListOption = { columns: [], numberOfColumns: 4 };
   contracts: any[] = [];
   conDto: any;
   openedDialogRef: any;
@@ -43,7 +43,7 @@ export class MemberContractsComponent implements OnInit {
         { columnName: 'ORGANIZATION.CONTRACTS.FORM.JOB_LEVEL', columnPropertyToUse: 'jobLevel', customClass: 'hidden' },
         { columnName: 'ORGANIZATION.CONTRACTS.FORM.STARTDATE', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
-      numnberOfColumns: 4,
+      numberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
     };
   }
