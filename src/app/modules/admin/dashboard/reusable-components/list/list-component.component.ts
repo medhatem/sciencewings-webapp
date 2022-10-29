@@ -23,7 +23,7 @@ export interface Column {
 
 export interface ListOption {
   columns: Column[];
-  numnberOfColumns?: number;
+  numberOfColumns?: number;
   onElementClick?: (...args) => any;
 }
 
@@ -34,7 +34,7 @@ export interface ListOption {
 })
 export class ListComponent implements OnInit, OnDestroy {
   @Input() dataList: any[] = [];
-  @Input() options: ListOption = { columns: [], numnberOfColumns: 0 };
+  @Input() options: ListOption = { columns: [], numberOfColumns: 0 };
   @Input() message: any;
 
   @Output() output = new EventEmitter();
@@ -71,8 +71,8 @@ export class ListComponent implements OnInit, OnDestroy {
    */
   parseColumns() {
     this.keys = this.options.columns.map((col) => col);
-    if (!this.options.numnberOfColumns) {
-      this.options.numnberOfColumns = this.keys.length;
+    if (!this.options.numberOfColumns) {
+      this.options.numberOfColumns = this.keys.length;
     }
   }
 
@@ -80,6 +80,6 @@ export class ListComponent implements OnInit, OnDestroy {
    * dynamically create a grid with variable amount of columns
    */
   getColumsStyles() {
-    return { 'grid-template-columns': `repeat(${this.options.numnberOfColumns}, 1fr)` };
+    return { 'grid-template-columns': `repeat(${this.options.numberOfColumns}, 1fr)` };
   }
 }

@@ -19,7 +19,7 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
   infrastructures: any[] = [];
   isLoading: boolean = false;
   infrastructuresCount: number = 0;
-  options: ListOption = { columns: [], numnberOfColumns: 5 };
+  options: ListOption = { columns: [], numberOfColumns: 5 };
   openedDialogRef: any;
   searchInputControl: FormControl = new FormControl();
 
@@ -57,7 +57,7 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
         { columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.DATE', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
       onElementClick: this.onElementSelected.bind(this),
-      numnberOfColumns: 5,
+      numberOfColumns: 5,
     };
   }
 
