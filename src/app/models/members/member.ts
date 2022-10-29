@@ -121,16 +121,17 @@ export class Member implements MemberRo {
 export class OrganizationMembers implements MemberDto {
   active: boolean;
   joinDate: string;
+  memberType: string;
   name: string;
-  organization: number;
+  organization?: number;
   status: string;
   statusCode: number;
-  user: number;
+  user?: number;
   workEmail: string;
 
   constructor(memberDto: any) {
-    const { active, joinDate, name, organization, status, statusCode, user, workEmail } = memberDto;
-    Object.assign(this, { active, joinDate, name, organization, status, statusCode, user, workEmail });
+    const { active, joinDate, name, organization, status, statusCode, user, workEmail, memberType } = memberDto;
+    Object.assign(this, { active, joinDate, name, organization, status, statusCode, user, workEmail, memberType });
   }
 }
 
