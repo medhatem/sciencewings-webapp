@@ -122,10 +122,10 @@ export class OrganizationMembers implements MemberDto {
   active: boolean;
   joinDate: string;
   name: string;
-  organization?: number;
+  organization: number;
   status: string;
   statusCode: number;
-  user?: number;
+  user: number;
   workEmail: string;
 
   constructor(memberDto: any) {
