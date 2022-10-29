@@ -681,6 +681,7 @@
       "IMPORT_INFRASTRUCTURE": "Importer ",
       "EXPORT_INFRASTRUCTURE": "Exporter ",
       "NO_INFRASTRUCTURE": "Aucune infrastructure",
+      "NO_RESOURCES": "Aucune resource",
       "INFRASTRUCTURE_FORM": {
         "TITLE": "Créer une infrastructure ",
         "NAME": "Nom",
