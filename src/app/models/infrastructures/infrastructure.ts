@@ -1,4 +1,13 @@
-import { MemberDto, ResponsableObjectDto, InfrastructureRo, InfrastructureDto, UpdateinfrastructureRo, ResourceDto, InfrastructureStatusObjectDto, InfrastructureResourceDetails } from 'generated/models';
+import {
+  MemberDto,
+  ResponsableObjectDto,
+  InfrastructureRo,
+  InfrastructureDto,
+  UpdateinfrastructureRo,
+  ResourceDto,
+  InfrastructureStatusObjectDto,
+  InfrastructureResourceDetails,
+} from 'generated/models';
 
 export class Infrastructure implements InfrastructureRo {
   id?: string;
@@ -101,6 +110,7 @@ export class ResourcesList implements InfrastructureResourceDetails {
 export class ListMember implements MemberDto {
   active: boolean;
   joinDate: string;
+  memberType: string;
   name: string;
   organization?: number;
   status: string;

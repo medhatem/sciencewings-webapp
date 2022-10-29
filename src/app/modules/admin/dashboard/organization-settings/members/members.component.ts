@@ -5,7 +5,6 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { UpdateOrganizationMemberSettingsRo } from 'app/models/organizations/organization';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { constants } from 'app/shared/constants';
-import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'organization-settings-members',
