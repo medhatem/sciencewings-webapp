@@ -36,10 +36,10 @@
 
     <mat-form-field class="flex-auto mx-4">
       <mat-label>{{ 'ORGANIZATION.INFRASTRUCTURES.TITLE' | transloco }}</mat-label>
-      <mat-select [formControlName]="'infrastructures'">
+      <mat-select [formControlName]="'infrastructure'">
         <mat-option
           *ngFor="let organizationInfrastructure of organizationInfrastructures; trackBy: trackByFn"
-          [value]="organizationInfrastructure?.id">
+          [value]="organizationInfrastructure.id">
           {{ organizationInfrastructure?.name }}
         </mat-option>
       </mat-select>

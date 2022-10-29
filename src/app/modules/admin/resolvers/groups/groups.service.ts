@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable, tap, lastValueFrom, map } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { Injectable } from '@angular/core';
 import { GroupDto } from 'generated/models';
-import { Group } from 'app/models/groups/group';
+import { Group, GroupBody } from 'app/models/groups/group';
 import { constants } from 'app/shared/constants';
 
 @Injectable({
@@ -11,6 +11,7 @@ import { constants } from 'app/shared/constants';
 export class GroupService {
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _groups: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _paginatedGroups: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private swaggerAPI: ApiService) {}
 
@@ -22,28 +23,41 @@ export class GroupService {
     return this._groups.asObservable();
   }
 
-  getAndParseOrganizationGroups(organizationId: number) {
-    return this.getGroups(organizationId).pipe(
-      map((result) =>
-        result.body.data
-          .map((group) => new Group(group))
-          .map(({ id, name, active, members, parent }: Group) => ({
+  get paginatedGroups$(): Observable<any> {
+    return this._paginatedGroups.asObservable();
+  }
+
+  getAndParseOrganizationGroups(organizationId: number, page: number = 0, size: number = 5) {
+    return this.getGroups(organizationId, page, size).pipe(
+      map(({ body }) => {
+        const { data, pagination } = body;
+        const groups = data.map((groupDirty) => {
+          const { id, name, active, members } = new GroupBody(groupDirty);
+          return {
             name,
             status: active ? 'Active' : 'Inactive',
             members,
-            parent,
+            parent: '',
             id,
-          })),
-      ),
-      tap((groups) => {
-        this._groups.next(groups);
+          };
+        });
+        return { groups, pagination };
+      }),
+      tap(({ groups, pagination }) => {
+        this._paginatedGroups.next(groups);
+        this._pagination.next(pagination);
       }),
     );
   }
 
-  getGroups(orgaId?: number): Observable<any> {
+  getGroups(orgaId: number, page?: number, size?: number): Observable<any> {
     const organizationId = orgaId || Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this.swaggerAPI.groupRoutesGetOrganizationGroup({ organizationId });
+
+    if (page | size) {
+      return this.swaggerAPI.groupRoutesGetOrganizationGroup({ organizationId, page, size });
+    } else {
+      return this.swaggerAPI.groupRoutesGetOrganizationGroup({ organizationId });
+    }
   }
 
   async createGroup(group: Group): Promise<GroupDto> {

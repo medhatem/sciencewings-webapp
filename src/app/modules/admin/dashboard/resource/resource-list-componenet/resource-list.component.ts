@@ -6,14 +6,15 @@ import { CookieService } from 'ngx-cookie-service';
 import { FormControl } from '@angular/forms';
 import { ListOption } from '../../reusable-components/list/list-component.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Resource } from 'app/models/resources/resource';
+import { Resource, ResourceListItem } from 'app/models/resources/resource';
 import { ResourceProfileFormComponent } from '../resource-form/profile-form.component';
 import { ResourceService } from '../../../resolvers/resource/resource.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
+import { Pagination } from 'app/models/pagination/IPagination';
 
 export interface ResourceType {
   name: string;
@@ -38,6 +39,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedResource = null;
   openedDialogRef: any;
   resourcesCount: number = 0;
+  pagination: Pagination;
 
   searchInputControl: FormControl = new FormControl();
   private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -53,9 +55,16 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this._resourceService.getOrgResource().subscribe(({ body }) => {
-      this.resources = body.data;
-      this.resourcesCount = this.resources.length;
+    this._resourceService.resourcesPaginated$.subscribe((resources) => {
+      this.resources = resources;
+
+      this._changeDetectorRef.markForCheck();
+    });
+
+    this._resourceService.pagination$.subscribe((pagination) => {
+      this.pagination = pagination;
+
+      this._changeDetectorRef.markForCheck();
     });
   }
 
@@ -192,15 +201,28 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
     this._router.navigateByUrl('resources/resource/profile/' + resourceID);
   }
 
+  async pageEvent(event: PageEvent) {
+    this.pagination = {
+      ...this.pagination,
+      length: event.length,
+      size: event.pageSize,
+      page: event.pageIndex,
+      lastPage: event.previousPageIndex,
+    };
+    await lastValueFrom(this._resourceService.getAndParseOrganizationResource(this.pagination.page, this.pagination.size));
+  }
+
   openCreateDialog(): void {
     this.openedDialogRef = this._matDialog.open(ResourceProfileFormComponent, {});
     this.openedDialogRef.afterClosed().subscribe(async (result) => {
-      const { body } = await lastValueFrom(this._resourceService.getOrgResource());
-      if (body.statusCode === 500) {
+      const { resources } = await lastValueFrom(
+        this._resourceService.getAndParseOrganizationResource(this.pagination.page, this.pagination.size),
+      );
+      if (resources.statusCode === 500) {
         this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
       }
 
-      this.resources = body.data;
+      this.resources = resources;
     });
   }
 }

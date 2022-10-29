@@ -14,6 +14,7 @@ import { organizationMemebrsRoutes } from './organization-members.routing';
 import { MemberContractsComponent } from './member-contracts/member-contracts.component';
 import { MemberContractsFormComponent } from './member-contracts-form/member-contracts-form.component';
 import { MemberUpdateContractComponent } from './member-update-contract/member-update-contract.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MemberUpdateContractComponent } from './member-update-contract/member-u
     TranslocoModule,
     MatFormFieldModule,
     ListComponentModule,
+    MatPaginatorModule,
   ],
 })
 export class OrganizationMembersModule {}

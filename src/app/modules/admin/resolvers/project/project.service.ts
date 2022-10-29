@@ -18,6 +18,7 @@ export class ProjectService {
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _projects: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _projectParticipent: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _projectsPaginated: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private _swaggerService: ApiService) {}
 
@@ -34,6 +35,10 @@ export class ProjectService {
   }
   get projectParticipent$(): Observable<any> {
     return this._projectParticipent.asObservable();
+  }
+
+  get projectsPaginated$(): Observable<any> {
+    return this._projectsPaginated.asObservable();
   }
 
   async createProject(project: Project): Promise<CreateProjectDto> {
@@ -81,27 +86,37 @@ export class ProjectService {
     return this._swaggerService.projectRoutesGetOrganizationProjects({ id });
   }
 
-  getOrgProjectsList(): Observable<any> {
+  getOrgProjectsList(page?: number, size?: number): Observable<any> {
     const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this._swaggerService.projectRoutesGetAllOrganizationProjectsList({ id });
+
+    if (page || size) {
+      return this._swaggerService.projectRoutesGetAllOrganizationProjectsList({ id, page, size });
+    } else {
+      return this._swaggerService.projectRoutesGetAllOrganizationProjectsList({ id });
+    }
   }
 
-  getAndParseOrganizationProjects(): Observable<any[]> {
-    return this.getOrgProjectsList().pipe(
-      map((projects) => projects.body.data.map((project) => new ProjectListItem(project))),
-      map((projects: ProjectListItem[]) =>
-        projects.map(({ title, responsable, members, creatingDate, id, projectDto }) => ({
-          title: `${title}`,
-          responsable: this.parseProjectResponsible(responsable),
-          participents: `${members}`,
-          creatingDate: moment(creatingDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
-          id: id,
-          projectDto: projectDto,
-          responsableInformations: responsable,
-        })),
-      ),
-      tap((response) => {
-        this._projects.next(response);
+  getAndParseOrganizationProjects(page: number = 0, size: number = 5) {
+    return this.getOrgProjectsList(page, size).pipe(
+      map(({ body }) => {
+        const { data, pagination } = body;
+        const projects = data.map((projectDirty) => {
+          const { title, responsable, members, creatingDate, id, projectDto } = new ProjectListItem(projectDirty);
+          return {
+            title: `${title}`,
+            responsable: this.parseProjectResponsible(responsable),
+            participents: `${members}`,
+            creatingDate: moment(creatingDate).format(constants.DATE_FORMAT_YYYY_MM_DD),
+            id: id,
+            projectDto: projectDto,
+            responsableInformations: responsable,
+          };
+        });
+        return { projects, pagination };
+      }),
+      tap(({ projects, pagination }) => {
+        this._projectsPaginated.next(projects);
+        this._pagination.next(pagination);
       }),
     );
   }
