@@ -35,6 +35,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
   }
   accountNumberNoteListener(event) {
     this.isAccountNumberNote = event.checked;
+    this.form.value.acountNumberNote = '';
   }
   async ngAfterViewInit(): Promise<void> {
     this.form.setValue({
