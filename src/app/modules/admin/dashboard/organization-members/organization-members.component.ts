@@ -23,7 +23,7 @@ export class OrganizationMemebrsComponent implements OnInit {
   members: any[] = [];
   isLoading: boolean = false;
   membersCount: number = 0;
-  options: ListOption = { columns: [], numnberOfColumns: 5 };
+  options: ListOption = { columns: [], numberOfColumns: 5 };
   openedDialogRef: any;
   searchInputControl: FormControl = new FormControl();
   pagination: Pagination;
@@ -50,7 +50,7 @@ export class OrganizationMemebrsComponent implements OnInit {
         { columnName: 'Joined', columnPropertyToUse: 'date', customClass: 'hidden' },
         { columnName: 'Actions', columnPropertyToUse: '', customClass: 'hidden' },
       ],
-      numnberOfColumns: 5,
+      numberOfColumns: 5,
       onElementClick: this.onElementSelected.bind(this),
     };
 

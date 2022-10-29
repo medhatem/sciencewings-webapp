@@ -17,7 +17,7 @@ import { ProjectListItem } from 'app/models/projects/project';
 export class ProjectListComponent implements OnInit, OnDestroy {
   projects: any[] = [];
   managers: any[] = [];
-  options: ListOption = { columns: [], numnberOfColumns: 5 };
+  options: ListOption = { columns: [], numberOfColumns: 5 };
   openedDialogRef: any;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -42,7 +42,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         { columnName: 'ORGANIZATION.PROJECTS.LIST.MEMBERS', columnPropertyToUse: 'participents', customClass: '' },
         { columnName: 'ORGANIZATION.PROJECTS.LIST.CREATIONDATE', columnPropertyToUse: 'creatingDate', customClass: '' },
       ],
-      numnberOfColumns: 4,
+      numberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
     };
   }

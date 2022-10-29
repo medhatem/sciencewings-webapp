@@ -18,7 +18,7 @@ export class ProjectMembershipSettingsComponent implements OnInit {
   @Input() id: number;
 
   participants: any[] = [];
-  options: ListOption = { columns: [], numnberOfColumns: 4 };
+  options: ListOption = { columns: [], numberOfColumns: 4 };
   openedDialogRef: any;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -43,7 +43,7 @@ export class ProjectMembershipSettingsComponent implements OnInit {
         { columnName: 'ORGANIZATION.PROJECTS.LIST.PROJECT_STATUS', columnPropertyToUse: 'status', customClass: '' },
         { columnName: 'ORGANIZATION.PROJECTS.SETTINGS.JOINED_DATE', columnPropertyToUse: 'createdAt', customClass: '' },
       ],
-      numnberOfColumns: 4,
+      numberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
     };
   }

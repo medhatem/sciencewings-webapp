@@ -34,7 +34,7 @@ export class ResourceListComponent implements OnInit, OnDestroy {
 
   resources = [];
   isLoading: boolean = false;
-  options: ListOption = { columns: [], numnberOfColumns: 3 };
+  options: ListOption = { columns: [], numberOfColumns: 3 };
   selectedResource = null;
   openedDialogRef: any;
   resourcesCount: number = 0;
