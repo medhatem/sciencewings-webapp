@@ -32,8 +32,6 @@ export class OrganizationSettingsComponent implements OnInit {
       this.settings = body.data;
     });
 
-    console.log('this.organization=== ', this.organization);
-    console.log('this.settings=== ', this.settings);
     this.panels = [
       {
         id: 'general',

@@ -16,7 +16,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
   @Input() settings: any;
   @Output() updateLocalSettings = new EventEmitter<string>();
   form: FormGroup;
-  isAccountNumberNote = false;
+  isAccountNumberNote: boolean;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -27,10 +27,10 @@ export class MembersComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
-      membersCanEditAccountNumbers: '',
-      promptForAccouantNumbers: '',
-      acountNumberNote: '',
-      allowMembersToSeeAllOtherMembers: '',
+      membersCanEditAccountNumbers: [],
+      promptForAccouantNumbers: [],
+      acountNumberNote: [],
+      allowMembersToSeeAllOtherMembers: [],
     });
   }
   accountNumberNoteListener(event) {
@@ -38,11 +38,12 @@ export class MembersComponent implements OnInit, AfterViewInit {
   }
   async ngAfterViewInit(): Promise<void> {
     this.form.setValue({
-      membersCanEditAccountNumbers: this.settings.membersCanEditAccountNumbers || '',
-      promptForAccouantNumbers: this.settings.promptForAccouantNumbers || '',
-      acountNumberNote: this.settings.acountNumberNote || '',
-      allowMembersToSeeAllOtherMembers: this.settings.allowMembersToSeeAllOtherMembers || '',
+      membersCanEditAccountNumbers: this.settings.membersCanEditAccountNumbers,
+      promptForAccouantNumbers: this.settings.promptForAccouantNumbers,
+      acountNumberNote: this.settings.acountNumberNote,
+      allowMembersToSeeAllOtherMembers: this.settings.allowMembersToSeeAllOtherMembers,
     });
+    this.isAccountNumberNote = this.settings.acountNumberNote ? true : false;
   }
 
   async onSubmit() {
