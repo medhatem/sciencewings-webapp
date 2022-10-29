@@ -87,7 +87,7 @@ export class ResourceListComponent implements OnInit, OnDestroy {
         { columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.DATE', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
       onElementClick: this.onElementSelected.bind(this),
-      numnberOfColumns: 5,
+      numberOfColumns: 5,
     };
     this._changeDetectorRef.markForCheck();
   }
