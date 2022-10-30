@@ -119,11 +119,10 @@ export class Member implements MemberRo {
   }
 }
 export class OrganizationMembers implements MemberDto {
-  id: number;
-  name: string;
   active: boolean;
   joinDate: string;
   memberType: string;
+  name: string;
   organization: number;
   status: string;
   statusCode: number;
