@@ -11,7 +11,8 @@ import { Observable } from 'rxjs';
 export class AdminOrganizationResolver implements Resolve<any> {
   constructor(private _myOrganizationsService: AdminOrganizationsService, private _memberService: MemberService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any[]> {
+  async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Observable<any[]>> {
+    await this._myOrganizationsService.getUserOrganizations();
     return this._memberService.getAndParseOrganizationMember();
   }
 }
