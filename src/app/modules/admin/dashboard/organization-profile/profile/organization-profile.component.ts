@@ -6,6 +6,7 @@ import { Organization } from 'app/models/organizations/organization';
 import { Subject } from 'rxjs';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
+import { Address } from 'app/models';
 
 export interface InventoryPagination {
   length: number;
@@ -23,6 +24,7 @@ export interface InventoryPagination {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrganizationProfileComponent implements OnInit, OnDestroy {
+  readonly backToLandingPath = `/${constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.LANDING_PAGE}`;
   readonly organizationProfilePath = `/${constants.MODULES_ROUTINGS_URLS.ADMIN}/${constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.ORGANIZATION_SETTINGS}`;
   readonly fullCreateOrganizationPath = this.organizationProfilePath;
 
@@ -34,9 +36,9 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
     page: 2,
   };
 
-  organization: any;
-  phoneNumber: any;
-  adress: any;
+  organization: Organization;
+  phoneNumber: string;
+  adress: string;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -44,7 +46,6 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
     private _adminOrganizationsService: AdminOrganizationsService,
     private _route: ActivatedRoute,
     private _toastrService: ToastrService,
-
     private _changeDetectorRef: ChangeDetectorRef,
   ) {}
 
@@ -54,6 +55,7 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.organization = await this.fetchOrganizationInformation();
+    this.adress = this.formatAddress(this?.organization?.addresses[0]);
     this.phoneNumber = this.organization.phone?.phoneNumber || null;
     this._changeDetectorRef.markForCheck();
   }
@@ -87,5 +89,11 @@ export class OrganizationProfileComponent implements OnInit, OnDestroy {
     } catch (error) {
       this._toastrService.showError(constants.FETCH_ORGANIZATION_FAILED);
     }
+  }
+
+  private formatAddress(address: Address): string {
+    const { apartment = '', street = '', city = '', province = '', country = '', code = '' } = address;
+    const addressWithoutApp = `${street}, ${city}, ${province}, ${country}, ${code}`;
+    return apartment ? `${apartment}, ${addressWithoutApp}` : addressWithoutApp;
   }
 }

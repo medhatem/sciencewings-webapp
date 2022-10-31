@@ -121,7 +121,7 @@
             <mat-label>{{ 'ORGANIZATION.FORM.STEP2.COUNTRY' | transloco }}</mat-label>
             <mat-select [formControlName]="'country'" placeholder="{{ 'ORGANIZATION.FORM.STEP2.COUNTRY' | transloco }}" required>
               <mat-option value="" disabled selected>{{ 'ORGANIZATION.FORM.STEP2.SELECT_COUNTRY' | transloco }}</mat-option>
-              <mat-option *ngFor="let allContact of allContacts" [value]="allContact.code">{{ allContact.name }}</mat-option>
+              <mat-option *ngFor="let allContact of allContacts" [value]="allContact.name">{{ allContact.name }}</mat-option>
             </mat-select>
             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
           </mat-form-field>
@@ -137,7 +137,10 @@
           </mat-form-field>
         </div>
 
-        <div class="flex justify-end mt-8">
+        <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
+          <button class="px-8" mat-flat-button [routerLink]="backToLandingPath">
+            {{ 'APP.ROUTES.USER.ABOUT.CANCEL' | transloco }}
+          </button>
           <button class="px-8" mat-flat-button [color]="'primary'" (click)="onSubmit()">
             {{ 'APP.ROUTES.USER.ABOUT.SAVE' | transloco }}
           </button>

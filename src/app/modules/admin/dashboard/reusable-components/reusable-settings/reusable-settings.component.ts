@@ -18,6 +18,7 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
   drawerOpened: boolean = true;
   settings = null;
   currentProjects = null;
+  organization = null;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -96,6 +97,12 @@ export class ReusableSettingsComponent implements OnInit, OnDestroy {
   updateLocalProject(payload) {
     this.currentProjects = {
       ...this.currentProjects,
+      ...payload,
+    };
+  }
+  updateLocalOrganization(payload) {
+    this.organization = {
+      ...this.organization,
       ...payload,
     };
   }
