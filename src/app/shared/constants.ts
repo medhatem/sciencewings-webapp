@@ -59,6 +59,7 @@ export const constants = {
     ADMIN: 'admin',
     RESOURCES: 'resources',
     RESOURCE: 'resources/resource/create/*',
+    RESOURCES_LIST: '/resources/resource/',
     RESOURCES_SETTINGS: 'resource-settings',
     INFRASTRUCTURE: '/resources/Infrastructure/',
     LANDING_PAGE: 'landing-page',
