@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FuseNavigationItem, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 
@@ -8,7 +8,7 @@ import { ListOption } from '../../reusable-components/list/list-component.compon
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Resource, ResourceListItem } from 'app/models/resources/resource';
+import { GetResource, Resource, ResourceListItem } from 'app/models/resources/resource';
 import { ResourceProfileFormComponent } from '../resource-form/profile-form.component';
 import { ResourceService } from '../../../resolvers/resource/resource.service';
 import { Router } from '@angular/router';
@@ -26,9 +26,8 @@ export interface ResourceType {
 @Component({
   selector: 'app-resource-list',
   templateUrl: './resource-list.component.html',
-  styleUrls: ['./resource-list.component.scss'],
 })
-export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ResourceListComponent implements OnInit, OnDestroy {
   @Output() messageEvent = new EventEmitter<string>();
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
   @ViewChild(MatSort) private _sort: MatSort;
@@ -55,6 +54,10 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this._resourceService.resources$.pipe(takeUntil(this._unsubscribeAll)).subscribe((resources: Resource[]) => {
+      this.resources = resources;
+      this.resourcesCount = resources?.length;
+    });
     this._resourceService.resourcesPaginated$.subscribe((resources) => {
       this.resources = resources;
 
@@ -66,69 +69,37 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this._changeDetectorRef.markForCheck();
     });
+    this.options = {
+      columns: [
+        { columnName: 'ORGANIZATION.SETTINGS.RESOUCES.NAME', columnPropertyToUse: 'name', customClass: '' },
+
+        { columnName: 'ORGANIZATION.SETTINGS.RESOUCES.CLASS', columnPropertyToUse: 'resourceClass', customClass: 'hidden' },
+        {
+          columnName: 'ORGANIZATION.SETTINGS.RESOUCES.TYPE',
+          columnPropertyToUse: 'resourceType',
+          customClass: 'hidden',
+        },
+        {
+          columnName: 'ORGANIZATION.SETTINGS.RESOUCES.STATUS',
+          columnPropertyToUse: 'active',
+          customClass: 'hidden',
+        },
+        { columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.DATE', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
+      ],
+      onElementClick: this.onElementSelected.bind(this),
+      numberOfColumns: 5,
+    };
+    this._changeDetectorRef.markForCheck();
   }
 
-  /**
-   * After view init
-   */
-  ngAfterViewInit(): void {
-    if (this._sort && this._paginator) {
-      // Set the initial sort
-      this._sort.sort({
-        id: 'name',
-        start: 'asc',
-        disableClear: true,
-      });
-    }
-  }
-
-  /**
-   * On destroy
-   */
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
 
-  /**
-   * Track by function for ngFor loops
-   *
-   * @param index
-   * @param item
-   */
   trackByFn(index: number, item: any): any {
     return item.id || index;
-  }
-
-  /**
-   * Close the details
-   */
-  closeDetails(): void {
-    this.selectedResource = null;
-  }
-
-  /**
-   * Toggle product details
-   *
-   * @param productId
-   */
-  toggleDetails(event, resourceId: number): void {
-    event.stopPropagation();
-    // If the product is already selected...
-    if (this.selectedResource && this.selectedResource.id === resourceId) {
-      // Close the details
-      this.closeDetails();
-      return;
-    }
-
-    this._resourceService.getResource(resourceId).subscribe(({ body }) => {
-      if (body.statusCode === 500) {
-        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
-      }
-
-      this.selectedResource = body.data[0];
-    });
   }
 
   onDelete(id: number) {
@@ -141,7 +112,31 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  showResourceProfile(resourceName: string, resourceID: number) {
+  async pageEvent(event: PageEvent) {
+    this.pagination = {
+      ...this.pagination,
+      length: event.length,
+      size: event.pageSize,
+      page: event.pageIndex,
+      lastPage: event.previousPageIndex,
+    };
+    await lastValueFrom(this._resourceService.getAndParseOrganizationResource(this.pagination.page, this.pagination.size));
+  }
+
+  openCreateDialog(): void {
+    const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
+    if (!orgID) {
+      this._toastrService.showError('Something went wrong!');
+    }
+    this.openedDialogRef = this._matDialog.open(ResourceProfileFormComponent, {
+      data: { orgID },
+    });
+    this.openedDialogRef.afterClosed().subscribe((result) => {
+      lastValueFrom(this._resourceService.getAndParseOrganizationResource());
+    });
+  }
+
+  async onElementSelected(resource: GetResource) {
     const navComponent = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>('mainNavigation');
 
     // Return if the navigation component does not exist
@@ -153,7 +148,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
       {
         id: 'general-components',
         title: 'Resource',
-        subtitle: resourceName,
+        subtitle: resource?.name,
         type: 'group',
         children: [
           {
@@ -161,14 +156,14 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
             title: 'Resource',
             type: 'basic',
             icon: 'heroicons_outline:cube',
-            link: 'resources/resource/profile/' + resourceID,
+            link: 'resources/resource/profile/' + resource?.id,
           },
           {
             id: 'supported-components.schedule',
             title: 'Schedule',
             type: 'basic',
             icon: 'heroicons_outline:calendar',
-            link: 'resources/resource/schedule/' + resourceID,
+            link: 'resources/resource/schedule/' + resource?.id,
           },
         ],
       },
@@ -197,32 +192,7 @@ export class ResourceListComponent implements OnInit, AfterViewInit, OnDestroy {
     // Replace the navigation data
     navComponent.navigation = newNavigation;
     navComponent.refresh();
-    this._coookies.set('resourceID', resourceID.toString());
-    this._router.navigateByUrl('resources/resource/profile/' + resourceID);
-  }
-
-  async pageEvent(event: PageEvent) {
-    this.pagination = {
-      ...this.pagination,
-      length: event.length,
-      size: event.pageSize,
-      page: event.pageIndex,
-      lastPage: event.previousPageIndex,
-    };
-    await lastValueFrom(this._resourceService.getAndParseOrganizationResource(this.pagination.page, this.pagination.size));
-  }
-
-  openCreateDialog(): void {
-    this.openedDialogRef = this._matDialog.open(ResourceProfileFormComponent, {});
-    this.openedDialogRef.afterClosed().subscribe(async (result) => {
-      const { resources } = await lastValueFrom(
-        this._resourceService.getAndParseOrganizationResource(this.pagination.page, this.pagination.size),
-      );
-      if (resources.statusCode === 500) {
-        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
-      }
-
-      this.resources = resources;
-    });
+    this._coookies.set('resourceID', resource?.id?.toString());
+    this._router.navigateByUrl('resources/resource/profile/' + resource?.id);
   }
 }

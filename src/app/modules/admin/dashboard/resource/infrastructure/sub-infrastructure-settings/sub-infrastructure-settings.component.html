@@ -1,0 +1,16 @@
+   <div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+      <!-- Header -->
+      <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8">
+        <!-- Title -->
+        <div>
+          <div class="text-4xl font-extrabold tracking-tight leading-none">
+            {{ 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.TITLE' | transloco }}
+          </div>
+        </div>
+      </div>
+      <list-component
+        [dataList]="subInfrastructures"
+        [options]="options"
+        [message]="'ORGANIZATION.INFRASTRUCTURES.SETTINGS.SUBINFRASTRUCTURES.MESSAGE' | transloco"></list-component>
+    </div>
+    <router-outlet></router-outlet>

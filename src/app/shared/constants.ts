@@ -49,6 +49,7 @@ export const constants = {
   CURRENT_MODULE: 'module',
   CURRENT_PROJECT_ID: 'projectId',
   CURRENT_INFRASTRUCTURE_ID: 'infraId',
+  CURRENT_RESOURCE_ID: 'resourceId',
 
   /**
    * ****************** ROUTING *******************
