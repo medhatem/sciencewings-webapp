@@ -3,10 +3,18 @@ import { BehaviorSubject, Observable, map, tap, lastValueFrom } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateInfrastructureDto, InfrastructureStatusObjectDto, MemberDto, ResourceDto, UpdateinfrastructureRo } from 'generated/models';
+
+import {
+  CreateInfrastructureDto,
+  InfrastructureStatusObjectDto,
+  MemberDto,
+  ResourceDto,
+  SubInfraObjectDto,
+  UpdateinfrastructureRo,
+} from 'generated/models';
 import moment from 'moment';
 import { constants } from 'app/shared/constants';
-import { Infrastructure, InfrastructureListItem, ResourcesList } from 'app/models/infrastructures/infrastructure';
+import { Infrastructure, InfrastructureListItem, ResourcesList, SubInfrastructureList } from 'app/models/infrastructures/infrastructure';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +23,9 @@ export class InfrastructureService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _infrastructures: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _infrastructureSubInfrastructures: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _infrastructureResources: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _infrastructurePaginated: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
 
@@ -29,6 +39,10 @@ export class InfrastructureService {
 
   get infrastructures$(): Observable<any> {
     return this._infrastructures.asObservable();
+  }
+
+  get infrastructurePaginated$(): Observable<any> {
+    return this._infrastructurePaginated.asObservable();
   }
 
   getInfrastructures(
@@ -60,14 +74,39 @@ export class InfrastructureService {
     return lastValueFrom(this.swaggerAPI.infrastructureRoutesCreateInfrastructure({ body: infrastructure as any }));
   }
 
-  getOrgInfrastructures(): Observable<any> {
+  getOrgInfrastructures(page?: number, size?: number): Observable<any> {
     const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId });
-  }
 
+    if (page || size) {
+      return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId, page, size });
+    } else {
+      return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId });
+    }
+  }
   getInfrastructureResources(infraId?: number): Observable<any> {
     const id = infraId || Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
     return this.swaggerAPI.infrastructureRoutesGetAllRessourcesOfAgivenInfrastructure({ id });
+  }
+  getInfrastructureSubInfrastructures(infraId?: number): Observable<any> {
+    const id = infraId || Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
+    return this.swaggerAPI.infrastructureRoutesGetAllSubInfasOfAGivenInfrastructure({ id });
+  }
+
+  getAndParseInfrastructureSubInfrastructures(infraId?: number): Observable<any[]> {
+    const id = infraId || Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
+    return this.getInfrastructureSubInfrastructures(id).pipe(
+      map((subInfrastructures) => subInfrastructures.body.data.map((subInfras) => new SubInfrastructureList(subInfras))),
+      map((subInfrastructures) =>
+        subInfrastructures.map(({ subInfrastructure, resourcesNb, createdAt }) => ({
+          subInfrastructure: this?.parseInfrastructureSubInfrastructure(subInfrastructure),
+          resourcesNb: `${resourcesNb}`,
+          createdAt: moment(createdAt).format(constants.DATE_FORMAT_YYYY_MM_DD),
+        })),
+      ),
+      tap((response) => {
+        this._infrastructureSubInfrastructures.next(response);
+      }),
+    );
   }
 
   getAndParseInfrastructureResources(infraId?: number): Observable<any[]> {
@@ -87,21 +126,26 @@ export class InfrastructureService {
     );
   }
 
-  getAndParseOrganizationInfrastructures(): Observable<any[]> {
-    return this.getOrgInfrastructures().pipe(
-      map((infrastructures) => infrastructures.body.data.map((infrastructure) => new InfrastructureListItem(infrastructure))),
-      map((infrastructures: InfrastructureListItem[]) =>
-        infrastructures.map(({ name, key, id, responsible, resourcesNb, dateStart }) => ({
-          name: `${name}`,
-          key,
-          resourcesNb: `${resourcesNb}`,
-          responsible: this.parseInfrastructureResponsible(responsible),
-          dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-          id: id,
-        })),
-      ),
-      tap((response) => {
-        this._infrastructures.next(response);
+  getAndParseOrganizationInfrastructures(page: number = 0, size: number = 5) {
+    return this.getOrgInfrastructures(page, size).pipe(
+      map(({ body }) => {
+        const { data, pagination } = body;
+        const infrastructures = data.map((infrastructureDirty) => {
+          const { name, key, id, responsible, resourcesNb, dateStart } = new InfrastructureListItem(infrastructureDirty);
+          return {
+            name: `${name}`,
+            key,
+            resourcesNb: `${resourcesNb}`,
+            responsible: this.parseInfrastructureResponsible(responsible),
+            dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+            id,
+          };
+        });
+        return { infrastructures, pagination };
+      }),
+      tap(({ infrastructures, pagination }) => {
+        this._infrastructurePaginated.next(infrastructures);
+        this._pagination.next(pagination);
       }),
     );
   }
@@ -122,6 +166,9 @@ export class InfrastructureService {
     return `<div>${responsible?.name}</div><div>${(responsible as any)?.workEmail}</div>`;
   }
 
+  parseInfrastructureSubInfrastructure(subInfrastructure: SubInfraObjectDto): string {
+    return `<div>${subInfrastructure?.name}</div>`;
+  }
   parseInfrastructureResources(resource: ResourceDto): string {
     return `<div>${resource.name}</div>`;
   }

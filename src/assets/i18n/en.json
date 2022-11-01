@@ -684,6 +684,7 @@
       "IMPORT_INFRASTRUCTURE": "Import ",
       "EXPORT_INFRASTRUCTURE": "Export ",
       "NO_INFRASTRUCTURE": "There are no infrastructures",
+      "NO_RESOURCES": "There are no resources",
       "INFRASTRUCTURE_FORM": {
         "TITLE": "Create infrastructure ",
         "NAME": "Name",
@@ -708,6 +709,16 @@
         "TITLE": "Infrastructure settings",
         "PANEL_GENERAL": "General",
         "GENERAL_MESSAGE": "Manage the general informations of your infrastructures",
+        "PANEL_SUBINFRASTRUCTURES": "Sub-Infrastructures",
+        "SUBINFRASTRUCTURES_MESSAGE": "Manage the Sub-Infrastructures of your infrastructures",
+        "SUBINFRASTRUCTURES": {
+          "TITLE": "Sub-Infrastructures",
+          "STATUS": "Status",
+          "RESOURCES": "#Resources",
+          "DATE": "Created Date",
+          "MESSAGE": "There are no Sub-Infrastructures"
+        },
+
         "PANEL_RESOURCES": "Resources",
         "RESOURCES_MESSAGE": "Manage the resources of your infrastructures",
         "RESOURCES": {

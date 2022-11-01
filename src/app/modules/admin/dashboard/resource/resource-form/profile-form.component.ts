@@ -37,7 +37,7 @@ export class ResourceProfileFormComponent implements OnInit {
       name: this._formBuilder.control('', [Validators.required]),
       resourceClass: this._formBuilder.control('', [Validators.required]),
       resourceType: this._formBuilder.control('', [Validators.required]),
-      infrastructures: ['', [Validators.required]],
+      infrastructure: ['', [Validators.required]],
       description: [' '],
     });
     await this.getOrgInfrastructures();
@@ -76,7 +76,6 @@ export class ResourceProfileFormComponent implements OnInit {
     return new Resource({
       ...this.resourceForm.value,
       organization: this.getOrganizationIdFromLocalStorage(),
-      infrastructure: this.infrastructures,
     });
   }
   private getOrganizationIdFromLocalStorage(): number {

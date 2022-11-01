@@ -1,13 +1,15 @@
 import { AddressDto, AddressRo } from 'generated/models';
 
 export class Address implements AddressRo {
-  apartment: string;
+  apartment?: string;
   city: string;
   code: string;
   country: string;
+  organization?: number;
   province: string;
   street: string;
-  type: AddressType;
+  type: 'USER' | 'ORGANIZATION';
+  user?: number;
 
   constructor(address: any) {
     const { appartement, city, code, country = 'Canada', province, street, type = AddressType.user } = address || {};

@@ -6,9 +6,10 @@ import { Injectable } from '@angular/core';
 import {
   CreateResourceDto,
   GetAllInfrastructuresDto,
+  MemberDto,
+  ResourceManagerDto,
   ResourceRateRo,
   ResourceReservationVisibilityRo,
-  ResourceRo,
   ResourceSettingsGeneralPropertiesRo,
   ResourceSettingsGeneralStatusRo,
   ResourceSettingsGeneralVisibilityRo,
@@ -27,6 +28,7 @@ export class ResourceService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
   private _resources: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _resourcesPaginated: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
 
@@ -45,6 +47,10 @@ export class ResourceService {
     return this._resources.asObservable();
   }
 
+  get resourcesPaginated$(): Observable<any> {
+    return this._resourcesPaginated.asObservable();
+  }
+
   /**
    * Get data
    */
@@ -55,32 +61,44 @@ export class ResourceService {
     );
   }
 
-  getAndParseOrganizationResource(): Observable<any[]> {
-    return this.getOrgResource().pipe(
-      map((resources) => resources.body.data.map((resource) => new ResourceListItem(resource))),
-      map((resources: ResourceListItem[]) =>
-        resources.map(({ name, resourceClass, resourceType, infrastructures, dateStart }) => ({
-          name: `${name}`,
-          resourceClass,
-          infrastructures: this.parseInfrastructuresToHtml(infrastructures),
-          resourceType,
-          dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-        })),
-      ),
-      tap((response) => {
-        this._resources.next(response);
+  getAndParseOrganizationResource(page: number = 0, size: number = 5) {
+    return this.getOrgResource(page, size).pipe(
+      map(({ body }) => {
+        const { data, pagination } = body;
+        const resources = data.map((resourceDirty) => {
+          const { id, name, resourceClass, resourceType, infrastructures, managers, active, dateStart } = new ResourceListItem(resourceDirty);
+          return {
+            name: `${name}`,
+            resourceClass,
+            infrastructures: 'None',
+            resourceType,
+            dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+            active,
+            id: id,
+          };
+        });
+        return { resources, pagination };
+      }),
+      tap(({ resources, pagination }) => {
+        this._resourcesPaginated.next(resources);
+        this._pagination.next(pagination);
       }),
     );
+  }
+
+  getOrgResource(page?: number, size?: number): Observable<any> {
+    const organizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    if (page || size) {
+      return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId, page, size });
+    } else {
+      return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId });
+    }
   }
 
   getOrgMembers(id: number): Observable<any> {
     return this.swaggerAPI.organizationRoutesGetUsers({ id });
   }
 
-  getOrgResource(): Observable<any> {
-    const organizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId });
-  }
   createResource(resource: Resource): Promise<CreateResourceDto> {
     return lastValueFrom(this.swaggerAPI.resourceRoutesCreateResource({ body: resource as any }));
   }
@@ -132,8 +150,5 @@ export class ResourceService {
   }
   updateResourceSettingsReservationVisibility(resourceId: number, body: ResourceReservationVisibilityRo): Observable<any> {
     return this.swaggerAPI.resourceRoutesUpdateResourceRestrictionVisibility({ resourceId, body });
-  }
-  private parseInfrastructuresToHtml(infrastructures: Infrastructure[]) {
-    return infrastructures.map(({ name }) => `<div>${name}</div>`);
   }
 }

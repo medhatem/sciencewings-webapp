@@ -3,11 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
-import { Subject } from 'rxjs';
+import { lastValueFrom, Subject } from 'rxjs';
 import { ListOption } from '../../reusable-components/list/list-component.component';
 import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 import { ProjectFormComponent } from '../project-form/project-form.component';
 import { ProjectListItem } from 'app/models/projects/project';
+import { Pagination } from 'app/models/pagination/IPagination';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-project-list',
@@ -19,6 +21,8 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   managers: any[] = [];
   options: ListOption = { columns: [], numberOfColumns: 5 };
   openedDialogRef: any;
+  isLoading: boolean = false;
+  pagination: Pagination;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -30,8 +34,13 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this._projectService.getAndParseOrganizationProjects().subscribe((projects: ProjectListItem[]) => {
+    this._projectService.projectsPaginated$.subscribe((projects) => {
       this.projects = projects;
+      this._changeDetectorRef.markForCheck();
+    });
+
+    this._projectService.pagination$.subscribe((pagination) => {
+      this.pagination = pagination;
       this._changeDetectorRef.markForCheck();
     });
 
@@ -66,12 +75,22 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         data: { orgID },
       })
       .afterClosed()
-      .subscribe(() => {
-        this._projectService.getAndParseOrganizationProjects().subscribe((projects: ProjectListItem[]) => {
-          this.projects = projects;
-          this._changeDetectorRef.markForCheck();
-        });
+      .subscribe(async () => {
+        await lastValueFrom(this._projectService.getAndParseOrganizationProjects(this.pagination.page, this.pagination.size));
+        this._changeDetectorRef.markForCheck();
       });
+  }
+
+  async pageEvent(event: PageEvent) {
+    this.pagination = {
+      ...this.pagination,
+      length: event.length,
+      size: event.pageSize,
+      page: event.pageIndex,
+      lastPage: event.previousPageIndex,
+    };
+    const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    await lastValueFrom(this._projectService.getAndParseOrganizationProjects(this.pagination.page, this.pagination.size));
   }
 
   async onElementSelected(p: ProjectListItem) {
