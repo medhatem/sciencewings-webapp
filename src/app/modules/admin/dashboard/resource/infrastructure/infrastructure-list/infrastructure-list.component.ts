@@ -10,6 +10,8 @@ import { Infrastructure, InfrastructureListItem } from 'app/models/infrastructur
 import { InfrastructureService } from 'app/modules/admin/resolvers/infrastructure/infrastructure.service';
 import { constants } from 'app/shared/constants';
 import { InfrastructureFormComponent } from '../infrastructure-form/infrastructure-form.component';
+import { Pagination } from 'app/models/pagination/IPagination';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-infrastructure-list',
@@ -22,6 +24,7 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
   options: ListOption = { columns: [], numberOfColumns: 5 };
   openedDialogRef: any;
   searchInputControl: FormControl = new FormControl();
+  pagination: Pagination;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -34,9 +37,18 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this._infrastructureService.infrastructures$.pipe(takeUntil(this._unsubscribeAll)).subscribe((infrastructures: Infrastructure[]) => {
+    this._infrastructureService.infrastructurePaginated$.subscribe((infrastructures) => {
+      takeUntil(this._unsubscribeAll);
       this.infrastructures = infrastructures;
       this.infrastructuresCount = infrastructures.length;
+
+      this._changeDetectorRef.markForCheck();
+    });
+
+    this._infrastructureService.pagination$.subscribe((pagination) => {
+      takeUntil(this._unsubscribeAll);
+      this.pagination = pagination;
+
       this._changeDetectorRef.markForCheck();
     });
 
@@ -65,6 +77,17 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
+  }
+
+  async pageEvent(event: PageEvent) {
+    this.pagination = {
+      ...this.pagination,
+      length: event.length,
+      size: event.pageSize,
+      page: event.pageIndex,
+      lastPage: event.previousPageIndex,
+    };
+    await lastValueFrom(this._infrastructureService.getAndParseOrganizationInfrastructures(this.pagination.page, this.pagination.size));
   }
 
   openCreateInfrastructureDialog(): void {

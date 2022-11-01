@@ -8,6 +8,10 @@ import { ListOption } from '../../reusable-components/list/list-component.compon
 import { ContractRo, GetContract } from 'app/models/contract/contract';
 import { MemberUpdateContractComponent } from '../member-update-contract/member-update-contract.component';
 import { constants } from 'app/shared/constants';
+import { Pagination } from 'app/models/pagination/IPagination';
+import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
+import { PageEvent } from '@angular/material/paginator';
+import { takeUntil, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-member-contracts',
@@ -21,6 +25,11 @@ export class MemberContractsComponent implements OnInit {
   contracts: any[] = [];
   conDto: any;
   openedDialogRef: any;
+  pagination: Pagination;
+  isLoading: boolean = false;
+
+  private _unsubscribeAll: Subject<any> = new Subject<any>();
+
   constructor(
     private _route: ActivatedRoute,
     private _contractService: ContractService,
@@ -31,8 +40,13 @@ export class MemberContractsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._contractService.getAndParseMemberContracts(this.orgId, this.userId).subscribe((contracts: GetContract[]) => {
+    this._contractService.contractsPaginated$.pipe(takeUntil(this._unsubscribeAll)).subscribe((contracts) => {
       this.contracts = contracts;
+      this._cdr.markForCheck();
+    });
+
+    this._contractService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination) => {
+      this.pagination = pagination;
       this._cdr.markForCheck();
     });
 
@@ -59,11 +73,12 @@ export class MemberContractsComponent implements OnInit {
         data: { orgID, userId },
       })
       .afterClosed()
-      .subscribe(() => {
-        this._contractService.getAndParseMemberContracts(this.orgId, this.userId).subscribe((contracts: GetContract[]) => {
-          this.contracts = contracts;
-          this._cdr.markForCheck();
-        });
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(async () => {
+        await lastValueFrom(
+          this._contractService.getAndParseMemberContracts(this.orgId, this.userId, this.pagination.page, this.pagination.size),
+        );
+        this._cdr.markForCheck();
       });
   }
 
@@ -76,12 +91,24 @@ export class MemberContractsComponent implements OnInit {
         data: { orgID, userId, contractDto },
       })
       .afterClosed()
-      .subscribe(() => {
-        this._contractService.getAndParseMemberContracts(orgID, this.userId).subscribe((contracts: GetContract[]) => {
-          this.contracts = contracts;
-          this._cdr.markForCheck();
-        });
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(async () => {
+        await lastValueFrom(
+          this._contractService.getAndParseMemberContracts(this.orgId, this.userId, this.pagination.page, this.pagination.size),
+        );
+        this._cdr.markForCheck();
       });
+  }
+
+  async pageEvent(event: PageEvent) {
+    this.pagination = {
+      ...this.pagination,
+      length: event.length,
+      size: event.pageSize,
+      page: event.pageIndex,
+      lastPage: event.previousPageIndex,
+    };
+    await lastValueFrom(this._contractService.getAndParseMemberContracts(this.orgId, this.userId, this.pagination.page, this.pagination.size));
   }
 
   private getOrganizationIdFromLocalStorage(): number {

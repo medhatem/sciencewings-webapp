@@ -16,8 +16,10 @@
     <mat-form-field class="flex-auto mx-4">
       <mat-label>{{ 'ORGANIZATION.GROUPS.FORM.GROUP_MEMBERS' | transloco }}</mat-label>
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
-      <mat-select [formControlName]="'members'"  multiple>
-        <mat-option *ngFor="let organizationMember of organizationMembers" [value]="organizationMember.user">{{organizationMember.name}}</mat-option>
+      <mat-select [formControlName]="'members'" multiple>
+        <mat-option *ngFor="let organizationMember of organizationMembers" [value]="organizationMember.user">{{
+          organizationMember.name
+        }}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -25,7 +27,9 @@
       <mat-label>{{ 'ORGANIZATION.GROUPS.FORM.GROUP_PARENT' | transloco }}</mat-label>
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-group'"></mat-icon>
       <mat-select [formControlName]="'parent'">
-        <mat-option *ngFor="let organizationGroup of organizationGroups" [value]="organizationGroup.id">{{organizationGroup.name}}</mat-option>
+        <mat-option *ngFor="let organizationGroup of organizationGroups" [value]="organizationGroup.id">{{
+          organizationGroup.name
+        }}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -39,11 +43,10 @@
     </mat-form-field>
 
     <div class="flex items-center justify-end -mx-8 mt-8 px-8 py-2">
-      <button mat-button mat-dialog-close mat-flat-button [color]="'primary'" (click)="submit()">
+      <button mat-button mat-dialog-close>{{ 'ORGANIZATION.GROUPS.FORM.CANCEL' | transloco }}</button>
+      <button class="px-6 ml-3" mat-flat-button [color]="'primary'" (click)="submit()">
         {{ 'ORGANIZATION.CONTRACTS.FORM.SAVE' | transloco }}
       </button>
-      <button class="px-6 ml-3" [mat-dialog-close]="true">{{ 'ORGANIZATION.GROUPS.FORM.CANCEL' | transloco }}</button>
     </div>
-
   </form>
 </div>
