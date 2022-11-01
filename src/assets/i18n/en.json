@@ -680,6 +680,7 @@
       "IMPORT_INFRASTRUCTURE": "Import ",
       "EXPORT_INFRASTRUCTURE": "Export ",
       "NO_INFRASTRUCTURE": "There are no infrastructures",
+      "NO_RESOURCES": "There are no resources",
       "INFRASTRUCTURE_FORM": {
         "TITLE": "Create infrastructure ",
         "NAME": "Name",
