@@ -130,8 +130,8 @@ export class OrganizationMembers implements MemberDto {
   workEmail: string;
 
   constructor(memberDto: any) {
-    const { name, user } = memberDto;
-    Object.assign(this, { name, user });
+    const { active, joinDate, name, organization, status, statusCode, user, workEmail, memberType } = memberDto;
+    Object.assign(this, { active, joinDate, name, organization, status, statusCode, user, workEmail, memberType });
   }
 }
 

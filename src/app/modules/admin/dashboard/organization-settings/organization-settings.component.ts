@@ -5,6 +5,7 @@ import { AdminOrganizationsService } from '../../resolvers/admin-organization/ad
 import { MatDrawer } from '@angular/material/sidenav';
 import { constants } from 'app/shared/constants';
 import { ActivatedRoute } from '@angular/router';
+import { values } from 'lodash';
 
 @Component({
   selector: 'organization-settings',
@@ -26,6 +27,9 @@ export class OrganizationSettingsComponent implements OnInit {
     this.id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
     await lastValueFrom(this._organizationService.getOrgOrganizationById(this.id)).then(({ body }) => {
       this.organization = body.data[0];
+    });
+    await lastValueFrom(this._organizationService.getOrganizationSettingsById(this.id)).then(({ body }) => {
+      this.settings = body.data;
     });
 
     this.panels = [
