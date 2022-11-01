@@ -25,6 +25,7 @@ export class InfrastructureService {
   private _infrastructures: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _infrastructureSubInfrastructures: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _infrastructureResources: BehaviorSubject<any | null> = new BehaviorSubject(null);
+  private _infrastructurePaginated: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private swaggerAPI: ApiService) {}
 
@@ -38,6 +39,10 @@ export class InfrastructureService {
 
   get infrastructures$(): Observable<any> {
     return this._infrastructures.asObservable();
+  }
+
+  get infrastructurePaginated$(): Observable<any> {
+    return this._infrastructurePaginated.asObservable();
   }
 
   getInfrastructures(
@@ -69,9 +74,14 @@ export class InfrastructureService {
     return lastValueFrom(this.swaggerAPI.infrastructureRoutesCreateInfrastructure({ body: infrastructure as any }));
   }
 
-  getOrgInfrastructures(): Observable<any> {
+  getOrgInfrastructures(page?: number, size?: number): Observable<any> {
     const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId });
+
+    if (page || size) {
+      return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId, page, size });
+    } else {
+      return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId });
+    }
   }
   getInfrastructureResources(infraId?: number): Observable<any> {
     const id = infraId || Number(localStorage.getItem(constants.CURRENT_INFRASTRUCTURE_ID));
@@ -116,21 +126,26 @@ export class InfrastructureService {
     );
   }
 
-  getAndParseOrganizationInfrastructures(): Observable<any[]> {
-    return this.getOrgInfrastructures().pipe(
-      map((infrastructures) => infrastructures.body.data.map((infrastructure) => new InfrastructureListItem(infrastructure))),
-      map((infrastructures: InfrastructureListItem[]) =>
-        infrastructures.map(({ name, key, id, responsible, resourcesNb, dateStart }) => ({
-          name: `${name}`,
-          key,
-          resourcesNb: `${resourcesNb}`,
-          responsible: this.parseInfrastructureResponsible(responsible),
-          dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-          id: id,
-        })),
-      ),
-      tap((response) => {
-        this._infrastructures.next(response);
+  getAndParseOrganizationInfrastructures(page: number = 0, size: number = 5) {
+    return this.getOrgInfrastructures(page, size).pipe(
+      map(({ body }) => {
+        const { data, pagination } = body;
+        const infrastructures = data.map((infrastructureDirty) => {
+          const { name, key, id, responsible, resourcesNb, dateStart } = new InfrastructureListItem(infrastructureDirty);
+          return {
+            name: `${name}`,
+            key,
+            resourcesNb: `${resourcesNb}`,
+            responsible: this.parseInfrastructureResponsible(responsible),
+            dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+            id,
+          };
+        });
+        return { infrastructures, pagination };
+      }),
+      tap(({ infrastructures, pagination }) => {
+        this._infrastructurePaginated.next(infrastructures);
+        this._pagination.next(pagination);
       }),
     );
   }
