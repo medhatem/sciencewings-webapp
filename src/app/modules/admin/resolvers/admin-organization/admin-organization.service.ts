@@ -37,12 +37,9 @@ export class AdminOrganizationsService {
     );
   }
 
-  async getUserOrganizations(userId?: number): Promise<UserOrganizations[]> {
-    return lastValueFrom(
-      this._swaggerService
-        .memberRoutesGetUserMemberships({ userId })
-        .pipe(map(({ body }) => body.data.map((member) => new UserOrganizations(member)))),
-    );
+  getUserOrganizations(userId?: number): Observable<any> {
+    const id = userId || Number(localStorage.getItem(constants.CURRENT_USER_ID));
+    return this._swaggerService.memberRoutesGetUserMemberships({ userId });
   }
 
   /**
