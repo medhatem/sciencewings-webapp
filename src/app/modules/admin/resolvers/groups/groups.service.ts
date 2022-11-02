@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable, tap, lastValueFrom, map } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { Injectable } from '@angular/core';
 import { GroupDto } from 'generated/models';
-import { Group, GroupBody } from 'app/models/groups/group';
+import { Group } from 'app/models/groups/group';
 import { constants } from 'app/shared/constants';
 
 @Injectable({
@@ -11,7 +11,6 @@ import { constants } from 'app/shared/constants';
 export class GroupService {
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _groups: BehaviorSubject<any | null> = new BehaviorSubject(null);
-  private _paginatedGroups: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private swaggerAPI: ApiService) {}
 
@@ -23,41 +22,28 @@ export class GroupService {
     return this._groups.asObservable();
   }
 
-  get paginatedGroups$(): Observable<any> {
-    return this._paginatedGroups.asObservable();
-  }
-
-  getAndParseOrganizationGroups(organizationId: number, page: number = 0, size: number = 5) {
-    return this.getGroups(organizationId, page, size).pipe(
-      map(({ body }) => {
-        const { data, pagination } = body;
-        const groups = data.map((groupDirty) => {
-          const { id, name, active, members } = new GroupBody(groupDirty);
-          return {
+  getAndParseOrganizationGroups(organizationId: number) {
+    return this.getGroups(organizationId).pipe(
+      map((result) =>
+        result.body.data
+          .map((group) => new Group(group))
+          .map(({ id, name, active, members, parent }: Group) => ({
             name,
             status: active ? 'Active' : 'Inactive',
             members,
-            parent: '',
+            parent,
             id,
-          };
-        });
-        return { groups, pagination };
-      }),
-      tap(({ groups, pagination }) => {
-        this._paginatedGroups.next(groups);
-        this._pagination.next(pagination);
+          })),
+      ),
+      tap((groups) => {
+        this._groups.next(groups);
       }),
     );
   }
 
-  getGroups(orgaId: number, page?: number, size?: number): Observable<any> {
+  getGroups(orgaId?: number): Observable<any> {
     const organizationId = orgaId || Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-
-    if (page || size) {
-      return this.swaggerAPI.groupRoutesGetOrganizationGroup({ organizationId, page, size });
-    } else {
-      return this.swaggerAPI.groupRoutesGetOrganizationGroup({ organizationId });
-    }
+    return this.swaggerAPI.groupRoutesGetOrganizationGroup({ organizationId });
   }
 
   async createGroup(group: Group): Promise<GroupDto> {

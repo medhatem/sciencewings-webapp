@@ -1,7 +1,6 @@
 import { Address } from '../address';
 import {
   AddressDto,
-  AddressRo,
   CreateOrganizationRo,
   OrganizationAccessSettingsRo,
   OrganizationInformationDto,
