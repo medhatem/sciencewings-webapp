@@ -84,6 +84,9 @@ export class MemberService {
   }
 
   getAndParseOrganizationMember(id: number, page: number = 0, size: number = 5): Observable<any> {
+    page = page * 1;
+    size = size * 1;
+
     return this.getOrgMembers(id, page, size).pipe(
       map(({ body }) => {
         const { data, pagination } = body;

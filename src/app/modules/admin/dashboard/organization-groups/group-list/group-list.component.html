@@ -60,11 +60,7 @@
 
   <!-- Main -->
   <ng-container *ngIf="groups?.length">
-    <list-component
-      class="overflow-auto"
-      [dataList]="groups"
-      [options]="options"
-      [message]="'ORGANIZATION.GROUPS.LIST.MESSAGE' | transloco"></list-component>
+    <list-component [dataList]="groups" [options]="options" [message]="'ORGANIZATION.GROUPS.LIST.MESSAGE' | transloco"></list-component>
   </ng-container>
 
   <mat-paginator
