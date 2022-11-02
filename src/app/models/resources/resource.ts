@@ -1,4 +1,5 @@
 import {
+  CreateOrganizationRo,
   ResourceCalendarDto,
   ResourceCalendarRo,
   ResourceDto,
@@ -9,6 +10,7 @@ import {
   UpdateResourceRo,
 } from 'generated/models';
 import { Infrastructure } from '../infrastructures/infrastructure';
+import { Member } from '../members/member';
 
 export class Resource implements ResourceRo {
   description?: string;
@@ -95,32 +97,22 @@ export class UpdateResource implements UpdateResourceRo {
   }
 }
 
-export class ResourceListItem implements ResourceDto {
-  active: boolean;
-  calendar: Array<ResourceCalendarDto>;
-  description: string;
-  id: number;
-  managers: Array<ResourceManagerDto>;
+export class ResourceListItem {
   name: string;
   resourceClass: string;
   resourceType: string;
-  tags: Array<ResourceTagDto>;
   timezone: string;
-  user: number;
   dateStart: string;
   infrastructures: Array<Infrastructure>;
 
   constructor(resource?: any) {
-    const { id, name, resourceClass, resourceType, active, infrastructures, managers, dateStart } = resource || {};
+    const { name, resourceClass, resourceType, infrastructures, dateStart } = resource || {};
     Object.assign(this, {
       name,
       resourceClass,
       infrastructures,
       resourceType,
-      active,
       dateStart,
-      managers,
-      id,
     });
   }
 }

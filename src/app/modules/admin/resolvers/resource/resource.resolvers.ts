@@ -24,6 +24,6 @@ export class ResourceResolver implements Resolve<any> {
    * @param state
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this._profileService.getAndParseOrganizationResource();
+    return this._profileService.getData();
   }
 }
