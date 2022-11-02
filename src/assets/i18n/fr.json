@@ -706,16 +706,6 @@
         "TITLE": "Paramètres d'infrastructure",
         "PANEL_GENERAL": "Général",
         "GENERAL_MESSAGE": "Gérez les informations générales de vos infrastructures",
-        "PANEL_SUBINFRASTRUCTURES": "Sous-Infrastructures",
-        "SUBINFRASTRUCTURES_MESSAGE": "Gérez les Sous-infrastructures de vos infrastructures",
-        "SUBINFRASTRUCTURES": {
-          "TITLE": "Sous-Infrastructures",
-          "STATUS": "Statut",
-          "RESOURCES": "#Ressources",
-          "DATE": "Date de création",
-          "MESSAGE": "Elles n'y a pas de sous-infrastructures"
-        },
-
         "PANEL_RESOURCES": "Ressources",
         "RESOURCES_MESSAGE": "Gérez les ressources de vos infrastructures",
         "RESOURCES": {

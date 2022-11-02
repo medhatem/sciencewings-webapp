@@ -7,8 +7,6 @@ import {
   ResourceDto,
   InfrastructureStatusObjectDto,
   InfrastructureResourceDetails,
-  SubInfraListLineObjectDto,
-  SubInfraObjectDto,
 } from 'generated/models';
 
 export class Infrastructure implements InfrastructureRo {
@@ -92,21 +90,6 @@ export class InfrastructureListItem implements InfrastructureDto {
   }
 }
 
-export class SubInfrastructureList implements SubInfraListLineObjectDto {
-  resourcesNb: number;
-  statusCode: number;
-  subInfrastructure: SubInfraObjectDto;
-
-  constructor(infrastructure?: any) {
-    const { subInfrastructure, resourcesNb, statusCode } = infrastructure || {};
-
-    Object.assign(this, {
-      subInfrastructure,
-      resourcesNb,
-      statusCode,
-    });
-  }
-}
 export class ResourcesList implements InfrastructureResourceDetails {
   createdAt: string;
   name: string;
