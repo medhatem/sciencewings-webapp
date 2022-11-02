@@ -2,7 +2,6 @@ import { AdminOrganizationResolver } from '../../resolvers/admin-organization/ad
 import { MemberProfileComponent } from './member-profil/MemberProfile.component';
 import { OrganizationMemebrsComponent } from './organization-members.component';
 import { Route } from '@angular/router';
-import { ContractResolver } from '../../resolvers/contract/contract.resolvers';
 export const organizationMemebrsRoutes: Route[] = [
   {
     path: '',
@@ -17,9 +16,6 @@ export const organizationMemebrsRoutes: Route[] = [
       {
         path: 'memberProfile/:idOrg/:userId',
         component: MemberProfileComponent,
-        resolve: {
-          data: ContractResolver,
-        },
       },
     ],
   },

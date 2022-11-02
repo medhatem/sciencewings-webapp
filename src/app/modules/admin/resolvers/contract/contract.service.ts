@@ -14,7 +14,6 @@ export class ContractService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
   private _pagination: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _contracts: BehaviorSubject<any | null> = new BehaviorSubject(null);
-  private _contractsPaginated: BehaviorSubject<any | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient, private _swaggerService: ApiService) {}
 
@@ -30,10 +29,6 @@ export class ContractService {
     return this._contracts.asObservable();
   }
 
-  get contractsPaginated$(): Observable<any> {
-    return this._contractsPaginated.asObservable();
-  }
-
   async createContract(contract: ContractRo): Promise<ContracBaseDto> {
     return lastValueFrom(this._swaggerService.contractRoutesCreateContract({ body: contract as any }));
   }
@@ -42,36 +37,24 @@ export class ContractService {
     return lastValueFrom(this._swaggerService.contractRoutesCreateUpdateContract({ id, body }));
   }
 
-  getMemberContracts(orgId: number, userId: number, page?: number, size?: number): Observable<any> {
-    if (page || size) {
-      return this._swaggerService.contractRoutesGetAllMemberContracts({ orgId, userId, page, size });
-    } else {
-      return this._swaggerService.contractRoutesGetAllMemberContracts({ orgId, userId });
-    }
+  getMemberContracts(orgId: number, userId: number): Observable<any> {
+    return this._swaggerService.contractRoutesGetAllMemberContracts({ orgId, userId });
   }
 
-  getAndParseMemberContracts(orgId?: number, userId?: number, page: number = 0, size: number = 5) {
-    orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    userId = Number(localStorage.getItem(constants.CURRENT_USER_ID));
-
-    return this.getMemberContracts(orgId, userId, page, size).pipe(
-      map(({ body }) => {
-        const { data, pagination } = body;
-        const contracts = data.map((contractDirty) => {
-          const contract = new GetContract(contractDirty);
-          return {
-            contractDto: contract,
-            name: `${contract.job.name}`,
-            supervisor: `${contract?.supervisor?.name || ''}`,
-            jobLevel: `${contract?.jobLevel || ''}`,
-            dateStart: moment(contract.dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
-          };
-        });
-        return { contracts, pagination };
-      }),
-      tap(({ contracts, pagination }) => {
-        this._contractsPaginated.next(contracts);
-        this._pagination.next(pagination);
+  getAndParseMemberContracts(orgId: number, userId: number): Observable<any[]> {
+    return this.getMemberContracts(orgId, userId).pipe(
+      map((contracts) => contracts.body.data.map((contract) => new GetContract(contract))),
+      map((projects: GetContract[]) =>
+        projects.map((contract) => ({
+          contractDto: contract,
+          name: `${contract.job.name}`,
+          supervisor: `${contract?.supervisor?.name || ''}`,
+          jobLevel: `${contract?.jobLevel || ''}`,
+          dateStart: moment(contract.dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+        })),
+      ),
+      tap((response) => {
+        this._contracts.next(response);
       }),
     );
   }
