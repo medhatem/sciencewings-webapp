@@ -6,6 +6,9 @@ import { ContractService } from './contract.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ContractResolver {
+export class ContractResolver implements Resolve<any> {
   constructor(private _contractService: ContractService) {}
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    return this._contractService.getAndParseMemberContracts();
+  }
 }

@@ -1,17 +1,16 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject, debounceTime, lastValueFrom, map, switchMap, takeUntil } from 'rxjs';
 
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { GroupFormComponent } from '../group-form/group-form.component';
 import { GroupService } from 'app/modules/admin/resolvers/groups/groups.service';
-import { InventoryPagination } from '../../organization-profile/profile/organization-profile.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { PageEvent } from '@angular/material/paginator';
 import { ListOption } from '../../reusable-components/list/list-component.component';
 import { Group } from 'app/models/groups/group';
 import { constants } from 'app/shared/constants';
+import { ToastrService } from 'app/core/toastr/toastr.service';
 import { Pagination } from 'app/models/pagination/IPagination';
 
 @Component({
@@ -19,10 +18,8 @@ import { Pagination } from 'app/models/pagination/IPagination';
   templateUrl: './group-list.component.html',
   styleUrls: ['./group-list.component.scss'],
 })
-export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(MatPaginator) private _paginator: MatPaginator;
-  @ViewChild(MatSort) private _sort: MatSort;
-
+export class GroupListComponent implements OnInit, OnDestroy {
+  @Input() organizationId: number;
   groups: Group[] = [];
   isLoading: boolean = false;
   selectedGroup = null;
@@ -30,6 +27,7 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   pagination: Pagination;
   searchInputControl: FormControl = new FormControl();
   options: ListOption = { columns: [] };
+  openedDialogRef: any;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -38,6 +36,7 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _matDialog: MatDialog,
     private _route: ActivatedRoute,
+    private _toastrService: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +47,7 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
         { columnName: 'Members', columnPropertyToUse: 'members', customClass: 'hidden' },
         { columnName: 'Description', columnPropertyToUse: 'description', customClass: 'hidden' },
       ],
+      numberOfColumns: 4,
     };
 
     const data = this._route.snapshot.data;
@@ -87,16 +87,6 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   //   lastValueFrom(this._groupService.getGroups(event.pageIndex, event.pageSize));
   // }
 
-  ngAfterViewInit(): void {
-    if (this._sort && this._paginator) {
-      this._sort.sort({
-        id: 'groupProfil',
-        start: 'asc',
-        disableClear: true,
-      });
-    }
-  }
-
   ngOnDestroy(): void {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
@@ -108,7 +98,13 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
       .afterClosed()
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(async () => {
-        await lastValueFrom(this._groupService.getAndParseOrganizationGroups(Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID))));
+        await lastValueFrom(
+          this._groupService.getAndParseOrganizationGroups(
+            Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID)),
+            this.pagination.page,
+            this.pagination.size,
+          ),
+        );
         this._changeDetectorRef.markForCheck();
       });
   }
@@ -132,10 +128,4 @@ export class GroupListComponent implements OnInit, AfterViewInit, OnDestroy {
   closeDetails(): void {
     this.selectedGroup = null;
   }
-
-  showGroupProfile(groupID) {
-    //TODO
-  }
-
-  createGroup() {}
 }

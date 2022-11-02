@@ -8,5 +8,18 @@
       </button>
     </div>
   </div>
-  <list-component [dataList]="contracts" [options]="options" [message]="'ORGANIZATION.CONTRACTS.LIST.MESSAGE' | transloco"></list-component>
+  <list-component
+    class="overflow-auto"
+    [dataList]="contracts"
+    [options]="options"
+    [message]="'ORGANIZATION.CONTRACTS.LIST.MESSAGE' | transloco"></list-component>
+  <mat-paginator
+    class="sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent"
+    [ngClass]="{ 'pointer-events-none': isLoading }"
+    [length]="pagination.length"
+    [pageIndex]="pagination.page"
+    [pageSize]="pagination.size"
+    (page)="pageEvent($event)"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    [showFirstLastButtons]="true"></mat-paginator>
 </div>
