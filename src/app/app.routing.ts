@@ -9,6 +9,7 @@ import { GroupResolver } from './modules/admin/resolvers/groups/groups.resolvers
 import { constants } from './shared/constants';
 import { InfrastructureListComponent } from './modules/admin/dashboard/resource/infrastructure/infrastructure-list/infrastructure-list.component';
 import { InfrastructureResolver } from './modules/admin/resolvers/infrastructure/infrastructure.resolvers';
+import { ResourceResolver } from './modules/admin/resolvers/resource/resource.resolvers';
 /**
  *
  * App Routing
@@ -152,6 +153,7 @@ export const appRoutes: Route[] = [
               type: FuseNavigationItemTypeEnum.basic,
               icon: 'heroicons_outline:cube',
             },
+            resolve: { data: ResourceResolver },
             loadChildren: () => import('app/modules/admin/dashboard/resource/resource.module').then((m) => m.ResourceModule),
           },
           {

@@ -1,4 +1,4 @@
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 bg-card dark:bg-transparent">
   <!-- Header -->
   <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8">
     <!-- Loader -->
@@ -85,6 +85,19 @@
   </div>
 
   <!-- Main -->
-  <list-component [dataList]="members" [options]="options" [message]="'ORGANIZATION.MEMBERS.LIST.MESSAGE' | transloco"></list-component>
+  <list-component
+    class="overflow-auto"
+    [dataList]="members"
+    [options]="options"
+    [message]="'ORGANIZATION.MEMBERS.LIST.MESSAGE' | transloco"></list-component>
+  <mat-paginator
+    class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent"
+    [ngClass]="{ 'pointer-events-none': isLoading }"
+    [length]="pagination.length"
+    [pageIndex]="pagination.page"
+    [pageSize]="pagination.size"
+    (page)="pageEvent($event)"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    [showFirstLastButtons]="true"></mat-paginator>
 </div>
 <router-outlet></router-outlet>
