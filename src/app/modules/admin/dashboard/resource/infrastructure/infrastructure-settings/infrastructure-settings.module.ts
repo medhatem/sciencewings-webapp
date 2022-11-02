@@ -6,15 +6,9 @@ import { InfrastructureResourcesSettingsComponent } from '../infrastructure-reso
 import { RouterModule } from '@angular/router';
 import { ListComponentModule } from '../../../reusable-components/list/list-component.module';
 import { ReusableSettingsModule } from '../../../reusable-components/reusable-settings/reusable-settings.module';
-import { SubInfrastructureSettingsComponent } from '../sub-infrastructure-settings/sub-infrastructure-settings.component';
 
 @NgModule({
-  declarations: [
-    InfrastructureSettingsComponent,
-    InfrastructureGeneralSettingsComponent,
-    SubInfrastructureSettingsComponent,
-    InfrastructureResourcesSettingsComponent,
-  ],
+  declarations: [InfrastructureSettingsComponent, InfrastructureGeneralSettingsComponent, InfrastructureResourcesSettingsComponent],
   imports: [SharedModule, RouterModule, ListComponentModule, ReusableSettingsModule],
 })
 export class InfrastructureSettingsModule {}
