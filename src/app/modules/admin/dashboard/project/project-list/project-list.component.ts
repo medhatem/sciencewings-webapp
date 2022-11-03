@@ -97,6 +97,6 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     localStorage.setItem(constants.CURRENT_PROJECT_ID, `${p.id}`);
     const id = p.id;
     const projectResponsableId = p.responsableInformations.member.user;
-    this._router.navigate(['/project/project-settings' + id, { projectResponsableId }]);
+    this._router.navigate(['/project', 'project-settings', id, projectResponsableId]);
   }
 }

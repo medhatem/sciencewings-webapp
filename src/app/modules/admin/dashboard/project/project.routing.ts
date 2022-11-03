@@ -19,7 +19,7 @@ export const projectRoutes: Route[] = [
         },
       },
       {
-        path: 'project-settings/:id',
+        path: 'project-settings/:id/:responsableId',
         component: ProjectSettingsComponent,
       },
       {
