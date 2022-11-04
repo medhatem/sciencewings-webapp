@@ -13,7 +13,6 @@ export class AdminOrganizationResolver implements Resolve<any> {
   constructor(private _myOrganizationsService: AdminOrganizationsService, private _memberService: MemberService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any[]> {
-    const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this._memberService.getAndParseOrganizationMember(id);
+    return this._memberService.getAndParseOrganizationMember();
   }
 }
