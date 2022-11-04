@@ -65,6 +65,20 @@ export class OrganizationMemebrsComponent implements OnInit {
       this.pagination = pagination;
       this._changeDetectorRef.markForCheck();
     });
+
+    this.searchInputControl.valueChanges
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        debounceTime(300),
+        switchMap((query) => {
+          this.isLoading = true;
+          return this._memberService.getAndParseOrganizationMember(this.pagination.page, this.pagination.size, query);
+        }),
+        map(() => {
+          this.isLoading = false;
+        }),
+      )
+      .subscribe();
   }
 
   openInviteMemberDialog(): void {
@@ -76,7 +90,7 @@ export class OrganizationMemebrsComponent implements OnInit {
       data: { orgID },
     });
     this.openedDialogRef.afterClosed().subscribe((result) => {
-      lastValueFrom(this._memberService.getAndParseOrganizationMember(this.orgID));
+      lastValueFrom(this._memberService.getAndParseOrganizationMember());
     });
   }
 
@@ -89,7 +103,7 @@ export class OrganizationMemebrsComponent implements OnInit {
       lastPage: event.previousPageIndex,
     };
 
-    await lastValueFrom(this._memberService.getAndParseOrganizationMember(this.orgID, this.pagination.page, this.pagination.size));
+    await lastValueFrom(this._memberService.getAndParseOrganizationMember(this.pagination.page, this.pagination.size));
   }
 
   async onElementSelected(item: Member) {
