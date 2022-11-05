@@ -27,8 +27,8 @@ export class GroupService {
     return this._paginatedGroups.asObservable();
   }
 
-  getAndParseOrganizationGroups(organizationId: number, page: number = 0, size: number = 5) {
-    return this.getGroups(organizationId, page, size).pipe(
+  getAndParseOrganizationGroups(page: number = 0, size: number = 5, query?: string) {
+    return this.getGroups(page, size, query || null).pipe(
       map(({ body }) => {
         const { data, pagination } = body;
         const groups = data.map((groupDirty) => {
@@ -50,10 +50,12 @@ export class GroupService {
     );
   }
 
-  getGroups(orgaId: number, page?: number, size?: number): Observable<any> {
-    const organizationId = orgaId || Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+  getGroups(page?: number, size?: number, query?: string): Observable<any> {
+    const organizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
 
-    if (page || size) {
+    if (query) {
+      return this.swaggerAPI.groupRoutesGetOrganizationGroup({ organizationId, page, size, query });
+    } else if (page || size) {
       return this.swaggerAPI.groupRoutesGetOrganizationGroup({ organizationId, page, size });
     } else {
       return this.swaggerAPI.groupRoutesGetOrganizationGroup({ organizationId });

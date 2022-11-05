@@ -12,6 +12,6 @@ export class GroupResolver implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const organizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    return this._groupService.getAndParseOrganizationGroups(organizationId);
+    return this._groupService.getAndParseOrganizationGroups();
   }
 }
