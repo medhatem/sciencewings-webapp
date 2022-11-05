@@ -74,10 +74,11 @@ export class InfrastructureService {
     return lastValueFrom(this.swaggerAPI.infrastructureRoutesCreateInfrastructure({ body: infrastructure as any }));
   }
 
-  getOrgInfrastructures(page?: number, size?: number): Observable<any> {
+  getOrgInfrastructures(page?: number, size?: number, query?: string): Observable<any> {
     const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-
-    if (page || size) {
+    if (query) {
+      return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId, page, size, query });
+    } else if (page || size) {
       return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId, page, size });
     } else {
       return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId });
@@ -126,8 +127,8 @@ export class InfrastructureService {
     );
   }
 
-  getAndParseOrganizationInfrastructures(page: number = 0, size: number = 5) {
-    return this.getOrgInfrastructures(page, size).pipe(
+  getAndParseOrganizationInfrastructures(page: number = 0, size: number = 5, query?: string) {
+    return this.getOrgInfrastructures(page, size, query || null).pipe(
       map(({ body }) => {
         const { data, pagination } = body;
         const infrastructures = data.map((infrastructureDirty) => {
