@@ -52,6 +52,18 @@
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:chevron-down'"></mat-icon>
                   </button>
                 </div>
+                <div>
+                  <button [matMenuTriggerFor]="actionsMenu" mat-icon-button>
+                    <mat-icon [svgIcon]="'heroicons_outline:dots-vertical'"></mat-icon>
+                  </button>
+                  <mat-menu #actionsMenu="matMenu">
+                    <ng-container *ngFor="let actionButton of actionButtons">
+                      <button mat-menu-item (click)="actionButton.onActionClick(item)">
+                        <span class="ml-2 mr-1">{{ actionButton.actionName }}</span>
+                      </button>
+                    </ng-container>
+                  </mat-menu>
+                </div>
               </div>
             </ng-container>
           </ng-container>

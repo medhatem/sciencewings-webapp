@@ -21,7 +21,7 @@ import { takeUntil, Subject } from 'rxjs';
 export class MemberContractsComponent implements OnInit {
   @Input() userId: number;
   @Input() orgId: number;
-  options: ListOption = { columns: [], numberOfColumns: 4 };
+  options: ListOption = { columns: [] };
   contracts: any[] = [];
   conDto: any;
   openedDialogRef: any;
@@ -57,7 +57,6 @@ export class MemberContractsComponent implements OnInit {
         { columnName: 'ORGANIZATION.CONTRACTS.FORM.JOB_LEVEL', columnPropertyToUse: 'jobLevel', customClass: 'hidden' },
         { columnName: 'ORGANIZATION.CONTRACTS.FORM.STARTDATE', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
-      numberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
     };
   }

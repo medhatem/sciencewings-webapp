@@ -7,7 +7,7 @@ import { GroupFormComponent } from '../group-form/group-form.component';
 import { GroupService } from 'app/modules/admin/resolvers/groups/groups.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
-import { ListOption } from '../../reusable-components/list/list-component.component';
+import { ListOption, TableBtn } from '../../reusable-components/list/list-component.component';
 import { Group } from 'app/models/groups/group';
 import { constants } from 'app/shared/constants';
 import { ToastrService } from 'app/core/toastr/toastr.service';
@@ -27,6 +27,7 @@ export class GroupListComponent implements OnInit, OnDestroy {
   pagination: Pagination;
   searchInputControl: FormControl = new FormControl();
   options: ListOption = { columns: [] };
+  actionButtons: TableBtn[] = [];
   openedDialogRef: any;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -46,9 +47,10 @@ export class GroupListComponent implements OnInit, OnDestroy {
         { columnName: 'Status', columnPropertyToUse: 'status', customClass: 'hidden' },
         { columnName: 'Members', columnPropertyToUse: 'members', customClass: 'hidden' },
         { columnName: 'Description', columnPropertyToUse: 'description', customClass: 'hidden' },
+        { columnName: 'Actions', columnPropertyToUse: 'description', customClass: 'hidden' },
       ],
-      numberOfColumns: 4,
     };
+    this.actionButtons = [{ actionName: 'Delete', onActionClick: this.onActionClicked.bind(this) }];
 
     const data = this._route.snapshot.data;
     this.groupsCount = data.groups.length;
@@ -127,5 +129,9 @@ export class GroupListComponent implements OnInit, OnDestroy {
 
   closeDetails(): void {
     this.selectedGroup = null;
+  }
+
+  async onActionClicked(item: Group) {
+    console.log('clicked item', item);
   }
 }

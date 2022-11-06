@@ -10,7 +10,7 @@ import { ResourcesList } from 'app/models/infrastructures/infrastructure';
 export class InfrastructureResourcesSettingsComponent implements OnInit {
   @Input() id: number;
   resources: any[] = [];
-  options: ListOption = { columns: [], numberOfColumns: 3 };
+  options: ListOption = { columns: [] };
   openedDialogRef: any;
 
   constructor(private _infrastructureService: InfrastructureService, private _changeDetectorRef: ChangeDetectorRef) {}
@@ -27,7 +27,6 @@ export class InfrastructureResourcesSettingsComponent implements OnInit {
         { columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.RESOURCES.STATUS', columnPropertyToUse: 'status', customClass: '' },
         { columnName: 'ORGANIZATION.INFRASTRUCTURES.SETTINGS.RESOURCES.DATE', columnPropertyToUse: 'createdAt', customClass: '' },
       ],
-      numberOfColumns: 3,
     };
   }
 }

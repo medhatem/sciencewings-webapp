@@ -1,9 +1,9 @@
+import { NgSwitchCase } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Dictionary } from '@fullcalendar/core';
 import { Subject } from 'rxjs';
 
 export interface InventoryPagination {
@@ -21,9 +21,16 @@ export interface Column {
   customClass: string;
 }
 
+export interface TableBtn {
+  styleClass?: string;
+  icon?: string;
+  payload?: any;
+  actionName: string;
+  onActionClick?: (...args) => any;
+}
+
 export interface ListOption {
   columns: Column[];
-  numberOfColumns?: number;
   onElementClick?: (...args) => any;
 }
 
@@ -34,10 +41,12 @@ export interface ListOption {
 })
 export class ListComponent implements OnInit, OnDestroy {
   @Input() dataList: any[] = [];
-  @Input() options: ListOption = { columns: [], numberOfColumns: 0 };
+  @Input() actionButtons: TableBtn[] = [];
+  @Input() options: ListOption = { columns: [] };
   @Input() message: any;
 
   @Output() output = new EventEmitter();
+  @Output() buttonClick = new EventEmitter<string[]>();
 
   @ViewChild(MatPaginator) private _paginator: MatPaginator;
   @ViewChild(MatSort) private _sort: MatSort;
@@ -45,6 +54,7 @@ export class ListComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   searchInputControl: FormControl = new FormControl();
   keys: any[];
+  displayedColumns: string[];
   cols = 4;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -71,8 +81,25 @@ export class ListComponent implements OnInit, OnDestroy {
    */
   parseColumns() {
     this.keys = this.options.columns.map((col) => col);
-    if (!this.options.numberOfColumns) {
-      this.options.numberOfColumns = this.keys.length;
+    if (!this.options.columns.length) {
+      this.options.columns.length = this.keys.length;
+    }
+  }
+
+  actionHandler(actionName: string) {
+    switch (actionName) {
+      case 'Delete': {
+        console.log('DELETE');
+        break;
+      }
+      case 'Download': {
+        console.log('DOWNLOAD');
+        break;
+      }
+      default: {
+        console.log('NO ACTIONS');
+        break;
+      }
     }
   }
 
@@ -80,6 +107,6 @@ export class ListComponent implements OnInit, OnDestroy {
    * dynamically create a grid with variable amount of columns
    */
   getColumsStyles() {
-    return { 'grid-template-columns': `repeat(${this.options.numberOfColumns}, 1fr)` };
+    return { 'grid-template-columns': `repeat(${this.options.columns.length}, 1fr)` };
   }
 }
