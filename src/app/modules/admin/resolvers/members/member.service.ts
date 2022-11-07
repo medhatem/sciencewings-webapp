@@ -70,10 +70,8 @@ export class MemberService {
 
   getOrgMembers(page?: number, size?: number, query?: string): Observable<any> {
     const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    if (query) {
+    if (page || size || query) {
       return this.swaggerAPI.organizationRoutesGetUsers({ id, page, size, query });
-    } else if (page || size) {
-      return this.swaggerAPI.organizationRoutesGetUsers({ id, page, size });
     } else {
       return this.swaggerAPI.organizationRoutesGetUsers({ id });
     }
