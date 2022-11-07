@@ -106,7 +106,7 @@ export class MemberService {
     );
   }
 
-  getMemberPagination(number, page?: number, size?: number): Observable<any> {
+  getMemberPagination(page?: number, size?: number): Observable<any> {
     return this.getOrgMembers(page, size).pipe(
       map((p) => new Pagination(p.body.pagination)),
       tap((response) => {

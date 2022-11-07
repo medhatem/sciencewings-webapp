@@ -18,6 +18,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./project-list.component.scss'],
 })
 export class ProjectListComponent implements OnInit, OnDestroy {
+  searchInputControl: FormControl = new FormControl();
   projects: any[] = [];
   managers: any[] = [];
   options: ListOption = { columns: [], numberOfColumns: 5 };
@@ -25,7 +26,6 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   pagination: Pagination;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
-  searchInputControl: FormControl = new FormControl();
 
   constructor(
     private _projectService: ProjectService,
