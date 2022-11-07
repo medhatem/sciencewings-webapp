@@ -88,10 +88,8 @@ export class ResourceService {
 
   getOrgResource(page?: number, size?: number, query?: string): Observable<any> {
     const organizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    if (query) {
+    if (page || size || query) {
       return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId, page, size, query });
-    } else if (page || size) {
-      return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId, page, size });
     } else {
       return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId });
     }

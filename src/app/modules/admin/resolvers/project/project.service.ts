@@ -86,18 +86,17 @@ export class ProjectService {
     return this._swaggerService.projectRoutesGetOrganizationProjects({ id });
   }
 
-  getOrgProjectsList(page?: number, size?: number): Observable<any> {
+  getOrgProjectsList(page?: number, size?: number, query?: string): Observable<any> {
     const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-
-    if (page || size) {
-      return this._swaggerService.projectRoutesGetAllOrganizationProjectsList({ id, page, size });
+    if (page || size || query) {
+      return this._swaggerService.projectRoutesGetAllOrganizationProjectsList({ id, page, size, query });
     } else {
       return this._swaggerService.projectRoutesGetAllOrganizationProjectsList({ id });
     }
   }
 
-  getAndParseOrganizationProjects(page: number = 0, size: number = 5) {
-    return this.getOrgProjectsList(page, size).pipe(
+  getAndParseOrganizationProjects(page: number = 0, size: number = 5, query?: string) {
+    return this.getOrgProjectsList(page, size, query || null).pipe(
       map(({ body }) => {
         const { data, pagination } = body;
         const projects = data.map((projectDirty) => {
