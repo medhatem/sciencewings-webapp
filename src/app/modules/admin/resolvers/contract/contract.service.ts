@@ -42,19 +42,16 @@ export class ContractService {
     return lastValueFrom(this._swaggerService.contractRoutesCreateUpdateContract({ id, body }));
   }
 
-  getMemberContracts(orgId: number, userId: number, page?: number, size?: number): Observable<any> {
-    if (page || size) {
-      return this._swaggerService.contractRoutesGetAllMemberContracts({ orgId, userId, page, size });
+  getMemberContracts(orgId: number, userId: number, page?: number, size?: number, query?: string): Observable<any> {
+    if (page || size || query) {
+      return this._swaggerService.contractRoutesGetAllMemberContracts({ orgId, userId, page, size, query });
     } else {
       return this._swaggerService.contractRoutesGetAllMemberContracts({ orgId, userId });
     }
   }
 
-  getAndParseMemberContracts(orgId?: number, userId?: number, page: number = 0, size: number = 5) {
-    orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    userId = Number(localStorage.getItem(constants.CURRENT_USER_ID));
-
-    return this.getMemberContracts(orgId, userId, page, size).pipe(
+  getAndParseMemberContracts(orgId: number, userId: number, page: number = 0, size: number = 5, query?: string) {
+    return this.getMemberContracts(orgId, userId, page, size, query || null).pipe(
       map(({ body }) => {
         const { data, pagination } = body;
         const contracts = data.map((contractDirty) => {

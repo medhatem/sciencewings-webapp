@@ -2,6 +2,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ContractService } from './contract.service';
+import { constants } from 'app/shared/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,9 @@ import { ContractService } from './contract.service';
 export class ContractResolver implements Resolve<any> {
   constructor(private _contractService: ContractService) {}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this._contractService.getAndParseMemberContracts();
+    const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    const userId = Number(localStorage.getItem(constants.CURRENT_USER_ID));
+
+    return this._contractService.getAndParseMemberContracts(orgId, userId);
   }
 }
