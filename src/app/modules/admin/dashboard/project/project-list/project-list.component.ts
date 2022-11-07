@@ -3,13 +3,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
-import { lastValueFrom, Subject } from 'rxjs';
+import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
 import { ListOption } from '../../reusable-components/list/list-component.component';
 import { ProjectService } from 'app/modules/admin/resolvers/project/project.service';
 import { ProjectFormComponent } from '../project-form/project-form.component';
 import { ProjectListItem } from 'app/models/projects/project';
 import { Pagination } from 'app/models/pagination/IPagination';
 import { PageEvent } from '@angular/material/paginator';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-project-list',
@@ -17,6 +18,7 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./project-list.component.scss'],
 })
 export class ProjectListComponent implements OnInit, OnDestroy {
+  searchInputControl: FormControl = new FormControl();
   projects: any[] = [];
   managers: any[] = [];
   options: ListOption = { columns: [], numberOfColumns: 5 };
@@ -54,6 +56,20 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       numberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
     };
+
+    this.searchInputControl.valueChanges
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        debounceTime(300),
+        switchMap((query) => {
+          this.isLoading = true;
+          return this._projectService.getAndParseOrganizationProjects(this.pagination.page, this.pagination.size, query);
+        }),
+        map(() => {
+          this.isLoading = false;
+        }),
+      )
+      .subscribe();
   }
 
   /**
