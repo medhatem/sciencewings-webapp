@@ -76,10 +76,8 @@ export class InfrastructureService {
 
   getOrgInfrastructures(page?: number, size?: number, query?: string): Observable<any> {
     const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    if (query) {
+    if (page || size || query) {
       return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId, page, size, query });
-    } else if (page || size) {
-      return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId, page, size });
     } else {
       return this.swaggerAPI.infrastructureRoutesGetAllInfrastructuresOfAgivenOrganization({ orgId });
     }
