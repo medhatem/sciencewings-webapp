@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FuseNavigationItem, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
-import { Subject, lastValueFrom, takeUntil } from 'rxjs';
+import { Subject, lastValueFrom, takeUntil, debounceTime, switchMap, map } from 'rxjs';
 
 import { CookieService } from 'ngx-cookie-service';
 import { FormControl } from '@angular/forms';
@@ -90,6 +90,20 @@ export class ResourceListComponent implements OnInit, OnDestroy {
       numberOfColumns: 5,
     };
     this._changeDetectorRef.markForCheck();
+
+    this.searchInputControl.valueChanges
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        debounceTime(300),
+        switchMap((query) => {
+          this.isLoading = true;
+          return this._resourceService.getAndParseOrganizationResource(this.pagination.page, this.pagination.size, query);
+        }),
+        map(() => {
+          this.isLoading = false;
+        }),
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
