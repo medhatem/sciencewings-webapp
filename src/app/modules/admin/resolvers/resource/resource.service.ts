@@ -61,8 +61,8 @@ export class ResourceService {
     );
   }
 
-  getAndParseOrganizationResource(page: number = 0, size: number = 5) {
-    return this.getOrgResource(page, size).pipe(
+  getAndParseOrganizationResource(page: number = 0, size: number = 5, query?: string) {
+    return this.getOrgResource(page, size, query || null).pipe(
       map(({ body }) => {
         const { data, pagination } = body;
         const resources = data.map((resourceDirty) => {
@@ -86,10 +86,10 @@ export class ResourceService {
     );
   }
 
-  getOrgResource(page?: number, size?: number): Observable<any> {
+  getOrgResource(page?: number, size?: number, query?: string): Observable<any> {
     const organizationId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    if (page || size) {
-      return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId, page, size });
+    if (page || size || query) {
+      return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId, page, size, query });
     } else {
       return this.swaggerAPI.resourceRoutesGetOgranizationResources({ organizationId });
     }
