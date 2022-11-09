@@ -11,7 +11,8 @@ import { constants } from 'app/shared/constants';
 import { Pagination } from 'app/models/pagination/IPagination';
 import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
 import { PageEvent } from '@angular/material/paginator';
-import { takeUntil, Subject } from 'rxjs';
+import { takeUntil, Subject, switchMap, map, debounceTime } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-member-contracts',
@@ -21,7 +22,12 @@ import { takeUntil, Subject } from 'rxjs';
 export class MemberContractsComponent implements OnInit {
   @Input() userId: number;
   @Input() orgId: number;
+
   options: ListOption = { columns: [] };
+
+  searchInputControl: FormControl = new FormControl();
+
+
   contracts: any[] = [];
   conDto: any;
   openedDialogRef: any;
@@ -59,6 +65,20 @@ export class MemberContractsComponent implements OnInit {
       ],
       onElementClick: this.onElementSelected.bind(this),
     };
+
+    this.searchInputControl.valueChanges
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        debounceTime(300),
+        switchMap((query) => {
+          this.isLoading = true;
+          return this._contractService.getAndParseMemberContracts(this.orgId, this.userId, this.pagination.page, this.pagination.size, query);
+        }),
+        map(() => {
+          this.isLoading = false;
+        }),
+      )
+      .subscribe();
   }
 
   openInviteContractDialog(): void {

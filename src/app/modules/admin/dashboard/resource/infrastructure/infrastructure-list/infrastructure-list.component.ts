@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
 import { ListOption } from '../../../reusable-components/list/list-component.component';
 import { FormControl } from '@angular/forms';
 import { Infrastructure, InfrastructureListItem } from 'app/models/infrastructures/infrastructure';
@@ -70,6 +70,20 @@ export class InfrastructureListComponent implements OnInit, OnDestroy {
       ],
       onElementClick: this.onElementSelected.bind(this),
     };
+
+    this.searchInputControl.valueChanges
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        debounceTime(300),
+        switchMap((query) => {
+          this.isLoading = true;
+          return this._infrastructureService.getAndParseOrganizationInfrastructures(this.pagination.page, this.pagination.size, query);
+        }),
+        map(() => {
+          this.isLoading = false;
+        }),
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {

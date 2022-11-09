@@ -32,7 +32,7 @@ export class ProjectSettingsComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    this.projectResponsableId = Number(this.route.snapshot.paramMap.get('projectResponsableId'));
+    this.projectResponsableId = Number(this.route.snapshot.paramMap.get('responsableId'));
 
     // Setup available panels
     this.panels = [

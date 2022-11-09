@@ -70,9 +70,8 @@ export class GroupListComponent implements OnInit, OnDestroy {
         takeUntil(this._unsubscribeAll),
         debounceTime(300),
         switchMap((query) => {
-          this.closeDetails();
           this.isLoading = true;
-          return this._groupService.getAndParseOrganizationGroups(Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID)));
+          return this._groupService.getAndParseOrganizationGroups(this.pagination.page, this.pagination.size, query);
           // return this._groupService.getGroups(0, 10, 'name', 'asc', query);
         }),
         map(() => {
@@ -100,13 +99,7 @@ export class GroupListComponent implements OnInit, OnDestroy {
       .afterClosed()
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(async () => {
-        await lastValueFrom(
-          this._groupService.getAndParseOrganizationGroups(
-            Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID)),
-            this.pagination.page,
-            this.pagination.size,
-          ),
-        );
+        await lastValueFrom(this._groupService.getAndParseOrganizationGroups(this.pagination.page, this.pagination.size));
         this._changeDetectorRef.markForCheck();
       });
   }
@@ -120,7 +113,7 @@ export class GroupListComponent implements OnInit, OnDestroy {
       lastPage: event.previousPageIndex,
     };
     const orgId = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    await lastValueFrom(this._groupService.getAndParseOrganizationGroups(orgId, this.pagination.page, this.pagination.size));
+    await lastValueFrom(this._groupService.getAndParseOrganizationGroups(this.pagination.page, this.pagination.size));
   }
 
   trackByFn(index: number, item: any): any {

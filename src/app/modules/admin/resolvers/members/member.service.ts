@@ -68,10 +68,10 @@ export class MemberService {
       );
   }
 
-  getOrgMembers(orgID?: number, page?: number, size?: number): Observable<any> {
-    const id = orgID || Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
-    if (page || size) {
-      return this.swaggerAPI.organizationRoutesGetUsers({ id, page, size });
+  getOrgMembers(page?: number, size?: number, query?: string): Observable<any> {
+    const id = Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
+    if (page || size || query) {
+      return this.swaggerAPI.organizationRoutesGetUsers({ id, page, size, query });
     } else {
       return this.swaggerAPI.organizationRoutesGetUsers({ id });
     }
@@ -83,8 +83,8 @@ export class MemberService {
     );
   }
 
-  getAndParseOrganizationMember(id: number, page: number = 0, size: number = 5): Observable<any> {
-    return this.getOrgMembers(id, page, size).pipe(
+  getAndParseOrganizationMember(page: number = 0, size: number = 5, query?: string): Observable<any> {
+    return this.getOrgMembers(page, size, query || null).pipe(
       map(({ body }) => {
         const { data, pagination } = body;
         const members = data.map((memberDirty) => {
@@ -106,8 +106,8 @@ export class MemberService {
     );
   }
 
-  getMemberPagination(id?: number, page?: number, size?: number): Observable<any> {
-    return this.getOrgMembers(id, page, size).pipe(
+  getMemberPagination(page?: number, size?: number): Observable<any> {
+    return this.getOrgMembers(page, size).pipe(
       map((p) => new Pagination(p.body.pagination)),
       tap((response) => {
         this._pagination.next(response);
