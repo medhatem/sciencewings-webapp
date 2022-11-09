@@ -98,11 +98,6 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
     this.filteredTags = this.tags.filter((tag) => tag.title.toLowerCase().includes(value));
   }
 
-  /**
-   * Filter tags input key down event
-   *
-   * @param event
-   */
   filterTagsInputKeyDown(event): void {
     // Return if the pressed key is not 'Enter'
     if (event.key !== 'Enter') {
@@ -150,8 +145,6 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
       this.tags.findIndex((item) => item === tag.id),
       1,
     );
-
-    // Mark for check
     this._changeDetectorRef.markForCheck();
   }
 
