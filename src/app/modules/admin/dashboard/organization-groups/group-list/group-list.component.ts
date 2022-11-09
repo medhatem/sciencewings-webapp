@@ -8,7 +8,7 @@ import { GroupService } from 'app/modules/admin/resolvers/groups/groups.service'
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { ListOption, TableBtn } from '../../reusable-components/list/list-component.component';
-import { Group } from 'app/models/groups/group';
+import { Group, GroupBody } from 'app/models/groups/group';
 import { constants } from 'app/shared/constants';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { Pagination } from 'app/models/pagination/IPagination';
@@ -50,7 +50,10 @@ export class GroupListComponent implements OnInit, OnDestroy {
         { columnName: 'Actions', columnPropertyToUse: 'description', customClass: 'hidden' },
       ],
     };
-    this.actionButtons = [{ actionName: 'Delete', onActionClick: this.onActionClicked.bind(this) }];
+    this.actionButtons = [
+      { actionName: 'Delete', onActionClick: this.deleteGroup.bind(this) },
+      { actionName: 'View Profile', onActionClick: this.viewProfile.bind(this) },
+    ];
 
     const data = this._route.snapshot.data;
     this.groupsCount = data.groups.length;
@@ -126,5 +129,14 @@ export class GroupListComponent implements OnInit, OnDestroy {
 
   async onActionClicked(item: Group) {
     console.log('clicked item', item);
+  }
+
+  async deleteGroup(item: GroupBody) {
+    this._groupService.delete(item.id);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  viewProfile(item: GroupBody) {
+    console.log('View Profile');
   }
 }

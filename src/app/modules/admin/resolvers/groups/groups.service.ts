@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable, tap, lastValueFrom, map } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { Injectable } from '@angular/core';
-import { GroupDto } from 'generated/models';
+import { GroupBodyDto, GroupDto } from 'generated/models';
 import { Group, GroupBody } from 'app/models/groups/group';
 import { constants } from 'app/shared/constants';
 
@@ -62,6 +62,11 @@ export class GroupService {
 
   async createGroup(group: Group): Promise<GroupDto> {
     return await lastValueFrom(this.swaggerAPI.groupRoutesCreateGroup({ body: group }));
+  }
+
+  async delete(groupId?: number): Promise<GroupDto> {
+    const id = groupId || Number(localStorage.getItem(constants.CURRENT_GROUP_ID));
+    return await lastValueFrom(this.swaggerAPI.groupRoutesDeleteGroup({ id }));
   }
 
   async getGroupsByOrgId(organizationId: number): Promise<Group[]> {
