@@ -1,40 +1,37 @@
-<div class="flex flex-auto my-4 sm:mx-36">
-  <div class="flex flex-col flex-auto w-full max-w-lg sm:max-w-full mx-auto">
-    <div class="w-full max-w-screen-xl mx-auto">
-      <fuse-card class="flex flex-auto p-6 bg-card shadow rounded-2xl">
-        <div class="relative flex flex-col flex-auto items-center pt-0 sm:p-12 sm:pt-0">
-          <div class="w-full max-w-3xl">
-            <div class="flex flex-auto items-end" *ngIf="!editMode">
-              <div class="flex items-center ml-auto mb-1">
-                <button mat-stroked-button (click)="toggleEdit()" [matTooltip]="'APP.ROUTES.USER.ABOUT.EDIT_DESC' | transloco">
-                  <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
-                  <span class="ml-2">{{ 'APP.ROUTES.USER.ABOUT.EDIT' | transloco }}</span>
-                </button>
-              </div>
-            </div>
+<div class="flex flex-col flex-auto p-4">
+  <div class="w-full mt-4 mb-4 ml-auto mr-auto bg-card shadow rounded-2xl">
+    <div class="flex items-center w-full p-4">
+      <div class="flex-1 text-2xl font-semibold p-1 leading-tight">
+        {{ profile?.firstname ? profile?.firstname : ('ORGANIZATION.MEMBERS.MISSING_NAME' | transloco) }}
+        {{ profile?.lastname ? profile?.lastname : ('ORGANIZATION.MEMBERS.MISSING_NAME' | transloco) }}
+      </div>
+      <button class="text-tiny border rounded-2xl flex align-center justify-evenly p-0.5 w-20">
+        <mat-icon aria-hidden="false" aria-label="edit">edit</mat-icon>
+        Edit
+      </button>
+    </div>
+    <hr class="w-full border-t my-6" />
 
-            <profile-view *ngIf="!editMode" [user]="this.data.user" [countries]="this.countries"></profile-view>
-            <profile-form *ngIf="editMode" [user]="this.data.user" [countries]="this.countries"></profile-form>
+    <div class="w-full flex lg:pl-16 sm:pl-8 pt-4" [style.color]="!profile?.email ? '#FFBFBF' : 'black'">
+      <mat-icon aria-hidden="false" aria-label="user email">email</mat-icon>
+      <div class="ml-4">{{ profile?.email ? profile?.email : ('ORGANIZATION.MEMBERS.MISSING_INFO' | transloco) }}</div>
+    </div>
 
-            <div
-              *ngIf="editMode"
-              class="flex items-center mt-10 -mx-6 sm:-mx-12 py-4 pr-4 pl-1 sm:pr-12 sm:pl-7 border-t bg-gray-50 dark:bg-transparent"
-            >
-              <button mat-button [color]="'warn'" [matTooltip]="'APP.ROUTES.USER.ABOUT.DELETE_DESC' | transloco">
-                {{ 'APP.ROUTES.USER.ABOUT.DELETE' | transloco }}
-              </button>
+    <div class="w-full flex lg:pl-16 sm:pl-8 pt-4" [style.color]="!phoneNumber ? '#FFBFBF' : 'black'">
+      <mat-icon aria-hidden="false" aria-label="user's phone">phone</mat-icon>
+      <div class="ml-4">
+        {{ phoneNumber }}
+      </div>
+    </div>
 
-              <button class="ml-auto" mat-button [matTooltip]="'APP.ROUTES.USER.ABOUT.CANCEL_DESC' | transloco" (click)="toggleEdit()">
-                {{ 'APP.ROUTES.USER.ABOUT.CANCEL' | transloco }}
-              </button>
+    <div class="w-full lg:pl-16 sm:pl-8 pt-4 flex" [style.color]="!profile?.dateofbirth ? '#FFBFBF' : 'black'">
+      <mat-icon aria-hidden="false" aria-label="user's birthday">cake</mat-icon>
+      <div class="ml-4">{{ profile?.dateofbirth ? profile?.dateofbirth : ('ORGANIZATION.MEMBERS.MISSING_INFO' | transloco) }}</div>
+    </div>
 
-              <button class="ml-2" mat-flat-button [color]="'primary'" [matTooltip]="'APP.ROUTES.USER.ABOUT.SAVE_DESC' | transloco">
-                {{ 'APP.ROUTES.USER.ABOUT.SAVE' | transloco }}
-              </button>
-            </div>
-          </div>
-        </div>
-      </fuse-card>
+    <div class="w-full lg:pl-16 sm:pl-8 pt-4 flex" [style.color]="!adress ? '#FFBFBF' : 'black'">
+      <mat-icon aria-hidden="false" aria-label="user's adresse">location_on</mat-icon>
+      <div class="ml-4">{{ adress || ('ORGANIZATION.MEMBERS.MISSING_INFO' | transloco) }}</div>
     </div>
   </div>
 </div>

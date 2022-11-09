@@ -1,48 +1,62 @@
-import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'app/core/toastr/toastr.service';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { UserService } from 'app/core/user/user.service';
 import { Country } from 'app/models/country.interface';
+import { User, userPhone } from 'app/models/user';
+import { lastValueFrom, map } from 'rxjs';
+import { ToastrService } from 'app/core/toastr/toastr.service';
+import { Address } from 'app/models/address';
+import { ActivatedRoute } from '@angular/router';
 import { constants } from 'app/shared/constants';
-import { lastValueFrom, Subject } from 'rxjs';
 
 @Component({
   selector: 'user-profile',
   templateUrl: './user-profile.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserProfileComponent implements OnInit, OnDestroy {
+export class UserProfileComponent implements OnInit {
+  @Input() id: number;
+  @Input() user: User;
+  @Input() countries: Country[];
+  userForm: FormGroup;
+  profile: User;
   data: any;
-  countries: Country[] = [];
-  editMode: boolean;
-  private _unsubscribeAll: Subject<any> = new Subject<any>();
+  adress: string;
+  phoneNumber: string;
+  userPhone: userPhone[] = [];
 
-  constructor(private _route: ActivatedRoute, private _http: HttpClient, private _toastrService: ToastrService) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _userService: UserService,
+    private _toastrService: ToastrService,
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _matDialog: MatDialog,
+    private _route: ActivatedRoute,
+  ) {}
 
   async ngOnInit() {
-    this._prepareUserData();
-    await this._prepareCountries();
+    this.data = await this.getUserProfile();
+    this.adress = this.formatAddress(this?.profile?.addresses[0]);
+    // this.phoneNumber = this.profile?.phones[0]?.phoneNumber;
+    this._changeDetectorRef.markForCheck();
   }
 
-  ngOnDestroy(): void {
-    this._unsubscribeAll.next(null);
-    this._unsubscribeAll.complete();
-  }
-
-  toggleEdit() {
-    this.editMode = !this.editMode;
-  }
-
-  private _prepareUserData() {
-    this.data = this._route.snapshot.data;
-  }
-
-  private async _prepareCountries() {
+  async getUserProfile() {
+    const { userId } = this._route.snapshot.params;
+    this.id = userId;
     try {
-      this.countries = await lastValueFrom(this._http.get<Country[]>('api/apps/contacts/countries'));
+      this.profile = await lastValueFrom(
+        this._userService.getUserByKeycloak(this.id).pipe(map((profile) => new User((profile.body.data[0] as any) || {}))),
+      );
+      this._changeDetectorRef.markForCheck();
     } catch (error) {
-      this._toastrService.showInfo(constants.FAILED_LOAD_COUNTRIES);
+      this._toastrService.showWarning('ORGANIZATION.MEMBERS.PROFILE_LOADING_ERROR');
     }
+  }
+
+  private formatAddress(address: Address): string {
+    const { apartment = '', street = '', city = '', province = '', country = '', code = '' } = address;
+    const addressWithoutApp = `${street}, ${city}, ${province}, ${country}, ${code}`;
+    return apartment ? `${apartment}, ${addressWithoutApp}` : addressWithoutApp;
   }
 }

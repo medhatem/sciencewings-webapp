@@ -21,3 +21,21 @@ export class User implements UserRo {
     }
   }
 }
+
+export class userPhone implements PhoneRo {
+  id?: number;
+  memberId?: number;
+  organizationId?: number;
+  phoneCode: string;
+  phoneLabel: string;
+  phoneNumber: string;
+  userId?: number;
+
+  constructor(phone: any) {
+    const { id, phoneNumber } = phone || {};
+    Object.assign(this, { phoneNumber });
+    if (id) {
+      this.id = id;
+    }
+  }
+}
