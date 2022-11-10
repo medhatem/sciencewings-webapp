@@ -241,7 +241,9 @@
         "HELPER1": "Merci d'avoir rempli les informations de votre Organization !",
         "HELPER2": "Vous pouvez maintenant gérer votre Organization et créer vos ressources et bien plein d'autres fonctionnalités intéressantes",
         "HELPER3": "Vous pouvez cliquer sur réinitialiser si vous souhaitez creer une autre organization",
-        "TITLE": "Terminé"
+        "TITLE": "Terminé",
+        "ADMIN": "Admin",
+        "REGULAR": "Regular"
       },
       "PROFILE": {
         "BTN_BACK": "Back"

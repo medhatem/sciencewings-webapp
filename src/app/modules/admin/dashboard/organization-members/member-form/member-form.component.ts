@@ -33,6 +33,7 @@ export class MemberFormComponent implements OnInit {
   ngOnInit(): void {
     this.memberForm = this._formBuilder.group({
       email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
+      role: [''],
       description: [''],
     });
   }
@@ -43,7 +44,9 @@ export class MemberFormComponent implements OnInit {
       return;
     }
     try {
-      await lastValueFrom(this._memberService.inviteUserToOrganization(this.data.orgID, this.memberForm.value.email));
+      await lastValueFrom(
+        this._memberService.inviteUserToOrganization(this.data.orgID, this.memberForm.value.email, this.memberForm.value.role),
+      );
       this._toastrService.showSuccess(constants.INVITE_MEMBER_COMPLETED);
       this.matDialogRef.close();
     } catch (res) {
