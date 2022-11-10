@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from 'app/core/user/user.service';
 import { Country } from 'app/models/country.interface';
 import { User, userPhone } from 'app/models/user';
-import { lastValueFrom, map } from 'rxjs';
+import { lastValueFrom, map, Subject } from 'rxjs';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { Address } from 'app/models/address';
 import { ActivatedRoute } from '@angular/router';
@@ -13,8 +13,10 @@ import { constants } from 'app/shared/constants';
 @Component({
   selector: 'user-profile',
   templateUrl: './user-profile.component.html',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
   @Input() id: number;
   @Input() user: User;
   @Input() countries: Country[];
@@ -24,6 +26,8 @@ export class UserProfileComponent implements OnInit {
   adress: string;
   phoneNumber: string;
   userPhone: userPhone[] = [];
+
+  private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -52,6 +56,15 @@ export class UserProfileComponent implements OnInit {
     } catch (error) {
       this._toastrService.showWarning('ORGANIZATION.MEMBERS.PROFILE_LOADING_ERROR');
     }
+  }
+
+  /**
+   * On destroy
+   */
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next(null);
+    this._unsubscribeAll.complete();
   }
 
   private formatAddress(address: Address): string {
