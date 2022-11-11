@@ -143,8 +143,8 @@
           "EDIT_DESC": "Modifier les informations",
           "EMAIL": "Adresse e-mail",
           "FIRST_NAME": "Prénom",
-          "LABEL": "Étiquette",
           "LAST_NAME": "Nom",
+          "LABEL": "Étiquette",
           "MESSAGE": "Détails de l'utilisateur",
           "NAME": "Nom",
           "NOTES": "Notes",
@@ -388,6 +388,8 @@
         "JOB": "Profession",
         "LABEL": "Etiquette",
         "NAME": "Nom Complet",
+        "FIRST_NAME": "Prénom",
+        "LAST_NAME": "Nom",
         "PHONE": "Numéro de Téléphone",
         "SAVE": "modifier"
       },

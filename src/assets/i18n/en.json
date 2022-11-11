@@ -387,6 +387,8 @@
         "JOB": "Job Title",
         "LABEL": "Label",
         "NAME": "Full Name",
+        "FIRST_NAME": "First name",
+        "LAST_NAME": "Last name",
         "PHONE": "Phone",
         "SAVE": "Save"
       },

@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from 'app/core/user/user.types';
 import { ChangeUserLanguageDto } from 'generated/models/change-user-language-dto';
-import { UserGetDto } from 'generated/models';
+import { CreatedUserDto, UserGetDto, UserIdDto, UserRo } from 'generated/models';
+import { constants } from 'app/shared/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -42,6 +43,10 @@ export class UserService {
 
   async updateUserLanguage(language: string): Promise<ChangeUserLanguageDto> {
     return lastValueFrom(this.swaggerAPI.userRoutesChangeUserLanguage({ language }));
+  }
+
+  async updateUserDetails(userId: number, body: UserRo): Promise<CreatedUserDto> {
+    return lastValueFrom(this.swaggerAPI.userRoutesUpdateUserDetails({ userId, body }));
   }
 
   delete(id: number) {

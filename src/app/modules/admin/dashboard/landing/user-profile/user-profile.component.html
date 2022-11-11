@@ -5,7 +5,7 @@
         {{ profile?.firstname ? profile?.firstname : ('ORGANIZATION.MEMBERS.MISSING_NAME' | transloco) }}
         {{ profile?.lastname ? profile?.lastname : ('ORGANIZATION.MEMBERS.MISSING_NAME' | transloco) }}
       </div>
-      <button class="text-tiny border rounded-2xl flex align-center justify-evenly p-0.5 w-20">
+      <button class="text-tiny border rounded-2xl flex align-center justify-evenly p-0.5 w-20" (click)="editUserInformation()">
         <mat-icon aria-hidden="false" aria-label="edit">edit</mat-icon>
         Edit
       </button>

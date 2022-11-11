@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from 'app/core/user/user.service';
 import { Country } from 'app/models/country.interface';
@@ -9,6 +9,7 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { Address } from 'app/models/address';
 import { ActivatedRoute } from '@angular/router';
 import { constants } from 'app/shared/constants';
+import { EditUserInfoComponent } from './edit-user-info/edit-user-info.component';
 
 @Component({
   selector: 'user-profile',
@@ -20,6 +21,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   @Input() id: number;
   @Input() user: User;
   @Input() countries: Country[];
+  openedDialogRef: any;
   userForm: FormGroup;
   profile: User;
   data: any;
@@ -30,7 +32,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
-    private _formBuilder: FormBuilder,
     private _userService: UserService,
     private _toastrService: ToastrService,
     private _changeDetectorRef: ChangeDetectorRef,
@@ -46,16 +47,27 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   async getUserProfile() {
-    const { userId } = this._route.snapshot.params;
-    this.id = userId;
+    this.id = Number(localStorage.getItem(constants.CURRENT_USER_ID));
+    const userId = this.id;
     try {
       this.profile = await lastValueFrom(
-        this._userService.getUserByKeycloak(this.id).pipe(map((profile) => new User((profile.body.data[0] as any) || {}))),
+        this._userService.getUserByKeycloak(userId).pipe(map((profile) => new User((profile?.body.data[0] as any) || {}))),
       );
       this._changeDetectorRef.markForCheck();
     } catch (error) {
       this._toastrService.showWarning('ORGANIZATION.MEMBERS.PROFILE_LOADING_ERROR');
     }
+  }
+
+  async editUserInformation() {
+    this.id = Number(localStorage.getItem(constants.CURRENT_USER_ID));
+    this.openedDialogRef = this._matDialog.open(EditUserInfoComponent, {
+      data: { profile: this.profile, id: this.id },
+    });
+    this.openedDialogRef.afterClosed().subscribe(async (result) => {
+      await this.getUserProfile();
+    });
+    this._toastrService.showInfo(constants.COMPLETING_MEMBER_PROFILE_INFO);
   }
 
   /**

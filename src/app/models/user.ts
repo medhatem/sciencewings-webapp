@@ -1,4 +1,4 @@
-import { AddressRo, PhoneRo, UserRo } from 'generated/models';
+import { AddressDto, AddressRo, PhoneDto, PhoneRo, UserIdDto, UserRo } from 'generated/models';
 
 export class User implements UserRo {
   id?: number | string;
