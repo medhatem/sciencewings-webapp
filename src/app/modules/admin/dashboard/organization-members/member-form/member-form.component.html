@@ -18,11 +18,12 @@
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
     </mat-form-field>
     <div class="flex-auto mx-4">
-      <mat-form-field class="fuse-mat-no-subscript w-full">
+      <mat-form-field appearance="fill" class="fuse-mat-no-subscript w-full">
         <mat-label>{{ 'ORGANIZATION.MEMBERS.FORM.MEMBER_ROLE' | transloco }}</mat-label>
-        <mat-select [formControlName]="'role'" placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}" required>
+        <mat-select [formControlName]="'role'" multiple placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}" required>
           <mat-option value="admin">{{ 'ORGANIZATION.FORM.DONE.ADMIN' | transloco }}</mat-option>
           <mat-option value="regular">{{ 'ORGANIZATION.FORM.DONE.REGULAR' | transloco }}</mat-option>
+          <mat-option value="role3">role3</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
