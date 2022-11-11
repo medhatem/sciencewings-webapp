@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from 'app/core/user/user.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -8,8 +8,6 @@ import { Address } from 'app/models/address';
 import { Phone } from 'app/models/phone';
 import { User } from 'app/models/user';
 import moment from 'moment';
-import { UserProfileComponent } from '../user-profile.component';
-import { lastValueFrom } from 'rxjs';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
 export interface DialogData {
   idOrg: number;
@@ -45,6 +43,7 @@ export class EditUserInfoComponent implements OnInit {
       firstname = '',
       lastname = '',
       phones = { phoneCode: '', phoneLabel: '', phoneNumber: '' },
+
       addresses = { apartment: '', code: '', city: '', country: '', province: '', street: '' },
     } = this.data.profile;
     this.profile = this._formBuilder.group({
@@ -52,7 +51,6 @@ export class EditUserInfoComponent implements OnInit {
       lastname: [lastname],
       email: [email],
       dateofbirth: [dateofbirth],
-      // dateofbirth: new FormControl(moment(dateofbirth)),
       phoneCode: ['ca'],
       phoneNumber: [phones[0]?.phoneNumber],
       street: [addresses[0].street],
@@ -122,7 +120,6 @@ export class EditUserInfoComponent implements OnInit {
       firstname: this.profile?.value?.firstname || '',
       lastname: this.profile?.value?.lastname || '',
       email: this.profile?.value?.email || '',
-      // dateofbirth: this.profile?.value?.dateofbirth || '',
       dateofbirth: moment(this.profile?.value?.dateofbirth).format(constants.DATE_FORMAT_YYYY_MM_DD) || '',
       phones: phone,
       addresses: adress,

@@ -20,7 +20,7 @@
     <div class="w-full flex lg:pl-16 sm:pl-8 pt-4" [style.color]="!phoneNumber ? '#FFBFBF' : 'black'">
       <mat-icon aria-hidden="false" aria-label="user's phone">phone</mat-icon>
       <div class="ml-4">
-        {{ phoneNumber }}
+        {{ phoneNumber || ('ORGANIZATION.MEMBERS.MISSING_INFO' | transloco) }}
       </div>
     </div>
 

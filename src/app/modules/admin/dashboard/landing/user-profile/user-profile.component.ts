@@ -7,9 +7,9 @@ import { User, userPhone } from 'app/models/user';
 import { lastValueFrom, map, Subject } from 'rxjs';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { Address } from 'app/models/address';
-import { ActivatedRoute } from '@angular/router';
 import { constants } from 'app/shared/constants';
 import { EditUserInfoComponent } from './edit-user-info/edit-user-info.component';
+import { Organization } from 'app/models/organizations/organization';
 
 @Component({
   selector: 'user-profile',
@@ -26,8 +26,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   profile: User;
   data: any;
   adress: string;
-  phoneNumber: string;
-  userPhone: userPhone[] = [];
+  phoneNumber: any;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -36,13 +35,12 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     private _toastrService: ToastrService,
     private _changeDetectorRef: ChangeDetectorRef,
     private _matDialog: MatDialog,
-    private _route: ActivatedRoute,
   ) {}
 
   async ngOnInit() {
     this.data = await this.getUserProfile();
     this.adress = this.formatAddress(this?.profile?.addresses[0]);
-    // this.phoneNumber = this.profile?.phones[0]?.phoneNumber;
+    this.phoneNumber = this.profile?.phones[0]?.phoneNumber;
     this._changeDetectorRef.markForCheck();
   }
 
