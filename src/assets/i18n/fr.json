@@ -390,6 +390,7 @@
         "NAME": "Nom Complet",
         "FIRST_NAME": "Prénom",
         "LAST_NAME": "Nom",
+        "EDIT": "Modifier",
         "PHONE": "Numéro de Téléphone",
         "SAVE": "modifier"
       },
