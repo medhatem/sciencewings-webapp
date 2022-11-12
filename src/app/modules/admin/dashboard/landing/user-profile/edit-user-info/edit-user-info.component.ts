@@ -86,7 +86,7 @@ export class EditUserInfoComponent implements OnInit {
     if (response.body.statusCode === 204) {
       this.updateLocalUser.emit(this.profile.value);
       this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
-      this.closeModal();
+      this._matDialogRef.close();
     } else {
       this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }
@@ -106,10 +106,12 @@ export class EditUserInfoComponent implements OnInit {
 
   private getUserFromFormBuilder(): UserRequestObject {
     const phone = new Phone({
+      id: this.data.profile.phones[0].id,
       phoneNumber: this?.profile?.value?.phoneNumber,
       phoneCode: this?.profile?.value?.phoneCode,
     });
     const adress = new Address({
+      id: this.data.profile.addresses[0].id,
       apartment: this?.profile?.value?.apartment,
       province: this?.profile?.value?.province,
       city: this?.profile?.value?.city,
@@ -121,8 +123,8 @@ export class EditUserInfoComponent implements OnInit {
       lastname: this.profile?.value?.lastname || '',
       email: this.profile?.value?.email || '',
       dateofbirth: moment(this.profile?.value?.dateofbirth).format(constants.DATE_FORMAT_YYYY_MM_DD) || '',
-      phones: phone,
-      addresses: adress,
+      phones: [phone],
+      addresses: [adress],
     });
   }
 }

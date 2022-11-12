@@ -39,9 +39,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.data = await this.getUserProfile();
-    console.log('this?.profile?.addresses[0]== ', this?.profile?.addresses[0]);
     this.adress = this.formatAddress(this?.profile?.addresses[0]);
-    console.log('this?.profile?.phones[0]== ', this?.profile?.phones[0]);
     this.phoneNumber = this.profile?.phones[0]?.phoneNumber;
     this._changeDetectorRef.markForCheck();
   }
@@ -64,8 +62,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.openedDialogRef = this._matDialog.open(EditUserInfoComponent, {
       data: { profile: this.profile, id: this.id },
     });
-    this.openedDialogRef.afterClosed().subscribe(async (result) => {
-      await this.getUserProfile();
+    this.openedDialogRef.afterClosed().subscribe(async () => {
+      await this.ngOnInit();
     });
     this._toastrService.showInfo(constants.COMPLETING_MEMBER_PROFILE_INFO);
   }

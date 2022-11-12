@@ -1,6 +1,7 @@
 import { AddressDto, AddressRo } from 'generated/models';
 
 export class Address implements AddressRo {
+  id?: number;
   apartment?: string;
   city: string;
   code: string;
@@ -12,8 +13,8 @@ export class Address implements AddressRo {
   user?: number;
 
   constructor(address: any) {
-    const { appartement, city, code, country = 'Canada', province, street, type = AddressType.user } = address || {};
-    Object.assign(this, { appartement, city, code, country, province, street, type });
+    const { id, appartement, city, code, country = 'Canada', province, street, type = AddressType.user } = address || {};
+    Object.assign(this, { id, appartement, city, code, country, province, street, type });
   }
 }
 
