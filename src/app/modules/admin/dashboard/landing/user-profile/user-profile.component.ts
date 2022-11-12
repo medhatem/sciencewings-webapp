@@ -6,7 +6,7 @@ import { Country } from 'app/models/country.interface';
 import { User, userPhone } from 'app/models/user';
 import { lastValueFrom, map, Subject } from 'rxjs';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { Address } from 'app/models/address';
+import { Address, GetAddress } from 'app/models/address';
 import { constants } from 'app/shared/constants';
 import { EditUserInfoComponent } from './edit-user-info/edit-user-info.component';
 import { Organization } from 'app/models/organizations/organization';
@@ -39,7 +39,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.data = await this.getUserProfile();
+    console.log('this?.profile?.addresses[0]== ', this?.profile?.addresses[0]);
     this.adress = this.formatAddress(this?.profile?.addresses[0]);
+    console.log('this?.profile?.phones[0]== ', this?.profile?.phones[0]);
     this.phoneNumber = this.profile?.phones[0]?.phoneNumber;
     this._changeDetectorRef.markForCheck();
   }
@@ -77,7 +79,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  private formatAddress(address: Address): string {
+  private formatAddress(address: GetAddress): string {
     const { apartment = '', street = '', city = '', province = '', country = '', code = '' } = address;
     const addressWithoutApp = `${street}, ${city}, ${province}, ${country}, ${code}`;
     return apartment ? `${apartment}, ${addressWithoutApp}` : addressWithoutApp;

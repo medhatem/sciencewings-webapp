@@ -5,7 +5,7 @@ import { KeycloakProfile } from 'keycloak-js';
 import { KeycloakService } from 'keycloak-angular';
 import { Resolve } from '@angular/router';
 import { ToastrService } from 'app/core/toastr/toastr.service';
-import { User } from 'app/models/user';
+import { User, UserRequestObject } from 'app/models/user';
 import { constants } from '../../shared/constants';
 
 @Injectable({
@@ -32,7 +32,7 @@ export class NewUserInfosResolver implements Resolve<any> {
     return lastValueFrom(this._apiService.userRoutesGetUserByKeycloakId({ kcid: id }).pipe(map(({ body }) => new User(body.data[0]))));
   }
 
-  async createUser(user: User): Promise<User> {
+  async createUser(user: UserRequestObject): Promise<User> {
     try {
       return lastValueFrom(this._apiService.userRoutesCreateUser({ body: user }).pipe(map(({ body }) => new User(body))));
     } catch (error) {

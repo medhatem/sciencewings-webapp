@@ -1,6 +1,8 @@
-import { AddressDto, AddressRo, PhoneDto, PhoneRo, UserIdDto, UserRo } from 'generated/models';
+import { AddressDto, AddressRo, PhoneDto, PhoneInformationDto, PhoneRo, UserDto, UserIdDto, UserRo } from 'generated/models';
+import { GetAddress } from './address';
+import { Phone } from './phone';
 
-export class User implements UserRo {
+export class UserRequestObject implements UserRo {
   id?: number | string;
   email: string;
   actionId?: number;
@@ -12,6 +14,26 @@ export class User implements UserRo {
   phones: PhoneRo[];
   share?: boolean;
   signature?: string;
+
+  constructor(user: any) {
+    const { id, actionId, email, addresses, dateofbirth, firstname, keycloakId, lastname, phones, share, signature } = user || {};
+    Object.assign(this, { actionId, email, addresses, dateofbirth, firstname, keycloakId, lastname, phones, share, signature });
+    if (id) {
+      this.id = id;
+    }
+  }
+}
+
+export class User implements UserDto {
+  addresses: Array<GetAddress>;
+  email: string;
+  firstname: string;
+  id: number;
+  keycloakId: string;
+  lastname: string;
+  phones: Array<Phone>;
+  statusCode: number;
+  dateofbirth: string;
 
   constructor(user: any) {
     const { id, actionId, email, addresses, dateofbirth, firstname, keycloakId, lastname, phones, share, signature } = user || {};

@@ -6,7 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { constants } from 'app/shared/constants';
 import { Address } from 'app/models/address';
 import { Phone } from 'app/models/phone';
-import { User } from 'app/models/user';
+import { User, UserRequestObject } from 'app/models/user';
 import moment from 'moment';
 import { countryCanada } from 'app/mock-api/apps/contacts/data';
 export interface DialogData {
@@ -104,19 +104,19 @@ export class EditUserInfoComponent implements OnInit {
     return maxDateToPick < mustBeAtLeast14YearsOld;
   }
 
-  private getUserFromFormBuilder(): User {
+  private getUserFromFormBuilder(): UserRequestObject {
     const phone = new Phone({
       phoneNumber: this?.profile?.value?.phoneNumber,
       phoneCode: this?.profile?.value?.phoneCode,
     });
     const adress = new Address({
       apartment: this?.profile?.value?.apartment,
-      province: this?.profile?.value.province,
+      province: this?.profile?.value?.province,
       city: this?.profile?.value?.city,
       code: this?.profile?.value?.code,
       country: this?.profile?.value?.country,
     });
-    return new User({
+    return new UserRequestObject({
       firstname: this.profile?.value?.firstname || '',
       lastname: this.profile?.value?.lastname || '',
       email: this.profile?.value?.email || '',
