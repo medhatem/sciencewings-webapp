@@ -47,12 +47,12 @@ export class GroupListComponent implements OnInit, OnDestroy {
         { columnName: 'Status', columnPropertyToUse: 'status', customClass: 'hidden' },
         { columnName: 'Members', columnPropertyToUse: 'members', customClass: 'hidden' },
         { columnName: 'Description', columnPropertyToUse: 'description', customClass: 'hidden' },
-        { columnName: 'Actions', columnPropertyToUse: 'description', customClass: 'hidden' },
+        { columnName: 'Actions', columnPropertyToUse: 'actions', customClass: 'hidden' },
       ],
     };
     this.actionButtons = [
-      { actionName: 'Delete', onActionClick: this.deleteGroup.bind(this) },
-      { actionName: 'View Profile', onActionClick: this.viewProfile.bind(this) },
+      { actionName: 'Delete', onActionClick: this.deleteGroup.bind(this), icon: 'trash' },
+      { actionName: 'View Profile', onActionClick: this.viewProfile.bind(this), icon: 'eye' },
     ];
 
     const data = this._route.snapshot.data;
@@ -132,7 +132,8 @@ export class GroupListComponent implements OnInit, OnDestroy {
   }
 
   async deleteGroup(item: GroupBody) {
-    this._groupService.delete(item.id);
+    await this._groupService.delete(item.id);
+    await lastValueFrom(this._groupService.getAndParseOrganizationGroups(this.pagination.page, this.pagination.size));
     this._changeDetectorRef.markForCheck();
   }
 
