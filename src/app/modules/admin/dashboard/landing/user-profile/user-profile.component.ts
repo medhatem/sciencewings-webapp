@@ -40,7 +40,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   async ngOnInit() {
-    await this.getUserProfile();
+    this.data = await this.getUserProfile();
     this.dateofbirth = await this.formateDate();
     this.adress = this.formatAddress(this?.profile?.addresses[0]);
     this.phoneNumber = this.profile?.phones[0]?.phoneNumber;
