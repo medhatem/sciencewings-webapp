@@ -37,7 +37,6 @@ export class GroupListComponent implements OnInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _matDialog: MatDialog,
     private _route: ActivatedRoute,
-    private _toastrService: ToastrService,
   ) {}
 
   ngOnInit() {
@@ -57,7 +56,6 @@ export class GroupListComponent implements OnInit, OnDestroy {
       this.groups = organizationGroups;
       this._changeDetectorRef.markForCheck();
     });
-
     this._groupService.pagination$.subscribe((result) => {
       takeUntil(this._unsubscribeAll);
       this.pagination = result;

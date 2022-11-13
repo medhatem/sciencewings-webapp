@@ -36,7 +36,7 @@ export class GroupService {
           return {
             name,
             status: active ? 'Active' : 'Inactive',
-            members: this.parseGroupMembers(members),
+            members: members.length,
             parent: '',
             id,
           };
