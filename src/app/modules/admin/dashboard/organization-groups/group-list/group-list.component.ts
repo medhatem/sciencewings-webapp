@@ -24,6 +24,7 @@ export class GroupListComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   selectedGroup = null;
   groupsCount: number = 0;
+  memberCount: number = 0;
   pagination: Pagination;
   searchInputControl: FormControl = new FormControl();
   options: ListOption = { columns: [] };
@@ -39,7 +40,7 @@ export class GroupListComponent implements OnInit, OnDestroy {
     private _toastrService: ToastrService,
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.options = {
       columns: [
         { columnName: 'name', columnPropertyToUse: 'name', customClass: '' },

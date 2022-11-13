@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable, tap, lastValueFrom, map } from 'rxjs';
 import { ApiService } from 'generated/services';
 import { Injectable } from '@angular/core';
-import { GroupDto } from 'generated/models';
+import { GroupDto, MemberDto } from 'generated/models';
 import { Group, GroupBody } from 'app/models/groups/group';
 import { constants } from 'app/shared/constants';
 
@@ -36,7 +36,7 @@ export class GroupService {
           return {
             name,
             status: active ? 'Active' : 'Inactive',
-            members,
+            members: this.parseGroupMembers(members),
             parent: '',
             id,
           };
@@ -70,6 +70,10 @@ export class GroupService {
         .groupRoutesGetOrganizationGroup({ organizationId })
         .pipe(map((result: any) => result.body.data.map((group: any) => new Group(group)))),
     );
+  }
+
+  parseGroupMembers(members: MemberDto[]): string {
+    return `<div>${members[0]?.name}</div>`;
   }
 
   /**
