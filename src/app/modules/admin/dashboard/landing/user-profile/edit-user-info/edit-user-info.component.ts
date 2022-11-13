@@ -106,7 +106,7 @@ export class EditUserInfoComponent implements OnInit {
 
   private getUserFromFormBuilder(): UserRequestObject {
     const phone = new Phone({
-      id: this.data.profile.phones[0].id,
+      id: this?.data?.profile?.phones[0]?.id,
       phoneNumber: this?.profile?.value?.phoneNumber,
       phoneCode: this?.profile?.value?.phoneCode,
     });
@@ -122,7 +122,7 @@ export class EditUserInfoComponent implements OnInit {
       firstname: this.profile?.value?.firstname || '',
       lastname: this.profile?.value?.lastname || '',
       email: this.profile?.value?.email || '',
-      dateofbirth: moment(this.profile?.value?.dateofbirth).format(constants.DATE_FORMAT_YYYY_MM_DD) || '',
+      dateofbirth: moment(this?.profile?.value?.dateofbirth).format(constants.DATE_FORMAT_YYYY_MM_DD),
       phones: [phone],
       addresses: [adress],
     });

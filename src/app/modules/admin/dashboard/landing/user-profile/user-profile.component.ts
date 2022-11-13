@@ -10,6 +10,7 @@ import { Address, GetAddress } from 'app/models/address';
 import { constants } from 'app/shared/constants';
 import { EditUserInfoComponent } from './edit-user-info/edit-user-info.component';
 import { Organization } from 'app/models/organizations/organization';
+import moment from 'moment';
 
 @Component({
   selector: 'user-profile',
@@ -27,6 +28,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   data: any;
   adress: string;
   phoneNumber: any;
+  dateofbirth: any;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -38,7 +40,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   async ngOnInit() {
-    this.data = await this.getUserProfile();
+    await this.getUserProfile();
+    this.dateofbirth = await this.formateDate();
     this.adress = this.formatAddress(this?.profile?.addresses[0]);
     this.phoneNumber = this.profile?.phones[0]?.phoneNumber;
     this._changeDetectorRef.markForCheck();
@@ -81,5 +84,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     const { apartment = '', street = '', city = '', province = '', country = '', code = '' } = address;
     const addressWithoutApp = `${street}, ${city}, ${province}, ${country}, ${code}`;
     return apartment ? `${apartment}, ${addressWithoutApp}` : addressWithoutApp;
+  }
+
+  private async formateDate() {
+    return (this.dateofbirth = moment(this?.profile?.dateofbirth).format(constants.DATE_FORMAT_YYYY_MM_DD));
   }
 }
