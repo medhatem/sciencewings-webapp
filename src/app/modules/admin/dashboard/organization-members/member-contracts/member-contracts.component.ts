@@ -58,8 +58,8 @@ export class MemberContractsComponent implements OnInit {
 
     this.options = {
       columns: [
-        { columnName: 'ORGANIZATION.CONTRACTS.FORM.JOB_NAME', columnPropertyToUse: 'name', customClass: 'hidden' },
-        { columnName: 'ORGANIZATION.CONTRACTS.FORM.SUPERVISOR', columnPropertyToUse: 'supervisor', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.CONTRACTS.FORM.JOB_NAME', columnPropertyToUse: 'name', customClass: '' },
+        { columnName: 'ORGANIZATION.CONTRACTS.FORM.SUPERVISOR', columnPropertyToUse: 'supervisor', customClass: '' },
         { columnName: 'ORGANIZATION.CONTRACTS.FORM.JOB_LEVEL', columnPropertyToUse: 'jobLevel', customClass: 'hidden' },
         { columnName: 'ORGANIZATION.CONTRACTS.FORM.STARTDATE', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
         { columnName: '', columnPropertyToUse: 'actions', customClass: '' },

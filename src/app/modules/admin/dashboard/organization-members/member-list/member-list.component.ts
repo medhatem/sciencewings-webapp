@@ -107,15 +107,15 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  // onDelete(id: number) {
-  //   this._memberService.deleteMember(id).subscribe(({ statusCode, body, errorMessage }) => {
-  //     if (statusCode === 500) {
-  //       this._toastrService.showError(errorMessage, constants.SOMETHING_WENT_WRONG);
-  //     } else {
-  //       this.members$ = this.members$.filter((member) => member.id !== id);
-  //     }
-  //   });
-  // }
+  onDelete(id: number) {
+    this._memberService.deleteMember(id).subscribe(({ statusCode, body, errorMessage }) => {
+      if (statusCode === 500) {
+        this._toastrService.showError(errorMessage, constants.SOMETHING_WENT_WRONG);
+      } else {
+        this.members$ = this.members$.filter((member) => member.id !== id);
+      }
+    });
+  }
 
   showMemberProfile(memberID) {
     //TODO
