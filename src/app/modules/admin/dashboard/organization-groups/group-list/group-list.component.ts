@@ -42,10 +42,10 @@ export class GroupListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.options = {
       columns: [
-        { columnName: 'name', columnPropertyToUse: 'name', customClass: '' },
-        { columnName: 'Status', columnPropertyToUse: 'status', customClass: 'hidden' },
-        { columnName: 'Members', columnPropertyToUse: 'members', customClass: 'hidden' },
-        { columnName: 'Description', columnPropertyToUse: 'description', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.GROUPS.LIST.GROUP_NAME', columnPropertyToUse: 'name', customClass: '' },
+        { columnName: 'ORGANIZATION.GROUPS.LIST.GROUP_MEMBERS', columnPropertyToUse: 'members', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.GROUPS.LIST.GROUP_STATUS', columnPropertyToUse: 'status', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.GROUPS.LIST.GROUP_DATE', columnPropertyToUse: 'createdAt', customClass: 'hidden' },
       ],
       numberOfColumns: 4,
     };

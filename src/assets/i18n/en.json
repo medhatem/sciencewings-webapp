@@ -314,9 +314,9 @@
       },
       "IMPORT_GROUPS": "Import",
       "LIST": {
-        "GROUP_DATE": "Date",
+        "GROUP_DATE": "Created Date",
         "GROUP_MEMBERS": "Members",
-        "GROUP_NAME": "Group",
+        "GROUP_NAME": "Name",
         "GROUP_STATUS": "Status",
         "MESSAGE": "There are no groups!"
       },

@@ -315,10 +315,10 @@
       },
       "IMPORT_GROUPS": "Importer",
       "LIST": {
-        "GROUP_DATE": "Date",
+        "GROUP_DATE": "Date de création",
         "GROUP_MEMBERS": "Membres",
-        "GROUP_NAME": "Groupe",
-        "GROUP_STATUS": "Status",
+        "GROUP_NAME": "Nom",
+        "GROUP_STATUS": "Statut",
         "MESSAGE": "Il n'y a pas de groupes !"
       },
       "MESSAGE": "Gérer les accès pour tous les groupes de votre organisation dans ",

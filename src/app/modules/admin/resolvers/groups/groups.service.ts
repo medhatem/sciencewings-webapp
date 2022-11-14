@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { GroupDto, MemberDto } from 'generated/models';
 import { Group, GroupBody } from 'app/models/groups/group';
 import { constants } from 'app/shared/constants';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,7 @@ export class GroupService {
             status: active ? 'Active' : 'Inactive',
             members: members.length,
             parent: '',
+            createdAt: moment().format(constants.DATE_FORMAT_YYYY_MM_DD),
             id,
           };
         });
