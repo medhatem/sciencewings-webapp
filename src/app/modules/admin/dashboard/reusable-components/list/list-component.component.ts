@@ -24,7 +24,6 @@ export interface Column {
 export interface TableBtn {
   styleClass?: string;
   icon?: string;
-  payload?: any;
   actionName: string;
   onActionClick?: (...args) => any;
 }
@@ -83,23 +82,6 @@ export class ListComponent implements OnInit, OnDestroy {
     this.keys = this.options.columns.map((col) => col);
     if (!this.options.columns.length) {
       this.options.columns.length = this.keys.length;
-    }
-  }
-
-  actionHandler(actionName: string) {
-    switch (actionName) {
-      case 'Delete': {
-        console.log('DELETE');
-        break;
-      }
-      case 'Download': {
-        console.log('DOWNLOAD');
-        break;
-      }
-      default: {
-        console.log('NO ACTIONS');
-        break;
-      }
     }
   }
 

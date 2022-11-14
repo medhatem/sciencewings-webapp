@@ -47,12 +47,12 @@ export class GroupListComponent implements OnInit, OnDestroy {
         { columnName: 'Status', columnPropertyToUse: 'status', customClass: 'hidden' },
         { columnName: 'Members', columnPropertyToUse: 'members', customClass: 'hidden' },
         { columnName: 'Description', columnPropertyToUse: 'description', customClass: 'hidden' },
-        { columnName: 'Actions', columnPropertyToUse: 'actions', customClass: 'hidden' },
+        { columnName: '', columnPropertyToUse: 'actions', customClass: '' },
       ],
     };
     this.actionButtons = [
-      { actionName: 'Delete', onActionClick: this.deleteGroup.bind(this), icon: 'trash' },
-      { actionName: 'View Profile', onActionClick: this.viewProfile.bind(this), icon: 'eye' },
+      { actionName: 'ORGANIZATION.ACTIONS.VEIW_PROFILE', onActionClick: this.viewProfile.bind(this), icon: 'eye' },
+      { actionName: 'ORGANIZATION.ACTIONS.DELETE', onActionClick: this.deleteGroup.bind(this), icon: 'trash' },
     ];
 
     const data = this._route.snapshot.data;
@@ -127,10 +127,6 @@ export class GroupListComponent implements OnInit, OnDestroy {
     this.selectedGroup = null;
   }
 
-  async onActionClicked(item: Group) {
-    console.log('clicked item', item);
-  }
-
   async deleteGroup(item: GroupBody) {
     await this._groupService.delete(item.id);
     await lastValueFrom(this._groupService.getAndParseOrganizationGroups(this.pagination.page, this.pagination.size));
@@ -138,6 +134,6 @@ export class GroupListComponent implements OnInit, OnDestroy {
   }
 
   viewProfile(item: GroupBody) {
-    console.log('View Profile');
+    // TO DO : Add redirection to members group list later
   }
 }
