@@ -31,7 +31,7 @@
             [ngStyle]="getColumsStyles()"
             matSortDisableClear>
             <ng-container *ngFor="let key of keys">
-              <div class="{{ key.customClass }}  ">
+              <div class="{{ key.customClass }}  sm:block ">
                 {{ key.columnName | transloco }}
               </div>
             </ng-container>
