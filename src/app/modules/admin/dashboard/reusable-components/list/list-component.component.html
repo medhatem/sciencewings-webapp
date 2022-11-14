@@ -49,7 +49,7 @@
                     *ngIf="key.columnPropertyToUse != 'actions'"
                     class="{{ key.customClass }} sm:block truncate"
                     [innerHTML]="item[key.columnPropertyToUse]"></div>
-                  <div *ngIf="key.columnPropertyToUse == 'actions'" class="min-w-10 min-h-7 h-7 px-2 leading-6">
+                  <div *ngIf="key.columnPropertyToUse == 'actions'" mat-dialog-actions align="end">
                     <button [matMenuTriggerFor]="actionsMenu" mat-icon-button>
                       <mat-icon [svgIcon]="'heroicons_outline:dots-vertical'"></mat-icon>
                     </button>
