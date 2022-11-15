@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MemberService } from 'app/modules/admin/resolvers/members/member.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { lastValueFrom } from 'rxjs';
+import { PermissionService } from 'app/modules/admin/resolvers/permission/permission.service';
 
 export interface DialogData {
   orgID: number;
@@ -26,6 +27,7 @@ export class MemberFormComponent implements OnInit {
     private _toastrService: ToastrService,
     private _formBuilder: FormBuilder,
     private _memberService: MemberService,
+    private _permissionService: PermissionService,
   ) {}
   get validationControls() {
     return this.memberForm.controls;
@@ -44,6 +46,8 @@ export class MemberFormComponent implements OnInit {
       return;
     }
     try {
+      await lastValueFrom(this._permissionService.getPermissions());
+
       await lastValueFrom(
         this._memberService.inviteUserToOrganization(this.data.orgID, this.memberForm.value.email, this.memberForm.value.role),
       );
