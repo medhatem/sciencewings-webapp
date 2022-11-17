@@ -198,6 +198,13 @@
   "FATAL_ERROR_OCCURED": "Une erreur fatale s'est produite",
   "GET_MEMBERS_LOAD_FAILED": "Vous n'avez pas d'organisation",
   "ORGANIZATION": {
+    "ACTIONS": {
+      "EDIT": "Modifier",
+      "DELETE": "Supprimer",
+      "VEIW_PROFILE": "Voir le profil",
+      "PRINT_CONTRACT": "Imprimer le contrat",
+      "SEND_CONTRACT_EMAIL": "Envoyée par email"
+    },
     "CONTRACTS": {
       "CREATE_CONTRACTS": "Nouveau contrat",
       "ERROR": {
