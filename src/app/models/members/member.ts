@@ -6,6 +6,7 @@ import {
   MemberRo,
   OrganizationDto,
   PhoneInformationDto,
+  RoleBaseBodyGetDto,
   UserDto,
 } from 'generated/models';
 
@@ -121,9 +122,9 @@ export class Member implements MemberRo {
 export class OrganizationMembers implements MemberDto {
   active: boolean;
   joinDate: string;
-  role: string;
   name: string;
   organization: number;
+  roles: Array<RoleBaseBodyGetDto>;
   status: string;
   statusCode: number;
   user: number;

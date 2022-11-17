@@ -9,6 +9,7 @@ import {
   InfrastructureResourceDetails,
   SubInfraListLineObjectDto,
   SubInfraObjectDto,
+  RoleBaseBodyGetDto,
 } from 'generated/models';
 
 export class Infrastructure implements InfrastructureRo {
@@ -127,9 +128,9 @@ export class ResourcesList implements InfrastructureResourceDetails {
 export class ListMember implements MemberDto {
   active: boolean;
   joinDate: string;
-  role: string;
   name: string;
   organization: number;
+  roles: Array<RoleBaseBodyGetDto>;
   status: string;
   statusCode: number;
   user: number;
