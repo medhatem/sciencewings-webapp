@@ -198,6 +198,13 @@
   "FATAL_ERROR_OCCURED": "A fatal error has occurred",
   "GET_MEMBERS_LOAD_FAILED": "You have no organization",
   "ORGANIZATION": {
+    "ACTIONS": {
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "VEIW_PROFILE": "View profile",
+      "PRINT_CONTRACT": "Print Contract",
+      "SEND_CONTRACT_EMAIL": "Send by Email"
+    },
     "CONTRACTS": {
       "CREATE_CONTRACTS": "Add a new contract",
       "ERROR": {

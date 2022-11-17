@@ -9,7 +9,7 @@ import { SubInfrastructureList } from 'app/models/infrastructures/infrastructure
 })
 export class SubInfrastructureSettingsComponent implements OnInit {
   subInfrastructures: any[] = [];
-  options: ListOption = { columns: [], numberOfColumns: 3 };
+  options: ListOption = { columns: [] };
 
   constructor(private _infrastructureService: InfrastructureService, private _changeDetectorRef: ChangeDetectorRef) {}
 
@@ -36,7 +36,6 @@ export class SubInfrastructureSettingsComponent implements OnInit {
           customClass: 'hidden',
         },
       ],
-      numberOfColumns: 3,
     };
   }
 }
