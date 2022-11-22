@@ -117,6 +117,7 @@ export class EditUserInfoComponent implements OnInit {
       city: this?.profile?.value?.city,
       code: this?.profile?.value?.code,
       country: this?.profile?.value?.country,
+      organization: null,
     });
     return new UserRequestObject({
       firstname: this.profile?.value?.firstname || '',
