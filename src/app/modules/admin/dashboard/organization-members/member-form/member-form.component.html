@@ -20,7 +20,7 @@
     <div class="flex-auto mx-4">
       <mat-form-field appearance="fill" class="fuse-mat-no-subscript w-full">
         <mat-label>{{ 'ORGANIZATION.MEMBERS.FORM.MEMBER_ROLE' | transloco }}</mat-label>
-        <mat-select [formControlName]="'role'" multiple placeholder="{{ 'ORGANIZATION.FORM.STEP1.DEALING_TYPE.PUBLIC' | transloco }}" required>
+        <mat-select placeholder="{{ 'ORGANIZATION.FORM.STEP1.SELECT_NEW_MEMBER' | transloco }}" [formControlName]="'role'" multiple required>
           <mat-option *ngFor="let permission of permissions" [value]="permission.id">
             {{ permission.name }}
           </mat-option>

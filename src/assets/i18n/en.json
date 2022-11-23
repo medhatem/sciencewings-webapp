@@ -247,6 +247,7 @@
       },
       "STEP1": {
         "CHOOSE_SUB_ORGANIZATION": "Parent Organization",
+        "SELECT_NEW_MEMBER": "Select new member roles",
         "DEALING_TYPE": {
           "INSTITUT": "Institut",
           "PUBLIC": "Public",
