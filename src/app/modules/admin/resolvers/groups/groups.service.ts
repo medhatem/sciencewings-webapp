@@ -66,6 +66,11 @@ export class GroupService {
     return await lastValueFrom(this.swaggerAPI.groupRoutesCreateGroup({ body: group }));
   }
 
+  async delete(groupId?: number): Promise<GroupDto> {
+    const id = groupId || Number(localStorage.getItem(constants.CURRENT_GROUP_ID));
+    return await lastValueFrom(this.swaggerAPI.groupRoutesDeleteGroup({ id }));
+  }
+
   async getGroupsByOrgId(organizationId: number): Promise<Group[]> {
     return lastValueFrom(
       this.swaggerAPI

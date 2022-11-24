@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { MemberContractsFormComponent } from '../member-contracts-form/member-contracts-form.component';
 import { ContractService } from 'app/modules/admin/resolvers/contract/contract.service';
-import { ListOption } from '../../reusable-components/list/list-component.component';
+import { ListOption, TableBtn } from '../../reusable-components/list/list-component.component';
 import { ContractRo, GetContract } from 'app/models/contract/contract';
 import { MemberUpdateContractComponent } from '../member-update-contract/member-update-contract.component';
 import { constants } from 'app/shared/constants';
@@ -22,8 +22,12 @@ import { FormControl } from '@angular/forms';
 export class MemberContractsComponent implements OnInit {
   @Input() userId: number;
   @Input() orgId: number;
+
+  options: ListOption = { columns: [] };
+  actionButtons: TableBtn[] = [];
+
   searchInputControl: FormControl = new FormControl();
-  options: ListOption = { columns: [], numberOfColumns: 4 };
+
   contracts: any[] = [];
   conDto: any;
   openedDialogRef: any;
@@ -54,14 +58,19 @@ export class MemberContractsComponent implements OnInit {
 
     this.options = {
       columns: [
-        { columnName: 'ORGANIZATION.CONTRACTS.FORM.JOB_NAME', columnPropertyToUse: 'name', customClass: 'hidden' },
-        { columnName: 'ORGANIZATION.CONTRACTS.FORM.SUPERVISOR', columnPropertyToUse: 'supervisor', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.CONTRACTS.FORM.JOB_NAME', columnPropertyToUse: 'name', customClass: '' },
+        { columnName: 'ORGANIZATION.CONTRACTS.FORM.SUPERVISOR', columnPropertyToUse: 'supervisor', customClass: '' },
         { columnName: 'ORGANIZATION.CONTRACTS.FORM.JOB_LEVEL', columnPropertyToUse: 'jobLevel', customClass: 'hidden' },
         { columnName: 'ORGANIZATION.CONTRACTS.FORM.STARTDATE', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
+        { columnName: '', columnPropertyToUse: 'actions', customClass: '' },
       ],
-      numberOfColumns: 4,
-      onElementClick: this.onElementSelected.bind(this),
     };
+    this.actionButtons = [
+      { actionName: 'ORGANIZATION.ACTIONS.EDIT', onActionClick: this.onElementSelected.bind(this), icon: 'pencil' },
+      { actionName: 'ORGANIZATION.ACTIONS.PRINT_CONTRACT', onActionClick: this.printContract.bind(this), icon: 'printer' },
+      { actionName: 'ORGANIZATION.ACTIONS.SEND_CONTRACT_EMAIL', onActionClick: this.sendContractByEmail.bind(this), icon: 'mail' },
+      { actionName: 'ORGANIZATION.ACTIONS.DELETE', onActionClick: this.deleteContract.bind(this), icon: 'trash' },
+    ];
 
     this.searchInputControl.valueChanges
       .pipe(
@@ -125,6 +134,21 @@ export class MemberContractsComponent implements OnInit {
       lastPage: event.previousPageIndex,
     };
     await lastValueFrom(this._contractService.getAndParseMemberContracts(this.orgId, this.userId, this.pagination.page, this.pagination.size));
+  }
+
+  async deleteContract(item: GetContract) {
+    await this._contractService.delete(item.id);
+    await lastValueFrom(this._contractService.getAndParseMemberContracts(this.pagination.page, this.pagination.size));
+    this._cdr.markForCheck();
+  }
+
+  printContract() {
+    //TO DO : This function to print the member
+    // contrcat to do later
+  }
+  sendContractByEmail() {
+    //TO DO : This function to send the given
+    // contract by email to do later
   }
 
   private getOrganizationIdFromLocalStorage(): number {

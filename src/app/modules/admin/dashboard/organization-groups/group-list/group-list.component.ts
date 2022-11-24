@@ -7,8 +7,8 @@ import { GroupFormComponent } from '../group-form/group-form.component';
 import { GroupService } from 'app/modules/admin/resolvers/groups/groups.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
-import { ListOption } from '../../reusable-components/list/list-component.component';
-import { Group } from 'app/models/groups/group';
+import { ListOption, TableBtn } from '../../reusable-components/list/list-component.component';
+import { Group, GroupBody } from 'app/models/groups/group';
 import { constants } from 'app/shared/constants';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { Pagination } from 'app/models/pagination/IPagination';
@@ -28,6 +28,7 @@ export class GroupListComponent implements OnInit, OnDestroy {
   pagination: Pagination;
   searchInputControl: FormControl = new FormControl();
   options: ListOption = { columns: [] };
+  actionButtons: TableBtn[] = [];
   openedDialogRef: any;
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -47,8 +48,11 @@ export class GroupListComponent implements OnInit, OnDestroy {
         { columnName: 'ORGANIZATION.GROUPS.LIST.GROUP_STATUS', columnPropertyToUse: 'status', customClass: 'hidden' },
         { columnName: 'ORGANIZATION.GROUPS.LIST.GROUP_DATE', columnPropertyToUse: 'createdAt', customClass: 'hidden' },
       ],
-      numberOfColumns: 4,
     };
+    this.actionButtons = [
+      { actionName: 'ORGANIZATION.ACTIONS.VEIW_PROFILE', onActionClick: this.viewProfile.bind(this), icon: 'eye' },
+      { actionName: 'ORGANIZATION.ACTIONS.DELETE', onActionClick: this.deleteGroup.bind(this), icon: 'trash' },
+    ];
 
     const data = this._route.snapshot.data;
     this.groupsCount = data.groups.length;
@@ -119,5 +123,15 @@ export class GroupListComponent implements OnInit, OnDestroy {
 
   closeDetails(): void {
     this.selectedGroup = null;
+  }
+
+  async deleteGroup(item: GroupBody) {
+    await this._groupService.delete(item.id);
+    await lastValueFrom(this._groupService.getAndParseOrganizationGroups(this.pagination.page, this.pagination.size));
+    this._changeDetectorRef.markForCheck();
+  }
+
+  viewProfile(item: GroupBody) {
+    // TO DO : Add redirection to members group list later
   }
 }

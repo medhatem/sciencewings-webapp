@@ -50,6 +50,7 @@ export const constants = {
   CURRENT_PROJECT_ID: 'projectId',
   CURRENT_INFRASTRUCTURE_ID: 'infraId',
   CURRENT_RESOURCE_ID: 'resourceId',
+  CURRENT_GROUP_ID: 'groupId',
 
   /**
    * ****************** ROUTING *******************
@@ -60,6 +61,7 @@ export const constants = {
     ADMIN: 'admin',
     RESOURCES: 'resources',
     RESOURCE: 'resources/resource/create/*',
+    RESOURCES_LIST: '/resources/resource/',
     RESOURCES_SETTINGS: 'resource-settings',
     INFRASTRUCTURE: '/resources/Infrastructure/',
     LANDING_PAGE: 'landing-page',

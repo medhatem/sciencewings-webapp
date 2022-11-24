@@ -21,7 +21,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   searchInputControl: FormControl = new FormControl();
   projects: any[] = [];
   managers: any[] = [];
-  options: ListOption = { columns: [], numberOfColumns: 5 };
+  options: ListOption = { columns: [] };
   openedDialogRef: any;
   isLoading: boolean = false;
   pagination: Pagination;
@@ -53,7 +53,6 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         { columnName: 'ORGANIZATION.PROJECTS.LIST.MEMBERS', columnPropertyToUse: 'participents', customClass: '' },
         { columnName: 'ORGANIZATION.PROJECTS.LIST.CREATIONDATE', columnPropertyToUse: 'creatingDate', customClass: '' },
       ],
-      numberOfColumns: 4,
       onElementClick: this.onElementSelected.bind(this),
     };
 

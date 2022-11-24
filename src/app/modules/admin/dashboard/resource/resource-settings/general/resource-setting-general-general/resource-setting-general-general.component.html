@@ -3,8 +3,9 @@
   <form [formGroup]="form">
     <!-- Section -->
     <div class="w-full">
-      <div class="text-xl">{{ 'ORGANIZATION.SETTINGS.RESOUCES.GENERAL' | transloco }}</div>
-      <!-- <div class="text-secondary">Following information is publicly displayed, be careful!</div> -->
+      <div class="text-3xl font-extrabold tracking-tight leading-none">
+        {{ 'ORGANIZATION.SETTINGS.RESOUCES.GENERAL' | transloco }}
+      </div>
     </div>
     <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
       <div class="sm:col-span-4">
@@ -33,21 +34,6 @@
             <mat-option [value]="'reservable'">Reservable</mat-option>
             <mat-option [value]="'requestable'">Requestable</mat-option>
           </mat-select>
-        </mat-form-field>
-        <!-- <div class="mt-1 text-md text-hint">The type of resource, which defines what actions can take place on the resource.</div> -->
-      </div>
-      <div class="sm:col-span-4">
-        <mat-form-field class="w-full">
-          <mat-label>Timezone</mat-label>
-          <mat-select [formControlName]="'timezone'">
-            <mat-option *ngFor="let tz of timezones" [value]="tz.offset">{{ tz.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="sm:col-span-4">
-        <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
-          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.DESCRIPTION' | transloco }}</mat-label>
-          <textarea matInput [formControlName]="'description'" cdkTextareaAutosize [cdkAutosizeMinRows]="5"></textarea>
         </mat-form-field>
       </div>
 
@@ -113,6 +99,13 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="sm:col-span-4">
+        <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+          <mat-label>{{ 'ORGANIZATION.SETTINGS.RESOUCES.DESCRIPTION' | transloco }}</mat-label>
+          <textarea matInput [formControlName]="'description'" cdkTextareaAutosize [cdkAutosizeMinRows]="5"></textarea>
+        </mat-form-field>
       </div>
     </div>
 

@@ -34,7 +34,7 @@ export class ResourceListComponent implements OnInit, OnDestroy {
 
   resources = [];
   isLoading: boolean = false;
-  options: ListOption = { columns: [], numberOfColumns: 3 };
+  options: ListOption = { columns: [] };
   selectedResource = null;
   openedDialogRef: any;
   resourcesCount: number = 0;
@@ -87,7 +87,6 @@ export class ResourceListComponent implements OnInit, OnDestroy {
         { columnName: 'ORGANIZATION.INFRASTRUCTURES.INFRASTRUCTURE_LIST.DATE', columnPropertyToUse: 'dateStart', customClass: 'hidden' },
       ],
       onElementClick: this.onElementSelected.bind(this),
-      numberOfColumns: 5,
     };
     this._changeDetectorRef.markForCheck();
 
