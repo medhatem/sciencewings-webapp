@@ -9,6 +9,7 @@ import {
   OrganizationReservationSettingsRo,
   OrganizationSettingsBodyDto,
   PhoneInformationDto,
+  PhoneRo,
   UpdateOrganizationRo,
   UserDto,
 } from 'generated/models';
@@ -16,7 +17,7 @@ import { OrganizationType } from './organization-type.enum';
 import { Phone } from '../phone';
 
 export class GetOrganization implements OrganizationInformationDto {
-  addresses?: Array<AddressDto>;
+  address?: AddressDto;
   description?: string;
   email?: string;
   id: number;
@@ -30,10 +31,10 @@ export class GetOrganization implements OrganizationInformationDto {
   type?: string;
 
   constructor(organization: any) {
-    const { addresses, description, email, id, name, owner, phone, statusCode, type, settings, labels, parent } = organization || {};
+    const { address, description, email, id, name, owner, phone, statusCode, type, settings, labels, parent } = organization || {};
 
     Object.assign(this, {
-      addresses,
+      address,
       description,
       email,
       id,
@@ -55,17 +56,14 @@ export class GetOrganization implements OrganizationInformationDto {
 
 export class Organization implements CreateOrganizationRo {
   id?: string;
-  description: string;
-  department?: string;
-  sector?: string;
-  addresses: Address[];
-  adminContact: number;
-  owner: number;
+  address: AddressRo;
   email: string;
-  labels: string[];
-  members: number[];
+  labels: Array<string>;
+  members: Array<number>;
   name: string;
-  phone: Phone;
+  parent?: number;
+  description: string;
+  phone?: PhoneRo;
   socialFacebook?: string;
   socialGithub?: string;
   socialInstagram?: string;
@@ -73,10 +71,6 @@ export class Organization implements CreateOrganizationRo {
   socialTwitter?: string;
   socialYoutube?: string;
   type: string;
-  dealingType: string;
-  timezone: string;
-  parent?: number;
-  responsible: string;
 
   constructor(organization: any) {
     const {
@@ -95,7 +89,7 @@ export class Organization implements CreateOrganizationRo {
       socialTwitter,
       socialYoutube,
       name = '',
-      addresses = new Array<Address>(),
+      address,
       type = OrganizationType.public,
       email = '',
       phone,
@@ -109,7 +103,7 @@ export class Organization implements CreateOrganizationRo {
       description,
       department,
       sector,
-      addresses,
+      address,
       adminContact,
       owner,
       email,

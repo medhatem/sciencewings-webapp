@@ -50,11 +50,11 @@ export class NewUserInfosComponent implements OnInit {
 
     const formUser = { ...this.form.value };
     const phones = [new Phone({ ...this.form.value })];
-    const addresses = [new Address({ ...this.form.value })];
+    const address = new Address({ ...this.form.value });
     const userPayload = new User({
       ...this.form.value,
       phones,
-      addresses,
+      address,
       email: this.user.email,
       dateofbirth: moment(formUser['dateofbirth']).format(constants.DATE_FORMAT_YYYY_MM_DD),
     });
