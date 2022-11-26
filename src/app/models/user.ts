@@ -6,7 +6,7 @@ export class UserRequestObject implements UserRo {
   id?: number | string;
   email: string;
   actionId?: number;
-  addresses: AddressRo[];
+  address: AddressRo;
   dateofbirth: string;
   firstname: string;
   keycloakId: string;
@@ -16,8 +16,8 @@ export class UserRequestObject implements UserRo {
   signature?: string;
 
   constructor(user: any) {
-    const { id, actionId, email, addresses, dateofbirth, firstname, keycloakId, lastname, phones, share, signature } = user || {};
-    Object.assign(this, { actionId, email, addresses, dateofbirth, firstname, keycloakId, lastname, phones, share, signature });
+    const { id, actionId, email, address, dateofbirth, firstname, keycloakId, lastname, phones, share, signature } = user || {};
+    Object.assign(this, { actionId, email, address, dateofbirth, firstname, keycloakId, lastname, phones, share, signature });
     if (id) {
       this.id = id;
     }
@@ -25,7 +25,7 @@ export class UserRequestObject implements UserRo {
 }
 
 export class User implements UserDto {
-  addresses: Array<GetAddress>;
+  address: AddressDto;
   email: string;
   firstname: string;
   id: number;
@@ -36,8 +36,8 @@ export class User implements UserDto {
   dateofbirth: string;
 
   constructor(user: any) {
-    const { id, actionId, email, addresses, dateofbirth, firstname, keycloakId, lastname, phones, share, signature } = user || {};
-    Object.assign(this, { actionId, email, addresses, dateofbirth, firstname, keycloakId, lastname, phones, share, signature });
+    const { id, actionId, email, address, dateofbirth, firstname, keycloakId, lastname, phones, share, signature } = user || {};
+    Object.assign(this, { actionId, email, address, dateofbirth, firstname, keycloakId, lastname, phones, share, signature });
     if (id) {
       this.id = id;
     }

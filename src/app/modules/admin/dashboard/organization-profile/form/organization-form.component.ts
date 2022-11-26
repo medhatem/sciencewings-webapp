@@ -122,10 +122,10 @@ export class OrganizationFormComponent implements OnInit {
   private getOrganizationFromFormBuilder(): Organization {
     const { phoneNumber, phoneCode, labels, parent, organizationType } = this.formGroup.value;
     const phone = new Phone({ phoneNumber, phoneCode, phoneLabel: 'Organization' });
-    const addresses = new Address({ ...this.formGroup.value });
+    const address = new Address({ ...this.formGroup.value });
     return new Organization({
       ...this.formGroup.value,
-      addresses: [addresses],
+      address,
       phone: phone,
       labels: [labels],
       type: organizationType,

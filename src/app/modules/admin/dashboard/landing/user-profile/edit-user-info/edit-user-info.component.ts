@@ -44,7 +44,7 @@ export class EditUserInfoComponent implements OnInit {
       lastname = '',
       phones = { phoneCode: '', phoneLabel: '', phoneNumber: '' },
 
-      addresses = { apartment: '', code: '', city: '', country: '', province: '', street: '' },
+      address = { apartment: '', code: '', city: '', country: '', province: '', street: '' },
     } = this.data.profile;
     this.profile = this._formBuilder.group({
       firstname: [firstname],
@@ -53,11 +53,11 @@ export class EditUserInfoComponent implements OnInit {
       dateofbirth: [dateofbirth],
       phoneCode: ['ca'],
       phoneNumber: [phones[0]?.phoneNumber],
-      street: [addresses[0].street],
-      apartment: [addresses[0].apartment],
-      province: [addresses[0].province],
-      city: [addresses[0].city],
-      code: [addresses[0]?.code],
+      street: [address.street],
+      apartment: [address.apartment],
+      province: [address.province],
+      city: [address.city],
+      code: [address?.code],
       country: ['Canada'],
     });
   }
@@ -110,8 +110,8 @@ export class EditUserInfoComponent implements OnInit {
       phoneNumber: this?.profile?.value?.phoneNumber,
       phoneCode: this?.profile?.value?.phoneCode,
     });
-    const adress = new Address({
-      id: this.data.profile.addresses[0].id,
+    const address = new Address({
+      id: this.data.profile.address.id,
       apartment: this?.profile?.value?.apartment,
       province: this?.profile?.value?.province,
       city: this?.profile?.value?.city,
@@ -125,7 +125,7 @@ export class EditUserInfoComponent implements OnInit {
       email: this.profile?.value?.email || '',
       dateofbirth: moment(this?.profile?.value?.dateofbirth).format(constants.DATE_FORMAT_YYYY_MM_DD),
       phones: [phone],
-      addresses: [adress],
+      address,
     });
   }
 }
