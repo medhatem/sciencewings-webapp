@@ -134,4 +134,9 @@ export class MemberService {
   deleteMember(id: number): Observable<any> {
     return this.swaggerAPI.memberRoutesRemove({ id });
   }
+
+  async delete(userId?: number): Promise<Member> {
+    const id = userId || Number(localStorage.getItem(constants.CURRENT_USER_ID));
+    return await lastValueFrom(this.swaggerAPI.memberRoutesRemove({ id }));
+  }
 }

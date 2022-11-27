@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { ListOption } from '../reusable-components/list/list-component.component';
+import { ListOption, TableBtn } from '../reusable-components/list/list-component.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Member } from 'app/models/Member';
 import { MemberFormComponent } from './member-form/member-form.component';
@@ -12,6 +12,7 @@ import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 
 import { FormControl } from '@angular/forms';
 import { Pagination } from '../../../../models/pagination/IPagination';
 import { PageEvent } from '@angular/material/paginator/paginator';
+import { MemberBodyDto, MemberDto } from 'generated/models';
 
 @Component({
   selector: 'organizationmembers',
@@ -23,7 +24,8 @@ export class OrganizationMemebrsComponent implements OnInit {
   members: any[] = [];
   isLoading: boolean = false;
   membersCount: number = 0;
-  options: ListOption = { columns: [], numberOfColumns: 5 };
+  options: ListOption = { columns: [] };
+  actionButtons: TableBtn[] = [];
   openedDialogRef: any;
   searchInputControl: FormControl = new FormControl();
   pagination: Pagination;
@@ -48,11 +50,13 @@ export class OrganizationMemebrsComponent implements OnInit {
         { columnName: 'Role', columnPropertyToUse: 'role', customClass: 'hidden' },
         { columnName: 'Status', columnPropertyToUse: 'status', customClass: 'hidden' },
         { columnName: 'Joined', columnPropertyToUse: 'date', customClass: 'hidden' },
-        { columnName: 'Actions', columnPropertyToUse: '', customClass: 'hidden' },
+        { columnName: '', columnPropertyToUse: 'actions', customClass: '' },
       ],
-      numberOfColumns: 5,
-      onElementClick: this.onElementSelected.bind(this),
     };
+    this.actionButtons = [
+      { actionName: 'View Profile', onActionClick: this.viewProfile.bind(this), icon: 'eye' },
+      { actionName: 'Delete', onActionClick: this.deleteMember.bind(this), icon: 'trash' },
+    ];
 
     this._memberService.paginatedMembers$.subscribe((members) => {
       takeUntil(this._unsubscribeAll);
@@ -106,7 +110,13 @@ export class OrganizationMemebrsComponent implements OnInit {
     await lastValueFrom(this._memberService.getAndParseOrganizationMember(this.pagination.page, this.pagination.size));
   }
 
-  async onElementSelected(item: Member) {
+  async deleteMember(item: Member) {
+    await this._memberService.delete(item.user);
+    await lastValueFrom(this._memberService.getAndParseOrganizationMember(this.pagination.page, this.pagination.size));
+    this._changeDetectorRef.markForCheck();
+  }
+
+  viewProfile(item: Member) {
     this._router.navigate(['/admin/organization-members/memberProfile', item.organization, item.user]);
   }
 }

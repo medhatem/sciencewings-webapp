@@ -31,7 +31,7 @@
             [ngStyle]="getColumsStyles()"
             matSortDisableClear>
             <ng-container *ngFor="let key of keys">
-              <div class="{{ key.customClass }} sm:block  ">
+              <div class="{{ key.customClass }}  sm:block ">
                 {{ key.columnName | transloco }}
               </div>
             </ng-container>
@@ -45,12 +45,36 @@
                 (click)="options.onElementClick(item)">
                 <!--  -->
                 <ng-container *ngFor="let key of keys">
-                  <div class="{{ key.customClass }} sm:block truncate" [innerHTML]="item[key.columnPropertyToUse]"></div>
+                  <div
+                    *ngIf="key.columnPropertyToUse != 'actions'"
+                    class="{{ key.customClass }} sm:block truncate "
+                    [innerHTML]="item[key.columnPropertyToUse]"></div>
+                  <div *ngIf="key.columnPropertyToUse == 'actions'" class="hidden sm:inline-flex ml-50">
+                    <button [matMenuTriggerFor]="actionsMenu" mat-icon-button>
+                      <mat-icon [svgIcon]="'heroicons_outline:dots-vertical'"></mat-icon>
+                    </button>
+                    <mat-menu #actionsMenu="matMenu">
+                      <ng-container *ngFor="let actionButton of actionButtons">
+                        <button mat-menu-item (click)="actionButton.onActionClick(item)">
+                          <mat-icon class="icon-size-5 mr-3" [svgIcon]="'heroicons_solid:'.concat(actionButton.icon)"></mat-icon>
+                          <span class="ml-2 mr-1">{{ actionButton.actionName | transloco }}</span>
+                        </button>
+                      </ng-container>
+                    </mat-menu>
+                  </div>
                 </ng-container>
-                <div class="sm:hidden min-w-10 min-h-7 h-7 px-2 leading-6">
-                  <button class="min-w-10 min-h-7 h-7 px-40 leading-40">
-                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:chevron-down'"></mat-icon>
+                <div class="sm:hidden min-w-10 min-h-7 h-7 px-20 leading-22">
+                  <button class="min-w-10 min-h-7 h-7 px-40 leading-40" [matMenuTriggerFor]="actionsMenu" mat-icon-button>
+                    <mat-icon [svgIcon]="'heroicons_outline:dots-vertical'"></mat-icon>
                   </button>
+                  <mat-menu #actionsMenu="matMenu">
+                    <ng-container *ngFor="let actionButton of actionButtons">
+                      <button mat-menu-item (click)="actionButton.onActionClick(item)">
+                        <mat-icon class="icon-size-5 mr-3" [svgIcon]="'heroicons_solid:'.concat(actionButton.icon)"></mat-icon>
+                        <span class="ml-2 mr-1">{{ actionButton.actionName | transloco }}</span>
+                      </button>
+                    </ng-container>
+                  </mat-menu>
                 </div>
               </div>
             </ng-container>

@@ -50,6 +50,10 @@ export class ContractService {
     }
   }
 
+  async delete(id?: number): Promise<any> {
+    return await lastValueFrom(this._swaggerService.contractRoutesRemove({ id }));
+  }
+
   getAndParseMemberContracts(orgId: number, userId: number, page: number = 0, size: number = 5, query?: string) {
     return this.getMemberContracts(orgId, userId, page, size, query || null).pipe(
       map(({ body }) => {

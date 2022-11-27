@@ -198,6 +198,13 @@
   "FATAL_ERROR_OCCURED": "Une erreur fatale s'est produite",
   "GET_MEMBERS_LOAD_FAILED": "Vous n'avez pas d'organisation",
   "ORGANIZATION": {
+    "ACTIONS": {
+      "EDIT": "Modifier",
+      "DELETE": "Supprimer",
+      "VEIW_PROFILE": "Voir le profil",
+      "PRINT_CONTRACT": "Imprimer le contrat",
+      "SEND_CONTRACT_EMAIL": "Envoyée par email"
+    },
     "CONTRACTS": {
       "CREATE_CONTRACTS": "Nouveau contrat",
       "ERROR": {
@@ -594,6 +601,10 @@
         "CLASS": "Classe",
         "TYPE": "Type",
         "STATUS": "Statut",
+        "STATUS_MESSAGE": "Gérez statut de vos ressources",
+        "VISIBILITY": "Visibilité",
+        "VISIBILITY_MESSAGE": "Gérez la visibilité de vos ressources",
+        "TAGS": " Mots clés",
         "CLASS_REQUIRED": "La classe de ressources est requise",
         "CREATE_RESOURCE": "Créer une ressource",
         "CREATE_RESOURCE_MOBILE": "Ajouter",
