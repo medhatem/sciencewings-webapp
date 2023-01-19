@@ -125,7 +125,7 @@ export class OrganizationFormComponent implements OnInit {
     const address = new Address({ ...this.formGroup.value });
     return new Organization({
       ...this.formGroup.value,
-      address,
+      address: address,
       phone: phone,
       labels: [labels],
       type: organizationType,

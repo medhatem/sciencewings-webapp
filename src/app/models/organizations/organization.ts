@@ -9,6 +9,7 @@ import {
   OrganizationReservationSettingsRo,
   OrganizationSettingsBodyDto,
   PhoneInformationDto,
+  PhoneRo,
   UpdateOrganizationRo,
   UserDto,
 } from 'generated/models';
@@ -55,17 +56,14 @@ export class GetOrganization implements OrganizationInformationDto {
 
 export class Organization implements CreateOrganizationRo {
   id?: string;
-  description: string;
-  department?: string;
-  sector?: string;
-  address: Address;
-  adminContact: number;
-  owner: number;
+  address: AddressRo;
   email: string;
-  labels: string[];
-  members: number[];
+  labels: Array<string>;
+  members: Array<number>;
   name: string;
-  phone: Phone;
+  parent?: number;
+  description: string;
+  phone?: PhoneRo;
   socialFacebook?: string;
   socialGithub?: string;
   socialInstagram?: string;
@@ -73,10 +71,6 @@ export class Organization implements CreateOrganizationRo {
   socialTwitter?: string;
   socialYoutube?: string;
   type: string;
-  dealingType: string;
-  timezone: string;
-  parent?: number;
-  responsible: string;
 
   constructor(organization: any) {
     const {

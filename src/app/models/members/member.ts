@@ -121,9 +121,9 @@ export class Member implements MemberRo {
 export class OrganizationMembers implements MemberDto {
   active: boolean;
   joinDate: string;
-  memberType: string;
   name: string;
   organization: number;
+  roles: string[];
   status: string;
   statusCode: number;
   user: number;

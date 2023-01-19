@@ -4,14 +4,14 @@ import { Phone } from './phone';
 
 export class UserRequestObject implements UserRo {
   id?: number | string;
-  email: string;
   actionId?: number;
   address: AddressRo;
   dateofbirth: string;
+  email: string;
   firstname: string;
   keycloakId: string;
   lastname: string;
-  phones: PhoneRo[];
+  phones: Array<PhoneRo>;
   share?: boolean;
   signature?: string;
 

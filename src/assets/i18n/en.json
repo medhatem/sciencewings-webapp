@@ -248,10 +248,13 @@
         "HELPER1": "Thank you for filling in your Organization information!",
         "HELPER2": "You can now manage your Organization and create your resources and many other interesting features",
         "HELPER3": "You can click reset if you want to create another organization",
-        "TITLE": "Done"
+        "TITLE": "Done",
+        "ADMIN": "Admin",
+        "REGULAR": "Regular"
       },
       "STEP1": {
         "CHOOSE_SUB_ORGANIZATION": "Parent Organization",
+        "SELECT_NEW_MEMBER": "Select new member roles",
         "DEALING_TYPE": {
           "INSTITUT": "Institut",
           "PUBLIC": "Public",

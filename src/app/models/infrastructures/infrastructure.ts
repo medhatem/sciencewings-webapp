@@ -127,9 +127,9 @@ export class ResourcesList implements InfrastructureResourceDetails {
 export class ListMember implements MemberDto {
   active: boolean;
   joinDate: string;
-  memberType: string;
   name: string;
   organization: number;
+  roles: string[];
   status: string;
   statusCode: number;
   user: number;
