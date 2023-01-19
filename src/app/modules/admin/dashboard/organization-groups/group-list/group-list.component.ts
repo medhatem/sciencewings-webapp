@@ -24,6 +24,7 @@ export class GroupListComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   selectedGroup = null;
   groupsCount: number = 0;
+  memberCount: number = 0;
   pagination: Pagination;
   searchInputControl: FormControl = new FormControl();
   options: ListOption = { columns: [] };
@@ -37,17 +38,15 @@ export class GroupListComponent implements OnInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _matDialog: MatDialog,
     private _route: ActivatedRoute,
-    private _toastrService: ToastrService,
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.options = {
       columns: [
-        { columnName: 'name', columnPropertyToUse: 'name', customClass: '' },
-        { columnName: 'Status', columnPropertyToUse: 'status', customClass: 'hidden' },
-        { columnName: 'Members', columnPropertyToUse: 'members', customClass: 'hidden' },
-        { columnName: 'Description', columnPropertyToUse: 'description', customClass: 'hidden' },
-        { columnName: '', columnPropertyToUse: 'actions', customClass: '' },
+        { columnName: 'ORGANIZATION.GROUPS.LIST.GROUP_NAME', columnPropertyToUse: 'name', customClass: '' },
+        { columnName: 'ORGANIZATION.GROUPS.LIST.GROUP_MEMBERS', columnPropertyToUse: 'members', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.GROUPS.LIST.GROUP_STATUS', columnPropertyToUse: 'status', customClass: 'hidden' },
+        { columnName: 'ORGANIZATION.GROUPS.LIST.GROUP_DATE', columnPropertyToUse: 'createdAt', customClass: 'hidden' },
       ],
     };
     this.actionButtons = [
@@ -61,7 +60,6 @@ export class GroupListComponent implements OnInit, OnDestroy {
       this.groups = organizationGroups;
       this._changeDetectorRef.markForCheck();
     });
-
     this._groupService.pagination$.subscribe((result) => {
       takeUntil(this._unsubscribeAll);
       this.pagination = result;

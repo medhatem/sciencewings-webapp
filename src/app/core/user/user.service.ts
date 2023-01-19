@@ -45,7 +45,8 @@ export class UserService {
     return lastValueFrom(this.swaggerAPI.userRoutesChangeUserLanguage({ language }));
   }
 
-  async updateUserDetails(userId: number, body: UserRo): Promise<CreatedUserDto> {
+  async updateUserDetails(id: number, body: UserRo): Promise<CreatedUserDto> {
+    const userId = id || Number(localStorage.getItem(constants.CURRENT_USER_ID));
     return lastValueFrom(this.swaggerAPI.userRoutesUpdateUserDetails({ userId, body }));
   }
 

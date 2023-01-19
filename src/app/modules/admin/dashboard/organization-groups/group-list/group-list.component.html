@@ -37,23 +37,55 @@
       </button>
     </div>
   </div>
-  <div>
+  <div class="flex items-center">
     <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded min-w-64">
       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
       <input matInput [formControl]="searchInputControl" [autocomplete]="'off'" [placeholder]="'Search Groups'" />
     </mat-form-field>
-    <button class="ml-4" mat-flat-button [color]="'primary'" routerLinkActive="active" [routerLink]="['/groups/group/create']">
+    <button
+      class="hidden sm:inline-flex ml-4"
+      mat-flat-button
+      [color]="'primary'"
+      routerLinkActive="active"
+      [routerLink]="['/groups/group/create']">
       <mat-icon [svgIcon]="'heroicons_outline:adjustments'"></mat-icon>
       <span class="ml-2 mr-1">{{ 'ORGANIZATION.GROUPS.FILTER_GROUPS' | transloco }}</span>
     </button>
-    <button class="ml-4" mat-flat-button [color]="'primary'" routerLinkActive="active" [routerLink]="['/groups/group/create']">
+    <button
+      class="hidden sm:inline-flex ml-4"
+      mat-flat-button
+      [color]="'primary'"
+      routerLinkActive="active"
+      [routerLink]="['/groups/group/create']">
       <mat-icon [svgIcon]="'heroicons_outline:upload'"></mat-icon>
       <span class="ml-2 mr-1">{{ 'ORGANIZATION.GROUPS.IMPORT_GROUPS' | transloco }}</span>
     </button>
-    <button class="ml-4" mat-flat-button [color]="'primary'" routerLinkActive="active" [routerLink]="['/groups/group/create']">
+    <button
+      class="hidden sm:inline-flex ml-4"
+      mat-flat-button
+      [color]="'primary'"
+      routerLinkActive="active"
+      [routerLink]="['/groups/group/create']">
       <mat-icon [svgIcon]="'heroicons_outline:download'"></mat-icon>
       <span class="ml-2 mr-1">{{ 'ORGANIZATION.GROUPS.EXPORT_GROUPS' | transloco }}</span>
     </button>
+    <!-- Actions menu (visible on xs)-->
+    <div class="sm:hidden">
+      <button [matMenuTriggerFor]="actionsMenu" mat-icon-button>
+        <mat-icon [svgIcon]="'heroicons_outline:dots-vertical'"></mat-icon>
+      </button>
+      <mat-menu #actionsMenu="matMenu">
+        <button mat-menu-item>
+          <span class="ml-2 mr-1">{{ 'ORGANIZATION.GROUPS.FILTER_GROUPS' | transloco }}</span>
+        </button>
+        <button mat-menu-item>
+          <span class="ml-2 mr-1">{{ 'ORGANIZATION.GROUPS.IMPORT_GROUPS' | transloco }}</span>
+        </button>
+        <button mat-menu-item>
+          <span class="ml-2 mr-1">{{ 'ORGANIZATION.GROUPS.EXPORT_GROUPS' | transloco }}</span>
+        </button>
+      </mat-menu>
+    </div>
   </div>
   <br />
   <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4"></div>
