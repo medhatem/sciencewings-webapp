@@ -51,7 +51,7 @@ export class NewUserInfosComponent implements OnInit {
     const formUser = { ...this.form.value };
     const phones = [new Phone({ ...this.form.value })];
     const address = new Address({ ...this.form.value });
-    const userPayload = new User({
+    const userPayload = new UserRequestObject({
       ...this.form.value,
       phones,
       address,
