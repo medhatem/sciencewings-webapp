@@ -7,7 +7,7 @@ import { FuseFullscreenModule } from '@fuse/components/fullscreen/fullscreen.mod
 import { LanguagesModule } from 'app/layout/common/languages/languages.module';
 import { MessagesModule } from 'app/layout/common/messages/messages.module';
 import { NotificationsModule } from 'app/layout/common/notifications/notifications.module';
-import { QuickChatModule } from 'app/layout/common/quick-chat/quick-chat.module';
+// import { QuickChatModule } from 'app/layout/common/quick-chat/quick-chat.module';
 import { SearchModule } from 'app/layout/common/search/search.module';
 import { UserModule } from 'app/layout/common/user/user.module';
 import { SharedModule } from 'app/shared/shared.module';
@@ -27,7 +27,7 @@ import { AppModulesModule } from 'app/layout/common/app-modules/app-modules.modu
     LanguagesModule,
     MessagesModule,
     NotificationsModule,
-    QuickChatModule,
+    // QuickChatModule,
     SearchModule,
     AppModulesModule,
     UserModule,
