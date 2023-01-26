@@ -86,7 +86,7 @@ export class AdminOrganizationsService {
    * @returns
    */
   getOrganizationSettingsById(id: number): Observable<any> {
-    return this._swaggerService.organizationRoutesGetOgranizationSettings({ organizationId: id });
+    return this._swaggerService.organizationRoutesGetOrganizationSettings({ organizationId: id });
   }
 
   /**

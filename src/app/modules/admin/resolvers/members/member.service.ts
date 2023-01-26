@@ -115,8 +115,8 @@ export class MemberService {
     );
   }
 
-  inviteUserToOrganization(organizationId: number, email: string): Observable<any> {
-    return this.swaggerAPI.memberRoutesInviteUserToOrganization({ body: { organizationId, email } });
+  inviteUserToOrganization(organizationId: number, email: string, roles: number[]): Observable<any> {
+    return this.swaggerAPI.memberRoutesInviteUserToOrganization({ body: { organizationId, email, roles } });
   }
 
   createMember(body: UserInviteToOrgRo): Observable<any> {

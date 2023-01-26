@@ -143,8 +143,8 @@
           "EDIT_DESC": "Modifier les informations",
           "EMAIL": "Adresse e-mail",
           "FIRST_NAME": "Prénom",
-          "LABEL": "Étiquette",
           "LAST_NAME": "Nom",
+          "LABEL": "Étiquette",
           "MESSAGE": "Détails de l'utilisateur",
           "NAME": "Nom",
           "NOTES": "Notes",
@@ -248,13 +248,16 @@
         "HELPER1": "Merci d'avoir rempli les informations de votre Organization !",
         "HELPER2": "Vous pouvez maintenant gérer votre Organization et créer vos ressources et bien plein d'autres fonctionnalités intéressantes",
         "HELPER3": "Vous pouvez cliquer sur réinitialiser si vous souhaitez creer une autre organization",
-        "TITLE": "Terminé"
+        "TITLE": "Terminé",
+        "ADMIN": "Admin",
+        "REGULAR": "Regular"
       },
       "PROFILE": {
         "BTN_BACK": "Back"
       },
       "STEP1": {
         "CHOOSE_SUB_ORGANIZATION": "Organisation Parent",
+        "SELECT_NEW_MEMBER": "Selectionnez les roles",
         "DEALING_TYPE": {
           "INSTITUT": "Institut",
           "PUBLIC": "Public",
@@ -322,10 +325,10 @@
       },
       "IMPORT_GROUPS": "Importer",
       "LIST": {
-        "GROUP_DATE": "Date",
+        "GROUP_DATE": "Date de création",
         "GROUP_MEMBERS": "Membres",
-        "GROUP_NAME": "Groupe",
-        "GROUP_STATUS": "Status",
+        "GROUP_NAME": "Nom",
+        "GROUP_STATUS": "Statut",
         "MESSAGE": "Il n'y a pas de groupes !"
       },
       "MESSAGE": "Gérer les accès pour tous les groupes de votre organisation dans ",
@@ -395,6 +398,9 @@
         "JOB": "Profession",
         "LABEL": "Etiquette",
         "NAME": "Nom Complet",
+        "FIRST_NAME": "Prénom",
+        "LAST_NAME": "Nom",
+        "EDIT": "Modifier",
         "PHONE": "Numéro de Téléphone",
         "SAVE": "modifier"
       },

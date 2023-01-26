@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from 'app/core/user/user.types';
 import { ChangeUserLanguageDto } from 'generated/models/change-user-language-dto';
+import { CreatedUserDto, UserGetDto, UserIdDto, UserRo } from 'generated/models';
+import { constants } from 'app/shared/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -35,10 +37,17 @@ export class UserService {
     return this.swaggerAPI.userRoutesGetById({ id });
   }
 
-
+  getUserByKeycloak(id: number): Observable<UserGetDto> {
+    return this.swaggerAPI.userRoutesGetUserByKeycloakId({ id });
+  }
 
   async updateUserLanguage(language: string): Promise<ChangeUserLanguageDto> {
     return lastValueFrom(this.swaggerAPI.userRoutesChangeUserLanguage({ language }));
+  }
+
+  async updateUserDetails(id: number, body: UserRo): Promise<CreatedUserDto> {
+    const userId = id || Number(localStorage.getItem(constants.CURRENT_USER_ID));
+    return lastValueFrom(this.swaggerAPI.userRoutesUpdateUserDetails({ userId, body }));
   }
 
   delete(id: number) {

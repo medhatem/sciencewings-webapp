@@ -1,0 +1,137 @@
+<div class="max-w-240 md:min-w-160 max-h-screen -m-6">
+  <div class="flex justify-center flex-col p-4">
+    <div class="text-lg font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.MEMBERS.EDIT_MEMBER_TITILE' | transloco }}</div>
+    <hr class="w-full border-t my-2" />
+    <form [formGroup]="profile" class="flex flex-col">
+      <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
+        <mat-form-field class="flex-auto gt-xs:pr-3 m-0 p-0.5 col-span-2">
+          <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.FIRST_NAME' | transloco }}</mat-label>
+          <input matInput [formControlName]="'firstname'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.NAME' | transloco }}" required />
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user'"></mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
+        <mat-form-field class="flex-auto gt-xs:pr-3 m-0 p-0.5 col-span-2">
+          <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.LAST_NAME' | transloco }}</mat-label>
+          <input matInput [formControlName]="'lastname'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.NAME' | transloco }}" required />
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user'"></mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
+        <mat-form-field class="flex-auto gt-xs:pr-3 m-0 p-0.5 col-span-2">
+          <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.EMAIL' | transloco }}</mat-label>
+          <input matInput [formControlName]="'email'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.EMAIL' | transloco }}" required />
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
+        <mat-form-field class="flex-auto gt-xs:pr-3 m-0 p-0.5 col-span-2">
+          <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.PHONE' | transloco }}</mat-label>
+          <input matInput [formControlName]="'phoneNumber'" [placeholder]="'ORGANIZATION.MEMBERS.PROFILE.PHONE' | transloco" required />
+          <mat-select *ngIf="countries?.length" class="mr-1.5" [formControlName]="'phoneCode'" matPrefix [value]="getCountryByIso().code">
+            <mat-select-trigger>
+              <span class="flex items-center">
+                <span
+                  class="w-6 h-4 overflow-hidden"
+                  [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
+                  [style.backgroundSize]="'24px 3876px'"
+                  [style.backgroundPosition]="getCountryByIso().flagImagePos">
+                </span>
+                <span class="ml-2">{{ getCountryByIso().name }}</span>
+                <span class="sm:mx-0.5 font-medium">{{ getCountryByIso().code }}</span>
+              </span>
+            </mat-select-trigger>
+            <ng-container *ngFor="let country of countries; trackBy: trackByFn">
+              <mat-option [value]="country.iso">
+                <span class="flex items-center">
+                  <span
+                    class="w-6 h-4 overflow-hidden"
+                    [style.background]="'url(\'/assets/images/flags/flags.png\') no-repeat 0 0'"
+                    [style.backgroundSize]="'24px 3876px'"
+                    [style.backgroundPosition]="getCountryByIso().flagImagePos">
+                  </span>
+                  <span class="ml-2">{{ country.name }}</span>
+                  <span class="ml-2 font-medium">{{ country.code }}</span>
+                </span>
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-4 flex lg:grid-cols-4 flex-col gt-xs:flex-row">
+        <mat-form-field class="flex-auto gt-xs:pr-3 m-0 p-0.5 col-span-2">
+          <mat-label>{{ 'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="dateOfBirthDatePicker"
+            [formControlName]="'dateofbirth'"
+            [placeholder]="'APP.ROUTES.USER.ABOUT.BIRTH_DATE' | transloco"
+            [matDatepickerFilter]="dateFilter"
+            required />
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:cake'"></mat-icon>
+          <mat-datepicker-toggle matSuffix [for]="dateOfBirthDatePicker"> </mat-datepicker-toggle>
+          <mat-datepicker #dateOfBirthDatePicker startView="multi-year"></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="text-lg font-extrabold tracking-tight leading-none">{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.TITLE' | transloco }}</div>
+      <br />
+      <div class="grid grid-cols-1 sm:grid-cols-4 flex flex-col gt-xs:flex-row">
+        <mat-form-field class="flex-auto gt-xs:pl-3">
+          <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.APARTMENT' | transloco }}</mat-label>
+          <input matInput [formControlName]="'apartment'" placeholder="#{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.APARTMENT' | transloco }}" />
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+        </mat-form-field>
+        <mat-form-field class="flex-auto gt-xs:pr-3 m-0 p-0.5 col-span-2">
+          <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.STREET' | transloco }}</mat-label>
+          <input matInput [formControlName]="'street'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.STREET' | transloco }}" required />
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+        </mat-form-field>
+        <mat-form-field class="flex-auto gt-xs:pr-3 m-0 p-0.5 col-span-2">
+          <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.CITY' | transloco }}</mat-label>
+          <input matInput [formControlName]="'city'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.CITY' | transloco }}" required />
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="flex-auto gt-xs:pl-3">
+          <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.COUNTRY' | transloco }}</mat-label>
+          <mat-select [formControlName]="'country'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.COUNTRY' | transloco }}" required>
+            <mat-option value="" disabled selected>{{ 'ORGANIZATION.FORM.STEP2.SELECT_COUNTRY' | transloco }}</mat-option>
+            <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
+          </mat-select>
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-4 flex flex-col gt-xs:flex-row">
+        <mat-form-field class="flex-auto gt-xs:pr-3 m-0 p-0.5 col-span-2">
+          <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.PROVINCE' | transloco }}</mat-label>
+          <input
+            matInput
+            [formControlName]="'province'"
+            placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.PROVINCE' | transloco }}"
+            required />
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+        </mat-form-field>
+        <mat-form-field class="flex-auto gt-xs:pl-3">
+          <mat-label>{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.ZIP' | transloco }}</mat-label>
+          <input matInput [formControlName]="'code'" placeholder="{{ 'ORGANIZATION.MEMBERS.PROFILE.ADDRESS.ZIP' | transloco }}" required />
+          <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+        </mat-form-field>
+      </div>
+    </form>
+    <div class="flex justify-end mt-8 mr-4">
+      <button
+        class="px-8 mr-2"
+        mat-flat-button
+        [ngStyle]="{ 'box-shadow': '0px 4px 4px rgba(0, 0, 0, 0.25)', color: 'black', background: '#FFFFFF' }"
+        (click)="closeModal()">
+        {{ 'ORGANIZATION.MEMBERS.PROFILE.CANCEL' | transloco }}
+      </button>
+      <button class="px-8" mat-flat-button [color]="'primary'" (click)="onSubmit()">
+        {{ 'ORGANIZATION.MEMBERS.PROFILE.SAVE' | transloco }}
+      </button>
+    </div>
+  </div>
+</div>

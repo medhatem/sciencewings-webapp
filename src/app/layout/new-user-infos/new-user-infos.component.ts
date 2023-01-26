@@ -5,7 +5,7 @@ import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
 import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
-import { User } from 'app/models/user';
+import { User, UserRequestObject } from 'app/models/user';
 import { Address, Phone } from 'app/models';
 import { ActivatedRoute } from '@angular/router';
 
@@ -50,11 +50,11 @@ export class NewUserInfosComponent implements OnInit {
 
     const formUser = { ...this.form.value };
     const phones = [new Phone({ ...this.form.value })];
-    const addresses = [new Address({ ...this.form.value })];
-    const userPayload = new User({
+    const address = new Address({ ...this.form.value });
+    const userPayload = new UserRequestObject({
       ...this.form.value,
       phones,
-      addresses,
+      address,
       email: this.user.email,
       dateofbirth: moment(formUser['dateofbirth']).format(constants.DATE_FORMAT_YYYY_MM_DD),
     });
