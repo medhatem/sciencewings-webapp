@@ -6,8 +6,6 @@ import { Injectable } from '@angular/core';
 import {
   CreateResourceDto,
   GetAllInfrastructuresDto,
-  MemberDto,
-  ResourceManagerDto,
   ResourceRateRo,
   ResourceReservationVisibilityRo,
   ResourceSettingsGeneralPropertiesRo,
@@ -66,13 +64,13 @@ export class ResourceService {
       map(({ body }) => {
         const { data, pagination } = body;
         const resources = data.map((resourceDirty) => {
-          const { id, name, resourceClass, resourceType, infrastructures, managers, active, dateStart } = new ResourceListItem(resourceDirty);
+          const { id, name, resourceClass, resourceType, managers, active } = new ResourceListItem(resourceDirty);
           return {
             name: `${name}`,
             resourceClass,
             infrastructures: 'None',
             resourceType,
-            dateStart: moment(dateStart).format(constants.DATE_FORMAT_YYYY_MM_DD),
+            dateStart: 'None',
             active,
             id: id,
           };
@@ -105,8 +103,8 @@ export class ResourceService {
   updateResource(id: number, body: UpdateResource): Observable<any> {
     return this.swaggerAPI.resourceRoutesUpdateResource({ id, body });
   }
-  getResource(id: number): Observable<any> {
-    return this.swaggerAPI.resourceRoutesGetById({ id });
+  getResource(resourceId: number): Observable<any> {
+    return this.swaggerAPI.resourceRoutesGetResourceById({ resourceId });
   }
   getResourceInfrastructure(orgId: number): Observable<GetAllInfrastructuresDto> {
     return this.swaggerAPI.infrastructureRoutesGetAllOrganizationInfrastructures({ orgId });

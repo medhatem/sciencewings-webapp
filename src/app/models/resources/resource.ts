@@ -1,9 +1,11 @@
 import {
+  GetResourceSettingsBodyDto,
+  MemberDto,
   ResourceCalendarDto,
   ResourceCalendarRo,
   ResourceDto,
-  ResourceManagerDto,
   ResourceRo,
+  ResourceStatusDto,
   ResourceTagDto,
   ResourceTagRo,
   UpdateResourceRo,
@@ -38,15 +40,19 @@ export class GetResource implements ResourceDto {
   calendar: Array<ResourceCalendarDto>;
   description: string;
   id: number;
-  managers: Array<ResourceManagerDto>;
+  managers: Array<MemberDto>;
   name: string;
   resourceClass: string;
   resourceType: string;
+  settings: GetResourceSettingsBodyDto;
+  status: ResourceStatusDto;
+  statusCode: number;
   tags: Array<ResourceTagDto>;
   timezone: string;
   user: number;
   constructor(resource: any) {
-    const { active, calendar, description, id, managers, name, resourceClass, resourceType, tags, timezone, user } = resource || {};
+    const { active, calendar, description, id, managers, name, resourceClass, resourceType, tags, timezone, user, settings, status } =
+      resource || {};
     Object.assign(this, {
       active,
       calendar,
@@ -59,6 +65,8 @@ export class GetResource implements ResourceDto {
       tags,
       timezone,
       user,
+      settings,
+      status,
     });
   }
 }
@@ -100,27 +108,29 @@ export class ResourceListItem implements ResourceDto {
   calendar: Array<ResourceCalendarDto>;
   description: string;
   id: number;
-  managers: Array<ResourceManagerDto>;
+  managers: Array<MemberDto>;
   name: string;
   resourceClass: string;
   resourceType: string;
+  settings: GetResourceSettingsBodyDto;
+  status: ResourceStatusDto;
+  statusCode: number;
   tags: Array<ResourceTagDto>;
   timezone: string;
   user: number;
-  dateStart: string;
-  infrastructures: Array<Infrastructure>;
 
   constructor(resource?: any) {
-    const { id, name, resourceClass, resourceType, active, infrastructures, managers, dateStart } = resource || {};
+    const { id, name, resourceClass, resourceType, active, infrastructures, managers, settings, status } = resource || {};
     Object.assign(this, {
       name,
       resourceClass,
       infrastructures,
       resourceType,
       active,
-      dateStart,
       managers,
       id,
+      settings,
+      status,
     });
   }
 }

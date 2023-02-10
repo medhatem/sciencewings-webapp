@@ -83,7 +83,6 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
     try {
       await lastValueFrom(this._resourceService.updateResource(selectedResourceId, _resource));
       this._toastrService.showSuccess(constants.UPDATE_SUCCESSFULLY);
-      this._router.navigate([constants.MODULES_ROUTINGS_URLS.RESOURCES_LIST]);
     } catch (error) {
       this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
     }
@@ -173,21 +172,21 @@ export class ResourceSettingGeneralGeneralComponent implements OnInit {
 
   private getCurrentResourceData() {
     const selectedResourceId = parseInt(this._coookies.get('resourceID'), 10);
-    this._resourceService.getResource(selectedResourceId).subscribe(({ body }) => {
-      if (body.statusCode !== 200) {
-        this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
-        return;
-      }
-      const data = body.data[0];
-      this.form.setValue({
-        name: data.name || '',
-        resourceClass: data.resourceClass || 'equipement',
-        resourceType: data.resourceType || 'reservable',
-        description: data.description || '',
+    try {
+      this._resourceService.getResource(selectedResourceId).subscribe((d) => {
+        const data = d.body;
+        this.form.setValue({
+          name: data.name || '',
+          resourceClass: data.resourceClass || 'equipement',
+          resourceType: data.resourceType || 'reservable',
+          description: data.description || '',
+        });
+        this.tags = data.tags.map((tag) => tag.title);
+        this.filteredTags = data.tags.map((tag) => tag.title);
+        this.allTags = data.tags.map((tag) => tag.title);
       });
-      this.tags = data.tags.map((tag) => tag.title);
-      this.filteredTags = data.tags.map((tag) => tag.title);
-      this.allTags = data.tags.map((tag) => tag.title);
-    });
+    } catch (error) {
+      this._toastrService.showError(constants.SOMETHING_WENT_WRONG);
+    }
   }
 }

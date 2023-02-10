@@ -22,7 +22,7 @@ export class ResourceProfileComponent implements OnInit {
   ngOnInit(): void {
     this.params = this.route.snapshot.paramMap.get('id');
     this._resourceService.getResource(this.params).subscribe(({ statusCode, body, errorMessage }) => {
-      this.resource = body.data[0];
+      this.resource = body;
     });
   }
 }
