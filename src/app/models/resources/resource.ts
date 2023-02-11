@@ -11,6 +11,7 @@ import {
   UpdateResourceRo,
 } from 'generated/models';
 import { Infrastructure } from '../infrastructures/infrastructure';
+import { GetOrganization } from '../organizations/organization';
 
 export class Resource implements ResourceRo {
   description?: string;
@@ -39,6 +40,7 @@ export class GetResource implements ResourceDto {
   active: boolean;
   calendar: Array<ResourceCalendarDto>;
   description: string;
+  organization: GetOrganization;
   id: number;
   managers: Array<MemberDto>;
   name: string;

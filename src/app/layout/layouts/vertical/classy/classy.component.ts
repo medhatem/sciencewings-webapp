@@ -43,7 +43,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   isScreenSmall: boolean;
   navigation: FuseNavigationItem[];
   user: User;
-
+  marketplace: boolean = true;
   private isAppReachedByUrl: boolean;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -144,6 +144,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
         this._fuseSplashScreenService.hide();
       }, 700);
     }
+  }
+
+  async goToMarketPlace() {
+    this._router.navigate(['/marketplace']);
   }
 
   /**

@@ -23,6 +23,7 @@ import { environment } from 'environments/environment';
 import { initializeKeycloak } from './core/auth/keycloak/app.init';
 import interactionPlugin from '@fullcalendar/interaction';
 import { mockApiServices } from 'app/mock-api';
+import { MarketplaceComponent } from './modules/marketplace/marketplace.component';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy: PreloadAllModules,
@@ -32,7 +33,7 @@ const routerConfig: ExtraOptions = {
 FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MarketplaceComponent],
   imports: [
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
     BrowserModule,
