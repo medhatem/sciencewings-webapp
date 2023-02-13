@@ -1,6 +1,7 @@
 import {
   GetResourceSettingsBodyDto,
   MemberDto,
+  OrganizationInformationDto,
   ResourceCalendarDto,
   ResourceCalendarRo,
   ResourceDto,
@@ -112,6 +113,7 @@ export class ResourceListItem implements ResourceDto {
   id: number;
   managers: Array<MemberDto>;
   name: string;
+  organization: OrganizationInformationDto;
   resourceClass: string;
   resourceType: string;
   settings: GetResourceSettingsBodyDto;

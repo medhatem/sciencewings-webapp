@@ -11,9 +11,6 @@ export const marketplaceRoutes: Route[] = [
       {
         path: '',
         component: MarketplaceListComponent,
-        resolve: {
-          data: ResourceResolver,
-        },
       },
     ],
   },
