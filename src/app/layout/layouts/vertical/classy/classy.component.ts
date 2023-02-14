@@ -148,12 +148,12 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
 
   async goToMarketPlace() {
     this.marketplace = true;
-    // this._router.navigate(['/marketplace']);
+    this._router.navigate(['/marketplace']);
   }
 
   async goToDashboard() {
     this.marketplace = false;
-    // this._router.navigate(['/landing-page']);
+    this._router.navigate(['/landing-page']);
   }
 
   /**
