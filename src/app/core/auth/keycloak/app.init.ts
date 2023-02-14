@@ -13,6 +13,8 @@ export const initializeKeycloak = (keycloak: KeycloakService) => () =>
     initOptions: {
       checkLoginIframe: true,
       checkLoginIframeInterval: 25,
+      /*       onLoad: 'check-sso',
+       */ silentCheckSsoRedirectUri: window.location.origin + '/assets/silent-check-sso.html',
     },
     loadUserProfileAtStartUp: true,
     enableBearerInterceptor: true,

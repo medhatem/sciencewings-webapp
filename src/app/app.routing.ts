@@ -33,7 +33,6 @@ export const appRoutes: Route[] = [
     children: [
       {
         path: 'marketplace',
-        canActivate: [AuthGuard],
         data: {
           title: 'Marketplace',
           type: FuseNavigationItemTypeEnum.basic,

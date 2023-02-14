@@ -43,7 +43,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   isScreenSmall: boolean;
   navigation: FuseNavigationItem[];
   user: User;
-  marketplace: boolean = true;
+  marketplace: boolean = false;
   private isAppReachedByUrl: boolean;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -147,7 +147,13 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   async goToMarketPlace() {
-    this._router.navigate(['/marketplace']);
+    this.marketplace = true;
+    // this._router.navigate(['/marketplace']);
+  }
+
+  async goToDashboard() {
+    this.marketplace = false;
+    // this._router.navigate(['/landing-page']);
   }
 
   /**

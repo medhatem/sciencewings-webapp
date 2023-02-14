@@ -13,7 +13,7 @@ export class MarketplaceListComponent implements OnInit {
   constructor(private _resourceService: ResourceService) {}
 
   async ngOnInit(): Promise<void> {
-    this.resources = await lastValueFrom(this._resourceService.getOrgResource().pipe(map((r) => r.body.data)));
+    this.resources = await lastValueFrom(this._resourceService.getLoanableResources().pipe(map((r) => r.body.data)));
     console.log('this.resources= ', this.resources);
   }
 }
