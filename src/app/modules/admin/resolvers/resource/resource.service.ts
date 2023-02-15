@@ -93,8 +93,12 @@ export class ResourceService {
     }
   }
 
-  getLoanableResources(query?: string): Observable<any> {
-    if (query) {
+  getLoanableResources(category?: string, query?: string): Observable<any> {
+    if (category && query) {
+      return this.swaggerAPI.resourceRoutesGetAllLoanableResources({ category, query });
+    } else if (category) {
+      return this.swaggerAPI.resourceRoutesGetAllLoanableResources({ category });
+    } else if (query) {
       return this.swaggerAPI.resourceRoutesGetAllLoanableResources({ query });
     } else {
       return this.swaggerAPI.resourceRoutesGetAllLoanableResources();
