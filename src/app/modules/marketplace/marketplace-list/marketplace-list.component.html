@@ -32,6 +32,7 @@
       <div class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none">
         <mat-form-field class="fuse-mat-no-subscript w-full sm:w-36">
           <mat-select [value]="'all'" (selectionChange)="filterCategories($event.value)">
+            <mat-option [value]="'all'">All</mat-option>
             <mat-option [value]="'equipement'">{{ 'ORGANIZATION.SETTINGS.RESOUCES.EQUIPEMENT' | transloco }}</mat-option>
             <mat-option [value]="'service'">{{ 'ORGANIZATION.SETTINGS.RESOUCES.SERVICE' | transloco }}</mat-option>
             <mat-option [value]="'person'">{{ 'ORGANIZATION.SETTINGS.RESOUCES.PERSON' | transloco }}</mat-option>
