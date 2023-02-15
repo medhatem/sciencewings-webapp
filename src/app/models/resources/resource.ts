@@ -22,10 +22,10 @@ export class Resource implements ResourceRo {
   organization: number;
   resourceClass: string;
   resourceType: string;
+
   constructor(resource: any) {
-    const { id, name, managers, resourceClass, resourceType, infrastructure, description, organization } = resource || {};
+    const { name, managers, resourceClass, resourceType, infrastructure, description, organization } = resource || {};
     Object.assign(this, {
-      id,
       name,
       managers,
       resourceClass,

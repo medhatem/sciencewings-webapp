@@ -29,38 +29,24 @@
   <div class="flex flex-auto p-6 sm:p-10">
     <div class="flex flex-col flex-auto w-full max-w-xs sm:max-w-5xl mx-auto">
       <!-- Filters -->
-      <!--             <div class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none">
-                <mat-form-field class="fuse-mat-no-subscript w-full sm:w-36">
-                    <mat-select
-                        [value]="'all'"
-                        (selectionChange)="filterByCategory($event)">
-                        <mat-option [value]="'all'">All</mat-option>
-                        <ng-container *ngFor="let category of categories; trackBy: trackByFn">
-                            <mat-option [value]="category.slug">{{category.title}}</mat-option>
-                        </ng-container>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field
-                    class="fuse-mat-no-subscript w-full sm:w-72 mt-4 sm:mt-0 sm:ml-4"
-                    [floatLabel]="'always'">
-                    <mat-icon
-                        matPrefix
-                        class="icon-size-5"
-                        [svgIcon]="'heroicons_solid:search'"></mat-icon>
-                    <input
-                        (input)="filterByQuery(query.value)"
-                        placeholder="Search by title or description"
-                        matInput
-                        #query>
-                </mat-form-field>
-                <mat-slide-toggle
-                    class="mt-8 sm:mt-0 sm:ml-auto"
-                    [color]="'primary'"
-                    (change)="toggleCompleted($event)">
-                    Hide completed
-                </mat-slide-toggle>
-            </div>
- -->
+      <div class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none">
+        <!-- <mat-form-field class="fuse-mat-no-subscript w-full sm:w-36">
+          <mat-select [value]="'all'" (selectionChange)="filterByCategory($event)">
+            <mat-option [value]="'all'">All</mat-option>
+            <ng-container *ngFor="let category of categories; trackBy: trackByFn">
+              <mat-option [value]="category.slug">{{ category.title }}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field> -->
+        <mat-form-field class="fuse-mat-no-subscript w-full sm:w-72 mt-4 sm:mt-0 sm:ml-4" [floatLabel]="'always'">
+          <mat-icon matPrefix class="icon-size-5" [svgIcon]="'heroicons_solid:search'"></mat-icon>
+          <input matInput [formControl]="searchInputControl" [autocomplete]="'off'" [placeholder]="'Search resources'" />
+        </mat-form-field>
+        <!-- <mat-slide-toggle class="mt-8 sm:mt-0 sm:ml-auto" [color]="'primary'" (change)="toggleCompleted($event)">
+          Hide completed
+        </mat-slide-toggle> -->
+      </div>
+
       <!-- Courses -->
       <ng-container *ngIf="this.resources.length; else noCourses">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 sm:mt-10">
