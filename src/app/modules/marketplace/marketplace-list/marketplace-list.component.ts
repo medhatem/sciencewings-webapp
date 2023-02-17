@@ -20,5 +20,38 @@ export class MarketplaceListComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.resources = await lastValueFrom(this._resourceService.getLoanableResources().pipe(map((r) => r.body.data)));
+
+    this.searchInputControl.valueChanges
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        debounceTime(300),
+        switchMap(async (query) => {
+          this.isLoading = true;
+          this.resources = await lastValueFrom(this._resourceService.getLoanableResources(this.category, query).pipe(map((r) => r.body.data)));
+        }),
+        map(() => {
+          this.isLoading = false;
+        }),
+      )
+      .subscribe();
+  }
+  async filterCategories(category: string) {
+    if (category === 'all') {
+      this.category = null;
+      this.resources = await lastValueFrom(this._resourceService.getLoanableResources().pipe(map((r) => r.body.data)));
+    } else {
+      this.category = category;
+      this.resources = await lastValueFrom(this._resourceService.getLoanableResources(category).pipe(map((r) => r.body.data)));
+    }
+  }
+
+  /**
+   * Track by function for ngFor loops
+   *
+   * @param index
+   * @param item
+   */
+  trackByFn(index: number, item: any): any {
+    return item.id || index;
   }
 }
