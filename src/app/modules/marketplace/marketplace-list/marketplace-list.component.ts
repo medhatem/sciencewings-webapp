@@ -14,6 +14,5 @@ export class MarketplaceListComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.resources = await lastValueFrom(this._resourceService.getLoanableResources().pipe(map((r) => r.body.data)));
-    console.log('this.resources= ', this.resources);
   }
 }
