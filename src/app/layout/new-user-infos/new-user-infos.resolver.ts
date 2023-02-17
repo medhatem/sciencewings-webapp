@@ -19,12 +19,14 @@ export class NewUserInfosResolver implements Resolve<any> {
   }
 
   async getCurrentUserFromKeycloak() {
-    try {
-      const userKeycloack = await this._keycloackService.loadUserProfile();
-      localStorage.setItem(constants.CURRENT_USER_KEYCLOAK_ID, userKeycloack.id);
-      return userKeycloack;
-    } catch (error) {
-      this._toastr.showError('APP.LOGIN_ERROR_TITLE', 'KEYCLOAK_LOGIN_ERROR');
+    if (this._keycloackService.isLoggedIn()) {
+      try {
+        const userKeycloack = await this._keycloackService.loadUserProfile();
+        localStorage.setItem(constants.CURRENT_USER_KEYCLOAK_ID, userKeycloack.id);
+        return userKeycloack;
+      } catch (error) {
+        this._toastr.showError('APP.LOGIN_ERROR_TITLE', 'KEYCLOAK_LOGIN_ERROR');
+      }
     }
   }
 

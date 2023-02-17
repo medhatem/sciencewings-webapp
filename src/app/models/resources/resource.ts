@@ -1,6 +1,7 @@
 import {
   GetResourceSettingsBodyDto,
   MemberDto,
+  OrganizationInformationDto,
   ResourceCalendarDto,
   ResourceCalendarRo,
   ResourceDto,
@@ -11,6 +12,7 @@ import {
   UpdateResourceRo,
 } from 'generated/models';
 import { Infrastructure } from '../infrastructures/infrastructure';
+import { GetOrganization } from '../organizations/organization';
 
 export class Resource implements ResourceRo {
   description?: string;
@@ -39,6 +41,7 @@ export class GetResource implements ResourceDto {
   active: boolean;
   calendar: Array<ResourceCalendarDto>;
   description: string;
+  organization: GetOrganization;
   id: number;
   managers: Array<MemberDto>;
   name: string;
@@ -110,6 +113,7 @@ export class ResourceListItem implements ResourceDto {
   id: number;
   managers: Array<MemberDto>;
   name: string;
+  organization: OrganizationInformationDto;
   resourceClass: string;
   resourceType: string;
   settings: GetResourceSettingsBodyDto;

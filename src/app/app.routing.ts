@@ -32,6 +32,16 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
+        path: 'marketplace',
+        data: {
+          title: 'Marketplace',
+          type: FuseNavigationItemTypeEnum.basic,
+          icon: 'heroicons_outline:users',
+        },
+        loadChildren: () => import('app/modules/marketplace/marketplace.module').then((m) => m.MarketplaceModule),
+      },
+
+      {
         path: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.LANDING_PAGE,
         canActivate: [AuthGuard],
         data: {
