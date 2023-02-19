@@ -98,23 +98,19 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
     const reservations = await lastValueFrom(
       this._reservationService
         .getReservations(Number(this.route.snapshot.paramMap.get('id')), new Date(activeStart).toISOString(), new Date(activeEnd).toISOString())
-        .pipe(
-          map((r) =>
-            r.body?.data.map((res) => new Reservation((res as any) || {})),
-          ),
-        ),
+        .pipe(map((r) => r.body?.data.map((res) => new Reservation((res as any) || {})))),
     );
     this.calendarComponent.getApi().removeAllEvents();
     this.calendarOptions.events =
       reservations.map((r) => ({
-          start: moment(r.start).tz('utc').toISOString(),
-          end: moment(r.end).tz('utc').toISOString(),
-          id: r.id,
-          title: r.title,
-          data: {
-            userId: r.userId,
-          },
-        })) || [];
+        start: moment(r.start).tz('utc').toISOString(),
+        end: moment(r.end).tz('utc').toISOString(),
+        id: r.id,
+        title: r.title,
+        data: {
+          userId: r.userId,
+        },
+      })) || [];
   }
 
   /**
@@ -157,7 +153,7 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
    */
   async getResource() {
     this.resource = await lastValueFrom(
-      this._resourceService.getResource(Number(this.route.snapshot.paramMap.get('id'))).pipe(map((resource) => resource.body?.data[0])),
+      this._resourceService.getResource(Number(this.route.snapshot.paramMap.get('id'))).pipe(map((resource) => resource.body)),
     );
   }
 }

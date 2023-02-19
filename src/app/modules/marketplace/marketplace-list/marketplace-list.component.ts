@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
-import { GetResource } from 'app/models/resources/resource';
+import { GetResource, Resource } from 'app/models/resources/resource';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ReservationCreationComponent } from 'app/modules/admin/dashboard/resource/schedule/reservationCreation/reservation-creation.component';
+import moment from 'moment';
+import { FullCalendarComponent } from '@fullcalendar/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-marketplace-list',
@@ -11,12 +16,16 @@ import { debounceTime, lastValueFrom, map, Subject, switchMap, takeUntil } from 
   styleUrls: ['./marketplace-list.component.scss'],
 })
 export class MarketplaceListComponent implements OnInit {
+  @ViewChild('calendar') calendarComponent: FullCalendarComponent;
   searchInputControl: FormControl = new FormControl();
   private _unsubscribeAll: Subject<any> = new Subject<any>();
   isLoading: boolean = false;
   resources: GetResource[] = [];
   category: string = null;
-  constructor(private _resourceService: ResourceService) {}
+  eventDetailsDialogRef: any;
+  createEventDialogRef: any;
+
+  constructor(private _resourceService: ResourceService, private _matDialog: MatDialog, private _router: Router) {}
 
   async ngOnInit(): Promise<void> {
     this.resources = await lastValueFrom(this._resourceService.getLoanableResources().pipe(map((r) => r.body.data)));
@@ -53,5 +62,28 @@ export class MarketplaceListComponent implements OnInit {
    */
   trackByFn(index: number, item: any): any {
     return item.id || index;
+  }
+  /**
+   * trigger the modal for a reservation creation
+   */
+  createReservation(id: number) {
+    /*     
+    this.createEventDialogRef = this._matDialog.open(ReservationCreationComponent, { data: { resource: resource } });
+    this.createEventDialogRef.afterClosed().subscribe(async (result) => {
+      const event = {
+        id: result.body.id,
+        title: result.body.title,
+        start: moment(result.body.start).tz('utc').toISOString(),
+        end: moment(result.body.end).tz('utc').toISOString(),
+        data: {
+          userId: result.body.userId,
+        },
+      };
+      this.calendarComponent.getApi().addEvent(event);
+      // const { body } = await lastValueFrom(this._resourceService.getOrgResource());
+      // this.resources = body.data;
+    });
+ */
+    this._router.navigate(['marketplace/schedule', id]);
   }
 }
