@@ -22,8 +22,6 @@ export class MarketplaceListComponent implements OnInit {
   isLoading: boolean = false;
   resources: GetResource[] = [];
   category: string = null;
-  eventDetailsDialogRef: any;
-  createEventDialogRef: any;
 
   constructor(private _resourceService: ResourceService, private _matDialog: MatDialog, private _router: Router) {}
 
@@ -62,28 +60,5 @@ export class MarketplaceListComponent implements OnInit {
    */
   trackByFn(index: number, item: any): any {
     return item.id || index;
-  }
-  /**
-   * trigger the modal for a reservation creation
-   */
-  createReservation(id: number) {
-    /*     
-    this.createEventDialogRef = this._matDialog.open(ReservationCreationComponent, { data: { resource: resource } });
-    this.createEventDialogRef.afterClosed().subscribe(async (result) => {
-      const event = {
-        id: result.body.id,
-        title: result.body.title,
-        start: moment(result.body.start).tz('utc').toISOString(),
-        end: moment(result.body.end).tz('utc').toISOString(),
-        data: {
-          userId: result.body.userId,
-        },
-      };
-      this.calendarComponent.getApi().addEvent(event);
-      // const { body } = await lastValueFrom(this._resourceService.getOrgResource());
-      // this.resources = body.data;
-    });
- */
-    this._router.navigate(['marketplace/schedule', id]);
   }
 }
