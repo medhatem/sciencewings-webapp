@@ -12,12 +12,20 @@
             <ng-container *ngTemplateOutlet="organizationNameTemplate; context: { $implicit: organization }"></ng-container>
           </span>
         </button>
-      </ng-container>
+      </ng-container> 
     </ng-container>
     <ng-container *ngIf="!availableOrganizations?.length">
       <span class="flex items-center">
         <ng-container *ngTemplateOutlet="organizationNameTemplate; context: { $implicit: activeOrganization }"></ng-container>
       </span>
+    </ng-container>
+    <ng-container>
+      <button mat-menu-item (click)="createOrganization()"> 
+        <span class="flex items-center">
+          <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+          <span class="ml-2 mr-1">{{ 'ORGANIZATION.LANDING_PAGE.CREATE_ORGANIZATION' | transloco }}</span>
+        </span>
+      </button>
     </ng-container>
   </mat-menu>
 </ng-container>

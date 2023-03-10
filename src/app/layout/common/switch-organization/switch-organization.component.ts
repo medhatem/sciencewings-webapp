@@ -15,6 +15,7 @@ import { UserOrganizations } from 'app/models/organizations/user-organizations';
 import { constants } from 'app/shared/constants';
 import { AdminOrganizationsService } from 'app/modules/admin/resolvers/admin-organization/admin-organization.service';
 import { interval, map, tap, retryWhen, Subject, takeUntil, lastValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'switch-organization',
@@ -33,6 +34,7 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
   private _userSelected: Subject<boolean> = new Subject<boolean>();
 
   constructor(
+    private _router: Router,
     private _adminOrganizationsService: AdminOrganizationsService,
     private _toastrService: ToastrService,
     private _changeDetectorRef: ChangeDetectorRef,
@@ -62,6 +64,12 @@ export class SwitchOrganizationComponent implements OnInit, OnDestroy {
     localStorage.setItem(constants.CURRENT_ORGANIZATION_ID, `${this.activeOrganization.id}`);
     this.onActiveOrganizationChange.emit(this.activeOrganization.id);
   }
+
+
+ createOrganization() {
+    this._router.navigate(['/admin/organization-profile/create']);
+  }
+
 
   /**
    * loops on the get current user id from LocalStorage. then subscibes
