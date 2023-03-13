@@ -54,7 +54,7 @@ export class ResourceListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this._resourceService.resources$.pipe(takeUntil(this._unsubscribeAll)).subscribe((resources: Resource[]) => {
+    this._resourceService.resources$.pipe(takeUntil(this._unsubscribeAll)).subscribe((resources: ResourceListItem[]) => {
       this.resources = resources;
       this.resourcesCount = resources?.length;
     });

@@ -64,7 +64,7 @@ export class ResourceService {
       map(({ body }) => {
         const { data, pagination } = body;
         const resources = data.map((resourceDirty) => {
-          const { id, name, resourceClass, resourceType, managers, active } = new ResourceListItem(resourceDirty);
+          const { id, name, resourceClass, resourceType, active } = new ResourceListItem(resourceDirty);
           return {
             name: `${name}`,
             resourceClass,
