@@ -32,6 +32,11 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
+        path: '',
+        redirectTo: constants.MODULES_ROUTINGS_CHILDREN_URLS.ADMIN.LANDING_PAGE,
+        pathMatch: 'full'
+      },
+      {
         path: 'marketplace',
         data: {
           title: 'Marketplace',
