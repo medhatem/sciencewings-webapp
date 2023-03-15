@@ -17,7 +17,7 @@ export class OrganizationSettingsComponent implements OnInit {
   @Input() id: number;
   @ViewChild('drawer') drawer: MatDrawer;
   selectedPanel: string = 'general';
-  title = 'Organization settings';
+  title = 'APP.ROUTES.ADMIN.ORGANIZATION_PROFILE.SETTINGS';
   panels: any[];
   organization: any;
   settings: any;
