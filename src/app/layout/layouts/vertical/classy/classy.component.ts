@@ -234,6 +234,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
         if (organizationExist) {
           const modulePath = localStorage.getItem(constants.CURRENT_MODULE) || constants.MODULES_ROUTINGS_URLS.ADMIN;
           const found = applicationRoutes.find(({ path }) => path.toLocaleLowerCase() === modulePath.toLocaleLowerCase());
+
           navigationItems.push(found);
         } else {
           localStorage.removeItem(constants.CURRENT_ORGANIZATION_ID);
@@ -245,8 +246,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       }
     } finally {
       this.navigation = this.buildNavigationItemsFromRoutes(navigationItems);
-      this.redirectToParentOrFirstChild(navigationItems[0]);
-    }
+      }
   }
 
   /**
@@ -278,7 +278,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
       return acc;
     }, []);
   }
-
+                                          
   /**
    * check if the route passed has a component or a loaded lazy module with component
    * redirects to this component if true
