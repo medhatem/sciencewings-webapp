@@ -10,8 +10,7 @@
     <div class="fuse-vertical-navigation-item-title-wrapper">
       <div class="fuse-vertical-navigation-item-title">
         <span [ngClass]="item.classes?.title">
-          {{ item.title }}
-        </span>
+          {{ item.title| transloco }}        </span>
       </div>
       <ng-container *ngIf="item.subtitle">
         <div class="fuse-vertical-navigation-item-subtitle">
