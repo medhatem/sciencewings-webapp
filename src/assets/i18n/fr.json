@@ -599,6 +599,7 @@
         "APPLIES_TO": "S'applique à",
         "APPLIES_TO_PUBLIC": "S'applique au public",
         "BUFFER_TIME_BEFORE_RESERVATION": "Temps tampon avant réservation",
+        "USERS_CAN_RETURN_THEIR_OWN_LOANS":"Les utilisateurs peuvent retourner leurs propres prêts",
         "CANCEL": "Annuler",
         "CATEGORY": "Catégorie",
         "CLASS": "Classe",
