@@ -334,7 +334,7 @@
       "MESSAGE": "Gérer les accès pour tous les groupes de votre organisation dans ",
       "SEARCH_GROUPS": "Chercher un groupe",
       "SUCCESS": {
-        "CREATE_COMPLETED": "Groupe créé avec succès",
+        "CREATE_COMPLETED": "Groupe crée avec succès",
         "UPDATE_COMPLETED": "Groupe mis à jour avec succès"
       },
       "TITLE": "Groupes"
@@ -642,6 +642,12 @@
         "REQUESTABLE": "Demandable",
         "RESERVABLE": "Réservable",
         "SAVE": "Enregistrer",
+        "SUCCESS": {
+          "CREATE_COMPLETED": "La création de resource a réussi"
+        },
+        "ERROR": {
+          "CREATE_ORGANIZATION_FAILED": "La création de resource a échoué"
+        },    
         "RESERVATION": {
           "CREATE_BTN": "Créer",
           "CREATE_RESERVATION": "creer un evenement",
@@ -687,7 +693,9 @@
     "SUCCESS": {
       "CREATE_COMPLETED": "La création de l'organisation a réussi"
     },
-
+    "ERROR": {
+      "CREATE_ORGANIZATION_FAILED": "La création de l'organisation a échoué"
+    },
     "INFRASTRUCTURES": {
       "TITLE": "Infrastructures",
       "MESSAGE": "Gérez les accès pour toutes vos infrastructures dans",

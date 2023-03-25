@@ -641,7 +641,13 @@
         "REQUESTABLE": "Requestable",
         "RESERVABLE": "Reservable",
         "SAVE": "Save",
-        "RESERVATION": {
+        "SUCCESS": {
+          "CREATE_COMPLETED": "The creation of the resource was successful"
+        },
+        "ERROR": {
+          "CREATE_ORGANIZATION_FAILED": "The creation of the resource failed"
+        },
+            "RESERVATION": {
           "CREATE_BTN": "Create",
           "CREATE_RESERVATION": "create event",
           "DELETE_BTN": "Delete Event",
@@ -686,7 +692,9 @@
     "SUCCESS": {
       "CREATE_COMPLETED": "The creation of the organization was successful"
     },
-
+    "ERROR": {
+      "CREATE_ORGANIZATION_FAILED": "The creation of the organization failed"
+    },
     "INFRASTRUCTURES": {
       "TITLE": "Infrastructure",
       "MESSAGE": "Manage Access for all your infrastructures in",
