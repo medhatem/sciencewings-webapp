@@ -598,6 +598,7 @@
         "APPLIES_TO": "Applies to",
         "APPLIES_TO_PUBLIC": "Applies to public",
         "BUFFER_TIME_BEFORE_RESERVATION": "Buffer Time Before Reservation",
+        "USERS_CAN_RETURN_THEIR_OWN_LOANS":"Users can return their own loans",
         "CANCEL": "Cancel",
         "CATEGORY": "Category",
         "CLASS": "Class",
