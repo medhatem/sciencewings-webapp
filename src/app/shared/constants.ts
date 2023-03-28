@@ -51,7 +51,7 @@ export const constants = {
   CURRENT_INFRASTRUCTURE_ID: 'infraId',
   CURRENT_RESOURCE_ID: 'resourceId',
   CURRENT_GROUP_ID: 'groupId',
-
+  MARKET_PLACE:'marketPlace',
   /**
    * ****************** ROUTING *******************
    * Modules routings urls/paths

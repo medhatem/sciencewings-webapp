@@ -1,4 +1,10 @@
 <div class="w-full h-full m-4 flex flex-col">
+  <div class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none" *ngIf="ifInMarketPlace=='true'">
+    <button class="fuse-mat-button-rounded sm:ml-16" mat-flat-button [color]="'primary'" [routerLink]="'/marketplace'">
+      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:arrow-circle-left'"></mat-icon>
+      <span class="ml-2">{{ 'ORGANIZATION.MEMBERS.BACK_BTN' | transloco }}</span>
+    </button>
+  </div>
   <div class="flex basis-full justify-end w-full m-2">
     <button class="ml-4" mat-flat-button [color]="'primary'" (click)="createReservation()">
       <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
