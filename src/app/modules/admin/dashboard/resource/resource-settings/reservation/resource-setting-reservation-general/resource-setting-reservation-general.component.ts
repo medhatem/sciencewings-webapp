@@ -15,7 +15,6 @@ export class ResourceSettingReservationGeneralComponent implements OnInit {
   @Input() settings: any;
   @Output() updateLocalSettings = new EventEmitter<string>();
   form: FormGroup;
-  isFixedLoanDurationOptionhidden = true;
   isOverdueNoticeDelayOptionhidden = true;
   constructor(
     private _formBuilder: FormBuilder,

@@ -35,14 +35,13 @@
 
       <div class="flex sm:col-span-4 justify-between my-1">
         <mat-label
-          >{{ 'ORGANIZATION.SETTINGS.RESOUCES.FIXED_LOAN_DURATION' | transloco }} {{ isFixedLoanDurationOptionhidden | transloco }}</mat-label
+          >{{ 'ORGANIZATION.SETTINGS.RESOUCES.FIXED_LOAN_DURATION' | transloco }} </mat-label
         >
-        <mat-slide-toggle [(ngModel)]="isFixedLoanDurationOptionhidden" [color]="'primary'" [ngModelOptions]="{ standalone: true }">
-        </mat-slide-toggle>
       </div>
-      <div class="sm:col-span-4" [ngClass]="{ hidden: !isFixedLoanDurationOptionhidden }">
+      <div class="sm:col-span-4">
         <mat-form-field class="fuse-mat-no-subscript w-full">
           <mat-select [formControlName]="'fixedLoanDuration'">
+            <mat-option [value]="'not_limited'">Not limited</mat-option>
             <mat-option [value]="'week'">7 Days</mat-option>
             <mat-option [value]="'day'">1 Day</mat-option>
             <mat-option [value]="'hour'">1 Hour</mat-option>
