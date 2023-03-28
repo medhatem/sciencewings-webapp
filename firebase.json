@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/science-wings",
+    "public": "dist/sharili",
     "ignore": [
       "firebase.json",
       "**/.*",
