@@ -11,6 +11,7 @@ import {
   ResourceTagRo,
   UpdateResourceRo,
 } from 'generated/models';
+import { OrganizationDetails } from 'generated/models/organization-details';
 import { Infrastructure } from '../infrastructures/infrastructure';
 import { GetOrganization } from '../organizations/organization';
 
@@ -41,10 +42,10 @@ export class GetResource implements ResourceDto {
   active: boolean;
   calendar: Array<ResourceCalendarDto>;
   description: string;
-  organization: GetOrganization;
   id: number;
   managers: Array<MemberDto>;
   name: string;
+  organization: OrganizationDetails;
   resourceClass: string;
   resourceType: string;
   settings: GetResourceSettingsBodyDto;
@@ -54,7 +55,7 @@ export class GetResource implements ResourceDto {
   timezone: string;
   user: number;
   constructor(resource: any) {
-    const { active, calendar, description, id, managers, name, resourceClass, resourceType, tags, timezone, user, settings, status } =
+    const { active, calendar, description, id, managers, name, resourceClass, resourceType, tags, timezone, user, settings, status,organization } =
       resource || {};
     Object.assign(this, {
       active,
@@ -70,6 +71,7 @@ export class GetResource implements ResourceDto {
       user,
       settings,
       status,
+      organization
     });
   }
 }
@@ -113,7 +115,7 @@ export class ResourceListItem implements ResourceDto {
   id: number;
   managers: Array<MemberDto>;
   name: string;
-  organization: OrganizationInformationDto;
+  organization: OrganizationDetails;
   resourceClass: string;
   resourceType: string;
   settings: GetResourceSettingsBodyDto;
