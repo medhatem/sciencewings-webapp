@@ -642,6 +642,8 @@
         "RECURRING_RESERVATIONS": "Réservations récurrentes",
         "REQUESTABLE": "Demandable",
         "RESERVABLE": "Réservable",
+        "UNIT_NAME":"le nom d'unité",
+        "UNIT_LIMIT":"la limite d'unité",
         "SAVE": "Enregistrer",
         "SUCCESS": {
           "CREATE_COMPLETED": "La création de resource a réussi"
