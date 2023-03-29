@@ -8,7 +8,7 @@ import { Reservation } from 'app/models/reservation/Reservation';
 import { ReservationCreationComponent } from './reservationCreation/reservation-creation.component';
 import { ReservationDetailsComponent } from './reservationDetails/reservation-details.component';
 import { ReservationService } from 'app/modules/admin/resolvers/reservation/reservation.service';
-import { Resource } from 'app/models/resources/resource';
+import { GetResource, Resource } from 'app/models/resources/resource';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import moment from 'moment';
@@ -24,7 +24,7 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
   eventDetailsDialogRef: any;
   createEventDialogRef: any;
-  resource: Resource;
+  resource: GetResource;
   calendarOptions: CalendarOptions = {};
   ifInMarketPlace:string;
   resources = [];

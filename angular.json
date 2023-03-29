@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "science-wings": {
+    "sharili": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/science-wings",
+            "outputPath": "dist/sharili",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -104,16 +104,16 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "science-wings:build:production"
+              "browserTarget": "sharili:build:production"
             },
             "staging": {
-              "browserTarget": "science-wings:build:staging"
+              "browserTarget": "sharili:build:staging"
             },
             "local": {
-              "browserTarget": "science-wings:build:local"
+              "browserTarget": "sharili:build:local"
             },
             "options": {
-              "browserTarget": "science-wings:build",
+              "browserTarget": "sharili:build",
               "proxyConfig": "src/proxy.conf.json"
             }
           },
@@ -122,7 +122,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "science-wings:build"
+            "browserTarget": "sharili:build"
           }
         },
         "test": {
@@ -147,7 +147,7 @@
       }
     }
   },
-  "defaultProject": "science-wings",
+  "defaultProject": "sharili",
   "cli": {
     "analytics": "8d1b5abf-91a0-4071-8740-ee102cbe2875",
     "defaultCollection": "@angular-eslint/schematics"

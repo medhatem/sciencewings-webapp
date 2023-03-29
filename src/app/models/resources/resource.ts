@@ -1,6 +1,7 @@
 import {
   GetResourceSettingsBodyDto,
   MemberDto,
+  OrganizationDetails,
   OrganizationInformationDto,
   ResourceCalendarDto,
   ResourceCalendarRo,
@@ -11,9 +12,6 @@ import {
   ResourceTagRo,
   UpdateResourceRo,
 } from 'generated/models';
-import { OrganizationDetails } from 'generated/models/organization-details';
-import { Infrastructure } from '../infrastructures/infrastructure';
-import { GetOrganization } from '../organizations/organization';
 
 export class Resource implements ResourceRo {
   description?: string;
