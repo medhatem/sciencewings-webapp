@@ -642,6 +642,8 @@
         "REQUESTABLE": "Requestable",
         "RESERVABLE": "Reservable",
         "SAVE": "Save",
+        "UNIT_NAME":"Unit name",
+        "UNIT_LIMIT":"Unit limit",
         "SUCCESS": {
           "CREATE_COMPLETED": "The creation of the resource was successful"
         },
