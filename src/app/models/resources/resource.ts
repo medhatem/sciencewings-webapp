@@ -40,10 +40,10 @@ export class GetResource implements ResourceDto {
   active: boolean;
   calendar: Array<ResourceCalendarDto>;
   description: string;
-  organization: OrganizationDetails;
   id: number;
   managers: Array<MemberDto>;
   name: string;
+  organization: OrganizationDetails;
   resourceClass: string;
   resourceType: string;
   settings: GetResourceSettingsBodyDto;
@@ -53,7 +53,7 @@ export class GetResource implements ResourceDto {
   timezone: string;
   user: number;
   constructor(resource: any) {
-    const { active, calendar, description, id, managers, name, resourceClass, resourceType, tags, timezone, user, settings, status } =
+    const { active, calendar, description, id, managers, name, resourceClass, resourceType, tags, timezone, user, settings, status,organization } =
       resource || {};
     Object.assign(this, {
       active,
@@ -69,6 +69,7 @@ export class GetResource implements ResourceDto {
       user,
       settings,
       status,
+      organization
     });
   }
 }
