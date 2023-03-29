@@ -13,6 +13,7 @@ import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.s
 import dayGridPlugin from '@fullcalendar/daygrid';
 import moment from 'moment';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import { constants } from 'app/shared/constants';
 
 @Component({
   selector: 'app-schedule',
@@ -25,7 +26,7 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
   createEventDialogRef: any;
   resource: GetResource;
   calendarOptions: CalendarOptions = {};
-
+  ifInMarketPlace:string;
   resources = [];
 
   constructor(
@@ -39,6 +40,7 @@ export class ResourceScheduleComponent implements OnInit, AfterViewInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.ifInMarketPlace=localStorage.getItem(constants.MARKET_PLACE)
     this.calendarOptions = {
       plugins: [timeGridPlugin, dayGridPlugin],
       initialView: 'timeGridWeek',

@@ -71,6 +71,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
     this._router.onSameUrlNavigation = 'ignore';
     this.setSelectedModule();
     this.subscribeToMediaChangesAndScreenSizeCheck();
+    localStorage.setItem(constants.MARKET_PLACE, 'false');
 
     /**
      * Temporary modification until implementation of images handling and User status
@@ -148,11 +149,13 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy, OnChanges {
 
   async goToMarketPlace() {
     this.marketplace = true;
+    localStorage.setItem(constants.MARKET_PLACE, 'true');
     this._router.navigate(['/marketplace']);
   }
 
   async goToDashboard() {
     this.marketplace = false;
+    localStorage.setItem(constants.MARKET_PLACE, 'false');
     this._router.navigate(['/landing-page']);
   }
 
