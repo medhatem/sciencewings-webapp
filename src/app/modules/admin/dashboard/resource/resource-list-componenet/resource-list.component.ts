@@ -136,7 +136,7 @@ export class ResourceListComponent implements OnInit, OnDestroy {
     await lastValueFrom(this._resourceService.getAndParseOrganizationResource(this.pagination.page, this.pagination.size));
   }
 
-  openCreateDialog(): void {
+    openCreateDialog(): void {
     const orgID = localStorage.getItem(constants.CURRENT_ORGANIZATION_ID);
     if (!orgID) {
       this._toastrService.showError('Something went wrong!');
@@ -144,9 +144,9 @@ export class ResourceListComponent implements OnInit, OnDestroy {
     this.openedDialogRef = this._matDialog.open(ResourceProfileFormComponent, {
       data: { orgID },
     });
-    this.openedDialogRef.afterClosed().subscribe((result) => {
-      lastValueFrom(this._resourceService.getAndParseOrganizationResource());
-    });
+     this.openedDialogRef.afterClosed().subscribe((result) => {
+       lastValueFrom(this._resourceService.getAndParseOrganizationResource());
+     });
   }
 
   async onElementSelected(resource: GetResource) {
