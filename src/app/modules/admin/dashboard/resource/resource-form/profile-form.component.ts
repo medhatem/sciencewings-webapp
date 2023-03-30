@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ResourceService } from 'app/modules/admin/resolvers/resource/resource.service';
 import { ToastrService } from 'app/core/toastr/toastr.service';
 import { constants } from 'app/shared/constants';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Resource } from 'app/models/resources/resource';
 import { Infrastructure } from 'app/models/infrastructures/infrastructure';
 import { ActivatedRoute } from '@angular/router';
@@ -29,6 +29,7 @@ export class ResourceProfileFormComponent implements OnInit {
     private _infrastructureService: InfrastructureService,
     private _formBuilder: FormBuilder,
     private _toastrService: ToastrService,
+    @Inject(MAT_DIALOG_DATA)  public data,
     private _route: ActivatedRoute,
   ) {}
 
@@ -55,9 +56,8 @@ export class ResourceProfileFormComponent implements OnInit {
     const resource = this.getResourceFromFormBuilder();
 
     try {
-      const orgId = this.getOrganizationIdFromLocalStorage();
+      const orgId = this.data.orgID;
       await this._resourceService.createResource(resource);
-      await lastValueFrom(this._infrastructureService.getInfrastructure(orgId));
       this._toastrService.showSuccess(constants.CREATE_RESOURCE_COMPLETED);
       this.matDialogRef.close();
     } catch (res) {
@@ -75,10 +75,7 @@ export class ResourceProfileFormComponent implements OnInit {
   private getResourceFromFormBuilder(): Resource {
     return new Resource({
       ...this.resourceForm.value,
-      organization: this.getOrganizationIdFromLocalStorage(),
+      organization: this.data.orgID
     });
-  }
-  private getOrganizationIdFromLocalStorage(): number {
-    return Number(localStorage.getItem(constants.CURRENT_ORGANIZATION_ID));
   }
 }
