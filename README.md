@@ -1,11 +1,20 @@
-# 🚀 Science Wings - Internal Marketplace  
+# 🚀 Science Wings - Multitenant & Multilanguage Internal Marketplace  
 
-**ScienceWings** is a marketplace that helps organizations **share and reserve resources** seamlessly. It serves as a **great demonstration of using Keycloak** to build an **internal marketplace** for organizations while ensuring **secure authentication and authorization**.  
+**ScienceWings** is a **multitenant** and **multilanguage** marketplace that helps organizations **share and reserve resources** seamlessly.  
+
+It serves as a **great demonstration of using Keycloak** to build an **internal marketplace** for organizations while ensuring **secure authentication and authorization**.  
 
 Additionally, this project showcases how to **leverage OpenAPI Generator** to **consistently generate the API communication layer in Angular**. This approach:  
 ✅ **Prevents resynchronization issues** between the frontend and backend  
 ✅ **Ensures the frontend always has the latest API client**  
 ✅ **Forces strict type-checking**—the frontend **won't build** if there’s a mismatch between data models or API calls  
+
+---
+
+## 🌍 Multitenancy & Multilanguage Support  
+
+- **Multitenancy**: ScienceWings supports multiple organizations, allowing them to manage their own resources while keeping data isolated.  
+- **Multilanguage Support**: Uses **Transloco** to provide a localized experience for users in different languages.  
 
 ---
 
@@ -18,6 +27,27 @@ Before running the project, ensure you have:
   npm install -g @angular/cli
   ```
 - A package manager such as `npm` or `yarn`  
+
+---
+
+## 📂 Project Structure  
+
+```plaintext
+/science-wings
+│── .vscode/                  # VS Code settings
+│── src/                      # Source code
+│── .eslint.json              # ESLint configuration
+│── angular.json              # Angular project configuration
+│── package.json              # Project dependencies and scripts
+│── README.md                 # Project documentation
+│── tailwind.config.js        # Tailwind CSS configuration
+│── proxy.config.json         # Proxy settings
+│── transloco.config.js       # Translation settings
+│── firebase.json             # Firebase deployment configuration
+│── LICENSE.md                # License file
+│── bitbucket-pipelines.yml   # Bitbucket CI/CD pipeline config
+│── .gitignore                # Git ignore file
+```
 
 ---
 
@@ -135,11 +165,12 @@ sequenceDiagram
 
 - **Angular 13**  
 - **Keycloak for Authentication**  
+- **Multitenancy Support**  
+- **Transloco for Multilanguage Support**  
 - **Tailwind CSS for Styling**  
 - **Firebase for Hosting**  
 - **RxJS for State Management**  
 - **OpenAPI Generator for API Sync**  
-- **Transloco for i18n**  
 - **Swagger API Integration**  
 
 ---
@@ -158,6 +189,7 @@ This project is licensed under the **GPLv3**. See [LICENSE.md](LICENSE.md) for d
 - [Swagger Docs](https://swagger.io/)  
 - [Fuse Angular Template](https://fusetheme.com/)  
 - [Tailwind CSS Docs](https://tailwindcss.com/)  
+- [Transloco Documentation](https://ngneat.github.io/transloco/)  
 
 For further assistance, run:  
 ```sh
