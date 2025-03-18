@@ -30,24 +30,9 @@ Before running the project, ensure you have:
 
 ---
 
-## 📂 Project Structure  
+## 📂 Figma Design  
 
-```plaintext
-/science-wings
-│── .vscode/                  # VS Code settings
-│── src/                      # Source code
-│── .eslint.json              # ESLint configuration
-│── angular.json              # Angular project configuration
-│── package.json              # Project dependencies and scripts
-│── README.md                 # Project documentation
-│── tailwind.config.js        # Tailwind CSS configuration
-│── proxy.config.json         # Proxy settings
-│── transloco.config.js       # Translation settings
-│── firebase.json             # Firebase deployment configuration
-│── LICENSE.md                # License file
-│── bitbucket-pipelines.yml   # Bitbucket CI/CD pipeline config
-│── .gitignore                # Git ignore file
-```
+[Figma Design](https://www.figma.com/design/XL2JNXnXF5beg5m22pjtAr/SAAS-Dashboard?node-id=775-251&t=SKjRWXKdCLcBtEtS-1)
 
 ---
 
